@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAME ContextFree Swing Plug-in
+Bundle-SymbolicName: net.sf.jame.contextfree.swing;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: net.sf.jame.core;bundle-version="1.1.0",
+ net.sf.jame.twister;bundle-version="1.1.0",
+ net.sf.jame.contextfree;bundle-version="1.0.0",
+ net.sf.jame.core.swing;bundle-version="1.1.0",
+ net.sf.jame.twister.swing;bundle-version="1.1.0"
+Export-Package: net.sf.jame.contextfree.swing,
+ net.sf.jame.contextfree.swing.extensions,
+ net.sf.jame.contextfree.swing.extensions.adapter,
+ net.sf.jame.contextfree.swing.extensions.view
+Import-Package: org.apache.log4j;version="1.2.15"

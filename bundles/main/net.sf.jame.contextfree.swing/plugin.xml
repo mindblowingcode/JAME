@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         id="twisterExtensions"
+         name="ContextFree Swing"
+         point="net.sf.jame.twister.swing.extensions">
+      <inputAdapter
+            id="twister.frame.layer.image.contextfree"
+            name="ContextFreeInputAdapter"
+            runtimeClass="net.sf.jame.contextfree.swing.extensions.adapter.ContextFreeInputAdapterRuntime"/>
+      <view
+            id="twister.frame.layer.image.contextfree"
+            name="ContextFreeImageConfigView"
+            runtimeClass="net.sf.jame.contextfree.swing.extensions.view.ContextFreeImageConfigViewRuntime"/>
+   </extension>
+
+</plugin>

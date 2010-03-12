@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JOGL Plug-in
+Bundle-SymbolicName: com.sun.jogl.macosx.x86;singleton:=true
+Bundle-Version: 1.2.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-NativeCode: libgluegen-rt.jnilib;
+ libjogl_cg.jnilib;
+ libjogl_es1.jnilib;
+ libjogl_es2.jnilib;
+ libjogl_gl2.jnilib;
+ libjogl_gl2es12.jnilib;
+ libnativewindow_awt.jnilib;
+ libnativewindow_jvm.jnilib;
+ libnewt.jnilib;
+ osname=macosx;
+ processor=x86
+Eclipse-PlatformFilter: (& (osgi.os=macosx) (osgi.arch=x86))
+Fragment-Host: com.sun.jogl

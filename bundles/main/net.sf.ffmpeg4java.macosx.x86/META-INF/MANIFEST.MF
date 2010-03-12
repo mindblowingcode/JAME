@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FFmpeg4Java Plug-in
+Bundle-SymbolicName: net.sf.ffmpeg4java.macosx.x86;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-NativeCode: libffmpeg4java.jnilib;
+ osname=macosx;
+ processor=x86
+Eclipse-PlatformFilter: (& (osgi.os=macosx) (osgi.arch=x86))
+Fragment-Host: net.sf.ffmpeg4java

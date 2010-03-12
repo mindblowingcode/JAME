@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="extensions" name="ContextFree" schema="schema/extensions.exsd"/>
+   <extension
+         id="twisterExtensions"
+         name="ContextFree"
+         point="net.sf.jame.twister.extensions">
+      <image
+            configClass="net.sf.jame.contextfree.extensions.image.ContextFreeImageConfig"
+            id="twister.frame.layer.image.contextfree"
+            name="ContextFree Fractal"
+            runtimeClass="net.sf.jame.contextfree.extensions.image.ContextFreeImageRuntime"/>
+   </extension>
+   <extension
+         id="coreExtensions"
+         name="ContextFree"
+         point="net.sf.jame.core.extensions">
+      <extensionConfigXMLImporter
+            id="twister.frame.layer.image.contextfree"
+            name="ContextFree Fractal"
+            runtimeClass="net.sf.jame.contextfree.extensions.image.ContextFreeImageConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.frame.layer.image.contextfree"
+            name="ContextFree Fractal"
+            runtimeClass="net.sf.jame.contextfree.extensions.image.ContextFreeImageConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="twister.frame.layer.image.contextfree"
+            name="ContextFree Fractal"
+            runtimeClass="net.sf.jame.contextfree.extensions.image.ContextFreeImageConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.hue"
+            name="Hue PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.path.HuePathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.hue"
+            name="Hue PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.path.HuePathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.hue"
+            name="Hue PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.path.HuePathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.operation.lineto"
+            name="LineTo PathOperation"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.path.LineToPathOperationConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.operation.lineto"
+            name="LineTo PathOperation"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.path.LineToPathOperationConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.operation.lineto"
+            name="LineTo PathOperation"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.path.LineToPathOperationConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.hue"
+            name="Hue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.shape.HueShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.hue"
+            name="Hue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.shape.HueShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.hue"
+            name="Hue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.shape.HueShapeAdjustmentConfigNodeBuilderRuntime"/>
+   </extension>
+   <extension
+         id="contextfreeExtensions"
+         name="ContextFree"
+         point="net.sf.jame.contextfree.extensions">
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.cfdg.path.HuePathAdjustmentConfig"
+            id="contextfree.path.adjustment.hue"
+            name="Hue Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.path.HuePathAdjustmentRuntime"/>
+      <pathOperation
+            configClass="net.sf.jame.contextfree.extensions.cfdg.path.LineToPathOperationConfig"
+            id="contextfree.path.operation.lineto"
+            name="LineTo Operation"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.path.LineToPathOperationRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.cfdg.shape.HueShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.hue"
+            name="Hue Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.shape.HueShapeAdjustmentRuntime"/>
+      <primitive
+            id="contextfree.primitive.circle"
+            name="Circle Primitive"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.CirclePrimitiveRuntime"/>
+      <primitive
+            id="contextfree.primitive.square"
+            name="Square Primitive"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.SquarePrimitiveRuntime"/>
+      <primitive
+            id="contextfree.primitive.triangle"
+            name="Triangle Primitive"
+            runtimeClass="net.sf.jame.contextfree.extensions.cfdg.TrianglePrimitiveRuntime"/>
+   </extension>
+
+</plugin>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.pde.ui.RuntimeWorkbench">
+<booleanAttribute key="append.args" value="true"/>
+<stringAttribute key="application" value="net.sf.jame.service.jxta.proxy"/>
+<booleanAttribute key="askclear" value="false"/>
+<booleanAttribute key="automaticAdd" value="false"/>
+<booleanAttribute key="automaticValidate" value="false"/>
+<stringAttribute key="bootstrap" value=""/>
+<stringAttribute key="checked" value="[NONE]"/>
+<booleanAttribute key="clearConfig" value="true"/>
+<booleanAttribute key="clearws" value="true"/>
+<booleanAttribute key="clearwslog" value="false"/>
+<stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/JXTAProxy.product"/>
+<booleanAttribute key="default" value="false"/>
+<booleanAttribute key="includeOptional" value="false"/>
+<stringAttribute key="location" value="${workspace_loc}/../runtime-JXTAProxy.product"/>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -arch ${target.arch} -nl ${target.nl} --launcher.secondThread"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Declipse.service.jobs=false -Declipse.service.pref=false -Declipse.ignoreApp=false -Dosgi.noShutdown=false -Xms128m -Xmx512m -DdebugLevel=INFO -Dappenders=file -Djame.hcells=1 -Djame.vcells=1 -Djame.lowMemory=false -Djame.jxta.multicast=true -Djame.jxta.relay.seeds=seeds.txt -Djame.jxta.rendezvous.seeds=seeds.txt"/>
+<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${system_property:user.home}"/>
+<stringAttribute key="pde.version" value="3.3"/>
+<stringAttribute key="product" value="net.sf.jame.service.jxta.proxy"/>
+<stringAttribute key="productFile" value="\net.sf.jame.service.jxta.product\JXTAProxy.product"/>
+<stringAttribute key="selected_target_plugins" value="org.eclipse.equinox.preferences*3.2.300.v20090520-1800@default:default,org.eclipse.core.runtime*3.5.0.v20090525@default:true,org.eclipse.core.contenttype*3.4.1.R35x_v20090826-0451@default:default,org.eclipse.core.runtime.compatibility.registry*3.2.200.v20090429-1800@default:false,org.eclipse.equinox.registry*3.4.100.v20090520-1800@default:default,org.eclipse.equinox.common*3.5.1.R35x_v20090807-1100@2:true,org.eclipse.osgi*3.5.1.R35x_v20090827@-1:true,org.eclipse.equinox.common*3.5.1.R35x_v20090807-1100@2:true,org.eclipse.core.jobs*3.4.100.v20090429-1800@default:default,org.eclipse.core.jobs*3.4.100.v20090429-1800@default:default,org.eclipse.equinox.app*1.2.0.v20090520-1800@default:default,org.eclipse.core.runtime.compatibility.registry*3.2.200.v20090429-1800@default:false,org.eclipse.core.contenttype*3.4.1.R35x_v20090826-0451@default:default,org.eclipse.core.runtime*3.5.0.v20090525@default:true,org.eclipse.equinox.preferences*3.2.300.v20090520-1800@default:default,org.eclipse.equinox.app*1.2.0.v20090520-1800@default:default,org.eclipse.equinox.registry*3.4.100.v20090520-1800@default:default,org.eclipse.osgi*3.5.1.R35x_v20090827@-1:true"/>
+<stringAttribute key="selected_workspace_plugins" value="net.sf.jame.media@default:default,org.apache.log4j@default:default,net.sf.jame.service@default:default,org.apache.derby@default:default,net.sf.jame.service.network@default:default,net.sf.jame.twister@default:default,net.sf.jame.core@default:default,net.sf.jame.service.jxta@default:default,org.mozilla.rhino@default:default,net.sf.jame.launcher@default:default,net.sf.jame.mandelbrot@default:default,net.jxta@default:default,net.sf.jame.runtime@default:default"/>
+<booleanAttribute key="show_selected_only" value="true"/>
+<booleanAttribute key="tracing" value="false"/>
+<booleanAttribute key="useDefaultConfig" value="true"/>
+<booleanAttribute key="useDefaultConfigArea" value="true"/>
+<booleanAttribute key="useProduct" value="true"/>
+<booleanAttribute key="usefeatures" value="false"/>
+</launchConfiguration>

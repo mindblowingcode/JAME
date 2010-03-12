@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FreeImage4Java Plug-in
+Bundle-SymbolicName: net.sf.freeimage4java.linux.x86_64;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-NativeCode: libfreeimage4java.so;
+ osname=linux;
+ processor=x86_64
+Eclipse-PlatformFilter: (& (osgi.os=linux) (osgi.arch=x86_64))
+Fragment-Host: net.sf.freeimage4java
