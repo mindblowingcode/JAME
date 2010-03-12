@@ -1,0 +1,1467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="extensions" name="Mandelbrot" schema="schema/extensions.exsd"/>
+   <extension
+         id="coreExtensions"
+         name="Mandelbrot"
+         point="net.sf.jame.core.extensions">
+      <nodeBuilder
+            id="twister.frame.layer.image.mandelbrot"
+            name="Mandelbrot Fractal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.image.MandelbrotImageConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.color.renderer.sin"
+            name="Sin"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.SINConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.color.renderer.cos"
+            name="Cos"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.COSConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.color.renderer.constant"
+            name="Constant"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.ConstantConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.palette.renderer.default"
+            name="Default"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.DefaultRendererConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.palette.renderer.grayGradient"
+            name="Gray Gradient"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.GrayGradientRendererConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.z2"
+            name="Z2"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z2ConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.z3"
+            name="Z3"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z3ConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.z4"
+            name="Z4"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z4ConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.z5"
+            name="Z5"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z5ConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.zn"
+            name="ZN"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.ZNConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.cosz"
+            name="COSZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.COSZConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.sinz"
+            name="SINZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.SINZConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.expz"
+            name="EXPZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.EXPZConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.drf"
+            name="DRF"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.DRFConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.magnetism1"
+            name="Magnetism1"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.MAGNETISM1ConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.magnetism2"
+            name="Magnetism2"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.MAGNETISM2ConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.newton3"
+            name="Newton3"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.NEWTON3ConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.transforming.formula.z"
+            name="Z"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.ZConfigNodeBuilder"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.transforming.formula.y"
+            name="Y"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.YConfigNodeBuilder"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.transforming.formula.u"
+            name="U"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.UConfigNodeBuilder"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.transforming.formula.h"
+            name="H"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.HConfigNodeBuilder"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.incolouring.formula.color"
+            name="Color"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.ColorConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.incolouring.formula.binary"
+            name="Z Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.BinaryConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.incolouring.formula.modulus"
+            name="Z Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.ModulusConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.incolouring.formula.phase"
+            name="Z Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.PhaseConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.incolouring.formula.universal"
+            name="Universal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.UniversalConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.incolouring.formula.universalTrueColor"
+            name="Universal TrueColor"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.UniversalTrueColorConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.binary"
+            name="T Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.BinaryConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.modulus"
+            name="T Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.ModulusConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.phase"
+            name="T Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.PhaseConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.color"
+            name="Color"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ColorConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.binary"
+            name="Z Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.BinaryConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.potential"
+            name="Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PotentialConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.continuousPotential"
+            name="Continuous Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ContinuousPotentialConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.smoothModulus"
+            name="Z Smooth Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.SmoothModulusConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.modulus"
+            name="Z Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ModulusConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.phase"
+            name="Z Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PhaseConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.universal"
+            name="Universal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.UniversalConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.universalTrueColor"
+            name="Universal TrueColor"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.UniversalTrueColorConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.binaryAndPotential"
+            name="Z Binary And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.BinaryAndPotentialConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.modulusAndPotential"
+            name="Z Modulus And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ModulusAndPotentialConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.phaseAndPotential"
+            name="Z Phase And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PhaseAndPotentialConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.binary"
+            name="T Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.BinaryConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.modulus"
+            name="T Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.ModulusConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.phase"
+            name="T Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.PhaseConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.binaryAndPotential"
+            name="T Binary And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.BinaryAndPotentialConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.modulusAndPotential"
+            name="T Modulus And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.ModulusAndPotentialConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.phaseAndPotential"
+            name="T Phase And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.PhaseAndPotentialConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.smoothModulus"
+            name="T Smooth Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.SmoothModulusConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.orbittrap.point"
+            name="Point Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.PointTrapConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.orbittrap.circle"
+            name="Circle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.CircleTrapConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.orbittrap.line"
+            name="Line Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.LineTrapConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.orbittrap.rectangle"
+            name="Rectangle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.RectangleTrapConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.orbittrap.triangle"
+            name="Triangle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.TriangleTrapConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.orbittrap.delta"
+            name="Delta Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.DeltaTrapConfigNodeBuilderRuntime"/>
+      <nodeBuilder
+            id="twister.mandelbrot.fractal.rendering.formula.za"
+            name="ZA"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.ZAConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.frame.layer.image.mandelbrot"
+            name="Mandelbrot Fractal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.image.MandelbrotImageConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.frame.layer.image.mandelbrot"
+            name="Mandelbrot Fractal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.image.MandelbrotImageConfigXMLExporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.color.renderer.sin"
+            name="Sin"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.SINConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.color.renderer.cos"
+            name="Cos"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.COSConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.color.renderer.constant"
+            name="Constant"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.ConstantConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.palette.renderer.default"
+            name="Default"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.DefaultRendererConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.palette.renderer.grayGradient"
+            name="Gray Gradient"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.GrayGradientRendererConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.z2"
+            name="Z2"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z2ConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.z3"
+            name="Z3"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z3ConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.z4"
+            name="Z4"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z4ConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.z5"
+            name="Z5"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z5ConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.zn"
+            name="ZN"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.ZNConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.cosz"
+            name="COSZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.COSZConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.sinz"
+            name="SINZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.SINZConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.expz"
+            name="EXPZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.EXPZConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.drf"
+            name="DRF"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.DRFConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.magnetism1"
+            name="Magnetism1"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.MAGNETISM1ConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.magnetism2"
+            name="Magnetism2"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.MAGNETISM2ConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.newton3"
+            name="Newton3"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.NEWTON3ConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.transforming.formula.z"
+            name="Z"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.ZConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.transforming.formula.y"
+            name="Y"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.YConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.transforming.formula.u"
+            name="U"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.UConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.transforming.formula.h"
+            name="H"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.HConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.incolouring.formula.color"
+            name="Color"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.ColorConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.incolouring.formula.binary"
+            name="Z Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.BinaryConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.incolouring.formula.modulus"
+            name="Z Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.ModulusConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.incolouring.formula.phase"
+            name="Z Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.PhaseConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.incolouring.formula.universal"
+            name="Universal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.UniversalConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.incolouring.formula.universalTrueColor"
+            name="Universal TrueColor"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.UniversalTrueColorConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.binary"
+            name="T Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.BinaryConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.modulus"
+            name="T Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.ModulusConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.phase"
+            name="T Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.PhaseConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.color"
+            name="Color"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ColorConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.binary"
+            name="Z Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.BinaryConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.potential"
+            name="Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PotentialConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.continuousPotential"
+            name="Continuous Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ContinuousPotentialConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.smoothModulus"
+            name="Z Smooth Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.SmoothModulusConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.modulus"
+            name="Z Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ModulusConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.phase"
+            name="Z Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PhaseConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.universal"
+            name="Universal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.UniversalConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.universalTrueColor"
+            name="Universal TrueColor"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.UniversalTrueColorConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.binaryAndPotential"
+            name="Z Binary And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.BinaryAndPotentialConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.modulusAndPotential"
+            name="Z Modulus And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ModulusAndPotentialConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.phaseAndPotential"
+            name="Z Phase And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PhaseAndPotentialConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.binary"
+            name="T Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.BinaryConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.modulus"
+            name="T Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.ModulusConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.phase"
+            name="T Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.PhaseConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.binaryAndPotential"
+            name="T Binary And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.BinaryAndPotentialConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.modulusAndPotential"
+            name="T Modulus And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.ModulusAndPotentialConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.phaseAndPotential"
+            name="T Phase And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.PhaseAndPotentialConfigXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.smoothModulus"
+            name="T Smooth Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.SmoothModulusConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.color.renderer.sin"
+            name="Sin"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.SINConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.color.renderer.cos"
+            name="Cos"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.COSConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.color.renderer.constant"
+            name="Constant"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.ConstantConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.palette.renderer.default"
+            name="Default"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.DefaultRendererConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.palette.renderer.grayGradient"
+            name="Gray Gradient"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.GrayGradientRendererConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.z2"
+            name="Z2"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z2ConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.z3"
+            name="Z3"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z3ConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.z4"
+            name="Z4"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z4ConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.z5"
+            name="Z5"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z5ConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.zn"
+            name="ZN"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.ZNConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.cosz"
+            name="COSZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.COSZConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.sinz"
+            name="SINZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.SINZConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.expz"
+            name="EXPZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.EXPZConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.drf"
+            name="DRF"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.DRFConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.magnetism1"
+            name="Magnetism1"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.MAGNETISM1ConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.magnetism2"
+            name="Magnetism2"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.MAGNETISM2ConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.newton3"
+            name="Newton3"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.NEWTON3ConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.transforming.formula.z"
+            name="Z"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.ZConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.transforming.formula.y"
+            name="Y"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.YConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.transforming.formula.u"
+            name="U"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.UConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.transforming.formula.h"
+            name="H"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.HConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.incolouring.formula.color"
+            name="Color"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.ColorConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.incolouring.formula.binary"
+            name="Z Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.BinaryConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.incolouring.formula.modulus"
+            name="Z Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.ModulusConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.incolouring.formula.phase"
+            name="Z Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.PhaseConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.incolouring.formula.universal"
+            name="Universal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.UniversalConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.incolouring.formula.universalTrueColor"
+            name="Universal TrueColor"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.UniversalTrueColorConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.binary"
+            name="T Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.BinaryConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.modulus"
+            name="T Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.ModulusConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.phase"
+            name="T Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.PhaseConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.color"
+            name="Color"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ColorConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.binary"
+            name="Z Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.BinaryConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.potential"
+            name="Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PotentialConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.continuousPotential"
+            name="Continuous Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ContinuousPotentialConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.smoothModulus"
+            name="Z Smooth Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.SmoothModulusConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.modulus"
+            name="Z Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ModulusConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.phase"
+            name="Z Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PhaseConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.universal"
+            name="Universal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.UniversalConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.universalTrueColor"
+            name="Universal TrueColor"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.UniversalTrueColorConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.binaryAndPotential"
+            name="Z Binary And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.BinaryAndPotentialConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.modulusAndPotential"
+            name="Z Modulus And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ModulusAndPotentialConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.phaseAndPotential"
+            name="Z Phase And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PhaseAndPotentialConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.binary"
+            name="T Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.BinaryConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.modulus"
+            name="T Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.ModulusConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.phase"
+            name="T Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.PhaseConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.binaryAndPotential"
+            name="T Binary And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.BinaryAndPotentialConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.modulusAndPotential"
+            name="T Modulus And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.ModulusAndPotentialConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.phaseAndPotential"
+            name="T Phase And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.PhaseAndPotentialConfigXMLExporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.smoothModulus"
+            name="T Smooth Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.SmoothModulusConfigXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.IterationsElement"
+            name="IterationsElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.IterationsNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.ThresholdElement"
+            name="ThresholdElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ThresholdNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.ExponentElement"
+            name="ExponentElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ExponentNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.OrbitTrapCriteriaElement"
+            name="CriteriaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.CriteriaNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.RenderedPaletteElement"
+            name="RenderedPaletteElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.RenderedPaletteNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.RenderingFormulaElement"
+            name="RenderingFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.RenderingFormulaNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.TransformingFormulaElement"
+            name="TransformingFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.TransformingFormulaNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.IncolouringFormulaElement"
+            name="IncolouringFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.IncolouringFormulaNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.OutcolouringFormulaElement"
+            name="OutcolouringFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.OutcolouringFormulaNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.RenderingFormulaReference"
+            name="RenderingFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.RenderingFormulaReferenceNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.TransformingFormulaReference"
+            name="TransformingFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.TransformingFormulaReferenceNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.IncolouringFormulaReference"
+            name="IncolouringFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.IncolouringFormulaReferenceNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.OutcolouringFormulaReference"
+            name="OutcolouringFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.OutcolouringFormulaReferenceNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.IncolouringFormulaElementList"
+            name="IncolouringFormulaElementList"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.IncolouringFormulaListNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.OutcolouringFormulaElementList"
+            name="OutcolouringFormulaElementList"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.OutcolouringFormulaListNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.PaletteRendererElement"
+            name="PaletteRendererElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.PaletteRendererNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.ColorRendererElement"
+            name="ColorRendererElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ColorRendererNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.PaletteRendererFormulaElement"
+            name="PaletteRendererFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.PaletteRendererFormulaNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.ColorRendererFormulaElement"
+            name="ColorRendererFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ColorRendererFormulaNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.PaletteRendererReference"
+            name="PaletteRendererReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.PaletteRendererReferenceNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.ColorRendererReference"
+            name="ColorRendererReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ColorRendererReferenceNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.PaletteRendererFormulaReference"
+            name="PaletteRendererFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.PaletteRendererFormulaReferenceNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.ColorRendererFormulaReference"
+            name="ColorRendererFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ColorRendererFormulaReferenceNodeActionXMLExporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.IterationsElement"
+            name="IterationsElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.IterationsNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.ThresholdElement"
+            name="ThresholdElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ThresholdNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.ExponentElement"
+            name="ExponentElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ExponentNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.OrbitTrapCriteriaElement"
+            name="CriteriaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.CriteriaNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.RenderedPaletteElement"
+            name="RenderedPaletteElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.RenderedPaletteNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.RenderingFormulaElement"
+            name="RenderingFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.RenderingFormulaNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.TransformingFormulaElement"
+            name="TransformingFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.TransformingFormulaNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.IncolouringFormulaElement"
+            name="IncolouringFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.IncolouringFormulaNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.OutcolouringFormulaElement"
+            name="OutcolouringFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.OutcolouringFormulaNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.RenderingFormulaReference"
+            name="RenderingFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.RenderingFormulaReferenceNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.TransformingFormulaReference"
+            name="TransformingFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.TransformingFormulaReferenceNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.IncolouringFormulaReference"
+            name="IncolouringFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.IncolouringFormulaReferenceNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.OutcolouringFormulaReference"
+            name="OutcolouringFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.OutcolouringFormulaReferenceNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.IncolouringFormulaElementList"
+            name="IncolouringFormulaElementList"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.IncolouringFormulaListNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.OutcolouringFormulaElementList"
+            name="OutcolouringFormulaElementList"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.OutcolouringFormulaListNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.PaletteRendererElement"
+            name="PaletteRendererElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.PaletteRendererNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.ColorRendererElement"
+            name="ColorRendererElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ColorRendererNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.PaletteRendererFormulaElement"
+            name="PaletteRendererFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.PaletteRendererFormulaNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.ColorRendererFormulaElement"
+            name="ColorRendererFormulaElement"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ColorRendererFormulaNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.PaletteRendererReference"
+            name="PaletteRendererReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.PaletteRendererReferenceNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.ColorRendererReference"
+            name="ColorRendererReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ColorRendererReferenceNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.PaletteRendererFormulaReference"
+            name="PaletteRendererFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.PaletteRendererFormulaReferenceNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.ColorRendererFormulaReference"
+            name="ColorRendererFormulaReference"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.action.ColorRendererFormulaReferenceNodeActionXMLImporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.orbittrap.point"
+            name="Point Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.PointTrapConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.orbittrap.point"
+            name="Point Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.PointTrapConfigXMLExporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.orbittrap.circle"
+            name="Circle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.CircleTrapConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.orbittrap.circle"
+            name="Circle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.CircleTrapConfigXMLExporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.orbittrap.line"
+            name="Line Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.LineTrapConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.orbittrap.line"
+            name="Line Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.LineTrapConfigXMLExporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.orbittrap.rectangle"
+            name="Rectangle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.RectangleTrapConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.orbittrap.rectangle"
+            name="Rectangle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.RectangleTrapConfigXMLExporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.orbittrap.triangle"
+            name="Triangle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.TriangleTrapConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.orbittrap.triangle"
+            name="Triangle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.TriangleTrapConfigXMLExporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.orbittrap.delta"
+            name="Delta Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.DeltaTrapConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.orbittrap.delta"
+            name="Delta Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.DeltaTrapConfigXMLExporterRuntime"/>
+      <extensionConfigXMLImporter
+            id="twister.mandelbrot.fractal.rendering.formula.za"
+            name="ZA"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.ZAConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.mandelbrot.fractal.rendering.formula.za"
+            name="ZA"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.ZAConfigXMLExporterRuntime"/>
+   </extension>
+   <extension
+         id="twisterExtensions"
+         name="Mandelbrot"
+         point="net.sf.jame.twister.extensions">
+      <image
+            configClass="net.sf.jame.mandelbrot.extensions.image.MandelbrotImageConfig"
+            id="twister.frame.layer.image.mandelbrot"
+            name="Mandelbrot Fractal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.image.MandelbrotImageRuntime"/>
+      <converter
+            id="twister.mandelbrot.converter.Default"
+            name="DefaultConverter"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.converter.DefaultConverterRuntime"/>
+   </extension>
+   <extension
+         id="mandelbrotExtensions"
+         name="Mandelbrot"
+         point="net.sf.jame.mandelbrot.extensions">
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z2Config"
+            id="twister.mandelbrot.fractal.rendering.formula.z2"
+            name="Z2"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z2Runtime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z3Config"
+            id="twister.mandelbrot.fractal.rendering.formula.z3"
+            name="Z3"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z3Runtime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z4Config"
+            id="twister.mandelbrot.fractal.rendering.formula.z4"
+            name="Z4"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z4Runtime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z5Config"
+            id="twister.mandelbrot.fractal.rendering.formula.z5"
+            name="Z5"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.Z5Runtime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.ZNConfig"
+            id="twister.mandelbrot.fractal.rendering.formula.zn"
+            name="ZN"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.ZNRuntime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.COSZConfig"
+            id="twister.mandelbrot.fractal.rendering.formula.cosz"
+            name="COSZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.COSZRuntime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.SINZConfig"
+            id="twister.mandelbrot.fractal.rendering.formula.sinz"
+            name="SINZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.SINZRuntime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.EXPZConfig"
+            id="twister.mandelbrot.fractal.rendering.formula.expz"
+            name="EXPZ"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.EXPZRuntime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.DRFConfig"
+            id="twister.mandelbrot.fractal.rendering.formula.drf"
+            name="DRF"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.DRFRuntime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.MAGNETISM1Config"
+            id="twister.mandelbrot.fractal.rendering.formula.magnetism1"
+            name="MAGNETISM1"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.MAGNETISM1Runtime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.MAGNETISM2Config"
+            id="twister.mandelbrot.fractal.rendering.formula.magnetism2"
+            name="MAGNETISM2"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.MAGNETISM2Runtime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.NEWTON3Config"
+            id="twister.mandelbrot.fractal.rendering.formula.newton3"
+            name="NEWTON3"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.NEWTON3Runtime"/>
+      <transformingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.ZConfig"
+            id="twister.mandelbrot.fractal.transforming.formula.z"
+            name="Z"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.ZRuntime"/>
+      <transformingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.YConfig"
+            id="twister.mandelbrot.fractal.transforming.formula.y"
+            name="Y"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.YRuntime"/>
+      <transformingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.UConfig"
+            id="twister.mandelbrot.fractal.transforming.formula.u"
+            name="U"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.URuntime"/>
+      <transformingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.HConfig"
+            id="twister.mandelbrot.fractal.transforming.formula.h"
+            name="H"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.HRuntime"/>
+      <incolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.ColorConfig"
+            id="twister.mandelbrot.fractal.incolouring.formula.color"
+            name="Color"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.ColorRuntime"/>
+      <incolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.BinaryConfig"
+            id="twister.mandelbrot.fractal.incolouring.formula.binary"
+            name="Z Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.BinaryRuntime"/>
+      <incolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.ModulusConfig"
+            id="twister.mandelbrot.fractal.incolouring.formula.modulus"
+            name="Z Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.ModulusRuntime"/>
+      <incolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.PhaseConfig"
+            id="twister.mandelbrot.fractal.incolouring.formula.phase"
+            name="Z Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.PhaseRuntime"/>
+      <incolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.UniversalConfig"
+            id="twister.mandelbrot.fractal.incolouring.formula.universal"
+            name="Universal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.UniversalRuntime"/>
+      <incolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.UniversalTrueColorConfig"
+            id="twister.mandelbrot.fractal.incolouring.formula.universalTrueColor"
+            name="Universal TrueColor"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.UniversalTrueColorRuntime"/>
+      <incolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.BinaryConfig"
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.binary"
+            name="T Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.BinaryRuntime"/>
+      <incolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.ModulusConfig"
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.modulus"
+            name="T Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.ModulusRuntime"/>
+      <incolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.PhaseConfig"
+            id="twister.mandelbrot.fractal.incolouring.formula.processed.phase"
+            name="T Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.incolouring.processed.PhaseRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ColorConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.color"
+            name="Color"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ColorRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.BinaryConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.binary"
+            name="Z Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.BinaryRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PotentialConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.potential"
+            name="Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PotentialRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ContinuousPotentialConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.continuousPotential"
+            name="Continuous Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ContinuousPotentialRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.SmoothModulusConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.smoothModulus"
+            name="Z Smooth Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.SmoothModulusRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ModulusConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.modulus"
+            name="Z Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ModulusRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PhaseConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.phase"
+            name="Z Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PhaseRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.UniversalConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.universal"
+            name="Universal"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.UniversalRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.UniversalTrueColorConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.universalTrueColor"
+            name="Universal TrueColor"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.UniversalTrueColorRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.BinaryAndPotentialConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.binaryAndPotential"
+            name="Z Binary And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.BinaryAndPotentialRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ModulusAndPotentialConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.modulusAndPotential"
+            name="Z Modulus And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.ModulusAndPotentialRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PhaseAndPotentialConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.phaseAndPotential"
+            name="Z Phase And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.PhaseAndPotentialRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.BinaryConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.binary"
+            name="T Binary"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.BinaryRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.ModulusConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.modulus"
+            name="T Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.ModulusRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.PhaseConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.phase"
+            name="T Phase"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.PhaseRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.BinaryAndPotentialConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.binaryAndPotential"
+            name="T Binary And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.BinaryAndPotentialRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.ModulusAndPotentialConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.modulusAndPotential"
+            name="T Modulus And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.ModulusAndPotentialRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.PhaseAndPotentialConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.phaseAndPotential"
+            name="T Phase And Potential"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.PhaseAndPotentialRuntime"/>
+      <outcolouringFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.SmoothModulusConfig"
+            id="twister.mandelbrot.fractal.outcolouring.formula.processed.smoothModulus"
+            name="T Smooth Modulus"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.outcolouring.processed.SmoothModulusRuntime"/>
+      <paletteRenderer
+            configClass="net.sf.jame.mandelbrot.extensions.palette.DefaultRendererConfig"
+            id="twister.mandelbrot.palette.renderer.default"
+            name="Default"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.DefaultRendererRuntime"/>
+      <paletteRenderer
+            configClass="net.sf.jame.mandelbrot.extensions.palette.GrayGradientRendererConfig"
+            id="twister.mandelbrot.palette.renderer.grayGradient"
+            name="Gray Gradient"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.GrayGradientRendererRuntime"/>
+      <colorRenderer
+            configClass="net.sf.jame.mandelbrot.extensions.color.SINConfig"
+            id="twister.mandelbrot.color.renderer.sin"
+            name="SIN"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.SINRuntime"/>
+      <colorRenderer
+            configClass="net.sf.jame.mandelbrot.extensions.color.COSConfig"
+            id="twister.mandelbrot.color.renderer.cos"
+            name="COS"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.COSRuntime"/>
+      <colorRenderer
+            configClass="net.sf.jame.mandelbrot.extensions.color.ConstantConfig"
+            id="twister.mandelbrot.color.renderer.constant"
+            name="Constant"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.ConstantRuntime"/>
+      <paletteRendererFormula
+            id="twister.mandelbrot.palette.renderer.formula.lin"
+            name="LIN"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.formula.LINRuntime"/>
+      <paletteRendererFormula
+            id="twister.mandelbrot.palette.renderer.formula.log"
+            name="LOG"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.formula.LOGRuntime"/>
+      <paletteRendererFormula
+            id="twister.mandelbrot.palette.renderer.formula.bin"
+            name="BIN"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.formula.BINRuntime"/>
+      <paletteRendererFormula
+            id="twister.mandelbrot.palette.renderer.formula.sin"
+            name="SIN"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.formula.SINRuntime"/>
+      <paletteRendererFormula
+            id="twister.mandelbrot.palette.renderer.formula.cos"
+            name="COS"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.formula.COSRuntime"/>
+      <paletteRendererFormula
+            id="twister.mandelbrot.palette.renderer.formula.sqr"
+            name="SQR"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.formula.SQRRuntime"/>
+      <paletteRendererFormula
+            id="twister.mandelbrot.palette.renderer.formula.sqrt"
+            name="SQRT"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.palette.formula.SQRTRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.zero"
+            name="Zero"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.ZeroRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.zr"
+            name="ZR"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.ZRRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.zi"
+            name="ZI"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.ZIRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.szrzi"
+            name="ZR - ZI"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.SZRZIRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.szr2zi2"
+            name="ZR^2 - ZI^2"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.SZR2ZI2Runtime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.szizr"
+            name="ZI - ZR"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.SZIZRRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.szi2zr2"
+            name="ZI^2 - ZR^2"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.SZI2ZR2Runtime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.modulus"
+            name="sqrt(ZR^2 + ZI^2)"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.ModulusRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.phase"
+            name="atan2(ZI, ZR)"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.PhaseRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.log"
+            name="log(ZR^2 + ZI^2)"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.LogRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.mzrzr"
+            name="ZR * ZR"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.MZRZRRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.mzizi"
+            name="ZI * ZI"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.MZIZIRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.mzrzi"
+            name="ZR * ZI"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.MZRZIRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.azrzr"
+            name="ZR + ZR"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.AZRZRRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.azizi"
+            name="ZI + ZI"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.AZIZIRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.azrzi"
+            name="ZR + ZI"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.AZRZIRuntime"/>
+      <colorRendererFormula
+            id="twister.mandelbrot.color.renderer.formula.azr2zi2"
+            name="ZR^2 + ZI^2"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.color.formula.AZR2ZI2Runtime"/>
+      <orbitTrap
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.PointTrapConfig"
+            id="twister.mandelbrot.fractal.orbittrap.point"
+            name="Point Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.PointTrapRuntime"/>
+      <orbitTrap
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.CircleTrapConfig"
+            id="twister.mandelbrot.fractal.orbittrap.circle"
+            name="Circle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.CircleTrapRuntime"/>
+      <orbitTrap
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.LineTrapConfig"
+            id="twister.mandelbrot.fractal.orbittrap.line"
+            name="Line Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.LineTrapRuntime"/>
+      <orbitTrap
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.RectangleTrapConfig"
+            id="twister.mandelbrot.fractal.orbittrap.rectangle"
+            name="Rectangle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.RectangleTrapRuntime"/>
+      <orbitTrap
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.TriangleTrapConfig"
+            id="twister.mandelbrot.fractal.orbittrap.triangle"
+            name="Triangle Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.TriangleTrapRuntime"/>
+      <orbitTrap
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.DeltaTrapConfig"
+            id="twister.mandelbrot.fractal.orbittrap.delta"
+            name="Delta Trap"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.orbittrap.DeltaTrapRuntime"/>
+      <processingFormula
+            id="twister.mandelbrot.fractal.processing.formula.distance.minimum"
+            name="D Minimum"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.processing.distance.MinimumFormulaRuntime"/>
+      <processingFormula
+            id="twister.mandelbrot.fractal.processing.formula.distance.maximum"
+            name="D Maximum"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.processing.distance.MaximumFormulaRuntime"/>
+      <processingFormula
+            id="twister.mandelbrot.fractal.processing.formula.distance.average"
+            name="D Average"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.processing.distance.AverageFormulaRuntime"/>
+      <processingFormula
+            id="twister.mandelbrot.fractal.processing.formula.minimum"
+            name="Z Minimum"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.processing.MinimumFormulaRuntime"/>
+      <processingFormula
+            id="twister.mandelbrot.fractal.processing.formula.maximum"
+            name="Z Maximum"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.processing.MaximumFormulaRuntime"/>
+      <processingFormula
+            id="twister.mandelbrot.fractal.processing.formula.average"
+            name="Z Average"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.processing.AverageFormulaRuntime"/>
+      <processingFormula
+            id="twister.mandelbrot.fractal.processing.formula.curvature"
+            name="Z Curvature"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.processing.CurvatureFormulaRuntime"/>
+      <renderingFormula
+            configClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.ZAConfig"
+            id="twister.mandelbrot.fractal.rendering.formula.za"
+            name="ZA"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.rendering.ZARuntime"/>
+   </extension>
+   <extension
+         id="coreExtensions"
+         name="Mandelbrot"
+         point="net.sf.jame.core.extensions">
+      <creator
+            id="node.class.CriteriaElement"
+            name="CriteriaCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.CriteriaCreatorRuntime"/>
+      <creator
+            id="node.class.ExponentElement"
+            name="ExponentCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.ExponentCreatorRuntime"/>
+      <creator
+            id="node.class.IterationsElement"
+            name="IterationsCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.IterationsCreatorRuntime"/>
+      <creator
+            id="node.class.ThresholdElement"
+            name="ThresholdCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.ThresholdCreatorRuntime"/>
+      <creator
+            id="node.class.RenderedPaletteElement"
+            name="RenderedPaletteElementCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.RenderedPaletteCreatorRuntime"/>
+      <creator
+            id="node.class.MandelbrotFractalElement"
+            name="MandelbrotFractalCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.MandelbrotFractalCreatorRuntime"/>
+      <creator
+            id="node.class.RenderingFormulaElement"
+            name="RenderingFormulaCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.RenderingFormulaCreatorRuntime"/>
+      <creator
+            id="node.class.ProcessingFormulaElement"
+            name="ProcessingFormulaCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.ProcessingFormulaCreatorRuntime"/>
+      <creator
+            id="node.class.TransformingFormulaElement"
+            name="TransformingFormulaCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.TransformingFormulaCreatorRuntime"/>
+      <creator
+            id="node.class.IncolouringFormulaElement"
+            name="IncolouringFormulaCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.IncolouringFormulaCreatorRuntime"/>
+      <creator
+            id="node.class.OutcolouringFormulaElement"
+            name="OutcolouringFormulaCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.OutcolouringFormulaCreatorRuntime"/>
+      <creator
+            id="node.class.IncolouringFormulaElementList"
+            name="IncolouringFormulaListCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.IncolouringFormulaCreatorRuntime"/>
+      <creator
+            id="node.class.OutcolouringFormulaElementList"
+            name="OutcolouringFormulaListCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.OutcolouringFormulaCreatorRuntime"/>
+      <creator
+            id="node.class.OrbitTrapElement"
+            name="OrbitTrapCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.OrbitTrapCreatorRuntime"/>
+      <creator
+            id="node.class.ColorRendererElement"
+            name="ColorRendererCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.ColorRendererCreatorRuntime"/>
+      <creator
+            id="node.class.ColorRendererFormulaElement"
+            name="ColorRendererFormulaCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.PaletteRendererFormulaCreatorRuntime"/>
+      <creator
+            id="node.class.PaletteRendererElement"
+            name="PaletteRendererCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.PaletteRendererCreatorRuntime"/>
+      <creator
+            id="node.class.PaletteRendererFormulaElement"
+            name="PaletteRendererFormulaCreator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.creator.PaletteRendererFormulaCreatorRuntime"/>
+      <creator
+            id="node.class.RenderingFormulaReference"
+            name="RenderingFormulaReferenceCreator"
+            runtimeClass="net.sf.jame.core.scripting.ReferenceCreatorRuntime"/>
+      <creator
+            id="node.class.ProcessingFormulaReference"
+            name="ProcessingFormulaReferenceCreator"
+            runtimeClass="net.sf.jame.core.scripting.ReferenceCreatorRuntime"/>
+      <creator
+            id="node.class.TransformingFormulaReference"
+            name="TransformingFormulaReferenceCreator"
+            runtimeClass="net.sf.jame.core.scripting.ReferenceCreatorRuntime"/>
+      <creator
+            id="node.class.IncolouringFormulaReference"
+            name="IncolouringFormulaReferenceCreator"
+            runtimeClass="net.sf.jame.core.scripting.ReferenceCreatorRuntime"/>
+      <creator
+            id="node.class.OutcolouringFormulaReference"
+            name="OutcolouringFormulaReferenceCreator"
+            runtimeClass="net.sf.jame.core.scripting.ReferenceCreatorRuntime"/>
+      <creator
+            id="node.class.OrbitTrapReference"
+            name="OrbitTrapReferenceCreator"
+            runtimeClass="net.sf.jame.core.scripting.ReferenceCreatorRuntime"/>
+      <creator
+            id="node.class.ColorRendererReference"
+            name="ColorRendererReferenceCreator"
+            runtimeClass="net.sf.jame.core.scripting.ReferenceCreatorRuntime"/>
+      <creator
+            id="node.class.ColorRendererFormulaReference"
+            name="ColorRendererFormulaReferenceCreator"
+            runtimeClass="net.sf.jame.core.scripting.ReferenceCreatorRuntime"/>
+      <creator
+            id="node.class.PaletteRendererReference"
+            name="PaletteRendererReferenceCreator"
+            runtimeClass="net.sf.jame.core.scripting.ReferenceCreatorRuntime"/>
+      <creator
+            id="node.class.PaletteRendererFormulaReference"
+            name="PaletteRendererFormulaReferenceCreator"
+            runtimeClass="net.sf.jame.core.scripting.ReferenceCreatorRuntime"/>
+      <enumerator
+            id="node.class.RenderingFormulaReference"
+            name="RenderingFormulaEnumerator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.enumerator.RenderingFormulaEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.ProcessingFormulaReference"
+            name="ProcessingFormulaEnumerator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.enumerator.ProcessingFormulaEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.TransformingFormulaReference"
+            name="TransformingFormulaEnumerator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.enumerator.TransformingFormulaEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.IncolouringFormulaReference"
+            name="IncolouringFormulaEnumerator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.enumerator.IncolouringFormulaEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.OutcolouringFormulaReference"
+            name="OutcolouringFormulaEnumerator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.enumerator.OutcolouringFormulaEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.OrbitTrapReference"
+            name="OrbitTrapEnumerator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.enumerator.OrbitTrapEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.ColorRendererReference"
+            name="ColorRendererEnumerator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.enumerator.ColorRendererEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.ColorRendererFormulaReference"
+            name="ColorRendererFormulaEnumerator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.enumerator.ColorRendererFormulaEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.PaletteRendererReference"
+            name="PaletteRendererEnumerator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.enumerator.PaletteRendererEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.PaletteRendererFormulaReference"
+            name="PaletteRendererFormulaEnumerator"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.enumerator.PaletteRendererFormulaEnumeratorRuntime"/>
+      <constructor
+            id="type.class.RenderedPalette"
+            name="RenderedPaletteConstructor"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.constructor.RenderedPaletteConstructorRuntime"/>
+      <constructor
+            id="type.class.RenderedPaletteParam"
+            name="RenderedPaletteParamConstructor"
+            runtimeClass="net.sf.jame.mandelbrot.extensions.constructor.RenderedPaletteParamConstructorRuntime"/>
+   </extension>
+
+</plugin>

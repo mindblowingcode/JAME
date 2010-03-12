@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test Twister Plug-in
+Bundle-SymbolicName: net.sf.jame.test.twister;singleton:=true
+Bundle-Version: 1.1.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.junit4;bundle-version="4.3.1",
+ net.sf.jame.test;bundle-version="1.1.0",
+ net.sf.jame.core;bundle-version="1.1.0",
+ net.sf.jame.twister;bundle-version="1.1.0",
+ net.sf.jame.service;bundle-version="1.1.0",
+ net.sf.jame.launcher;bundle-version="1.1.0",
+ net.sf.jame.core.swing;bundle-version="1.1.0",
+ net.sf.jame.twister.swing;bundle-version="1.1.0",
+ net.sf.jame.launcher.swing;bundle-version="1.1.0"
+Import-Package: org.apache.log4j;version="1.2.15",
+ org.eclipse.core.runtime;version="3.4.0"

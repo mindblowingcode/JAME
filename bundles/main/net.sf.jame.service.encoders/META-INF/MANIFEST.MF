@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAME Service Encoders Plug-in
+Bundle-SymbolicName: net.sf.jame.service.encoders;singleton:=true
+Bundle-Version: 1.1.0
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: Andrea Medeghini
+Export-Package: net.sf.jame.service.encoder.extensions
+Require-Bundle: net.sf.jame.core;bundle-version="1.1.0",
+ net.sf.jame.service;bundle-version="1.1.0"
+Import-Package: net.sf.ffmpeg4java,
+ net.sf.freeimage4java,
+ org.apache.log4j;version="1.2.15",
+ org.eclipse.core.runtime;version="3.4.0"

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAME Media Swing Plug-in
+Bundle-SymbolicName: net.sf.jame.media.swing;singleton:=true
+Bundle-Version: 1.1.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: net.sf.jame.media;bundle-version="1.1.0"
+Export-Package: net.sf.jame.media.swing,
+ net.sf.jame.media.swing.animator,
+ net.sf.jame.media.swing.renderer

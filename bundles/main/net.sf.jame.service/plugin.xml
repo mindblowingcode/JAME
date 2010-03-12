@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="extensions" name="Service" schema="schema/extensions.exsd"/>
+   <extension
+         id="serviceExtensions"
+         name="Service"
+         point="net.sf.jame.service.extensions">
+      <spool
+            configClass="net.sf.jame.service.extensions.LocalSpoolConfig"
+            id="service.spool.local"
+            name="Local"
+            runtimeClass="net.sf.jame.service.extensions.LocalSpoolRuntime"/>
+   </extension>
+
+</plugin>

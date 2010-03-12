@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAME Runtime Swing Plug-in
+Bundle-SymbolicName: net.sf.jame.runtime.swing;singleton:=true
+Bundle-Version: 1.1.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-Localization: plugin
+Require-Bundle: net.sf.jame.core;bundle-version="1.1.0",
+ net.sf.jame.twister;bundle-version="1.1.0",
+ net.sf.jame.service;bundle-version="1.1.0",
+ net.sf.jame.runtime;bundle-version="1.1.0",
+ net.sf.jame.launcher;bundle-version="1.1.0",
+ net.sf.jame.core.swing;bundle-version="1.1.0",
+ net.sf.jame.twister.swing;bundle-version="1.1.0",
+ net.sf.jame.launcher.swing;bundle-version="1.1.0"
+Export-Package: net.sf.jame.runtime.swing
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Import-Package: org.apache.log4j;version="1.2.15",
+ org.eclipse.core.runtime;version="3.4.0",
+ org.eclipse.equinox.app;version="1.0.0"
