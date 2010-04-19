@@ -45,7 +45,7 @@ import net.sf.jame.twister.util.View;
 /**
  * @author Andrea Medeghini
  */
-public abstract class AbstractContextFreeFractalRenderer implements ContextFreeFractalRenderer {
+public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer {
 	private Graphics2D newBuffer;
 	private Graphics2D oldBuffer;
 	private BufferedImage newImage;
@@ -55,18 +55,18 @@ public abstract class AbstractContextFreeFractalRenderer implements ContextFreeF
 	private Tile oldTile;
 	private int imageDim;
 	private int tileDim;
-	protected int renderMode = ContextFreeFractalRenderer.MODE_CALCULATE;
+	protected int renderMode = ContextFreeRenderer.MODE_CALCULATE;
 	protected int newImageMode = 0;
 	protected int oldImageMode = 0;
 	private boolean dynamic = false;
 	private boolean dynamicZoom = false;
 	private AffineTransform transform = new AffineTransform();
-	protected CFDGRuntimeElement fractal;
+	protected CFDGRuntimeElement runtime;
 	protected View newView = new View(new IntegerVector4D(0, 0, 0, 0), new DoubleVector4D(0, 0, 1, 0), new DoubleVector4D(0, 0, 0, 0));
 	protected View oldView = new View(new IntegerVector4D(0, 0, 0, 0), new DoubleVector4D(0, 0, 1, 0), new DoubleVector4D(0, 0, 0, 0));
 	protected int percent = 100;
 	protected int status = TwisterRenderer.STATUS_TERMINATED;
-	private final FractalRenderWorker renderWorker;
+	private final ContextFreeWorker renderWorker;
 	protected final ThreadFactory factory;
 	private boolean viewChanged;
 	private boolean invalidated;
@@ -75,9 +75,9 @@ public abstract class AbstractContextFreeFractalRenderer implements ContextFreeF
 	/**
 	 * 
 	 */
-	public AbstractContextFreeFractalRenderer(final int threadPriority) {
-		factory = new DefaultThreadFactory("ContextFreeFractalRendererWorker", true, threadPriority);
-		renderWorker = new FractalRenderWorker(factory);
+	public AbstractContextFreeRenderer(final int threadPriority) {
+		factory = new DefaultThreadFactory("ContextFreeRendererWorker", true, threadPriority);
+		renderWorker = new ContextFreeWorker(factory);
 	}
 
 	/**
@@ -234,7 +234,7 @@ public abstract class AbstractContextFreeFractalRenderer implements ContextFreeF
 		dynamic = view.getStatus().getZ() == 1;
 		dynamicZoom = dynamic;
 		if (view.getStatus().getZ() == 2) {
-			setMode(ContextFreeFractalRenderer.MODE_CALCULATE);
+			setMode(ContextFreeRenderer.MODE_CALCULATE);
 		}
 	}
 
@@ -300,12 +300,12 @@ public abstract class AbstractContextFreeFractalRenderer implements ContextFreeF
 		startTasks();
 	}
 
-	public CFDGRuntimeElement getFractal() {
-		return fractal;
+	public CFDGRuntimeElement getRuntime() {
+		return runtime;
 	}
 
-	public void setFractal(CFDGRuntimeElement fractal) {
-		this.fractal = fractal;
+	public void setRuntime(CFDGRuntimeElement fractal) {
+		this.runtime = fractal;
 	}
 
 	/**
@@ -388,7 +388,7 @@ public abstract class AbstractContextFreeFractalRenderer implements ContextFreeF
 			}
 			oldView = newView;
 			if (newTile != oldTile) {
-				setMode(ContextFreeFractalRenderer.MODE_CALCULATE);
+				setMode(ContextFreeRenderer.MODE_CALCULATE);
 				oldTile = newTile;
 				free();
 				init();
@@ -396,7 +396,7 @@ public abstract class AbstractContextFreeFractalRenderer implements ContextFreeF
 		}
 		percent = 0;
 		status = TwisterRenderer.STATUS_RENDERING;
-		doFractal(dynamicZoom);
+		doRender(dynamicZoom);
 		if (percent == 100) {
 			status = TwisterRenderer.STATUS_TERMINATED;
 		}
@@ -406,13 +406,13 @@ public abstract class AbstractContextFreeFractalRenderer implements ContextFreeF
 		dynamicZoom = false;
 	}
 
-	protected abstract void doFractal(boolean dynamicZoom);
+	protected abstract void doRender(boolean dynamicZoom);
 
-	private class FractalRenderWorker extends RenderWorker {
+	private class ContextFreeWorker extends RenderWorker {
 		/**
 		 * @param factory
 		 */
-		public FractalRenderWorker(ThreadFactory factory) {
+		public ContextFreeWorker(ThreadFactory factory) {
 			super(factory);
 		}
 

@@ -43,7 +43,7 @@ import net.sf.jame.twister.util.View;
 public class ContextFreeConfig extends AbstractConfigElement {
 	public static final String CLASS_ID = "ContextFreeConfig";
 	private static final long serialVersionUID = 1L;
-	private final SingleConfigElement<CFDGConfigElement> fractalSingleElement = new SingleConfigElement<CFDGConfigElement>("ContextFreeFractalSingleElement");
+	private final SingleConfigElement<CFDGConfigElement> cfdgSingleElement = new SingleConfigElement<CFDGConfigElement>("CFDGSingleElement");
 	private final ViewElement viewElement = new ViewElement(new View(new IntegerVector4D(0, 0, 0, 0), new DoubleVector4D(0, 0, 1, 0), new DoubleVector4D(0, 0, 0, 0)));
 	private final SpeedElement speedElement = new SpeedElement(new Speed(new DoubleVector4D(0, 0, 50, 1), new DoubleVector4D(0, 0, 50, 0)));
 
@@ -90,7 +90,7 @@ public class ContextFreeConfig extends AbstractConfigElement {
 		final ContextFreeConfig config = new ContextFreeConfig();
 		config.setView(getView());
 		config.setSpeed(getSpeed());
-		config.setContextFreeFractal(getContextFreeFractal().clone());
+		config.setCFDG(getCFDG().clone());
 		return config;
 	}
 
@@ -101,7 +101,7 @@ public class ContextFreeConfig extends AbstractConfigElement {
 		final ContextFreeConfig config = (ContextFreeConfig) source;
 		setView(config.getView());
 		setSpeed(config.getSpeed());
-		getFractalSingleElement().copyFrom(config.getFractalSingleElement());
+		getCFDGSingleElement().copyFrom(config.getCFDGSingleElement());
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class ContextFreeConfig extends AbstractConfigElement {
 		super.setContext(context);
 		viewElement.setContext(getContext());
 		speedElement.setContext(getContext());
-		fractalSingleElement.setContext(getContext());
+		cfdgSingleElement.setContext(getContext());
 	}
 
 	/**
@@ -132,22 +132,22 @@ public class ContextFreeConfig extends AbstractConfigElement {
 	/**
 	 * @return
 	 */
-	public CFDGConfigElement getContextFreeFractal() {
-		return fractalSingleElement.getValue();
+	public CFDGConfigElement getCFDG() {
+		return cfdgSingleElement.getValue();
 	}
 
 	/**
-	 * @param contextFreeFractal
+	 * @param cfdgElement
 	 */
-	public void setContextFreeFractal(CFDGConfigElement contextFreeFractal) {
-		fractalSingleElement.setValue(contextFreeFractal);
+	public void setCFDG(CFDGConfigElement cfdgElement) {
+		cfdgSingleElement.setValue(cfdgElement);
 	}
 
 	/**
 	 * @return
 	 */
-	public SingleConfigElement<CFDGConfigElement> getFractalSingleElement() {
-		return fractalSingleElement;
+	public SingleConfigElement<CFDGConfigElement> getCFDGSingleElement() {
+		return cfdgSingleElement;
 	}
 
 	/**
@@ -162,12 +162,12 @@ public class ContextFreeConfig extends AbstractConfigElement {
 			return false;
 		}
 		final ContextFreeConfig other = (ContextFreeConfig) obj;
-		if (fractalSingleElement == null) {
-			if (other.fractalSingleElement != null) {
+		if (cfdgSingleElement == null) {
+			if (other.cfdgSingleElement != null) {
 				return false;
 			}
 		}
-		else if (!fractalSingleElement.equals(other.fractalSingleElement)) {
+		else if (!cfdgSingleElement.equals(other.cfdgSingleElement)) {
 			return false;
 		}
 		if (viewElement == null) {
@@ -196,7 +196,7 @@ public class ContextFreeConfig extends AbstractConfigElement {
 	public void dispose() {
 		viewElement.dispose();
 		speedElement.dispose();
-		fractalSingleElement.dispose();
+		cfdgSingleElement.dispose();
 		super.dispose();
 	}
 }

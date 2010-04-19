@@ -85,7 +85,5 @@ public class PathRuntimeElement extends FigureRuntimeElement {
 	 * @param contextFreeContext
 	 */
 	public void draw(ContextFreeContext contextFreeContext) {
-		//TODO implementare
-		
 	}
 }

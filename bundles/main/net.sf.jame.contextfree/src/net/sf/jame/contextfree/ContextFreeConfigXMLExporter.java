@@ -55,7 +55,7 @@ public class ContextFreeConfigXMLExporter extends XMLExporter<ContextFreeConfig>
 	 * @throws XMLExportException
 	 */
 	protected void exportProperties(final ContextFreeConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-		exportContextFreeFractal(config, createProperty(builder, element, "contextFreeFractal"), builder);
+		exportCFDG(config, createProperty(builder, element, "cdfg"), builder);
 		exportView(config, createProperty(builder, element, "view"), builder);
 		exportSpeed(config, createProperty(builder, element, "speed"), builder);
 	}
@@ -66,8 +66,8 @@ public class ContextFreeConfigXMLExporter extends XMLExporter<ContextFreeConfig>
 	 * @param builder
 	 * @throws XMLExportException
 	 */
-	protected void exportContextFreeFractal(final ContextFreeConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-		element.appendChild(new CFDGConfigElementXMLExporter().exportToElement(config.getContextFreeFractal(), builder));
+	protected void exportCFDG(final ContextFreeConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+		element.appendChild(new CFDGConfigElementXMLExporter().exportToElement(config.getCFDG(), builder));
 	}
 
 	/**

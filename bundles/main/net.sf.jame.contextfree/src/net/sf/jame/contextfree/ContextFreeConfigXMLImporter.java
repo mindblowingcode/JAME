@@ -62,7 +62,7 @@ public class ContextFreeConfigXMLImporter extends XMLImporter<ContextFreeConfig>
 	 * @throws XMLImportException
 	 */
 	protected void importProperties(final ContextFreeConfig config, final List<Element> propertyElements) throws XMLImportException {
-		importContextFreeFractal(config, propertyElements.get(0));
+		importCFDG(config, propertyElements.get(0));
 		importView(config, propertyElements.get(1));
 		importSpeed(config, propertyElements.get(2));
 	}
@@ -72,11 +72,11 @@ public class ContextFreeConfigXMLImporter extends XMLImporter<ContextFreeConfig>
 	 * @param element
 	 * @throws XMLImportException
 	 */
-	protected void importContextFreeFractal(final ContextFreeConfig config, final Element element) throws XMLImportException {
+	protected void importCFDG(final ContextFreeConfig config, final Element element) throws XMLImportException {
 		final List<Element> elements = this.getElements(element, CFDGConfigElement.CLASS_ID);
 		if (elements.size() == 1) {
 			final CFDGConfigElement contextFreeFractal = new CFDGConfigElementXMLImporter().importFromElement(elements.get(0));
-			config.setContextFreeFractal(contextFreeFractal);
+			config.setCFDG(contextFreeFractal);
 		}
 	}
 

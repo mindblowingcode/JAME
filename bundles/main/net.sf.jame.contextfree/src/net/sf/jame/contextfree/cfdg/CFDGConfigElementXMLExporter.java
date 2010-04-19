@@ -26,10 +26,8 @@
 package net.sf.jame.contextfree.cfdg;
 
 import net.sf.jame.contextfree.cfdg.path.PathConfigElement;
-import net.sf.jame.contextfree.cfdg.path.PathConfigElementNode;
 import net.sf.jame.contextfree.cfdg.path.PathConfigElementXMLExporter;
 import net.sf.jame.contextfree.cfdg.rule.RuleConfigElement;
-import net.sf.jame.contextfree.cfdg.rule.RuleConfigElementNode;
 import net.sf.jame.contextfree.cfdg.rule.RuleConfigElementXMLExporter;
 import net.sf.jame.core.common.ColorElementXMLExporter;
 import net.sf.jame.core.common.FloatElementXMLExporter;

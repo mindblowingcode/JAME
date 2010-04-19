@@ -35,8 +35,8 @@ import net.sf.jame.contextfree.ContextFreeConfigBuilder;
 import net.sf.jame.contextfree.ContextFreeConfigNodeBuilder;
 import net.sf.jame.contextfree.ContextFreeRuntime;
 import net.sf.jame.contextfree.extensions.image.ContextFreeImageConfig;
-import net.sf.jame.contextfree.renderer.ContextFreeFractalRenderer;
-import net.sf.jame.contextfree.renderer.DefaultContextFreeFractalRenderer;
+import net.sf.jame.contextfree.renderer.ContextFreeRenderer;
+import net.sf.jame.contextfree.renderer.DefaultContextFreeRenderer;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.core.tree.RootNode;
@@ -60,9 +60,9 @@ public class TestContextFree {
 			nodeBuilder.createNodes(rootNode);
 			Tree tree = new Tree(rootNode);
 			System.out.println(tree);
-			ContextFreeFractalRenderer renderer = new DefaultContextFreeFractalRenderer(Thread.MIN_PRIORITY);
+			ContextFreeRenderer renderer = new DefaultContextFreeRenderer(Thread.MIN_PRIORITY);
 			renderer.setTile(new Tile(new IntegerVector2D(200, 200), new IntegerVector2D(200, 200), new IntegerVector2D(0, 0), new IntegerVector2D(0, 0)));
-			renderer.setFractal(runtime.getContextFreeFractal());
+			renderer.setRuntime(runtime.getCFDG());
 			renderer.start();
 			try {
 				renderer.startRenderer();
