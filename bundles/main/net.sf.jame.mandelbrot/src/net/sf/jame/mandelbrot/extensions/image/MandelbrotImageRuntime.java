@@ -39,14 +39,14 @@ import net.sf.jame.core.util.DoubleVector2D;
 import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.IntegerVector2D;
 import net.sf.jame.core.util.Rectangle;
-import net.sf.jame.mandelbrot.MandelbrotFractalManager;
+import net.sf.jame.mandelbrot.MandelbrotManager;
 import net.sf.jame.mandelbrot.MandelbrotRuntime;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalRuntimeElement;
 import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaRuntimeElement;
-import net.sf.jame.mandelbrot.renderer.FastXaosMandelbrotFractalRenderer;
+import net.sf.jame.mandelbrot.renderer.FastXaosMandelbrotRenderer;
 import net.sf.jame.mandelbrot.renderer.RenderedPoint;
-import net.sf.jame.mandelbrot.renderer.SimpleMandelbrotFractalRenderer;
-import net.sf.jame.mandelbrot.renderer.BestXaosMandelbrotFractalRenderer;
+import net.sf.jame.mandelbrot.renderer.SimpleMandelbrotRenderer;
+import net.sf.jame.mandelbrot.renderer.BestXaosMandelbrotRenderer;
 import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime;
 import net.sf.jame.twister.renderer.TwisterRenderer;
 import net.sf.jame.twister.renderer.TwisterRenderingHints;
@@ -282,7 +282,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	private class DefaultRendererStrategy implements RendererStrategy {
-		private MandelbrotFractalManager fractalManager;
+		private MandelbrotManager manager;
 		private int dynamicCount = 0;
 		public boolean dirty;
 
@@ -293,57 +293,57 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 			if (hints.get(TwisterRenderingHints.KEY_QUALITY) == TwisterRenderingHints.QUALITY_REALTIME) {
 				if (hints.get(TwisterRenderingHints.KEY_TYPE) == TwisterRenderingHints.TYPE_PREVIEW) {
 					if (hints.get(TwisterRenderingHints.KEY_MEMORY) == TwisterRenderingHints.MEMORY_LOW) {
-						fractalManager = new MandelbrotFractalManager(new FastXaosMandelbrotFractalRenderer(Thread.MIN_PRIORITY));
+						manager = new MandelbrotManager(new FastXaosMandelbrotRenderer(Thread.MIN_PRIORITY));
 					}
 					else {
-						fractalManager = new MandelbrotFractalManager(new BestXaosMandelbrotFractalRenderer(Thread.MIN_PRIORITY));
+						manager = new MandelbrotManager(new BestXaosMandelbrotRenderer(Thread.MIN_PRIORITY));
 					}
 				}
 				else {
 					if (hints.get(TwisterRenderingHints.KEY_MEMORY) == TwisterRenderingHints.MEMORY_LOW) {
-						fractalManager = new MandelbrotFractalManager(new FastXaosMandelbrotFractalRenderer(Thread.MIN_PRIORITY + 2));
+						manager = new MandelbrotManager(new FastXaosMandelbrotRenderer(Thread.MIN_PRIORITY + 2));
 					}
 					else {
-						fractalManager = new MandelbrotFractalManager(new BestXaosMandelbrotFractalRenderer(Thread.MIN_PRIORITY + 2));
+						manager = new MandelbrotManager(new BestXaosMandelbrotRenderer(Thread.MIN_PRIORITY + 2));
 					}
 				}
 			}
 			else {
-				fractalManager = new MandelbrotFractalManager(new SimpleMandelbrotFractalRenderer(Thread.MIN_PRIORITY + 1));
+				manager = new MandelbrotManager(new SimpleMandelbrotRenderer(Thread.MIN_PRIORITY + 1));
 			}
-			fractalManager.setRenderingHints(hints);
-			fractalManager.setFractal(mandelbrotRuntime.getMandelbrotFractal());
+			manager.setRenderingHints(hints);
+			manager.setRuntime(mandelbrotRuntime.getMandelbrotFractal());
 			loadConfig();
-			fractalManager.setTile(tile);
-			fractalManager.start();
+			manager.setTile(tile);
+			manager.start();
 		}
 
 		/**
 		 * @see net.sf.jame.mandelbrot.extensions.image.MandelbrotImageRuntime.RendererStrategy#startRenderer()
 		 */
 		public void startRenderer() {
-			fractalManager.startRenderer();
+			manager.startRenderer();
 		}
 
 		/**
 		 * @see net.sf.jame.mandelbrot.extensions.image.MandelbrotImageRuntime.RendererStrategy#abortRenderer()
 		 */
 		public void abortRenderer() {
-			fractalManager.abortRenderer();
+			manager.abortRenderer();
 		}
 
 		/**
 		 * @see net.sf.jame.mandelbrot.extensions.image.MandelbrotImageRuntime.RendererStrategy#joinRenderer()
 		 */
 		public void joinRenderer() throws InterruptedException {
-			fractalManager.joinRenderer();
+			manager.joinRenderer();
 		}
 
 		/**
 		 * @see net.sf.jame.mandelbrot.extensions.image.MandelbrotImageRuntime.RendererStrategy#getRenderingStatus()
 		 */
 		public int getRenderingStatus() {
-			return fractalManager.getRenderingStatus();
+			return manager.getRenderingStatus();
 		}
 
 		/**
@@ -351,10 +351,10 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 		 */
 		public void drawImage(final Graphics2D g2d) {
 			if (tile != null) {
-				fractalManager.drawImage(g2d);
+				manager.drawImage(g2d);
 				if (dirty) {
 					dirty = false;
-					fractalManager.asyncStart();
+					manager.asyncStart();
 					// try {
 					// fractalManager.joinRenderer();
 					// fractalManager.startRenderer();
@@ -371,10 +371,10 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 		 */
 		public void drawImage(final Graphics2D g2d, final int x, final int y) {
 			if (tile != null) {
-				fractalManager.drawImage(g2d, x, y);
+				manager.drawImage(g2d, x, y);
 				if (dirty) {
 					dirty = false;
-					fractalManager.asyncStart();
+					manager.asyncStart();
 					// try {
 					// fractalManager.joinRenderer();
 					// fractalManager.startRenderer();
@@ -391,10 +391,10 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 		 */
 		public void drawImage(final Graphics2D g2d, final int x, final int y, final int w, final int h) {
 			if (tile != null) {
-				fractalManager.drawImage(g2d, x, y, w, h);
+				manager.drawImage(g2d, x, y, w, h);
 				if (dirty) {
 					dirty = false;
-					fractalManager.asyncStart();
+					manager.asyncStart();
 					// try {
 					// fractalManager.joinRenderer();
 					// fractalManager.startRenderer();
@@ -417,13 +417,13 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 					dynamicCount = 0;
 					loadConfig();
 					dirty = true;
-					fractalManager.asyncStop();
+					manager.asyncStop();
 				}
 			}
 			else {
 				loadConfig();
 			}
-			if (fractalManager.isDynamic()) {
+			if (manager.isDynamic()) {
 				dynamicCount += 1;
 			}
 			else {
@@ -432,17 +432,17 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 		}
 
 		private void loadConfig() {
-			fractalManager.setView(getConfig().getMandelbrotConfig().getView(), getConfig().getMandelbrotConfig().getConstant(), getConfig().getMandelbrotConfig().getImageMode());
+			manager.setView(getConfig().getMandelbrotConfig().getView(), getConfig().getMandelbrotConfig().getConstant(), getConfig().getMandelbrotConfig().getImageMode());
 		}
 
 		/**
 		 * @see net.sf.jame.mandelbrot.extensions.image.MandelbrotImageRuntime.RendererStrategy#dispose()
 		 */
 		public void dispose() {
-			if (fractalManager != null) {
-				fractalManager.stop();
-				fractalManager.dispose();
-				fractalManager = null;
+			if (manager != null) {
+				manager.stop();
+				manager.dispose();
+				manager = null;
 			}
 		}
 
@@ -455,7 +455,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	private class OverlayRendererStrategy implements RendererStrategy {
-		private MandelbrotFractalManager fractalManager;
+		private MandelbrotManager manager;
 		private boolean suspended;
 		private boolean dirty;
 
@@ -466,26 +466,26 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 			if (hints.get(TwisterRenderingHints.KEY_QUALITY) == TwisterRenderingHints.QUALITY_REALTIME) {
 				if (hints.get(TwisterRenderingHints.KEY_TYPE) == TwisterRenderingHints.TYPE_PREVIEW) {
 					if (hints.get(TwisterRenderingHints.KEY_MEMORY) == TwisterRenderingHints.MEMORY_LOW) {
-						fractalManager = new MandelbrotFractalManager(new FastXaosMandelbrotFractalRenderer(Thread.MIN_PRIORITY));
+						manager = new MandelbrotManager(new FastXaosMandelbrotRenderer(Thread.MIN_PRIORITY));
 					}
 					else {
-						fractalManager = new MandelbrotFractalManager(new BestXaosMandelbrotFractalRenderer(Thread.MIN_PRIORITY));
+						manager = new MandelbrotManager(new BestXaosMandelbrotRenderer(Thread.MIN_PRIORITY));
 					}
 				}
 				else {
 					if (hints.get(TwisterRenderingHints.KEY_MEMORY) == TwisterRenderingHints.MEMORY_LOW) {
-						fractalManager = new MandelbrotFractalManager(new FastXaosMandelbrotFractalRenderer(Thread.MIN_PRIORITY + 2));
+						manager = new MandelbrotManager(new FastXaosMandelbrotRenderer(Thread.MIN_PRIORITY + 2));
 					}
 					else {
-						fractalManager = new MandelbrotFractalManager(new BestXaosMandelbrotFractalRenderer(Thread.MIN_PRIORITY + 2));
+						manager = new MandelbrotManager(new BestXaosMandelbrotRenderer(Thread.MIN_PRIORITY + 2));
 					}
 				}
 			}
 			else {
-				fractalManager = new MandelbrotFractalManager(new SimpleMandelbrotFractalRenderer(Thread.MIN_PRIORITY + 1));
+				manager = new MandelbrotManager(new SimpleMandelbrotRenderer(Thread.MIN_PRIORITY + 1));
 			}
-			fractalManager.setRenderingHints(hints);
-			fractalManager.setFractal(mandelbrotRuntime.getMandelbrotFractal());
+			manager.setRenderingHints(hints);
+			manager.setRuntime(mandelbrotRuntime.getMandelbrotFractal());
 			loadConfig();
 			final Rectangle previewArea = getConfig().getMandelbrotConfig().getPreviewArea();
 			final int px = (int) Math.rint(tile.getImageSize().getX() * previewArea.getX());
@@ -518,12 +518,12 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 						oh = ph - oy;
 					}
 					if ((ow > 0) && (oh > 0) && (ox >= 0) && (oy >= 0)) {
-						fractalManager.setTile(new Tile(new IntegerVector2D(pw, ph), new IntegerVector2D(ow, oh), new IntegerVector2D(ox, oy), new IntegerVector2D(0, 0)));
+						manager.setTile(new Tile(new IntegerVector2D(pw, ph), new IntegerVector2D(ow, oh), new IntegerVector2D(ox, oy), new IntegerVector2D(0, 0)));
 						suspended = false;
 					}
 				}
 			}
-			fractalManager.start();
+			manager.start();
 		}
 
 		/**
@@ -531,7 +531,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 		 */
 		public void startRenderer() {
 			if (!suspended) {
-				fractalManager.startRenderer();
+				manager.startRenderer();
 			}
 		}
 
@@ -540,7 +540,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 		 */
 		public void abortRenderer() {
 			if (!suspended) {
-				fractalManager.abortRenderer();
+				manager.abortRenderer();
 			}
 		}
 
@@ -549,7 +549,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 		 */
 		public void joinRenderer() throws InterruptedException {
 			if (!suspended) {
-				fractalManager.joinRenderer();
+				manager.joinRenderer();
 			}
 		}
 
@@ -557,7 +557,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 		 * @see net.sf.jame.mandelbrot.extensions.image.MandelbrotImageRuntime.RendererStrategy#getRenderingStatus()
 		 */
 		public int getRenderingStatus() {
-			return fractalManager.getRenderingStatus();
+			return manager.getRenderingStatus();
 		}
 
 		/**
@@ -597,7 +597,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 							if ((ow > 0) && (oh > 0) && (ox >= 0) && (oy >= 0)) {
 								g2d.setColor(Color.RED);
 								g2d.setClip(tx, ty, tw, th);
-								fractalManager.drawImage(g2d, px - tx + ox, py - ty + oy, ow, oh);
+								manager.drawImage(g2d, px - tx + ox, py - ty + oy, ow, oh);
 								g2d.drawRect(px - tx + ox - 1, py - ty + oy - 1, ow, oh);
 								final MandelbrotFractalRuntimeElement fractal = mandelbrotRuntime.getMandelbrotFractal();
 								if (fractal != null) {
@@ -724,7 +724,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 				}
 				if (dirty) {
 					dirty = false;
-					fractalManager.asyncStart();
+					manager.asyncStart();
 					// try {
 					// fractalManager.joinRenderer();
 					// fractalManager.startRenderer();
@@ -761,7 +761,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 					if (isChanged) {
 						loadConfig();
 						dirty = true;
-						fractalManager.asyncStop();
+						manager.asyncStop();
 					}
 				}
 			}
@@ -772,22 +772,22 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 
 		private void loadConfig() {
 			if (getConfig().getMandelbrotConfig().getImageMode() == 0) {
-				fractalManager.setMandelbrotMode(1);
+				manager.setMandelbrotMode(1);
 			}
 			else {
-				fractalManager.setMandelbrotMode(0);
+				manager.setMandelbrotMode(0);
 			}
-			fractalManager.setConstant(getConfig().getMandelbrotConfig().getConstant());
+			manager.setConstant(getConfig().getMandelbrotConfig().getConstant());
 		}
 
 		/**
 		 * @see net.sf.jame.mandelbrot.extensions.image.MandelbrotImageRuntime.RendererStrategy#dispose()
 		 */
 		public void dispose() {
-			if (fractalManager != null) {
-				fractalManager.stop();
-				fractalManager.dispose();
-				fractalManager = null;
+			if (manager != null) {
+				manager.stop();
+				manager.dispose();
+				manager = null;
 			}
 		}
 

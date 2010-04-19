@@ -36,7 +36,7 @@ import net.sf.jame.twister.util.View;
 /**
  * @author Andrea Medeghini
  */
-public interface MandelbrotFractalRenderer {
+public interface MandelbrotRenderer {
 	/**
 	 * 
 	 */
@@ -103,14 +103,14 @@ public interface MandelbrotFractalRenderer {
 	public int getMode();
 
 	/**
-	 * @return the fractal.
+	 * @return the runtime.
 	 */
-	public MandelbrotFractalRuntimeElement getFractal();
+	public MandelbrotFractalRuntimeElement getRuntime();
 
 	/**
-	 * @param fractal the fractal.
+	 * @param runtime the fractal.
 	 */
-	public void setFractal(MandelbrotFractalRuntimeElement fractal);
+	public void setRuntime(MandelbrotFractalRuntimeElement runtime);
 
 	/**
 	 * @param hints

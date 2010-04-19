@@ -31,7 +31,7 @@ import java.util.Map;
 import net.sf.jame.core.util.DoubleVector2D;
 import net.sf.jame.core.util.Tile;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalRuntimeElement;
-import net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer;
+import net.sf.jame.mandelbrot.renderer.MandelbrotRenderer;
 import net.sf.jame.twister.util.View;
 
 import org.apache.log4j.Logger;
@@ -39,8 +39,8 @@ import org.apache.log4j.Logger;
 /**
  * @author Andrea Medeghini
  */
-public class MandelbrotFractalManager {
-	protected static final Logger logger = Logger.getLogger(MandelbrotFractalManager.class);
+public class MandelbrotManager {
+	protected static final Logger logger = Logger.getLogger(MandelbrotManager.class);
 	protected static final boolean debug = false;
 	protected int width = 0;
 	protected int height = 0;
@@ -53,12 +53,12 @@ public class MandelbrotFractalManager {
 	protected double zoomSpeed = 0;
 	protected double shiftSpeed = 0;
 	protected double rotationSpeed = 0;
-	protected MandelbrotFractalRenderer renderer;
+	protected MandelbrotRenderer renderer;
 
 	/**
 	 * @param renderer the renderer.
 	 */
-	public MandelbrotFractalManager(final MandelbrotFractalRenderer renderer) {
+	public MandelbrotManager(final MandelbrotRenderer renderer) {
 		this.renderer = renderer;
 	}
 
@@ -81,14 +81,14 @@ public class MandelbrotFractalManager {
 	/**
 	 * @param runtime
 	 */
-	public void setFractal(final MandelbrotFractalRuntimeElement fractal) {
-		renderer.setFractal(fractal);
+	public void setRuntime(final MandelbrotFractalRuntimeElement runtime) {
+		renderer.setRuntime(runtime);
 	}
 
 	/**
 	 * @param renderer
 	 */
-	public void setRenderer(final MandelbrotFractalRenderer renderer) {
+	public void setRenderer(final MandelbrotRenderer renderer) {
 		this.renderer = renderer;
 	}
 
@@ -223,14 +223,14 @@ public class MandelbrotFractalManager {
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#start()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#start()
 	 */
 	public void start() {
 		renderer.start();
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#stop()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#stop()
 	 */
 	public void stop() {
 		renderer.stop();

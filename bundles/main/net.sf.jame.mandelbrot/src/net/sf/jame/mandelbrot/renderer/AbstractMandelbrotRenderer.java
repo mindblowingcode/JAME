@@ -53,8 +53,8 @@ import org.apache.log4j.Logger;
 /**
  * @author Andrea Medeghini
  */
-public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFractalRenderer {
-	protected static final Logger logger = Logger.getLogger(AbstractMandelbrotFractalRenderer.class);
+public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
+	protected static final Logger logger = Logger.getLogger(AbstractMandelbrotRenderer.class);
 	private Graphics2D newBuffer;
 	private Graphics2D oldBuffer;
 	private BufferedImage newImage;
@@ -69,7 +69,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	protected double rotationValue;
 	protected DoubleVector2D newConstant;
 	protected DoubleVector2D oldConstant;
-	protected int renderMode = MandelbrotFractalRenderer.MODE_CALCULATE;
+	protected int renderMode = MandelbrotRenderer.MODE_CALCULATE;
 	protected int newImageMode = 0;
 	protected int oldImageMode = 0;
 	private boolean dynamic = false;
@@ -77,14 +77,14 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	private AffineTransform transform = new AffineTransform();
 	protected RenderedArea area = new RenderedArea();
 	protected RenderingStrategy renderingStrategy;
-	protected MandelbrotFractalRuntimeElement fractal;
+	protected MandelbrotFractalRuntimeElement runtime;
 	private final Complex center = new Complex();
 	private final Complex scale = new Complex();
 	protected View newView = new View(new IntegerVector4D(0, 0, 0, 0), new DoubleVector4D(0, 0, 1, 0), new DoubleVector4D(0, 0, 0, 0));
 	protected View oldView = new View(new IntegerVector4D(0, 0, 0, 0), new DoubleVector4D(0, 0, 1, 0), new DoubleVector4D(0, 0, 0, 0));
 	protected int percent = 100;
 	protected int status = TwisterRenderer.STATUS_TERMINATED;
-	private final FractalRenderWorker renderWorker;
+	private final MandelbrotWorker renderWorker;
 	protected final ThreadFactory factory;
 	private boolean viewChanged;
 	private boolean invalidated;
@@ -93,9 +93,9 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	/**
 	 * @param threadPriority
 	 */
-	public AbstractMandelbrotFractalRenderer(final int threadPriority) {
-		factory = new DefaultThreadFactory("MandelbrotFractalRendererWorker", true, threadPriority);
-		renderWorker = new FractalRenderWorker(factory);
+	public AbstractMandelbrotRenderer(final int threadPriority) {
+		factory = new DefaultThreadFactory("MandelbrotRendererWorker", true, threadPriority);
+		renderWorker = new MandelbrotWorker(factory);
 	}
 
 	/**
@@ -125,7 +125,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#asyncStop()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#asyncStop()
 	 */
 	public final void asyncStop() {
 		clearTasks();
@@ -133,7 +133,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#asyncStart()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#asyncStart()
 	 */
 	public final void asyncStart() {
 		startTasks();
@@ -152,7 +152,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#dispose()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#dispose()
 	 */
 	public final void dispose() {
 		stop();
@@ -160,21 +160,21 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#getFractal()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#getRuntime()
 	 */
-	public MandelbrotFractalRuntimeElement getFractal() {
-		return fractal;
+	public MandelbrotFractalRuntimeElement getRuntime() {
+		return runtime;
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#setFractal(net.sf.jame.mandelbrot.fractal.MandelbrotFractalRuntimeElement)
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#setRuntime(net.sf.jame.mandelbrot.fractal.MandelbrotFractalRuntimeElement)
 	 */
-	public void setFractal(final MandelbrotFractalRuntimeElement fractal) {
-		this.fractal = fractal;
+	public void setRuntime(final MandelbrotFractalRuntimeElement fractal) {
+		this.runtime = fractal;
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#setView(net.sf.jame.twister.util.View, net.sf.jame.core.util.DoubleVector2D, int)
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#setView(net.sf.jame.twister.util.View, net.sf.jame.core.util.DoubleVector2D, int)
 	 */
 	public void setView(final View view, final DoubleVector2D constant, final int imageMode) {
 		synchronized (this) {
@@ -185,7 +185,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#setView(net.sf.jame.twister.util.View)
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#setView(net.sf.jame.twister.util.View)
 	 */
 	public void setView(final View view) {
 		synchronized (this) {
@@ -202,12 +202,12 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 		dynamic = (view.getStatus().getZ() == 1) || (view.getStatus().getW() == 1);
 		dynamicZoom = dynamic;
 		if (view.getStatus().getZ() == 2) {
-			setMode(MandelbrotFractalRenderer.MODE_CALCULATE);
+			setMode(MandelbrotRenderer.MODE_CALCULATE);
 		}
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#isDynamic()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#isDynamic()
 	 */
 	public boolean isDynamic() {
 		final boolean value = dynamic;
@@ -216,7 +216,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#isViewChanged()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#isViewChanged()
 	 */
 	public boolean isViewChanged() {
 		final boolean value = viewChanged;
@@ -274,41 +274,41 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#setRenderingHints(java.util.Map)
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#setRenderingHints(java.util.Map)
 	 */
 	public void setRenderingHints(final Map<Object, Object> hints) {
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#setMode(int)
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#setMode(int)
 	 */
 	public void setMode(final int renderMode) {
 		this.renderMode |= renderMode;
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#getMode()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#getMode()
 	 */
 	public int getMode() {
 		return renderMode;
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#startRenderer()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#startRenderer()
 	 */
 	public void startRenderer() {
 		renderWorker.executeTask();
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#abortRenderer()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#abortRenderer()
 	 */
 	public void abortRenderer() {
 		renderWorker.abortTasks();
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#joinRenderer()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#joinRenderer()
 	 */
 	public void joinRenderer() throws InterruptedException {
 		renderWorker.waitTasks();
@@ -321,31 +321,31 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 				updateView(newView);
 			}
 			if (newShiftValue != oldShiftValue) {
-				setMode(MandelbrotFractalRenderer.MODE_REFRESH);
+				setMode(MandelbrotRenderer.MODE_REFRESH);
 			}
 			if (newImageMode != oldImageMode) {
-				setMode(MandelbrotFractalRenderer.MODE_CALCULATE);
+				setMode(MandelbrotRenderer.MODE_CALCULATE);
 			}
 			if ((newConstant != oldConstant) && (newImageMode != 0)) {
-				setMode(MandelbrotFractalRenderer.MODE_CALCULATE);
+				setMode(MandelbrotRenderer.MODE_CALCULATE);
 			}
-			if (fractal.isRenderingFormulaChanged()) {
-				setMode(MandelbrotFractalRenderer.MODE_CALCULATE);
+			if (runtime.isRenderingFormulaChanged()) {
+				setMode(MandelbrotRenderer.MODE_CALCULATE);
 			}
-			if (fractal.isTransformingFormulaChanged()) {
-				setMode(MandelbrotFractalRenderer.MODE_CALCULATE);
+			if (runtime.isTransformingFormulaChanged()) {
+				setMode(MandelbrotRenderer.MODE_CALCULATE);
 			}
-			if (fractal.isProcessingFormulaChanged()) {
-				setMode(MandelbrotFractalRenderer.MODE_CALCULATE);
+			if (runtime.isProcessingFormulaChanged()) {
+				setMode(MandelbrotRenderer.MODE_CALCULATE);
 			}
-			if (fractal.isOrbitTrapChanged()) {
-				setMode(MandelbrotFractalRenderer.MODE_CALCULATE);
+			if (runtime.isOrbitTrapChanged()) {
+				setMode(MandelbrotRenderer.MODE_CALCULATE);
 			}
-			if (fractal.isIncolouringFormulaChanged()) {
-				setMode(MandelbrotFractalRenderer.MODE_REFRESH);
+			if (runtime.isIncolouringFormulaChanged()) {
+				setMode(MandelbrotRenderer.MODE_REFRESH);
 			}
-			if (fractal.isOutcolouringFormulaChanged()) {
-				setMode(MandelbrotFractalRenderer.MODE_REFRESH);
+			if (runtime.isOutcolouringFormulaChanged()) {
+				setMode(MandelbrotRenderer.MODE_REFRESH);
 			}
 			// if (!isDynamic) {
 			// setMode(FractalRenderer.MODE_REFRESH);
@@ -355,7 +355,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 			oldImageMode = newImageMode;
 			oldShiftValue = newShiftValue;
 			if (newTile != oldTile) {
-				setMode(MandelbrotFractalRenderer.MODE_CALCULATE);
+				setMode(MandelbrotRenderer.MODE_CALCULATE);
 				oldTile = newTile;
 				free();
 				init();
@@ -363,7 +363,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 		}
 		if (oldImageMode == 0) {
 			renderingStrategy = getMandelbrotRenderingStrategy();
-			if ((fractal.getRenderingFormula() != null) && (fractal.getRenderingFormula().getFormulaRuntime() != null) && !fractal.getRenderingFormula().getFormulaRuntime().isMandelbrotModeAllowed()) {
+			if ((runtime.getRenderingFormula() != null) && (runtime.getRenderingFormula().getFormulaRuntime() != null) && !runtime.getRenderingFormula().getFormulaRuntime().isMandelbrotModeAllowed()) {
 				status = TwisterRenderer.STATUS_TERMINATED;
 				newBuffer.clearRect(0, 0, newImage.getWidth(), newImage.getHeight());
 				dynamicZoom = false;
@@ -375,7 +375,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 		}
 		percent = 0;
 		status = TwisterRenderer.STATUS_RENDERING;
-		doFractal(dynamicZoom);
+		doRender(dynamicZoom);
 		if (percent == 100) {
 			status = TwisterRenderer.STATUS_TERMINATED;
 		}
@@ -386,14 +386,14 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#getRenderingStatus()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#getRenderingStatus()
 	 */
 	public int getRenderingStatus() {
 		return status;
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#setTile(net.sf.jame.core.util.Tile)
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#setTile(net.sf.jame.core.util.Tile)
 	 */
 	public void setTile(final Tile tile) {
 		synchronized (this) {
@@ -403,7 +403,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#getTile()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#getTile()
 	 */
 	public Tile getTile() {
 		return oldTile;
@@ -424,7 +424,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#setMandelbrotMode(boolean)
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#setMandelbrotMode(boolean)
 	 */
 	public void setMandelbrotMode(final Integer mode) {
 		synchronized (this) {
@@ -433,7 +433,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#setConstant(net.sf.jame.core.util.DoubleVector2D)
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#setConstant(net.sf.jame.core.util.DoubleVector2D)
 	 */
 	public void setConstant(final DoubleVector2D constant) {
 		synchronized (this) {
@@ -458,15 +458,15 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	 * 
 	 */
 	protected void updateRegion() {
-		if ((fractal.getRenderingFormula() != null) && (fractal.getRenderingFormula().getFormulaRuntime() != null)) {
-			final DoubleVector2D s = fractal.getRenderingFormula().getFormulaRuntime().getScale();
+		if ((runtime.getRenderingFormula() != null) && (runtime.getRenderingFormula().getFormulaRuntime() != null)) {
+			final DoubleVector2D s = runtime.getRenderingFormula().getFormulaRuntime().getScale();
 			final double x = oldView.getPosition().getX();
 			final double y = oldView.getPosition().getY();
 			final double z = oldView.getPosition().getZ();
 			scale.r = s.getX() * z;
 			scale.i = s.getY() * z;
-			center.r = fractal.getRenderingFormula().getFormulaRuntime().getCenter().getX() + x;
-			center.i = fractal.getRenderingFormula().getFormulaRuntime().getCenter().getY() + y;
+			center.r = runtime.getRenderingFormula().getFormulaRuntime().getCenter().getX() + x;
+			center.i = runtime.getRenderingFormula().getFormulaRuntime().getCenter().getY() + y;
 			final double imageOffsetX = (imageDim - oldTile.getImageSize().getX() - oldTile.getTileBorder().getX() * 2) / 2;
 			final double imageOffsetY = (imageDim - oldTile.getImageSize().getY() - oldTile.getTileBorder().getY() * 2) / 2;
 			double sx = (scale.r * 0.5d * imageDim) / oldTile.getImageSize().getX();
@@ -518,7 +518,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	 * @return the color.
 	 */
 	protected int renderPoint(final RenderedPoint cp) {
-		fractal.getRenderingFormula().getFormulaRuntime().renderPoint(cp);
+		runtime.getRenderingFormula().getFormulaRuntime().renderPoint(cp);
 		return renderColor(cp);
 	}
 
@@ -530,8 +530,8 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 		int newRGB = 0;
 		int tmpRGB = 0;
 		if (cp.time > 0) {
-			if (fractal.getOutcolouringFormulaCount() == 1) {
-				final OutcolouringFormulaRuntimeElement outcolouringFormula = fractal.getOutcolouringFormula(0);
+			if (runtime.getOutcolouringFormulaCount() == 1) {
+				final OutcolouringFormulaRuntimeElement outcolouringFormula = runtime.getOutcolouringFormula(0);
 				if ((outcolouringFormula.getFormulaRuntime() != null) && outcolouringFormula.isEnabled()) {
 					if (newShiftValue != 0) {
 						newRGB = outcolouringFormula.getFormulaRuntime().renderColor(cp, newShiftValue);
@@ -542,8 +542,8 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 				}
 			}
 			else {
-				for (int i = 0; i < fractal.getOutcolouringFormulaCount(); i++) {
-					final OutcolouringFormulaRuntimeElement outcolouringFormula = fractal.getOutcolouringFormula(i);
+				for (int i = 0; i < runtime.getOutcolouringFormulaCount(); i++) {
+					final OutcolouringFormulaRuntimeElement outcolouringFormula = runtime.getOutcolouringFormula(i);
 					if ((outcolouringFormula.getFormulaRuntime() != null) && outcolouringFormula.isEnabled()) {
 						if (newShiftValue != 0) {
 							tmpRGB = outcolouringFormula.getFormulaRuntime().renderColor(cp, newShiftValue);
@@ -558,8 +558,8 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 			return newRGB;
 		}
 		else {
-			if (fractal.getIncolouringFormulaCount() == 1) {
-				final IncolouringFormulaRuntimeElement incolouringFormula = fractal.getIncolouringFormula(0);
+			if (runtime.getIncolouringFormulaCount() == 1) {
+				final IncolouringFormulaRuntimeElement incolouringFormula = runtime.getIncolouringFormula(0);
 				if ((incolouringFormula.getFormulaRuntime() != null) && incolouringFormula.isEnabled()) {
 					if (newShiftValue != 0) {
 						newRGB = incolouringFormula.getFormulaRuntime().renderColor(cp, newShiftValue);
@@ -570,8 +570,8 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 				}
 			}
 			else {
-				for (int i = 0; i < fractal.getIncolouringFormulaCount(); i++) {
-					final IncolouringFormulaRuntimeElement incolouringFormula = fractal.getIncolouringFormula(i);
+				for (int i = 0; i < runtime.getIncolouringFormulaCount(); i++) {
+					final IncolouringFormulaRuntimeElement incolouringFormula = runtime.getIncolouringFormula(i);
 					if ((incolouringFormula.getFormulaRuntime() != null) && incolouringFormula.isEnabled()) {
 						if (newShiftValue != 0) {
 							tmpRGB = incolouringFormula.getFormulaRuntime().renderColor(cp, newShiftValue);
@@ -590,20 +590,20 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	/**
 	 * @param dynamic
 	 */
-	protected abstract void doFractal(boolean dynamic);
+	protected abstract void doRender(boolean dynamic);
 
 	/**
 	 * @return true if solidguess is supported.
 	 */
 	public boolean isSolidGuessSupported() {
-		for (int i = 0; i < fractal.getOutcolouringFormulaCount(); i++) {
-			final OutcolouringFormulaRuntimeElement outcolouringFormula = fractal.getOutcolouringFormula(i);
+		for (int i = 0; i < runtime.getOutcolouringFormulaCount(); i++) {
+			final OutcolouringFormulaRuntimeElement outcolouringFormula = runtime.getOutcolouringFormula(i);
 			if ((outcolouringFormula.getFormulaRuntime() != null) && !outcolouringFormula.getFormulaRuntime().isSolidGuessAllowed() && outcolouringFormula.isEnabled()) {
 				return false;
 			}
 		}
-		for (int i = 0; i < fractal.getIncolouringFormulaCount(); i++) {
-			final IncolouringFormulaRuntimeElement incolouringFormula = fractal.getIncolouringFormula(i);
+		for (int i = 0; i < runtime.getIncolouringFormulaCount(); i++) {
+			final IncolouringFormulaRuntimeElement incolouringFormula = runtime.getIncolouringFormula(i);
 			if ((incolouringFormula.getFormulaRuntime() != null) && !incolouringFormula.getFormulaRuntime().isSolidGuessAllowed() && incolouringFormula.isEnabled()) {
 				return false;
 			}
@@ -626,7 +626,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#drawImage(java.awt.Graphics2D)
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#drawImage(java.awt.Graphics2D)
 	 */
 	public void drawImage(final Graphics2D g) {
 		synchronized (lock) {
@@ -644,7 +644,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#drawImage(java.awt.Graphics2D, int, int)
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#drawImage(java.awt.Graphics2D, int, int)
 	 */
 	public void drawImage(final Graphics2D g, final int x, final int y) {
 		synchronized (lock) {
@@ -662,7 +662,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#drawImage(java.awt.Graphics2D, int, int, int, int)
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#drawImage(java.awt.Graphics2D, int, int, int, int)
 	 */
 	public void drawImage(final Graphics2D g, final int x, final int y, final int w, final int h) {
 		synchronized (lock) {
@@ -691,7 +691,7 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotFractalRenderer#isInterrupted()
+	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#isInterrupted()
 	 */
 	public boolean isInterrupted() {
 		return Thread.currentThread().isInterrupted();
@@ -735,11 +735,11 @@ public abstract class AbstractMandelbrotFractalRenderer implements MandelbrotFra
 		public void updateParameters();
 	}
 
-	private class FractalRenderWorker extends RenderWorker {
+	private class MandelbrotWorker extends RenderWorker {
 		/**
 		 * @param factory
 		 */
-		public FractalRenderWorker(ThreadFactory factory) {
+		public MandelbrotWorker(ThreadFactory factory) {
 			super(factory);
 		}
 
