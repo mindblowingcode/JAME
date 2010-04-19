@@ -26,33 +26,61 @@
 package net.sf.jame.contextfree.renderer;
 
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import net.sf.jame.contextfree.ContextFreeRegistry;
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.contextfree.cfdg.FigureRuntimeElement;
+import net.sf.jame.contextfree.cfdg.extension.PrimitiveExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.path.PathConfigElement;
+import net.sf.jame.contextfree.cfdg.path.PathRuntimeElement;
 import net.sf.jame.contextfree.cfdg.rule.RuleConfigElement;
+import net.sf.jame.contextfree.cfdg.rule.RuleRuntimeElement;
+import net.sf.jame.core.extension.Extension;
 
 public class ContextFreeContext {
 	private Stack<ContextFreeState> stateStack = new Stack<ContextFreeState>();
 	private ContextFreeState state = new ContextFreeState();
-	private FigureMap figureMap = new FigureMap();
-	private CFDGRuntimeElement runtime;
+	private PrimitiveMap primitiveMap = new PrimitiveMap();
+	private RuleMap ruleMap = new RuleMap();
+	private PathMap pathMap = new PathMap();
+	//private CFDGRuntimeElement runtime;
 	private Graphics2D g2d;
 
 	public ContextFreeContext(Graphics2D g2d, CFDGRuntimeElement runtime) {
 		this.g2d = g2d;
-		this.runtime = runtime;
+		//this.runtime = runtime;
+		for (Extension<PrimitiveExtensionRuntime> extension : ContextFreeRegistry.getInstance().getPrimitiveRegistry().getExtensionList()) {
+			try {
+				PrimitiveExtensionRuntime primitiveRuntime = extension.createExtensionRuntime();
+				primitiveMap.add(primitiveRuntime.getName(), primitiveRuntime);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		for (int i = 0; i < runtime.getFigureCount(); i++) {
-			FigureRuntimeElement figure = runtime.getFigure(i);
-			figureMap.add(figure);
+			FigureRuntimeElement figureElement = runtime.getFigure(i);
+			if (figureElement.getFigureElement().getClassId().equals(PathConfigElement.CLASS_ID)) {
+				pathMap.add((PathRuntimeElement) figureElement);
+			} else if (figureElement.getFigureElement().getClassId().equals(RuleConfigElement.CLASS_ID)) {
+				ruleMap.add((RuleRuntimeElement) figureElement);
+			}
 		}
 	}
 
+	public void drawShape(Shape shape) {
+		g2d.draw(shape);
+	}
+
+	public void fillShape(Shape shape) {
+		g2d.fill(shape);
+	}
+	
 	public void pushState() {
 		stateStack.push(state);
 		state = state.clone();
@@ -206,40 +234,110 @@ public class ContextFreeContext {
 		state.setZ(z);
 	}
 
-	public void draw(String figureName) {
-		// TODO Auto-generated method stub
-		FigureRuntimeElement figure = figureMap.get(figureName);
-		if (figure != null) {
-			figure.draw(this);
-		}
-	}
-	
-	private class FigureMap {
-		private Map<String, List<FigureRuntimeElement>> map = new LinkedHashMap<String, List<FigureRuntimeElement>>();
-
-		public void add(FigureRuntimeElement figureElement) {
-			// TODO Auto-generated method stub
-			List<FigureRuntimeElement> entry = map.get(figureElement.getName());
-			if (entry == null) {
-				entry = new LinkedList<FigureRuntimeElement>();
-				map.put(figureElement.getName(), entry);
-			}
-			if (figureElement.getFigureElement().getClassId().equals(PathConfigElement.CLASS_ID)) {
-				entry.clear();
-				entry.add(figureElement);
-			} else if (figureElement.getFigureElement().getClassId().equals(RuleConfigElement.CLASS_ID)) {
-				RuleConfigElement ruleElement = (RuleConfigElement) figureElement.getFigureElement();
-				if (ruleElement.getPropability() == 0) {
-					for (FigureRuntimeElement entryElement : entry) {
-						
-					}
+	public void drawPathOrRule(String figureName) {
+		PathRuntimeElement pathRuntime = pathMap.get(figureName);
+		if (pathRuntime != null) {
+			pathRuntime.draw(this);
+		} else {
+			PrimitiveExtensionRuntime primitiveRuntime = primitiveMap.get(figureName);
+			if (primitiveRuntime != null) {
+				primitiveRuntime.draw(this);
+			} else {
+				RuleRuntimeElement ruleRuntime = ruleMap.get(figureName);
+				if (ruleRuntime != null) {
+					ruleRuntime.draw(this);
 				}
 			}
 		}
+	}
 
-		public FigureRuntimeElement get(String figureName) {
-			// TODO Auto-generated method stub
-			return null;//map.get(figureName);
+	public void drawPath(String figureName) {
+		PathRuntimeElement pathRuntime = pathMap.get(figureName);
+		if (pathRuntime != null) {
+			pathRuntime.draw(this);
+		} else {
+			PrimitiveExtensionRuntime primitiveRuntime = primitiveMap.get(figureName);
+			if (primitiveRuntime != null) {
+				primitiveRuntime.draw(this);
+			}
+		}
+	}
+
+	public void drawRule(String figureName) {
+		RuleRuntimeElement ruleElement = ruleMap.get(figureName);
+		if (ruleElement != null) {
+			ruleElement.draw(this);
+		}
+	}
+	
+	private class RuleMap {
+		private Map<String, RuleEntry> map = new LinkedHashMap<String, RuleEntry>();
+
+		public void add(RuleRuntimeElement ruleElement) {
+			RuleEntry entry = map.get(ruleElement.getName());
+			if (entry == null) {
+				entry = new RuleEntry();
+				map.put(ruleElement.getName(), entry);
+			}
+			entry.add(ruleElement);
+		}
+		
+		public RuleRuntimeElement get(String ruleName) {
+			RuleEntry entry = map.get(ruleName);
+			if (entry != null) {
+				return entry.get();
+			}
+			return null;
 		} 
+	}
+	
+	private class PrimitiveMap {
+		private Map<String, PrimitiveExtensionRuntime> map = new LinkedHashMap<String, PrimitiveExtensionRuntime>();
+
+		public void add(String name, PrimitiveExtensionRuntime primitiveElement) {
+			map.put(name, primitiveElement);
+		}
+
+		public PrimitiveExtensionRuntime get(String primitiveName) {
+			return map.get(primitiveName);
+		} 
+	}
+	
+	private class PathMap {
+		private Map<String, PathRuntimeElement> map = new LinkedHashMap<String, PathRuntimeElement>();
+
+		public void add(PathRuntimeElement pathElement) {
+			map.put(pathElement.getName(), pathElement);
+		}
+
+		public PathRuntimeElement get(String pathName) {
+			return map.get(pathName);
+		} 
+	}
+	
+	private class RuleEntry {
+		private List<RuleRuntimeElement> elements = new LinkedList<RuleRuntimeElement>();
+		private float total = 0;
+		
+		public void add(RuleRuntimeElement ruleElement) {
+			elements.add(ruleElement);
+			if (ruleElement.getPropability() > 0) {
+				total += ruleElement.getPropability();
+			} else {
+				total += 1;
+			}
+		}
+		
+		public RuleRuntimeElement get() {
+			float number = (float) Math.random() * total;
+			float offset = 0;
+			for (RuleRuntimeElement element : elements) {
+				offset += (element.getPropability() > 0) ? element.getPropability() : 1f;
+				if (number <= offset) {
+					return element;
+				}
+			}
+			return null;
+		}
 	}
 }

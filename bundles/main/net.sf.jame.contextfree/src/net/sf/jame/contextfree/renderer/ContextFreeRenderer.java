@@ -35,7 +35,7 @@ import net.sf.jame.twister.util.View;
 /**
  * @author Andrea Medeghini
  */
-public interface ContextFreeFractalRenderer {
+public interface ContextFreeRenderer {
 	/**
 	 * 
 	 */
@@ -102,14 +102,14 @@ public interface ContextFreeFractalRenderer {
 	public int getMode();
 
 	/**
-	 * @return the fractal.
+	 * @return the runtime.
 	 */
-	public CFDGRuntimeElement getFractal();
+	public CFDGRuntimeElement getRuntime();
 
 	/**
-	 * @param fractal the fractal.
+	 * @param runtime the runtime.
 	 */
-	public void setFractal(CFDGRuntimeElement fractal);
+	public void setRuntime(CFDGRuntimeElement runtime);
 
 	/**
 	 * @param hints

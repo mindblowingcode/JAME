@@ -27,28 +27,28 @@ package net.sf.jame.contextfree.renderer;
 
 import java.awt.Color;
 
+import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.core.util.Color32bit;
 
 /**
  * @author Andrea Medeghini
  */
-public final class DefaultContextFreeFractalRenderer extends AbstractContextFreeFractalRenderer {
+public final class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 	/**
 	 * 
 	 */
-	public DefaultContextFreeFractalRenderer(final int threadPriority) {
+	public DefaultContextFreeRenderer(final int threadPriority) {
 		super(threadPriority);
 	}
 
 	@Override
-	protected void doFractal(boolean dynamicZoom) {
-		ContextFreeContext contextFreeContext = new ContextFreeContext(getGraphics(), getFractal());
-		Color32bit background = getFractal().getBackground();
+	protected void doRender(boolean dynamicZoom) {
+		CFDGRuntimeElement runtime = getRuntime();
+		ContextFreeContext contextFreeContext = new ContextFreeContext(getGraphics(), runtime);
+		Color32bit background = runtime.getBackground();
+		String startshape = runtime.getStartshape();
 		getGraphics().setColor(new Color(background.getARGB()));
 		getGraphics().fillRect(0,0, getBufferWidth(), getBufferHeight());
-		String startshape = getFractal().getStartshape();
-		contextFreeContext.draw(startshape);
-		
-		// TODO Auto-generated method stub
+		contextFreeContext.drawRule(startshape);
 	}
 }

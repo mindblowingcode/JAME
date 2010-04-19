@@ -29,7 +29,7 @@ import java.awt.Graphics2D;
 import java.util.Map;
 
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
-import net.sf.jame.contextfree.renderer.ContextFreeFractalRenderer;
+import net.sf.jame.contextfree.renderer.ContextFreeRenderer;
 import net.sf.jame.core.util.Tile;
 import net.sf.jame.twister.util.View;
 
@@ -38,8 +38,8 @@ import org.apache.log4j.Logger;
 /**
  * @author Andrea Medeghini
  */
-public class ContextFreeFractalManager {
-	protected static final Logger logger = Logger.getLogger(ContextFreeFractalManager.class);
+public class ContextFreeManager {
+	protected static final Logger logger = Logger.getLogger(ContextFreeManager.class);
 	protected static final boolean debug = false;
 	protected int width = 0;
 	protected int height = 0;
@@ -52,13 +52,13 @@ public class ContextFreeFractalManager {
 	protected double zoomSpeed = 0;
 	protected double shiftSpeed = 0;
 	protected double rotationSpeed = 0;
-	protected ContextFreeFractalRenderer renderer;
+	protected ContextFreeRenderer renderer;
 
 	/**
 	 * @param renderer
 	 *        the renderer.
 	 */
-	public ContextFreeFractalManager(final ContextFreeFractalRenderer renderer) {
+	public ContextFreeManager(final ContextFreeRenderer renderer) {
 		this.renderer = renderer;
 	}
 
@@ -81,14 +81,14 @@ public class ContextFreeFractalManager {
 	/**
 	 * @param runtime
 	 */
-	public void setFractal(final CFDGRuntimeElement fractal) {
-		renderer.setFractal(fractal);
+	public void setRuntime(final CFDGRuntimeElement runtime) {
+		renderer.setRuntime(runtime);
 	}
 
 	/**
 	 * @param renderer
 	 */
-	public void setRenderer(final ContextFreeFractalRenderer renderer) {
+	public void setRenderer(final ContextFreeRenderer renderer) {
 		this.renderer = renderer;
 	}
 

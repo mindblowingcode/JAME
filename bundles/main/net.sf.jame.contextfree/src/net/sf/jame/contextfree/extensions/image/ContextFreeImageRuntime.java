@@ -29,9 +29,9 @@ import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.jame.contextfree.ContextFreeFractalManager;
+import net.sf.jame.contextfree.ContextFreeManager;
 import net.sf.jame.contextfree.ContextFreeRuntime;
-import net.sf.jame.contextfree.renderer.DefaultContextFreeFractalRenderer;
+import net.sf.jame.contextfree.renderer.DefaultContextFreeRenderer;
 import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.IntegerVector2D;
 import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime;
@@ -268,7 +268,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	private class DefaultRendererStrategy implements RendererStrategy {
-		private ContextFreeFractalManager fractalManager;
+		private ContextFreeManager manager;
 		private int dynamicCount = 0;
 		private boolean dirty = true;
 
@@ -278,48 +278,48 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		public DefaultRendererStrategy(final Tile tile) {
 			if (hints.get(TwisterRenderingHints.KEY_QUALITY) == TwisterRenderingHints.QUALITY_REALTIME) {
 				if (hints.get(TwisterRenderingHints.KEY_MEMORY) == TwisterRenderingHints.MEMORY_LOW) {
-					fractalManager = new ContextFreeFractalManager(new DefaultContextFreeFractalRenderer(Thread.MIN_PRIORITY + 2));
+					manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 2));
 				}
 				else {
-					fractalManager = new ContextFreeFractalManager(new DefaultContextFreeFractalRenderer(Thread.MIN_PRIORITY + 2));
+					manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 2));
 				}
 			}
 			else {
-				fractalManager = new ContextFreeFractalManager(new DefaultContextFreeFractalRenderer(Thread.MIN_PRIORITY + 1));
+				manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 1));
 			}
-			fractalManager.setRenderingHints(hints);
-			fractalManager.setFractal(contextFreeRuntime.getContextFreeFractal());
+			manager.setRenderingHints(hints);
+			manager.setRuntime(contextFreeRuntime.getCFDG());
 			loadConfig();
-			fractalManager.setTile(tile);
-			fractalManager.start();
+			manager.setTile(tile);
+			manager.start();
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#startRenderer()
 		 */
 		public void startRenderer() {
-			fractalManager.startRenderer();
+			manager.startRenderer();
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#abortRenderer()
 		 */
 		public void abortRenderer() {
-			fractalManager.abortRenderer();
+			manager.abortRenderer();
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#joinRenderer()
 		 */
 		public void joinRenderer() throws InterruptedException {
-			fractalManager.joinRenderer();
+			manager.joinRenderer();
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#getRenderingStatus()
 		 */
 		public int getRenderingStatus() {
-			return fractalManager.getRenderingStatus();
+			return manager.getRenderingStatus();
 		}
 
 		/**
@@ -327,12 +327,12 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		 */
 		public void drawImage(final Graphics2D g2d) {
 			if (tile != null) {
-				fractalManager.drawImage(g2d);
+				manager.drawImage(g2d);
 				if (dirty) {
 					dirty = false;
 					try {
-						fractalManager.joinRenderer();
-						fractalManager.startRenderer();
+						manager.joinRenderer();
+						manager.startRenderer();
 					}
 					catch (final InterruptedException e) {
 						Thread.currentThread().interrupt();
@@ -346,12 +346,12 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		 */
 		public void drawImage(final Graphics2D g2d, final int x, final int y) {
 			if (tile != null) {
-				fractalManager.drawImage(g2d, x, y);
+				manager.drawImage(g2d, x, y);
 				if (dirty) {
 					dirty = false;
 					try {
-						fractalManager.joinRenderer();
-						fractalManager.startRenderer();
+						manager.joinRenderer();
+						manager.startRenderer();
 					}
 					catch (final InterruptedException e) {
 						Thread.currentThread().interrupt();
@@ -365,12 +365,12 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		 */
 		public void drawImage(final Graphics2D g2d, final int x, final int y, final int w, final int h) {
 			if (tile != null) {
-				fractalManager.drawImage(g2d, x, y, w, h);
+				manager.drawImage(g2d, x, y, w, h);
 				if (dirty) {
 					dirty = false;
 					try {
-						fractalManager.joinRenderer();
-						fractalManager.startRenderer();
+						manager.joinRenderer();
+						manager.startRenderer();
 					}
 					catch (final InterruptedException e) {
 						Thread.currentThread().interrupt();
@@ -394,14 +394,14 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 					dirty = true;
 				}
 				if (dirty) {
-					fractalManager.abortRenderer();
+					manager.abortRenderer();
 					loadConfig();
 				}
 			}
 			else {
 				loadConfig();
 			}
-			if (fractalManager.isDynamic()) {
+			if (manager.isDynamic()) {
 				dynamicCount += 1;
 			}
 			else {
@@ -410,17 +410,17 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		}
 
 		private void loadConfig() {
-			fractalManager.setView(getConfig().getContextFreeConfig().getView());
+			manager.setView(getConfig().getContextFreeConfig().getView());
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#dispose()
 		 */
 		public void dispose() {
-			if (fractalManager != null) {
-				fractalManager.stop();
-				fractalManager.dispose();
-				fractalManager = null;
+			if (manager != null) {
+				manager.stop();
+				manager.dispose();
+				manager = null;
 			}
 		}
 
@@ -433,7 +433,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	private class OverlayRendererStrategy implements RendererStrategy {
-		private ContextFreeFractalManager fractalManager;
+		private ContextFreeManager manager;
 		private boolean suspended = false;
 		private boolean dirty = true;
 
@@ -443,19 +443,19 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		public OverlayRendererStrategy(final Tile tile) {
 			if (hints.get(TwisterRenderingHints.KEY_QUALITY) == TwisterRenderingHints.QUALITY_REALTIME) {
 				if (hints.get(TwisterRenderingHints.KEY_MEMORY) == TwisterRenderingHints.MEMORY_LOW) {
-					fractalManager = new ContextFreeFractalManager(new DefaultContextFreeFractalRenderer(Thread.MIN_PRIORITY + 2));
+					manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 2));
 				}
 				else {
-					fractalManager = new ContextFreeFractalManager(new DefaultContextFreeFractalRenderer(Thread.MIN_PRIORITY + 2));
+					manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 2));
 				}
 			}
 			else {
-				fractalManager = new ContextFreeFractalManager(new DefaultContextFreeFractalRenderer(Thread.MIN_PRIORITY + 1));
+				manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 1));
 			}
-			fractalManager.setRenderingHints(hints);
-			fractalManager.setFractal(contextFreeRuntime.getContextFreeFractal());
+			manager.setRenderingHints(hints);
+			manager.setRuntime(contextFreeRuntime.getCFDG());
 			loadConfig();
-			fractalManager.start();
+			manager.start();
 		}
 
 		/**
@@ -463,7 +463,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		 */
 		public void startRenderer() {
 			if (!suspended) {
-				fractalManager.startRenderer();
+				manager.startRenderer();
 			}
 		}
 
@@ -472,7 +472,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		 */
 		public void abortRenderer() {
 			if (!suspended) {
-				fractalManager.abortRenderer();
+				manager.abortRenderer();
 			}
 		}
 
@@ -481,7 +481,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		 */
 		public void joinRenderer() throws InterruptedException {
 			if (!suspended) {
-				fractalManager.joinRenderer();
+				manager.joinRenderer();
 			}
 		}
 
@@ -489,7 +489,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#getRenderingStatus()
 		 */
 		public int getRenderingStatus() {
-			return fractalManager.getRenderingStatus();
+			return manager.getRenderingStatus();
 		}
 
 		/**
@@ -500,9 +500,9 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 				if (dirty) {
 					dirty = false;
 					try {
-						fractalManager.joinRenderer();
+						manager.joinRenderer();
 						if (!suspended) {
-							fractalManager.startRenderer();
+							manager.startRenderer();
 						}
 					}
 					catch (final InterruptedException e) {
@@ -536,7 +536,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 						dirty = true;
 					}
 					if (dirty) {
-						fractalManager.abortRenderer();
+						manager.abortRenderer();
 						loadConfig();
 					}
 				}
@@ -553,10 +553,10 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#dispose()
 		 */
 		public void dispose() {
-			if (fractalManager != null) {
-				fractalManager.stop();
-				fractalManager.dispose();
-				fractalManager = null;
+			if (manager != null) {
+				manager.stop();
+				manager.dispose();
+				manager = null;
 			}
 		}
 

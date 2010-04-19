@@ -75,7 +75,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 					case ValueConfigElement.VALUE_CHANGED: {
 						remove(fractalPanel);
 						fractalPanel.dispose();
-						fractalPanel = new ContextFreeFractalPanel(config, config.getContextFreeFractal());
+						fractalPanel = new ContextFreeFractalPanel(config, config.getCFDG());
 						add(fractalPanel, BorderLayout.CENTER);
 						viewContext.setComponent(ContextFreeConfigPanel.this);
 						break;
@@ -86,12 +86,12 @@ public class ContextFreeConfigPanel extends ViewPanel {
 				}
 			}
 		};
-		config.getFractalSingleElement().addChangeListener(configListener);
+		config.getCFDGSingleElement().addChangeListener(configListener);
 	}
 
 	@Override
 	public void dispose() {
-		config.getFractalSingleElement().removeChangeListener(configListener);
+		config.getCFDGSingleElement().removeChangeListener(configListener);
 	}
 
 	private class ContextFreeFractalPanel extends JPanel {

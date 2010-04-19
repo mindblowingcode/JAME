@@ -25,10 +25,24 @@
  */
 package net.sf.jame.contextfree.cfdg.extension;
 
+import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.core.extension.ExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
 public abstract class PrimitiveExtensionRuntime extends ExtensionRuntime {
+	/**
+	 * @param contextFreeContext
+	 */
+	public abstract void draw(ContextFreeContext contextFreeContext);
+	
+	/**
+	 * @return
+	 */
+	public abstract String getName();
+	
+	protected float norm(float x) {
+		return x;
+	}
 }

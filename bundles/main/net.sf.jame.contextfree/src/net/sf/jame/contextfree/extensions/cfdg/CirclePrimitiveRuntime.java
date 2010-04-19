@@ -25,11 +25,30 @@
  */
 package net.sf.jame.contextfree.extensions.cfdg;
 
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
+
 import net.sf.jame.contextfree.cfdg.extension.PrimitiveExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeContext;
 
 /**
  * @author Andrea Medeghini
  *
  */
 public class CirclePrimitiveRuntime extends PrimitiveExtensionRuntime {
+	private Shape shape = createShape();
+	
+	private Shape createShape() {
+		return new Ellipse2D.Float(norm(-0.5f), norm(-0.5f), norm(1), norm(1));
+	}
+	
+	@Override
+	public void draw(ContextFreeContext contextFreeContext) {
+		contextFreeContext.drawShape(shape);
+	}
+
+	@Override
+	public String getName() {
+		return "circle";
+	}
 }

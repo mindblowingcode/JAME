@@ -54,7 +54,7 @@ public class ContextFreeConfigNodeBuilder {
 	public void createNodes(final Node parentNode) {
 		parentNode.appendChildNode(new ViewNode(config));
 		parentNode.appendChildNode(new SpeedNode(config));
-		parentNode.appendChildNode(new CFDGConfigElementNode(config.getContextFreeFractal()));
+		parentNode.appendChildNode(new CFDGConfigElementNode(config.getCFDG()));
 	}
 
 	private static class SpeedNode extends SpeedElementNode {

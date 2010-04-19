@@ -36,8 +36,8 @@ import net.sf.jame.core.config.ValueConfigElement;
  */
 public class ContextFreeRuntime extends RuntimeElement {
 	private ContextFreeConfig config;
-	private CFDGRuntimeElement fractalElement;
-	private FractalElementListener fractalListener;
+	private CFDGRuntimeElement cfdgElement;
+	private CFDGElementListener cfdgListener;
 	private ViewElementListener viewListener;
 	private ElementListener elementListener;
 	private boolean viewChanged;
@@ -47,9 +47,9 @@ public class ContextFreeRuntime extends RuntimeElement {
 	 */
 	public ContextFreeRuntime(final ContextFreeConfig config) {
 		this.config = config;
-		fractalElement = new CFDGRuntimeElement(config.getContextFreeFractal());
-		fractalListener = new FractalElementListener();
-		config.getFractalSingleElement().addChangeListener(fractalListener);
+		cfdgElement = new CFDGRuntimeElement(config.getCFDG());
+		cfdgListener = new CFDGElementListener();
+		config.getCFDGSingleElement().addChangeListener(cfdgListener);
 		viewListener = new ViewElementListener();
 		config.getViewElement().addChangeListener(viewListener);
 		elementListener = new ElementListener();
@@ -65,13 +65,13 @@ public class ContextFreeRuntime extends RuntimeElement {
 			config.getViewElement().removeChangeListener(viewListener);
 		}
 		viewListener = null;
-		if ((config != null) && (fractalListener != null)) {
-			config.getFractalSingleElement().removeChangeListener(fractalListener);
+		if ((config != null) && (cfdgListener != null)) {
+			config.getCFDGSingleElement().removeChangeListener(cfdgListener);
 		}
-		fractalListener = null;
-		if (fractalElement != null) {
-			fractalElement.dispose();
-			fractalElement = null;
+		cfdgListener = null;
+		if (cfdgElement != null) {
+			cfdgElement.dispose();
+			cfdgElement = null;
 		}
 		config = null;
 		super.dispose();
@@ -91,32 +91,32 @@ public class ContextFreeRuntime extends RuntimeElement {
 	 */
 	@Override
 	public boolean isChanged() {
-		final boolean fractalChanged = (fractalElement != null) && fractalElement.isChanged();
+		final boolean fractalChanged = (cfdgElement != null) && cfdgElement.isChanged();
 		return super.isChanged() || fractalChanged;
 	}
 
 	/**
 	 * @return
 	 */
-	public CFDGRuntimeElement getContextFreeFractal() {
-		return fractalElement;
+	public CFDGRuntimeElement getCFDG() {
+		return cfdgElement;
 	}
 
-	private void setContextFreeFractal(final CFDGRuntimeElement fractalElement) {
-		if (this.fractalElement != null) {
-			this.fractalElement.dispose();
+	private void setCDFG(final CFDGRuntimeElement cfdgElement) {
+		if (this.cfdgElement != null) {
+			this.cfdgElement.dispose();
 		}
-		this.fractalElement = fractalElement;
+		this.cfdgElement = cfdgElement;
 	}
 
-	private class FractalElementListener implements ValueChangeListener {
+	private class CFDGElementListener implements ValueChangeListener {
 		/**
 		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
 		 */
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
-					setContextFreeFractal(new CFDGRuntimeElement(config.getContextFreeFractal()));
+					setCDFG(new CFDGRuntimeElement(config.getCFDG()));
 					fireChanged();
 					break;
 				}

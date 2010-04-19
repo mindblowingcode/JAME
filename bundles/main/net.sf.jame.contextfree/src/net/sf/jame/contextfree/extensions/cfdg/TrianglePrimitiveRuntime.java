@@ -25,11 +25,35 @@
  */
 package net.sf.jame.contextfree.extensions.cfdg;
 
+import java.awt.Shape;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+
 import net.sf.jame.contextfree.cfdg.extension.PrimitiveExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeContext;
 
 /**
  * @author Andrea Medeghini
  *
  */
 public class TrianglePrimitiveRuntime extends PrimitiveExtensionRuntime {
+	private Shape shape = createShape();
+	
+	private Shape createShape() {
+		GeneralPath path = new GeneralPath();
+		path.append(new Line2D.Float(norm(0), norm(0), norm(1), norm(0)), false);
+		path.append(new Line2D.Float(norm(1), norm(0), norm(0), norm(1)), false);
+		path.append(new Line2D.Float(norm(0), norm(1), norm(0), norm(0)), true);
+		return shape;
+	}
+
+	@Override
+	public void draw(ContextFreeContext contextFreeContext) {
+		contextFreeContext.drawShape(shape);
+	}
+
+	@Override
+	public String getName() {
+		return "triangle";
+	}
 }

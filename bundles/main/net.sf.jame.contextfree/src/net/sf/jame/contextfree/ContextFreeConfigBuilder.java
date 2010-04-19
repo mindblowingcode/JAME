@@ -55,12 +55,14 @@ public class ContextFreeConfigBuilder {
 	 */
 	public ContextFreeConfig createDefaultConfig() throws ExtensionNotFoundException, ExtensionException {
 		final ContextFreeConfig config = new ContextFreeConfig();
-		CFDGConfigElement contextFreeFractal = new CFDGConfigElement();
-		config.setContextFreeFractal(contextFreeFractal);
+		CFDGConfigElement cfdgElement = new CFDGConfigElement();
+		cfdgElement.setStartshape("square");
+		config.setCFDG(cfdgElement);
 		RuleConfigElement ruleElement = new RuleConfigElement();
-		contextFreeFractal.appendFigureConfigElement(ruleElement);
+		cfdgElement.appendFigureConfigElement(ruleElement);
 		ShapeConfigElement shapeElement = new ShapeConfigElement();
 		ruleElement.setShapeConfigElement(shapeElement);
+		ruleElement.setName("square");
 		ShapeReplacementConfigElement shapeReplacementElement = new ShapeReplacementConfigElement();
 		shapeElement.appendReplacementConfigElement(shapeReplacementElement);
 		ShapeAdjustmentConfigElement shapeAdjustmentElement = new ShapeAdjustmentConfigElement();
