@@ -31,7 +31,7 @@ import net.sf.jame.core.config.RuntimeElement;
  * @author Andrea Medeghini
  */
  public abstract class ReplacementRuntimeElement extends RuntimeElement {
-	private ReplacementConfigElement figureElement;
+	private ReplacementConfigElement replacementElement;
 
 	/**
 	 * Constructs a new ReplacementRuntimeElement.
@@ -39,11 +39,11 @@ import net.sf.jame.core.config.RuntimeElement;
 	 * @param registry
 	 * @param FigureRuntimeElementElement
 	 */
-	public ReplacementRuntimeElement(final ReplacementConfigElement figureElement) {
-		if (figureElement == null) {
+	public ReplacementRuntimeElement(final ReplacementConfigElement replacementElement) {
+		if (replacementElement == null) {
 			throw new IllegalArgumentException("figureElement is null");
 		}
-		this.figureElement = figureElement;
+		this.replacementElement = replacementElement;
 	}
 
 	/**
@@ -51,7 +51,7 @@ import net.sf.jame.core.config.RuntimeElement;
 	 */
 	@Override
 	public void dispose() {
-		figureElement = null;
+		replacementElement = null;
 		super.dispose();
 	}
 }
