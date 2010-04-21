@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.sf.jame.devtools.DevToolsException;
+import net.sf.jame.devtools.ProcessorCardinality;
 import net.sf.jame.devtools.ProcessorDescriptor;
 import net.sf.jame.devtools.ProcessorParameters;
 import net.sf.jame.devtools.extension.ProcessorExtensionRuntime;
@@ -51,14 +52,17 @@ public class ExtensionConfigProcessorRuntime extends ProcessorExtensionRuntime {
 	public void process(File path, ProcessorParameters parameters, Map<String, String> variables) throws DevToolsException {
 		try {
 			ProcessorDescriptor element = parameters.getElement();
+			List<ProcessorDescriptor> elements = parameters.getElements();
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			Set<String> imports = new HashSet<String>();
 			prepare(imports, element);
+			prepare(imports, elements);
 			List<String> sortedImports = new LinkedList<String>(imports);
 			Collections.sort(sortedImports);
 			map.putAll(variables);
 			map.put("imports", sortedImports);
 			map.put("extension", element);
+			map.put("subelements", elements);
 			if (element.isConfigurableExtension()) {
 				File packagePath = new File(path, element.getExtensionConfigPackageName().replace('.', '/'));
 				packagePath.mkdirs();
@@ -84,6 +88,36 @@ public class ExtensionConfigProcessorRuntime extends ProcessorExtensionRuntime {
 	private void prepare(Set<String> imports, ProcessorDescriptor descriptor) {
 		if (descriptor.isConfigurableExtension()) {
 			imports.add("net.sf.jame.core.extension.ExtensionConfig");
+			imports.add("net.sf.jame.core.config.ConfigElement");
+			imports.add("java.util.List");
+			imports.add("java.util.ArrayList");
+		}
+	}
+
+	private void prepare(Set<String> imports, List<ProcessorDescriptor> descriptors) {
+		for (ProcessorDescriptor descriptor : descriptors) {
+			if (descriptor.isExtensionElement()) {
+				imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
+				imports.add("net.sf.jame.core.extension.ExtensionReference");
+			}
+			else if (descriptor.isConfigurableExtensionElement()) {
+				imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
+				imports.add("net.sf.jame.core.extension.ConfigurableExtensionReference");
+				imports.add(descriptor.getExtensionConfigPackageName() + "." + descriptor.getExtensionConfigClassName());
+			}
+			else if (descriptor.isComplexElement()) {
+				imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
+				if (descriptor.getCardinality() == ProcessorCardinality.ONE) {
+					imports.add("net.sf.jame.core.config.SingleConfigElement");
+				}
+				else if (descriptor.getCardinality() == ProcessorCardinality.MANY) {
+					imports.add("net.sf.jame.core.config.ListConfigElement");
+				}
+			}
+			else if (descriptor.isSimpleElement()) {
+				imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
+				imports.add(descriptor.getValuePackageName() + "." + descriptor.getValueClassName());
+			}
 		}
 	}
 }

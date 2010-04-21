@@ -97,7 +97,7 @@ public class ContextFree {
 		descriptors.add(descriptorExtensionMap.get("Integer").createDescriptor("times", "1", ProcessorCardinality.NONE));
 		descriptors.add(new ProcessorDescriptor("shapeReplacement", "ShapeReplacement", "ShapeReplacement", "net.sf.jame.contextfree.cfdg.shapeReplacement", "ShapeReplacementConfigElement", "net.sf.jame.contextfree.cfdg.shapeReplacement", "ShapeReplacementRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.MANY));
 		descriptors.add(new ProcessorDescriptor("shapeAdjustment", "ShapeAdjustment", "ShapeAdjustment", "net.sf.jame.contextfree.cfdg.shapeAdjustment", "ShapeAdjustmentConfigElement", "net.sf.jame.contextfree.cfdg.shapeAdjustment", "ShapeAdjustmentRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.MANY));
-		return new ProcessorParameters(new ProcessorDescriptor("multiReplacement", "multiReplacement", "multiReplacement", "net.sf.jame.contextfree.cfdg.replacement", "MultiReplacementConfigElement", "net.sf.jame.contextfree.cfdg.replacement", "MultiReplacementRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.NONE), descriptors);
+		return new ProcessorParameters(new ProcessorDescriptor("multiReplacement", "MultiReplacement", "MultiReplacement", "net.sf.jame.contextfree.cfdg.replacement", "MultiReplacementConfigElement", "net.sf.jame.contextfree.cfdg.replacement", "MultiReplacementRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.NONE), descriptors);
 	}
 
 	private ProcessorParameters createShapeAdjustmentParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
@@ -143,6 +143,18 @@ public class ContextFree {
 		return new ProcessorParameters(new ProcessorDescriptor("figure", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.figure.extension", "FigureExtensionConfig", "net.sf.jame.contextfree.cfdg.figure.extension", "FigureExtensionRuntime", "net.sf.jame.contextfree.cfdg.figure.extension", "FigureExtensionRegistry", null, null, null, null, null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
 	}
 
+	private ProcessorParameters createSingleReplacementExtensionParameters() {
+		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(new ProcessorDescriptor("singleReplacement", "SingleReplacement", "SingleReplacement", "net.sf.jame.contextfree.cfdg.replacement", "SingleReplacementConfigElement", "net.sf.jame.contextfree.cfdg.replacement", "SingleReplacementRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.NONE));
+		return new ProcessorParameters(new ProcessorDescriptor("singleReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.replacement", "SingleReplacementConfig", "net.sf.jame.contextfree.extensions.replacement", "SingleReplacementRuntime", null, null, null, null, null, null, null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
+
+	private ProcessorParameters createMultiReplacementExtensionParameters() {
+		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(new ProcessorDescriptor("multiReplacement", "MultiReplacement", "MultiReplacement", "net.sf.jame.contextfree.cfdg.replacement", "MultiReplacementConfigElement", "net.sf.jame.contextfree.cfdg.replacement", "MultiReplacementRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.NONE));
+		return new ProcessorParameters(new ProcessorDescriptor("multiReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.replacement", "MultiReplacementConfig", "net.sf.jame.contextfree.extensions.replacement", "MultiReplacementRuntime", null, null, null, null, null, null, null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
+	
 	private ProcessorParameters createRegistryParameters() {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(new ProcessorDescriptor("primitive", "Extension", null, null, null, null, null, null, null, "net.sf.jame.contextfree.cfdg.extension", "PrimitiveExtensionRuntime", "net.sf.jame.contextfree.cfdg.extension", "PrimitiveExtensionRegistry", null, null, null, null, null, null, null, null, null, ProcessorCardinality.NONE));
@@ -387,6 +399,44 @@ public class ContextFree {
 			Map<String, String> variables = createVariables();
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createSingleReplacementParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateSingleReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createSingleReplacementExtensionParameters();
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateMultiReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createMultiReplacementExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
 				processorRuntime.process(path, parameters, variables);
 			}

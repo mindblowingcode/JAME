@@ -173,11 +173,15 @@ public class ProcessorDescriptor {
 	}
 	
 	public boolean isExtension() {
-		return elementName != null && elementType != null && elementClassId == null && configElementPackageName == null && configElementClassName == null && runtimeElementPackageName == null && runtimeElementClassName == null && extensionConfigPackageName == null && extensionConfigClassName == null && extensionRuntimePackageName != null && extensionRuntimeClassName != null && extensionRegistryPackageName != null && extensionRegistryClassName != null && registryPackageName == null && registryClassName == null && valuePackageName == null && valueClassName == null && getMethodPrefix == null && setMethodPrefix == null;
+		return elementName != null && elementType != null && elementClassId == null && configElementPackageName == null && configElementClassName == null && runtimeElementPackageName == null && runtimeElementClassName == null && extensionConfigPackageName == null && extensionConfigClassName == null && extensionRuntimePackageName != null && extensionRuntimeClassName != null && registryPackageName == null && registryClassName == null && valuePackageName == null && valueClassName == null && getMethodPrefix == null && setMethodPrefix == null;
 	}
 	
 	public boolean isConfigurableExtension() {
-		return elementName != null && elementType != null && elementClassId == null && configElementPackageName == null && configElementClassName == null && runtimeElementPackageName == null && runtimeElementClassName == null && extensionConfigPackageName != null && extensionConfigClassName != null && extensionRuntimePackageName != null && extensionRuntimeClassName != null && extensionRegistryPackageName != null && extensionRegistryClassName != null && registryPackageName == null && registryClassName == null && valuePackageName == null && valueClassName == null && getMethodPrefix == null && setMethodPrefix == null;
+		return elementName != null && elementType != null && elementClassId == null && configElementPackageName == null && configElementClassName == null && runtimeElementPackageName == null && runtimeElementClassName == null && extensionConfigPackageName != null && extensionConfigClassName != null && extensionRuntimePackageName != null && extensionRuntimeClassName != null && registryPackageName == null && registryClassName == null && valuePackageName == null && valueClassName == null && getMethodPrefix == null && setMethodPrefix == null;
+	}
+	
+	public boolean hasExtensionRegistry() {
+		return extensionRegistryPackageName != null && extensionRegistryClassName != null;
 	}
 	
 	public boolean isRegistry() {
