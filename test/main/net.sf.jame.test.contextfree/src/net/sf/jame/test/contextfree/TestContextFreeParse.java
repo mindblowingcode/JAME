@@ -41,8 +41,8 @@ import net.sf.jame.contextfree.cfdg.node.AColorPathAdjustment;
 import net.sf.jame.contextfree.cfdg.node.AColorShapeAdjustment;
 import net.sf.jame.contextfree.cfdg.node.AComposedExpression2;
 import net.sf.jame.contextfree.cfdg.node.ADefaultPathopPathOperation;
-import net.sf.jame.contextfree.cfdg.node.ADefaultShapeReplacement;
 import net.sf.jame.contextfree.cfdg.node.ADefaultSimplePathOperation;
+import net.sf.jame.contextfree.cfdg.node.ADefaultSingleShapeReplacement;
 import net.sf.jame.contextfree.cfdg.node.ADefaultSizeDeclaration;
 import net.sf.jame.contextfree.cfdg.node.ADefaultTileDeclaration;
 import net.sf.jame.contextfree.cfdg.node.AFunctionExpression;
@@ -50,33 +50,32 @@ import net.sf.jame.contextfree.cfdg.node.AFunctionExpression2;
 import net.sf.jame.contextfree.cfdg.node.AGeometryPathAdjustment;
 import net.sf.jame.contextfree.cfdg.node.AGeometryShapeAdjustment;
 import net.sf.jame.contextfree.cfdg.node.AIncludeDeclaration;
-import net.sf.jame.contextfree.cfdg.node.AListLoopPathOperationBody;
-import net.sf.jame.contextfree.cfdg.node.AListLoopShapeReplacementBody;
+import net.sf.jame.contextfree.cfdg.node.AListMultiPathOperationBody;
+import net.sf.jame.contextfree.cfdg.node.AListMultiShapeReplacementBody;
 import net.sf.jame.contextfree.cfdg.node.AListPathOperation;
 import net.sf.jame.contextfree.cfdg.node.AListShapeReplacement;
-import net.sf.jame.contextfree.cfdg.node.ALoopPathOperation;
-import net.sf.jame.contextfree.cfdg.node.ALoopPathOperationDeclaration;
-import net.sf.jame.contextfree.cfdg.node.ALoopShapeReplacement;
-import net.sf.jame.contextfree.cfdg.node.ALoopShapeReplacementDeclaration;
+import net.sf.jame.contextfree.cfdg.node.AMultiPathOperation;
+import net.sf.jame.contextfree.cfdg.node.AMultiPathOperationDeclaration;
+import net.sf.jame.contextfree.cfdg.node.AMultiShapeReplacement;
+import net.sf.jame.contextfree.cfdg.node.AMultiShapeReplacementDeclaration;
 import net.sf.jame.contextfree.cfdg.node.ANestedExpression;
 import net.sf.jame.contextfree.cfdg.node.ANestedExpression2;
 import net.sf.jame.contextfree.cfdg.node.ANumberExpression;
 import net.sf.jame.contextfree.cfdg.node.ANumberExpression2;
 import net.sf.jame.contextfree.cfdg.node.AOrderedPathopPathOperation;
-import net.sf.jame.contextfree.cfdg.node.AOrderedShapeReplacement;
 import net.sf.jame.contextfree.cfdg.node.AOrderedSimplePathOperation;
+import net.sf.jame.contextfree.cfdg.node.AOrderedSingleShapeReplacement;
 import net.sf.jame.contextfree.cfdg.node.AOrderedSizeDeclaration;
 import net.sf.jame.contextfree.cfdg.node.AOrderedTileDeclaration;
 import net.sf.jame.contextfree.cfdg.node.AParametersPathAdjustment;
 import net.sf.jame.contextfree.cfdg.node.APathDeclaration;
 import net.sf.jame.contextfree.cfdg.node.APathFigureDeclaration;
-import net.sf.jame.contextfree.cfdg.node.APathLoopPathOperationBody;
+import net.sf.jame.contextfree.cfdg.node.APathMultiPathOperationBody;
 import net.sf.jame.contextfree.cfdg.node.APathPathOperationDeclaration;
 import net.sf.jame.contextfree.cfdg.node.ARuleDeclaration;
 import net.sf.jame.contextfree.cfdg.node.ARuleFigureDeclaration;
-import net.sf.jame.contextfree.cfdg.node.AShapeDeclaration;
-import net.sf.jame.contextfree.cfdg.node.AShapeLoopShapeReplacementBody;
-import net.sf.jame.contextfree.cfdg.node.AShapeShapeReplacementDeclaration;
+import net.sf.jame.contextfree.cfdg.node.ASingleMultiShapeReplacementBody;
+import net.sf.jame.contextfree.cfdg.node.ASingleShapeReplacementDeclaration;
 import net.sf.jame.contextfree.cfdg.node.ASize3ShapeAdjustment;
 import net.sf.jame.contextfree.cfdg.node.AStartshapeDeclaration;
 import net.sf.jame.contextfree.cfdg.node.AStrokePathAdjustment;
@@ -215,43 +214,35 @@ public class TestContextFreeParse {
 		}
 
 		/**
-		 * 
+		 *
 		 */
 		@Override
-		public void inAShapeDeclaration(AShapeDeclaration node) {
-			System.out.println("ShapeDeclaration " + node);
+		public void inAMultiShapeReplacementDeclaration(AMultiShapeReplacementDeclaration node) {
+			System.out.println("MultiShapeReplacementDeclaration " + node);
 		}
 
 		/**
 		 *
 		 */
 		@Override
-		public void inALoopShapeReplacementDeclaration(ALoopShapeReplacementDeclaration node) {
-			System.out.println("LoopShapeReplacementDeclaration " + node);
-		}
-
-		/**
-		 *
-		 */
-		@Override
-		public void inAShapeShapeReplacementDeclaration(AShapeShapeReplacementDeclaration node) {
-			System.out.println("ShapeShapeReplacementDeclaration " + node);
+		public void inASingleShapeReplacementDeclaration(ASingleShapeReplacementDeclaration node) {
+			System.out.println("SingleShapeReplacementDeclaration " + node);
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inADefaultShapeReplacement(ADefaultShapeReplacement node) {
-			System.out.println("DefaultShapeReplacement " + node);
+		public void inADefaultSingleShapeReplacement(ADefaultSingleShapeReplacement node) {
+			System.out.println("DefaultSingleShapeReplacement " + node);
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inAOrderedShapeReplacement(AOrderedShapeReplacement node) {
-			System.out.println("OrderedShapeReplacement " + node);
+		public void inAOrderedSingleShapeReplacement(AOrderedSingleShapeReplacement node) {
+			System.out.println("OrderedSingleShapeReplacement " + node);
 		}
 
 		/**
@@ -265,22 +256,22 @@ public class TestContextFreeParse {
 		 * 
 		 */
 		@Override
-		public void inALoopShapeReplacement(ALoopShapeReplacement node) {
-			System.out.println("LoopShapeReplacement " + node);
+		public void inAMultiShapeReplacement(AMultiShapeReplacement node) {
+			System.out.println("MultiShapeReplacement " + node);
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inAShapeLoopShapeReplacementBody(AShapeLoopShapeReplacementBody node) {
+		public void inASingleMultiShapeReplacementBody(ASingleMultiShapeReplacementBody node) {
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inAListLoopShapeReplacementBody(AListLoopShapeReplacementBody node) {
+		public void inAListMultiShapeReplacementBody(AListMultiShapeReplacementBody node) {
 		}
 
 		/**
@@ -319,8 +310,8 @@ public class TestContextFreeParse {
 		 * 
 		 */
 		@Override
-		public void inALoopPathOperationDeclaration(ALoopPathOperationDeclaration node) {
-			System.out.println("LoopPathOperationDeclaration " + node);
+		public void inAMultiPathOperationDeclaration(AMultiPathOperationDeclaration node) {
+			System.out.println("MultiPathOperationDeclaration " + node);
 		}
 
 		/**
@@ -374,22 +365,22 @@ public class TestContextFreeParse {
 		 * 
 		 */
 		@Override
-		public void inALoopPathOperation(ALoopPathOperation node) {
-			System.out.println("LoopPathOperation " + node);
+		public void inAMultiPathOperation(AMultiPathOperation node) {
+			System.out.println("MultiPathOperation " + node);
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inAPathLoopPathOperationBody(APathLoopPathOperationBody node) {
+		public void inAPathMultiPathOperationBody(APathMultiPathOperationBody node) {
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inAListLoopPathOperationBody(AListLoopPathOperationBody node) {
+		public void inAListMultiPathOperationBody(AListMultiPathOperationBody node) {
 		}
 
 		/**

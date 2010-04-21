@@ -178,25 +178,23 @@ Productions
   		
    	size_declaration = {default} size l_cbkt size_adjustment+ r_cbkt | {ordered} size l_cbkt size_adjustment+ r_cbkt;
   		
-    rule_declaration = rule string number? shape_declaration;
+    rule_declaration = rule string number? list_shape_replacement;
   		
-    shape_declaration = list_shape_replacement;
-
     path_declaration = path string l_cbkt path_operation_declaration* r_cbkt;
 
-    shape_replacement_declaration = {loop} loop_shape_replacement | {shape} shape_replacement;
+    shape_replacement_declaration = {multi} multi_shape_replacement | {single} single_shape_replacement;
 		
-    shape_replacement = {default} string l_cbkt shape_adjustment* r_cbkt | {ordered} string l_sbkt shape_adjustment* r_sbkt;
+    single_shape_replacement = {default} string l_cbkt shape_adjustment* r_cbkt | {ordered} string l_sbkt shape_adjustment* r_sbkt;
 		
     list_shape_replacement = l_cbkt shape_replacement_declaration+ r_cbkt;
 		
-	loop_shape_replacement = number star l_cbkt shape_adjustment+ r_cbkt loop_shape_replacement_body;
+	multi_shape_replacement = number star l_cbkt shape_adjustment+ r_cbkt multi_shape_replacement_body;
 	
-	loop_shape_replacement_body = {shape} shape_replacement | {list} list_shape_replacement;
+	multi_shape_replacement_body = {single} single_shape_replacement | {list} list_shape_replacement;
 	
   	operator = {star} star | {plus} plus | {minus} minus | {slash} slash | {arrow} arrow;
 		
-  	path_operation_declaration = {loop} loop_path_operation | {path} path_operation; 
+  	path_operation_declaration = {multi} multi_path_operation | {path} path_operation; 
   	
   	simple_path_operation = {default} string l_cbkt path_adjustment* r_cbkt | {ordered} string l_sbkt path_adjustment* r_sbkt; 
   	
@@ -206,9 +204,9 @@ Productions
   	
   	list_path_operation = l_cbkt path_operation_declaration+ r_cbkt; 
   	
-	loop_path_operation = number star l_cbkt path_adjustment+ r_cbkt loop_path_operation_body;
+	multi_path_operation = number star l_cbkt path_adjustment+ r_cbkt multi_path_operation_body;
 	
-	loop_path_operation_body = {path} path_operation | {list} list_path_operation;
+	multi_path_operation_body = {path} path_operation | {list} list_path_operation;
 	
   	path_points = {x} x_token expression | {y} y_token expression | {x1} x1_token expression | {y1} y1_token expression | {x2} x2_token expression | {y2} y2_token expression | {rx} rx_token expression | {ry} ry_token expression | {rotate} rotate_token expression | {parameters} parameters_token string; 
 

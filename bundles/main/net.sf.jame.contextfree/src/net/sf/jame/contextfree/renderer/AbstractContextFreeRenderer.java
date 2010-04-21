@@ -34,11 +34,11 @@ import java.util.concurrent.ThreadFactory;
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.core.util.DefaultThreadFactory;
 import net.sf.jame.core.util.DoubleVector4D;
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.IntegerVector2D;
 import net.sf.jame.core.util.IntegerVector4D;
 import net.sf.jame.core.util.RenderWorker;
 import net.sf.jame.core.util.Surface;
+import net.sf.jame.core.util.Tile;
 import net.sf.jame.twister.renderer.TwisterRenderer;
 import net.sf.jame.twister.util.View;
 
