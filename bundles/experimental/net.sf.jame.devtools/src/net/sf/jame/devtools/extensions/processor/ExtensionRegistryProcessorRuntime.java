@@ -59,7 +59,7 @@ public class ExtensionRegistryProcessorRuntime extends ProcessorExtensionRuntime
 			map.putAll(variables);
 			map.put("imports", sortedImports);
 			map.put("extension", element);
-			if (element.isExtension() || element.isConfigurableExtension()) {
+			if ((element.isExtension() || element.isConfigurableExtension()) && element.hasExtensionRegistry()) {
 				File packagePath = new File(path, element.getExtensionRegistryPackageName().replace('.', '/'));
 				packagePath.mkdirs();
 				Configuration config = new Configuration();

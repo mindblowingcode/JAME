@@ -88,30 +88,46 @@ public class RuntimeElementProcessorRuntime extends ProcessorExtensionRuntime {
 	private void prepare(Set<String> imports, ProcessorDescriptor descriptor) {
 		imports.add("net.sf.jame.core.config.ValueChangeEvent");
 		imports.add("net.sf.jame.core.config.ValueChangeListener");
-		imports.add("net.sf.jame.core.config.ValueConfigElement");
 		imports.add("net.sf.jame.core.config.RuntimeElement");
-		imports.add("net.sf.jame.core.common.ExtensionReferenceElement");
-		imports.add("net.sf.jame.core.extension.ExtensionException");
-		imports.add("net.sf.jame.core.extension.ExtensionNotFoundException");
 	}
 
 	private void prepare(Set<String> imports, List<ProcessorDescriptor> descriptors) {
 		for (ProcessorDescriptor descriptor : descriptors) {
 			if (descriptor.isExtensionElement()) {
+				imports.add("net.sf.jame.core.config.ValueConfigElement");
+				imports.add("net.sf.jame.core.common.ExtensionReferenceElement");
+				imports.add("net.sf.jame.core.extension.ExtensionException");
+				imports.add("net.sf.jame.core.extension.ExtensionNotFoundException");
 				imports.add("net.sf.jame.core.extension.ExtensionReference");
 				imports.add(descriptor.getExtensionRuntimePackageName() + "." + descriptor.getExtensionRuntimeClassName());
 				imports.add(descriptor.getRegistryPackageName() + "." + descriptor.getRegistryClassName());
 			}
 			else if (descriptor.isConfigurableExtensionElement()) {
+				imports.add("net.sf.jame.core.config.ValueConfigElement");
+				imports.add("net.sf.jame.core.common.ExtensionReferenceElement");
+				imports.add("net.sf.jame.core.extension.ExtensionException");
+				imports.add("net.sf.jame.core.extension.ExtensionNotFoundException");
 				imports.add("net.sf.jame.core.extension.ConfigurableExtensionReference");
 				imports.add(descriptor.getExtensionConfigPackageName() + "." + descriptor.getExtensionConfigClassName());
 				imports.add(descriptor.getExtensionRuntimePackageName() + "." + descriptor.getExtensionRuntimeClassName());
 				imports.add(descriptor.getRegistryPackageName() + "." + descriptor.getRegistryClassName());
 			}
 			else if (descriptor.isComplexElement()) {
-				if (descriptor.getCardinality() == ProcessorCardinality.ONE || descriptor.getCardinality() == ProcessorCardinality.MANY) {
-					//imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
+				if (descriptor.getCardinality() == ProcessorCardinality.ONE) {
+					imports.add("net.sf.jame.core.config.SingleConfigElement");
+					imports.add("net.sf.jame.core.config.SingleRuntimeElement");
+					imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
 				}
+				if (descriptor.getCardinality() == ProcessorCardinality.MANY) {
+					imports.add("net.sf.jame.core.config.ListConfigElement");
+					imports.add("net.sf.jame.core.config.ListRuntimeElement");
+					imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
+				}
+				imports.add(descriptor.getRuntimeElementPackageName() + "." + descriptor.getRuntimeElementClassName());
+			}
+			else if (descriptor.isSimpleElement()) {
+				imports.add("net.sf.jame.core.config.ValueConfigElement");
+				imports.add(descriptor.getValuePackageName() + "." + descriptor.getValueClassName());
 			}
 		}
 	}

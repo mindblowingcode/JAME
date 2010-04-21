@@ -21,6 +21,13 @@ import ${import};
 	private ${subelement.extensionRuntimeClassName}<?> ${subelement.elementName?uncap_first}Runtime;
 	private ${subelement.elementName?cap_first}Listener ${subelement.elementName?uncap_first}Listener;
 	<#elseif subelement.complexElement>
+	<#if subelement.cardinality == "NONE">
+	private ${subelement.runtimeElementClassName} ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix};
+	<#elseif subelement.cardinality == "ONE">
+	private SingleRuntimeElement<${subelement.runtimeElementClassName}> ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix};
+	<#elseif subelement.cardinality == "MANY">
+	private ListRuntimeElement<${subelement.runtimeElementClassName}> ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix};
+	</#if>
 	private ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Listener ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}Listener;
 	<#elseif subelement.simpleElement>
 	private ${subelement.valueClassName} ${subelement.elementName?uncap_first};
@@ -45,6 +52,17 @@ import ${import};
 		${subelement.elementName?uncap_first}Listener = new ${subelement.elementName?cap_first}Listener();
 		${element.elementName?uncap_first}Element.get${subelement.elementName?cap_first}Element().addChangeListener(${subelement.elementName?uncap_first}Listener);
 		<#elseif subelement.complexElement>
+		<#if subelement.cardinality == "NONE">
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new ${subelement.runtimeElementClassName}(${element.elementName?uncap_first}Element.${subelement.getMethodPrefix}${subelement.elementName?cap_first}Element());
+		<#elseif subelement.cardinality == "ONE">
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new SingleRuntimeElement<${subelement.runtimeElementClassName}>();
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.setElement(new ${subelement.runtimeElementClassName}(${element.elementName?uncap_first}Element.${subelement.getMethodPrefix}${subelement.elementName?cap_first}Element()));
+		<#elseif subelement.cardinality == "MANY">
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new ListRuntimeElement<${subelement.runtimeElementClassName}>();
+		for (int i = 0; i < ${element.elementName?uncap_first}Element.get${subelement.elementName?cap_first}ConfigElementCount(); i++) {
+			${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.appendElement(new ${subelement.runtimeElementClassName}(${element.elementName?uncap_first}Element.get${subelement.elementName?cap_first}ConfigElement(i)));
+		}
+		</#if>
 		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}Listener = new ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Listener();
 		${element.elementName?uncap_first}Element.get${subelement.elementName?cap_first}${subelement.fieldNameSuffix}().addChangeListener(${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}Listener);
 		<#elseif subelement.simpleElement>
@@ -70,6 +88,7 @@ import ${import};
 		if ((${element.elementName?uncap_first}Element != null) && (${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}Listener != null)) {
 			${element.elementName?uncap_first}Element.get${subelement.elementName?cap_first}${subelement.fieldNameSuffix}().removeChangeListener(${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}Listener);
 		}
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.dispose();
 		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}Listener = null;
 		<#elseif subelement.simpleElement>
 		if ((${element.elementName?uncap_first}Element != null) && (${subelement.elementName?uncap_first}Listener != null)) {
@@ -127,7 +146,7 @@ import ${import};
 	}
 		
 	/**
-	 * @return the ${element.runtimeElementClassName}Runtime
+	 * @return the ${subelement.extensionRuntimeClassName}Runtime
 	 */
 	public ${subelement.extensionRuntimeClassName} get${subelement.elementName?cap_first}Runtime() {
 		return ${subelement.elementName?uncap_first}Runtime;
@@ -181,7 +200,7 @@ import ${import};
 	}
 	
 	/**
-	 * @return the ${element.runtimeElementClassName}Runtime
+	 * @return the ${subelement.extensionRuntimeClassName}Runtime
 	 */
 	public ${subelement.extensionRuntimeClassName}<?> get${subelement.elementName?cap_first}Runtime() {
 		return ${subelement.elementName?uncap_first}Runtime;
@@ -214,6 +233,7 @@ import ${import};
 	}
 	</#if>
 	<#elseif subelement.complexElement>
+	<#if subelement.cardinality == "NONE">
 	private class ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Listener implements ValueChangeListener {
 		/**
 		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
@@ -222,6 +242,141 @@ import ${import};
 			fireChanged();
 		}
 	}
+	<#elseif subelement.cardinality == "ONE">
+	/**
+	 * @return
+	 */
+	public ${subelement.runtimeElementClassName} get${subelement.elementName?cap_first}Element() {
+		return ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.getElement();
+	}
+
+	private void set${subelement.elementName?cap_first}Element(${subelement.runtimeElementClassName} element) {
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.setElement(element);
+	}
+	
+	private class ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Listener implements ValueChangeListener {
+		/**
+		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
+		 */
+		public void valueChanged(final ValueChangeEvent e) {
+			switch (e.getEventType()) {
+				case SingleConfigElement.VALUE_CHANGED: {
+					set${subelement.elementName?cap_first}Element(new ${subelement.runtimeElementClassName} ((${subelement.configElementClassName}) e.getParams()[0]));
+					fireChanged();
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		}
+	}
+	<#elseif subelement.cardinality == "MANY">
+	/**
+	 * Returns a ${subelement.elementName?uncap_first} element.
+	 * 
+	 * @param index the ${subelement.elementName?uncap_first} index.
+	 * @return the ${subelement.elementName?uncap_first}.
+	 */
+	public ${subelement.runtimeElementClassName} get${subelement.elementName?cap_first}Element(final int index) {
+		return ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.getElement(index);
+	}
+
+	/**
+	 * Returns a ${subelement.elementName?uncap_first} element index.
+	 * 
+	 * @param ${subelement.elementName?uncap_first}Element the ${subelement.elementName?uncap_first} element.
+	 * @return the index.
+	 */
+	public int indexOf${subelement.elementName?cap_first}Element(final ${subelement.runtimeElementClassName} ${subelement.elementName?uncap_first}Element) {
+		return ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.indexOfElement(${subelement.elementName?uncap_first}Element);
+	}
+
+	/**
+	 * Returns the number of ${subelement.elementName?uncap_first} elements.
+	 * 
+	 * @return the number of ${subelement.elementName?uncap_first} elements.
+	 */
+	public int get${subelement.elementName?cap_first}ElementCount() {
+		return ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.getElementCount();
+	}
+
+	private void set${subelement.elementName?cap_first}Element(final int index, ${subelement.runtimeElementClassName} element) {
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.setElement(index, element);
+	}
+
+	private void append${subelement.elementName?cap_first}Element(final ${subelement.runtimeElementClassName} ${subelement.elementName?uncap_first}Element) {
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.appendElement(${subelement.elementName?uncap_first}Element);
+	}
+
+	private void insert${subelement.elementName?cap_first}ElementAfter(final int index, final ${subelement.runtimeElementClassName} ${subelement.elementName?uncap_first}Element) {
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.insertElementAfter(index, ${subelement.elementName?uncap_first}Element);
+	}
+
+	private void insert${subelement.elementName?cap_first}ElementBefore(final int index, final ${subelement.runtimeElementClassName} ${subelement.elementName?uncap_first}Element) {
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.insertElementBefore(index, ${subelement.elementName?uncap_first}Element);
+	}
+
+	private void remove${subelement.elementName?cap_first}Element(final int index) {
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.removeElement(index);
+	}
+
+	private void moveUp${subelement.elementName?cap_first}Element(final int index) {
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.moveElementUp(index);
+	}
+
+	private void moveDown${subelement.elementName?cap_first}Element(final int index) {
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}.moveElementDown(index);
+	}
+	
+	private class ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Listener implements ValueChangeListener {
+		/**
+		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
+		 */
+		public void valueChanged(final ValueChangeEvent e) {
+			switch (e.getEventType()) {
+				case ListConfigElement.ELEMENT_ADDED: {
+					append${subelement.elementName?cap_first}Element(new ${subelement.runtimeElementClassName} ((${subelement.configElementClassName}) e.getParams()[0]));
+					fireChanged();
+					break;
+				}
+				case ListConfigElement.ELEMENT_INSERTED_AFTER: {
+					insert${subelement.elementName?cap_first}ElementAfter(((Integer) e.getParams()[1]).intValue(), new ${subelement.runtimeElementClassName} ((${subelement.configElementClassName}) e.getParams()[0]));
+					fireChanged();
+					break;
+				}
+				case ListConfigElement.ELEMENT_INSERTED_BEFORE: {
+					insert${subelement.elementName?cap_first}ElementBefore(((Integer) e.getParams()[1]).intValue(), new ${subelement.runtimeElementClassName} ((${subelement.configElementClassName}) e.getParams()[0]));
+					fireChanged();
+					break;
+				}
+				case ListConfigElement.ELEMENT_REMOVED: {
+					remove${subelement.elementName?cap_first}Element(((Integer) e.getParams()[1]).intValue());
+					fireChanged();
+					break;
+				}
+				case ListConfigElement.ELEMENT_MOVED_UP: {
+					moveUp${subelement.elementName?cap_first}Element(((Integer) e.getParams()[1]).intValue());
+					fireChanged();
+					break;
+				}
+				case ListConfigElement.ELEMENT_MOVED_DOWN: {
+					moveDown${subelement.elementName?cap_first}Element(((Integer) e.getParams()[1]).intValue());
+					fireChanged();
+					break;
+				}
+				case ListConfigElement.ELEMENT_CHANGED: {
+					set${subelement.elementName?cap_first}Element(((Integer) e.getParams()[1]).intValue(), new ${subelement.runtimeElementClassName} ((${subelement.configElementClassName}) e.getParams()[0]));
+					fireChanged();
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		}
+	}
+	</#if>
 	<#elseif subelement.simpleElement>
 	/**
 	 * @return the ${subelement.elementName?uncap_first}.
