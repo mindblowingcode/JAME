@@ -25,10 +25,8 @@
  */
 package net.sf.jame.contextfree.cfdg;
 
-import net.sf.jame.contextfree.cfdg.path.PathConfigElement;
-import net.sf.jame.contextfree.cfdg.path.PathRuntimeElement;
-import net.sf.jame.contextfree.cfdg.rule.RuleConfigElement;
-import net.sf.jame.contextfree.cfdg.rule.RuleRuntimeElement;
+import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
+import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.RuntimeElement;
@@ -381,14 +379,7 @@ public class CFDGRuntimeElement extends RuntimeElement {
 
 	private void createFigures(final CFDGConfigElement cfdgElement) {
 		for (int i = 0; i < cfdgElement.getFigureConfigElementCount(); i++) {
-			final FigureConfigElement figureElement = cfdgElement.getFigureConfigElement(i);
-			if (figureElement.getClassId().equals(PathConfigElement.CLASS_ID)) {
-				final FigureRuntimeElement figure = new PathRuntimeElement((PathConfigElement) figureElement);
-				appendFigure(figure);
-			} else if (figureElement.getClassId().equals(RuleConfigElement.CLASS_ID)) {
-				final FigureRuntimeElement figure = new RuleRuntimeElement((RuleConfigElement) figureElement);
-				appendFigure(figure);
-			}
+			appendFigure(new FigureRuntimeElement(cfdgElement.getFigureConfigElement(i)));
 		}
 	}
 
@@ -457,29 +448,17 @@ public class CFDGRuntimeElement extends RuntimeElement {
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ListConfigElement.ELEMENT_ADDED: {
-					if (((FigureConfigElement) e.getParams()[0]).getClassId().equals(PathConfigElement.CLASS_ID)) {
-						appendFigure(new PathRuntimeElement((PathConfigElement) e.getParams()[0]));
-					} else if (((FigureConfigElement) e.getParams()[0]).getClassId().equals(RuleConfigElement.CLASS_ID)) {
-						appendFigure(new RuleRuntimeElement((RuleConfigElement) e.getParams()[0]));
-					}
+					appendFigure(new FigureRuntimeElement((FigureConfigElement) e.getParams()[0]));
 					fireChanged();
 					break;
 				}
 				case ListConfigElement.ELEMENT_INSERTED_AFTER: {
-					if (((FigureConfigElement) e.getParams()[0]).getClassId().equals(PathConfigElement.CLASS_ID)) {
-						insertFigureAfter(((Integer) e.getParams()[1]).intValue(), new PathRuntimeElement((PathConfigElement) e.getParams()[0]));
-					} else if (((FigureConfigElement) e.getParams()[0]).getClassId().equals(RuleConfigElement.CLASS_ID)) {
-						insertFigureAfter(((Integer) e.getParams()[1]).intValue(), new RuleRuntimeElement((RuleConfigElement) e.getParams()[0]));
-					}
+					insertFigureAfter(((Integer) e.getParams()[1]).intValue(), new FigureRuntimeElement((FigureConfigElement) e.getParams()[0]));
 					fireChanged();
 					break;
 				}
 				case ListConfigElement.ELEMENT_INSERTED_BEFORE: {
-					if (((FigureConfigElement) e.getParams()[0]).getClassId().equals(PathConfigElement.CLASS_ID)) {
-						insertFigureBefore(((Integer) e.getParams()[1]).intValue(), new PathRuntimeElement((PathConfigElement) e.getParams()[0]));
-					} else if (((FigureConfigElement) e.getParams()[0]).getClassId().equals(RuleConfigElement.CLASS_ID)) {
-						insertFigureBefore(((Integer) e.getParams()[1]).intValue(), new RuleRuntimeElement((RuleConfigElement) e.getParams()[0]));
-					}
+					insertFigureBefore(((Integer) e.getParams()[1]).intValue(), new FigureRuntimeElement((FigureConfigElement) e.getParams()[0]));
 					fireChanged();
 					break;
 				}
@@ -499,11 +478,7 @@ public class CFDGRuntimeElement extends RuntimeElement {
 					break;
 				}
 				case ListConfigElement.ELEMENT_CHANGED: {
-					if (((FigureConfigElement) e.getParams()[0]).getClassId().equals(PathConfigElement.CLASS_ID)) {
-						setFigure(((Integer) e.getParams()[1]).intValue(), new PathRuntimeElement((PathConfigElement) e.getParams()[0]));
-					} else if (((FigureConfigElement) e.getParams()[0]).getClassId().equals(RuleConfigElement.CLASS_ID)) {
-						setFigure(((Integer) e.getParams()[1]).intValue(), new RuleRuntimeElement((RuleConfigElement) e.getParams()[0]));
-					}
+					setFigure(((Integer) e.getParams()[1]).intValue(), new FigureRuntimeElement((FigureConfigElement) e.getParams()[0]));
 					fireChanged();
 					break;
 				}

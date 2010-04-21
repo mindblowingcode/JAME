@@ -26,11 +26,16 @@
 package net.sf.jame.contextfree;
 
 import net.sf.jame.contextfree.cfdg.CFDGConfigElement;
-import net.sf.jame.contextfree.cfdg.rule.RuleConfigElement;
-import net.sf.jame.contextfree.cfdg.shape.ShapeConfigElement;
-import net.sf.jame.contextfree.cfdg.shape.adjustment.ShapeAdjustmentConfigElement;
-import net.sf.jame.contextfree.cfdg.shape.replacement.ShapeReplacementConfigElement;
+import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
+import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
+import net.sf.jame.contextfree.cfdg.replacement.SingleReplacementConfigElement;
+import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
+import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
+import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
+import net.sf.jame.contextfree.extensions.figure.RuleFigureConfig;
 import net.sf.jame.contextfree.extensions.image.ContextFreeImageConfig;
+import net.sf.jame.contextfree.extensions.shapeReplacement.SingleReplacementConfig;
+import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 
@@ -58,16 +63,19 @@ public class ContextFreeConfigBuilder {
 		CFDGConfigElement cfdgElement = new CFDGConfigElement();
 		cfdgElement.setStartshape("square");
 		config.setCFDG(cfdgElement);
-		RuleConfigElement ruleElement = new RuleConfigElement();
-		cfdgElement.appendFigureConfigElement(ruleElement);
-		ShapeConfigElement shapeElement = new ShapeConfigElement();
-		ruleElement.setShapeConfigElement(shapeElement);
-		ruleElement.setName("square");
-		ShapeReplacementConfigElement shapeReplacementElement = new ShapeReplacementConfigElement();
-		shapeElement.appendReplacementConfigElement(shapeReplacementElement);
+		FigureConfigElement figureElement = new FigureConfigElement();
+		cfdgElement.appendFigureConfigElement(figureElement);
+		ConfigurableExtensionReference<FigureExtensionConfig> ruleReference = ContextFreeRegistry.getInstance().getFigureExtension("contextfree.figure.rule").createConfigurableExtensionReference();
+		figureElement.setExtensionReference(ruleReference);
+		figureElement.setName("square");
+		ShapeReplacementConfigElement replacementElement = new ShapeReplacementConfigElement();
+		ConfigurableExtensionReference<ShapeReplacementExtensionConfig> replacementReference = ContextFreeRegistry.getInstance().getShapeReplacementExtension("contextfree.shape.replacement.single").createConfigurableExtensionReference();
+		replacementElement.setExtensionReference(replacementReference);
+		((RuleFigureConfig) ruleReference.getExtensionConfig()).getRuleElement().appendShapeReplacementConfigElement(replacementElement);
+		SingleReplacementConfigElement singleReplacementElement = ((SingleReplacementConfig) replacementReference.getExtensionConfig()).getReplacementElement();
 		ShapeAdjustmentConfigElement shapeAdjustmentElement = new ShapeAdjustmentConfigElement();
-		shapeReplacementElement.setName("square");
-		shapeReplacementElement.appendShapeAdjustmentConfigElement(shapeAdjustmentElement);
+		singleReplacementElement.setShape("square");
+		singleReplacementElement.appendShapeAdjustmentConfigElement(shapeAdjustmentElement);
 		shapeAdjustmentElement.setExtensionReference(ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.hue").createConfigurableExtensionReference());
 		return config;
 	}

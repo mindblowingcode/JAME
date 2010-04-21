@@ -35,11 +35,8 @@ import java.util.Stack;
 
 import net.sf.jame.contextfree.ContextFreeRegistry;
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
-import net.sf.jame.contextfree.cfdg.FigureRuntimeElement;
 import net.sf.jame.contextfree.cfdg.extension.PrimitiveExtensionRuntime;
-import net.sf.jame.contextfree.cfdg.path.PathConfigElement;
 import net.sf.jame.contextfree.cfdg.path.PathRuntimeElement;
-import net.sf.jame.contextfree.cfdg.rule.RuleConfigElement;
 import net.sf.jame.contextfree.cfdg.rule.RuleRuntimeElement;
 import net.sf.jame.core.extension.Extension;
 
@@ -63,14 +60,14 @@ public class ContextFreeContext {
 				e.printStackTrace();
 			}
 		}
-		for (int i = 0; i < runtime.getFigureCount(); i++) {
-			FigureRuntimeElement figureElement = runtime.getFigure(i);
-			if (figureElement.getFigureElement().getClassId().equals(PathConfigElement.CLASS_ID)) {
-				pathMap.add((PathRuntimeElement) figureElement);
-			} else if (figureElement.getFigureElement().getClassId().equals(RuleConfigElement.CLASS_ID)) {
-				ruleMap.add((RuleRuntimeElement) figureElement);
-			}
-		}
+//		for (int i = 0; i < runtime.getFigureCount(); i++) {
+//			FigureRuntimeElement figureElement = runtime.getFigure(i);
+//			if (figureElement.getFigureElement().getClassId().equals(PathConfigElement.CLASS_ID)) {
+//				pathMap.add((PathRuntimeElement) figureElement);
+//			} else if (figureElement.getFigureElement().getClassId().equals(RuleConfigElement.CLASS_ID)) {
+//				ruleMap.add((RuleRuntimeElement) figureElement);
+//			}
+//		}
 	}
 
 	public void drawShape(Shape shape) {
