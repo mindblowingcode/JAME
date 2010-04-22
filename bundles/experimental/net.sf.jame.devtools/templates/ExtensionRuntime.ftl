@@ -18,7 +18,7 @@ public abstract class ${extension.extensionRuntimeClassName} extends ExtensionRu
 /**
  * @author ${author}
  */
-public abstract class ${extension.extensionRuntimeClassName}<T extends ${extension.extensionConfigClassName}> extends ConfigurableExtensionRuntime<T> {
+<#if generateAbstractClass?exists>public abstract<#else>public</#if> class ${extension.extensionRuntimeClassName}<T extends ${extension.extensionConfigClassName}> extends ConfigurableExtensionRuntime<T> {
 	<#list subelements as subelement>
 	<#if subelement.extensionElement>
 	private ${subelement.extensionRuntimeClassName} ${subelement.elementName?uncap_first}Runtime;

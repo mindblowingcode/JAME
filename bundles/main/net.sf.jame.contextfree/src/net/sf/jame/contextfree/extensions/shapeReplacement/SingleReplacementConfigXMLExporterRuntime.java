@@ -78,7 +78,7 @@ public class SingleReplacementConfigXMLExporterRuntime extends ExtensionConfigXM
 		 * @throws XMLExportException
 		 */
 		protected void exportReplacement(final SingleReplacementConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-			element.appendChild(new SingleReplacementConfigElementXMLExporter().exportToElement(config.getReplacementElement(), builder));
+			element.appendChild(new SingleReplacementConfigElementXMLExporter().exportToElement(config.getSingleReplacementElement(), builder));
 		}
 	}
 }

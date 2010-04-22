@@ -78,7 +78,7 @@ public class MultiReplacementConfigXMLExporterRuntime extends ExtensionConfigXML
 		 * @throws XMLExportException
 		 */
 		protected void exportReplacement(final MultiReplacementConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-			element.appendChild(new MultiReplacementConfigElementXMLExporter().exportToElement(config.getReplacementElement(), builder));
+			element.appendChild(new MultiReplacementConfigElementXMLExporter().exportToElement(config.getMultiReplacementElement(), builder));
 		}
 	}
 }

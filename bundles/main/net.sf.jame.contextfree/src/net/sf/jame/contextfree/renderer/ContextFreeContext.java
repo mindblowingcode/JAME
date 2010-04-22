@@ -36,6 +36,7 @@ import java.util.Stack;
 import net.sf.jame.contextfree.ContextFreeRegistry;
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.contextfree.cfdg.extension.PrimitiveExtensionRuntime;
+import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
 import net.sf.jame.contextfree.cfdg.path.PathRuntimeElement;
 import net.sf.jame.contextfree.cfdg.rule.RuleRuntimeElement;
 import net.sf.jame.core.extension.Extension;
@@ -46,12 +47,18 @@ public class ContextFreeContext {
 	private PrimitiveMap primitiveMap = new PrimitiveMap();
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
-	//private CFDGRuntimeElement runtime;
 	private Graphics2D g2d;
 
 	public ContextFreeContext(Graphics2D g2d, CFDGRuntimeElement runtime) {
 		this.g2d = g2d;
-		//this.runtime = runtime;
+		registerPrimitives();
+		for (int i = 0; i < runtime.getFigureElementCount(); i++) {
+			FigureRuntimeElement figure = runtime.getFigureElement(i);
+			figure.registerFigure(this);
+		}
+	}
+
+	private void registerPrimitives() {
 		for (Extension<PrimitiveExtensionRuntime> extension : ContextFreeRegistry.getInstance().getPrimitiveRegistry().getExtensionList()) {
 			try {
 				PrimitiveExtensionRuntime primitiveRuntime = extension.createExtensionRuntime();
@@ -60,14 +67,14 @@ public class ContextFreeContext {
 				e.printStackTrace();
 			}
 		}
-//		for (int i = 0; i < runtime.getFigureCount(); i++) {
-//			FigureRuntimeElement figureElement = runtime.getFigure(i);
-//			if (figureElement.getFigureElement().getClassId().equals(PathConfigElement.CLASS_ID)) {
-//				pathMap.add((PathRuntimeElement) figureElement);
-//			} else if (figureElement.getFigureElement().getClassId().equals(RuleConfigElement.CLASS_ID)) {
-//				ruleMap.add((RuleRuntimeElement) figureElement);
-//			}
-//		}
+	}
+
+	public void registerPath(PathRuntimeElement pathElement) {
+		pathMap.add(pathElement);
+	}
+
+	public void registerRule(RuleRuntimeElement ruleElement) {
+		ruleMap.add(ruleElement);
 	}
 
 	public void drawShape(Shape shape) {
