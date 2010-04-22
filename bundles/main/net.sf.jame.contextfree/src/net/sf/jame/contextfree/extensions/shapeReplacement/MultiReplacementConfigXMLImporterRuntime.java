@@ -94,7 +94,7 @@ public class MultiReplacementConfigXMLImporterRuntime extends ExtensionConfigXML
 		protected void importReplacement(final MultiReplacementConfig config, final Element element) throws XMLImportException {
 			final List<Element> elements = this.getElements(element, MultiReplacementConfigElement.CLASS_ID);
 			if (elements.size() == 1) {
-				config.getReplacementElement().copyFrom(new MultiReplacementConfigElementXMLImporter().importFromElement(elements.get(0)));
+				config.getMultiReplacementElement().copyFrom(new MultiReplacementConfigElementXMLImporter().importFromElement(elements.get(0)));
 			}
 		}
 	}

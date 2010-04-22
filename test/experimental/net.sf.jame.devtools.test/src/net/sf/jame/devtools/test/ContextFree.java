@@ -154,6 +154,18 @@ public class ContextFree {
 		descriptors.add(new ProcessorDescriptor("multiReplacement", "MultiReplacement", "MultiReplacement", "net.sf.jame.contextfree.cfdg.replacement", "MultiReplacementConfigElement", "net.sf.jame.contextfree.cfdg.replacement", "MultiReplacementRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("multiReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.replacement", "MultiReplacementConfig", "net.sf.jame.contextfree.extensions.replacement", "MultiReplacementRuntime", null, null, null, null, null, null, null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
+
+	private ProcessorParameters createRuleExtensionParameters() {
+		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(new ProcessorDescriptor("rule", "Rule", "Rule", "net.sf.jame.contextfree.cfdg.rule", "RuleConfigElement", "net.sf.jame.contextfree.cfdg.rule", "RuleRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.NONE));
+		return new ProcessorParameters(new ProcessorDescriptor("rule", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.figure", "RuleFigureConfig", "net.sf.jame.contextfree.extensions.figure", "RuleFigureRuntime", null, null, null, null, null, null, null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
+
+	private ProcessorParameters createPathExtensionParameters() {
+		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(new ProcessorDescriptor("path", "Path", "Path", "net.sf.jame.contextfree.cfdg.path", "PathConfigElement", "net.sf.jame.contextfree.cfdg.path", "PathRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.NONE));
+		return new ProcessorParameters(new ProcessorDescriptor("path", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.figure", "PathFigureConfig", "net.sf.jame.contextfree.extensions.figure", "PathFigureRuntime", null, null, null, null, null, null, null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
 	
 	private ProcessorParameters createRegistryParameters() {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
@@ -276,6 +288,25 @@ public class ContextFree {
 	}
 
 	@Test
+	public void generatePathExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createPathExtensionParameters();
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
 	public void generateRule() {
 		try {
 			File path = new File("build");
@@ -285,6 +316,25 @@ public class ContextFree {
 			Map<String, String> variables = createVariables();
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createRuleParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateRuleExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createRuleExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
 				processorRuntime.process(path, parameters, variables);
 			}
@@ -428,7 +478,7 @@ public class ContextFree {
 	}
 
 	@Test
-	public void generateMultiReplacementExtension() {
+	public void generateMultiReplacement() {
 		try {
 			File path = new File("build");
 			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
@@ -436,7 +486,7 @@ public class ContextFree {
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
 			populateDescriptorExtensionMap(descriptorExtensionMap);
-			ProcessorParameters parameters = createMultiReplacementExtensionParameters();
+			ProcessorParameters parameters = createMultiReplacementParameters(descriptorExtensionMap);
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
 				processorRuntime.process(path, parameters, variables);
 			}
@@ -447,7 +497,7 @@ public class ContextFree {
 	}
 
 	@Test
-	public void generateMultiReplacement() {
+	public void generateMultiReplacementExtension() {
 		try {
 			File path = new File("build");
 			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
@@ -455,7 +505,7 @@ public class ContextFree {
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
 			populateDescriptorExtensionMap(descriptorExtensionMap);
-			ProcessorParameters parameters = createMultiReplacementParameters(descriptorExtensionMap);
+			ProcessorParameters parameters = createMultiReplacementExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
 				processorRuntime.process(path, parameters, variables);
 			}

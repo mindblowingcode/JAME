@@ -8,6 +8,7 @@ import java.lang.String;
 import net.sf.jame.contextfree.ContextFreeRegistry;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.core.common.ExtensionReferenceElement;
 import net.sf.jame.core.config.RuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -156,5 +157,9 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 				}
 			}
 		}
+	}
+	
+	public void registerFigure(ContextFreeContext contextFreeContext) {
+		extensionRuntime.registerFigure(contextFreeContext);
 	}
 }

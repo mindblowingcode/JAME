@@ -94,7 +94,7 @@ public class SingleReplacementConfigXMLImporterRuntime extends ExtensionConfigXM
 		protected void importReplacement(final SingleReplacementConfig config, final Element element) throws XMLImportException {
 			final List<Element> elements = this.getElements(element, SingleReplacementConfigElement.CLASS_ID);
 			if (elements.size() == 1) {
-				config.getReplacementElement().copyFrom(new SingleReplacementConfigElementXMLImporter().importFromElement(elements.get(0)));
+				config.getSingleReplacementElement().copyFrom(new SingleReplacementConfigElementXMLImporter().importFromElement(elements.get(0)));
 			}
 		}
 	}

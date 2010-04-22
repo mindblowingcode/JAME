@@ -57,7 +57,7 @@ public class SingleReplacementConfigNodeBuilderRuntime extends NodeBuilderExtens
 		 */
 		@Override
 		public void createNodes(final Node parentNode) {
-			parentNode.appendChildNode(new SingleReplacementConfigElementNode(getConfig().getReplacementElement()));
+			parentNode.appendChildNode(new SingleReplacementConfigElementNode(getConfig().getSingleReplacementElement()));
 		}
 	}
 }

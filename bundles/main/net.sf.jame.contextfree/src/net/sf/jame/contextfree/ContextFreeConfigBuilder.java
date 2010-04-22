@@ -72,7 +72,7 @@ public class ContextFreeConfigBuilder {
 		ConfigurableExtensionReference<ShapeReplacementExtensionConfig> replacementReference = ContextFreeRegistry.getInstance().getShapeReplacementExtension("contextfree.shape.replacement.single").createConfigurableExtensionReference();
 		replacementElement.setExtensionReference(replacementReference);
 		((RuleFigureConfig) ruleReference.getExtensionConfig()).getRuleElement().appendShapeReplacementConfigElement(replacementElement);
-		SingleReplacementConfigElement singleReplacementElement = ((SingleReplacementConfig) replacementReference.getExtensionConfig()).getReplacementElement();
+		SingleReplacementConfigElement singleReplacementElement = ((SingleReplacementConfig) replacementReference.getExtensionConfig()).getSingleReplacementElement();
 		ShapeAdjustmentConfigElement shapeAdjustmentElement = new ShapeAdjustmentConfigElement();
 		singleReplacementElement.setShape("square");
 		singleReplacementElement.appendShapeAdjustmentConfigElement(shapeAdjustmentElement);

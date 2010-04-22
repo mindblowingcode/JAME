@@ -57,7 +57,7 @@ public class MultiReplacementConfigNodeBuilderRuntime extends NodeBuilderExtensi
 		 */
 		@Override
 		public void createNodes(final Node parentNode) {
-			parentNode.appendChildNode(new MultiReplacementConfigElementNode(getConfig().getReplacementElement()));
+			parentNode.appendChildNode(new MultiReplacementConfigElementNode(getConfig().getMultiReplacementElement()));
 		}
 	}
 }
