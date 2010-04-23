@@ -145,8 +145,8 @@ public final class Pipeline {
 							final AffineTransform old_transform2 = graphics.getTransform();
 							final AffineTransform transform2 = ((AbstractGraphics) object).getTransform();
 							if (transform2 != null) {
-								graphics.transform(transform2);
 								graphics.translate(-((AbstractGraphics) object).getCenter().getX(), -((AbstractGraphics) object).getCenter().getY());
+								graphics.transform(transform2);
 							}
 							final AffineTransform inverse = graphics.getTransform().createInverse();
 							while (dispatchedEvents.size() > 0) {
@@ -208,8 +208,8 @@ public final class Pipeline {
 			final Paint paint1 = shape.getPaint1();
 			final Paint paint2 = shape.getPaint2();
 			if (transform != null) {
-				graphics.transform(transform);
 				graphics.translate(-shape.getCenter().getX(), -shape.getCenter().getY());
+				graphics.transform(transform);
 			}
 			if (stroke != null) {
 				graphics.setStroke(stroke);
@@ -252,8 +252,8 @@ public final class Pipeline {
 		final AffineTransform old_transform = graphics.getTransform();
 		final AffineTransform transform = image.getTransform();
 		if (transform != null) {
-			graphics.transform(transform);
 			graphics.translate(-image.getCenter().getX(), -image.getCenter().getY());
+			graphics.transform(transform);
 		}
 		image.drawImage(graphics);
 		graphics.setTransform(old_transform);
@@ -277,8 +277,8 @@ public final class Pipeline {
 		final AffineTransform old_transform = graphics.getTransform();
 		final AffineTransform transform = image.getTransform();
 		if (transform != null) {
-			graphics.transform(transform);
 			graphics.translate(-image.getCenter().getX(), -image.getCenter().getY());
+			graphics.transform(transform);
 		}
 		image.drawImage(graphics);
 		graphics.setTransform(old_transform);

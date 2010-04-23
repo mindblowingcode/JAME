@@ -51,7 +51,7 @@ public final class MovieFrame extends Frame {
 	private static final long serialVersionUID = 1L;
 	private GraphicsEnvironment environment;
 	private GraphicsDevice device;
-	private MovieRenderer engine;
+	private MovieRenderer renderer;
 	private Color color = Color.white;
 	private boolean undecorated = false;
 	private boolean resizable = false;
@@ -81,7 +81,8 @@ public final class MovieFrame extends Frame {
 			setUndecorated(undecorated);
 			setCursor(new Cursor(Cursor.HAND_CURSOR));
 			DefaultMovieContext movieContext = new DefaultMovieContext();
-			RenderingCanvas canvas = new RenderingCanvas(movieContext, movie);
+			MovieRenderer renderer = new MovieRenderer(movieContext, movie);
+			RenderingCanvas canvas = new RenderingCanvas(renderer);
 			movieContext.setColor(getBackground());
 			movieContext.setDebug(debug);
 			movieContext.setLoop(loop);
@@ -96,10 +97,10 @@ public final class MovieFrame extends Frame {
 			final Point center = environment.getCenterPoint();
 			setLocation(center.x - (size.width / 2), center.y - (size.height / 2));
 			setVisible(true);
-			engine = canvas.getMovieRenderer();
+			renderer = canvas.getRenderer();
 			movie.setSize(canvas.getSize());
 			movie.setCenter(new Point2D.Double(-canvas.getSize().getWidth() / 2, -canvas.getSize().getHeight() / 2));
-			engine.init();
+			renderer.init();
 		}
 		catch (final EngineException e) {
 			e.printStackTrace();
@@ -134,7 +135,7 @@ public final class MovieFrame extends Frame {
 		public void keyPressed(final KeyEvent e) {
 			switch (e.getKeyCode()) {
 				case KeyEvent.VK_ESCAPE: {
-					engine.dispose();
+					renderer.dispose();
 					break;
 				}
 				default:
@@ -149,7 +150,7 @@ public final class MovieFrame extends Frame {
 
 		@Override
 		public void windowClosing(final WindowEvent e) {
-			engine.dispose();
+			renderer.dispose();
 		}
 	}
 }

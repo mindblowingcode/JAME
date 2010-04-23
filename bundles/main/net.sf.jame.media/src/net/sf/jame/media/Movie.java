@@ -32,7 +32,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Movie extends AbstractGraphics implements Animate {
-	private Controller engine;
+	private Controller controller;
 	private Sequence sequence;
 	private Movie parent;
 	private Layer layer;
@@ -103,16 +103,16 @@ public class Movie extends AbstractGraphics implements Animate {
 	}
 
 	public final Controller getEngine() {
-		return engine;
+		return controller;
 	}
 
 	@Override
-	public final void build(final Controller engine, final Movie parent, final Layer layer, final Sequence sequence) {
-		this.engine = engine;
+	public final void build(final Controller controller, final Movie parent, final Layer layer, final Sequence sequence) {
+		this.controller = controller;
 		this.parent = parent;
 		this.layer = layer;
 		this.sequence = sequence;
-		timeline.build(engine, this);
+		timeline.build(controller, this);
 	}
 
 	@Override
