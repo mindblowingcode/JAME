@@ -58,7 +58,7 @@ public final class MovieRenderer {
 	 */
 	public synchronized void init() {
 		pipeline = new Pipeline(movieContext);
-		controller = new EngineController();
+		controller = new RendererController();
 		movie.load();
 		movie.build(controller, null, null, null);
 		movie.init();
@@ -96,6 +96,25 @@ public final class MovieRenderer {
 		movie.build(controller, null, null, null);
 	}
 
+	/**
+	 * @param event
+	 */
+	public synchronized void enqueueEvent(EngineEvent event) {
+		pipeline.enqueueEvent(event);
+	}
+
+	public synchronized void nextFrame() {
+		movie.nextFrame();
+	}
+
+	public synchronized void prevFrame() {
+		movie.prevFrame();
+	}
+
+	public synchronized void setFrame(int frame) {
+		movie.setFrame(frame);
+	}
+
 	private void setRenderingHints(final Graphics2D graphics) {
 		graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		graphics.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
@@ -108,7 +127,7 @@ public final class MovieRenderer {
 		graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 	}
 
-	private class EngineController implements Controller {
+	private class RendererController implements Controller {
 		public void play() {
 			synchronized (MovieRenderer.this) {
 				movieContext.setStopped(false);
@@ -134,24 +153,5 @@ public final class MovieRenderer {
 				movieContext.setStopped(true);
 			}
 		}
-	}
-
-	/**
-	 * @param event
-	 */
-	public synchronized void enqueueEvent(EngineEvent event) {
-		pipeline.enqueueEvent(event);
-	}
-
-	public synchronized void nextFrame() {
-		movie.nextFrame();
-	}
-
-	public synchronized void prevFrame() {
-		movie.prevFrame();
-	}
-
-	public synchronized void setFrame(int frame) {
-		movie.setFrame(frame);
 	}
 }

@@ -437,7 +437,7 @@ public class FastRasterizer extends Rasterizer {
 				c = texture_pixels[((tx >> 16) & texture_width_mask) + (((ty >> 16) & texture_height_mask) << texture_wsize)];
 				lutid = (cnx & 255) + ((cny & 255) << 8);
 				c = Color.mul(c, diffuse[lutz][lutid]);
-				c = Color.mix(pixels[j], c, material_transparency);
+				c = Color.mix(c, pixels[j], material_transparency);
 				s = Color.scale(specular[lutz][lutid], material_reflectivity);
 				c = Color.add(c, s);
 				zbuffer[j] = z;
@@ -457,7 +457,7 @@ public class FastRasterizer extends Rasterizer {
 				c = material_color;
 				lutid = (cnx & 255) + ((cny & 255) << 8);
 				c = Color.mul(c, diffuse[lutz][lutid]);
-				c = Color.mix(pixels[j], c, material_transparency);
+				c = Color.mix(c, pixels[j], material_transparency);
 				s = Color.scale(specular[lutz][lutid], material_reflectivity);
 				c = Color.add(c, s);
 				zbuffer[j] = z;
@@ -475,7 +475,7 @@ public class FastRasterizer extends Rasterizer {
 				c = texture_pixels[((tx >> 16) & texture_width_mask) + (((ty >> 16) & texture_height_mask) << texture_wsize)];
 				lutid = ((nx >> 16) & 255) + (((ny >> 16) & 255) << 8);
 				c = Color.mul(c, diffuse[lutz][lutid]);
-				c = Color.mix(pixels[j], c, material_transparency);
+				c = Color.mix(c, pixels[j], material_transparency);
 				s = Color.scale(specular[lutz][lutid], material_reflectivity);
 				c = Color.add(c, s);
 				zbuffer[j] = z;
@@ -497,7 +497,7 @@ public class FastRasterizer extends Rasterizer {
 				c = material_color;
 				lutid = ((nx >> 16) & 255) + (((ny >> 16) & 255) << 8);
 				c = Color.mul(c, diffuse[lutz][lutid]);
-				c = Color.mix(pixels[j], c, material_transparency);
+				c = Color.mix(c, pixels[j], material_transparency);
 				s = Color.scale(specular[lutz][lutid], material_reflectivity);
 				c = Color.add(c, s);
 				zbuffer[j] = z;

@@ -32,6 +32,7 @@ import java.awt.Cursor;
 import java.awt.geom.Point2D;
 
 import net.sf.jame.media.Movie;
+import net.sf.jame.media.swing.renderer.MovieRenderer;
 import net.sf.jame.media.swing.renderer.RenderingCanvas;
 
 /**
@@ -73,7 +74,8 @@ public abstract class MovieApplet extends Applet {
 			setForeground(color);
 			setCursor(new Cursor(Cursor.HAND_CURSOR));
 			DefaultMovieContext movieContext = new DefaultMovieContext();
-			RenderingCanvas canvas = new RenderingCanvas(movieContext, movie);
+			MovieRenderer renderer = new MovieRenderer(movieContext, movie);
+			RenderingCanvas canvas = new RenderingCanvas(renderer);
 			movieContext.setColor(getBackground());
 			movieContext.setDebug(debug);
 			movieContext.setLoop(loop);
@@ -91,7 +93,7 @@ public abstract class MovieApplet extends Applet {
 		}
 		movie.setSize(canvas.getSize());
 		movie.setCenter(new Point2D.Double(-canvas.getSize().getWidth() / 2, -canvas.getSize().getHeight() / 2));
-		canvas.getMovieRenderer().init();
+		canvas.getRenderer().init();
 	}
 
 	@Override
@@ -99,7 +101,7 @@ public abstract class MovieApplet extends Applet {
 		if (canvas == null) {
 			return;
 		}
-		canvas.getMovieRenderer().dispose();
+		canvas.getRenderer().dispose();
 	}
 
 	@Override

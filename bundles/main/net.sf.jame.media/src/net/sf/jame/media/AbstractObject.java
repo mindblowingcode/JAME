@@ -36,7 +36,7 @@ abstract class AbstractObject implements Cloneable {
 
 	abstract void reset();
 
-	abstract void build(Controller engine, Movie parent, Layer layer, Sequence sequence);
+	abstract void build(Controller controller, Movie parent, Layer layer, Sequence sequence);
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {

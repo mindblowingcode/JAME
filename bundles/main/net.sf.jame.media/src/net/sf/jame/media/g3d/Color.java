@@ -97,13 +97,13 @@ public final class Color {
 
 	public static int scale(final int color, final int factor) {
 		if (factor == 0) {
-			return 0;
+			return (color & 0xFF000000);
 		}
 		if (factor == 255) {
 			return color;
 		}
 		if (factor == 127) {
-			return (color & 0xFEFEFE) >> 1;
+			return (color & 0xFF000000) | ((color & 0xFEFEFE) >> 1);
 		}
 		final int r = (((color >> 16) & 255) * factor) >> 8;
 		final int g = (((color >> 8) & 255) * factor) >> 8;
@@ -113,10 +113,10 @@ public final class Color {
 
 	public static int mul(final int color1, final int color2) {
 		if ((color1 & Color.RGB) == 0) {
-			return 0;
+			return (color1 & 0xFF000000);
 		}
 		if ((color2 & Color.RGB) == 0) {
-			return 0;
+			return (color1 & 0xFF000000);
 		}
 		final int r = (((color1 >> 16) & 255) * ((color2 >> 16) & 255)) >> 8;
 		final int g = (((color1 >> 8) & 255) * ((color2 >> 8) & 255)) >> 8;
@@ -130,17 +130,17 @@ public final class Color {
 
 	public static int mix(final int color1, final int color2, final int alpha) {
 		if (alpha == 0) {
-			return color2;
+			return color1;
 		}
 		if (alpha == 255) {
-			return color1;
+			return color2;
 		}
 		if (alpha == 127) {
 			return Color.mix(color1, color2);
 		}
-		final int r = ((alpha * (((color1 >> 16) & 255) - ((color2 >> 16) & 255))) >> 8) + ((color2 >> 16) & 255);
-		final int g = ((alpha * (((color1 >> 8) & 255) - ((color2 >> 8) & 255))) >> 8) + ((color2 >> 8) & 255);
-		final int b = ((alpha * ((color1 & 255) - (color2 & 255))) >> 8) + (color2 & 255);
+		final int r = ((alpha * (((color2 >> 16) & 255) - ((color1 >> 16) & 255))) >> 8) + ((color1 >> 16) & 255);
+		final int g = ((alpha * (((color2 >> 8) & 255) - ((color1 >> 8) & 255))) >> 8) + ((color1 >> 8) & 255);
+		final int b = ((alpha * ((color2 & 255) - (color1 & 255))) >> 8) + (color1 & 255);
 		return (color1 & 0xFF000000) | (r << 16) | (g << 8) | b;
 	}
 

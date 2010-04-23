@@ -38,8 +38,6 @@ import java.awt.image.VolatileImage;
 import java.util.concurrent.Semaphore;
 
 import net.sf.jame.media.EngineMouseEvent;
-import net.sf.jame.media.Movie;
-import net.sf.jame.media.MovieContext;
 import net.sf.jame.media.swing.animator.MovieAnimatorContext;
 
 /**
@@ -55,20 +53,19 @@ public class RenderingCanvas extends Canvas implements MovieAnimatorContext {
 	private final MovieRenderer renderer;
 
 	/**
-	 * @param movieContext
-	 * @param movie
+	 * @param renderer
 	 */
-	public RenderingCanvas(final MovieContext movieContext, final Movie movie) {
+	public RenderingCanvas(final MovieRenderer renderer) {
+		this.renderer = renderer;
 		addKeyListener(keyadapter);
 		addMouseListener(mouseadapter);
 		addMouseMotionListener(mousemotionadapter);
-		renderer = new MovieRenderer(movieContext, movie);
 	}
 
 	/**
 	 * @return
 	 */
-	public MovieRenderer getMovieRenderer() {
+	public MovieRenderer getRenderer() {
 		return renderer;
 	}
 
