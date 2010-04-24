@@ -8,6 +8,9 @@ package ${registry.registryPackageName};
 import ${import};
 </#list>
 
+/**
+ * @author ${author}
+ */
 public class ${registry.registryClassName} {
 	<#list extensions as extension>
 	<#if extension.extension>

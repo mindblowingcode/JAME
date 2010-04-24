@@ -7,11 +7,11 @@ package net.sf.jame.contextfree.cfdg.shapeReplacement;
 import net.sf.jame.contextfree.ContextFreeRegistry;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.core.common.ExtensionReferenceElement;
 import net.sf.jame.core.config.RuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
-import net.sf.jame.core.config.ValueConfigElement;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
@@ -118,6 +118,18 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 					break;
 				}
 			}
+		}
+	}
+
+	public void draw(ContextFreeContext contextFreeContext) {
+		if (extensionRuntime != null) {
+			extensionRuntime.draw(contextFreeContext);
+		}
+	}
+
+	public void prepare(ContextFreeContext contextFreeContext) {
+		if (extensionRuntime != null) {
+			extensionRuntime.prepare(contextFreeContext);
 		}
 	}
 }

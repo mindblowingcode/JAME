@@ -9,13 +9,13 @@ import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionConfig;
 import net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.core.common.ExtensionReferenceElement;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.RuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
-import net.sf.jame.core.config.ValueConfigElement;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
@@ -239,6 +239,24 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 					break;
 				}
 			}
+		}
+	}
+	
+	public void draw(ContextFreeContext contextFreeContext) {
+		contextFreeContext.pushState();
+		for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
+			PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
+			pathAdjustmentRuntime.load(contextFreeContext.getState());
+		}
+		if (extensionRuntime != null) {
+			extensionRuntime.draw(contextFreeContext);
+		}
+		contextFreeContext.popState();
+	}
+
+	public void prepare(ContextFreeContext contextFreeContext) {
+		if (extensionRuntime != null) {
+			extensionRuntime.prepare(contextFreeContext);
 		}
 	}
 }

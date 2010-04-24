@@ -42,7 +42,7 @@ import net.sf.jame.devtools.extension.ProcessorExtensionRuntime;
 
 import org.junit.Test;
 
-public class TestDevTools {
+public class TestGenerate {
 	private ProcessorParameters createComplexParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(new ProcessorDescriptor("extension", "Test", "Test", "net.sf.jame.core.common", "ConfigurableExtensionReferenceElement", null, null, "net.sf.jame.test", "TestExtensionConfig", "net.sf.jame.test", "TestExtensionRuntime", null, null, "net.sf.jame.test", "TestRegistry", null, null, null, null, null, "get", "set", ProcessorCardinality.NONE));

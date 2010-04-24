@@ -54,6 +54,11 @@
             name="Registry Processor"
             runtimeClass="net.sf.jame.devtools.extensions.processor.RegistryProcessorRuntime">
       </processor>
+      <processor
+            id="devtools.processor.resources"
+            name="Resources Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ResourcesProcessorRuntime">
+      </processor>
    </extension>
 
 </plugin>

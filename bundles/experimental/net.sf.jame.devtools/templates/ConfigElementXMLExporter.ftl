@@ -9,6 +9,9 @@ package ${element.configElementPackageName};
 import ${import};
 </#list>
 
+/**
+ * @author ${author}
+ */
 public class ${element.configElementClassName}XMLExporter extends ValueConfigElementXMLExporter<${element.valueClassName}, ${element.configElementClassName}> {
 	/**
 	 * @see net.sf.jame.core.config.ValueConfigElementXMLExporter#formatValue(java.io.Serializable)
@@ -23,6 +26,9 @@ public class ${element.configElementClassName}XMLExporter extends ValueConfigEle
 import ${import};
 </#list>
 
+/**
+ * @author ${author}
+ */
 public class ${element.configElementClassName}XMLExporter extends XMLExporter<${element.configElementClassName}> {
 	/**
 	 * @see net.sf.jame.core.xml.XMLExporter#exportToElement(java.lang.Object, net.sf.jame.core.xml.XMLNodeBuilder)

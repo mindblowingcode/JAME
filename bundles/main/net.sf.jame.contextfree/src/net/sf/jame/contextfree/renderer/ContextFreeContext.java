@@ -84,6 +84,10 @@ public class ContextFreeContext {
 	public void fillShape(Shape shape) {
 		g2d.fill(shape);
 	}
+
+	public ContextFreeState getState() {
+		return state;
+	}
 	
 	public void pushState() {
 		stateStack.push(state);
@@ -166,103 +170,108 @@ public class ContextFreeContext {
 		return state.getZ();
 	}
 
-	public void setCurrentAlpha(float currentAlpha) {
-		state.setCurrentAlpha(currentAlpha);
-	}
-
-	public void setCurrentBrightness(float currentBrightness) {
-		state.setCurrentBrightness(currentBrightness);
-	}
-
-	public void setCurrentHue(float currentHue) {
-		state.setCurrentHue(currentHue);
-	}
-
-	public void setCurrentSaturation(float currentSaturation) {
-		state.setCurrentSaturation(currentSaturation);
-	}
-
-	public void setFlipX(float flipX) {
-		state.setFlipX(flipX);
-	}
-
-	public void setFlipY(float flipY) {
-		state.setFlipY(flipY);
-	}
-
-	public void setRotation(float rotation) {
-		state.setRotation(rotation);
-	}
-
-	public void setSizeX(float sizeX) {
-		state.setSizeX(sizeX);
-	}
-
-	public void setSizeY(float sizeY) {
-		state.setSizeY(sizeY);
-	}
-
-	public void setSkewX(float skewX) {
-		state.setSkewX(skewX);
-	}
-
-	public void setSkewY(float skewY) {
-		state.setSkewY(skewY);
-	}
-
-	public void setTargetAlpha(float targetAlpha) {
-		state.setTargetAlpha(targetAlpha);
-	}
-
-	public void setTargetBrightness(float targetBrightness) {
-		state.setTargetBrightness(targetBrightness);
-	}
-
-	public void setTargetHue(float targetHue) {
-		state.setTargetHue(targetHue);
-	}
-
-	public void setTargetSaturation(float targetSaturation) {
-		state.setTargetSaturation(targetSaturation);
-	}
-
-	public void setX(float x) {
-		state.setX(x);
-	}
-
-	public void setY(float y) {
-		state.setY(y);
-	}
-
-	public void setZ(float z) {
-		state.setZ(z);
-	}
+//	public void setCurrentAlpha(float currentAlpha) {
+//		state.setCurrentAlpha(currentAlpha);
+//	}
+//
+//	public void setCurrentBrightness(float currentBrightness) {
+//		state.setCurrentBrightness(currentBrightness);
+//	}
+//
+//	public void setCurrentHue(float currentHue) {
+//		state.setCurrentHue(currentHue);
+//	}
+//
+//	public void setCurrentSaturation(float currentSaturation) {
+//		state.setCurrentSaturation(currentSaturation);
+//	}
+//
+//	public void setFlipX(float flipX) {
+//		state.setFlipX(flipX);
+//	}
+//
+//	public void setFlipY(float flipY) {
+//		state.setFlipY(flipY);
+//	}
+//
+//	public void setRotation(float rotation) {
+//		state.setRotation(rotation);
+//	}
+//
+//	public void setSizeX(float sizeX) {
+//		state.setSizeX(sizeX);
+//	}
+//
+//	public void setSizeY(float sizeY) {
+//		state.setSizeY(sizeY);
+//	}
+//
+//	public void setSkewX(float skewX) {
+//		state.setSkewX(skewX);
+//	}
+//
+//	public void setSkewY(float skewY) {
+//		state.setSkewY(skewY);
+//	}
+//
+//	public void setTargetAlpha(float targetAlpha) {
+//		state.setTargetAlpha(targetAlpha);
+//	}
+//
+//	public void setTargetBrightness(float targetBrightness) {
+//		state.setTargetBrightness(targetBrightness);
+//	}
+//
+//	public void setTargetHue(float targetHue) {
+//		state.setTargetHue(targetHue);
+//	}
+//
+//	public void setTargetSaturation(float targetSaturation) {
+//		state.setTargetSaturation(targetSaturation);
+//	}
+//
+//	public void setX(float x) {
+//		state.setX(x);
+//	}
+//
+//	public void setY(float y) {
+//		state.setY(y);
+//	}
+//
+//	public void setZ(float z) {
+//		state.setZ(z);
+//	}
 
 	public void drawPathOrRule(String figureName) {
 		PathRuntimeElement pathRuntime = pathMap.get(figureName);
 		if (pathRuntime != null) {
 			pathRuntime.draw(this);
 		} else {
-			PrimitiveExtensionRuntime primitiveRuntime = primitiveMap.get(figureName);
-			if (primitiveRuntime != null) {
-				primitiveRuntime.draw(this);
+			RuleRuntimeElement ruleRuntime = ruleMap.get(figureName);
+			if (ruleRuntime != null) {
+				ruleRuntime.draw(this);
 			} else {
-				RuleRuntimeElement ruleRuntime = ruleMap.get(figureName);
-				if (ruleRuntime != null) {
-					ruleRuntime.draw(this);
+				PrimitiveExtensionRuntime primitiveRuntime = primitiveMap.get(figureName);
+				if (primitiveRuntime != null) {
+					primitiveRuntime.draw(this);
 				}
 			}
 		}
 	}
 
-	public void drawPath(String figureName) {
+	public void preparePathOrRule(String figureName) {
 		PathRuntimeElement pathRuntime = pathMap.get(figureName);
 		if (pathRuntime != null) {
-			pathRuntime.draw(this);
+			pathRuntime.prepare(this);
 		} else {
-			PrimitiveExtensionRuntime primitiveRuntime = primitiveMap.get(figureName);
-			if (primitiveRuntime != null) {
-				primitiveRuntime.draw(this);
+			RuleRuntimeElement ruleRuntime = ruleMap.get(figureName);
+			if (ruleRuntime != null) {
+				ruleRuntime.prepare(this);
+			} else {
+				PrimitiveExtensionRuntime primitiveRuntime = primitiveMap.get(figureName);
+				if (primitiveRuntime != null) {
+					primitiveRuntime.prepare(this);
+				}
 			}
 		}
 	}
@@ -271,6 +280,13 @@ public class ContextFreeContext {
 		RuleRuntimeElement ruleElement = ruleMap.get(figureName);
 		if (ruleElement != null) {
 			ruleElement.draw(this);
+		}
+	}
+
+	public void prepareRule(String figureName) {
+		RuleRuntimeElement ruleElement = ruleMap.get(figureName);
+		if (ruleElement != null) {
+			ruleElement.prepare(this);
 		}
 	}
 	

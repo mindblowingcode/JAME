@@ -7,11 +7,11 @@ package net.sf.jame.contextfree.cfdg.shapeAdjustment;
 import net.sf.jame.contextfree.ContextFreeRegistry;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.common.ExtensionReferenceElement;
 import net.sf.jame.core.config.RuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
-import net.sf.jame.core.config.ValueConfigElement;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
@@ -118,6 +118,18 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 					break;
 				}
 			}
+		}
+	}
+	
+	public void load(ContextFreeState state, int times) {
+		if (extensionRuntime != null) {
+			extensionRuntime.load(state, times);
+		}
+	}
+
+	public void update(ContextFreeState state) {
+		if (extensionRuntime != null) {
+			extensionRuntime.update(state);
 		}
 	}
 }

@@ -25,11 +25,32 @@
  */
 package net.sf.jame.contextfree.extensions.pathOperation;
 
+import java.awt.geom.Line2D;
+
 import net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeContext;
 
 /**
  * @author Andrea Medeghini
  *
  */
 public class LineToPathOperationRuntime extends PathOperationExtensionRuntime<LineToPathOperationConfig> {
+	/**
+	 * @see net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionRuntime#draw(net.sf.jame.contextfree.renderer.ContextFreeContext)
+	 */
+	@Override
+	public void draw(ContextFreeContext contextFreeContext) {
+		// TODO Auto-generated method stub
+		Line2D.Float line = new Line2D.Float(contextFreeContext.getX(), contextFreeContext.getY(), getConfig().getX().floatValue(), getConfig().getY().floatValue());
+		contextFreeContext.drawShape(line);
+	}
+
+	/**
+	 * @see net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionRuntime#prepare(net.sf.jame.contextfree.renderer.ContextFreeContext)
+	 */
+	@Override
+	public void prepare(ContextFreeContext contextFreeContext) {
+		// TODO Auto-generated method stub
+		
+	}
 }

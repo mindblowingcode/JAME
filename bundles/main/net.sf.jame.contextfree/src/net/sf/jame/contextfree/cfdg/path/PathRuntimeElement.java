@@ -4,7 +4,6 @@
  */
 package net.sf.jame.contextfree.cfdg.path;
 
-import java.lang.String;
 import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationConfigElement;
 import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationRuntimeElement;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
@@ -205,8 +204,18 @@ import net.sf.jame.core.config.ValueConfigElement;
 			}
 		}
 	}
+	
 	public void draw(ContextFreeContext contextFreeContext) {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < pathOperationListElement.getElementCount(); i++) {
+			PathOperationRuntimeElement pathOperationRuntime = pathOperationListElement.getElement(i); 
+			pathOperationRuntime.draw(contextFreeContext);
+		}
+	}
+	
+	public void prepare(ContextFreeContext contextFreeContext) {
+		for (int i = 0; i < pathOperationListElement.getElementCount(); i++) {
+			PathOperationRuntimeElement pathOperationRuntime = pathOperationListElement.getElement(i); 
+			pathOperationRuntime.prepare(contextFreeContext);
+		}
 	}
 }

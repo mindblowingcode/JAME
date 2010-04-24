@@ -4,7 +4,6 @@
  */
 package net.sf.jame.contextfree.cfdg.figure;
 
-import java.lang.String;
 import net.sf.jame.contextfree.ContextFreeRegistry;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
@@ -13,7 +12,6 @@ import net.sf.jame.core.common.ExtensionReferenceElement;
 import net.sf.jame.core.config.RuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
-import net.sf.jame.core.config.ValueConfigElement;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
@@ -23,8 +21,6 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
  */
  public class FigureRuntimeElement extends RuntimeElement {
 	private FigureConfigElement figureElement;
-	private String name;
-	private NameListener nameListener;
 	private FigureExtensionRuntime<?> extensionRuntime;
 	private ExtensionListener extensionListener;
 
@@ -39,9 +35,6 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 			throw new IllegalArgumentException("figureElement is null");
 		}
 		this.figureElement = figureElement;
-		setName(figureElement.getName());
-		nameListener = new NameListener();
-		figureElement.getNameElement().addChangeListener(nameListener);
 		createRuntime(figureElement.getExtensionReference());
 		extensionListener = new ExtensionListener();
 		figureElement.getExtensionElement().addChangeListener(extensionListener);
@@ -52,10 +45,6 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 	 */
 	@Override
 	public void dispose() {
-		if ((figureElement != null) && (nameListener != null)) {
-			figureElement.getNameElement().removeChangeListener(nameListener);
-		}
-		nameListener = null;
 		if ((figureElement != null) && (extensionListener != null)) {
 			figureElement.getExtensionElement().removeChangeListener(extensionListener);
 		}
@@ -78,33 +67,6 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 		return super.isChanged() || figureChanged;
 	}
 
-	/**
-	 * @return the name.
-	 */
-	public String getName() {
-		return name;
-	}
-
-	private void setName(final String name) {
-		this.name = name;
-	}
-	
-	private class NameListener implements ValueChangeListener {
-		/**
-		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
-		 */
-		public void valueChanged(final ValueChangeEvent e) {
-			switch (e.getEventType()) {
-				case ValueConfigElement.VALUE_CHANGED: {
-					fireChanged();
-					break;
-				}
-				default: {
-					break;
-				}
-			}
-		}
-	}
 	@SuppressWarnings("unchecked")
 	private void createRuntime(final ConfigurableExtensionReference<FigureExtensionConfig> reference) {
 		try {
@@ -158,8 +120,10 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 			}
 		}
 	}
-	
+
 	public void registerFigure(ContextFreeContext contextFreeContext) {
-		extensionRuntime.registerFigure(contextFreeContext);
+		if (extensionRuntime != null) {
+			extensionRuntime.registerFigure(contextFreeContext);
+		}
 	}
 }
