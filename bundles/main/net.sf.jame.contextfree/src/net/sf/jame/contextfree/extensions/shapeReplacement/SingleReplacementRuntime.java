@@ -6,6 +6,7 @@ package net.sf.jame.contextfree.extensions.shapeReplacement;
 
 import net.sf.jame.contextfree.cfdg.replacement.SingleReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 
@@ -42,5 +43,21 @@ public class SingleReplacementRuntime<T extends SingleReplacementConfig> extends
 		public void valueChanged(final ValueChangeEvent e) {
 			fireChanged();
 		}
+	}
+
+	/**
+	 * @see net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime#draw(net.sf.jame.contextfree.renderer.ContextFreeContext)
+	 */
+	@Override
+	public void draw(ContextFreeContext contextFreeContext) {
+		singleReplacementElement.draw(contextFreeContext);
+	}
+
+	/**
+	 * @see net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime#prepare(net.sf.jame.contextfree.renderer.ContextFreeContext)
+	 */
+	@Override
+	public void prepare(ContextFreeContext contextFreeContext) {
+		singleReplacementElement.prepare(contextFreeContext);
 	}
 }

@@ -4,8 +4,6 @@
  */
 package net.sf.jame.contextfree.cfdg.rule;
 
-import java.lang.Float;
-import java.lang.String;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
@@ -242,8 +240,18 @@ import net.sf.jame.core.config.ValueConfigElement;
 			}
 		}
 	}
+	
 	public void draw(ContextFreeContext contextFreeContext) {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i); 
+			shapeReplacementRuntime.draw(contextFreeContext);
+		}
+	}
+	
+	public void prepare(ContextFreeContext contextFreeContext) {
+		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i); 
+			shapeReplacementRuntime.prepare(contextFreeContext);
+		}
 	}
 }

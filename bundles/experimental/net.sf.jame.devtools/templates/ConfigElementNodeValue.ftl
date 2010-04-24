@@ -9,6 +9,9 @@ package ${element.configElementPackageName};
 import ${import};
 </#list>
 
+/**
+ * @author ${author}
+ */
 public class ${element.configElementClassName}NodeValue extends NodeValue<${element.valueClassName}> {
 	private static final long serialVersionUID = 1L;
 

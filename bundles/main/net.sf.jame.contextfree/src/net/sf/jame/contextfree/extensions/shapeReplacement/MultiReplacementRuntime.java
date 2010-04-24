@@ -6,6 +6,7 @@ package net.sf.jame.contextfree.extensions.shapeReplacement;
 
 import net.sf.jame.contextfree.cfdg.replacement.MultiReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 
@@ -42,5 +43,21 @@ public class MultiReplacementRuntime<T extends MultiReplacementConfig> extends S
 		public void valueChanged(final ValueChangeEvent e) {
 			fireChanged();
 		}
+	}
+
+	/**
+	 * @see net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime#draw(net.sf.jame.contextfree.renderer.ContextFreeContext)
+	 */
+	@Override
+	public void draw(ContextFreeContext contextFreeContext) {
+		multiReplacementElement.draw(contextFreeContext);
+	}
+
+	/**
+	 * @see net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime#prepare(net.sf.jame.contextfree.renderer.ContextFreeContext)
+	 */
+	@Override
+	public void prepare(ContextFreeContext contextFreeContext) {
+		multiReplacementElement.prepare(contextFreeContext);
 	}
 }

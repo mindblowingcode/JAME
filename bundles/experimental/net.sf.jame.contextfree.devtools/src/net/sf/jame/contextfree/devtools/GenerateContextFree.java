@@ -1,3 +1,4 @@
+package net.sf.jame.contextfree.devtools;
 /*
  * JAME 6.1 
  * http://jame.sourceforge.net
@@ -23,7 +24,7 @@
  * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package net.sf.jame.devtools.test;
+
 
 import java.io.File;
 import java.util.HashMap;
@@ -42,7 +43,7 @@ import net.sf.jame.devtools.extension.ProcessorExtensionRuntime;
 
 import org.junit.Test;
 
-public class ContextFree {
+public class GenerateContextFree {
 	private ProcessorParameters createCFDGParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("startshape", "\"\"", ProcessorCardinality.NONE));
@@ -59,7 +60,6 @@ public class ContextFree {
 
 	private ProcessorParameters createFigureParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
-		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("name", "\"\"", ProcessorCardinality.NONE));
 		descriptors.add(new ProcessorDescriptor("extension", "Figure", "Figure", "net.sf.jame.core.common", "ConfigurableExtensionReferenceElement", null, null, "net.sf.jame.contextfree.cfdg.figure.extension", "FigureExtensionConfig", "net.sf.jame.contextfree.cfdg.figure.extension", "FigureExtensionRuntime", null, null, "net.sf.jame.contextfree", "ContextFreeRegistry", null, null, null, null, null, "get", "set", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("figure", "Figure", "Figure", "net.sf.jame.contextfree.cfdg.figure", "FigureConfigElement", "net.sf.jame.contextfree.cfdg.figure", "FigureRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.NONE), descriptors);
 	}
@@ -176,6 +176,10 @@ public class ContextFree {
 		descriptors.add(new ProcessorDescriptor("shapeAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.shapeAdjustment.extension", "ShapeAdjustmentExtensionConfig", "net.sf.jame.contextfree.cfdg.shapeAdjustment.extension", "ShapeAdjustmentExtensionRuntime", "net.sf.jame.contextfree.cfdg.shapeAdjustment.extension", "ShapeAdjustmentExtensionRegistry", null, null, null, null, null, null, null, null, null, ProcessorCardinality.NONE));
 		descriptors.add(new ProcessorDescriptor("shapeReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.shapeReplacement.extension", "ShapeReplacementExtensionConfig", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension", "ShapeReplacementExtensionRuntime", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension", "ShapeReplacementExtensionRegistry", null, null, null, null, null, null, null, null, null, ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("registry", "Registry", null, null, null, null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeRegistry", null, null, null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
+	
+	private ProcessorParameters createResourcesParameters() {
+		return new ProcessorParameters(new ProcessorDescriptor("resources", "Resources", null, null, null, null, null, null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
 	}
 
 	private void populateProcessorExtensionMap(Map<String, ProcessorExtensionRuntime> map) {
@@ -592,7 +596,7 @@ public class ContextFree {
 	}
 
 	@Test
-	public void generateRegistryExtension() {
+	public void generateRegistry() {
 		try {
 			File path = new File("build");
 			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
@@ -601,6 +605,25 @@ public class ContextFree {
 			Map<String, String> variables = createVariables();
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createRegistryParameters();
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateResources() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createResourcesParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
 				processorRuntime.process(path, parameters, variables);
 			}

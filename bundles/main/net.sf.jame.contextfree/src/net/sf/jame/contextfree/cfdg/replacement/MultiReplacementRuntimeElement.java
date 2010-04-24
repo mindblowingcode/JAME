@@ -9,6 +9,7 @@ import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
+import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.RuntimeElement;
@@ -321,6 +322,32 @@ import net.sf.jame.core.config.ValueConfigElement;
 					break;
 				}
 			}
+		}
+	}
+	
+	public void draw(ContextFreeContext contextFreeContext) {
+		contextFreeContext.pushState();
+		for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
+			ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
+			shapeAdjustmentRuntime.load(contextFreeContext.getState(), times);
+		}
+		for (int t = 0; t < times; t++) {
+			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
+				ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
+				shapeAdjustmentRuntime.update(contextFreeContext.getState());
+			}
+			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+				ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i); 
+				shapeReplacementRuntime.draw(contextFreeContext);
+			}
+		}
+		contextFreeContext.popState();
+	}
+
+	public void prepare(ContextFreeContext contextFreeContext) {
+		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i); 
+			shapeReplacementRuntime.prepare(contextFreeContext);
 		}
 	}
 }

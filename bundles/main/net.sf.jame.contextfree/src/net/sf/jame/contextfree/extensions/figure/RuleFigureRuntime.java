@@ -17,10 +17,6 @@ public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensi
 	private RuleRuntimeElement ruleElement;
 	private RuleElementListener ruleElementListener;
 
-	public RuleFigureRuntime() {
-		
-	}
-
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
 	 */

@@ -26,10 +26,29 @@
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 /**
  * @author Andrea Medeghini
  *
  */
 public class HueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<HueShapeAdjustmentConfig> {
+	private float delta = 0;
+	
+	/**
+	 * @see net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime#load(net.sf.jame.contextfree.renderer.ContextFreeState, int)
+	 */
+	@Override
+	public void load(ContextFreeState state, int times) {
+		state.setTargetHue(getConfig().getValue().floatValue());
+		delta = (state.getCurrentHue() - state.getTargetHue()) / times;
+	}
+
+	/**
+	 * @see net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime#update(net.sf.jame.contextfree.renderer.ContextFreeState)
+	 */
+	@Override
+	public void update(ContextFreeState state) {
+		state.setCurrentHue(state.getCurrentHue() + delta);
+	}
 }

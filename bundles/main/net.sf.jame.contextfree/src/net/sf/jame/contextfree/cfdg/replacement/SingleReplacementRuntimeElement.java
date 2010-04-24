@@ -4,9 +4,9 @@
  */
 package net.sf.jame.contextfree.cfdg.replacement;
 
-import java.lang.String;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentRuntimeElement;
+import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.RuntimeElement;
@@ -203,5 +203,18 @@ import net.sf.jame.core.config.ValueConfigElement;
 				}
 			}
 		}
+	}
+	
+	public void draw(ContextFreeContext contextFreeContext) {
+		contextFreeContext.pushState();
+		for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
+			ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
+			shapeAdjustmentRuntime.load(contextFreeContext.getState(), 0);
+		}
+		contextFreeContext.drawPathOrRule(shape);
+		contextFreeContext.popState();
+	}
+
+	public void prepare(ContextFreeContext contextFreeContext) {
 	}
 }

@@ -77,6 +77,7 @@ public class ConfigElementNodeValueProcessorRuntime extends ProcessorExtensionRu
 						if (tmpDescriptor.isExtensionElement()) {
 							Template tmpTemplate = config.getTemplate("templates/ReferenceNodeValue.ftl");
 							HashMap<String, Object> tmpMap = new HashMap<String, Object>();
+							tmpMap.putAll(variables);
 							tmpMap.put("packageName", element.getConfigElementPackageName());
 							tmpMap.put("elementName", element.getElementName());
 							tmpMap.put("subElementName", tmpDescriptor.getElementName());
@@ -87,6 +88,7 @@ public class ConfigElementNodeValueProcessorRuntime extends ProcessorExtensionRu
 						else if (tmpDescriptor.isConfigurableExtensionElement()) {
 							Template tmpTemplate = config.getTemplate("templates/ReferenceNodeValue.ftl");
 							HashMap<String, Object> tmpMap = new HashMap<String, Object>();
+							tmpMap.putAll(variables);
 							tmpMap.put("packageName", element.getConfigElementPackageName());
 							tmpMap.put("elementName", element.getElementName());
 							tmpMap.put("subElementName", tmpDescriptor.getElementName());

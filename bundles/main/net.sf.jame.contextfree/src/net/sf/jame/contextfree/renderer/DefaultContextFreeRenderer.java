@@ -43,12 +43,13 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 
 	@Override
 	protected void doRender(boolean dynamicZoom) {
-		CFDGRuntimeElement runtime = getRuntime();
-		ContextFreeContext contextFreeContext = new ContextFreeContext(getGraphics(), runtime);
-		Color32bit background = runtime.getBackground();
-		String startshape = runtime.getStartshape();
+		CFDGRuntimeElement cfdgRuntime = getRuntime();
+		Color32bit background = cfdgRuntime.getBackground();
+		String startshape = cfdgRuntime.getStartshape();
 		getGraphics().setColor(new Color(background.getARGB()));
 		getGraphics().fillRect(0,0, getBufferWidth(), getBufferHeight());
+		ContextFreeContext contextFreeContext = new ContextFreeContext(getGraphics(), cfdgRuntime);
+		contextFreeContext.prepareRule(startshape);
 		contextFreeContext.drawRule(startshape);
 	}
 }

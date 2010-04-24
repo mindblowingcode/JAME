@@ -187,6 +187,10 @@ public class ProcessorDescriptor {
 	public boolean isRegistry() {
 		return elementName != null && elementType != null && elementClassId == null && configElementPackageName == null && configElementClassName == null && runtimeElementPackageName == null && runtimeElementClassName == null && extensionConfigPackageName == null && extensionConfigClassName == null && extensionRuntimePackageName == null && extensionRuntimeClassName == null && extensionRegistryPackageName == null && extensionRegistryClassName == null && registryPackageName != null && registryClassName != null && valuePackageName == null && valueClassName == null && getMethodPrefix == null && setMethodPrefix == null;
 	}
+
+	public boolean isResources() {
+		return elementName != null && elementType != null && elementClassId == null && configElementPackageName == null && configElementClassName == null && runtimeElementPackageName == null && runtimeElementClassName == null && extensionConfigPackageName == null && extensionConfigClassName == null && extensionRuntimePackageName == null && extensionRuntimeClassName == null && extensionRegistryPackageName == null && extensionRegistryClassName == null && registryPackageName == null && registryClassName == null && valuePackageName == null && valueClassName == null && resourcesPackageName != null && resourcesClassName != null && getMethodPrefix == null && setMethodPrefix == null;
+	}
 	
 	public boolean getSimpleElement() {
 		return isSimpleElement();

@@ -44,12 +44,16 @@ public class TrianglePrimitiveRuntime extends PrimitiveExtensionRuntime {
 		path.append(new Line2D.Float(norm(0), norm(0), norm(1), norm(0)), false);
 		path.append(new Line2D.Float(norm(1), norm(0), norm(0), norm(1)), false);
 		path.append(new Line2D.Float(norm(0), norm(1), norm(0), norm(0)), true);
-		return shape;
+		return path;
 	}
 
 	@Override
 	public void draw(ContextFreeContext contextFreeContext) {
 		contextFreeContext.drawShape(shape);
+	}
+
+	@Override
+	public void prepare(ContextFreeContext contextFreeContext) {
 	}
 
 	@Override

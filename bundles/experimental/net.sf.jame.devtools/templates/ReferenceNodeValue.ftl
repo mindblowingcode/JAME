@@ -9,6 +9,9 @@ import net.sf.jame.core.common.ExtensionReferenceElementNodeValue;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import ${configPackageName}.${configClassName};
 
+/**
+ * @author ${author}
+ */
 public class ${elementName?cap_first}${subElementName?cap_first}ReferenceNodeValue extends ExtensionReferenceElementNodeValue<ConfigurableExtensionReference<${configClassName}>> {
 	private static final long serialVersionUID = 1L;
 
@@ -23,6 +26,9 @@ public class ${elementName?cap_first}${subElementName?cap_first}ReferenceNodeVal
 import net.sf.jame.core.common.ExtensionReferenceElementNodeValue;
 import net.sf.jame.core.extension.ExtensionReference;
 
+/**
+ * @author ${author}
+ */
 public class ${elementName?cap_first}${subElementName?cap_first}ReferenceNodeValue extends ExtensionReferenceElementNodeValue<ExtensionReference> {
 	private static final long serialVersionUID = 1L;
 

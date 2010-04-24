@@ -48,6 +48,10 @@ public class SquarePrimitiveRuntime extends PrimitiveExtensionRuntime {
 	}
 
 	@Override
+	public void prepare(ContextFreeContext contextFreeContext) {
+	}
+
+	@Override
 	public String getName() {
 		return "square";
 	}

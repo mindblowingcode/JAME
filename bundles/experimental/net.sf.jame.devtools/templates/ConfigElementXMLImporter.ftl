@@ -9,6 +9,9 @@ package ${element.configElementPackageName};
 import ${import};
 </#list>
 
+/**
+ * @author ${author}
+ */
 public class ${element.configElementClassName}XMLImporter extends ValueConfigElementXMLImporter<${element.valueClassName}, ${element.configElementClassName}> {
 	/**
 	 * @see net.sf.jame.core.config.ValueConfigElementXMLImporter#parseValue(java.lang.String)
@@ -31,6 +34,9 @@ public class ${element.configElementClassName}XMLImporter extends ValueConfigEle
 import ${import};
 </#list>
 
+/**
+ * @author ${author}
+ */
 public class ${element.configElementClassName}XMLImporter extends XMLImporter<${element.configElementClassName}> {
 	/**
 	 * @see net.sf.jame.core.xml.XMLImporter#importFromElement(org.w3c.dom.Element)
