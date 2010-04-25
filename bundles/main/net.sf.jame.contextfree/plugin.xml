@@ -89,6 +89,42 @@
             name="Path Figure"
             runtimeClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfigNodeBuilderRuntime"/>
       <extensionConfigXMLImporter
+            id="contextfree.figure.triangle"
+            name="Path Fugure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.figure.triangle"
+            name="Triangle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.TriangleFigureConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.figure.triangle"
+            name="Triangle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.TriangleFigureConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.figure.square"
+            name="Square Fugure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.SquareFigureConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.figure.square"
+            name="Square Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.SquareFigureConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.figure.square"
+            name="Square Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.SquareFigureConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.figure.circle"
+            name="Circle Fugure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.CircleFigureConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.figure.circle"
+            name="Circle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.CircleFigureConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.figure.circle"
+            name="Circle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.CircleFigureConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
             id="contextfree.shape.replacement.single"
             name="Single Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.SingleReplacementConfigXMLImporterRuntime"/>

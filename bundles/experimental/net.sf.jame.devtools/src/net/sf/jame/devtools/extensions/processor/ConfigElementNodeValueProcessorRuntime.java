@@ -42,7 +42,6 @@ import net.sf.jame.devtools.extension.ProcessorExtensionRuntime;
 import net.sf.jame.devtools.extensions.ProcessorTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.utility.StringUtil;
 
 public class ConfigElementNodeValueProcessorRuntime extends ProcessorExtensionRuntime {
 	/**
