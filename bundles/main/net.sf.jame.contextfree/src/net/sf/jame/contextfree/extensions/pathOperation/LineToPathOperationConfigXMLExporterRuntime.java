@@ -45,18 +45,14 @@ public class LineToPathOperationConfigXMLExporterRuntime extends ExtensionConfig
 		return new LineToPathOperationConfigXMLExporter();
 	}
 
-	private class LineToPathOperationConfigXMLExporter extends AbstractPathOperationConfigXMLExporter<LineToPathOperationConfig> {
-		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLExporter#getConfigElementClassId()
-		 */
-		@Override
+	private class LineToPathOperationConfigXMLExporter extends XMLExporter<LineToPathOperationConfig> {
 		protected String getConfigElementClassId() {
 			return "LineToPathOperationConfig";
 		}
 
 		@Override
 		public Element exportToElement(LineToPathOperationConfig config, XMLNodeBuilder builder) throws XMLExportException {
-			Element element = super.exportToElement(config, builder);
+			final Element element = this.createElement(builder, this.getConfigElementClassId());
 			exportProperties(config, element, builder);
 			return element;
 		}

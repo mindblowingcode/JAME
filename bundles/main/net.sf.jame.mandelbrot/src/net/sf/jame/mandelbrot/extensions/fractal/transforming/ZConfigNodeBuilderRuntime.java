@@ -33,20 +33,20 @@ import net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder;
 /**
  * @author Andrea Medeghini
  */
-public class HConfigNodeBuilder extends NodeBuilderExtensionRuntime {
+public class ZConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime#createNodeBuilder(net.sf.jame.core.extension.ExtensionConfig)
 	 */
 	@Override
 	public NodeBuilder createNodeBuilder(final ExtensionConfig config) {
-		return new ConfigNodeBuilder((HConfig) config);
+		return new ConfigNodeBuilder((ZConfig) config);
 	}
 
-	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<HConfig> {
+	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<ZConfig> {
 		/**
 		 * @param config
 		 */
-		public ConfigNodeBuilder(final HConfig config) {
+		public ConfigNodeBuilder(final ZConfig config) {
 			super(config);
 		}
 	}

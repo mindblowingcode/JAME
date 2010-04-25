@@ -81,19 +81,19 @@
       <nodeBuilder
             id="twister.mandelbrot.fractal.transforming.formula.z"
             name="Z"
-            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.ZConfigNodeBuilder"/>
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.ZConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.mandelbrot.fractal.transforming.formula.y"
             name="Y"
-            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.YConfigNodeBuilder"/>
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.YConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.mandelbrot.fractal.transforming.formula.u"
             name="U"
-            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.UConfigNodeBuilder"/>
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.UConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.mandelbrot.fractal.transforming.formula.h"
             name="H"
-            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.HConfigNodeBuilder"/>
+            runtimeClass="net.sf.jame.mandelbrot.extensions.fractal.transforming.HConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.mandelbrot.fractal.incolouring.formula.color"
             name="Color"

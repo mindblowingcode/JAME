@@ -1,38 +1,20 @@
 /*
- * JAME 6.1 
- * http://jame.sourceforge.net
- *
- * Copyright 2001, 2010 Andrea Medeghini
- * http://andreamedeghini.users.sourceforge.net
- *
- * This file is part of JAME.
- *
- * JAME is an application for creating fractals and other graphics artifacts.
- *
- * JAME is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * JAME is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
+ * $Id:$
  *
  */
 package net.sf.jame.contextfree.extensions.shapeReplacement;
 
 import java.util.List;
-
-import net.sf.jame.contextfree.cfdg.replacement.MultiReplacementConfigElement;
-import net.sf.jame.contextfree.cfdg.replacement.MultiReplacementConfigElementXMLImporter;
+import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
+import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElementXMLImporter;
+import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
+import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElementXMLImporter;
+import net.sf.jame.core.common.IntegerElement;
+import net.sf.jame.core.common.IntegerElementXMLImporter;
+import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
 import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
-
 import org.w3c.dom.Element;
 
 /**
@@ -44,22 +26,14 @@ public class MultiReplacementConfigXMLImporterRuntime extends ExtensionConfigXML
 	 */
 	@Override
 	public XMLImporter<MultiReplacementConfig> createXMLImporter() {
-		return new ReplacementConfigXMLImporter();
+		return new MultiReplacementConfigXMLImporter();
 	}
 
-	private class ReplacementConfigXMLImporter extends AbstractReplacementConfigXMLImporter<MultiReplacementConfig> {
-		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#createExtensionConfig()
-		 */
-		@Override
+	private class MultiReplacementConfigXMLImporter extends XMLImporter<MultiReplacementConfig> {
 		protected MultiReplacementConfig createExtensionConfig() {
 			return new MultiReplacementConfig();
 		}
 
-		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#getConfigElementClassId()
-		 */
-		@Override
 		protected String getConfigElementClassId() {
 			return "MultiReplacementConfig";
 		}
@@ -69,32 +43,50 @@ public class MultiReplacementConfigXMLImporterRuntime extends ExtensionConfigXML
 		 */
 		@Override
 		public MultiReplacementConfig importFromElement(final Element element) throws XMLImportException {
-			final MultiReplacementConfig config = super.importFromElement(element);
+			checkClassId(element, this.getConfigElementClassId());
+			final MultiReplacementConfig extensionConfig = this.createExtensionConfig();
 			final List<Element> propertyElements = getProperties(element);
-			if (propertyElements.size() == 1) {
-				importProperties(config, propertyElements);
+			if (propertyElements.size() == 3) {
+				try {
+					importProperties(extensionConfig, propertyElements);
+				}
+				catch (final ExtensionException e) {
+					throw new XMLImportException(e);
+				}
 			}
-			return config;
+			return extensionConfig;
 		}
-
+	
 		/**
-		 * @param config
+		 * @param extensionConfig
 		 * @param propertyElements
+		 * @throws ExtensionException
 		 * @throws XMLImportException
 		 */
-		protected void importProperties(final MultiReplacementConfig config, final List<Element> propertyElements) throws XMLImportException {
-			importReplacement(config, propertyElements.get(0));
+		protected void importProperties(final MultiReplacementConfig extensionConfig, final List<Element> propertyElements) throws ExtensionException, XMLImportException {
+			importTimes(extensionConfig, propertyElements.get(0));
+			importShapeReplacementListElement(extensionConfig, propertyElements.get(1));
+			importShapeAdjustmentListElement(extensionConfig, propertyElements.get(2));
 		}
-
-		/**
-		 * @param config
-		 * @param element
-		 * @throws XMLImportException
-		 */
-		protected void importReplacement(final MultiReplacementConfig config, final Element element) throws XMLImportException {
-			final List<Element> elements = this.getElements(element, MultiReplacementConfigElement.CLASS_ID);
-			if (elements.size() == 1) {
-				config.getMultiReplacementElement().copyFrom(new MultiReplacementConfigElementXMLImporter().importFromElement(elements.get(0)));
+	
+		private void importTimes(final MultiReplacementConfig extensionConfig, final Element element) throws XMLImportException {
+			final List<Element> timesElements = this.getElements(element, IntegerElement.CLASS_ID);
+			if (timesElements.size() == 1) {
+				extensionConfig.setTimes(new IntegerElementXMLImporter().importFromElement(timesElements.get(0)).getValue());
+			}
+		}
+		private void importShapeReplacementListElement(final MultiReplacementConfig extensionConfig, final Element element) throws XMLImportException {
+			final ShapeReplacementConfigElementXMLImporter shapeReplacementImporter = new ShapeReplacementConfigElementXMLImporter();
+			final List<Element> shapeReplacementElements = this.getElements(element, ShapeReplacementConfigElement.CLASS_ID);
+			for (int i = 0; i < shapeReplacementElements.size(); i++) {
+				extensionConfig.appendShapeReplacementConfigElement(shapeReplacementImporter.importFromElement(shapeReplacementElements.get(i)));
+			}
+		}
+		private void importShapeAdjustmentListElement(final MultiReplacementConfig extensionConfig, final Element element) throws XMLImportException {
+			final ShapeAdjustmentConfigElementXMLImporter shapeAdjustmentImporter = new ShapeAdjustmentConfigElementXMLImporter();
+			final List<Element> shapeAdjustmentElements = this.getElements(element, ShapeAdjustmentConfigElement.CLASS_ID);
+			for (int i = 0; i < shapeAdjustmentElements.size(); i++) {
+				extensionConfig.appendShapeAdjustmentConfigElement(shapeAdjustmentImporter.importFromElement(shapeAdjustmentElements.get(i)));
 			}
 		}
 	}

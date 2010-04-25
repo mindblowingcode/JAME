@@ -23,11 +23,9 @@
  * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package net.sf.jame.contextfree.extensions.figure;
+package net.sf.jame.mandelbrot.extensions.fractal.transforming;
 
-import net.sf.jame.contextfree.cfdg.rule.RuleConfigElementNode;
 import net.sf.jame.core.extension.ExtensionConfig;
-import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeBuilder;
 import net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime;
 import net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder;
@@ -35,29 +33,21 @@ import net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder;
 /**
  * @author Andrea Medeghini
  */
-public class RuleFigureConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
+public class UConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime#createNodeBuilder(net.sf.jame.core.extension.ExtensionConfig)
 	 */
 	@Override
 	public NodeBuilder createNodeBuilder(final ExtensionConfig config) {
-		return new ConfigNodeBuilder((RuleFigureConfig) config);
+		return new ConfigNodeBuilder((UConfig) config);
 	}
 
-	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<RuleFigureConfig> {
+	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<UConfig> {
 		/**
 		 * @param config
 		 */
-		public ConfigNodeBuilder(final RuleFigureConfig config) {
+		public ConfigNodeBuilder(final UConfig config) {
 			super(config);
-		}
-
-		/**
-		 * @see net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder#createNodes(net.sf.jame.core.tree.Node)
-		 */
-		@Override
-		public void createNodes(final Node parentNode) {
-			parentNode.appendChildNode(new RuleConfigElementNode(getConfig().getRuleElement()));
 		}
 	}
 }

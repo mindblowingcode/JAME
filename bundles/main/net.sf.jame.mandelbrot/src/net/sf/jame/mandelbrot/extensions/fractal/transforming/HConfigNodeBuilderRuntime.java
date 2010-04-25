@@ -23,11 +23,9 @@
  * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package net.sf.jame.contextfree.extensions.shapeReplacement;
+package net.sf.jame.mandelbrot.extensions.fractal.transforming;
 
-import net.sf.jame.contextfree.cfdg.replacement.MultiReplacementConfigElementNode;
 import net.sf.jame.core.extension.ExtensionConfig;
-import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeBuilder;
 import net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime;
 import net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder;
@@ -35,29 +33,21 @@ import net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder;
 /**
  * @author Andrea Medeghini
  */
-public class MultiReplacementConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
+public class HConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime#createNodeBuilder(net.sf.jame.core.extension.ExtensionConfig)
 	 */
 	@Override
 	public NodeBuilder createNodeBuilder(final ExtensionConfig config) {
-		return new ConfigNodeBuilder((MultiReplacementConfig) config);
+		return new ConfigNodeBuilder((HConfig) config);
 	}
 
-	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<MultiReplacementConfig> {
+	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<HConfig> {
 		/**
 		 * @param config
 		 */
-		public ConfigNodeBuilder(final MultiReplacementConfig config) {
+		public ConfigNodeBuilder(final HConfig config) {
 			super(config);
-		}
-
-		/**
-		 * @see net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder#createNodes(net.sf.jame.core.tree.Node)
-		 */
-		@Override
-		public void createNodes(final Node parentNode) {
-			parentNode.appendChildNode(new MultiReplacementConfigElementNode(getConfig().getMultiReplacementElement()));
 		}
 	}
 }
