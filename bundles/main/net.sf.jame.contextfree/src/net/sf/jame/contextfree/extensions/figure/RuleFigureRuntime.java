@@ -8,6 +8,7 @@ import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.ContextFreeRule;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -17,11 +18,11 @@ import net.sf.jame.core.config.ValueConfigElement;
 /**
  * @author Andrea Medeghini
  */
-public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensionRuntime<T> {
+public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensionRuntime<T> implements ContextFreeRule {
 	private String name;
 	private NameListener nameListener;
-	private Float propability;
-	private PropabilityListener propabilityListener;
+	private Float probability;
+	private ProbabilityListener probabilityListener;
 	private ListRuntimeElement<ShapeReplacementRuntimeElement> shapeReplacementListElement;
 	private ShapeReplacementListElementListener shapeReplacementListElementListener;
 
@@ -33,9 +34,9 @@ public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensi
 		setName(getConfig().getName());
 		nameListener = new NameListener();
 		getConfig().getNameElement().addChangeListener(nameListener);
-		setPropability(getConfig().getPropability());
-		propabilityListener = new PropabilityListener();
-		getConfig().getPropabilityElement().addChangeListener(propabilityListener);
+		setProbability(getConfig().getProbability());
+		probabilityListener = new ProbabilityListener();
+		getConfig().getProbabilityElement().addChangeListener(probabilityListener);
 		shapeReplacementListElement = new ListRuntimeElement<ShapeReplacementRuntimeElement>();
 		for (int i = 0; i < getConfig().getShapeReplacementConfigElementCount(); i++) {
 			shapeReplacementListElement.appendElement(new ShapeReplacementRuntimeElement(getConfig().getShapeReplacementConfigElement(i)));
@@ -50,10 +51,10 @@ public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensi
 			getConfig().getNameElement().removeChangeListener(nameListener);
 		}
 		nameListener = null;
-		if ((getConfig() != null) && (propabilityListener != null)) {
-			getConfig().getPropabilityElement().removeChangeListener(propabilityListener);
+		if ((getConfig() != null) && (probabilityListener != null)) {
+			getConfig().getProbabilityElement().removeChangeListener(probabilityListener);
 		}
-		propabilityListener = null;
+		probabilityListener = null;
 		if ((getConfig() != null) && (shapeReplacementListElementListener != null)) {
 			getConfig().getShapeReplacementListElement().removeChangeListener(shapeReplacementListElementListener);
 		}
@@ -91,15 +92,15 @@ public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensi
 	/**
 	 * @return the propability.
 	 */
-	public Float getPropability() {
-		return propability;
+	public Float getProbability() {
+		return probability;
 	}
 
-	private void setPropability(final Float propability) {
-		this.propability = propability;
+	private void setProbability(final Float probability) {
+		this.probability = probability;
 	}
 	
-	private class PropabilityListener implements ValueChangeListener {
+	private class ProbabilityListener implements ValueChangeListener {
 		/**
 		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
 		 */

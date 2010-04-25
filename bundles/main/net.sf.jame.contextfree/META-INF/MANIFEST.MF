@@ -29,7 +29,6 @@ Export-Package: net.sf.jame.contextfree,
  net.sf.jame.contextfree.extensions.image,
  net.sf.jame.contextfree.extensions.pathAdjustment,
  net.sf.jame.contextfree.extensions.pathOperation,
- net.sf.jame.contextfree.extensions.primitive,
  net.sf.jame.contextfree.extensions.shapeAdjustment,
  net.sf.jame.contextfree.extensions.shapeReplacement,
  net.sf.jame.contextfree.renderer

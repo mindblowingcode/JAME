@@ -142,18 +142,6 @@
             id="contextfree.shape.replacement.multi"
             name="Multi Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.MultiReplacementRuntime"/>
-      <primitive
-            id="contextfree.primitive.circle"
-            name="Circle Primitive"
-            runtimeClass="net.sf.jame.contextfree.extensions.primitive.CirclePrimitiveRuntime"/>
-      <primitive
-            id="contextfree.primitive.square"
-            name="Square Primitive"
-            runtimeClass="net.sf.jame.contextfree.extensions.primitive.SquarePrimitiveRuntime"/>
-      <primitive
-            id="contextfree.primitive.triangle"
-            name="Triangle Primitive"
-            runtimeClass="net.sf.jame.contextfree.extensions.primitive.TrianglePrimitiveRuntime"/>
       <figure
             configClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfig"
             id="contextfree.figure.path"
@@ -164,6 +152,21 @@
             id="contextfree.figure.rule"
             name="Rule Figure"
             runtimeClass="net.sf.jame.contextfree.extensions.figure.RuleFigureRuntime"/>
+      <figure
+            configClass="net.sf.jame.contextfree.extensions.figure.TriangleFigureConfig"
+            id="contextfree.figure.triangle"
+            name="Triangle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.TriangleFigureRuntime"/>
+      <figure
+            configClass="net.sf.jame.contextfree.extensions.figure.SquareFigureConfig"
+            id="contextfree.figure.square"
+            name="Square Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.SquareFigureRuntime"/>
+      <figure
+            configClass="net.sf.jame.contextfree.extensions.figure.CircleFigureConfig"
+            id="contextfree.figure.circle"
+            name="Circle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.CircleFigureRuntime"/>
    </extension>
 
 </plugin>

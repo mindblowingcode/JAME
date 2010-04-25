@@ -5,31 +5,30 @@
 package net.sf.jame.contextfree.extensions.figure;
 
 import net.sf.jame.contextfree.ContextFreeResources;
-import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationConfigElementNode;
-import net.sf.jame.core.common.StringElementNode;
 import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeBuilder;
+import net.sf.jame.core.tree.NodeValue;
 import net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime;
 import net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder;
 
 /**
  * @author Andrea Medeghini
  */
-public class PathFigureConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
+public class SquareFigureConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime#createNodeBuilder(net.sf.jame.core.extension.ExtensionConfig)
 	 */
 	@Override
 	public NodeBuilder createNodeBuilder(final ExtensionConfig config) {
-		return new ConfigNodeBuilder((PathFigureConfig) config);
+		return new ConfigNodeBuilder((SquareFigureConfig) config);
 	}
 
-	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<PathFigureConfig> {
+	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<SquareFigureConfig> {
 		/**
 		 * @param config
 		 */
-		public ConfigNodeBuilder(final PathFigureConfig config) {
+		public ConfigNodeBuilder(final SquareFigureConfig config) {
 			super(config);
 		}
 
@@ -38,17 +37,7 @@ public class PathFigureConfigNodeBuilderRuntime extends NodeBuilderExtensionRunt
 		 */
 		@Override
 		public void createNodes(final Node parentNode) {
-			parentNode.appendChildNode(new NameElementNode(getConfig()));
 		}
 
-		private class NameElementNode extends StringElementNode {
-			/**
-			 * @param config
-			 */
-			public NameElementNode(final PathFigureConfig config) {
-				super(config.getExtensionId() + ".name", config.getNameElement());
-				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.NameElement"));
-			}
-		}
 	}
 }

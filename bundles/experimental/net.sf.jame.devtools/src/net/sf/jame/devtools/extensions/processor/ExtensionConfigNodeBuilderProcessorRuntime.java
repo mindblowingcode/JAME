@@ -88,6 +88,7 @@ public class ExtensionConfigNodeBuilderProcessorRuntime extends ProcessorExtensi
 	private void prepare(Set<String> imports, ProcessorDescriptor descriptor) {
 		if (descriptor.isConfigurableExtension()) {
 			imports.add("net.sf.jame.core.tree.Node");
+			imports.add("net.sf.jame.core.tree.NodeValue");
 			imports.add("net.sf.jame.core.tree.NodeBuilder");
 			imports.add("net.sf.jame.core.extension.ExtensionConfig");
 			imports.add("net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime");
@@ -100,19 +101,29 @@ public class ExtensionConfigNodeBuilderProcessorRuntime extends ProcessorExtensi
 		for (ProcessorDescriptor descriptor : descriptors) {
 			if (descriptor.isExtensionElement()) {
 				imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName() + "Node");
+				imports.add("net.sf.jame.core.extension.ExtensionReference");
+				imports.add("net.sf.jame.core.common.ExtensionReferenceElementNodeValue");
 			}
 			else if (descriptor.isConfigurableExtensionElement()) {
 				imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName() + "Node");
+				imports.add("net.sf.jame.core.extension.ConfigurableExtensionReference");
+				imports.add("net.sf.jame.core.common.ExtensionReferenceElementNodeValue");
 			}
 			else if (descriptor.isComplexElement()) {
 				imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
 				imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName() + "Node");
-				imports.add("net.sf.jame.core.util.AbstractConfigElementListNode");
 				imports.add("net.sf.jame.core.util.AbstractConfigElementNode");
+				if (descriptor.getCardinality() == ProcessorCardinality.ONE) {
+					imports.add("net.sf.jame.core.util.AbstractConfigElementSingleNode");
+					imports.add("net.sf.jame.core.util.ConfigElementSingleNodeValue");
+				} else if (descriptor.getCardinality() == ProcessorCardinality.MANY) {
+					imports.add("net.sf.jame.core.util.AbstractConfigElementListNode");
+					imports.add("net.sf.jame.core.util.ConfigElementListNodeValue");
+				}
 			}
 			else if (descriptor.isSimpleElement()) {
-				imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
 				imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName() + "Node");
+				imports.add("net.sf.jame.core.util.AbstractConfigElementNode");
 			}
 		}
 	}
