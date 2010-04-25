@@ -15,4 +15,8 @@ public abstract class FigureExtensionRuntime<T extends FigureExtensionConfig> ex
 	 * @param contextFreeContext 
 	 */
 	public abstract void registerFigure(ContextFreeContext contextFreeContext);
+	
+	public abstract void draw(ContextFreeContext contextFreeContext);
+	
+	public abstract void prepare(ContextFreeContext contextFreeContext);
 }

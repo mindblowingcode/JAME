@@ -45,7 +45,7 @@ import org.junit.Test;
 public class TestGenerate {
 	private ProcessorParameters createComplexParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
-		descriptors.add(new ProcessorDescriptor("extension", "Test", "Test", "net.sf.jame.core.common", "ConfigurableExtensionReferenceElement", null, null, "net.sf.jame.test", "TestExtensionConfig", "net.sf.jame.test", "TestExtensionRuntime", null, null, "net.sf.jame.test", "TestRegistry", null, null, null, null, null, "get", "set", ProcessorCardinality.NONE));
+		descriptors.add(new ProcessorDescriptor("extension", "Test", "Test", "net.sf.jame.core.common", "ConfigurableExtensionReferenceElement", null, null, "net.sf.jame.test", "TestExtensionConfig", "net.sf.jame.test", "TestExtensionRuntime", null, null, "net.sf.jame.test", "TestRegistry", "net.sf.jame.core", "CoreResources", null, null, null, "get", "set", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("enabled", "Boolean.TRUE", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Effect").createDescriptor("effect", null, ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Effect").createDescriptor("effect", null, ProcessorCardinality.ONE));
@@ -59,18 +59,18 @@ public class TestGenerate {
 	
 	private ProcessorParameters createExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
-		descriptors.add(new ProcessorDescriptor("extension", "Test", "Test", "net.sf.jame.core.common", "ConfigurableExtensionReferenceElement", null, null, "net.sf.jame.test", "TestExtensionConfig", "net.sf.jame.test", "TestExtensionRuntime", null, null, "net.sf.jame.test", "TestRegistry", null, null, null, null, null, "get", "set", ProcessorCardinality.NONE));
+		descriptors.add(new ProcessorDescriptor("extension", "Test", "Test", "net.sf.jame.core.common", "ConfigurableExtensionReferenceElement", null, null, "net.sf.jame.test", "TestExtensionConfig", "net.sf.jame.test", "TestExtensionRuntime", null, null, "net.sf.jame.test", "TestRegistry", "net.sf.jame.core", "CoreResources", null, null, null, "get", "set", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Integer").createDescriptor("size", "new Integer(10)", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Effect").createDescriptor("effect", null, ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Effect").createDescriptor("effect", null, ProcessorCardinality.ONE));
 		descriptors.add(descriptorExtensionMap.get("Effect").createDescriptor("effect", null, ProcessorCardinality.MANY));
-		return new ProcessorParameters(new ProcessorDescriptor("test", "Extension", null, null, null, null, null, "net.sf.jame.test", "TestExtensionConfig", "net.sf.jame.test", "TestExtensionRuntime", "net.sf.jame.test", "TestExtensionRegistry", null, null, null, null, null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+		return new ProcessorParameters(new ProcessorDescriptor("test", "Extension", null, null, null, null, null, "net.sf.jame.test", "TestExtensionConfig", "net.sf.jame.test", "TestExtensionRuntime", "net.sf.jame.test", "TestExtensionRegistry", null, null, "net.sf.jame.core", "CoreResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 	
 	private ProcessorParameters createRegistryParameters() {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
-		descriptors.add(new ProcessorDescriptor("test", "Extension", null, null, null, null, null, "net.sf.jame.test", "TestExtensionConfig", "net.sf.jame.test", "TestExtensionRuntime", "net.sf.jame.test", "TestExtensionRegistry", null, null, null, null, null, null, null, null, null, ProcessorCardinality.NONE));
-		return new ProcessorParameters(new ProcessorDescriptor("test", "Test", null, null, null, null, null, null, null, null, null, null, null, "net.sf.jame.test", "TestRegistry", null, null, null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+		descriptors.add(new ProcessorDescriptor("test", "Extension", null, null, null, null, null, "net.sf.jame.test", "TestExtensionConfig", "net.sf.jame.test", "TestExtensionRuntime", "net.sf.jame.test", "TestExtensionRegistry", null, null, "net.sf.jame.core", "CoreResources", null, null, null, null, null, ProcessorCardinality.NONE));
+		return new ProcessorParameters(new ProcessorDescriptor("test", "Test", null, null, null, null, null, null, null, null, null, null, null, "net.sf.jame.test", "TestRegistry", "net.sf.jame.core", "CoreResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 	
 	private void populateProcessorExtensionMap(Map<String, ProcessorExtensionRuntime> map) {

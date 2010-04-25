@@ -23,35 +23,31 @@
  * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package net.sf.jame.contextfree.extensions.shapeAdjustment;
+package net.sf.jame.mandelbrot.extensions.fractal.transforming;
 
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
-import net.sf.jame.core.xml.XMLImportException;
-import net.sf.jame.core.xml.XMLImporter;
-
-import org.w3c.dom.Element;
+import net.sf.jame.core.extension.ExtensionConfig;
+import net.sf.jame.core.tree.NodeBuilder;
+import net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime;
+import net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder;
 
 /**
  * @author Andrea Medeghini
  */
-public abstract class AbstractShapeAdjustmentConfigXMLImporter<T extends ShapeAdjustmentExtensionConfig> extends XMLImporter<T> {
+public class YConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
 	/**
-	 * @return
-	 */
-	protected abstract String getConfigElementClassId();
-
-	/**
-	 * @return
-	 */
-	protected abstract T createExtensionConfig();
-
-	/**
-	 * @see net.sf.jame.core.xml.XMLImporter#importFromElement(org.w3c.dom.Element)
+	 * @see net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime#createNodeBuilder(net.sf.jame.core.extension.ExtensionConfig)
 	 */
 	@Override
-	public T importFromElement(final Element element) throws XMLImportException {
-		checkClassId(element, this.getConfigElementClassId());
-		final T config = this.createExtensionConfig();
-		return config;
+	public NodeBuilder createNodeBuilder(final ExtensionConfig config) {
+		return new ConfigNodeBuilder((YConfig) config);
+	}
+
+	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<YConfig> {
+		/**
+		 * @param config
+		 */
+		public ConfigNodeBuilder(final YConfig config) {
+			super(config);
+		}
 	}
 }

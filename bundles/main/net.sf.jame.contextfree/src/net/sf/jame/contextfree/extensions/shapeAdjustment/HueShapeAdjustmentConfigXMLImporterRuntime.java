@@ -47,19 +47,11 @@ public class HueShapeAdjustmentConfigXMLImporterRuntime extends ExtensionConfigX
 		return new HueShapeAdjustmentConfigXMLImporter();
 	}
 
-	private class HueShapeAdjustmentConfigXMLImporter extends AbstractShapeAdjustmentConfigXMLImporter<HueShapeAdjustmentConfig> {
-		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#createExtensionConfig()
-		 */
-		@Override
+	private class HueShapeAdjustmentConfigXMLImporter extends XMLImporter<HueShapeAdjustmentConfig> {
 		protected HueShapeAdjustmentConfig createExtensionConfig() {
 			return new HueShapeAdjustmentConfig();
 		}
 
-		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#getConfigElementClassId()
-		 */
-		@Override
 		protected String getConfigElementClassId() {
 			return "HueShapeAdjustmentConfig";
 		}
@@ -69,7 +61,8 @@ public class HueShapeAdjustmentConfigXMLImporterRuntime extends ExtensionConfigX
 		 */
 		@Override
 		public HueShapeAdjustmentConfig importFromElement(final Element element) throws XMLImportException {
-			final HueShapeAdjustmentConfig config = super.importFromElement(element);
+			checkClassId(element, this.getConfigElementClassId());
+			final HueShapeAdjustmentConfig config = this.createExtensionConfig();
 			final List<Element> propertyElements = getProperties(element);
 			if (propertyElements.size() == 1) {
 				importProperties(config, propertyElements);

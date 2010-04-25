@@ -45,18 +45,14 @@ public class HueShapeAdjustmentConfigXMLExporterRuntime extends ExtensionConfigX
 		return new HueShapeAdjustmentConfigXMLExporter();
 	}
 
-	private class HueShapeAdjustmentConfigXMLExporter extends AbstractShapeAdjustmentConfigXMLExporter<HueShapeAdjustmentConfig> {
-		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLExporter#getConfigElementClassId()
-		 */
-		@Override
+	private class HueShapeAdjustmentConfigXMLExporter extends XMLExporter<HueShapeAdjustmentConfig> {
 		protected String getConfigElementClassId() {
 			return "HueShapeAdjustmentConfig";
 		}
 
 		@Override
 		public Element exportToElement(HueShapeAdjustmentConfig config, XMLNodeBuilder builder) throws XMLExportException {
-			Element element = super.exportToElement(config, builder);
+			Element element = this.createElement(builder, this.getConfigElementClassId());
 			exportProperties(config, element, builder);
 			return element;
 		}

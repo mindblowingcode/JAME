@@ -47,19 +47,11 @@ public class LineToPathOperationConfigXMLImporterRuntime extends ExtensionConfig
 		return new LineToPathOperationConfigXMLImporter();
 	}
 
-	private class LineToPathOperationConfigXMLImporter extends AbstractPathOperationConfigXMLImporter<LineToPathOperationConfig> {
-		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#createExtensionConfig()
-		 */
-		@Override
+	private class LineToPathOperationConfigXMLImporter extends XMLImporter<LineToPathOperationConfig> {
 		protected LineToPathOperationConfig createExtensionConfig() {
 			return new LineToPathOperationConfig();
 		}
 
-		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#getConfigElementClassId()
-		 */
-		@Override
 		protected String getConfigElementClassId() {
 			return "LineToPathOperationConfig";
 		}
@@ -69,7 +61,8 @@ public class LineToPathOperationConfigXMLImporterRuntime extends ExtensionConfig
 		 */
 		@Override
 		public LineToPathOperationConfig importFromElement(final Element element) throws XMLImportException {
-			final LineToPathOperationConfig config = super.importFromElement(element);
+			checkClassId(element, this.getConfigElementClassId());
+			final LineToPathOperationConfig config = this.createExtensionConfig();
 			final List<Element> propertyElements = getProperties(element);
 			if (propertyElements.size() == 2) {
 				importProperties(config, propertyElements);
