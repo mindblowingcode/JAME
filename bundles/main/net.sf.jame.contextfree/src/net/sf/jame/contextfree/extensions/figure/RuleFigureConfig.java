@@ -20,7 +20,7 @@ import net.sf.jame.core.config.ListConfigElement;
 public class RuleFigureConfig extends FigureExtensionConfig {
 	private static final long serialVersionUID = 1L;
 	private StringElement nameElement;
-	private FloatElement propabilityElement;
+	private FloatElement probabilityElement;
 	private ListConfigElement<ShapeReplacementConfigElement> shapeReplacementListElement;
 
 	/**
@@ -29,7 +29,7 @@ public class RuleFigureConfig extends FigureExtensionConfig {
 	@Override
 	protected void createConfigElements() {
 		nameElement = new StringElement("");
-		propabilityElement = new FloatElement(1f);
+		probabilityElement = new FloatElement(1f);
 		shapeReplacementListElement = new ListConfigElement<ShapeReplacementConfigElement>("shapeReplacement");
 	}
 
@@ -40,7 +40,7 @@ public class RuleFigureConfig extends FigureExtensionConfig {
 	public List<ConfigElement> getConfigElements() {
 		final List<ConfigElement> elements = new ArrayList<ConfigElement>(1);
 		elements.add(nameElement);
-		elements.add(propabilityElement);
+		elements.add(probabilityElement);
 		elements.add(shapeReplacementListElement);
 		return elements;
 	}
@@ -68,22 +68,22 @@ public class RuleFigureConfig extends FigureExtensionConfig {
 	/**
 	 * @return
 	 */
-	public FloatElement getPropabilityElement() {
-		return propabilityElement;
+	public FloatElement getProbabilityElement() {
+		return probabilityElement;
 	}
 	
 	/**
 	 * @return
 	 */
-	public Float getPropability() {
-		return propabilityElement.getValue();
+	public Float getProbability() {
+		return probabilityElement.getValue();
 	}
 
 	/**
 	 * @param value
 	 */
-	public void setPropability(final Float value) {
-		propabilityElement.setValue(value);
+	public void setProbability(final Float value) {
+		probabilityElement.setValue(value);
 	}
 	/**
 	 * @return
@@ -188,12 +188,12 @@ public class RuleFigureConfig extends FigureExtensionConfig {
 		else if (!nameElement.equals(other.nameElement)) {
 			return false;
 		}
-		if (propabilityElement == null) {
-			if (other.propabilityElement != null) {
+		if (probabilityElement == null) {
+			if (other.probabilityElement != null) {
 				return false;
 			}
 		}
-		else if (!propabilityElement.equals(other.propabilityElement)) {
+		else if (!probabilityElement.equals(other.probabilityElement)) {
 			return false;
 		}
 		if (shapeReplacementListElement == null) {
@@ -214,7 +214,7 @@ public class RuleFigureConfig extends FigureExtensionConfig {
 	public RuleFigureConfig clone() {
 		final RuleFigureConfig config = new RuleFigureConfig();
 		config.setName(getName());
-		config.setPropability(getPropability());
+		config.setProbability(getProbability());
 		config.shapeReplacementListElement.copyFrom(getShapeReplacementListElement());
 		return config;
 	}

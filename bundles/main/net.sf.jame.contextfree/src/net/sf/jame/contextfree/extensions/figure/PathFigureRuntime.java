@@ -8,6 +8,7 @@ import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationConfigElement;
 import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationRuntimeElement;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.ContextFreePath;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -17,7 +18,7 @@ import net.sf.jame.core.config.ValueConfigElement;
 /**
  * @author Andrea Medeghini
  */
-public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensionRuntime<T> {
+public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensionRuntime<T> implements ContextFreePath {
 	private String name;
 	private NameListener nameListener;
 	private ListRuntimeElement<PathOperationRuntimeElement> pathOperationListElement;

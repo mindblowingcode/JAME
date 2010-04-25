@@ -60,6 +60,14 @@ public class ${extension.extensionConfigClassName}NodeBuilderRuntime extends Nod
 				setNodeClass(${subelement.elementName?cap_first}${subelement.fieldNameSuffix}ReferenceNode.NODE_CLASS);
 				setNodeLabel(${extension.resourcesClassName}.getInstance().getString("node.label.${subelement.elementName?cap_first}${subelement.fieldNameSuffix}"));
 			}
+	
+			/**
+			 * @see net.sf.jame.core.util.AbstractConfigElementListNode#createNodeValue(Object)
+			 */
+			@Override
+			protected NodeValue<?> createNodeValue(final ConfigurableExtensionReference<${extension.extensionConfigClassName}> value) {
+				return new ExtensionReferenceElementNodeValue<ConfigurableExtensionReference<${extension.extensionConfigClassName}>>(value);
+			}
 		}
 		<#elseif subelement.extensionElement>
 		private class ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}ReferenceNode extends ExtensionReferenceElementNode {
@@ -72,6 +80,14 @@ public class ${extension.extensionConfigClassName}NodeBuilderRuntime extends Nod
 				super(config.getExtensionId() + ".${subelement.elementName?uncap_first}", config.get${subelement.elementName?cap_first}${subelement.fieldNameSuffix}());
 				setNodeClass(${subelement.elementName?cap_first}${subelement.fieldNameSuffix}ReferenceNode.NODE_CLASS);
 				setNodeLabel(${extension.resourcesClassName}.getInstance().getString("node.label.${subelement.elementName?cap_first}${subelement.fieldNameSuffix}"));
+			}
+	
+			/**
+			 * @see net.sf.jame.core.util.AbstractConfigElementListNode#createNodeValue(Object)
+			 */
+			@Override
+			protected NodeValue<?> createNodeValue(final ExtensionReference value) {
+				return new ExtensionReferenceElementNodeValue<ExtensionReference>(value);
 			}
 		}
 		<#elseif subelement.simpleElement>
@@ -87,22 +103,55 @@ public class ${extension.extensionConfigClassName}NodeBuilderRuntime extends Nod
 		<#elseif subelement.complexElement>
 		<#if subelement.cardinality == "NONE">
 		private class ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Node extends ${subelement.configElementClassName}Node {
+			public static final String NODE_CLASS = "node.class.${subelement.elementName?cap_first}${subelement.fieldNameSuffix}";
+			
 			/**
 			 * @param config
 			 */
 			public ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Node(final ${extension.extensionConfigClassName} config) {
-				super(config.getExtensionId() + ".${subelement.elementName?uncap_first}", config.get${subelement.elementName?cap_first}${subelement.fieldNameSuffix}());
+				super(config.get${subelement.elementName?cap_first}${subelement.fieldNameSuffix}());
+				setNodeClass(${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Node.NODE_CLASS);
 				setNodeLabel(${extension.resourcesClassName}.getInstance().getString("node.label.${subelement.elementName?cap_first}${subelement.fieldNameSuffix}"));
 			}
 		}
 		<#elseif subelement.cardinality == "ONE">
-		private class ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Node extends ${subelement.configElementClassName}Node {
+		private class ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Node extends AbstractConfigElementSingleNode<${subelement.configElementClassName}> {
+			public static final String NODE_CLASS = "node.class.${subelement.elementName?cap_first}${subelement.fieldNameSuffix}";
+			
 			/**
 			 * @param config
 			 */
 			public ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Node(final ${extension.extensionConfigClassName} config) {
-				super(config.getExtensionId() + ".${subelement.elementName?uncap_first}", config.get${subelement.elementName?cap_first}${subelement.fieldNameSuffix}());
+				super(config.getExtensionId() + ".${subelement.elementName?uncap_first}s", config.get${subelement.elementName?cap_first}${subelement.fieldNameSuffix}());
+				setNodeClass(${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Node.NODE_CLASS);
 				setNodeLabel(${extension.resourcesClassName}.getInstance().getString("node.label.${subelement.elementName?cap_first}${subelement.fieldNameSuffix}"));
+			}
+
+			/**
+			 * @see net.sf.jame.core.util.AbstractConfigElementListNode#createChildNode(net.sf.jame.core.config.ConfigElement)
+			 */
+			@Override
+			protected AbstractConfigElementNode<${subelement.configElementClassName}> createChildNode(final ${subelement.configElementClassName} value) {
+				return new ${subelement.configElementClassName}Node(value);
+			}
+	
+			/**
+			 * @see net.sf.jame.core.util.AbstractConfigElementListNode#createNodeValue(Object)
+			 */
+			@Override
+			public NodeValue<${subelement.configElementClassName}> createNodeValue(final Object value) {
+				return new ${subelement.configElementClassName}NodeValue((${subelement.configElementClassName}) value);
+			}
+	
+			private class ${subelement.configElementClassName}NodeValue extends ConfigElementSingleNodeValue<${subelement.configElementClassName}> {
+				private static final long serialVersionUID = 1L;
+	
+				/**
+				 * @param value
+				 */
+				public ${subelement.configElementClassName}NodeValue(final ${subelement.configElementClassName} value) {
+					super(value);
+				}
 			}
 		}
 		<#elseif subelement.cardinality == "MANY">
@@ -123,7 +172,7 @@ public class ${extension.extensionConfigClassName}NodeBuilderRuntime extends Nod
 			 */
 			@Override
 			protected AbstractConfigElementNode<${subelement.configElementClassName}> createChildNode(final ${subelement.configElementClassName} value) {
-				return new ${subelement.configElementClassName}ElementNode(value);
+				return new ${subelement.configElementClassName}Node(value);
 			}
 	
 			/**
@@ -131,18 +180,18 @@ public class ${extension.extensionConfigClassName}NodeBuilderRuntime extends Nod
 			 */
 			@Override
 			public Class<?> getChildValueType() {
-				return ${subelement.configElementClassName}ElementNodeValue.class;
+				return ${subelement.configElementClassName}NodeValue.class;
 			}
 	
 			/**
 			 * @see net.sf.jame.core.util.AbstractConfigElementListNode#createNodeValue(Object)
 			 */
 			@Override
-			public NodeValue<OutcolouringFormulaConfigElement> createNodeValue(final Object value) {
+			public NodeValue<${subelement.configElementClassName}> createNodeValue(final Object value) {
 				return new ${subelement.configElementClassName}NodeValue((${subelement.configElementClassName}) value);
 			}
 	
-			private class ${subelement.configElementClassName}ElementNodeValue extends ConfigElementListNodeValue<${subelement.configElementClassName}> {
+			private class ${subelement.configElementClassName}NodeValue extends ConfigElementListNodeValue<${subelement.configElementClassName}> {
 				private static final long serialVersionUID = 1L;
 	
 				/**
