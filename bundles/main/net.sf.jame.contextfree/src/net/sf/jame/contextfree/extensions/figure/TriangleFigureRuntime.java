@@ -42,17 +42,15 @@ public class TriangleFigureRuntime<T extends TriangleFigureConfig> extends Figur
 		super.dispose();
 	}
 
-	@Override
 	public void draw(ContextFreeContext contextFreeContext) {
 		contextFreeContext.drawShape(shape);
 	}
 
-	@Override
 	public void prepare(ContextFreeContext contextFreeContext) {
 	}
 
 	@Override
-	public void registerFigure(ContextFreeContext contextFreeContext) {
+	public void register(ContextFreeContext contextFreeContext) {
 		contextFreeContext.registerPath(this);
 	}
 
