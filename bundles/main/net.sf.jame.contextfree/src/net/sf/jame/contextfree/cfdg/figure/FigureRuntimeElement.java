@@ -123,7 +123,7 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 
 	public void registerFigure(ContextFreeContext contextFreeContext) {
 		if (extensionRuntime != null) {
-			extensionRuntime.registerFigure(contextFreeContext);
+			extensionRuntime.register(contextFreeContext);
 		}
 	}
 }

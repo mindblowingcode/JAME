@@ -200,7 +200,7 @@ public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensi
 	}
 
 	@Override
-	public void registerFigure(ContextFreeContext contextFreeContext) {
+	public void register(ContextFreeContext contextFreeContext) {
 		contextFreeContext.registerPath(this);
 	}
 }

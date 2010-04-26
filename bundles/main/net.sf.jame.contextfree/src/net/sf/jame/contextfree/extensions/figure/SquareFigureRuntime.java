@@ -37,17 +37,15 @@ public class SquareFigureRuntime<T extends SquareFigureConfig> extends FigureExt
 		super.dispose();
 	}
 	
-	@Override
 	public void draw(ContextFreeContext contextFreeContext) {
 		contextFreeContext.drawShape(shape);
 	}
 
-	@Override
 	public void prepare(ContextFreeContext contextFreeContext) {
 	}
 
 	@Override
-	public void registerFigure(ContextFreeContext contextFreeContext) {
+	public void register(ContextFreeContext contextFreeContext) {
 		contextFreeContext.registerPath(this);
 	}
 

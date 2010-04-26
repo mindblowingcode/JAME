@@ -236,7 +236,7 @@ public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensi
 	}
 
 	@Override
-	public void registerFigure(ContextFreeContext contextFreeContext) {
+	public void register(ContextFreeContext contextFreeContext) {
 		contextFreeContext.registerRule(this);
 	}
 }
