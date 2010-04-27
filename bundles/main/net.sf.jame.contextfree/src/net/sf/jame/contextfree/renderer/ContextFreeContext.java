@@ -41,6 +41,7 @@ public class ContextFreeContext {
 	private ContextFreeState state = new ContextFreeState();
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
+	private ContextFreeArea area;
 	private Graphics2D g2d;
 
 	public ContextFreeContext(Graphics2D g2d, CFDGRuntimeElement runtime) {
@@ -319,5 +320,9 @@ public class ContextFreeContext {
 			}
 			return null;
 		}
+	}
+
+	public ContextFreeArea getArea() {
+		return area;
 	}
 }
