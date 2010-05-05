@@ -8,6 +8,9 @@ import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.ContextFreeLimits;
+import net.sf.jame.contextfree.renderer.ContextFreeNode;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -184,16 +187,21 @@ public class SingleReplacementRuntime<T extends SingleReplacementConfig> extends
 		}
 	}
 	
-	public void draw(ContextFreeContext contextFreeContext) {
-		contextFreeContext.pushState();
-		for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
-			ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
-			shapeAdjustmentRuntime.load(contextFreeContext.getState(), 0);
-		}
-		contextFreeContext.drawPathOrRule(shape);
-		contextFreeContext.popState();
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		return new ReplacementContextFreeNode(context, state, limits);
 	}
-
-	public void prepare(ContextFreeContext contextFreeContext) {
+	
+	private class ReplacementContextFreeNode extends ContextFreeNode {
+		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+			ContextFreeState nodeState = state.clone(); 
+			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
+				ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
+				shapeAdjustmentRuntime.configureState(nodeState, 0);
+			}
+			ContextFreeNode child = context.buildPathOrRuleNode(nodeState, limits, shape);
+			if (child != null) {
+				addChild(child);
+			}
+		}
 	}
 }

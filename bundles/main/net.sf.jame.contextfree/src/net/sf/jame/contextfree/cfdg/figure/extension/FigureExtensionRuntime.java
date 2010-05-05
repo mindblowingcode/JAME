@@ -12,7 +12,7 @@ import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
  */
 public abstract class FigureExtensionRuntime<T extends FigureExtensionConfig> extends ConfigurableExtensionRuntime<T> {
 	/**
-	 * @param contextFreeContext 
+	 * @param context 
 	 */
-	public abstract void register(ContextFreeContext contextFreeContext);
+	public abstract void register(ContextFreeContext context);
 }

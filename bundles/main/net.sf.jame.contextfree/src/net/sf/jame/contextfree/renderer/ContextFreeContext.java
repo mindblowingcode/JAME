@@ -25,30 +25,27 @@
  */
 package net.sf.jame.contextfree.renderer;
 
-import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
 
 public class ContextFreeContext {
-	private Stack<ContextFreeState> stateStack = new Stack<ContextFreeState>();
-	private ContextFreeState state = new ContextFreeState();
+	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
-	private ContextFreeArea area;
-	private Graphics2D g2d;
 
-	public ContextFreeContext(Graphics2D g2d, CFDGRuntimeElement runtime) {
-		this.g2d = g2d;
+	public ContextFreeContext(CFDGRuntimeElement runtime) {
+		this.runtime = runtime;
+	}
+
+	public void registerFigures() {
 		for (int i = 0; i < runtime.getFigureElementCount(); i++) {
 			FigureRuntimeElement figure = runtime.getFigureElement(i);
-			figure.registerFigure(this);
+			figure.register(this);
 		}
 	}
 
@@ -60,207 +57,33 @@ public class ContextFreeContext {
 		ruleMap.add(rule);
 	}
 
-	public void drawShape(Shape shape) {
-		g2d.draw(shape);
+	public void unregisterPath(ContextFreePath path) {
+		pathMap.remove(path);
 	}
 
-	public void fillShape(Shape shape) {
-		g2d.fill(shape);
+	public void unregisterRule(ContextFreeRule rule) {
+		ruleMap.remove(rule);
 	}
 
-	public ContextFreeState getState() {
-		return state;
-	}
-	
-	public void pushState() {
-		stateStack.push(state);
-		state = state.clone();
-	}
-
-	public void popState() {
-		state = stateStack.pop();
-	}
-
-	public float getCurrentAlpha() {
-		return state.getCurrentAlpha();
-	}
-
-	public float getCurrentBrightness() {
-		return state.getCurrentBrightness();
-	}
-
-	public float getCurrentHue() {
-		return state.getCurrentHue();
-	}
-
-	public float getCurrentSaturation() {
-		return state.getCurrentSaturation();
-	}
-
-	public float getFlipX() {
-		return state.getFlipX();
-	}
-
-	public float getFlipY() {
-		return state.getFlipY();
-	}
-
-	public float getRotation() {
-		return state.getRotation();
-	}
-
-	public float getSizeX() {
-		return state.getSizeX();
-	}
-
-	public float getSizeY() {
-		return state.getSizeY();
-	}
-
-	public float getSkewX() {
-		return state.getSkewX();
-	}
-
-	public float getSkewY() {
-		return state.getSkewY();
-	}
-
-	public float getTargetAlpha() {
-		return state.getTargetAlpha();
-	}
-
-	public float getTargetBrightness() {
-		return state.getTargetBrightness();
-	}
-
-	public float getTargetHue() {
-		return state.getTargetHue();
-	}
-
-	public float getTargetSaturation() {
-		return state.getTargetSaturation();
-	}
-
-	public float getX() {
-		return state.getX();
-	}
-
-	public float getY() {
-		return state.getY();
-	}
-
-	public float getZ() {
-		return state.getZ();
-	}
-
-//	public void setCurrentAlpha(float currentAlpha) {
-//		state.setCurrentAlpha(currentAlpha);
-//	}
-//
-//	public void setCurrentBrightness(float currentBrightness) {
-//		state.setCurrentBrightness(currentBrightness);
-//	}
-//
-//	public void setCurrentHue(float currentHue) {
-//		state.setCurrentHue(currentHue);
-//	}
-//
-//	public void setCurrentSaturation(float currentSaturation) {
-//		state.setCurrentSaturation(currentSaturation);
-//	}
-//
-//	public void setFlipX(float flipX) {
-//		state.setFlipX(flipX);
-//	}
-//
-//	public void setFlipY(float flipY) {
-//		state.setFlipY(flipY);
-//	}
-//
-//	public void setRotation(float rotation) {
-//		state.setRotation(rotation);
-//	}
-//
-//	public void setSizeX(float sizeX) {
-//		state.setSizeX(sizeX);
-//	}
-//
-//	public void setSizeY(float sizeY) {
-//		state.setSizeY(sizeY);
-//	}
-//
-//	public void setSkewX(float skewX) {
-//		state.setSkewX(skewX);
-//	}
-//
-//	public void setSkewY(float skewY) {
-//		state.setSkewY(skewY);
-//	}
-//
-//	public void setTargetAlpha(float targetAlpha) {
-//		state.setTargetAlpha(targetAlpha);
-//	}
-//
-//	public void setTargetBrightness(float targetBrightness) {
-//		state.setTargetBrightness(targetBrightness);
-//	}
-//
-//	public void setTargetHue(float targetHue) {
-//		state.setTargetHue(targetHue);
-//	}
-//
-//	public void setTargetSaturation(float targetSaturation) {
-//		state.setTargetSaturation(targetSaturation);
-//	}
-//
-//	public void setX(float x) {
-//		state.setX(x);
-//	}
-//
-//	public void setY(float y) {
-//		state.setY(y);
-//	}
-//
-//	public void setZ(float z) {
-//		state.setZ(z);
-//	}
-
-	public void drawPathOrRule(String figureName) {
+	public ContextFreeNode buildPathOrRuleNode(ContextFreeState state, ContextFreeLimits limits, String figureName) {
 		ContextFreePath path = pathMap.get(figureName);
 		if (path != null) {
-			path.draw(this);
+			return path.buildNode(this, state, limits);
 		} else {
 			ContextFreeRule rule = ruleMap.get(figureName);
 			if (rule != null) {
-				rule.draw(this);
+				return rule.buildNode(this, state, limits);
 			}
 		}
+		return null;
 	}
 
-	public void preparePathOrRule(String figureName) {
-		ContextFreePath path = pathMap.get(figureName);
-		if (path != null) {
-			path.prepare(this);
-		} else {
-			ContextFreeRule rule = ruleMap.get(figureName);
-			if (rule != null) {
-				rule.prepare(this);
-			}
-		}
-	}
-
-	public void drawRule(String figureName) {
+	public ContextFreeNode buildRuleNode(ContextFreeState state, ContextFreeLimits limits, String figureName) {
 		ContextFreeRule rule = ruleMap.get(figureName);
 		if (rule != null) {
-			rule.draw(this);
+			return rule.buildNode(this, state, limits);
 		}
-	}
-
-	public void prepareRule(String figureName) {
-		ContextFreeRule rule = ruleMap.get(figureName);
-		if (rule != null) {
-			rule.prepare(this);
-		}
+		return null;
 	}
 	
 	private class RuleMap {
@@ -275,6 +98,16 @@ public class ContextFreeContext {
 			entry.add(rule);
 		}
 		
+		public void remove(ContextFreeRule rule) {
+			RuleEntry entry = map.get(rule.getName());
+			if (entry != null) {
+				entry.remove(rule);
+				if (entry.runtimes.size() == 0) {
+					map.remove(rule.getName());
+				}
+			}
+		}
+
 		public ContextFreeRule get(String ruleName) {
 			RuleEntry entry = map.get(ruleName);
 			if (entry != null) {
@@ -289,6 +122,10 @@ public class ContextFreeContext {
 
 		public void add(ContextFreePath path) {
 			map.put(path.getName(), path);
+		}
+
+		public void remove(ContextFreePath path) {
+			map.remove(path);
 		}
 
 		public ContextFreePath get(String pathName) {
@@ -309,6 +146,15 @@ public class ContextFreeContext {
 			}
 		}
 		
+		public void remove(ContextFreeRule rule) {
+			runtimes.remove(rule);
+			if (rule.getProbability() > 0) {
+				total -= rule.getProbability();
+			} else {
+				total -= 1;
+			}
+		}
+
 		public ContextFreeRule get() {
 			float number = (float) Math.random() * total;
 			float offset = 0;
@@ -320,9 +166,5 @@ public class ContextFreeContext {
 			}
 			return null;
 		}
-	}
-
-	public ContextFreeArea getArea() {
-		return area;
 	}
 }

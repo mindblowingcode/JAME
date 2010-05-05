@@ -46,10 +46,13 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		CFDGRuntimeElement cfdgRuntime = getRuntime();
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
+		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
+		ContextFreeLimits limits = new ContextFreeLimits(getBufferWidth(), getBufferHeight());
+		ContextFreeState state = new ContextFreeState(); 
+		context.registerFigures();
 		getGraphics().setColor(new Color(background.getARGB()));
-		getGraphics().fillRect(0,0, getBufferWidth(), getBufferHeight());
-		ContextFreeContext contextFreeContext = new ContextFreeContext(getGraphics(), cfdgRuntime);
-		contextFreeContext.prepareRule(startshape);
-		contextFreeContext.drawRule(startshape);
+		getGraphics().fillRect(0, 0, getBufferWidth(), getBufferHeight());
+		ContextFreeNode startNode = context.buildRuleNode(state, limits, startshape);
+		startNode.draw(getGraphics(), limits.getArea());
 	}
 }

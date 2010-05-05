@@ -121,9 +121,9 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 		}
 	}
 
-	public void load(ContextFreeState state) {
+	public void configureState(ContextFreeState state) {
 		if (extensionRuntime != null) {
-			extensionRuntime.load(state);
+			extensionRuntime.configureState(state);
 		}
 	}
 }

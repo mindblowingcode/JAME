@@ -121,9 +121,9 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 		}
 	}
 
-	public void registerFigure(ContextFreeContext contextFreeContext) {
+	public void register(ContextFreeContext context) {
 		if (extensionRuntime != null) {
-			extensionRuntime.register(contextFreeContext);
+			extensionRuntime.register(context);
 		}
 	}
 }

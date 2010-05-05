@@ -10,6 +10,9 @@ import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionConfig;
 import net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.ContextFreeLimits;
+import net.sf.jame.contextfree.renderer.ContextFreeNode;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.common.ExtensionReferenceElement;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
@@ -242,21 +245,15 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 		}
 	}
 	
-	public void draw(ContextFreeContext contextFreeContext) {
-		contextFreeContext.pushState();
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		ContextFreeState nodeState = state.clone(); 
 		for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
 			PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
-			pathAdjustmentRuntime.load(contextFreeContext.getState());
+			pathAdjustmentRuntime.configureState(nodeState);
 		}
 		if (extensionRuntime != null) {
-			extensionRuntime.draw(contextFreeContext);
+			return extensionRuntime.buildNode(context, nodeState, limits);
 		}
-		contextFreeContext.popState();
-	}
-
-	public void prepare(ContextFreeContext contextFreeContext) {
-		if (extensionRuntime != null) {
-			extensionRuntime.prepare(contextFreeContext);
-		}
+		return null;
 	}
 }

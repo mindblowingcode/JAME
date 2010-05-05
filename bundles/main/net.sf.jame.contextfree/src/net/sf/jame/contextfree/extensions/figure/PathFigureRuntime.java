@@ -8,7 +8,10 @@ import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationConfigElement;
 import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationRuntimeElement;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.ContextFreeLimits;
+import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -184,23 +187,24 @@ public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensi
 			}
 		}
 	}
-	
-	public void draw(ContextFreeContext contextFreeContext) {
-		for (int i = 0; i < pathOperationListElement.getElementCount(); i++) {
-			PathOperationRuntimeElement pathOperationRuntime = pathOperationListElement.getElement(i); 
-			pathOperationRuntime.draw(contextFreeContext);
-		}
-	}
-	
-	public void prepare(ContextFreeContext contextFreeContext) {
-		for (int i = 0; i < pathOperationListElement.getElementCount(); i++) {
-			PathOperationRuntimeElement pathOperationRuntime = pathOperationListElement.getElement(i); 
-			pathOperationRuntime.prepare(contextFreeContext);
-		}
+
+	public void register(ContextFreeContext context) {
+		context.registerPath(this);
 	}
 
-	@Override
-	public void register(ContextFreeContext contextFreeContext) {
-		contextFreeContext.registerPath(this);
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		return new PathContextFreeNode(context, state, limits);
+	}
+	
+	private class PathContextFreeNode extends ContextFreeNode {
+		public PathContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+			for (int i = 0; i < pathOperationListElement.getElementCount(); i++) {
+				PathOperationRuntimeElement pathOperationRuntime = pathOperationListElement.getElement(i); 
+				ContextFreeNode child = pathOperationRuntime.buildNode(context, state, limits);
+				if (child != null) {
+					addChild(child);
+				}
+			}
+		}
 	}
 }
