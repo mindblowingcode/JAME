@@ -36,19 +36,19 @@ public class HueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<H
 	private float delta = 0;
 	
 	/**
-	 * @see net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime#load(net.sf.jame.contextfree.renderer.ContextFreeState, int)
+	 * @see net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime#configureState(net.sf.jame.contextfree.renderer.ContextFreeState, int)
 	 */
 	@Override
-	public void load(ContextFreeState state, int times) {
-		state.setTargetHue(getConfig().getValue().floatValue());
+	public void configureState(ContextFreeState state, int times) {
 		delta = (state.getCurrentHue() - state.getTargetHue()) / times;
+		state.setTargetHue(getConfig().getValue().floatValue());
 	}
 
 	/**
-	 * @see net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime#update(net.sf.jame.contextfree.renderer.ContextFreeState)
+	 * @see net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime#updateState(net.sf.jame.contextfree.renderer.ContextFreeState, int)
 	 */
 	@Override
-	public void update(ContextFreeState state) {
-		state.setCurrentHue(state.getCurrentHue() + delta);
+	public void updateState(ContextFreeState state, int time) {
+		state.setCurrentHue(state.getCurrentHue() + time * delta);
 	}
 }

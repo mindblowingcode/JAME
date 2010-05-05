@@ -13,12 +13,13 @@ import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
 public abstract class ShapeAdjustmentExtensionRuntime<T extends ShapeAdjustmentExtensionConfig> extends ConfigurableExtensionRuntime<T> {
 	/**
 	 * @param state
+	 * @param times
 	 */
-	public abstract void update(ContextFreeState state);
+	public abstract void configureState(ContextFreeState state, int times);
 
 	/**
 	 * @param state
-	 * @param times
+	 * @param time 
 	 */
-	public abstract void load(ContextFreeState state, int times);
+	public abstract void updateState(ContextFreeState state, int time);
 }

@@ -8,7 +8,10 @@ import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.ContextFreeLimits;
+import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreeRule;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -221,22 +224,23 @@ public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensi
 		}
 	}
 	
-	public void draw(ContextFreeContext contextFreeContext) {
-		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
-			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i); 
-			shapeReplacementRuntime.draw(contextFreeContext);
-		}
-	}
-	
-	public void prepare(ContextFreeContext contextFreeContext) {
-		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
-			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i); 
-			shapeReplacementRuntime.prepare(contextFreeContext);
-		}
+	public void register(ContextFreeContext context) {
+		context.registerRule(this);
 	}
 
-	@Override
-	public void register(ContextFreeContext contextFreeContext) {
-		contextFreeContext.registerRule(this);
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		return new RuleContextFreeNode(context, state, limits);
+	}
+	
+	private class RuleContextFreeNode extends ContextFreeNode {
+		public RuleContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+				ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
+				ContextFreeNode child = shapeReplacementRuntime.buildNode(context, state, limits);
+				if (child != null) {
+					addChild(child);
+				}
+			}
+		}
 	}
 }

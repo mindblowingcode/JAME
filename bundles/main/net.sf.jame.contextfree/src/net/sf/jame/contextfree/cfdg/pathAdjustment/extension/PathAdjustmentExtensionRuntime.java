@@ -14,5 +14,5 @@ public abstract class PathAdjustmentExtensionRuntime<T extends PathAdjustmentExt
 	/**
 	 * @param state
 	 */
-	public abstract void load(ContextFreeState state);
+	public abstract void configureState(ContextFreeState state);
 }

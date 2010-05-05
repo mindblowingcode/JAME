@@ -25,32 +25,42 @@
  */
 package net.sf.jame.contextfree.extensions.pathOperation;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
 import net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeArea;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.ContextFreeLimits;
+import net.sf.jame.contextfree.renderer.ContextFreeNode;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 /**
  * @author Andrea Medeghini
  *
  */
 public class LineToPathOperationRuntime extends PathOperationExtensionRuntime<LineToPathOperationConfig> {
-	/**
-	 * @see net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionRuntime#draw(net.sf.jame.contextfree.renderer.ContextFreeContext)
-	 */
-	@Override
-	public void draw(ContextFreeContext contextFreeContext) {
-		// TODO Auto-generated method stub
-		Line2D.Float line = new Line2D.Float(contextFreeContext.getX(), contextFreeContext.getY(), getConfig().getX().floatValue(), getConfig().getY().floatValue());
-		contextFreeContext.drawShape(line);
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		return new OperationContextFreeNode(context, state, limits);
 	}
-
-	/**
-	 * @see net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionRuntime#prepare(net.sf.jame.contextfree.renderer.ContextFreeContext)
-	 */
-	@Override
-	public void prepare(ContextFreeContext contextFreeContext) {
-		// TODO Auto-generated method stub
+	
+	private class OperationContextFreeNode extends ContextFreeNode {
+		private ContextFreeState state;
 		
+		public OperationContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+			this.state = state;
+		}
+
+		@Override
+		public void drawNode(Graphics2D g2d, ContextFreeArea area) {
+			Color c = new Color((((int) Math.rint((255 * state.getCurrentAlpha()))) << 24) |  Color.HSBtoRGB(state.getCurrentHue(), state.getCurrentSaturation(), state.getCurrentBrightness()));
+			g2d.setColor(c);
+			float sx = area.getScaleX();
+			float sy = area.getScaleY();
+			float x = area.getX() + state.getX() * sx;
+			float y = area.getY() + state.getY() * sy;
+			g2d.draw(new Line2D.Float(x, y, x + getConfig().getX().floatValue() * sx, y + getConfig().getY().floatValue() * sy));
+		}
 	}
 }

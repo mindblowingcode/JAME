@@ -4,51 +4,23 @@
  */
 package net.sf.jame.contextfree.extensions.figure;
 
-import java.awt.Shape;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeArea;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.ContextFreeLimits;
+import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 /**
  * @author Andrea Medeghini
  */
 public class TriangleFigureRuntime<T extends TriangleFigureConfig> extends FigureExtensionRuntime<T> implements ContextFreePath {
-	private Shape shape = createShape();
-	
-	private Shape createShape() {
-		GeneralPath path = new GeneralPath();
-		path.append(new Line2D.Float(norm(0), norm(0), norm(1), norm(0)), false);
-		path.append(new Line2D.Float(norm(1), norm(0), norm(0), norm(1)), false);
-		path.append(new Line2D.Float(norm(0), norm(1), norm(0), norm(0)), true);
-		return path;
-	}
-	
-	private float norm(float i) {
-		return i;
-	}
-
-	/**
-	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
-	 */
-	@Override
-	public void configReloaded() {
-	}
-
-	@Override
-	public void dispose() {
-		super.dispose();
-	}
-
-	public void draw(ContextFreeContext contextFreeContext) {
-		contextFreeContext.drawShape(shape);
-	}
-
-	public void prepare(ContextFreeContext contextFreeContext) {
-	}
-
 	@Override
 	public void register(ContextFreeContext contextFreeContext) {
 		contextFreeContext.registerPath(this);
@@ -56,5 +28,32 @@ public class TriangleFigureRuntime<T extends TriangleFigureConfig> extends Figur
 
 	public String getName() {
 		return "triangle";
+	}
+
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		return new FigureContextFreeNode(context, state, limits);
+	}
+	
+	private class FigureContextFreeNode extends ContextFreeNode {
+		private ContextFreeState state;
+		
+		public FigureContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+			this.state = state;
+		}
+
+		@Override
+		public void drawNode(Graphics2D g2d, ContextFreeArea area) {
+			Color c = new Color((((int) Math.rint((255 * state.getCurrentAlpha()))) << 24) |  Color.HSBtoRGB(state.getCurrentHue(), state.getCurrentSaturation(), state.getCurrentBrightness()));
+			g2d.setColor(c);
+			float sx = area.getScaleX();
+			float sy = area.getScaleY();
+			float x = area.getX() + state.getX() * sx;
+			float y = area.getY() + state.getY() * sy;
+			GeneralPath path = new GeneralPath();
+			path.append(new Line2D.Float(x + 0 * sx, y + 0 * sy, x + 1 * sx, y + 0 * sy), false);
+			path.append(new Line2D.Float(x + 1 * sx, y + 0 * sy, x + 0 * sx, y + 1 * sy), false);
+			path.append(new Line2D.Float(x + 0 * sx, y + 1 * sy, x + 0 * sx, y + 0 * sy), true);
+			g2d.draw(path);	
+		}
 	}
 }

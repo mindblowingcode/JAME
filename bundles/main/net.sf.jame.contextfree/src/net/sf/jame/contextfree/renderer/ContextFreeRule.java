@@ -5,7 +5,5 @@ public interface ContextFreeRule {
 	
 	public Float getProbability();
 	
-	public void prepare(ContextFreeContext contextFreeContext);
-	
-	public void draw(ContextFreeContext contextFreeContext);
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits);
 }

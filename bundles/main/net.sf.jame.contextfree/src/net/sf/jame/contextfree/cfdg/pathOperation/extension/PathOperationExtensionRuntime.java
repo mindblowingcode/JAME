@@ -5,6 +5,9 @@
 package net.sf.jame.contextfree.cfdg.pathOperation.extension;
 
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.ContextFreeLimits;
+import net.sf.jame.contextfree.renderer.ContextFreeNode;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
 
 /**
@@ -12,12 +15,10 @@ import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
  */
 public abstract class PathOperationExtensionRuntime<T extends PathOperationExtensionConfig> extends ConfigurableExtensionRuntime<T> {
 	/**
-	 * @param contextFreeContext
+	 * @param context
+	 * @param state
+	 * @param limits
+	 * @return 
 	 */
-	public abstract void draw(ContextFreeContext contextFreeContext);
-
-	/**
-	 * @param contextFreeContext
-	 */
-	public abstract void prepare(ContextFreeContext contextFreeContext);
+	public abstract ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits);
 }

@@ -10,6 +10,9 @@ import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigEleme
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.ContextFreeLimits;
+import net.sf.jame.contextfree.renderer.ContextFreeNode;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -302,29 +305,30 @@ public class MultiReplacementRuntime<T extends MultiReplacementConfig> extends S
 		}
 	}
 	
-	public void draw(ContextFreeContext contextFreeContext) {
-		contextFreeContext.pushState();
-		for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
-			ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
-			shapeAdjustmentRuntime.load(contextFreeContext.getState(), times);
-		}
-		for (int t = 0; t < times; t++) {
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		return new ReplacementContextFreeNode(context, state, limits);
+	}
+	
+	private class ReplacementContextFreeNode extends ContextFreeNode {
+		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+			ContextFreeState nodeState = state.clone(); 
 			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
 				ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
-				shapeAdjustmentRuntime.update(contextFreeContext.getState());
+				shapeAdjustmentRuntime.configureState(nodeState, times);
 			}
-			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
-				ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i); 
-				shapeReplacementRuntime.draw(contextFreeContext);
+			for (int t = 0; t < times; t++) {
+				for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
+					ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
+					shapeAdjustmentRuntime.updateState(nodeState, t);
+				}
+				for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+					ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i); 
+					ContextFreeNode child = shapeReplacementRuntime.buildNode(context, nodeState, limits);
+					if (child != null) {
+						addChild(child);
+					}
+				}
 			}
-		}
-		contextFreeContext.popState();
-	}
-
-	public void prepare(ContextFreeContext contextFreeContext) {
-		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
-			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i); 
-			shapeReplacementRuntime.prepare(contextFreeContext);
 		}
 	}
 }
