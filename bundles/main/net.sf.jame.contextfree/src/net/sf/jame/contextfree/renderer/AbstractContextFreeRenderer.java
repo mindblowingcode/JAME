@@ -55,6 +55,7 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 	private Tile oldTile;
 	private int imageDim;
 	private int tileDim;
+	protected double rotationValue;
 	protected int renderMode = ContextFreeRenderer.MODE_CALCULATE;
 	protected int newImageMode = 0;
 	protected int oldImageMode = 0;
@@ -231,11 +232,24 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 	}
 
 	private void updateView(final View view) {
+		rotationValue = view.getRotation().getZ();
 		dynamic = view.getStatus().getZ() == 1;
 		dynamicZoom = dynamic;
 		if (view.getStatus().getZ() == 2) {
 			setMode(ContextFreeRenderer.MODE_CALCULATE);
 		}
+	}
+
+	/**
+	 * 
+	 */
+	protected void updateTransform() {
+		final int offsetX = (getBufferWidth() - oldTile.getTileSize().getX()) / 2;
+		final int offsetY = (getBufferHeight() - oldTile.getTileSize().getY()) / 2;
+		transform = AffineTransform.getTranslateInstance(-offsetX, -offsetY);
+		final int centerX = getBufferWidth() / 2 + oldTile.getTileBorder().getX();
+		final int centerY = getBufferHeight() / 2 + oldTile.getTileBorder().getY();
+		transform.rotate(rotationValue, centerX, centerY);
 	}
 
 	/**
