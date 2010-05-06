@@ -5,12 +5,16 @@ public class ContextFreeLimits {
 	private float minY = Float.MAX_VALUE;
 	private float maxX = Float.MIN_VALUE;
 	private float maxY = Float.MIN_VALUE;
+	private float x;
+	private float y;
 	private float width;
 	private float height;
 
-	public ContextFreeLimits(float width, float height) {
+	public ContextFreeLimits(float width, float height, int x, int y) {
 		this.width = width;
 		this.height = height;
+		this.x = x;
+		this.y = y;
 	}
 
 	public float getMinX() {
@@ -37,9 +41,7 @@ public class ContextFreeLimits {
 	}
 	
 	public ContextFreeArea getArea() {
-		float scale = Math.min(width / (maxX - minX), height / (maxY - minY));
-		float x = (width + ((minX + maxX) * scale)) / 2f;
-		float y = (height - ((minY + maxY) * scale)) / 2f;
-		return new ContextFreeArea(x, y, width, height, +scale, -scale);
+		float scale = Math.min(width / Math.abs(maxX - minX), height / Math.abs(maxY - minY));
+		return new ContextFreeArea(x + (width + (minX + maxX) * scale) / 2, y + (height + (minY + maxY) * scale) / 2, width, height, +scale, -scale);
 	}
 }

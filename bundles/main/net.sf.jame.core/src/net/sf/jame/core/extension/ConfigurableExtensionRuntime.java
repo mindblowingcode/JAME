@@ -53,7 +53,6 @@ public abstract class ConfigurableExtensionRuntime<T extends ExtensionConfig> ex
 	 * @param config the config to set.
 	 */
 	public final void setConfig(final T config) {
-		dispose();
 		this.config = config;
 		if (this.config != null) {
 			this.config.addChangeListener(this);

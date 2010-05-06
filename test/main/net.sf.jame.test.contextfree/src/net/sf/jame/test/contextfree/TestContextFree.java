@@ -25,6 +25,8 @@
  */
 package net.sf.jame.test.contextfree;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -48,10 +50,12 @@ import net.sf.jame.core.util.Tile;
 import org.junit.Test;
 
 public class TestContextFree {
+	private static final int IMAGE_HEIGHT = 200;
+	private static final int IMAGE_WIDTH = 200;
+
 	@Test
 	public void render() {
 		try {
-			Surface surface = new Surface(200, 200);
 			ContextFreeConfigBuilder builder = new ContextFreeConfigBuilder(new ContextFreeImageConfig());
 			ContextFreeConfig config = builder.createDefaultConfig();
 			ContextFreeRuntime runtime = new ContextFreeRuntime(config);
@@ -61,7 +65,12 @@ public class TestContextFree {
 			Tree tree = new Tree(rootNode);
 			System.out.println(tree);
 			ContextFreeRenderer renderer = new DefaultContextFreeRenderer(Thread.MIN_PRIORITY);
-			renderer.setTile(new Tile(new IntegerVector2D(200, 200), new IntegerVector2D(200, 200), new IntegerVector2D(0, 0), new IntegerVector2D(0, 0)));
+			IntegerVector2D imageSize = new IntegerVector2D(IMAGE_WIDTH, IMAGE_HEIGHT);
+			IntegerVector2D nullSize = new IntegerVector2D(0, 0);
+			Tile tile = new Tile(imageSize, imageSize, nullSize, nullSize);
+			renderer.setTile(tile);
+			IntegerVector2D bufferSize = new IntegerVector2D(tile.getTileSize().getX() + tile.getTileBorder().getX() * 2, tile.getTileSize().getY() + tile.getTileBorder().getY() * 2);
+			Surface surface = new Surface(bufferSize.getX(), bufferSize.getY());
 			renderer.setRuntime(runtime.getCFDG());
 			renderer.start();
 			try {
@@ -71,7 +80,10 @@ public class TestContextFree {
 			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			renderer.drawImage(surface.getGraphics2D());
+			Graphics2D g2d = surface.getGraphics2D();
+			renderer.drawImage(g2d);
+			g2d.setColor(Color.WHITE);
+			g2d.drawRect(0, 0, surface.getWidth() - 1, surface.getHeight() - 1);
 			try {
 				ImageIO.write(surface.getImage(), "png", new File("testcf.png"));
 			}
@@ -83,6 +95,7 @@ public class TestContextFree {
 			rootNode.dispose();
 			runtime.dispose();
 			config.dispose();
+			surface.dispose();
 		}
 		catch (ExtensionNotFoundException e) {
 			e.printStackTrace();

@@ -44,11 +44,12 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 
 	@Override
 	protected void doRender(boolean dynamicZoom) {
+		updateTransform();
 		CFDGRuntimeElement cfdgRuntime = getRuntime();
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
-		ContextFreeLimits limits = new ContextFreeLimits(getBufferWidth(), getBufferHeight());
+		ContextFreeLimits limits = new ContextFreeLimits(getTile().getTileSize().getX(), getTile().getTileSize().getY(), (getBufferWidth() - getTile().getTileSize().getX()) / 2, (getBufferHeight() - getTile().getTileSize().getY()) / 2);
 		ContextFreeState state = new ContextFreeState(); 
 		context.registerFigures();
 		getGraphics().setColor(new Color(background.getARGB()));
