@@ -26,6 +26,7 @@
 package net.sf.jame.contextfree.renderer;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.core.util.Color32bit;
@@ -53,6 +54,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		getGraphics().setColor(new Color(background.getARGB()));
 		getGraphics().fillRect(0, 0, getBufferWidth(), getBufferHeight());
 		ContextFreeNode startNode = context.buildRuleNode(state, limits, startshape);
-		startNode.draw(getGraphics(), limits.getArea());
+		Graphics2D g2d = getGraphics();
+		startNode.draw(g2d, limits.getArea());
 	}
 }
