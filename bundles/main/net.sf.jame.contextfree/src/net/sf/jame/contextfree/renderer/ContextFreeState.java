@@ -41,8 +41,8 @@ public class ContextFreeState implements Cloneable {
 	private float sizeY = 1;
 	private float flipX = 1;
 	private float flipY = 1;
-	private float skewX = 1;
-	private float skewY = 1;
+	private float skewX = 0;
+	private float skewY = 0;
 	private float rotation = 0;
 
 	public float getTargetHue() {

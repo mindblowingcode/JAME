@@ -6,6 +6,7 @@ package net.sf.jame.contextfree.extensions.figure;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 
@@ -36,23 +37,35 @@ public class TriangleFigureRuntime<T extends TriangleFigureConfig> extends Figur
 	
 	private class FigureContextFreeNode extends ContextFreeNode {
 		private ContextFreeState state;
+		private float[] p = { -0.5f, (float) (-0.5 * Math.tan(Math.PI / 6.0)), +0.5f, (float) (-0.5 * Math.tan(Math.PI / 6.0)), 0, (float) (0.5 * Math.tan(Math.PI / 3.0) - 0.5 * Math.tan(Math.PI / 6.0)) }; 
+		private float[] q = new float[6]; 
 		
 		public FigureContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
 			this.state = state;
+			AffineTransform t = new AffineTransform();
+			t.translate(state.getX(), state.getY());
+			t.rotate(state.getRotation());
+			t.shear(state.getSkewX(), state.getSkewY());
+			t.scale((state.getFlipX() < 0 ? -1 : +1) * state.getSizeX(), (state.getFlipY() < 0 ? -1 : +1) * state.getSizeY());
+			t.transform(p, 0, q, 0, 3);
+			for (int i = 0; i < 6; i += 2) {
+				limits.addPoint(q[i + 0], q[i + 1]);
+			}
 		}
 
 		@Override
 		public void drawNode(Graphics2D g2d, ContextFreeArea area) {
-			Color c = new Color((((int) Math.rint((255 * state.getCurrentAlpha()))) << 24) |  Color.HSBtoRGB(state.getCurrentHue(), state.getCurrentSaturation(), state.getCurrentBrightness()));
-			g2d.setColor(c);
+			Color c = new Color((((int) Math.rint((255 * state.getCurrentAlpha()))) << 24) |  Color.HSBtoRGB(state.getCurrentHue(), state.getCurrentSaturation(), state.getCurrentBrightness()), true);
+			g2d.setColor(Color.RED);
 			float sx = area.getScaleX();
 			float sy = area.getScaleY();
-			float x = area.getX() + state.getX() * sx;
-			float y = area.getY() + state.getY() * sy;
+			float tx = area.getX();
+			float ty = area.getY();
 			GeneralPath path = new GeneralPath();
-			path.append(new Line2D.Float(x + 0 * sx, y + 0 * sy, x + 1 * sx, y + 0 * sy), false);
-			path.append(new Line2D.Float(x + 1 * sx, y + 0 * sy, x + 0 * sx, y + 1 * sy), false);
-			path.append(new Line2D.Float(x + 0 * sx, y + 1 * sy, x + 0 * sx, y + 0 * sy), true);
+			path.append(new Line2D.Float(tx + q[0] * sx, ty + q[1] * sy, tx + q[2] * sx, ty + q[3] * sy), false);
+			path.append(new Line2D.Float(tx + q[2] * sx, ty + q[3] * sy, tx + q[4] * sx, ty + q[5] * sy), false);
+			path.append(new Line2D.Float(tx + q[4] * sx, ty + q[5] * sy, tx + q[0] * sx, ty + q[1] * sy), true);
+			g2d.fill(path);	
 			g2d.draw(path);	
 		}
 	}
