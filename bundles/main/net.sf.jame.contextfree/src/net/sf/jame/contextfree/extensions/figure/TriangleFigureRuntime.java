@@ -4,6 +4,7 @@
  */
 package net.sf.jame.contextfree.extensions.figure;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -55,8 +56,10 @@ public class TriangleFigureRuntime<T extends TriangleFigureConfig> extends Figur
 
 		@Override
 		public void drawNode(Graphics2D g2d, ContextFreeArea area) {
-			Color c = new Color((((int) Math.rint((255 * state.getCurrentAlpha()))) << 24) |  Color.HSBtoRGB(state.getCurrentHue(), state.getCurrentSaturation(), state.getCurrentBrightness()), true);
-			g2d.setColor(Color.RED);
+//			Color c = new Color((((int) Math.rint((255 * state.getCurrentAlpha()))) << 24) |  Color.HSBtoRGB(state.getCurrentHue(), state.getCurrentSaturation(), state.getCurrentBrightness()), true);
+			Color c = Color.getHSBColor(state.getCurrentHue(), state.getCurrentSaturation(), state.getCurrentBrightness());
+			g2d.setComposite(AlphaComposite.Src.derive(state.getCurrentAlpha()));
+			g2d.setColor(c);
 			float sx = area.getScaleX();
 			float sy = area.getScaleY();
 			float tx = area.getX();

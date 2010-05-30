@@ -31,9 +31,9 @@ public class ContextFreeState implements Cloneable {
 	private float targetBrightness = 0.5f;
 	private float targetAlpha = 1;
 	private float currentHue = 0;
-	private float currentSaturation = 0.5f;
-	private float currentBrightness = 0.5f;
-	private float currentAlpha = 1;
+	private float currentSaturation = 1.0f;
+	private float currentBrightness = 1.0f;
+	private float currentAlpha = 1f;
 	private float x = 0;
 	private float y = 0;
 	private float z = 0;
