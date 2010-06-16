@@ -9,6 +9,7 @@ public final class ABrightnessSimpleColorAdjustment extends PSimpleColorAdjustme
 {
     private TBrightnessToken _brightnessToken_;
     private PExpression _expression_;
+    private TBar _bar_;
 
     public ABrightnessSimpleColorAdjustment()
     {
@@ -17,12 +18,15 @@ public final class ABrightnessSimpleColorAdjustment extends PSimpleColorAdjustme
 
     public ABrightnessSimpleColorAdjustment(
         @SuppressWarnings("hiding") TBrightnessToken _brightnessToken_,
-        @SuppressWarnings("hiding") PExpression _expression_)
+        @SuppressWarnings("hiding") PExpression _expression_,
+        @SuppressWarnings("hiding") TBar _bar_)
     {
         // Constructor
         setBrightnessToken(_brightnessToken_);
 
         setExpression(_expression_);
+
+        setBar(_bar_);
 
     }
 
@@ -31,7 +35,8 @@ public final class ABrightnessSimpleColorAdjustment extends PSimpleColorAdjustme
     {
         return new ABrightnessSimpleColorAdjustment(
             cloneNode(this._brightnessToken_),
-            cloneNode(this._expression_));
+            cloneNode(this._expression_),
+            cloneNode(this._bar_));
     }
 
     public void apply(Switch sw)
@@ -89,12 +94,38 @@ public final class ABrightnessSimpleColorAdjustment extends PSimpleColorAdjustme
         this._expression_ = node;
     }
 
+    public TBar getBar()
+    {
+        return this._bar_;
+    }
+
+    public void setBar(TBar node)
+    {
+        if(this._bar_ != null)
+        {
+            this._bar_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._bar_ = node;
+    }
+
     @Override
     public String toString()
     {
         return ""
             + toString(this._brightnessToken_)
-            + toString(this._expression_);
+            + toString(this._expression_)
+            + toString(this._bar_);
     }
 
     @Override
@@ -110,6 +141,12 @@ public final class ABrightnessSimpleColorAdjustment extends PSimpleColorAdjustme
         if(this._expression_ == child)
         {
             this._expression_ = null;
+            return;
+        }
+
+        if(this._bar_ == child)
+        {
+            this._bar_ = null;
             return;
         }
 
@@ -129,6 +166,12 @@ public final class ABrightnessSimpleColorAdjustment extends PSimpleColorAdjustme
         if(this._expression_ == oldChild)
         {
             setExpression((PExpression) newChild);
+            return;
+        }
+
+        if(this._bar_ == oldChild)
+        {
+            setBar((TBar) newChild);
             return;
         }
 

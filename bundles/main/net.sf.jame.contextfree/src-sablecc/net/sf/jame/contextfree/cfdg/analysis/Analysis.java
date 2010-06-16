@@ -63,7 +63,10 @@ public interface Analysis extends Switch
     void caseAGeometryPathAdjustment(AGeometryPathAdjustment node);
     void caseAStrokePathAdjustment(AStrokePathAdjustment node);
     void caseAParametersPathAdjustment(AParametersPathAdjustment node);
-    void caseABackgroundAdjustment(ABackgroundAdjustment node);
+    void caseAHueBackgroundAdjustment(AHueBackgroundAdjustment node);
+    void caseABrightnessBackgroundAdjustment(ABrightnessBackgroundAdjustment node);
+    void caseASaturationBackgroundAdjustment(ASaturationBackgroundAdjustment node);
+    void caseAAlphaBackgroundAdjustment(AAlphaBackgroundAdjustment node);
     void caseATileAdjustment(ATileAdjustment node);
     void caseAXSizeAdjustment(AXSizeAdjustment node);
     void caseAYSizeAdjustment(AYSizeAdjustment node);

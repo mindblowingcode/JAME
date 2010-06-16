@@ -1456,25 +1456,104 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAParametersPathAdjustment(node);
     }
 
-    public void inABackgroundAdjustment(ABackgroundAdjustment node)
+    public void inAHueBackgroundAdjustment(AHueBackgroundAdjustment node)
     {
         defaultIn(node);
     }
 
-    public void outABackgroundAdjustment(ABackgroundAdjustment node)
+    public void outAHueBackgroundAdjustment(AHueBackgroundAdjustment node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseABackgroundAdjustment(ABackgroundAdjustment node)
+    public void caseAHueBackgroundAdjustment(AHueBackgroundAdjustment node)
     {
-        inABackgroundAdjustment(node);
-        if(node.getSimpleColorAdjustment() != null)
+        inAHueBackgroundAdjustment(node);
+        if(node.getHueToken() != null)
         {
-            node.getSimpleColorAdjustment().apply(this);
+            node.getHueToken().apply(this);
         }
-        outABackgroundAdjustment(node);
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outAHueBackgroundAdjustment(node);
+    }
+
+    public void inABrightnessBackgroundAdjustment(ABrightnessBackgroundAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABrightnessBackgroundAdjustment(ABrightnessBackgroundAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABrightnessBackgroundAdjustment(ABrightnessBackgroundAdjustment node)
+    {
+        inABrightnessBackgroundAdjustment(node);
+        if(node.getBrightnessToken() != null)
+        {
+            node.getBrightnessToken().apply(this);
+        }
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outABrightnessBackgroundAdjustment(node);
+    }
+
+    public void inASaturationBackgroundAdjustment(ASaturationBackgroundAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASaturationBackgroundAdjustment(ASaturationBackgroundAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASaturationBackgroundAdjustment(ASaturationBackgroundAdjustment node)
+    {
+        inASaturationBackgroundAdjustment(node);
+        if(node.getSaturationToken() != null)
+        {
+            node.getSaturationToken().apply(this);
+        }
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outASaturationBackgroundAdjustment(node);
+    }
+
+    public void inAAlphaBackgroundAdjustment(AAlphaBackgroundAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAlphaBackgroundAdjustment(AAlphaBackgroundAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAlphaBackgroundAdjustment(AAlphaBackgroundAdjustment node)
+    {
+        inAAlphaBackgroundAdjustment(node);
+        if(node.getAlphaToken() != null)
+        {
+            node.getAlphaToken().apply(this);
+        }
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outAAlphaBackgroundAdjustment(node);
     }
 
     public void inATileAdjustment(ATileAdjustment node)
@@ -1749,6 +1828,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getExpression().apply(this);
         }
+        if(node.getBar() != null)
+        {
+            node.getBar().apply(this);
+        }
         outAHueSimpleColorAdjustment(node);
     }
 
@@ -1774,6 +1857,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getExpression().apply(this);
         }
+        if(node.getBar() != null)
+        {
+            node.getBar().apply(this);
+        }
         outABrightnessSimpleColorAdjustment(node);
     }
 
@@ -1798,6 +1885,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
+        }
+        if(node.getBar() != null)
+        {
+            node.getBar().apply(this);
         }
         outASaturationSimpleColorAdjustment(node);
     }
@@ -1927,10 +2018,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
-        }
-        if(node.getBar() != null)
-        {
-            node.getBar().apply(this);
         }
         outAAlphaTargetColorAdjustment(node);
     }

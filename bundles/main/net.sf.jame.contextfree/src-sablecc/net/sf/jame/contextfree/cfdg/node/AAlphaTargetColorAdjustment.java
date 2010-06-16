@@ -9,7 +9,6 @@ public final class AAlphaTargetColorAdjustment extends PTargetColorAdjustment
 {
     private TTargetAlphaToken _targetAlphaToken_;
     private PExpression _expression_;
-    private TBar _bar_;
 
     public AAlphaTargetColorAdjustment()
     {
@@ -18,15 +17,12 @@ public final class AAlphaTargetColorAdjustment extends PTargetColorAdjustment
 
     public AAlphaTargetColorAdjustment(
         @SuppressWarnings("hiding") TTargetAlphaToken _targetAlphaToken_,
-        @SuppressWarnings("hiding") PExpression _expression_,
-        @SuppressWarnings("hiding") TBar _bar_)
+        @SuppressWarnings("hiding") PExpression _expression_)
     {
         // Constructor
         setTargetAlphaToken(_targetAlphaToken_);
 
         setExpression(_expression_);
-
-        setBar(_bar_);
 
     }
 
@@ -35,8 +31,7 @@ public final class AAlphaTargetColorAdjustment extends PTargetColorAdjustment
     {
         return new AAlphaTargetColorAdjustment(
             cloneNode(this._targetAlphaToken_),
-            cloneNode(this._expression_),
-            cloneNode(this._bar_));
+            cloneNode(this._expression_));
     }
 
     public void apply(Switch sw)
@@ -94,38 +89,12 @@ public final class AAlphaTargetColorAdjustment extends PTargetColorAdjustment
         this._expression_ = node;
     }
 
-    public TBar getBar()
-    {
-        return this._bar_;
-    }
-
-    public void setBar(TBar node)
-    {
-        if(this._bar_ != null)
-        {
-            this._bar_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._bar_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
             + toString(this._targetAlphaToken_)
-            + toString(this._expression_)
-            + toString(this._bar_);
+            + toString(this._expression_);
     }
 
     @Override
@@ -141,12 +110,6 @@ public final class AAlphaTargetColorAdjustment extends PTargetColorAdjustment
         if(this._expression_ == child)
         {
             this._expression_ = null;
-            return;
-        }
-
-        if(this._bar_ == child)
-        {
-            this._bar_ = null;
             return;
         }
 
@@ -166,12 +129,6 @@ public final class AAlphaTargetColorAdjustment extends PTargetColorAdjustment
         if(this._expression_ == oldChild)
         {
             setExpression((PExpression) newChild);
-            return;
-        }
-
-        if(this._bar_ == oldChild)
-        {
-            setBar((TBar) newChild);
             return;
         }
 

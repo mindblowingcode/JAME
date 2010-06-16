@@ -70,11 +70,11 @@ public class ContextFreeConfigBuilder {
 		triangleFigureElement.setExtensionReference(triangleReference);
 		FigureConfigElement squareFigureElement = new FigureConfigElement();
 		cfdgElement.appendFigureConfigElement(squareFigureElement);
-		ConfigurableExtensionReference<FigureExtensionConfig> squareReference = ContextFreeRegistry.getInstance().getFigureExtension("contextfree.figure.triangle").createConfigurableExtensionReference();
+		ConfigurableExtensionReference<FigureExtensionConfig> squareReference = ContextFreeRegistry.getInstance().getFigureExtension("contextfree.figure.square").createConfigurableExtensionReference();
 		squareFigureElement.setExtensionReference(squareReference);
 		FigureConfigElement circleFigureElement = new FigureConfigElement();
 		cfdgElement.appendFigureConfigElement(circleFigureElement);
-		ConfigurableExtensionReference<FigureExtensionConfig> circleReference = ContextFreeRegistry.getInstance().getFigureExtension("contextfree.figure.triangle").createConfigurableExtensionReference();
+		ConfigurableExtensionReference<FigureExtensionConfig> circleReference = ContextFreeRegistry.getInstance().getFigureExtension("contextfree.figure.circle").createConfigurableExtensionReference();
 		circleFigureElement.setExtensionReference(circleReference);
 		FigureConfigElement ruleFigureElement = new FigureConfigElement();
 		cfdgElement.appendFigureConfigElement(ruleFigureElement);
@@ -86,7 +86,7 @@ public class ContextFreeConfigBuilder {
 		((RuleFigureConfig) ruleReference.getExtensionConfig()).setName("square");
 		((RuleFigureConfig) ruleReference.getExtensionConfig()).appendShapeReplacementConfigElement(replacementElement);
 		ShapeAdjustmentConfigElement shapeAdjustmentElement = new ShapeAdjustmentConfigElement();
-		((SingleReplacementConfig) replacementReference.getExtensionConfig()).setShape("triangle");
+		((SingleReplacementConfig) replacementReference.getExtensionConfig()).setShape("square");
 		((SingleReplacementConfig) replacementReference.getExtensionConfig()).appendShapeAdjustmentConfigElement(shapeAdjustmentElement);
 		shapeAdjustmentElement.setExtensionReference(ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.hue").createConfigurableExtensionReference());
 		return config;

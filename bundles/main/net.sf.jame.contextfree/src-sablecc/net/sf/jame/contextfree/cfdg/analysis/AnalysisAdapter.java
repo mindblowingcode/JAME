@@ -324,7 +324,22 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseABackgroundAdjustment(ABackgroundAdjustment node)
+    public void caseAHueBackgroundAdjustment(AHueBackgroundAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseABrightnessBackgroundAdjustment(ABrightnessBackgroundAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseASaturationBackgroundAdjustment(ASaturationBackgroundAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAlphaBackgroundAdjustment(AAlphaBackgroundAdjustment node)
     {
         defaultCase(node);
     }
