@@ -40,8 +40,13 @@ public class HueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<H
 	 */
 	@Override
 	public void configureState(ContextFreeState state, int times) {
-		delta = (state.getCurrentHue() - state.getTargetHue()) / times;
 		state.setTargetHue(getConfig().getValue().floatValue());
+		if (times == 0) {
+			state.setCurrentHue(getConfig().getValue().floatValue());
+			delta = 0;
+		} else {
+			delta = (state.getCurrentHue() - state.getTargetHue()) / times;
+		}
 	}
 
 	/**

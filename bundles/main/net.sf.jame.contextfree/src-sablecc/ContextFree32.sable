@@ -212,7 +212,7 @@ Productions
 
   	path_adjustment = {color} color_adjustment | {geometry} geometry_adjustment | {stroke} strokewidth_token expression | {parameters} parameters_token string; 
 
-    background_adjustment = simple_color_adjustment;
+    background_adjustment = {hue} hue_token expression | {brightness} brightness_token expression | {saturation} saturation_token expression | {alpha} alpha_token expression;
 
     tile_adjustment = size_token first_expression second_expression?;
   		
@@ -222,9 +222,9 @@ Productions
 
     color_adjustment = {simple} simple_color_adjustment | {target} target_color_adjustment; 
 
-    simple_color_adjustment = {hue} hue_token expression | {brightness} brightness_token expression | {saturation} saturation_token expression | {alpha} alpha_token expression bar?; 
+    simple_color_adjustment = {hue} hue_token expression bar? | {brightness} brightness_token expression bar? | {saturation} saturation_token expression bar? | {alpha} alpha_token expression bar?; 
 
-    target_color_adjustment = {hue} target_hue_token expression | {brightness} target_brightness_token expression | {saturation} target_saturation_token expression | {alpha} target_alpha_token expression bar?; 
+    target_color_adjustment = {hue} target_hue_token expression | {brightness} target_brightness_token expression | {saturation} target_saturation_token expression | {alpha} target_alpha_token expression; 
 
     geometry_adjustment = {x} x_token expression | {y} y_token expression | {size} size_token expression | {size2} size_token first_expression second_expression | {flip} flip_token expression | {skew} skew_token first_expression second_expression | {rotate} rotate_token expression; 
 
