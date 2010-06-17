@@ -32,7 +32,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
  * @author Andrea Medeghini
  *
  */
-public class HueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<HueShapeAdjustmentConfig> {
+public class TargetHueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<TargetHueShapeAdjustmentConfig> {
 	private float delta = 0;
 	
 	/**

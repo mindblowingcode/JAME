@@ -23,7 +23,7 @@
  * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package net.sf.jame.contextfree.extensions.pathAdjustment;
+package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
 import net.sf.jame.core.common.DoubleElementXMLExporter;
 import net.sf.jame.core.xml.XMLExportException;
@@ -36,23 +36,23 @@ import org.w3c.dom.Element;
 /**
  * @author Andrea Medeghini
  */
-public class HuePathAdjustmentConfigXMLExporterRuntime extends ExtensionConfigXMLExporterExtensionRuntime {
+public class TargetHueShapeAdjustmentConfigXMLExporterRuntime extends ExtensionConfigXMLExporterExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLExporterExtensionRuntime#createXMLExporter()
 	 */
 	@Override
-	public XMLExporter<HuePathAdjustmentConfig> createXMLExporter() {
-		return new HuePathAdjustmentConfigXMLExporter();
+	public XMLExporter<TargetHueShapeAdjustmentConfig> createXMLExporter() {
+		return new HueShapeAdjustmentConfigXMLExporter();
 	}
 
-	private class HuePathAdjustmentConfigXMLExporter extends XMLExporter<HuePathAdjustmentConfig> {
+	private class HueShapeAdjustmentConfigXMLExporter extends XMLExporter<TargetHueShapeAdjustmentConfig> {
 		protected String getConfigElementClassId() {
-			return "HuePathAdjustmentConfig";
+			return "HueShapeAdjustmentConfig";
 		}
 
 		@Override
-		public Element exportToElement(HuePathAdjustmentConfig config, XMLNodeBuilder builder) throws XMLExportException {
-			final Element element = this.createElement(builder, this.getConfigElementClassId());
+		public Element exportToElement(TargetHueShapeAdjustmentConfig config, XMLNodeBuilder builder) throws XMLExportException {
+			Element element = this.createElement(builder, this.getConfigElementClassId());
 			exportProperties(config, element, builder);
 			return element;
 		}
@@ -63,7 +63,7 @@ public class HuePathAdjustmentConfigXMLExporterRuntime extends ExtensionConfigXM
 		 * @param builder
 		 * @throws XMLExportException
 		 */
-		protected void exportProperties(final HuePathAdjustmentConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+		protected void exportProperties(final TargetHueShapeAdjustmentConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			exportValue(config, createProperty(builder, element, "value"), builder);
 		}
 
@@ -73,7 +73,7 @@ public class HuePathAdjustmentConfigXMLExporterRuntime extends ExtensionConfigXM
 		 * @param builder
 		 * @throws XMLExportException
 		 */
-		protected void exportValue(final HuePathAdjustmentConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+		protected void exportValue(final TargetHueShapeAdjustmentConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			element.appendChild(new DoubleElementXMLExporter().exportToElement(config.getValueElement(), builder));
 		}
 	}

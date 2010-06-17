@@ -35,20 +35,20 @@ import net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder;
 /**
  * @author Andrea Medeghini
  */
-public class LineToPathOperationConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
+public class LineToOperationReplacementConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime#createNodeBuilder(net.sf.jame.core.extension.ExtensionConfig)
 	 */
 	@Override
 	public NodeBuilder createNodeBuilder(final ExtensionConfig config) {
-		return new ConfigNodeBuilder((LineToPathOperationConfig) config);
+		return new ConfigNodeBuilder((LineToOperationReplacementConfig) config);
 	}
 
-	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<LineToPathOperationConfig> {
+	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<LineToOperationReplacementConfig> {
 		/**
 		 * @param config
 		 */
-		public ConfigNodeBuilder(final LineToPathOperationConfig config) {
+		public ConfigNodeBuilder(final LineToOperationReplacementConfig config) {
 			super(config);
 		}
 
@@ -65,7 +65,7 @@ public class LineToPathOperationConfigNodeBuilderRuntime extends NodeBuilderExte
 			/**
 			 * @param config
 			 */
-			public XNode(final LineToPathOperationConfig config) {
+			public XNode(final LineToOperationReplacementConfig config) {
 				super(config.getExtensionId() + ".x", config.getXElement());
 			}
 		}
@@ -74,7 +74,7 @@ public class LineToPathOperationConfigNodeBuilderRuntime extends NodeBuilderExte
 			/**
 			 * @param config
 			 */
-			public YNode(final LineToPathOperationConfig config) {
+			public YNode(final LineToOperationReplacementConfig config) {
 				super(config.getExtensionId() + ".y", config.getYElement());
 			}
 		}

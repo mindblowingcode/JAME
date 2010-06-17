@@ -36,7 +36,7 @@ import net.sf.jame.core.config.ConfigElement;
  * @author Andrea Medeghini
  *
  */
-public class LineToPathOperationConfig extends PathReplacementExtensionConfig {
+public class LineToOperationReplacementConfig extends PathReplacementExtensionConfig {
 	private static final long serialVersionUID = 1L;
 	private static final Double DEFAULT_X = 0.0;
 	private static final Double DEFAULT_Y = 0.0;
@@ -123,8 +123,8 @@ public class LineToPathOperationConfig extends PathReplacementExtensionConfig {
 	 * @return
 	 */
 	@Override
-	public LineToPathOperationConfig clone() {
-		final LineToPathOperationConfig config = new LineToPathOperationConfig();
+	public LineToOperationReplacementConfig clone() {
+		final LineToOperationReplacementConfig config = new LineToOperationReplacementConfig();
 		config.setX(getX());
 		config.setY(getY());
 		return config;
@@ -141,7 +141,7 @@ public class LineToPathOperationConfig extends PathReplacementExtensionConfig {
 		if (obj == null) {
 			return false;
 		}
-		final LineToPathOperationConfig other = (LineToPathOperationConfig) obj;
+		final LineToOperationReplacementConfig other = (LineToOperationReplacementConfig) obj;
 		if (!xElement.equals(other.xElement)) {
 			return false;
 		}

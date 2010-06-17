@@ -23,7 +23,7 @@
  * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package net.sf.jame.contextfree.extensions.shapeAdjustment;
+package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import java.util.List;
 
@@ -38,33 +38,33 @@ import org.w3c.dom.Element;
 /**
  * @author Andrea Medeghini
  */
-public class HueShapeAdjustmentConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
+public class LineToOperationReplacementConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
 	 */
 	@Override
-	public XMLImporter<HueShapeAdjustmentConfig> createXMLImporter() {
-		return new HueShapeAdjustmentConfigXMLImporter();
+	public XMLImporter<LineToOperationReplacementConfig> createXMLImporter() {
+		return new LineToPathOperationConfigXMLImporter();
 	}
 
-	private class HueShapeAdjustmentConfigXMLImporter extends XMLImporter<HueShapeAdjustmentConfig> {
-		protected HueShapeAdjustmentConfig createExtensionConfig() {
-			return new HueShapeAdjustmentConfig();
+	private class LineToPathOperationConfigXMLImporter extends XMLImporter<LineToOperationReplacementConfig> {
+		protected LineToOperationReplacementConfig createExtensionConfig() {
+			return new LineToOperationReplacementConfig();
 		}
 
 		protected String getConfigElementClassId() {
-			return "HueShapeAdjustmentConfig";
+			return "LineToPathOperationConfig";
 		}
 		
 		/**
 		 * @see net.sf.jame.core.xml.XMLImporter#importFromElement(org.w3c.dom.Element)
 		 */
 		@Override
-		public HueShapeAdjustmentConfig importFromElement(final Element element) throws XMLImportException {
+		public LineToOperationReplacementConfig importFromElement(final Element element) throws XMLImportException {
 			checkClassId(element, this.getConfigElementClassId());
-			final HueShapeAdjustmentConfig config = this.createExtensionConfig();
+			final LineToOperationReplacementConfig config = this.createExtensionConfig();
 			final List<Element> propertyElements = getProperties(element);
-			if (propertyElements.size() == 1) {
+			if (propertyElements.size() == 2) {
 				importProperties(config, propertyElements);
 			}
 			return config;
@@ -75,8 +75,9 @@ public class HueShapeAdjustmentConfigXMLImporterRuntime extends ExtensionConfigX
 		 * @param propertyElements
 		 * @throws XMLImportException
 		 */
-		protected void importProperties(final HueShapeAdjustmentConfig config, final List<Element> propertyElements) throws XMLImportException {
-			importValue(config, propertyElements.get(0));
+		protected void importProperties(final LineToOperationReplacementConfig config, final List<Element> propertyElements) throws XMLImportException {
+			importX(config, propertyElements.get(0));
+			importY(config, propertyElements.get(1));
 		}
 
 		/**
@@ -84,10 +85,22 @@ public class HueShapeAdjustmentConfigXMLImporterRuntime extends ExtensionConfigX
 		 * @param element
 		 * @throws XMLImportException
 		 */
-		protected void importValue(final HueShapeAdjustmentConfig config, final Element element) throws XMLImportException {
+		protected void importX(final LineToOperationReplacementConfig config, final Element element) throws XMLImportException {
 			final List<Element> elements = this.getElements(element, DoubleElement.CLASS_ID);
 			if (elements.size() == 1) {
-				config.setValue(new DoubleElementXMLImporter().importFromElement(elements.get(0)).getValue());
+				config.setX(new DoubleElementXMLImporter().importFromElement(elements.get(0)).getValue());
+			}
+		}
+
+		/**
+		 * @param config
+		 * @param element
+		 * @throws XMLImportException
+		 */
+		protected void importY(final LineToOperationReplacementConfig config, final Element element) throws XMLImportException {
+			final List<Element> elements = this.getElements(element, DoubleElement.CLASS_ID);
+			if (elements.size() == 1) {
+				config.setY(new DoubleElementXMLImporter().importFromElement(elements.get(0)).getValue());
 			}
 		}
 	}

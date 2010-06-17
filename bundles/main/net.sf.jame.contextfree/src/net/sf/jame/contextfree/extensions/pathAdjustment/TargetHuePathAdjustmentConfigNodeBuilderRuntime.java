@@ -35,20 +35,20 @@ import net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder;
 /**
  * @author Andrea Medeghini
  */
-public class HuePathAdjustmentConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
+public class TargetHuePathAdjustmentConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime#createNodeBuilder(net.sf.jame.core.extension.ExtensionConfig)
 	 */
 	@Override
 	public NodeBuilder createNodeBuilder(final ExtensionConfig config) {
-		return new ConfigNodeBuilder((HuePathAdjustmentConfig) config);
+		return new ConfigNodeBuilder((TargetHuePathAdjustmentConfig) config);
 	}
 
-	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<HuePathAdjustmentConfig> {
+	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<TargetHuePathAdjustmentConfig> {
 		/**
 		 * @param config
 		 */
-		public ConfigNodeBuilder(final HuePathAdjustmentConfig config) {
+		public ConfigNodeBuilder(final TargetHuePathAdjustmentConfig config) {
 			super(config);
 		}
 
@@ -64,7 +64,7 @@ public class HuePathAdjustmentConfigNodeBuilderRuntime extends NodeBuilderExtens
 			/**
 			 * @param config
 			 */
-			public ValueNode(final HuePathAdjustmentConfig config) {
+			public ValueNode(final TargetHuePathAdjustmentConfig config) {
 				super(config.getExtensionId() + ".value", config.getValueElement());
 			}
 		}

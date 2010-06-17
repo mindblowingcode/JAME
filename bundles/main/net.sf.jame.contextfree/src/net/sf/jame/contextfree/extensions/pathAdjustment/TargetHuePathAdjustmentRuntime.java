@@ -32,7 +32,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
  * @author Andrea Medeghini
  *
  */
-public class HuePathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<HuePathAdjustmentConfig> {
+public class TargetHuePathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<TargetHuePathAdjustmentConfig> {
 	/**
 	 * @see net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime#createState(net.sf.jame.contextfree.renderer.ContextFreeState, int)
 	 */
