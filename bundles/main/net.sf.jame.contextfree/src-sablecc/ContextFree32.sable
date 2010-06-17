@@ -142,6 +142,8 @@ Tokens
   	skew_token = 'skew';
   	strokewidth_token = 'width';
   	
+  	pathcmd = 'STROKE' | 'FILL';
+
   	pathop = 'MOVETO' | 'LINETO' | 'ARCTO' | 'CURVETO' | 'MOVEREL' | 'LINEREL' | 'ARCREL' | 'CURVEREL' | 'CLOSEPOLY';
 
  	filename = letter_or_digit letter_or_digit* '.cfdg' | '"' letter_or_digit letter_or_digit* '.cfdg' '"';
@@ -174,39 +176,31 @@ Productions
   		
    	background_declaration = background l_cbkt background_adjustment+ r_cbkt;
   		
-   	tile_declaration = {default} tile l_cbkt tile_adjustment+ r_cbkt | {ordered} tile l_sbkt tile_adjustment+ r_sbkt;
+   	tile_declaration = tile l_cbkt tile_adjustment+ r_cbkt;
   		
-   	size_declaration = {default} size l_cbkt size_adjustment+ r_cbkt | {ordered} size l_cbkt size_adjustment+ r_cbkt;
+   	size_declaration = size l_cbkt size_adjustment+ r_cbkt;
   		
-    rule_declaration = rule string number? list_shape_replacement;
-  		
-    path_declaration = path string l_cbkt path_operation_declaration* r_cbkt;
+	rule_declaration = rule string number? l_cbkt shape_replacement_declaration+ r_cbkt;
 
-    shape_replacement_declaration = {multi} multi_shape_replacement | {single} single_shape_replacement;
+    shape_replacement_declaration = {multi} number star l_cbkt shape_adjustment+ r_cbkt shape_replacement_block | {single} shape_replacement;
 		
-    single_shape_replacement = {default} string l_cbkt shape_adjustment* r_cbkt | {ordered} string l_sbkt shape_adjustment* r_sbkt;
+    shape_replacement = {basic} string l_cbkt shape_adjustment* r_cbkt | {ordered} string l_sbkt shape_adjustment* r_sbkt;
 		
-    list_shape_replacement = l_cbkt shape_replacement_declaration+ r_cbkt;
-		
-	multi_shape_replacement = number star l_cbkt shape_adjustment+ r_cbkt multi_shape_replacement_body;
-	
-	multi_shape_replacement_body = {single} single_shape_replacement | {list} list_shape_replacement;
+	shape_replacement_block = {basic} shape_replacement | {list} l_cbkt shape_replacement_declaration+ r_cbkt;
 	
   	operator = {star} star | {plus} plus | {minus} minus | {slash} slash | {arrow} arrow;
 		
-  	path_operation_declaration = {multi} multi_path_operation | {path} path_operation; 
+  	path_operation = pathop l_cbkt path_points* r_cbkt; 
   	
-  	simple_path_operation = {default} string l_cbkt path_adjustment* r_cbkt | {ordered} string l_sbkt path_adjustment* r_sbkt; 
-  	
-  	pathop_path_operation = {default} pathop l_cbkt path_points* r_cbkt | {ordered} pathop l_sbkt path_points* r_sbkt; 
-  	
-  	path_operation = {simple} simple_path_operation | {pathop} pathop_path_operation; 
-  	
-  	list_path_operation = l_cbkt path_operation_declaration+ r_cbkt; 
-  	
-	multi_path_operation = number star l_cbkt path_adjustment+ r_cbkt multi_path_operation_body;
-	
-	multi_path_operation_body = {path} path_operation | {list} list_path_operation;
+  	path_command = {basic} pathcmd l_cbkt path_adjustment* r_cbkt | {ordered} pathcmd l_sbkt path_adjustment* r_sbkt; 
+
+	path_declaration = path string l_cbkt path_replacement_declaration* r_cbkt;
+
+  	path_replacement_declaration = {multi} number star l_cbkt path_adjustment+ r_cbkt path_replacement_block | {single} path_replacement; 
+
+  	path_replacement = {operation} path_operation | {command} path_command; 
+
+	path_replacement_block = {basic} path_replacement | {list} l_cbkt path_replacement_declaration+ r_cbkt;
 	
   	path_points = {x} x_token expression | {y} y_token expression | {x1} x1_token expression | {y1} y1_token expression | {x2} x2_token expression | {y2} y2_token expression | {rx} rx_token expression | {ry} ry_token expression | {rotate} rotate_token expression | {parameters} parameters_token string; 
 
@@ -220,9 +214,9 @@ Productions
   		
     shape_adjustment = {color} color_adjustment | {geometry} geometry_adjustment | {z} z_token expression | {size3} size_token first_expression second_expression third_expression; 
 
-    color_adjustment = {simple} simple_color_adjustment | {target} target_color_adjustment; 
+    color_adjustment = {current} current_color_adjustment | {target} target_color_adjustment; 
 
-    simple_color_adjustment = {hue} hue_token expression bar? | {brightness} brightness_token expression bar? | {saturation} saturation_token expression bar? | {alpha} alpha_token expression bar?; 
+    current_color_adjustment = {hue} hue_token expression bar? | {brightness} brightness_token expression bar? | {saturation} saturation_token expression bar? | {alpha} alpha_token expression bar?; 
 
     target_color_adjustment = {hue} target_hue_token expression | {brightness} target_brightness_token expression | {saturation} target_saturation_token expression | {alpha} target_alpha_token expression; 
 

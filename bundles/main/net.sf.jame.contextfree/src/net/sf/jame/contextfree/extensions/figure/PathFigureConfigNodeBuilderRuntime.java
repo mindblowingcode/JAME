@@ -5,8 +5,8 @@
 package net.sf.jame.contextfree.extensions.figure;
 
 import net.sf.jame.contextfree.ContextFreeResources;
-import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationConfigElement;
-import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationConfigElementNode;
+import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
+import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElementNode;
 import net.sf.jame.core.common.StringElementNode;
 import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.tree.Node;
@@ -44,7 +44,7 @@ public class PathFigureConfigNodeBuilderRuntime extends NodeBuilderExtensionRunt
 		@Override
 		public void createNodes(final Node parentNode) {
 			parentNode.appendChildNode(new NameElementNode(getConfig()));
-			parentNode.appendChildNode(new PathOperationListElementNode(getConfig()));
+			parentNode.appendChildNode(new PathReplacementListElementNode(getConfig()));
 		}
 
 		private class NameElementNode extends StringElementNode {
@@ -56,24 +56,24 @@ public class PathFigureConfigNodeBuilderRuntime extends NodeBuilderExtensionRunt
 				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.NameElement"));
 			}
 		}
-		private class PathOperationListElementNode extends AbstractConfigElementListNode<PathOperationConfigElement> {
-			public static final String NODE_CLASS = "node.class.PathOperationListElement";
+		private class PathReplacementListElementNode extends AbstractConfigElementListNode<PathReplacementConfigElement> {
+			public static final String NODE_CLASS = "node.class.PathReplacementListElement";
 			
 			/**
 			 * @param config
 			 */
-			public PathOperationListElementNode(final PathFigureConfig config) {
-				super(config.getExtensionId() + ".pathOperations", config.getPathOperationListElement());
-				setNodeClass(PathOperationListElementNode.NODE_CLASS);
-				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.PathOperationListElement"));
+			public PathReplacementListElementNode(final PathFigureConfig config) {
+				super(config.getExtensionId() + ".pathReplacements", config.getPathReplacementListElement());
+				setNodeClass(PathReplacementListElementNode.NODE_CLASS);
+				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.PathReplacementListElement"));
 			}
 
 			/**
 			 * @see net.sf.jame.core.util.AbstractConfigElementListNode#createChildNode(net.sf.jame.core.config.ConfigElement)
 			 */
 			@Override
-			protected AbstractConfigElementNode<PathOperationConfigElement> createChildNode(final PathOperationConfigElement value) {
-				return new PathOperationConfigElementNode(value);
+			protected AbstractConfigElementNode<PathReplacementConfigElement> createChildNode(final PathReplacementConfigElement value) {
+				return new PathReplacementConfigElementNode(value);
 			}
 	
 			/**
@@ -81,24 +81,24 @@ public class PathFigureConfigNodeBuilderRuntime extends NodeBuilderExtensionRunt
 			 */
 			@Override
 			public Class<?> getChildValueType() {
-				return PathOperationConfigElementNodeValue.class;
+				return PathReplacementConfigElementNodeValue.class;
 			}
 	
 			/**
 			 * @see net.sf.jame.core.util.AbstractConfigElementListNode#createNodeValue(Object)
 			 */
 			@Override
-			public NodeValue<PathOperationConfigElement> createNodeValue(final Object value) {
-				return new PathOperationConfigElementNodeValue((PathOperationConfigElement) value);
+			public NodeValue<PathReplacementConfigElement> createNodeValue(final Object value) {
+				return new PathReplacementConfigElementNodeValue((PathReplacementConfigElement) value);
 			}
 	
-			private class PathOperationConfigElementNodeValue extends ConfigElementListNodeValue<PathOperationConfigElement> {
+			private class PathReplacementConfigElementNodeValue extends ConfigElementListNodeValue<PathReplacementConfigElement> {
 				private static final long serialVersionUID = 1L;
 	
 				/**
 				 * @param value
 				 */
-				public PathOperationConfigElementNodeValue(final PathOperationConfigElement value) {
+				public PathReplacementConfigElementNodeValue(final PathReplacementConfigElement value) {
 					super(value);
 				}
 			}

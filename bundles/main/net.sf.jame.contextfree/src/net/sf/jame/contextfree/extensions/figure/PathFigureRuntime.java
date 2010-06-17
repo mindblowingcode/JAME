@@ -5,8 +5,8 @@
 package net.sf.jame.contextfree.extensions.figure;
 
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
-import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationConfigElement;
-import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationRuntimeElement;
+import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
+import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreeLimits;
 import net.sf.jame.contextfree.renderer.ContextFreeNode;
@@ -24,8 +24,8 @@ import net.sf.jame.core.config.ValueConfigElement;
 public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensionRuntime<T> implements ContextFreePath {
 	private String name;
 	private NameListener nameListener;
-	private ListRuntimeElement<PathOperationRuntimeElement> pathOperationListElement;
-	private PathOperationListElementListener pathOperationListElementListener;
+	private ListRuntimeElement<PathReplacementRuntimeElement> pathReplacementListElement;
+	private PathReplacementListElementListener pathReplacementListElementListener;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -35,12 +35,12 @@ public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensi
 		setName(getConfig().getName());
 		nameListener = new NameListener();
 		getConfig().getNameElement().addChangeListener(nameListener);
-		pathOperationListElement = new ListRuntimeElement<PathOperationRuntimeElement>();
-		for (int i = 0; i < getConfig().getPathOperationConfigElementCount(); i++) {
-			pathOperationListElement.appendElement(new PathOperationRuntimeElement(getConfig().getPathOperationConfigElement(i)));
+		pathReplacementListElement = new ListRuntimeElement<PathReplacementRuntimeElement>();
+		for (int i = 0; i < getConfig().getPathReplacementConfigElementCount(); i++) {
+			pathReplacementListElement.appendElement(new PathReplacementRuntimeElement(getConfig().getPathReplacementConfigElement(i)));
 		}
-		pathOperationListElementListener = new PathOperationListElementListener();
-		getConfig().getPathOperationListElement().addChangeListener(pathOperationListElementListener);
+		pathReplacementListElementListener = new PathReplacementListElementListener();
+		getConfig().getPathReplacementListElement().addChangeListener(pathReplacementListElementListener);
 	}
 
 	@Override
@@ -49,10 +49,10 @@ public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensi
 			getConfig().getNameElement().removeChangeListener(nameListener);
 		}
 		nameListener = null;
-		if ((getConfig() != null) && (pathOperationListElementListener != null)) {
-			getConfig().getPathOperationListElement().removeChangeListener(pathOperationListElementListener);
+		if ((getConfig() != null) && (pathReplacementListElementListener != null)) {
+			getConfig().getPathReplacementListElement().removeChangeListener(pathReplacementListElementListener);
 		}
-		pathOperationListElementListener = null;
+		pathReplacementListElementListener = null;
 		super.dispose();
 	}
 	
@@ -84,100 +84,100 @@ public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensi
 		}
 	}
 	/**
-	 * Returns a pathOperation element.
+	 * Returns a pathReplacement element.
 	 * 
-	 * @param index the pathOperation index.
-	 * @return the pathOperation.
+	 * @param index the pathReplacement index.
+	 * @return the pathReplacement.
 	 */
-	public PathOperationRuntimeElement getPathOperationElement(final int index) {
-		return pathOperationListElement.getElement(index);
+	public PathReplacementRuntimeElement getPathReplacementElement(final int index) {
+		return pathReplacementListElement.getElement(index);
 	}
 
 	/**
-	 * Returns a pathOperation element index.
+	 * Returns a pathReplacement element index.
 	 * 
-	 * @param pathOperationElement the pathOperation element.
+	 * @param pathReplacementElement the pathReplacement element.
 	 * @return the index.
 	 */
-	public int indexOfPathOperationElement(final PathOperationRuntimeElement pathOperationElement) {
-		return pathOperationListElement.indexOfElement(pathOperationElement);
+	public int indexOfPathReplacementElement(final PathReplacementRuntimeElement pathReplacementElement) {
+		return pathReplacementListElement.indexOfElement(pathReplacementElement);
 	}
 
 	/**
-	 * Returns the number of pathOperation elements.
+	 * Returns the number of pathReplacement elements.
 	 * 
-	 * @return the number of pathOperation elements.
+	 * @return the number of pathReplacement elements.
 	 */
-	public int getPathOperationElementCount() {
-		return pathOperationListElement.getElementCount();
+	public int getPathReplacementElementCount() {
+		return pathReplacementListElement.getElementCount();
 	}
 
-	private void setPathOperationElement(final int index, PathOperationRuntimeElement element) {
-		pathOperationListElement.setElement(index, element);
+	private void setPathReplacementElement(final int index, PathReplacementRuntimeElement element) {
+		pathReplacementListElement.setElement(index, element);
 	}
 
-	private void appendPathOperationElement(final PathOperationRuntimeElement pathOperationElement) {
-		pathOperationListElement.appendElement(pathOperationElement);
+	private void appendPathReplacementElement(final PathReplacementRuntimeElement pathReplacementElement) {
+		pathReplacementListElement.appendElement(pathReplacementElement);
 	}
 
-	private void insertPathOperationElementAfter(final int index, final PathOperationRuntimeElement pathOperationElement) {
-		pathOperationListElement.insertElementAfter(index, pathOperationElement);
+	private void insertPathReplacementElementAfter(final int index, final PathReplacementRuntimeElement pathReplacementElement) {
+		pathReplacementListElement.insertElementAfter(index, pathReplacementElement);
 	}
 
-	private void insertPathOperationElementBefore(final int index, final PathOperationRuntimeElement pathOperationElement) {
-		pathOperationListElement.insertElementBefore(index, pathOperationElement);
+	private void insertPathReplacementElementBefore(final int index, final PathReplacementRuntimeElement pathReplacementElement) {
+		pathReplacementListElement.insertElementBefore(index, pathReplacementElement);
 	}
 
-	private void removePathOperationElement(final int index) {
-		pathOperationListElement.removeElement(index);
+	private void removePathReplacementElement(final int index) {
+		pathReplacementListElement.removeElement(index);
 	}
 
-	private void moveUpPathOperationElement(final int index) {
-		pathOperationListElement.moveElementUp(index);
+	private void moveUpPathReplacementElement(final int index) {
+		pathReplacementListElement.moveElementUp(index);
 	}
 
-	private void moveDownPathOperationElement(final int index) {
-		pathOperationListElement.moveElementDown(index);
+	private void moveDownPathReplacementElement(final int index) {
+		pathReplacementListElement.moveElementDown(index);
 	}
 	
-	private class PathOperationListElementListener implements ValueChangeListener {
+	private class PathReplacementListElementListener implements ValueChangeListener {
 		/**
 		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
 		 */
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ListConfigElement.ELEMENT_ADDED: {
-					appendPathOperationElement(new PathOperationRuntimeElement ((PathOperationConfigElement) e.getParams()[0]));
+					appendPathReplacementElement(new PathReplacementRuntimeElement ((PathReplacementConfigElement) e.getParams()[0]));
 					fireChanged();
 					break;
 				}
 				case ListConfigElement.ELEMENT_INSERTED_AFTER: {
-					insertPathOperationElementAfter(((Integer) e.getParams()[1]).intValue(), new PathOperationRuntimeElement ((PathOperationConfigElement) e.getParams()[0]));
+					insertPathReplacementElementAfter(((Integer) e.getParams()[1]).intValue(), new PathReplacementRuntimeElement ((PathReplacementConfigElement) e.getParams()[0]));
 					fireChanged();
 					break;
 				}
 				case ListConfigElement.ELEMENT_INSERTED_BEFORE: {
-					insertPathOperationElementBefore(((Integer) e.getParams()[1]).intValue(), new PathOperationRuntimeElement ((PathOperationConfigElement) e.getParams()[0]));
+					insertPathReplacementElementBefore(((Integer) e.getParams()[1]).intValue(), new PathReplacementRuntimeElement ((PathReplacementConfigElement) e.getParams()[0]));
 					fireChanged();
 					break;
 				}
 				case ListConfigElement.ELEMENT_REMOVED: {
-					removePathOperationElement(((Integer) e.getParams()[1]).intValue());
+					removePathReplacementElement(((Integer) e.getParams()[1]).intValue());
 					fireChanged();
 					break;
 				}
 				case ListConfigElement.ELEMENT_MOVED_UP: {
-					moveUpPathOperationElement(((Integer) e.getParams()[1]).intValue());
+					moveUpPathReplacementElement(((Integer) e.getParams()[1]).intValue());
 					fireChanged();
 					break;
 				}
 				case ListConfigElement.ELEMENT_MOVED_DOWN: {
-					moveDownPathOperationElement(((Integer) e.getParams()[1]).intValue());
+					moveDownPathReplacementElement(((Integer) e.getParams()[1]).intValue());
 					fireChanged();
 					break;
 				}
 				case ListConfigElement.ELEMENT_CHANGED: {
-					setPathOperationElement(((Integer) e.getParams()[1]).intValue(), new PathOperationRuntimeElement ((PathOperationConfigElement) e.getParams()[0]));
+					setPathReplacementElement(((Integer) e.getParams()[1]).intValue(), new PathReplacementRuntimeElement ((PathReplacementConfigElement) e.getParams()[0]));
 					fireChanged();
 					break;
 				}
@@ -198,9 +198,9 @@ public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensi
 	
 	private class PathContextFreeNode extends ContextFreeNode {
 		public PathContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			for (int i = 0; i < pathOperationListElement.getElementCount(); i++) {
-				PathOperationRuntimeElement pathOperationRuntime = pathOperationListElement.getElement(i); 
-				ContextFreeNode child = pathOperationRuntime.buildNode(context, state, limits);
+			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
+				PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
+				ContextFreeNode child = pathReplacementRuntime.buildNode(context, state, limits);
 				if (child != null) {
 					addChild(child);
 				}

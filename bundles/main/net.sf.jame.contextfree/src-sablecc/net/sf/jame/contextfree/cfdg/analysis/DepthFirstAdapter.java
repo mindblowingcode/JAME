@@ -214,20 +214,20 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outABackgroundDeclaration(node);
     }
 
-    public void inADefaultTileDeclaration(ADefaultTileDeclaration node)
+    public void inATileDeclaration(ATileDeclaration node)
     {
         defaultIn(node);
     }
 
-    public void outADefaultTileDeclaration(ADefaultTileDeclaration node)
+    public void outATileDeclaration(ATileDeclaration node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseADefaultTileDeclaration(ADefaultTileDeclaration node)
+    public void caseATileDeclaration(ATileDeclaration node)
     {
-        inADefaultTileDeclaration(node);
+        inATileDeclaration(node);
         if(node.getTile() != null)
         {
             node.getTile().apply(this);
@@ -247,59 +247,23 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getRCbkt().apply(this);
         }
-        outADefaultTileDeclaration(node);
+        outATileDeclaration(node);
     }
 
-    public void inAOrderedTileDeclaration(AOrderedTileDeclaration node)
+    public void inASizeDeclaration(ASizeDeclaration node)
     {
         defaultIn(node);
     }
 
-    public void outAOrderedTileDeclaration(AOrderedTileDeclaration node)
+    public void outASizeDeclaration(ASizeDeclaration node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAOrderedTileDeclaration(AOrderedTileDeclaration node)
+    public void caseASizeDeclaration(ASizeDeclaration node)
     {
-        inAOrderedTileDeclaration(node);
-        if(node.getTile() != null)
-        {
-            node.getTile().apply(this);
-        }
-        if(node.getLSbkt() != null)
-        {
-            node.getLSbkt().apply(this);
-        }
-        {
-            List<PTileAdjustment> copy = new ArrayList<PTileAdjustment>(node.getTileAdjustment());
-            for(PTileAdjustment e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        if(node.getRSbkt() != null)
-        {
-            node.getRSbkt().apply(this);
-        }
-        outAOrderedTileDeclaration(node);
-    }
-
-    public void inADefaultSizeDeclaration(ADefaultSizeDeclaration node)
-    {
-        defaultIn(node);
-    }
-
-    public void outADefaultSizeDeclaration(ADefaultSizeDeclaration node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseADefaultSizeDeclaration(ADefaultSizeDeclaration node)
-    {
-        inADefaultSizeDeclaration(node);
+        inASizeDeclaration(node);
         if(node.getSize() != null)
         {
             node.getSize().apply(this);
@@ -319,43 +283,7 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getRCbkt().apply(this);
         }
-        outADefaultSizeDeclaration(node);
-    }
-
-    public void inAOrderedSizeDeclaration(AOrderedSizeDeclaration node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAOrderedSizeDeclaration(AOrderedSizeDeclaration node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAOrderedSizeDeclaration(AOrderedSizeDeclaration node)
-    {
-        inAOrderedSizeDeclaration(node);
-        if(node.getSize() != null)
-        {
-            node.getSize().apply(this);
-        }
-        if(node.getLCbkt() != null)
-        {
-            node.getLCbkt().apply(this);
-        }
-        {
-            List<PSizeAdjustment> copy = new ArrayList<PSizeAdjustment>(node.getSizeAdjustment());
-            for(PSizeAdjustment e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        if(node.getRCbkt() != null)
-        {
-            node.getRCbkt().apply(this);
-        }
-        outAOrderedSizeDeclaration(node);
+        outASizeDeclaration(node);
     }
 
     public void inARuleDeclaration(ARuleDeclaration node)
@@ -384,42 +312,13 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getNumber().apply(this);
         }
-        if(node.getListShapeReplacement() != null)
-        {
-            node.getListShapeReplacement().apply(this);
-        }
-        outARuleDeclaration(node);
-    }
-
-    public void inAPathDeclaration(APathDeclaration node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAPathDeclaration(APathDeclaration node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAPathDeclaration(APathDeclaration node)
-    {
-        inAPathDeclaration(node);
-        if(node.getPath() != null)
-        {
-            node.getPath().apply(this);
-        }
-        if(node.getString() != null)
-        {
-            node.getString().apply(this);
-        }
         if(node.getLCbkt() != null)
         {
             node.getLCbkt().apply(this);
         }
         {
-            List<PPathOperationDeclaration> copy = new ArrayList<PPathOperationDeclaration>(node.getPathOperationDeclaration());
-            for(PPathOperationDeclaration e : copy)
+            List<PShapeReplacementDeclaration> copy = new ArrayList<PShapeReplacementDeclaration>(node.getShapeReplacementDeclaration());
+            for(PShapeReplacementDeclaration e : copy)
             {
                 e.apply(this);
             }
@@ -428,7 +327,7 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getRCbkt().apply(this);
         }
-        outAPathDeclaration(node);
+        outARuleDeclaration(node);
     }
 
     public void inAMultiShapeReplacementDeclaration(AMultiShapeReplacementDeclaration node)
@@ -445,152 +344,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAMultiShapeReplacementDeclaration(AMultiShapeReplacementDeclaration node)
     {
         inAMultiShapeReplacementDeclaration(node);
-        if(node.getMultiShapeReplacement() != null)
-        {
-            node.getMultiShapeReplacement().apply(this);
-        }
-        outAMultiShapeReplacementDeclaration(node);
-    }
-
-    public void inASingleShapeReplacementDeclaration(ASingleShapeReplacementDeclaration node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASingleShapeReplacementDeclaration(ASingleShapeReplacementDeclaration node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASingleShapeReplacementDeclaration(ASingleShapeReplacementDeclaration node)
-    {
-        inASingleShapeReplacementDeclaration(node);
-        if(node.getSingleShapeReplacement() != null)
-        {
-            node.getSingleShapeReplacement().apply(this);
-        }
-        outASingleShapeReplacementDeclaration(node);
-    }
-
-    public void inADefaultSingleShapeReplacement(ADefaultSingleShapeReplacement node)
-    {
-        defaultIn(node);
-    }
-
-    public void outADefaultSingleShapeReplacement(ADefaultSingleShapeReplacement node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseADefaultSingleShapeReplacement(ADefaultSingleShapeReplacement node)
-    {
-        inADefaultSingleShapeReplacement(node);
-        if(node.getString() != null)
-        {
-            node.getString().apply(this);
-        }
-        if(node.getLCbkt() != null)
-        {
-            node.getLCbkt().apply(this);
-        }
-        {
-            List<PShapeAdjustment> copy = new ArrayList<PShapeAdjustment>(node.getShapeAdjustment());
-            for(PShapeAdjustment e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        if(node.getRCbkt() != null)
-        {
-            node.getRCbkt().apply(this);
-        }
-        outADefaultSingleShapeReplacement(node);
-    }
-
-    public void inAOrderedSingleShapeReplacement(AOrderedSingleShapeReplacement node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAOrderedSingleShapeReplacement(AOrderedSingleShapeReplacement node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAOrderedSingleShapeReplacement(AOrderedSingleShapeReplacement node)
-    {
-        inAOrderedSingleShapeReplacement(node);
-        if(node.getString() != null)
-        {
-            node.getString().apply(this);
-        }
-        if(node.getLSbkt() != null)
-        {
-            node.getLSbkt().apply(this);
-        }
-        {
-            List<PShapeAdjustment> copy = new ArrayList<PShapeAdjustment>(node.getShapeAdjustment());
-            for(PShapeAdjustment e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        if(node.getRSbkt() != null)
-        {
-            node.getRSbkt().apply(this);
-        }
-        outAOrderedSingleShapeReplacement(node);
-    }
-
-    public void inAListShapeReplacement(AListShapeReplacement node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAListShapeReplacement(AListShapeReplacement node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAListShapeReplacement(AListShapeReplacement node)
-    {
-        inAListShapeReplacement(node);
-        if(node.getLCbkt() != null)
-        {
-            node.getLCbkt().apply(this);
-        }
-        {
-            List<PShapeReplacementDeclaration> copy = new ArrayList<PShapeReplacementDeclaration>(node.getShapeReplacementDeclaration());
-            for(PShapeReplacementDeclaration e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        if(node.getRCbkt() != null)
-        {
-            node.getRCbkt().apply(this);
-        }
-        outAListShapeReplacement(node);
-    }
-
-    public void inAMultiShapeReplacement(AMultiShapeReplacement node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAMultiShapeReplacement(AMultiShapeReplacement node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAMultiShapeReplacement(AMultiShapeReplacement node)
-    {
-        inAMultiShapeReplacement(node);
         if(node.getNumber() != null)
         {
             node.getNumber().apply(this);
@@ -614,53 +367,157 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getRCbkt().apply(this);
         }
-        if(node.getMultiShapeReplacementBody() != null)
+        if(node.getShapeReplacementBlock() != null)
         {
-            node.getMultiShapeReplacementBody().apply(this);
+            node.getShapeReplacementBlock().apply(this);
         }
-        outAMultiShapeReplacement(node);
+        outAMultiShapeReplacementDeclaration(node);
     }
 
-    public void inASingleMultiShapeReplacementBody(ASingleMultiShapeReplacementBody node)
+    public void inASingleShapeReplacementDeclaration(ASingleShapeReplacementDeclaration node)
     {
         defaultIn(node);
     }
 
-    public void outASingleMultiShapeReplacementBody(ASingleMultiShapeReplacementBody node)
+    public void outASingleShapeReplacementDeclaration(ASingleShapeReplacementDeclaration node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseASingleMultiShapeReplacementBody(ASingleMultiShapeReplacementBody node)
+    public void caseASingleShapeReplacementDeclaration(ASingleShapeReplacementDeclaration node)
     {
-        inASingleMultiShapeReplacementBody(node);
-        if(node.getSingleShapeReplacement() != null)
+        inASingleShapeReplacementDeclaration(node);
+        if(node.getShapeReplacement() != null)
         {
-            node.getSingleShapeReplacement().apply(this);
+            node.getShapeReplacement().apply(this);
         }
-        outASingleMultiShapeReplacementBody(node);
+        outASingleShapeReplacementDeclaration(node);
     }
 
-    public void inAListMultiShapeReplacementBody(AListMultiShapeReplacementBody node)
+    public void inABasicShapeReplacement(ABasicShapeReplacement node)
     {
         defaultIn(node);
     }
 
-    public void outAListMultiShapeReplacementBody(AListMultiShapeReplacementBody node)
+    public void outABasicShapeReplacement(ABasicShapeReplacement node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAListMultiShapeReplacementBody(AListMultiShapeReplacementBody node)
+    public void caseABasicShapeReplacement(ABasicShapeReplacement node)
     {
-        inAListMultiShapeReplacementBody(node);
-        if(node.getListShapeReplacement() != null)
+        inABasicShapeReplacement(node);
+        if(node.getString() != null)
         {
-            node.getListShapeReplacement().apply(this);
+            node.getString().apply(this);
         }
-        outAListMultiShapeReplacementBody(node);
+        if(node.getLCbkt() != null)
+        {
+            node.getLCbkt().apply(this);
+        }
+        {
+            List<PShapeAdjustment> copy = new ArrayList<PShapeAdjustment>(node.getShapeAdjustment());
+            for(PShapeAdjustment e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getRCbkt() != null)
+        {
+            node.getRCbkt().apply(this);
+        }
+        outABasicShapeReplacement(node);
+    }
+
+    public void inAOrderedShapeReplacement(AOrderedShapeReplacement node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAOrderedShapeReplacement(AOrderedShapeReplacement node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAOrderedShapeReplacement(AOrderedShapeReplacement node)
+    {
+        inAOrderedShapeReplacement(node);
+        if(node.getString() != null)
+        {
+            node.getString().apply(this);
+        }
+        if(node.getLSbkt() != null)
+        {
+            node.getLSbkt().apply(this);
+        }
+        {
+            List<PShapeAdjustment> copy = new ArrayList<PShapeAdjustment>(node.getShapeAdjustment());
+            for(PShapeAdjustment e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getRSbkt() != null)
+        {
+            node.getRSbkt().apply(this);
+        }
+        outAOrderedShapeReplacement(node);
+    }
+
+    public void inABasicShapeReplacementBlock(ABasicShapeReplacementBlock node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABasicShapeReplacementBlock(ABasicShapeReplacementBlock node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABasicShapeReplacementBlock(ABasicShapeReplacementBlock node)
+    {
+        inABasicShapeReplacementBlock(node);
+        if(node.getShapeReplacement() != null)
+        {
+            node.getShapeReplacement().apply(this);
+        }
+        outABasicShapeReplacementBlock(node);
+    }
+
+    public void inAListShapeReplacementBlock(AListShapeReplacementBlock node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAListShapeReplacementBlock(AListShapeReplacementBlock node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAListShapeReplacementBlock(AListShapeReplacementBlock node)
+    {
+        inAListShapeReplacementBlock(node);
+        if(node.getLCbkt() != null)
+        {
+            node.getLCbkt().apply(this);
+        }
+        {
+            List<PShapeReplacementDeclaration> copy = new ArrayList<PShapeReplacementDeclaration>(node.getShapeReplacementDeclaration());
+            for(PShapeReplacementDeclaration e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getRCbkt() != null)
+        {
+            node.getRCbkt().apply(this);
+        }
+        outAListShapeReplacementBlock(node);
     }
 
     public void inAStarOperator(AStarOperator node)
@@ -768,134 +625,20 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAArrowOperator(node);
     }
 
-    public void inAMultiPathOperationDeclaration(AMultiPathOperationDeclaration node)
+    public void inAPathOperation(APathOperation node)
     {
         defaultIn(node);
     }
 
-    public void outAMultiPathOperationDeclaration(AMultiPathOperationDeclaration node)
+    public void outAPathOperation(APathOperation node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAMultiPathOperationDeclaration(AMultiPathOperationDeclaration node)
+    public void caseAPathOperation(APathOperation node)
     {
-        inAMultiPathOperationDeclaration(node);
-        if(node.getMultiPathOperation() != null)
-        {
-            node.getMultiPathOperation().apply(this);
-        }
-        outAMultiPathOperationDeclaration(node);
-    }
-
-    public void inAPathPathOperationDeclaration(APathPathOperationDeclaration node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAPathPathOperationDeclaration(APathPathOperationDeclaration node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAPathPathOperationDeclaration(APathPathOperationDeclaration node)
-    {
-        inAPathPathOperationDeclaration(node);
-        if(node.getPathOperation() != null)
-        {
-            node.getPathOperation().apply(this);
-        }
-        outAPathPathOperationDeclaration(node);
-    }
-
-    public void inADefaultSimplePathOperation(ADefaultSimplePathOperation node)
-    {
-        defaultIn(node);
-    }
-
-    public void outADefaultSimplePathOperation(ADefaultSimplePathOperation node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseADefaultSimplePathOperation(ADefaultSimplePathOperation node)
-    {
-        inADefaultSimplePathOperation(node);
-        if(node.getString() != null)
-        {
-            node.getString().apply(this);
-        }
-        if(node.getLCbkt() != null)
-        {
-            node.getLCbkt().apply(this);
-        }
-        {
-            List<PPathAdjustment> copy = new ArrayList<PPathAdjustment>(node.getPathAdjustment());
-            for(PPathAdjustment e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        if(node.getRCbkt() != null)
-        {
-            node.getRCbkt().apply(this);
-        }
-        outADefaultSimplePathOperation(node);
-    }
-
-    public void inAOrderedSimplePathOperation(AOrderedSimplePathOperation node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAOrderedSimplePathOperation(AOrderedSimplePathOperation node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAOrderedSimplePathOperation(AOrderedSimplePathOperation node)
-    {
-        inAOrderedSimplePathOperation(node);
-        if(node.getString() != null)
-        {
-            node.getString().apply(this);
-        }
-        if(node.getLSbkt() != null)
-        {
-            node.getLSbkt().apply(this);
-        }
-        {
-            List<PPathAdjustment> copy = new ArrayList<PPathAdjustment>(node.getPathAdjustment());
-            for(PPathAdjustment e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        if(node.getRSbkt() != null)
-        {
-            node.getRSbkt().apply(this);
-        }
-        outAOrderedSimplePathOperation(node);
-    }
-
-    public void inADefaultPathopPathOperation(ADefaultPathopPathOperation node)
-    {
-        defaultIn(node);
-    }
-
-    public void outADefaultPathopPathOperation(ADefaultPathopPathOperation node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseADefaultPathopPathOperation(ADefaultPathopPathOperation node)
-    {
-        inADefaultPathopPathOperation(node);
+        inAPathOperation(node);
         if(node.getPathop() != null)
         {
             node.getPathop().apply(this);
@@ -915,108 +658,34 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getRCbkt().apply(this);
         }
-        outADefaultPathopPathOperation(node);
+        outAPathOperation(node);
     }
 
-    public void inAOrderedPathopPathOperation(AOrderedPathopPathOperation node)
+    public void inABasicPathCommand(ABasicPathCommand node)
     {
         defaultIn(node);
     }
 
-    public void outAOrderedPathopPathOperation(AOrderedPathopPathOperation node)
+    public void outABasicPathCommand(ABasicPathCommand node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAOrderedPathopPathOperation(AOrderedPathopPathOperation node)
+    public void caseABasicPathCommand(ABasicPathCommand node)
     {
-        inAOrderedPathopPathOperation(node);
-        if(node.getPathop() != null)
+        inABasicPathCommand(node);
+        if(node.getPathcmd() != null)
         {
-            node.getPathop().apply(this);
+            node.getPathcmd().apply(this);
         }
-        if(node.getLSbkt() != null)
-        {
-            node.getLSbkt().apply(this);
-        }
-        {
-            List<PPathPoints> copy = new ArrayList<PPathPoints>(node.getPathPoints());
-            for(PPathPoints e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        if(node.getRSbkt() != null)
-        {
-            node.getRSbkt().apply(this);
-        }
-        outAOrderedPathopPathOperation(node);
-    }
-
-    public void inASimplePathOperation(ASimplePathOperation node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASimplePathOperation(ASimplePathOperation node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASimplePathOperation(ASimplePathOperation node)
-    {
-        inASimplePathOperation(node);
-        if(node.getSimplePathOperation() != null)
-        {
-            node.getSimplePathOperation().apply(this);
-        }
-        outASimplePathOperation(node);
-    }
-
-    public void inAPathopPathOperation(APathopPathOperation node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAPathopPathOperation(APathopPathOperation node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAPathopPathOperation(APathopPathOperation node)
-    {
-        inAPathopPathOperation(node);
-        if(node.getPathopPathOperation() != null)
-        {
-            node.getPathopPathOperation().apply(this);
-        }
-        outAPathopPathOperation(node);
-    }
-
-    public void inAListPathOperation(AListPathOperation node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAListPathOperation(AListPathOperation node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAListPathOperation(AListPathOperation node)
-    {
-        inAListPathOperation(node);
         if(node.getLCbkt() != null)
         {
             node.getLCbkt().apply(this);
         }
         {
-            List<PPathOperationDeclaration> copy = new ArrayList<PPathOperationDeclaration>(node.getPathOperationDeclaration());
-            for(PPathOperationDeclaration e : copy)
+            List<PPathAdjustment> copy = new ArrayList<PPathAdjustment>(node.getPathAdjustment());
+            for(PPathAdjustment e : copy)
             {
                 e.apply(this);
             }
@@ -1025,23 +694,99 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getRCbkt().apply(this);
         }
-        outAListPathOperation(node);
+        outABasicPathCommand(node);
     }
 
-    public void inAMultiPathOperation(AMultiPathOperation node)
+    public void inAOrderedPathCommand(AOrderedPathCommand node)
     {
         defaultIn(node);
     }
 
-    public void outAMultiPathOperation(AMultiPathOperation node)
+    public void outAOrderedPathCommand(AOrderedPathCommand node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAMultiPathOperation(AMultiPathOperation node)
+    public void caseAOrderedPathCommand(AOrderedPathCommand node)
     {
-        inAMultiPathOperation(node);
+        inAOrderedPathCommand(node);
+        if(node.getPathcmd() != null)
+        {
+            node.getPathcmd().apply(this);
+        }
+        if(node.getLSbkt() != null)
+        {
+            node.getLSbkt().apply(this);
+        }
+        {
+            List<PPathAdjustment> copy = new ArrayList<PPathAdjustment>(node.getPathAdjustment());
+            for(PPathAdjustment e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getRSbkt() != null)
+        {
+            node.getRSbkt().apply(this);
+        }
+        outAOrderedPathCommand(node);
+    }
+
+    public void inAPathDeclaration(APathDeclaration node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAPathDeclaration(APathDeclaration node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAPathDeclaration(APathDeclaration node)
+    {
+        inAPathDeclaration(node);
+        if(node.getPath() != null)
+        {
+            node.getPath().apply(this);
+        }
+        if(node.getString() != null)
+        {
+            node.getString().apply(this);
+        }
+        if(node.getLCbkt() != null)
+        {
+            node.getLCbkt().apply(this);
+        }
+        {
+            List<PPathReplacementDeclaration> copy = new ArrayList<PPathReplacementDeclaration>(node.getPathReplacementDeclaration());
+            for(PPathReplacementDeclaration e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getRCbkt() != null)
+        {
+            node.getRCbkt().apply(this);
+        }
+        outAPathDeclaration(node);
+    }
+
+    public void inAMultiPathReplacementDeclaration(AMultiPathReplacementDeclaration node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMultiPathReplacementDeclaration(AMultiPathReplacementDeclaration node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMultiPathReplacementDeclaration(AMultiPathReplacementDeclaration node)
+    {
+        inAMultiPathReplacementDeclaration(node);
         if(node.getNumber() != null)
         {
             node.getNumber().apply(this);
@@ -1065,53 +810,127 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getRCbkt().apply(this);
         }
-        if(node.getMultiPathOperationBody() != null)
+        if(node.getPathReplacementBlock() != null)
         {
-            node.getMultiPathOperationBody().apply(this);
+            node.getPathReplacementBlock().apply(this);
         }
-        outAMultiPathOperation(node);
+        outAMultiPathReplacementDeclaration(node);
     }
 
-    public void inAPathMultiPathOperationBody(APathMultiPathOperationBody node)
+    public void inASinglePathReplacementDeclaration(ASinglePathReplacementDeclaration node)
     {
         defaultIn(node);
     }
 
-    public void outAPathMultiPathOperationBody(APathMultiPathOperationBody node)
+    public void outASinglePathReplacementDeclaration(ASinglePathReplacementDeclaration node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAPathMultiPathOperationBody(APathMultiPathOperationBody node)
+    public void caseASinglePathReplacementDeclaration(ASinglePathReplacementDeclaration node)
     {
-        inAPathMultiPathOperationBody(node);
+        inASinglePathReplacementDeclaration(node);
+        if(node.getPathReplacement() != null)
+        {
+            node.getPathReplacement().apply(this);
+        }
+        outASinglePathReplacementDeclaration(node);
+    }
+
+    public void inAOperationPathReplacement(AOperationPathReplacement node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAOperationPathReplacement(AOperationPathReplacement node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAOperationPathReplacement(AOperationPathReplacement node)
+    {
+        inAOperationPathReplacement(node);
         if(node.getPathOperation() != null)
         {
             node.getPathOperation().apply(this);
         }
-        outAPathMultiPathOperationBody(node);
+        outAOperationPathReplacement(node);
     }
 
-    public void inAListMultiPathOperationBody(AListMultiPathOperationBody node)
+    public void inACommandPathReplacement(ACommandPathReplacement node)
     {
         defaultIn(node);
     }
 
-    public void outAListMultiPathOperationBody(AListMultiPathOperationBody node)
+    public void outACommandPathReplacement(ACommandPathReplacement node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAListMultiPathOperationBody(AListMultiPathOperationBody node)
+    public void caseACommandPathReplacement(ACommandPathReplacement node)
     {
-        inAListMultiPathOperationBody(node);
-        if(node.getListPathOperation() != null)
+        inACommandPathReplacement(node);
+        if(node.getPathCommand() != null)
         {
-            node.getListPathOperation().apply(this);
+            node.getPathCommand().apply(this);
         }
-        outAListMultiPathOperationBody(node);
+        outACommandPathReplacement(node);
+    }
+
+    public void inABasicPathReplacementBlock(ABasicPathReplacementBlock node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABasicPathReplacementBlock(ABasicPathReplacementBlock node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABasicPathReplacementBlock(ABasicPathReplacementBlock node)
+    {
+        inABasicPathReplacementBlock(node);
+        if(node.getPathReplacement() != null)
+        {
+            node.getPathReplacement().apply(this);
+        }
+        outABasicPathReplacementBlock(node);
+    }
+
+    public void inAListPathReplacementBlock(AListPathReplacementBlock node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAListPathReplacementBlock(AListPathReplacementBlock node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAListPathReplacementBlock(AListPathReplacementBlock node)
+    {
+        inAListPathReplacementBlock(node);
+        if(node.getLCbkt() != null)
+        {
+            node.getLCbkt().apply(this);
+        }
+        {
+            List<PPathReplacementDeclaration> copy = new ArrayList<PPathReplacementDeclaration>(node.getPathReplacementDeclaration());
+            for(PPathReplacementDeclaration e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getRCbkt() != null)
+        {
+            node.getRCbkt().apply(this);
+        }
+        outAListPathReplacementBlock(node);
     }
 
     public void inAXPathPoints(AXPathPoints node)
@@ -1764,25 +1583,25 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outASize3ShapeAdjustment(node);
     }
 
-    public void inASimpleColorAdjustment(ASimpleColorAdjustment node)
+    public void inACurrentColorAdjustment(ACurrentColorAdjustment node)
     {
         defaultIn(node);
     }
 
-    public void outASimpleColorAdjustment(ASimpleColorAdjustment node)
+    public void outACurrentColorAdjustment(ACurrentColorAdjustment node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseASimpleColorAdjustment(ASimpleColorAdjustment node)
+    public void caseACurrentColorAdjustment(ACurrentColorAdjustment node)
     {
-        inASimpleColorAdjustment(node);
-        if(node.getSimpleColorAdjustment() != null)
+        inACurrentColorAdjustment(node);
+        if(node.getCurrentColorAdjustment() != null)
         {
-            node.getSimpleColorAdjustment().apply(this);
+            node.getCurrentColorAdjustment().apply(this);
         }
-        outASimpleColorAdjustment(node);
+        outACurrentColorAdjustment(node);
     }
 
     public void inATargetColorAdjustment(ATargetColorAdjustment node)
@@ -1806,20 +1625,20 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outATargetColorAdjustment(node);
     }
 
-    public void inAHueSimpleColorAdjustment(AHueSimpleColorAdjustment node)
+    public void inAHueCurrentColorAdjustment(AHueCurrentColorAdjustment node)
     {
         defaultIn(node);
     }
 
-    public void outAHueSimpleColorAdjustment(AHueSimpleColorAdjustment node)
+    public void outAHueCurrentColorAdjustment(AHueCurrentColorAdjustment node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAHueSimpleColorAdjustment(AHueSimpleColorAdjustment node)
+    public void caseAHueCurrentColorAdjustment(AHueCurrentColorAdjustment node)
     {
-        inAHueSimpleColorAdjustment(node);
+        inAHueCurrentColorAdjustment(node);
         if(node.getHueToken() != null)
         {
             node.getHueToken().apply(this);
@@ -1832,23 +1651,23 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getBar().apply(this);
         }
-        outAHueSimpleColorAdjustment(node);
+        outAHueCurrentColorAdjustment(node);
     }
 
-    public void inABrightnessSimpleColorAdjustment(ABrightnessSimpleColorAdjustment node)
+    public void inABrightnessCurrentColorAdjustment(ABrightnessCurrentColorAdjustment node)
     {
         defaultIn(node);
     }
 
-    public void outABrightnessSimpleColorAdjustment(ABrightnessSimpleColorAdjustment node)
+    public void outABrightnessCurrentColorAdjustment(ABrightnessCurrentColorAdjustment node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseABrightnessSimpleColorAdjustment(ABrightnessSimpleColorAdjustment node)
+    public void caseABrightnessCurrentColorAdjustment(ABrightnessCurrentColorAdjustment node)
     {
-        inABrightnessSimpleColorAdjustment(node);
+        inABrightnessCurrentColorAdjustment(node);
         if(node.getBrightnessToken() != null)
         {
             node.getBrightnessToken().apply(this);
@@ -1861,23 +1680,23 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getBar().apply(this);
         }
-        outABrightnessSimpleColorAdjustment(node);
+        outABrightnessCurrentColorAdjustment(node);
     }
 
-    public void inASaturationSimpleColorAdjustment(ASaturationSimpleColorAdjustment node)
+    public void inASaturationCurrentColorAdjustment(ASaturationCurrentColorAdjustment node)
     {
         defaultIn(node);
     }
 
-    public void outASaturationSimpleColorAdjustment(ASaturationSimpleColorAdjustment node)
+    public void outASaturationCurrentColorAdjustment(ASaturationCurrentColorAdjustment node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseASaturationSimpleColorAdjustment(ASaturationSimpleColorAdjustment node)
+    public void caseASaturationCurrentColorAdjustment(ASaturationCurrentColorAdjustment node)
     {
-        inASaturationSimpleColorAdjustment(node);
+        inASaturationCurrentColorAdjustment(node);
         if(node.getSaturationToken() != null)
         {
             node.getSaturationToken().apply(this);
@@ -1890,23 +1709,23 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getBar().apply(this);
         }
-        outASaturationSimpleColorAdjustment(node);
+        outASaturationCurrentColorAdjustment(node);
     }
 
-    public void inAAlphaSimpleColorAdjustment(AAlphaSimpleColorAdjustment node)
+    public void inAAlphaCurrentColorAdjustment(AAlphaCurrentColorAdjustment node)
     {
         defaultIn(node);
     }
 
-    public void outAAlphaSimpleColorAdjustment(AAlphaSimpleColorAdjustment node)
+    public void outAAlphaCurrentColorAdjustment(AAlphaCurrentColorAdjustment node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlphaSimpleColorAdjustment(AAlphaSimpleColorAdjustment node)
+    public void caseAAlphaCurrentColorAdjustment(AAlphaCurrentColorAdjustment node)
     {
-        inAAlphaSimpleColorAdjustment(node);
+        inAAlphaCurrentColorAdjustment(node);
         if(node.getAlphaToken() != null)
         {
             node.getAlphaToken().apply(this);
@@ -1919,7 +1738,7 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getBar().apply(this);
         }
-        outAAlphaSimpleColorAdjustment(node);
+        outAAlphaCurrentColorAdjustment(node);
     }
 
     public void inAHueTargetColorAdjustment(AHueTargetColorAdjustment node)
