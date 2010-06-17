@@ -88,7 +88,7 @@ public class ContextFreeConfigBuilder {
 		ShapeAdjustmentConfigElement shapeAdjustmentElement = new ShapeAdjustmentConfigElement();
 		((SingleReplacementConfig) replacementReference.getExtensionConfig()).setShape("square");
 		((SingleReplacementConfig) replacementReference.getExtensionConfig()).appendShapeAdjustmentConfigElement(shapeAdjustmentElement);
-		shapeAdjustmentElement.setExtensionReference(ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.hue").createConfigurableExtensionReference());
+		shapeAdjustmentElement.setExtensionReference(ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.targetHue").createConfigurableExtensionReference());
 		return config;
 	}
 }
