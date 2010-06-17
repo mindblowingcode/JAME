@@ -23,12 +23,12 @@
  * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package net.sf.jame.contextfree.extensions.pathAdjustment;
+package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionConfig;
+import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
 import net.sf.jame.core.common.DoubleElement;
 import net.sf.jame.core.config.ConfigElement;
 
@@ -36,7 +36,7 @@ import net.sf.jame.core.config.ConfigElement;
  * @author Andrea Medeghini
  *
  */
-public class HuePathAdjustmentConfig extends PathAdjustmentExtensionConfig {
+public class TargetHueShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 	private static final long serialVersionUID = 1L;
 	private static final Double DEFAULT_VALUE = 0.0;
 	private DoubleElement valueElement;
@@ -91,8 +91,8 @@ public class HuePathAdjustmentConfig extends PathAdjustmentExtensionConfig {
 	 * @return
 	 */
 	@Override
-	public HuePathAdjustmentConfig clone() {
-		final HuePathAdjustmentConfig config = new HuePathAdjustmentConfig();
+	public TargetHueShapeAdjustmentConfig clone() {
+		final TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig();
 		config.setValue(getValue());
 		return config;
 	}
@@ -108,7 +108,7 @@ public class HuePathAdjustmentConfig extends PathAdjustmentExtensionConfig {
 		if (obj == null) {
 			return false;
 		}
-		final HuePathAdjustmentConfig other = (HuePathAdjustmentConfig) obj;
+		final TargetHueShapeAdjustmentConfig other = (TargetHueShapeAdjustmentConfig) obj;
 		if (!valueElement.equals(other.valueElement)) {
 			return false;
 		}

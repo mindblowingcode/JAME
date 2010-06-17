@@ -23,7 +23,7 @@
  * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package net.sf.jame.contextfree.extensions.pathReplacement;
+package net.sf.jame.contextfree.extensions.pathAdjustment;
 
 import java.util.List;
 
@@ -38,33 +38,33 @@ import org.w3c.dom.Element;
 /**
  * @author Andrea Medeghini
  */
-public class LineToPathOperationConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
+public class TargetHuePathAdjustmentConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
 	 */
 	@Override
-	public XMLImporter<LineToPathOperationConfig> createXMLImporter() {
-		return new LineToPathOperationConfigXMLImporter();
+	public XMLImporter<TargetHuePathAdjustmentConfig> createXMLImporter() {
+		return new HuePathAdjustmentConfigXMLImporter();
 	}
 
-	private class LineToPathOperationConfigXMLImporter extends XMLImporter<LineToPathOperationConfig> {
-		protected LineToPathOperationConfig createExtensionConfig() {
-			return new LineToPathOperationConfig();
+	private class HuePathAdjustmentConfigXMLImporter extends XMLImporter<TargetHuePathAdjustmentConfig> {
+		protected TargetHuePathAdjustmentConfig createExtensionConfig() {
+			return new TargetHuePathAdjustmentConfig();
 		}
 
 		protected String getConfigElementClassId() {
-			return "LineToPathOperationConfig";
+			return "HuePathAdjustmentConfig";
 		}
 		
 		/**
 		 * @see net.sf.jame.core.xml.XMLImporter#importFromElement(org.w3c.dom.Element)
 		 */
 		@Override
-		public LineToPathOperationConfig importFromElement(final Element element) throws XMLImportException {
+		public TargetHuePathAdjustmentConfig importFromElement(final Element element) throws XMLImportException {
 			checkClassId(element, this.getConfigElementClassId());
-			final LineToPathOperationConfig config = this.createExtensionConfig();
+			final TargetHuePathAdjustmentConfig config = this.createExtensionConfig();
 			final List<Element> propertyElements = getProperties(element);
-			if (propertyElements.size() == 2) {
+			if (propertyElements.size() == 1) {
 				importProperties(config, propertyElements);
 			}
 			return config;
@@ -75,9 +75,8 @@ public class LineToPathOperationConfigXMLImporterRuntime extends ExtensionConfig
 		 * @param propertyElements
 		 * @throws XMLImportException
 		 */
-		protected void importProperties(final LineToPathOperationConfig config, final List<Element> propertyElements) throws XMLImportException {
-			importX(config, propertyElements.get(0));
-			importY(config, propertyElements.get(1));
+		protected void importProperties(final TargetHuePathAdjustmentConfig config, final List<Element> propertyElements) throws XMLImportException {
+			importValue(config, propertyElements.get(0));
 		}
 
 		/**
@@ -85,22 +84,10 @@ public class LineToPathOperationConfigXMLImporterRuntime extends ExtensionConfig
 		 * @param element
 		 * @throws XMLImportException
 		 */
-		protected void importX(final LineToPathOperationConfig config, final Element element) throws XMLImportException {
+		protected void importValue(final TargetHuePathAdjustmentConfig config, final Element element) throws XMLImportException {
 			final List<Element> elements = this.getElements(element, DoubleElement.CLASS_ID);
 			if (elements.size() == 1) {
-				config.setX(new DoubleElementXMLImporter().importFromElement(elements.get(0)).getValue());
-			}
-		}
-
-		/**
-		 * @param config
-		 * @param element
-		 * @throws XMLImportException
-		 */
-		protected void importY(final LineToPathOperationConfig config, final Element element) throws XMLImportException {
-			final List<Element> elements = this.getElements(element, DoubleElement.CLASS_ID);
-			if (elements.size() == 1) {
-				config.setY(new DoubleElementXMLImporter().importFromElement(elements.get(0)).getValue());
+				config.setValue(new DoubleElementXMLImporter().importFromElement(elements.get(0)).getValue());
 			}
 		}
 	}

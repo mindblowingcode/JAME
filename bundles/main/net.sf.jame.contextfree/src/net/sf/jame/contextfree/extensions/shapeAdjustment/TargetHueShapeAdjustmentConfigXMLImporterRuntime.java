@@ -23,7 +23,7 @@
  * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package net.sf.jame.contextfree.extensions.pathAdjustment;
+package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
 import java.util.List;
 
@@ -38,31 +38,31 @@ import org.w3c.dom.Element;
 /**
  * @author Andrea Medeghini
  */
-public class HuePathAdjustmentConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
+public class TargetHueShapeAdjustmentConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
 	 */
 	@Override
-	public XMLImporter<HuePathAdjustmentConfig> createXMLImporter() {
-		return new HuePathAdjustmentConfigXMLImporter();
+	public XMLImporter<TargetHueShapeAdjustmentConfig> createXMLImporter() {
+		return new HueShapeAdjustmentConfigXMLImporter();
 	}
 
-	private class HuePathAdjustmentConfigXMLImporter extends XMLImporter<HuePathAdjustmentConfig> {
-		protected HuePathAdjustmentConfig createExtensionConfig() {
-			return new HuePathAdjustmentConfig();
+	private class HueShapeAdjustmentConfigXMLImporter extends XMLImporter<TargetHueShapeAdjustmentConfig> {
+		protected TargetHueShapeAdjustmentConfig createExtensionConfig() {
+			return new TargetHueShapeAdjustmentConfig();
 		}
 
 		protected String getConfigElementClassId() {
-			return "HuePathAdjustmentConfig";
+			return "HueShapeAdjustmentConfig";
 		}
 		
 		/**
 		 * @see net.sf.jame.core.xml.XMLImporter#importFromElement(org.w3c.dom.Element)
 		 */
 		@Override
-		public HuePathAdjustmentConfig importFromElement(final Element element) throws XMLImportException {
+		public TargetHueShapeAdjustmentConfig importFromElement(final Element element) throws XMLImportException {
 			checkClassId(element, this.getConfigElementClassId());
-			final HuePathAdjustmentConfig config = this.createExtensionConfig();
+			final TargetHueShapeAdjustmentConfig config = this.createExtensionConfig();
 			final List<Element> propertyElements = getProperties(element);
 			if (propertyElements.size() == 1) {
 				importProperties(config, propertyElements);
@@ -75,7 +75,7 @@ public class HuePathAdjustmentConfigXMLImporterRuntime extends ExtensionConfigXM
 		 * @param propertyElements
 		 * @throws XMLImportException
 		 */
-		protected void importProperties(final HuePathAdjustmentConfig config, final List<Element> propertyElements) throws XMLImportException {
+		protected void importProperties(final TargetHueShapeAdjustmentConfig config, final List<Element> propertyElements) throws XMLImportException {
 			importValue(config, propertyElements.get(0));
 		}
 
@@ -84,7 +84,7 @@ public class HuePathAdjustmentConfigXMLImporterRuntime extends ExtensionConfigXM
 		 * @param element
 		 * @throws XMLImportException
 		 */
-		protected void importValue(final HuePathAdjustmentConfig config, final Element element) throws XMLImportException {
+		protected void importValue(final TargetHueShapeAdjustmentConfig config, final Element element) throws XMLImportException {
 			final List<Element> elements = this.getElements(element, DoubleElement.CLASS_ID);
 			if (elements.size() == 1) {
 				config.setValue(new DoubleElementXMLImporter().importFromElement(elements.get(0)).getValue());

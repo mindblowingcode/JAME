@@ -40,7 +40,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
  * @author Andrea Medeghini
  *
  */
-public class LineToPathOperationRuntime extends PathReplacementExtensionRuntime<LineToPathOperationConfig> {
+public class LineToOperationReplacementRuntime extends PathReplacementExtensionRuntime<LineToOperationReplacementConfig> {
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
 		return new OperationContextFreeNode(context, state, limits);
 	}

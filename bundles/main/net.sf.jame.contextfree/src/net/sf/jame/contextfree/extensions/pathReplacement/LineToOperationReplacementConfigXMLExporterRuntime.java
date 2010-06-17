@@ -36,22 +36,22 @@ import org.w3c.dom.Element;
 /**
  * @author Andrea Medeghini
  */
-public class LineToPathOperationConfigXMLExporterRuntime extends ExtensionConfigXMLExporterExtensionRuntime {
+public class LineToOperationReplacementConfigXMLExporterRuntime extends ExtensionConfigXMLExporterExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLExporterExtensionRuntime#createXMLExporter()
 	 */
 	@Override
-	public XMLExporter<LineToPathOperationConfig> createXMLExporter() {
+	public XMLExporter<LineToOperationReplacementConfig> createXMLExporter() {
 		return new LineToPathOperationConfigXMLExporter();
 	}
 
-	private class LineToPathOperationConfigXMLExporter extends XMLExporter<LineToPathOperationConfig> {
+	private class LineToPathOperationConfigXMLExporter extends XMLExporter<LineToOperationReplacementConfig> {
 		protected String getConfigElementClassId() {
 			return "LineToPathOperationConfig";
 		}
 
 		@Override
-		public Element exportToElement(LineToPathOperationConfig config, XMLNodeBuilder builder) throws XMLExportException {
+		public Element exportToElement(LineToOperationReplacementConfig config, XMLNodeBuilder builder) throws XMLExportException {
 			final Element element = this.createElement(builder, this.getConfigElementClassId());
 			exportProperties(config, element, builder);
 			return element;
@@ -63,7 +63,7 @@ public class LineToPathOperationConfigXMLExporterRuntime extends ExtensionConfig
 		 * @param builder
 		 * @throws XMLExportException
 		 */
-		protected void exportProperties(final LineToPathOperationConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+		protected void exportProperties(final LineToOperationReplacementConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			exportX(config, createProperty(builder, element, "x"), builder);
 			exportY(config, createProperty(builder, element, "y"), builder);
 		}
@@ -74,7 +74,7 @@ public class LineToPathOperationConfigXMLExporterRuntime extends ExtensionConfig
 		 * @param builder
 		 * @throws XMLExportException
 		 */
-		protected void exportX(final LineToPathOperationConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+		protected void exportX(final LineToOperationReplacementConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			element.appendChild(new DoubleElementXMLExporter().exportToElement(config.getXElement(), builder));
 		}
 
@@ -84,7 +84,7 @@ public class LineToPathOperationConfigXMLExporterRuntime extends ExtensionConfig
 		 * @param builder
 		 * @throws XMLExportException
 		 */
-		protected void exportY(final LineToPathOperationConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+		protected void exportY(final LineToOperationReplacementConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			element.appendChild(new DoubleElementXMLExporter().exportToElement(config.getYElement(), builder));
 		}
 	}
