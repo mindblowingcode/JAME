@@ -274,32 +274,38 @@ class TokenIndex extends AnalysisAdapter
     }
 
     @Override
-    public void caseTPathop(@SuppressWarnings("unused") TPathop node)
+    public void caseTPathcmd(@SuppressWarnings("unused") TPathcmd node)
     {
         this.index = 44;
     }
 
     @Override
-    public void caseTFilename(@SuppressWarnings("unused") TFilename node)
+    public void caseTPathop(@SuppressWarnings("unused") TPathop node)
     {
         this.index = 45;
     }
 
     @Override
-    public void caseTString(@SuppressWarnings("unused") TString node)
+    public void caseTFilename(@SuppressWarnings("unused") TFilename node)
     {
         this.index = 46;
     }
 
     @Override
-    public void caseTNumber(@SuppressWarnings("unused") TNumber node)
+    public void caseTString(@SuppressWarnings("unused") TString node)
     {
         this.index = 47;
     }
 
     @Override
-    public void caseEOF(@SuppressWarnings("unused") EOF node)
+    public void caseTNumber(@SuppressWarnings("unused") TNumber node)
     {
         this.index = 48;
+    }
+
+    @Override
+    public void caseEOF(@SuppressWarnings("unused") EOF node)
+    {
+        this.index = 49;
     }
 }

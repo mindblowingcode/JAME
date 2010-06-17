@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
-import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationConfigElement;
+import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
 import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
@@ -19,7 +19,7 @@ import net.sf.jame.core.config.ListConfigElement;
 public class PathFigureConfig extends FigureExtensionConfig {
 	private static final long serialVersionUID = 1L;
 	private StringElement nameElement;
-	private ListConfigElement<PathOperationConfigElement> pathOperationListElement;
+	private ListConfigElement<PathReplacementConfigElement> pathReplacementListElement;
 
 	/**
 	 * 
@@ -27,7 +27,7 @@ public class PathFigureConfig extends FigureExtensionConfig {
 	@Override
 	protected void createConfigElements() {
 		nameElement = new StringElement("");
-		pathOperationListElement = new ListConfigElement<PathOperationConfigElement>("pathOperation");
+		pathReplacementListElement = new ListConfigElement<PathReplacementConfigElement>("pathReplacement");
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class PathFigureConfig extends FigureExtensionConfig {
 	public List<ConfigElement> getConfigElements() {
 		final List<ConfigElement> elements = new ArrayList<ConfigElement>(1);
 		elements.add(nameElement);
-		elements.add(pathOperationListElement);
+		elements.add(pathReplacementListElement);
 		return elements;
 	}
 
@@ -64,84 +64,84 @@ public class PathFigureConfig extends FigureExtensionConfig {
 	/**
 	 * @return
 	 */
-	public ListConfigElement<PathOperationConfigElement> getPathOperationListElement() {
-		return pathOperationListElement;
+	public ListConfigElement<PathReplacementConfigElement> getPathReplacementListElement() {
+		return pathReplacementListElement;
 	}
 
 	/**
-	 * Returns a pathOperation element.
+	 * Returns a pathReplacement element.
 	 * 
-	 * @param index the pathOperation index.
-	 * @return the pathOperation.
+	 * @param index the pathReplacement index.
+	 * @return the pathReplacement.
 	 */
-	public PathOperationConfigElement getPathOperationConfigElement(final int index) {
-		return pathOperationListElement.getElement(index);
+	public PathReplacementConfigElement getPathReplacementConfigElement(final int index) {
+		return pathReplacementListElement.getElement(index);
 	}
 
 	/**
-	 * Returns a pathOperation element index.
+	 * Returns a pathReplacement element index.
 	 * 
-	 * @param pathOperationElement the pathOperation element.
+	 * @param pathReplacementElement the pathReplacement element.
 	 * @return the index.
 	 */
-	public int indexOfPathOperationConfigElement(final PathOperationConfigElement pathOperationElement) {
-		return pathOperationListElement.indexOfElement(pathOperationElement);
+	public int indexOfPathReplacementConfigElement(final PathReplacementConfigElement pathReplacementElement) {
+		return pathReplacementListElement.indexOfElement(pathReplacementElement);
 	}
 
 	/**
-	 * Returns the number of pathOperation elements.
+	 * Returns the number of pathReplacement elements.
 	 * 
-	 * @return the number of pathOperation elements.
+	 * @return the number of pathReplacement elements.
 	 */
-	public int getPathOperationConfigElementCount() {
-		return pathOperationListElement.getElementCount();
+	public int getPathReplacementConfigElementCount() {
+		return pathReplacementListElement.getElementCount();
 	}
 
 	/**
-	 * Adds a pathOperation element.
+	 * Adds a pathReplacement element.
 	 * 
-	 * @param pathOperationElement the pathOperation to add.
+	 * @param pathReplacementElement the pathReplacement to add.
 	 */
-	public void appendPathOperationConfigElement(final PathOperationConfigElement pathOperationElement) {
-		pathOperationListElement.appendElement(pathOperationElement);
+	public void appendPathReplacementConfigElement(final PathReplacementConfigElement pathReplacementElement) {
+		pathReplacementListElement.appendElement(pathReplacementElement);
 	}
 
 	/**
-	 * Adds a pathOperation element.
-	 * 
-	 * @param index the index.
-	 * @param pathOperationElement the pathOperation to add.
-	 */
-	public void insertPathOperationConfigElementAfter(final int index, final PathOperationConfigElement pathOperationElement) {
-		pathOperationListElement.insertElementAfter(index, pathOperationElement);
-	}
-
-	/**
-	 * Adds a pathOperation element.
+	 * Adds a pathReplacement element.
 	 * 
 	 * @param index the index.
-	 * @param pathOperationElement the pathOperation to add.
+	 * @param pathReplacementElement the pathReplacement to add.
 	 */
-	public void insertPathOperationConfigElementBefore(final int index, final PathOperationConfigElement pathOperationElement) {
-		pathOperationListElement.insertElementBefore(index, pathOperationElement);
+	public void insertPathReplacementConfigElementAfter(final int index, final PathReplacementConfigElement pathReplacementElement) {
+		pathReplacementListElement.insertElementAfter(index, pathReplacementElement);
 	}
 
 	/**
-	 * Removes a pathOperation element.
+	 * Adds a pathReplacement element.
+	 * 
+	 * @param index the index.
+	 * @param pathReplacementElement the pathReplacement to add.
+	 */
+	public void insertPathReplacementConfigElementBefore(final int index, final PathReplacementConfigElement pathReplacementElement) {
+		pathReplacementListElement.insertElementBefore(index, pathReplacementElement);
+	}
+
+	/**
+	 * Removes a pathReplacement element.
 	 * 
 	 * @param index the element index to remove.
 	 */
-	public void removePathOperationConfigElement(final int index) {
-		pathOperationListElement.removeElement(index);
+	public void removePathReplacementConfigElement(final int index) {
+		pathReplacementListElement.removeElement(index);
 	}
 
 	/**
-	 * Removes a pathOperation element.
+	 * Removes a pathReplacement element.
 	 * 
-	 * @param pathOperationElement the pathOperation to remove.
+	 * @param pathReplacementElement the pathReplacement to remove.
 	 */
-	public void removePathOperationConfigElement(final PathOperationConfigElement pathOperationElement) {
-		pathOperationListElement.removeElement(pathOperationElement);
+	public void removePathReplacementConfigElement(final PathReplacementConfigElement pathReplacementElement) {
+		pathReplacementListElement.removeElement(pathReplacementElement);
 	}
 
 	/**
@@ -164,12 +164,12 @@ public class PathFigureConfig extends FigureExtensionConfig {
 		else if (!nameElement.equals(other.nameElement)) {
 			return false;
 		}
-		if (pathOperationListElement == null) {
-			if (other.pathOperationListElement != null) {
+		if (pathReplacementListElement == null) {
+			if (other.pathReplacementListElement != null) {
 				return false;
 			}
 		}
-		else if (!pathOperationListElement.equals(other.pathOperationListElement)) {
+		else if (!pathReplacementListElement.equals(other.pathReplacementListElement)) {
 			return false;
 		}
 		return true;
@@ -182,7 +182,7 @@ public class PathFigureConfig extends FigureExtensionConfig {
 	public PathFigureConfig clone() {
 		final PathFigureConfig config = new PathFigureConfig();
 		config.setName(getName());
-		config.pathOperationListElement.copyFrom(getPathOperationListElement());
+		config.pathReplacementListElement.copyFrom(getPathReplacementListElement());
 		return config;
 	}
 }

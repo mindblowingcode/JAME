@@ -5,8 +5,9 @@
 package net.sf.jame.contextfree.extensions.figure;
 
 import java.util.List;
-import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationConfigElement;
-import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationConfigElementXMLImporter;
+
+import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
+import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElementXMLImporter;
 import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.common.StringElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionException;
@@ -63,7 +64,7 @@ public class PathFigureConfigXMLImporterRuntime extends ExtensionConfigXMLImport
 		 */
 		protected void importProperties(final PathFigureConfig extensionConfig, final List<Element> propertyElements) throws ExtensionException, XMLImportException {
 			importName(extensionConfig, propertyElements.get(0));
-			importPathOperationListElement(extensionConfig, propertyElements.get(1));
+			importPathReplacementListElement(extensionConfig, propertyElements.get(1));
 		}
 	
 		private void importName(final PathFigureConfig extensionConfig, final Element element) throws XMLImportException {
@@ -72,11 +73,11 @@ public class PathFigureConfigXMLImporterRuntime extends ExtensionConfigXMLImport
 				extensionConfig.setName(new StringElementXMLImporter().importFromElement(nameElements.get(0)).getValue());
 			}
 		}
-		private void importPathOperationListElement(final PathFigureConfig extensionConfig, final Element element) throws XMLImportException {
-			final PathOperationConfigElementXMLImporter pathOperationImporter = new PathOperationConfigElementXMLImporter();
-			final List<Element> pathOperationElements = this.getElements(element, PathOperationConfigElement.CLASS_ID);
-			for (int i = 0; i < pathOperationElements.size(); i++) {
-				extensionConfig.appendPathOperationConfigElement(pathOperationImporter.importFromElement(pathOperationElements.get(i)));
+		private void importPathReplacementListElement(final PathFigureConfig extensionConfig, final Element element) throws XMLImportException {
+			final PathReplacementConfigElementXMLImporter pathReplacementImporter = new PathReplacementConfigElementXMLImporter();
+			final List<Element> pathReplacementElements = this.getElements(element, PathReplacementConfigElement.CLASS_ID);
+			for (int i = 0; i < pathReplacementElements.size(); i++) {
+				extensionConfig.appendPathReplacementConfigElement(pathReplacementImporter.importFromElement(pathReplacementElements.get(i)));
 			}
 		}
 	}

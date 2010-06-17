@@ -43,15 +43,15 @@
       <extensionConfigXMLImporter
             id="contextfree.path.operation.lineto"
             name="LineTo PathOperation"
-            runtimeClass="net.sf.jame.contextfree.extensions.pathOperation.LineToPathOperationConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathOperationConfigXMLImporterRuntime"/>
       <extensionConfigXMLExporter
             id="contextfree.path.operation.lineto"
             name="LineTo PathOperation"
-            runtimeClass="net.sf.jame.contextfree.extensions.pathOperation.LineToPathOperationConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathOperationConfigXMLExporterRuntime"/>
       <nodeBuilder
             id="contextfree.path.operation.lineto"
             name="LineTo PathOperation"
-            runtimeClass="net.sf.jame.contextfree.extensions.pathOperation.LineToPathOperationConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathOperationConfigNodeBuilderRuntime"/>
       <extensionConfigXMLImporter
             id="contextfree.shape.adjustment.hue"
             name="Hue ShapeAdjustment"
@@ -158,11 +158,11 @@
             id="contextfree.path.adjustment.hue"
             name="Hue Adjustment"
             runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.HuePathAdjustmentRuntime"/>
-      <pathOperation
-            configClass="net.sf.jame.contextfree.extensions.pathOperation.LineToPathOperationConfig"
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathOperationConfig"
             id="contextfree.path.operation.lineto"
             name="LineTo Operation"
-            runtimeClass="net.sf.jame.contextfree.extensions.pathOperation.LineToPathOperationRuntime"/>
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathOperationRuntime"/>
       <shapeAdjustment
             configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.HueShapeAdjustmentConfig"
             id="contextfree.shape.adjustment.hue"

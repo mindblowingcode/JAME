@@ -4,7 +4,7 @@
  */
 package net.sf.jame.contextfree.extensions.figure;
 
-import net.sf.jame.contextfree.cfdg.pathOperation.PathOperationConfigElementXMLExporter;
+import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElementXMLExporter;
 import net.sf.jame.core.common.StringElementXMLExporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLExportException;
@@ -50,16 +50,16 @@ public class PathFigureConfigXMLExporterRuntime extends ExtensionConfigXMLExport
 		 */
 		protected void exportProperties(final PathFigureConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws ExtensionException, XMLExportException {
 			exportName(extensionConfig, createProperty(builder, element, "name"), builder);
-			exportPathOperationListElement(extensionConfig, createProperty(builder, element, "pathOperationList"), builder);
+			exportPathReplacementListElement(extensionConfig, createProperty(builder, element, "pathReplacementList"), builder);
 		}
 	
 		private void exportName(final PathFigureConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			element.appendChild(new StringElementXMLExporter().exportToElement(extensionConfig.getNameElement(), builder));
 		}
-		private void exportPathOperationListElement(final PathFigureConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-			final PathOperationConfigElementXMLExporter pathOperationExporter = new PathOperationConfigElementXMLExporter();
-			for (int i = 0; i < extensionConfig.getPathOperationConfigElementCount(); i++) {
-				element.appendChild(pathOperationExporter.exportToElement(extensionConfig.getPathOperationConfigElement(i), builder));
+		private void exportPathReplacementListElement(final PathFigureConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+			final PathReplacementConfigElementXMLExporter pathReplacementExporter = new PathReplacementConfigElementXMLExporter();
+			for (int i = 0; i < extensionConfig.getPathReplacementConfigElementCount(); i++) {
+				element.appendChild(pathReplacementExporter.exportToElement(extensionConfig.getPathReplacementConfigElement(i), builder));
 			}
 		}
 	}

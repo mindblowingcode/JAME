@@ -18,10 +18,9 @@
       </annotation>
       <complexType>
          <sequence>
-            <element ref="primitive" minOccurs="0" maxOccurs="unbounded"/>
             <element ref="figure" minOccurs="0" maxOccurs="unbounded"/>
             <element ref="pathAdjustment" minOccurs="0" maxOccurs="unbounded"/>
-            <element ref="pathOperation" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="pathReplacement" minOccurs="0" maxOccurs="unbounded"/>
             <element ref="shapeAdjustment" minOccurs="0" maxOccurs="unbounded"/>
             <element ref="shapeReplacement" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
@@ -46,38 +45,6 @@
                </documentation>
                <appInfo>
                   <meta.attribute translatable="true"/>
-               </appInfo>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
-   <element name="primitive">
-      <complexType>
-         <attribute name="id" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="name" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appInfo>
-                  <meta.attribute translatable="true"/>
-               </appInfo>
-            </annotation>
-         </attribute>
-         <attribute name="runtimeClass" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appInfo>
-                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.shape.primitive.extension.ShapePrimitiveExtensionRuntime:"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -126,48 +93,6 @@
       </complexType>
    </element>
 
-   <element name="pathOperation">
-      <complexType>
-         <attribute name="id" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="name" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appInfo>
-                  <meta.attribute translatable="true"/>
-               </appInfo>
-            </annotation>
-         </attribute>
-         <attribute name="configClass" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appInfo>
-                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.path.operation.extension.PathOperationExtensionConfig:"/>
-               </appInfo>
-            </annotation>
-         </attribute>
-         <attribute name="runtimeClass" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appInfo>
-                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.path.operation.extension.PathOperationExtensionRuntime:"/>
-               </appInfo>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
    <element name="pathAdjustment">
       <complexType>
          <attribute name="id" type="string" use="required">
@@ -193,7 +118,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.path.adjustment.extension.PathAdjustmentExtensionConfig:"/>
+                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionConfig:"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -203,7 +128,49 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.path.adjustment.extension.PathAdjustmentExtensionRuntime:"/>
+                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime:"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="pathReplacement">
+      <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="configClass" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig:"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="runtimeClass" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime:"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -235,7 +202,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.shape.adjustment.extension.ShapeAdjustmentExtensionConfig:"/>
+                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig:"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -245,7 +212,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.shape.adjustment.extension.ShapeAdjustmentExtensionRuntime:"/>
+                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime:"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -277,7 +244,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.shape.extension.ReplacementExtensionConfig:"/>
+                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig:"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -287,7 +254,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.shape.extension.ReplacementExtensionRuntime:"/>
+                  <meta.attribute kind="java" basedOn="net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime:"/>
                </appInfo>
             </annotation>
          </attribute>

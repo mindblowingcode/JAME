@@ -10,9 +10,9 @@ import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionConfig;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRegistry;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionConfig;
-import net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionRegistry;
-import net.sf.jame.contextfree.cfdg.pathOperation.extension.PathOperationExtensionRuntime;
+import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
+import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRegistry;
+import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRegistry;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
@@ -29,7 +29,7 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 public class ContextFreeRegistry {
 	private ConfigurableExtensionRegistry<FigureExtensionRuntime<?>, FigureExtensionConfig> figureRegistry;
 	private ConfigurableExtensionRegistry<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> pathAdjustmentRegistry;
-	private ConfigurableExtensionRegistry<PathOperationExtensionRuntime<?>, PathOperationExtensionConfig> pathOperationRegistry;
+	private ConfigurableExtensionRegistry<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> pathReplacementRegistry;
 	private ConfigurableExtensionRegistry<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> shapeAdjustmentRegistry;
 	private ConfigurableExtensionRegistry<ShapeReplacementExtensionRuntime<?>, ShapeReplacementExtensionConfig> shapeReplacementRegistry;
 
@@ -40,7 +40,7 @@ public class ContextFreeRegistry {
 	private ContextFreeRegistry() {
 		setFigureRegistry(new FigureExtensionRegistry());
 		setPathAdjustmentRegistry(new PathAdjustmentExtensionRegistry());
-		setPathOperationRegistry(new PathOperationExtensionRegistry());
+		setPathReplacementRegistry(new PathReplacementExtensionRegistry());
 		setShapeAdjustmentRegistry(new ShapeAdjustmentExtensionRegistry());
 		setShapeReplacementRegistry(new ShapeReplacementExtensionRegistry());
 	}
@@ -58,8 +58,8 @@ public class ContextFreeRegistry {
 	private void setPathAdjustmentRegistry(final ConfigurableExtensionRegistry<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> pathAdjustmentRegistry) {
 		this.pathAdjustmentRegistry = pathAdjustmentRegistry;
 	}
-	private void setPathOperationRegistry(final ConfigurableExtensionRegistry<PathOperationExtensionRuntime<?>, PathOperationExtensionConfig> pathOperationRegistry) {
-		this.pathOperationRegistry = pathOperationRegistry;
+	private void setPathReplacementRegistry(final ConfigurableExtensionRegistry<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> pathReplacementRegistry) {
+		this.pathReplacementRegistry = pathReplacementRegistry;
 	}
 	private void setShapeAdjustmentRegistry(final ConfigurableExtensionRegistry<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> shapeAdjustmentRegistry) {
 		this.shapeAdjustmentRegistry = shapeAdjustmentRegistry;
@@ -89,14 +89,14 @@ public class ContextFreeRegistry {
 		return pathAdjustmentRegistry.getConfigurableExtension(extensionId);
 	}
 	/**
-	 * Returns a pathOperation extension.
+	 * Returns a pathReplacement extension.
 	 * 
 	 * @param extensionId the extensionId.
 	 * @return the extension.
 	 * @throws ExtensionNotFoundException
 	 */
-	public ConfigurableExtension<PathOperationExtensionRuntime<?>, PathOperationExtensionConfig> getPathOperationExtension(final String extensionId) throws ExtensionNotFoundException {
-		return pathOperationRegistry.getConfigurableExtension(extensionId);
+	public ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> getPathReplacementExtension(final String extensionId) throws ExtensionNotFoundException {
+		return pathReplacementRegistry.getConfigurableExtension(extensionId);
 	}
 	/**
 	 * Returns a shapeAdjustment extension.
@@ -132,10 +132,10 @@ public class ContextFreeRegistry {
 		return pathAdjustmentRegistry;
 	}
 	/**
-	 * @return the pathOperationRegistry
+	 * @return the pathReplacementRegistry
 	 */
-	public ConfigurableExtensionRegistry<PathOperationExtensionRuntime<?>, PathOperationExtensionConfig> getPathOperationRegistry() {
-		return pathOperationRegistry;
+	public ConfigurableExtensionRegistry<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> getPathReplacementRegistry() {
+		return pathReplacementRegistry;
 	}
 	/**
 	 * @return the shapeAdjustmentRegistry
