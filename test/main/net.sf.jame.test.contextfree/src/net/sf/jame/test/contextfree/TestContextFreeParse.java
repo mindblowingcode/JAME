@@ -26,7 +26,10 @@
 package net.sf.jame.test.contextfree;
 
 import net.sf.jame.contextfree.ContextFreeConfig;
+import net.sf.jame.contextfree.ContextFreeConfigNodeBuilder;
 import net.sf.jame.contextfree.parser.ContextFreeParser;
+import net.sf.jame.core.tree.RootNode;
+import net.sf.jame.core.tree.Tree;
 
 import org.junit.Test;
 
@@ -50,6 +53,11 @@ public class TestContextFreeParse {
 			ContextFreeParser parser = new ContextFreeParser();
 			ContextFreeConfig config = parser.parseConfig(text);
 			System.out.println(config);
+			RootNode rootNode = new RootNode("contextfree");
+			ContextFreeConfigNodeBuilder nodeBuilder = new ContextFreeConfigNodeBuilder(config);
+			nodeBuilder.createNodes(rootNode);
+			Tree tree = new Tree(rootNode);
+			System.out.println(tree);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
