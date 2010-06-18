@@ -47,7 +47,7 @@ public class TargetHueShapeAdjustmentConfigXMLExporterRuntime extends ExtensionC
 
 	private class HueShapeAdjustmentConfigXMLExporter extends XMLExporter<TargetHueShapeAdjustmentConfig> {
 		protected String getConfigElementClassId() {
-			return "HueShapeAdjustmentConfig";
+			return "TargetHueShapeAdjustmentConfig";
 		}
 
 		@Override

@@ -7,9 +7,7 @@ package net.sf.jame.contextfree.extensions.shapeReplacement;
 import net.sf.jame.contextfree.ContextFreeResources;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElementNode;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElementNode;
-import net.sf.jame.core.common.IntegerElementNode;
+import net.sf.jame.core.common.StringElementNode;
 import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeBuilder;
@@ -23,20 +21,20 @@ import net.sf.jame.core.util.ConfigElementListNodeValue;
 /**
  * @author Andrea Medeghini
  */
-public class MultiReplacementConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
+public class SingleShapeReplacementConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime#createNodeBuilder(net.sf.jame.core.extension.ExtensionConfig)
 	 */
 	@Override
 	public NodeBuilder createNodeBuilder(final ExtensionConfig config) {
-		return new ConfigNodeBuilder((MultiReplacementConfig) config);
+		return new ConfigNodeBuilder((SingleShapeReplacementConfig) config);
 	}
 
-	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<MultiReplacementConfig> {
+	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<SingleShapeReplacementConfig> {
 		/**
 		 * @param config
 		 */
-		public ConfigNodeBuilder(final MultiReplacementConfig config) {
+		public ConfigNodeBuilder(final SingleShapeReplacementConfig config) {
 			super(config);
 		}
 
@@ -45,65 +43,17 @@ public class MultiReplacementConfigNodeBuilderRuntime extends NodeBuilderExtensi
 		 */
 		@Override
 		public void createNodes(final Node parentNode) {
-			parentNode.appendChildNode(new TimesElementNode(getConfig()));
-			parentNode.appendChildNode(new ShapeReplacementListElementNode(getConfig()));
+			parentNode.appendChildNode(new ShapeElementNode(getConfig()));
 			parentNode.appendChildNode(new ShapeAdjustmentListElementNode(getConfig()));
 		}
 
-		private class TimesElementNode extends IntegerElementNode {
+		private class ShapeElementNode extends StringElementNode {
 			/**
 			 * @param config
 			 */
-			public TimesElementNode(final MultiReplacementConfig config) {
-				super(config.getExtensionId() + ".times", config.getTimesElement());
-				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.TimesElement"));
-			}
-		}
-		private class ShapeReplacementListElementNode extends AbstractConfigElementListNode<ShapeReplacementConfigElement> {
-			public static final String NODE_CLASS = "node.class.ShapeReplacementListElement";
-			
-			/**
-			 * @param config
-			 */
-			public ShapeReplacementListElementNode(final MultiReplacementConfig config) {
-				super(config.getExtensionId() + ".shapeReplacements", config.getShapeReplacementListElement());
-				setNodeClass(ShapeReplacementListElementNode.NODE_CLASS);
-				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.ShapeReplacementListElement"));
-			}
-
-			/**
-			 * @see net.sf.jame.core.util.AbstractConfigElementListNode#createChildNode(net.sf.jame.core.config.ConfigElement)
-			 */
-			@Override
-			protected AbstractConfigElementNode<ShapeReplacementConfigElement> createChildNode(final ShapeReplacementConfigElement value) {
-				return new ShapeReplacementConfigElementNode(value);
-			}
-	
-			/**
-			 * @see net.sf.jame.core.util.AbstractConfigElementListNode#getChildValueType()
-			 */
-			@Override
-			public Class<?> getChildValueType() {
-				return ShapeReplacementConfigElementNodeValue.class;
-			}
-	
-			/**
-			 * @see net.sf.jame.core.util.AbstractConfigElementListNode#createNodeValue(Object)
-			 */
-			@Override
-			public NodeValue<ShapeReplacementConfigElement> createNodeValue(final Object value) {
-				return new ShapeReplacementConfigElementNodeValue((ShapeReplacementConfigElement) value);
-			}
-	
-			private class ShapeReplacementConfigElementNodeValue extends ConfigElementListNodeValue<ShapeReplacementConfigElement> {
-				private static final long serialVersionUID = 1L;
-	
-				/**
-				 * @param value
-				 */
-				public ShapeReplacementConfigElementNodeValue(final ShapeReplacementConfigElement value) {
-					super(value);
-				}
+			public ShapeElementNode(final SingleShapeReplacementConfig config) {
+				super(config.getExtensionId() + ".shape", config.getShapeElement());
+				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.ShapeElement"));
 			}
 		}
 		private class ShapeAdjustmentListElementNode extends AbstractConfigElementListNode<ShapeAdjustmentConfigElement> {
@@ -112,7 +62,7 @@ public class MultiReplacementConfigNodeBuilderRuntime extends NodeBuilderExtensi
 			/**
 			 * @param config
 			 */
-			public ShapeAdjustmentListElementNode(final MultiReplacementConfig config) {
+			public ShapeAdjustmentListElementNode(final SingleShapeReplacementConfig config) {
 				super(config.getExtensionId() + ".shapeAdjustments", config.getShapeAdjustmentListElement());
 				setNodeClass(ShapeAdjustmentListElementNode.NODE_CLASS);
 				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.ShapeAdjustmentListElement"));

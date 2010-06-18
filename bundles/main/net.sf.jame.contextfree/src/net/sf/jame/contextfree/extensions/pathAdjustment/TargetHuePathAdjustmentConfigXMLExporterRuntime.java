@@ -47,7 +47,7 @@ public class TargetHuePathAdjustmentConfigXMLExporterRuntime extends ExtensionCo
 
 	private class HuePathAdjustmentConfigXMLExporter extends XMLExporter<TargetHuePathAdjustmentConfig> {
 		protected String getConfigElementClassId() {
-			return "HuePathAdjustmentConfig";
+			return "TargetHuePathAdjustmentConfig";
 		}
 
 		@Override

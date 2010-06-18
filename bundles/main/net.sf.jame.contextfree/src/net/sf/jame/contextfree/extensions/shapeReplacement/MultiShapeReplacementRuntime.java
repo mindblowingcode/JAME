@@ -22,7 +22,7 @@ import net.sf.jame.core.config.ValueConfigElement;
 /**
  * @author Andrea Medeghini
  */
-public class MultiReplacementRuntime<T extends MultiReplacementConfig> extends ShapeReplacementExtensionRuntime<T> {
+public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig> extends ShapeReplacementExtensionRuntime<T> {
 	private Integer times;
 	private TimesListener timesListener;
 	private ListRuntimeElement<ShapeReplacementRuntimeElement> shapeReplacementListElement;

@@ -20,31 +20,31 @@ import org.w3c.dom.Element;
 /**
  * @author Andrea Medeghini
  */
-public class MultiReplacementConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
+public class MultiShapeReplacementConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
 	 */
 	@Override
-	public XMLImporter<MultiReplacementConfig> createXMLImporter() {
+	public XMLImporter<MultiShapeReplacementConfig> createXMLImporter() {
 		return new MultiReplacementConfigXMLImporter();
 	}
 
-	private class MultiReplacementConfigXMLImporter extends XMLImporter<MultiReplacementConfig> {
-		protected MultiReplacementConfig createExtensionConfig() {
-			return new MultiReplacementConfig();
+	private class MultiReplacementConfigXMLImporter extends XMLImporter<MultiShapeReplacementConfig> {
+		protected MultiShapeReplacementConfig createExtensionConfig() {
+			return new MultiShapeReplacementConfig();
 		}
 
 		protected String getConfigElementClassId() {
-			return "MultiReplacementConfig";
+			return "MultiShapeReplacementConfig";
 		}
 		
 		/**
 		 * @see net.sf.jame.core.xml.XMLImporter#importFromElement(org.w3c.dom.Element)
 		 */
 		@Override
-		public MultiReplacementConfig importFromElement(final Element element) throws XMLImportException {
+		public MultiShapeReplacementConfig importFromElement(final Element element) throws XMLImportException {
 			checkClassId(element, this.getConfigElementClassId());
-			final MultiReplacementConfig extensionConfig = this.createExtensionConfig();
+			final MultiShapeReplacementConfig extensionConfig = this.createExtensionConfig();
 			final List<Element> propertyElements = getProperties(element);
 			if (propertyElements.size() == 3) {
 				try {
@@ -63,26 +63,26 @@ public class MultiReplacementConfigXMLImporterRuntime extends ExtensionConfigXML
 		 * @throws ExtensionException
 		 * @throws XMLImportException
 		 */
-		protected void importProperties(final MultiReplacementConfig extensionConfig, final List<Element> propertyElements) throws ExtensionException, XMLImportException {
+		protected void importProperties(final MultiShapeReplacementConfig extensionConfig, final List<Element> propertyElements) throws ExtensionException, XMLImportException {
 			importTimes(extensionConfig, propertyElements.get(0));
 			importShapeReplacementListElement(extensionConfig, propertyElements.get(1));
 			importShapeAdjustmentListElement(extensionConfig, propertyElements.get(2));
 		}
 	
-		private void importTimes(final MultiReplacementConfig extensionConfig, final Element element) throws XMLImportException {
+		private void importTimes(final MultiShapeReplacementConfig extensionConfig, final Element element) throws XMLImportException {
 			final List<Element> timesElements = this.getElements(element, IntegerElement.CLASS_ID);
 			if (timesElements.size() == 1) {
 				extensionConfig.setTimes(new IntegerElementXMLImporter().importFromElement(timesElements.get(0)).getValue());
 			}
 		}
-		private void importShapeReplacementListElement(final MultiReplacementConfig extensionConfig, final Element element) throws XMLImportException {
+		private void importShapeReplacementListElement(final MultiShapeReplacementConfig extensionConfig, final Element element) throws XMLImportException {
 			final ShapeReplacementConfigElementXMLImporter shapeReplacementImporter = new ShapeReplacementConfigElementXMLImporter();
 			final List<Element> shapeReplacementElements = this.getElements(element, ShapeReplacementConfigElement.CLASS_ID);
 			for (int i = 0; i < shapeReplacementElements.size(); i++) {
 				extensionConfig.appendShapeReplacementConfigElement(shapeReplacementImporter.importFromElement(shapeReplacementElements.get(i)));
 			}
 		}
-		private void importShapeAdjustmentListElement(final MultiReplacementConfig extensionConfig, final Element element) throws XMLImportException {
+		private void importShapeAdjustmentListElement(final MultiShapeReplacementConfig extensionConfig, final Element element) throws XMLImportException {
 			final ShapeAdjustmentConfigElementXMLImporter shapeAdjustmentImporter = new ShapeAdjustmentConfigElementXMLImporter();
 			final List<Element> shapeAdjustmentElements = this.getElements(element, ShapeAdjustmentConfigElement.CLASS_ID);
 			for (int i = 0; i < shapeAdjustmentElements.size(); i++) {
