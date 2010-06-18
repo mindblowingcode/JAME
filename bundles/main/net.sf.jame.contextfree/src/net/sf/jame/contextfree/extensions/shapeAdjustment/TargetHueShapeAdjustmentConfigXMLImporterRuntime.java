@@ -53,7 +53,7 @@ public class TargetHueShapeAdjustmentConfigXMLImporterRuntime extends ExtensionC
 		}
 
 		protected String getConfigElementClassId() {
-			return "HueShapeAdjustmentConfig";
+			return "TargetHueShapeAdjustmentConfig";
 		}
 		
 		/**

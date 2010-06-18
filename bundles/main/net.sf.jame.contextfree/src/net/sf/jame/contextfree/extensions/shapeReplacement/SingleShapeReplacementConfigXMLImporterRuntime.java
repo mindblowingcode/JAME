@@ -18,31 +18,31 @@ import org.w3c.dom.Element;
 /**
  * @author Andrea Medeghini
  */
-public class SingleReplacementConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
+public class SingleShapeReplacementConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
 	 */
 	@Override
-	public XMLImporter<SingleReplacementConfig> createXMLImporter() {
+	public XMLImporter<SingleShapeReplacementConfig> createXMLImporter() {
 		return new SingleReplacementConfigXMLImporter();
 	}
 
-	private class SingleReplacementConfigXMLImporter extends XMLImporter<SingleReplacementConfig> {
-		protected SingleReplacementConfig createExtensionConfig() {
-			return new SingleReplacementConfig();
+	private class SingleReplacementConfigXMLImporter extends XMLImporter<SingleShapeReplacementConfig> {
+		protected SingleShapeReplacementConfig createExtensionConfig() {
+			return new SingleShapeReplacementConfig();
 		}
 
 		protected String getConfigElementClassId() {
-			return "SingleReplacementConfig";
+			return "SingleShapeReplacementConfig";
 		}
 		
 		/**
 		 * @see net.sf.jame.core.xml.XMLImporter#importFromElement(org.w3c.dom.Element)
 		 */
 		@Override
-		public SingleReplacementConfig importFromElement(final Element element) throws XMLImportException {
+		public SingleShapeReplacementConfig importFromElement(final Element element) throws XMLImportException {
 			checkClassId(element, this.getConfigElementClassId());
-			final SingleReplacementConfig extensionConfig = this.createExtensionConfig();
+			final SingleShapeReplacementConfig extensionConfig = this.createExtensionConfig();
 			final List<Element> propertyElements = getProperties(element);
 			if (propertyElements.size() == 2) {
 				try {
@@ -61,18 +61,18 @@ public class SingleReplacementConfigXMLImporterRuntime extends ExtensionConfigXM
 		 * @throws ExtensionException
 		 * @throws XMLImportException
 		 */
-		protected void importProperties(final SingleReplacementConfig extensionConfig, final List<Element> propertyElements) throws ExtensionException, XMLImportException {
+		protected void importProperties(final SingleShapeReplacementConfig extensionConfig, final List<Element> propertyElements) throws ExtensionException, XMLImportException {
 			importShape(extensionConfig, propertyElements.get(0));
 			importShapeAdjustmentListElement(extensionConfig, propertyElements.get(1));
 		}
 	
-		private void importShape(final SingleReplacementConfig extensionConfig, final Element element) throws XMLImportException {
+		private void importShape(final SingleShapeReplacementConfig extensionConfig, final Element element) throws XMLImportException {
 			final List<Element> shapeElements = this.getElements(element, StringElement.CLASS_ID);
 			if (shapeElements.size() == 1) {
 				extensionConfig.setShape(new StringElementXMLImporter().importFromElement(shapeElements.get(0)).getValue());
 			}
 		}
-		private void importShapeAdjustmentListElement(final SingleReplacementConfig extensionConfig, final Element element) throws XMLImportException {
+		private void importShapeAdjustmentListElement(final SingleShapeReplacementConfig extensionConfig, final Element element) throws XMLImportException {
 			final ShapeAdjustmentConfigElementXMLImporter shapeAdjustmentImporter = new ShapeAdjustmentConfigElementXMLImporter();
 			final List<Element> shapeAdjustmentElements = this.getElements(element, ShapeAdjustmentConfigElement.CLASS_ID);
 			for (int i = 0; i < shapeAdjustmentElements.size(); i++) {

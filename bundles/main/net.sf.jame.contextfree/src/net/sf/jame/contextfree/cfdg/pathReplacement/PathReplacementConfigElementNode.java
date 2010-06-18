@@ -5,17 +5,13 @@
 package net.sf.jame.contextfree.cfdg.pathReplacement;
 
 import net.sf.jame.contextfree.ContextFreeResources;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementNode;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 import net.sf.jame.core.common.ConfigurableExtensionReferenceElementNode;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeEditor;
 import net.sf.jame.core.tree.NodeValue;
-import net.sf.jame.core.util.AbstractConfigElementListNode;
 import net.sf.jame.core.util.AbstractConfigElementNode;
-import net.sf.jame.core.util.ConfigElementListNodeValue;
 
 /**
  * @author Andrea Medeghini
@@ -29,7 +25,7 @@ public class PathReplacementConfigElementNode extends AbstractConfigElementNode<
 	/**
 	 * Constructs a new effect node.
 	 * 
-	 * @param pathOperation the pathOperation element.
+	 * @param pathReplacement the pathReplacement element.
 	 */
 	public PathReplacementConfigElementNode(final PathReplacementConfigElement pathReplacement) {
 		super(PathReplacementConfigElementNode.NODE_ID);
@@ -87,7 +83,7 @@ public class PathReplacementConfigElementNode extends AbstractConfigElementNode<
 	 */
 	@Override
 	protected NodeEditor createNodeEditor() {
-		return new PathOperationNodeEditor(this);
+		return new PathReplacementNodeEditor(this);
 	}
 
 	/**
@@ -96,14 +92,13 @@ public class PathReplacementConfigElementNode extends AbstractConfigElementNode<
 	protected void createChildNodes(final PathReplacementConfigElementNodeValue value) {
 		removeAllChildNodes();
 		appendChildNode(new ExtensionElementNode(PathReplacementConfigElementNode.NODE_ID + ".extension", value.getValue()));
-		appendChildNode(new PathAdjustmentListElementNode(PathReplacementConfigElementNode.NODE_ID + ".pathAdjustmentList", value.getValue()));
 	}
 
-	private static class PathOperationNodeEditor extends NodeEditor {
+	private static class PathReplacementNodeEditor extends NodeEditor {
 		/**
 		 * @param node
 		 */
-		public PathOperationNodeEditor(final Node node) {
+		public PathReplacementNodeEditor(final Node node) {
 			super(node);
 		}
 
@@ -133,7 +128,7 @@ public class PathReplacementConfigElementNode extends AbstractConfigElementNode<
 	}
 
 	private static class ExtensionElementNode extends ConfigurableExtensionReferenceElementNode<PathReplacementExtensionConfig> {
-		public static final String NODE_CLASS = "node.class.PathOperationReference";
+		public static final String NODE_CLASS = "node.class.PathReplacementReference";
 
 		/**
 		 * @param nodeId
@@ -150,53 +145,6 @@ public class PathReplacementConfigElementNode extends AbstractConfigElementNode<
 		@Override
 		protected NodeValue<?> createNodeValue(final ConfigurableExtensionReference<PathReplacementExtensionConfig> value) {
 			return new PathReplacementExtensionReferenceNodeValue(value);
-		}
-	}
-	private static class PathAdjustmentListElementNode extends AbstractConfigElementListNode<PathAdjustmentConfigElement> {
-		public static final String NODE_CLASS = "node.class.PathAdjustmentListElement";
-
-		/**
-		 * @param nodeId
-		 * @param pathReplacement
-		 */
-		public PathAdjustmentListElementNode(final String nodeId, final PathReplacementConfigElement pathReplacement) {
-			super(nodeId, pathReplacement.getPathAdjustmentListElement());
-			setNodeClass(PathAdjustmentListElementNode.NODE_CLASS);
-		}
-
-		/**
-		 * @see net.sf.jame.core.util.AbstractConfigElementListNode#createChildNode(net.sf.jame.core.config.ConfigElement)
-		 */
-		@Override
-		protected AbstractConfigElementNode<PathAdjustmentConfigElement> createChildNode(final PathAdjustmentConfigElement value) {
-			return new PathAdjustmentConfigElementNode(value);
-		}
-
-		/**
-		 * @see net.sf.jame.core.util.AbstractConfigElementListNode#getChildValueType()
-		 */
-		@Override
-		public Class<?> getChildValueType() {
-			return PathAdjustmentConfigElementNodeValue.class;
-		}
-
-		/**
-		 * @see net.sf.jame.core.util.AbstractConfigElementListNode#createNodeValue(Object)
-		 */
-		@Override
-		public NodeValue<PathAdjustmentConfigElement> createNodeValue(final Object value) {
-			return new PathAdjustmentConfigElementNodeValue((PathAdjustmentConfigElement) value);
-		}
-
-		private class PathAdjustmentConfigElementNodeValue extends ConfigElementListNodeValue<PathAdjustmentConfigElement> {
-			private static final long serialVersionUID = 1L;
-
-			/**
-			 * @param value
-			 */
-			public PathAdjustmentConfigElementNodeValue(final PathAdjustmentConfigElement value) {
-				super(value);
-			}
 		}
 	}
 }

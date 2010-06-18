@@ -8,17 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
+import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
-import net.sf.jame.core.common.StringElement;
+import net.sf.jame.core.common.IntegerElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
 
 /**
  * @author Andrea Medeghini
  */
-public class SingleReplacementConfig extends ShapeReplacementExtensionConfig {
+public class MultiShapeReplacementConfig extends ShapeReplacementExtensionConfig {
 	private static final long serialVersionUID = 1L;
-	private StringElement shapeElement;
+	private IntegerElement timesElement;
+	private ListConfigElement<ShapeReplacementConfigElement> shapeReplacementListElement;
 	private ListConfigElement<ShapeAdjustmentConfigElement> shapeAdjustmentListElement;
 
 	/**
@@ -26,7 +28,8 @@ public class SingleReplacementConfig extends ShapeReplacementExtensionConfig {
 	 */
 	@Override
 	protected void createConfigElements() {
-		shapeElement = new StringElement("");
+		timesElement = new IntegerElement(1);
+		shapeReplacementListElement = new ListConfigElement<ShapeReplacementConfigElement>("shapeReplacement");
 		shapeAdjustmentListElement = new ListConfigElement<ShapeAdjustmentConfigElement>("shapeAdjustment");
 	}
 
@@ -36,7 +39,8 @@ public class SingleReplacementConfig extends ShapeReplacementExtensionConfig {
 	@Override
 	public List<ConfigElement> getConfigElements() {
 		final List<ConfigElement> elements = new ArrayList<ConfigElement>(1);
-		elements.add(shapeElement);
+		elements.add(timesElement);
+		elements.add(shapeReplacementListElement);
 		elements.add(shapeAdjustmentListElement);
 		return elements;
 	}
@@ -44,22 +48,104 @@ public class SingleReplacementConfig extends ShapeReplacementExtensionConfig {
 	/**
 	 * @return
 	 */
-	public StringElement getShapeElement() {
-		return shapeElement;
+	public IntegerElement getTimesElement() {
+		return timesElement;
 	}
 	
 	/**
 	 * @return
 	 */
-	public String getShape() {
-		return shapeElement.getValue();
+	public Integer getTimes() {
+		return timesElement.getValue();
 	}
 
 	/**
 	 * @param value
 	 */
-	public void setShape(final String value) {
-		shapeElement.setValue(value);
+	public void setTimes(final Integer value) {
+		timesElement.setValue(value);
+	}
+	/**
+	 * @return
+	 */
+	public ListConfigElement<ShapeReplacementConfigElement> getShapeReplacementListElement() {
+		return shapeReplacementListElement;
+	}
+
+	/**
+	 * Returns a shapeReplacement element.
+	 * 
+	 * @param index the shapeReplacement index.
+	 * @return the shapeReplacement.
+	 */
+	public ShapeReplacementConfigElement getShapeReplacementConfigElement(final int index) {
+		return shapeReplacementListElement.getElement(index);
+	}
+
+	/**
+	 * Returns a shapeReplacement element index.
+	 * 
+	 * @param shapeReplacementElement the shapeReplacement element.
+	 * @return the index.
+	 */
+	public int indexOfShapeReplacementConfigElement(final ShapeReplacementConfigElement shapeReplacementElement) {
+		return shapeReplacementListElement.indexOfElement(shapeReplacementElement);
+	}
+
+	/**
+	 * Returns the number of shapeReplacement elements.
+	 * 
+	 * @return the number of shapeReplacement elements.
+	 */
+	public int getShapeReplacementConfigElementCount() {
+		return shapeReplacementListElement.getElementCount();
+	}
+
+	/**
+	 * Adds a shapeReplacement element.
+	 * 
+	 * @param shapeReplacementElement the shapeReplacement to add.
+	 */
+	public void appendShapeReplacementConfigElement(final ShapeReplacementConfigElement shapeReplacementElement) {
+		shapeReplacementListElement.appendElement(shapeReplacementElement);
+	}
+
+	/**
+	 * Adds a shapeReplacement element.
+	 * 
+	 * @param index the index.
+	 * @param shapeReplacementElement the shapeReplacement to add.
+	 */
+	public void insertShapeReplacementConfigElementAfter(final int index, final ShapeReplacementConfigElement shapeReplacementElement) {
+		shapeReplacementListElement.insertElementAfter(index, shapeReplacementElement);
+	}
+
+	/**
+	 * Adds a shapeReplacement element.
+	 * 
+	 * @param index the index.
+	 * @param shapeReplacementElement the shapeReplacement to add.
+	 */
+	public void insertShapeReplacementConfigElementBefore(final int index, final ShapeReplacementConfigElement shapeReplacementElement) {
+		shapeReplacementListElement.insertElementBefore(index, shapeReplacementElement);
+	}
+
+	/**
+	 * Removes a shapeReplacement element.
+	 * 
+	 * @param index the element index to remove.
+	 */
+	public void removeShapeReplacementConfigElement(final int index) {
+		shapeReplacementListElement.removeElement(index);
+	}
+
+	/**
+	 * Removes a shapeReplacement element.
+	 * 
+	 * @param shapeReplacementElement the shapeReplacement to remove.
+	 */
+	public void removeShapeReplacementConfigElement(final ShapeReplacementConfigElement shapeReplacementElement) {
+		shapeReplacementListElement.removeElement(shapeReplacementElement);
 	}
 	/**
 	 * @return
@@ -155,13 +241,21 @@ public class SingleReplacementConfig extends ShapeReplacementExtensionConfig {
 		if (obj == null) {
 			return false;
 		}
-		final SingleReplacementConfig other = (SingleReplacementConfig) obj;
-		if (shapeElement == null) {
-			if (other.shapeElement != null) {
+		final MultiShapeReplacementConfig other = (MultiShapeReplacementConfig) obj;
+		if (timesElement == null) {
+			if (other.timesElement != null) {
 				return false;
 			}
 		}
-		else if (!shapeElement.equals(other.shapeElement)) {
+		else if (!timesElement.equals(other.timesElement)) {
+			return false;
+		}
+		if (shapeReplacementListElement == null) {
+			if (other.shapeReplacementListElement != null) {
+				return false;
+			}
+		}
+		else if (!shapeReplacementListElement.equals(other.shapeReplacementListElement)) {
 			return false;
 		}
 		if (shapeAdjustmentListElement == null) {
@@ -179,9 +273,10 @@ public class SingleReplacementConfig extends ShapeReplacementExtensionConfig {
 	 * @return
 	 */
 	@Override
-	public SingleReplacementConfig clone() {
-		final SingleReplacementConfig config = new SingleReplacementConfig();
-		config.setShape(getShape());
+	public MultiShapeReplacementConfig clone() {
+		final MultiShapeReplacementConfig config = new MultiShapeReplacementConfig();
+		config.setTimes(getTimes());
+		config.shapeReplacementListElement.copyFrom(getShapeReplacementListElement());
 		config.shapeAdjustmentListElement.copyFrom(getShapeAdjustmentListElement());
 		return config;
 	}

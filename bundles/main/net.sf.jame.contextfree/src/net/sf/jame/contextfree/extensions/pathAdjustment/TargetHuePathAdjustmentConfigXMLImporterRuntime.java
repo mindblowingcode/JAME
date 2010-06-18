@@ -53,7 +53,7 @@ public class TargetHuePathAdjustmentConfigXMLImporterRuntime extends ExtensionCo
 		}
 
 		protected String getConfigElementClassId() {
-			return "HuePathAdjustmentConfig";
+			return "TargetHuePathAdjustmentConfig";
 		}
 		
 		/**

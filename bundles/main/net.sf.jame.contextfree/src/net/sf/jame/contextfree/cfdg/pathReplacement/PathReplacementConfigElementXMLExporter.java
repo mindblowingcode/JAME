@@ -4,16 +4,17 @@
  */
 package net.sf.jame.contextfree.cfdg.pathReplacement;
 
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementXMLExporter;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 import net.sf.jame.core.common.ConfigurableExtensionReferenceElementXMLExporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLNodeBuilder;
-
 import org.w3c.dom.Element;
 
+/**
+ * @author Andrea Medeghini
+ */
 public class PathReplacementConfigElementXMLExporter extends XMLExporter<PathReplacementConfigElement> {
 	/**
 	 * @see net.sf.jame.core.xml.XMLExporter#exportToElement(java.lang.Object, net.sf.jame.core.xml.XMLNodeBuilder)
@@ -35,16 +36,9 @@ public class PathReplacementConfigElementXMLExporter extends XMLExporter<PathRep
 	 */
 	protected void exportProperties(final PathReplacementConfigElement configElement, final Element element, final XMLNodeBuilder builder) throws ExtensionException, XMLExportException {
 		exportExtension(configElement, createProperty(builder, element, "extension"), builder);
-		exportPathAdjustmentListElement(configElement, createProperty(builder, element, "pathAdjustmentList"), builder);
 	}
 
 	private void exportExtension(final PathReplacementConfigElement configElement, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 		element.appendChild(new ConfigurableExtensionReferenceElementXMLExporter<PathReplacementExtensionConfig>().exportToElement(configElement.getExtensionElement(), builder));
-	}
-	private void exportPathAdjustmentListElement(final PathReplacementConfigElement configElement, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-		final PathAdjustmentConfigElementXMLExporter pathAdjustmentExporter = new PathAdjustmentConfigElementXMLExporter();
-		for (int i = 0; i < configElement.getPathAdjustmentConfigElementCount(); i++) {
-			element.appendChild(pathAdjustmentExporter.exportToElement(configElement.getPathAdjustmentConfigElement(i), builder));
-		}
 	}
 }

@@ -33,7 +33,7 @@ import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigEleme
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 import net.sf.jame.contextfree.extensions.figure.RuleFigureConfig;
 import net.sf.jame.contextfree.extensions.image.ContextFreeImageConfig;
-import net.sf.jame.contextfree.extensions.shapeReplacement.SingleReplacementConfig;
+import net.sf.jame.contextfree.extensions.shapeReplacement.SingleShapeReplacementConfig;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
@@ -86,8 +86,8 @@ public class ContextFreeConfigBuilder {
 		((RuleFigureConfig) ruleReference.getExtensionConfig()).setName("square");
 		((RuleFigureConfig) ruleReference.getExtensionConfig()).appendShapeReplacementConfigElement(replacementElement);
 		ShapeAdjustmentConfigElement shapeAdjustmentElement = new ShapeAdjustmentConfigElement();
-		((SingleReplacementConfig) replacementReference.getExtensionConfig()).setShape("square");
-		((SingleReplacementConfig) replacementReference.getExtensionConfig()).appendShapeAdjustmentConfigElement(shapeAdjustmentElement);
+		((SingleShapeReplacementConfig) replacementReference.getExtensionConfig()).setShape("square");
+		((SingleShapeReplacementConfig) replacementReference.getExtensionConfig()).appendShapeAdjustmentConfigElement(shapeAdjustmentElement);
 		shapeAdjustmentElement.setExtensionReference(ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.targetHue").createConfigurableExtensionReference());
 		return config;
 	}

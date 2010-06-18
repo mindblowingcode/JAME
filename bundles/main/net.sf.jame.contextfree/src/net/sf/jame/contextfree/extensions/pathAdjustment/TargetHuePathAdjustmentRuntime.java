@@ -34,10 +34,20 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
  */
 public class TargetHuePathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<TargetHuePathAdjustmentConfig> {
 	/**
-	 * @see net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime#createState(net.sf.jame.contextfree.renderer.ContextFreeState, int)
+	 * @see net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime#configureState(net.sf.jame.contextfree.renderer.ContextFreeState, int)
 	 */
 	@Override
-	public void configureState(ContextFreeState state) {
+	public void configureState(ContextFreeState state, int times) {
 		state.setCurrentHue(getConfig().getValue().floatValue());
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime#updateState(net.sf.jame.contextfree.renderer.ContextFreeState, int)
+	 */
+	@Override
+	public void updateState(ContextFreeState state, int time) {
+		// TODO Auto-generated method stub
+		
 	}
 }

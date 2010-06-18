@@ -29,27 +29,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
-import net.sf.jame.core.common.DoubleElement;
+import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.config.ConfigElement;
 
 /**
  * @author Andrea Medeghini
  *
  */
-public class LineToOperationReplacementConfig extends PathReplacementExtensionConfig {
+public class LineToPathReplacementConfig extends PathReplacementExtensionConfig {
 	private static final long serialVersionUID = 1L;
-	private static final Double DEFAULT_X = 0.0;
-	private static final Double DEFAULT_Y = 0.0;
-	private DoubleElement xElement;
-	private DoubleElement yElement;
+	private FloatElement xElement;
+	private FloatElement yElement;
 
 	/**
 	 * 
 	 */
 	@Override
 	protected void createConfigElements() {
-		xElement = new DoubleElement(DEFAULT_X);
-		yElement = new DoubleElement(DEFAULT_Y);
+		xElement = new FloatElement(0f);
+		yElement = new FloatElement(0f);
 	}
 
 	/**
@@ -57,77 +55,51 @@ public class LineToOperationReplacementConfig extends PathReplacementExtensionCo
 	 */
 	@Override
 	public List<ConfigElement> getConfigElements() {
-		final List<ConfigElement> elements = new ArrayList<ConfigElement>(2);
+		final List<ConfigElement> elements = new ArrayList<ConfigElement>(1);
 		elements.add(xElement);
 		elements.add(yElement);
 		return elements;
 	}
 
 	/**
-	 * @param x
+	 * @return
 	 */
-	public void setX(final Double x) {
-		xElement.setValue(x);
+	public FloatElement getXElement() {
+		return xElement;
 	}
-
+	
 	/**
-	 * @return the x.
+	 * @return
 	 */
-	public Double getX() {
+	public Float getX() {
 		return xElement.getValue();
 	}
 
 	/**
-	 * @return the default x.
+	 * @param value
 	 */
-	public Double getDefaultX() {
-		return xElement.getDefaultValue();
+	public void setX(final Float value) {
+		xElement.setValue(value);
 	}
-
 	/**
-	 * @param y
+	 * @return
 	 */
-	public void setY(final Double y) {
-		yElement.setValue(y);
+	public FloatElement getYElement() {
+		return yElement;
 	}
-
+	
 	/**
-	 * @return the y.
+	 * @return
 	 */
-	public Double getY() {
+	public Float getY() {
 		return yElement.getValue();
 	}
 
 	/**
-	 * @return the default y.
+	 * @param value
 	 */
-	public Double getDefaultY() {
-		return yElement.getDefaultValue();
-	}
-
-	/**
-	 * @return
-	 */
-	protected DoubleElement getXElement() {
-		return xElement;
-	}
-
-	/**
-	 * @return
-	 */
-	protected DoubleElement getYElement() {
-		return yElement;
-	}
-
-	/**
-	 * @return
-	 */
-	@Override
-	public LineToOperationReplacementConfig clone() {
-		final LineToOperationReplacementConfig config = new LineToOperationReplacementConfig();
-		config.setX(getX());
-		config.setY(getY());
-		return config;
+	public void setY(final Float value) {
+		yElement.setValue(value);
 	}
 
 	/**
@@ -141,13 +113,34 @@ public class LineToOperationReplacementConfig extends PathReplacementExtensionCo
 		if (obj == null) {
 			return false;
 		}
-		final LineToOperationReplacementConfig other = (LineToOperationReplacementConfig) obj;
-		if (!xElement.equals(other.xElement)) {
+		final LineToPathReplacementConfig other = (LineToPathReplacementConfig) obj;
+		if (xElement == null) {
+			if (other.xElement != null) {
+				return false;
+			}
+		}
+		else if (!xElement.equals(other.xElement)) {
 			return false;
 		}
-		if (!yElement.equals(other.yElement)) {
+		if (yElement == null) {
+			if (other.yElement != null) {
+				return false;
+			}
+		}
+		else if (!yElement.equals(other.yElement)) {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * @return
+	 */
+	@Override
+	public LineToPathReplacementConfig clone() {
+		final LineToPathReplacementConfig config = new LineToPathReplacementConfig();
+		config.setX(getX());
+		config.setY(getY());
+		return config;
 	}
 }

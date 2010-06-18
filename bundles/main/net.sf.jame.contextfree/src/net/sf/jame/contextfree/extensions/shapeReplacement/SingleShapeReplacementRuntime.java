@@ -20,7 +20,7 @@ import net.sf.jame.core.config.ValueConfigElement;
 /**
  * @author Andrea Medeghini
  */
-public class SingleReplacementRuntime<T extends SingleReplacementConfig> extends ShapeReplacementExtensionRuntime<T> {
+public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfig> extends ShapeReplacementExtensionRuntime<T> {
 	private String shape;
 	private ShapeListener shapeListener;
 	private ListRuntimeElement<ShapeAdjustmentRuntimeElement> shapeAdjustmentListElement;
