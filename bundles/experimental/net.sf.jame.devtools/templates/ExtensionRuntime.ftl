@@ -7,6 +7,7 @@ package ${extension.extensionRuntimePackageName};
 <#list imports as import>
 import ${import};
 </#list>
+<#if parentRuntimePackage?exists><#if parentRuntimeClass?exists>import ${parentRuntimePackage}.${parentRuntimeClass};</#if></#if>
 
 <#if extension.extension>
 /**
@@ -18,7 +19,7 @@ public abstract class ${extension.extensionRuntimeClassName} extends ExtensionRu
 /**
  * @author ${author}
  */
-<#if generateAbstractClass?exists>public abstract<#else>public</#if> class ${extension.extensionRuntimeClassName}<T extends ${extension.extensionConfigClassName}> extends ConfigurableExtensionRuntime<T> {
+<#if generateAbstractClass?exists>public abstract<#else>public</#if> class <#if parentRuntimeClass?exists>${extension.extensionRuntimeClassName} extends ${parentRuntimeClass}<${extension.extensionConfigClassName}><#else><#if generateAbstractClass?exists>${extension.extensionRuntimeClassName}<T extends ${extension.extensionConfigClassName}><#else>${extension.extensionRuntimeClassName}</#if> extends ConfigurableExtensionRuntime<<#if generateAbstractClass?exists>T<#else>${extension.extensionConfigClassName}</#if>></#if> {
 	<#list subelements as subelement>
 	<#if subelement.extensionElement>
 	private ${subelement.extensionRuntimeClassName} ${subelement.elementName?uncap_first}Runtime;

@@ -57,6 +57,7 @@ public class ExtensionRuntimeProcessorRuntime extends ProcessorExtensionRuntime 
 			Set<String> imports = new HashSet<String>();
 			prepare(imports, element);
 			prepare(imports, elements);
+			removeUnused(imports, variables);
 			List<String> sortedImports = new LinkedList<String>(imports);
 			Collections.sort(sortedImports);
 			map.putAll(variables);
@@ -74,6 +75,12 @@ public class ExtensionRuntimeProcessorRuntime extends ProcessorExtensionRuntime 
 		}
 		catch (Exception e) {
 			throw new DevToolsException(e);
+		}
+	}
+
+	private void removeUnused(Set<String> imports, Map<String, String> variables) {
+		if (variables.containsKey("parentRuntimePackage") && variables.containsKey("parentRuntimeClass")) {
+			imports.remove("net.sf.jame.core.extension.ConfigurableExtensionRuntime");
 		}
 	}
 

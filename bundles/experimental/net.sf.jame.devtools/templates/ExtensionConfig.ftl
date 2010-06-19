@@ -7,12 +7,13 @@ package ${extension.extensionConfigPackageName};
 <#list imports as import>
 import ${import};
 </#list>
+<#if parentConfigPackage?exists><#if parentConfigClass?exists>import ${parentConfigPackage}.${parentConfigClass};</#if></#if>
 
 <#if extension.configurableExtension>
 /**
  * @author ${author}
  */
-<#if generateAbstractClass?exists>public abstract<#else>public</#if> class ${extension.extensionConfigClassName} extends ExtensionConfig {
+<#if generateAbstractClass?exists>public abstract<#else>public</#if> class <#if parentConfigClass?exists>${extension.extensionConfigClassName} extends ${parentConfigClass}<#else>${extension.extensionConfigClassName} extends ExtensionConfig</#if> {
 	private static final long serialVersionUID = 1L;
 	<#list subelements as subelement>
 	<#if subelement.configurableExtensionElement>
