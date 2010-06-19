@@ -154,13 +154,13 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-		return new OperationContextFreeNode(context, state, limits);
+		return new CommandContextFreeNode(context, state, limits);
 	}
 	
-	private class OperationContextFreeNode extends ContextFreeNode {
+	private class CommandContextFreeNode extends ContextFreeNode {
 		private ContextFreeState state;
 		
-		public OperationContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		public CommandContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
 			this.state = state;
 		}
 

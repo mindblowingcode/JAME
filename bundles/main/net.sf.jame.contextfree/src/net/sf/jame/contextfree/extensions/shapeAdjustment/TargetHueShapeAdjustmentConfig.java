@@ -1,52 +1,29 @@
 /*
- * JAME 6.1 
- * http://jame.sourceforge.net
- *
- * Copyright 2001, 2010 Andrea Medeghini
- * http://andreamedeghini.users.sourceforge.net
- *
- * This file is part of JAME.
- *
- * JAME is an application for creating fractals and other graphics artifacts.
- *
- * JAME is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * JAME is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
+ * $Id:$
  *
  */
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
+import java.lang.Float;
 import java.util.ArrayList;
 import java.util.List;
-
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
-import net.sf.jame.core.common.DoubleElement;
+import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.config.ConfigElement;
+import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
 
 /**
  * @author Andrea Medeghini
- *
  */
 public class TargetHueShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 	private static final long serialVersionUID = 1L;
-	private static final Double DEFAULT_VALUE = 0.0;
-	private DoubleElement valueElement;
+	private FloatElement valueElement;
 
 	/**
 	 * 
 	 */
 	@Override
 	protected void createConfigElements() {
-		valueElement = new DoubleElement(DEFAULT_VALUE);
+		valueElement = new FloatElement(0f);
 	}
 
 	/**
@@ -60,41 +37,24 @@ public class TargetHueShapeAdjustmentConfig extends ShapeAdjustmentExtensionConf
 	}
 
 	/**
-	 * @param value
+	 * @return
 	 */
-	public void setValue(final Double value) {
-		valueElement.setValue(value);
+	public FloatElement getValueElement() {
+		return valueElement;
 	}
-
+	
 	/**
-	 * @return the value.
+	 * @return
 	 */
-	public Double getValue() {
+	public Float getValue() {
 		return valueElement.getValue();
 	}
 
 	/**
-	 * @return the default value.
+	 * @param value
 	 */
-	public Double getDefaultValue() {
-		return valueElement.getDefaultValue();
-	}
-
-	/**
-	 * @return
-	 */
-	protected DoubleElement getValueElement() {
-		return valueElement;
-	}
-
-	/**
-	 * @return
-	 */
-	@Override
-	public TargetHueShapeAdjustmentConfig clone() {
-		final TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig();
-		config.setValue(getValue());
-		return config;
+	public void setValue(final Float value) {
+		valueElement.setValue(value);
 	}
 
 	/**
@@ -109,9 +69,24 @@ public class TargetHueShapeAdjustmentConfig extends ShapeAdjustmentExtensionConf
 			return false;
 		}
 		final TargetHueShapeAdjustmentConfig other = (TargetHueShapeAdjustmentConfig) obj;
-		if (!valueElement.equals(other.valueElement)) {
+		if (valueElement == null) {
+			if (other.valueElement != null) {
+				return false;
+			}
+		}
+		else if (!valueElement.equals(other.valueElement)) {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * @return
+	 */
+	@Override
+	public TargetHueShapeAdjustmentConfig clone() {
+		final TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig();
+		config.setValue(getValue());
+		return config;
 	}
 }
