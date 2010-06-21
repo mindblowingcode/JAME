@@ -41,6 +41,7 @@ public class RootNode extends Node {
 	 */
 	public RootNode(final String nodeId) {
 		super(nodeId);
+		setNodeClass("ROOT");
 	}
 
 	/**
