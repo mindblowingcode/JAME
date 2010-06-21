@@ -64,6 +64,9 @@ public abstract class ConfigurableExtensionReferenceElementNode<T extends Extens
 		elementListener = new ConfigElementListener();
 		setNodeValue(createNodeValue(referenceElement.getReference()));
 		setNodeLabel(createNodeLabel());
+		if (referenceElement.getReference() != null) {
+			setExtensionId(referenceElement.getReference().getExtensionId());
+		}
 	}
 
 	/**
@@ -188,6 +191,9 @@ public abstract class ConfigurableExtensionReferenceElementNode<T extends Extens
 	@Override
 	protected void updateNode() {
 		setNodeLabel(createNodeLabel());
+		if (referenceElement.getReference() != null) {
+			setExtensionId(referenceElement.getReference().getExtensionId());
+		}
 		super.updateNode();
 	}
 

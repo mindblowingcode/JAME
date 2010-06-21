@@ -49,6 +49,7 @@ public abstract class Node {
 	private final String nodeId;
 	private String nodeLabel;
 	private String nodeClass;
+	private String extensionId;
 	private NodeValue<?> value;
 	private NodeValue<?> previousValue;
 	private ConfigContext context;
@@ -540,10 +541,15 @@ public abstract class Node {
 		if (hasPendingCommands()) {
 			builder.append("*");
 		}
-		builder.append(nodeClass);
-		builder.append(" (");
 		builder.append(nodeId);
+		builder.append(" (");
+		builder.append(nodeClass != null ? nodeClass : "<no class>");
 		builder.append(")");
+		if (extensionId != null) {
+			builder.append(" [");
+			builder.append(extensionId);
+			builder.append("]");
+		}
 		if (isAttribute() && (getNodeEditor() != null)) {
 			builder.append(" value = [");
 			builder.append(getNodeEditor().getNodeValueAsString());
@@ -879,5 +885,13 @@ public abstract class Node {
 			return parentNode.getRootNode();
 		}
 		return null;
+	}
+
+	public String getExtensionId() {
+		return extensionId;
+	}
+
+	public void setExtensionId(String extensionId) {
+		this.extensionId = extensionId;
 	}
 }
