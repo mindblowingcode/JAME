@@ -33,16 +33,16 @@ import net.sf.jame.contextfree.cfdg.node.ABrightnessBackgroundAdjustment;
 import net.sf.jame.contextfree.cfdg.node.ABrightnessCurrentColorAdjustment;
 import net.sf.jame.contextfree.cfdg.node.ABrightnessTargetColorAdjustment;
 import net.sf.jame.contextfree.cfdg.node.ACfdg;
-import net.sf.jame.contextfree.cfdg.node.AColorPathAdjustment;
+import net.sf.jame.contextfree.cfdg.node.AColorCommandParameter;
 import net.sf.jame.contextfree.cfdg.node.AColorShapeAdjustment;
 import net.sf.jame.contextfree.cfdg.node.ACommandPathReplacement;
-import net.sf.jame.contextfree.cfdg.node.AComposedExpression2;
+import net.sf.jame.contextfree.cfdg.node.AComposedExtendedExpression;
 import net.sf.jame.contextfree.cfdg.node.ACurrentColorAdjustment;
 import net.sf.jame.contextfree.cfdg.node.AFirstExpression;
 import net.sf.jame.contextfree.cfdg.node.AFlipGeometryAdjustment;
 import net.sf.jame.contextfree.cfdg.node.AFunctionExpression;
-import net.sf.jame.contextfree.cfdg.node.AFunctionExpression2;
-import net.sf.jame.contextfree.cfdg.node.AGeometryPathAdjustment;
+import net.sf.jame.contextfree.cfdg.node.AFunctionExtendedExpression;
+import net.sf.jame.contextfree.cfdg.node.AGeometryCommandParameter;
 import net.sf.jame.contextfree.cfdg.node.AGeometryShapeAdjustment;
 import net.sf.jame.contextfree.cfdg.node.AHueBackgroundAdjustment;
 import net.sf.jame.contextfree.cfdg.node.AHueCurrentColorAdjustment;
@@ -54,13 +54,14 @@ import net.sf.jame.contextfree.cfdg.node.AMinusOperator;
 import net.sf.jame.contextfree.cfdg.node.AMultiPathReplacementDeclaration;
 import net.sf.jame.contextfree.cfdg.node.AMultiShapeReplacementDeclaration;
 import net.sf.jame.contextfree.cfdg.node.ANestedExpression;
-import net.sf.jame.contextfree.cfdg.node.ANestedExpression2;
+import net.sf.jame.contextfree.cfdg.node.ANestedExtendedExpression;
 import net.sf.jame.contextfree.cfdg.node.ANumberExpression;
-import net.sf.jame.contextfree.cfdg.node.ANumberExpression2;
+import net.sf.jame.contextfree.cfdg.node.ANumberExtendedExpression;
 import net.sf.jame.contextfree.cfdg.node.AOperationPathReplacement;
 import net.sf.jame.contextfree.cfdg.node.AOrderedPathCommand;
 import net.sf.jame.contextfree.cfdg.node.AOrderedShapeReplacement;
-import net.sf.jame.contextfree.cfdg.node.AParametersPathAdjustment;
+import net.sf.jame.contextfree.cfdg.node.AParametersCommandParameter;
+import net.sf.jame.contextfree.cfdg.node.AParametersOperationParameter;
 import net.sf.jame.contextfree.cfdg.node.APathDeclaration;
 import net.sf.jame.contextfree.cfdg.node.APathOperation;
 import net.sf.jame.contextfree.cfdg.node.APlusOperator;
@@ -81,7 +82,7 @@ import net.sf.jame.contextfree.cfdg.node.ASkewGeometryAdjustment;
 import net.sf.jame.contextfree.cfdg.node.ASlashOperator;
 import net.sf.jame.contextfree.cfdg.node.AStarOperator;
 import net.sf.jame.contextfree.cfdg.node.AStartshapeDeclaration;
-import net.sf.jame.contextfree.cfdg.node.AStrokePathAdjustment;
+import net.sf.jame.contextfree.cfdg.node.AStrokeCommandParameter;
 import net.sf.jame.contextfree.cfdg.node.ATargetColorAdjustment;
 import net.sf.jame.contextfree.cfdg.node.ATileAdjustment;
 import net.sf.jame.contextfree.cfdg.node.ATileDeclaration;
@@ -92,14 +93,14 @@ import net.sf.jame.contextfree.cfdg.node.AYSizeAdjustment;
 import net.sf.jame.contextfree.cfdg.node.AZShapeAdjustment;
 import net.sf.jame.contextfree.cfdg.node.PBackgroundAdjustment;
 import net.sf.jame.contextfree.cfdg.node.PColorAdjustment;
+import net.sf.jame.contextfree.cfdg.node.PCommandParameter;
 import net.sf.jame.contextfree.cfdg.node.PCurrentColorAdjustment;
 import net.sf.jame.contextfree.cfdg.node.PExpression;
-import net.sf.jame.contextfree.cfdg.node.PExpression2;
+import net.sf.jame.contextfree.cfdg.node.PExtendedExpression;
 import net.sf.jame.contextfree.cfdg.node.PFirstExpression;
 import net.sf.jame.contextfree.cfdg.node.PFunction;
 import net.sf.jame.contextfree.cfdg.node.PGeometryAdjustment;
 import net.sf.jame.contextfree.cfdg.node.POperator;
-import net.sf.jame.contextfree.cfdg.node.PPathAdjustment;
 import net.sf.jame.contextfree.cfdg.node.PPathCommand;
 import net.sf.jame.contextfree.cfdg.node.PPathOperation;
 import net.sf.jame.contextfree.cfdg.node.PPathReplacement;
@@ -129,11 +130,46 @@ import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementE
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
 import net.sf.jame.contextfree.extensions.figure.PathFigureConfig;
 import net.sf.jame.contextfree.extensions.figure.RuleFigureConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.CurrentAlphaPathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.CurrentBrightnessPathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.CurrentHuePathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.CurrentSaturationPathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.FlipPathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.RotatePathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.Size2PathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.SizePathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.SkewPathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.TargetAlphaPathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.TargetBrightnessPathAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.pathAdjustment.TargetHuePathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.TargetSaturationPathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.XPathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathAdjustment.YPathAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.ArcRelPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.ArcToPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.ClosePolyPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.CurveRelPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.CurveToPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.FillPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.LineRelPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.LineToPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.MoveRelPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.MoveToPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.MultiPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentHueShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentSaturationShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.FlipShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.RotateShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.Size2ShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.Size3ShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.SizeShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.SkewShapeAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.XShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.YShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.ZShapeAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.shapeReplacement.MultiShapeReplacementConfig;
 import net.sf.jame.contextfree.extensions.shapeReplacement.SingleShapeReplacementConfig;
 import net.sf.jame.core.extension.ConfigurableExtension;
@@ -296,12 +332,12 @@ public class ContextFreeParser {
 				if (adjustment instanceof ATileAdjustment) {
 					PFirstExpression firstExpression = ((ATileAdjustment) adjustment).getFirstExpression();
 					if (firstExpression != null && firstExpression instanceof AFirstExpression) {
-						float value = evaluateExpression(((AFirstExpression) firstExpression).getExpression2());
+						float value = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
 						logger.info("size x = " + value);//TODO set tile size x
 					}
 					PSecondExpression secondExpression = ((ATileAdjustment) adjustment).getSecondExpression();
 					if (secondExpression != null && secondExpression instanceof ASecondExpression) {
-						float value = evaluateExpression(((ASecondExpression) secondExpression).getExpression2());
+						float value = evaluateExpression(((ASecondExpression) secondExpression).getExtendedExpression());
 						logger.info("size y = " + value);//TODO set tile size y
 					}
 				}
@@ -319,12 +355,12 @@ public class ContextFreeParser {
 				if (adjustment instanceof ASizeSizeAdjustment) {
 					PFirstExpression firstExpression = ((ASizeSizeAdjustment) adjustment).getFirstExpression();
 					if (firstExpression instanceof AFirstExpression) {
-						float value = evaluateExpression(((AFirstExpression) firstExpression).getExpression2());
+						float value = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
 						logger.info("size x = " + value);//TODO set size x
 					}
 					PSecondExpression secondExpression = ((ASizeSizeAdjustment) adjustment).getSecondExpression();
 					if (secondExpression instanceof ASecondExpression) {
-						float value = evaluateExpression(((ASecondExpression) secondExpression).getExpression2());
+						float value = evaluateExpression(((ASecondExpression) secondExpression).getExtendedExpression());
 						logger.info("size y = " + value);//TODO set size y
 					}
 				} else if (adjustment instanceof AXSizeAdjustment) {
@@ -431,36 +467,45 @@ public class ContextFreeParser {
 		 * 
 		 */
 		@Override
-		public void inAColorPathAdjustment(AColorPathAdjustment node) {
-			super.inAColorPathAdjustment(node);
-			logger.info("ColorPathAdjustment " + node);
+		public void inAColorCommandParameter(AColorCommandParameter node) {
+			super.inAColorCommandParameter(node);
+			logger.info("ColorCommandParameter " + node);
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inAGeometryPathAdjustment(AGeometryPathAdjustment node) {
-			super.inAGeometryPathAdjustment(node);
-			logger.info("GeometryPathAdjustment " + node);
+		public void inAGeometryCommandParameter(AGeometryCommandParameter node) {
+			super.inAGeometryCommandParameter(node);
+			logger.info("GeometryCommandParameter " + node);
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inAStrokePathAdjustment(AStrokePathAdjustment node) {
-			super.inAStrokePathAdjustment(node);
-			logger.info("StrokePathAdjustment " + node);
+		public void inAStrokeCommandParameter(AStrokeCommandParameter node) {
+			super.inAStrokeCommandParameter(node);
+			logger.info("StrokeCommandParameter " + node);
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inAParametersPathAdjustment(AParametersPathAdjustment node) {
-			super.inAParametersPathAdjustment(node);
-			logger.info("ParametersPathAdjustment " + node);
+		public void inAParametersOperationParameter(AParametersOperationParameter node) {
+			super.inAParametersOperationParameter(node);
+			logger.info("ParametersOperationParameter " + node);
+		}
+
+		/**
+		 * 
+		 */
+		@Override
+		public void inAParametersCommandParameter(AParametersCommandParameter node) {
+			super.inAParametersCommandParameter(node);
+			logger.info("ParametersCommandParameter " + node);
 		}
 
 		/**
@@ -521,36 +566,36 @@ public class ContextFreeParser {
 		 * 
 		 */
 		@Override
-		public void inANumberExpression2(ANumberExpression2 node) {
-			super.inANumberExpression2(node);
-			logger.info("NumberExpression2 " + node);
+		public void inANumberExtendedExpression(ANumberExtendedExpression node) {
+			super.inANumberExtendedExpression(node);
+			logger.info("NumberExtendedExpression " + node);
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inANestedExpression2(ANestedExpression2 node) {
-			super.inANestedExpression2(node);
-			logger.info("NestedExpression2 " + node);
+		public void inANestedExtendedExpression(ANestedExtendedExpression node) {
+			super.inANestedExtendedExpression(node);
+			logger.info("NestedExtendedExpression " + node);
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inAFunctionExpression2(AFunctionExpression2 node) {
-			super.inAFunctionExpression2(node);
-			logger.info("FunctionExpression2 " + node);
+		public void inAFunctionExtendedExpression(AFunctionExtendedExpression node) {
+			super.inAFunctionExtendedExpression(node);
+			logger.info("FunctionExtendedExpression " + node);
 		}
 
 		/**
 		 * 
 		 */
 		@Override
-		public void inAComposedExpression2(AComposedExpression2 node) {
-			super.inAComposedExpression2(node);
-			logger.info("ComposedExpression2 " + node);
+		public void inAComposedExtendedExpression(AComposedExtendedExpression node) {
+			super.inAComposedExtendedExpression(node);
+			logger.info("ComposedExtendedExpression " + node);
 		}
 		
 		public float evaluateExpression(PExpression expression) {
@@ -569,41 +614,41 @@ public class ContextFreeParser {
 		}
 		
 		public float evaluateExpression(ANestedExpression expression) {
-			return evaluateExpression(expression.getExpression2());
+			return evaluateExpression(expression.getExtendedExpression());
 		}
 
 		public float evaluateExpression(ANumberExpression expression) {
 			return Float.valueOf(expression.getNumber().getText());
 		}
 		
-		public float evaluateExpression(PExpression2 expression) {
-			if (expression instanceof AFunctionExpression2) {
-				return evaluateExpression((AFunctionExpression2) expression);
-			} else if (expression instanceof ANestedExpression2) {
-				return evaluateExpression((ANestedExpression2) expression);
-			} else if (expression instanceof ANumberExpression2) {
-				return evaluateExpression((ANumberExpression2) expression);
-			} else if (expression instanceof AComposedExpression2) {
-				return evaluateExpression((AComposedExpression2) expression);
+		public float evaluateExpression(PExtendedExpression expression) {
+			if (expression instanceof AFunctionExtendedExpression) {
+				return evaluateExpression((AFunctionExtendedExpression) expression);
+			} else if (expression instanceof ANestedExtendedExpression) {
+				return evaluateExpression((ANestedExtendedExpression) expression);
+			} else if (expression instanceof ANumberExtendedExpression) {
+				return evaluateExpression((ANumberExtendedExpression) expression);
+			} else if (expression instanceof AComposedExtendedExpression) {
+				return evaluateExpression((AComposedExtendedExpression) expression);
 			}
 			return 0;
 		}
 
-		public float evaluateExpression(AFunctionExpression2 expression) {
+		public float evaluateExpression(AFunctionExtendedExpression expression) {
 			return evaluateFunction(expression.getFunction());
 		}
 		
-		public float evaluateExpression(ANestedExpression2 expression) {
-			return evaluateExpression(expression.getExpression2());
+		public float evaluateExpression(ANestedExtendedExpression expression) {
+			return evaluateExpression(expression.getExtendedExpression());
 		}
 
-		public float evaluateExpression(ANumberExpression2 expression) {
+		public float evaluateExpression(ANumberExtendedExpression expression) {
 			return Float.valueOf(expression.getNumber().getText());
 		}
 
-		public float evaluateExpression(AComposedExpression2 expression) {
+		public float evaluateExpression(AComposedExtendedExpression expression) {
 			float value1 = evaluateExpression(expression.getExpression());
-			float value2 = evaluateExpression(expression.getExpression2());
+			float value2 = evaluateExpression(expression.getExtendedExpression());
 			POperator operator = expression.getOperator();
 			if (operator instanceof APlusOperator) {
 				return value1 + value2;
@@ -631,8 +676,7 @@ public class ContextFreeParser {
 		}
 
 		public float evaluateFunction(AArg0Function function) {
-			// TODO Auto-generated method stub
-			String functionName = function.getString().getText();
+			String functionName = function.getFunctionArg0().getText();
 			if ("rnd".equals(functionName)) {
 				return (float) Math.random();
 			}
@@ -640,11 +684,10 @@ public class ContextFreeParser {
 		}
 
 		public float evaluateFunction(AArg1Function function) {
-			// TODO Auto-generated method stub
 			PFirstExpression firstExpression = function.getFirstExpression();
 			if (firstExpression instanceof AFirstExpression) {
-				float value = evaluateExpression(((AFirstExpression) firstExpression).getExpression2());
-				String functionName = function.getString().getText();
+				float value = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
+				String functionName = function.getFunctionArg1().getText();
 				if ("sin".equals(functionName)) {
 					return (float) Math.sin(value);
 				} else if ("cos".equals(functionName)) {
@@ -677,13 +720,12 @@ public class ContextFreeParser {
 		}
 
 		public float evaluateFunction(AArg2Function function) {
-			// TODO Auto-generated method stub
 			PFirstExpression firstExpression = function.getFirstExpression();
 			PSecondExpression secondExpression = function.getSecondExpression();
 			if (firstExpression instanceof AFirstExpression && secondExpression instanceof ASecondExpression) {
-				float value1 = evaluateExpression(((AFirstExpression) firstExpression).getExpression2());
-				float value2 = evaluateExpression(((ASecondExpression) secondExpression).getExpression2());
-				String functionName = function.getString().getText();
+				float value1 = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
+				float value2 = evaluateExpression(((ASecondExpression) secondExpression).getExtendedExpression());
+				String functionName = function.getFunctionArg2().getText();
 				if ("min".equals(functionName)) {
 					return (float) Math.min(value1, value2);
 				} else if ("max".equals(functionName)) {
@@ -731,7 +773,7 @@ public class ContextFreeParser {
 		private PathReplacementConfigElement createPathReplacementElement(AMultiPathReplacementDeclaration pathReplacementDeclaration) throws ExtensionNotFoundException {
 			MultiPathReplacementConfig config = new MultiPathReplacementConfig();
 			config.setTimes(Integer.valueOf(pathReplacementDeclaration.getNumber().getText()));
-			for (PPathAdjustment pathAdjustment : pathReplacementDeclaration.getPathAdjustment()) {
+			for (PGeometryAdjustment pathAdjustment : pathReplacementDeclaration.getGeometryAdjustment()) {
 				PathAdjustmentConfigElement pathAdjustmentElement = createPathAdjustmentElement(pathAdjustment);
 				if (pathAdjustmentElement != null) {
 					config.appendPathAdjustmentConfigElement(pathAdjustmentElement);
@@ -767,33 +809,40 @@ public class ContextFreeParser {
 			return pathReplacementElement;
 		}
 
-		private PathAdjustmentConfigElement createPathAdjustmentElement(PPathAdjustment pathAdjustment) throws ExtensionNotFoundException {
+		private PathAdjustmentConfigElement createPathAdjustmentElement(PColorAdjustment pathAdjustment) throws ExtensionNotFoundException {
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = null;
-			if (pathAdjustment instanceof AColorPathAdjustment) {
-				reference = getPathAdjustmentExtensionReference((AColorPathAdjustment) pathAdjustment);
-			} else if (pathAdjustment instanceof AGeometryPathAdjustment) {
-				reference = getPathAdjustmentExtensionReference((AGeometryPathAdjustment) pathAdjustment);
-			} else if (pathAdjustment instanceof AParametersPathAdjustment) {
-				reference = getPathAdjustmentExtensionReference((AParametersPathAdjustment) pathAdjustment);
-			} else if (pathAdjustment instanceof AStrokePathAdjustment) {
-				reference = getPathAdjustmentExtensionReference((AStrokePathAdjustment) pathAdjustment);
+			if (pathAdjustment instanceof ACurrentColorAdjustment) {
+				reference = getPathAdjustmentExtensionReference((ACurrentColorAdjustment) pathAdjustment);
+			} else if (pathAdjustment instanceof ATargetColorAdjustment) {
+				reference = getPathAdjustmentExtensionReference((ATargetColorAdjustment) pathAdjustment);
+			}
+			PathAdjustmentConfigElement pathAdjustmentElement = new PathAdjustmentConfigElement();
+			pathAdjustmentElement.setExtensionReference(reference);
+			return pathAdjustmentElement;
+		}
+
+		private PathAdjustmentConfigElement createPathAdjustmentElement(PGeometryAdjustment pathAdjustment) throws ExtensionNotFoundException {
+			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = null;
+			if (pathAdjustment instanceof AFlipGeometryAdjustment) {
+				reference = getPathAdjustmentExtensionReference((AFlipGeometryAdjustment) pathAdjustment);
+			} else if (pathAdjustment instanceof ARotateGeometryAdjustment) {
+				reference = getPathAdjustmentExtensionReference((ARotateGeometryAdjustment) pathAdjustment);
+			} else if (pathAdjustment instanceof ASize2GeometryAdjustment) {
+				reference = getPathAdjustmentExtensionReference((ASize2GeometryAdjustment) pathAdjustment);
+			} else if (pathAdjustment instanceof ASizeGeometryAdjustment) {
+				reference = getPathAdjustmentExtensionReference((ASizeGeometryAdjustment) pathAdjustment);
+			} else if (pathAdjustment instanceof ASkewGeometryAdjustment) {
+				reference = getPathAdjustmentExtensionReference((ASkewGeometryAdjustment) pathAdjustment);
+			} else if (pathAdjustment instanceof AXGeometryAdjustment) {
+				reference = getPathAdjustmentExtensionReference((AXGeometryAdjustment) pathAdjustment);
+			} else if (pathAdjustment instanceof AYGeometryAdjustment) {
+				reference = getPathAdjustmentExtensionReference((AYGeometryAdjustment) pathAdjustment);
 			}
 			PathAdjustmentConfigElement pathAdjustmentElement = new PathAdjustmentConfigElement();
 			pathAdjustmentElement.setExtensionReference(reference);
 			return pathAdjustmentElement;
 		}
 		
-		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AColorPathAdjustment pathAdjustment) throws ExtensionNotFoundException {
-			PColorAdjustment colorAdjustment = pathAdjustment.getColorAdjustment();
-			if (colorAdjustment instanceof ACurrentColorAdjustment) {
-				return getPathAdjustmentExtensionReference((ACurrentColorAdjustment) colorAdjustment);
-			} else if (colorAdjustment instanceof ATargetColorAdjustment) {
-				return getPathAdjustmentExtensionReference((ATargetColorAdjustment) colorAdjustment);
-			} else {
-				return null;
-			}
-		}
-
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ACurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
 			PCurrentColorAdjustment currentColorAdjustment = colorAdjustment.getCurrentColorAdjustment();
 			if (currentColorAdjustment instanceof AAlphaCurrentColorAdjustment) {
@@ -823,72 +872,51 @@ public class ContextFreeParser {
 				return null;
 			}
 		}
-		
-		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AGeometryPathAdjustment pathAdjustment) throws ExtensionNotFoundException {
-			PGeometryAdjustment geometryAdjustment = pathAdjustment.getGeometryAdjustment();
-			if (geometryAdjustment instanceof AFlipGeometryAdjustment) {
-				return getPathAdjustmentExtensionReference((AFlipGeometryAdjustment) geometryAdjustment);
-			} else if (geometryAdjustment instanceof ARotateGeometryAdjustment) {
-				return getPathAdjustmentExtensionReference((ARotateGeometryAdjustment) geometryAdjustment);
-			} else if (geometryAdjustment instanceof ASize2GeometryAdjustment) {
-				return getPathAdjustmentExtensionReference((ASize2GeometryAdjustment) geometryAdjustment);
-			} else if (geometryAdjustment instanceof ASizeGeometryAdjustment) {
-				return getPathAdjustmentExtensionReference((ASizeGeometryAdjustment) geometryAdjustment);
-			} else if (geometryAdjustment instanceof ASkewGeometryAdjustment) {
-				return getPathAdjustmentExtensionReference((ASkewGeometryAdjustment) geometryAdjustment);
-			} else if (geometryAdjustment instanceof AXGeometryAdjustment) {
-				return getPathAdjustmentExtensionReference((AXGeometryAdjustment) geometryAdjustment);
-			} else if (geometryAdjustment instanceof AYGeometryAdjustment) {
-				return getPathAdjustmentExtensionReference((AYGeometryAdjustment) geometryAdjustment);
-			} else {
-				return null;
-			}
-		}
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AAlphaCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
+			CurrentAlphaPathAdjustmentConfig config = new CurrentAlphaPathAdjustmentConfig(); //TODO
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.color.currentAlpha");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AAlphaTargetColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
+			TargetAlphaPathAdjustmentConfig config = new TargetAlphaPathAdjustmentConfig(); //TODO
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.color.targetAlpha");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ABrightnessCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
+			CurrentBrightnessPathAdjustmentConfig config = new CurrentBrightnessPathAdjustmentConfig(); //TODO
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.color.currentBrightness");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ABrightnessTargetColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
+			TargetBrightnessPathAdjustmentConfig config = new TargetBrightnessPathAdjustmentConfig(); //TODO
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.color.targetBrightness");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ASaturationCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
+			CurrentSaturationPathAdjustmentConfig config = new CurrentSaturationPathAdjustmentConfig(); //TODO
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.color.currentSaturation");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ASaturationTargetColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
+			TargetSaturationPathAdjustmentConfig config = new TargetSaturationPathAdjustmentConfig(); //TODO
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.color.targetSaturation");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AHueCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
+			CurrentHuePathAdjustmentConfig config = new CurrentHuePathAdjustmentConfig(); //TODO
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.color.currentHue");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -900,70 +928,56 @@ public class ContextFreeParser {
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
-
-		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AFlipGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
-			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.flip");
-			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-			return reference;
-		}
-		
-		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ARotateGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
-			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.rotate");
-			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-			return reference;
-		}
-		
-		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ASize2GeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
-			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.size2");
-			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-			return reference;
-		}
-		
-		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ASizeGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
-			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.size");
-			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-			return reference;
-		}
-		
-		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ASkewGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
-			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.skew");
-			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-			return reference;
-		}
 		
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AXGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
+			XPathAdjustmentConfig config = new XPathAdjustmentConfig(); //TODO
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.x");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 		
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AYGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
+			YPathAdjustmentConfig config = new YPathAdjustmentConfig(); //TODO
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.y");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 		
-		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AParametersPathAdjustment pathAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
-			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.parameters");
+		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ASizeGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
+			SizePathAdjustmentConfig config = new SizePathAdjustmentConfig(); //TODO
+			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.size");
+			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+			return reference;
+		}
+		
+		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ASize2GeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
+			Size2PathAdjustmentConfig config = new Size2PathAdjustmentConfig(); //TODO
+			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.size2");
+			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+			return reference;
+		}
+		
+		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ASkewGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
+			SkewPathAdjustmentConfig config = new SkewPathAdjustmentConfig(); //TODO
+			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.skew");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 
-		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AStrokePathAdjustment pathAdjustment) throws ExtensionNotFoundException {
-			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig(); //TODO
-			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.stroke");
+		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AFlipGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
+			FlipPathAdjustmentConfig config = new FlipPathAdjustmentConfig(); //TODO
+			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.flip");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
-
+		
+		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ARotateGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
+			RotatePathAdjustmentConfig config = new RotatePathAdjustmentConfig(); //TODO
+			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.rotate");
+			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+			return reference;
+		}
+		
 		private ConfigurableExtensionReference<PathReplacementExtensionConfig> createPathReplacementExtensionReference(AOperationPathReplacement pathReplacement) throws ExtensionNotFoundException {
 			PPathOperation pathOperation = pathReplacement.getPathOperation();
 			if (pathOperation instanceof APathOperation) {
@@ -973,11 +987,59 @@ public class ContextFreeParser {
 		}
 
 		private ConfigurableExtensionReference<PathReplacementExtensionConfig> createPathReplacementExtensionReference(APathOperation pathOperation) throws ExtensionNotFoundException {
-			String pathop = pathOperation.getPathop().getText();
-			if ("LINETO".equals(pathop)) {
+			String operation = pathOperation.getOperation().getText();
+			if ("LINETO".equals(operation)) {
 				LineToPathReplacementConfig config = new LineToPathReplacementConfig();
 				//TODO parameters
 				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.lineto");
+				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+				return reference; 
+			} else if ("ARCTO".equals(operation)) {
+				ArcToPathReplacementConfig config = new ArcToPathReplacementConfig();
+				//TODO parameters
+				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.arcto");
+				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+				return reference; 
+			} else if ("CURVETO".equals(operation)) {
+				CurveToPathReplacementConfig config = new CurveToPathReplacementConfig();
+				//TODO parameters
+				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.curveto");
+				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+				return reference; 
+			} else if ("MOVETO".equals(operation)) {
+				MoveToPathReplacementConfig config = new MoveToPathReplacementConfig();
+				//TODO parameters
+				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.moveto");
+				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+				return reference; 
+			} else if ("LINEREL".equals(operation)) {
+				LineRelPathReplacementConfig config = new LineRelPathReplacementConfig();
+				//TODO parameters
+				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.linerel");
+				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+				return reference; 
+			} else if ("ARCREL".equals(operation)) {
+				ArcRelPathReplacementConfig config = new ArcRelPathReplacementConfig();
+				//TODO parameters
+				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.arcrel");
+				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+				return reference; 
+			} else if ("CURVEREL".equals(operation)) {
+				CurveRelPathReplacementConfig config = new CurveRelPathReplacementConfig();
+				//TODO parameters
+				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.curverel");
+				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+				return reference; 
+			} else if ("MOVEREL".equals(operation)) {
+				MoveRelPathReplacementConfig config = new MoveRelPathReplacementConfig();
+				//TODO parameters
+				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.moverel");
+				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+				return reference; 
+			} else if ("CLOSEPOLY".equals(operation)) {
+				ClosePolyPathReplacementConfig config = new ClosePolyPathReplacementConfig();
+				//TODO parameters
+				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.closepoly");
 				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 				return reference; 
 			}
@@ -995,13 +1057,37 @@ public class ContextFreeParser {
 		}
 		
 		private ConfigurableExtensionReference<PathReplacementExtensionConfig> createPathReplacementExtensionReference(ABasicPathCommand pathCommand) throws ExtensionNotFoundException {
-			String pathcmd = pathCommand.getPathcmd().getText();
-			if ("FILL".equals(pathcmd)) {
+			String command = pathCommand.getCommand().getText();
+			if ("FILL".equals(command)) {
 				FillPathReplacementConfig config = new FillPathReplacementConfig();
-				for (PPathAdjustment pathAdjustment : pathCommand.getPathAdjustment()) {
-					//TODO adjustment
+				for (PCommandParameter commadParameter : pathCommand.getCommandParameter()) {
+					if (commadParameter instanceof AColorCommandParameter) {
+						createPathAdjustmentElement(((AColorCommandParameter) commadParameter).getColorAdjustment());//TODO
+					} else if (commadParameter instanceof AGeometryCommandParameter) {
+						createPathAdjustmentElement(((AGeometryCommandParameter) commadParameter).getGeometryAdjustment());//TODO
+					} else if (commadParameter instanceof AParametersCommandParameter) {
+						//TODO 
+					} else if (commadParameter instanceof AStrokeCommandParameter) {
+						//TODO 
+					}
 				}
 				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.command.fill");
+				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+				return reference; 
+			} else if ("STROKE".equals(command)) {
+				FillPathReplacementConfig config = new FillPathReplacementConfig();
+				for (PCommandParameter commadParameter : pathCommand.getCommandParameter()) {
+					if (commadParameter instanceof AColorCommandParameter) {
+						createPathAdjustmentElement(((AColorCommandParameter) commadParameter).getColorAdjustment());//TODO
+					} else if (commadParameter instanceof AGeometryCommandParameter) {
+						createPathAdjustmentElement(((AGeometryCommandParameter) commadParameter).getGeometryAdjustment());//TODO
+					} else if (commadParameter instanceof AParametersCommandParameter) {
+						//TODO 
+					} else if (commadParameter instanceof AStrokeCommandParameter) {
+						//TODO 
+					}
+				}
+				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.command.stroke");
 				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 				return reference; 
 			}
@@ -1009,14 +1095,38 @@ public class ContextFreeParser {
 		}
 
 		private ConfigurableExtensionReference<PathReplacementExtensionConfig> createPathReplacementExtensionReference(AOrderedPathCommand pathCommand) throws ExtensionNotFoundException {
-			String pathcmd = pathCommand.getPathcmd().getText();
+			String command = pathCommand.getCommand().getText();
 			//TODO order
-			if ("FILL".equals(pathcmd)) {
+			if ("FILL".equals(command)) {
 				FillPathReplacementConfig config = new FillPathReplacementConfig();
-				for (PPathAdjustment pathAdjustment : pathCommand.getPathAdjustment()) {
-					//TODO adjustment
+				for (PCommandParameter commadParameter : pathCommand.getCommandParameter()) {
+					if (commadParameter instanceof AColorCommandParameter) {
+						createPathAdjustmentElement(((AColorCommandParameter) commadParameter).getColorAdjustment());//TODO
+					} else if (commadParameter instanceof AGeometryCommandParameter) {
+						createPathAdjustmentElement(((AGeometryCommandParameter) commadParameter).getGeometryAdjustment());//TODO
+					} else if (commadParameter instanceof AParametersCommandParameter) {
+						//TODO 
+					} else if (commadParameter instanceof AStrokeCommandParameter) {
+						//TODO 
+					}
 				}
 				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.command.fill");
+				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+				return reference; 
+			} else if ("STROKE".equals(command)) {
+				FillPathReplacementConfig config = new FillPathReplacementConfig();
+				for (PCommandParameter commadParameter : pathCommand.getCommandParameter()) {
+					if (commadParameter instanceof AColorCommandParameter) {
+						createPathAdjustmentElement(((AColorCommandParameter) commadParameter).getColorAdjustment());//TODO
+					} else if (commadParameter instanceof AGeometryCommandParameter) {
+						createPathAdjustmentElement(((AGeometryCommandParameter) commadParameter).getGeometryAdjustment());//TODO
+					} else if (commadParameter instanceof AParametersCommandParameter) {
+						//TODO 
+					} else if (commadParameter instanceof AStrokeCommandParameter) {
+						//TODO 
+					}
+				}
+				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.command.stroke");
 				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 				return reference; 
 			}
@@ -1200,7 +1310,7 @@ public class ContextFreeParser {
 		}
 
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AAlphaCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
+			CurrentAlphaShapeAdjustmentConfig config = new CurrentAlphaShapeAdjustmentConfig(); //TODO
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.currentAlpha");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1214,7 +1324,7 @@ public class ContextFreeParser {
 		}
 
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ABrightnessCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
+			CurrentBrightnessShapeAdjustmentConfig config = new CurrentBrightnessShapeAdjustmentConfig(); //TODO
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.currentBrightness");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1228,7 +1338,7 @@ public class ContextFreeParser {
 		}
 
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASaturationCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
+			CurrentSaturationShapeAdjustmentConfig config = new CurrentSaturationShapeAdjustmentConfig(); //TODO
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.currentSaturation");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1242,7 +1352,7 @@ public class ContextFreeParser {
 		}
 
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AHueCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
+			CurrentHueShapeAdjustmentConfig config = new CurrentHueShapeAdjustmentConfig(); //TODO
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.currentHue");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1254,65 +1364,65 @@ public class ContextFreeParser {
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
-
-		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AFlipGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
-			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.flip");
-			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-			return reference;
-		}
-		
-		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ARotateGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
-			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.rotate");
-			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-			return reference;
-		}
-		
-		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASize2GeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
-			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.size2");
-			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-			return reference;
-		}
-		
-		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASizeGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
-			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.size");
-			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-			return reference;
-		}
-		
-		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASkewGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
-			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.skew");
-			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-			return reference;
-		}
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AXGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
+			XShapeAdjustmentConfig config = new XShapeAdjustmentConfig(); //TODO
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.x");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AYGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
+			YShapeAdjustmentConfig config = new YShapeAdjustmentConfig(); //TODO
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.y");
+			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+			return reference;
+		}
+
+		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASizeGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
+			SizeShapeAdjustmentConfig config = new SizeShapeAdjustmentConfig(); //TODO
+			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.size");
+			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+			return reference;
+		}
+		
+		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASize2GeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
+			Size2ShapeAdjustmentConfig config = new Size2ShapeAdjustmentConfig(); //TODO
+			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.size2");
+			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+			return reference;
+		}
+		
+		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASkewGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
+			SkewShapeAdjustmentConfig config = new SkewShapeAdjustmentConfig(); //TODO
+			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.skew");
+			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+			return reference;
+		}
+		
+		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AFlipGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
+			FlipShapeAdjustmentConfig config = new FlipShapeAdjustmentConfig(); //TODO
+			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.flip");
+			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+			return reference;
+		}
+		
+		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ARotateGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
+			RotateShapeAdjustmentConfig config = new RotateShapeAdjustmentConfig(); //TODO
+			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.rotate");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASize3ShapeAdjustment shapeAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
+			Size3ShapeAdjustmentConfig config = new Size3ShapeAdjustmentConfig(); //TODO
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.size3");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AZShapeAdjustment shapeAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
+			ZShapeAdjustmentConfig config = new ZShapeAdjustmentConfig(); //TODO
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.z");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
