@@ -162,7 +162,7 @@ public class ${extension.extensionConfigClassName}NodeBuilderRuntime extends Nod
 			 * @param config
 			 */
 			public ${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Node(final ${extension.extensionConfigClassName} config) {
-				super(config.getExtensionId() + ".${subelement.elementName?uncap_first}s", config.get${subelement.elementName?cap_first}${subelement.fieldNameSuffix}());
+				super(config.getExtensionId() + ".${subelement.elementName?uncap_first}List", config.get${subelement.elementName?cap_first}${subelement.fieldNameSuffix}());
 				setNodeClass(${subelement.elementName?cap_first}${subelement.fieldNameSuffix}Node.NODE_CLASS);
 				setNodeLabel(${extension.resourcesClassName}.getInstance().getString("node.label.${subelement.elementName?cap_first}${subelement.fieldNameSuffix}"));
 			}
