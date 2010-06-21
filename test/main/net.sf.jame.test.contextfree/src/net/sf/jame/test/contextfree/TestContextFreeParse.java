@@ -59,9 +59,9 @@ public class TestContextFreeParse {
 			"}\n" +
 			"";
 		try {
+			System.out.println(text);
 			ContextFreeParser parser = new ContextFreeParser();
 			ContextFreeConfig config = parser.parseConfig(text);
-			System.out.println(config);
 			RootNode rootNode = new RootNode("contextfree");
 			ContextFreeConfigNodeBuilder nodeBuilder = new ContextFreeConfigNodeBuilder(config);
 			nodeBuilder.createNodes(rootNode);
