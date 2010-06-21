@@ -58,6 +58,9 @@ public abstract class ExtensionReferenceElementNode extends DefaultNode {
 		elementListener = new ConfigElementListener();
 		setNodeValue(createNodeValue(referenceElement.getReference()));
 		setNodeLabel(createNodeLabel());
+		if (referenceElement.getReference() != null) {
+			setExtensionId(referenceElement.getReference().getExtensionId());
+		}
 	}
 
 	/**
@@ -163,6 +166,9 @@ public abstract class ExtensionReferenceElementNode extends DefaultNode {
 	@Override
 	protected void updateNode() {
 		setNodeLabel(createNodeLabel());
+		if (referenceElement.getReference() != null) {
+			setExtensionId(referenceElement.getReference().getExtensionId());
+		}
 		super.updateNode();
 	}
 
