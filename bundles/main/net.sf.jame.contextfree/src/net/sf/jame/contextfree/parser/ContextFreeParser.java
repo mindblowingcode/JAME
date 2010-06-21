@@ -166,7 +166,9 @@ import net.sf.jame.contextfree.extensions.shapeAdjustment.Size2ShapeAdjustmentCo
 import net.sf.jame.contextfree.extensions.shapeAdjustment.Size3ShapeAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.shapeAdjustment.SizeShapeAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.shapeAdjustment.SkewShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.TargetAlphaShapeAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfig;
+import net.sf.jame.contextfree.extensions.shapeAdjustment.TargetSaturationShapeAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.shapeAdjustment.XShapeAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.shapeAdjustment.YShapeAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.shapeAdjustment.ZShapeAdjustmentConfig;
@@ -1317,7 +1319,7 @@ public class ContextFreeParser {
 		}
 
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AAlphaTargetColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
+			TargetAlphaShapeAdjustmentConfig config = new TargetAlphaShapeAdjustmentConfig(); //TODO
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.targetAlpha");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1345,7 +1347,7 @@ public class ContextFreeParser {
 		}
 
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASaturationTargetColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
-			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig(); //TODO
+			TargetSaturationShapeAdjustmentConfig config = new TargetSaturationShapeAdjustmentConfig(); //TODO
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.targetSaturation");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1416,14 +1418,14 @@ public class ContextFreeParser {
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASize3ShapeAdjustment shapeAdjustment) throws ExtensionNotFoundException {
 			Size3ShapeAdjustmentConfig config = new Size3ShapeAdjustmentConfig(); //TODO
-			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.size3");
+			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.size3");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AZShapeAdjustment shapeAdjustment) throws ExtensionNotFoundException {
 			ZShapeAdjustmentConfig config = new ZShapeAdjustmentConfig(); //TODO
-			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.z");
+			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.z");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
 		}
