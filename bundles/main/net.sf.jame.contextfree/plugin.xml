@@ -367,6 +367,102 @@
             name="Multi PathReplacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MultiPathReplacementConfigNodeBuilderRuntime"/>
       <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.targetBrightness"
+            name="TargetBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetBrightnessShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.targetBrightness"
+            name="TargetBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetBrightnessShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.targetBrightness"
+            name="TargetBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetBrightnessShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.targetSaturation"
+            name="TargetSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetSaturationShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.targetSaturation"
+            name="TargetSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetSaturationShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.targetSaturation"
+            name="TargetSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetSaturationShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.targetAlpha"
+            name="TargetAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetAlphaShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.targetAlpha"
+            name="TargetAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetAlphaShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.targetAlpha"
+            name="TargetAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetAlphaShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.currentBrightness"
+            name="CurrentBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.currentBrightness"
+            name="CurrentBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.currentBrightness"
+            name="CurrentBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.currentSaturation"
+            name="CurrentSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentSaturationShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.currentSaturation"
+            name="CurrentSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentSaturationShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.currentSaturation"
+            name="CurrentSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentSaturationShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.currentAlpha"
+            name="CurrentAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.currentAlpha"
+            name="CurrentAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.currentAlpha"
+            name="CurrentAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
             id="contextfree.shape.adjustment.geometry.x"
             name="X ShapeAdjustment"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.XShapeAdjustmentConfigXMLImporterRuntime"/>
