@@ -136,115 +136,115 @@ class TokenIndex extends AnalysisAdapter
     }
 
     @Override
-    public void caseTParametersToken(@SuppressWarnings("unused") TParametersToken node)
+    public void caseTSizeToken(@SuppressWarnings("unused") TSizeToken node)
     {
         this.index = 21;
     }
 
     @Override
-    public void caseTSizeToken(@SuppressWarnings("unused") TSizeToken node)
+    public void caseTHueToken(@SuppressWarnings("unused") THueToken node)
     {
         this.index = 22;
     }
 
     @Override
-    public void caseTHueToken(@SuppressWarnings("unused") THueToken node)
+    public void caseTSaturationToken(@SuppressWarnings("unused") TSaturationToken node)
     {
         this.index = 23;
     }
 
     @Override
-    public void caseTSaturationToken(@SuppressWarnings("unused") TSaturationToken node)
+    public void caseTBrightnessToken(@SuppressWarnings("unused") TBrightnessToken node)
     {
         this.index = 24;
     }
 
     @Override
-    public void caseTBrightnessToken(@SuppressWarnings("unused") TBrightnessToken node)
+    public void caseTAlphaToken(@SuppressWarnings("unused") TAlphaToken node)
     {
         this.index = 25;
     }
 
     @Override
-    public void caseTAlphaToken(@SuppressWarnings("unused") TAlphaToken node)
+    public void caseTTargetHueToken(@SuppressWarnings("unused") TTargetHueToken node)
     {
         this.index = 26;
     }
 
     @Override
-    public void caseTTargetHueToken(@SuppressWarnings("unused") TTargetHueToken node)
+    public void caseTTargetSaturationToken(@SuppressWarnings("unused") TTargetSaturationToken node)
     {
         this.index = 27;
     }
 
     @Override
-    public void caseTTargetSaturationToken(@SuppressWarnings("unused") TTargetSaturationToken node)
+    public void caseTTargetBrightnessToken(@SuppressWarnings("unused") TTargetBrightnessToken node)
     {
         this.index = 28;
     }
 
     @Override
-    public void caseTTargetBrightnessToken(@SuppressWarnings("unused") TTargetBrightnessToken node)
+    public void caseTTargetAlphaToken(@SuppressWarnings("unused") TTargetAlphaToken node)
     {
         this.index = 29;
     }
 
     @Override
-    public void caseTTargetAlphaToken(@SuppressWarnings("unused") TTargetAlphaToken node)
+    public void caseTXToken(@SuppressWarnings("unused") TXToken node)
     {
         this.index = 30;
     }
 
     @Override
-    public void caseTXToken(@SuppressWarnings("unused") TXToken node)
+    public void caseTYToken(@SuppressWarnings("unused") TYToken node)
     {
         this.index = 31;
     }
 
     @Override
-    public void caseTYToken(@SuppressWarnings("unused") TYToken node)
+    public void caseTZToken(@SuppressWarnings("unused") TZToken node)
     {
         this.index = 32;
     }
 
     @Override
-    public void caseTZToken(@SuppressWarnings("unused") TZToken node)
+    public void caseTX1Token(@SuppressWarnings("unused") TX1Token node)
     {
         this.index = 33;
     }
 
     @Override
-    public void caseTX1Token(@SuppressWarnings("unused") TX1Token node)
+    public void caseTY1Token(@SuppressWarnings("unused") TY1Token node)
     {
         this.index = 34;
     }
 
     @Override
-    public void caseTY1Token(@SuppressWarnings("unused") TY1Token node)
+    public void caseTX2Token(@SuppressWarnings("unused") TX2Token node)
     {
         this.index = 35;
     }
 
     @Override
-    public void caseTX2Token(@SuppressWarnings("unused") TX2Token node)
+    public void caseTY2Token(@SuppressWarnings("unused") TY2Token node)
     {
         this.index = 36;
     }
 
     @Override
-    public void caseTY2Token(@SuppressWarnings("unused") TY2Token node)
+    public void caseTRxToken(@SuppressWarnings("unused") TRxToken node)
     {
         this.index = 37;
     }
 
     @Override
-    public void caseTRxToken(@SuppressWarnings("unused") TRxToken node)
+    public void caseTRyToken(@SuppressWarnings("unused") TRyToken node)
     {
         this.index = 38;
     }
 
     @Override
-    public void caseTRyToken(@SuppressWarnings("unused") TRyToken node)
+    public void caseTParametersToken(@SuppressWarnings("unused") TParametersToken node)
     {
         this.index = 39;
     }
@@ -274,38 +274,56 @@ class TokenIndex extends AnalysisAdapter
     }
 
     @Override
-    public void caseTPathcmd(@SuppressWarnings("unused") TPathcmd node)
+    public void caseTCommand(@SuppressWarnings("unused") TCommand node)
     {
         this.index = 44;
     }
 
     @Override
-    public void caseTPathop(@SuppressWarnings("unused") TPathop node)
+    public void caseTOperation(@SuppressWarnings("unused") TOperation node)
     {
         this.index = 45;
     }
 
     @Override
-    public void caseTFilename(@SuppressWarnings("unused") TFilename node)
+    public void caseTFunctionArg0(@SuppressWarnings("unused") TFunctionArg0 node)
     {
         this.index = 46;
     }
 
     @Override
-    public void caseTString(@SuppressWarnings("unused") TString node)
+    public void caseTFunctionArg1(@SuppressWarnings("unused") TFunctionArg1 node)
     {
         this.index = 47;
     }
 
     @Override
-    public void caseTNumber(@SuppressWarnings("unused") TNumber node)
+    public void caseTFunctionArg2(@SuppressWarnings("unused") TFunctionArg2 node)
     {
         this.index = 48;
     }
 
     @Override
-    public void caseEOF(@SuppressWarnings("unused") EOF node)
+    public void caseTFilename(@SuppressWarnings("unused") TFilename node)
     {
         this.index = 49;
+    }
+
+    @Override
+    public void caseTString(@SuppressWarnings("unused") TString node)
+    {
+        this.index = 50;
+    }
+
+    @Override
+    public void caseTNumber(@SuppressWarnings("unused") TNumber node)
+    {
+        this.index = 51;
+    }
+
+    @Override
+    public void caseEOF(@SuppressWarnings("unused") EOF node)
+    {
+        this.index = 52;
     }
 }

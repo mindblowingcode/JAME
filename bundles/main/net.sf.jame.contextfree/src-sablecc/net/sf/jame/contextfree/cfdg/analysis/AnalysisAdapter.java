@@ -219,72 +219,72 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAXPathPoints(AXPathPoints node)
+    public void caseAXOperationParameter(AXOperationParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAYPathPoints(AYPathPoints node)
+    public void caseAYOperationParameter(AYOperationParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAX1PathPoints(AX1PathPoints node)
+    public void caseAX1OperationParameter(AX1OperationParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAY1PathPoints(AY1PathPoints node)
+    public void caseAY1OperationParameter(AY1OperationParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAX2PathPoints(AX2PathPoints node)
+    public void caseAX2OperationParameter(AX2OperationParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAY2PathPoints(AY2PathPoints node)
+    public void caseAY2OperationParameter(AY2OperationParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseARxPathPoints(ARxPathPoints node)
+    public void caseARxOperationParameter(ARxOperationParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseARyPathPoints(ARyPathPoints node)
+    public void caseARyOperationParameter(ARyOperationParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseARotatePathPoints(ARotatePathPoints node)
+    public void caseARotateOperationParameter(ARotateOperationParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAParametersPathPoints(AParametersPathPoints node)
+    public void caseAParametersOperationParameter(AParametersOperationParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAColorPathAdjustment(AColorPathAdjustment node)
+    public void caseAColorCommandParameter(AColorCommandParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAGeometryPathAdjustment(AGeometryPathAdjustment node)
+    public void caseAGeometryCommandParameter(AGeometryCommandParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAStrokePathAdjustment(AStrokePathAdjustment node)
+    public void caseAStrokeCommandParameter(AStrokeCommandParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAParametersPathAdjustment(AParametersPathAdjustment node)
+    public void caseAParametersCommandParameter(AParametersCommandParameter node)
     {
         defaultCase(node);
     }
@@ -449,22 +449,22 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseANumberExpression2(ANumberExpression2 node)
+    public void caseANumberExtendedExpression(ANumberExtendedExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAFunctionExpression2(AFunctionExpression2 node)
+    public void caseAFunctionExtendedExpression(AFunctionExtendedExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseANestedExpression2(ANestedExpression2 node)
+    public void caseANestedExtendedExpression(ANestedExtendedExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAComposedExpression2(AComposedExpression2 node)
+    public void caseAComposedExtendedExpression(AComposedExtendedExpression node)
     {
         defaultCase(node);
     }
@@ -604,11 +604,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTParametersToken(TParametersToken node)
-    {
-        defaultCase(node);
-    }
-
     public void caseTSizeToken(TSizeToken node)
     {
         defaultCase(node);
@@ -699,6 +694,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseTParametersToken(TParametersToken node)
+    {
+        defaultCase(node);
+    }
+
     public void caseTRotateToken(TRotateToken node)
     {
         defaultCase(node);
@@ -719,12 +719,27 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTPathcmd(TPathcmd node)
+    public void caseTCommand(TCommand node)
     {
         defaultCase(node);
     }
 
-    public void caseTPathop(TPathop node)
+    public void caseTOperation(TOperation node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTFunctionArg0(TFunctionArg0 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTFunctionArg1(TFunctionArg1 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTFunctionArg2(TFunctionArg2 node)
     {
         defaultCase(node);
     }

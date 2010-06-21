@@ -655,9 +655,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getRCbkt().apply(this);
         }
         {
-            List<PPathPoints> copy = new ArrayList<PPathPoints>(node.getPathPoints());
+            List<POperationParameter> copy = new ArrayList<POperationParameter>(node.getOperationParameter());
             Collections.reverse(copy);
-            for(PPathPoints e : copy)
+            for(POperationParameter e : copy)
             {
                 e.apply(this);
             }
@@ -666,9 +666,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getLCbkt().apply(this);
         }
-        if(node.getPathop() != null)
+        if(node.getOperation() != null)
         {
-            node.getPathop().apply(this);
+            node.getOperation().apply(this);
         }
         outAPathOperation(node);
     }
@@ -692,9 +692,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getRCbkt().apply(this);
         }
         {
-            List<PPathAdjustment> copy = new ArrayList<PPathAdjustment>(node.getPathAdjustment());
+            List<PCommandParameter> copy = new ArrayList<PCommandParameter>(node.getCommandParameter());
             Collections.reverse(copy);
-            for(PPathAdjustment e : copy)
+            for(PCommandParameter e : copy)
             {
                 e.apply(this);
             }
@@ -703,9 +703,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getLCbkt().apply(this);
         }
-        if(node.getPathcmd() != null)
+        if(node.getCommand() != null)
         {
-            node.getPathcmd().apply(this);
+            node.getCommand().apply(this);
         }
         outABasicPathCommand(node);
     }
@@ -729,9 +729,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getRSbkt().apply(this);
         }
         {
-            List<PPathAdjustment> copy = new ArrayList<PPathAdjustment>(node.getPathAdjustment());
+            List<PCommandParameter> copy = new ArrayList<PCommandParameter>(node.getCommandParameter());
             Collections.reverse(copy);
-            for(PPathAdjustment e : copy)
+            for(PCommandParameter e : copy)
             {
                 e.apply(this);
             }
@@ -740,9 +740,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getLSbkt().apply(this);
         }
-        if(node.getPathcmd() != null)
+        if(node.getCommand() != null)
         {
-            node.getPathcmd().apply(this);
+            node.getCommand().apply(this);
         }
         outAOrderedPathCommand(node);
     }
@@ -811,9 +811,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getRCbkt().apply(this);
         }
         {
-            List<PPathAdjustment> copy = new ArrayList<PPathAdjustment>(node.getPathAdjustment());
+            List<PGeometryAdjustment> copy = new ArrayList<PGeometryAdjustment>(node.getGeometryAdjustment());
             Collections.reverse(copy);
-            for(PPathAdjustment e : copy)
+            for(PGeometryAdjustment e : copy)
             {
                 e.apply(this);
             }
@@ -950,20 +950,20 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAListPathReplacementBlock(node);
     }
 
-    public void inAXPathPoints(AXPathPoints node)
+    public void inAXOperationParameter(AXOperationParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAXPathPoints(AXPathPoints node)
+    public void outAXOperationParameter(AXOperationParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAXPathPoints(AXPathPoints node)
+    public void caseAXOperationParameter(AXOperationParameter node)
     {
-        inAXPathPoints(node);
+        inAXOperationParameter(node);
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
@@ -972,23 +972,23 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getXToken().apply(this);
         }
-        outAXPathPoints(node);
+        outAXOperationParameter(node);
     }
 
-    public void inAYPathPoints(AYPathPoints node)
+    public void inAYOperationParameter(AYOperationParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAYPathPoints(AYPathPoints node)
+    public void outAYOperationParameter(AYOperationParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAYPathPoints(AYPathPoints node)
+    public void caseAYOperationParameter(AYOperationParameter node)
     {
-        inAYPathPoints(node);
+        inAYOperationParameter(node);
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
@@ -997,23 +997,23 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getYToken().apply(this);
         }
-        outAYPathPoints(node);
+        outAYOperationParameter(node);
     }
 
-    public void inAX1PathPoints(AX1PathPoints node)
+    public void inAX1OperationParameter(AX1OperationParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAX1PathPoints(AX1PathPoints node)
+    public void outAX1OperationParameter(AX1OperationParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAX1PathPoints(AX1PathPoints node)
+    public void caseAX1OperationParameter(AX1OperationParameter node)
     {
-        inAX1PathPoints(node);
+        inAX1OperationParameter(node);
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
@@ -1022,23 +1022,23 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getX1Token().apply(this);
         }
-        outAX1PathPoints(node);
+        outAX1OperationParameter(node);
     }
 
-    public void inAY1PathPoints(AY1PathPoints node)
+    public void inAY1OperationParameter(AY1OperationParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAY1PathPoints(AY1PathPoints node)
+    public void outAY1OperationParameter(AY1OperationParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAY1PathPoints(AY1PathPoints node)
+    public void caseAY1OperationParameter(AY1OperationParameter node)
     {
-        inAY1PathPoints(node);
+        inAY1OperationParameter(node);
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
@@ -1047,23 +1047,23 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getY1Token().apply(this);
         }
-        outAY1PathPoints(node);
+        outAY1OperationParameter(node);
     }
 
-    public void inAX2PathPoints(AX2PathPoints node)
+    public void inAX2OperationParameter(AX2OperationParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAX2PathPoints(AX2PathPoints node)
+    public void outAX2OperationParameter(AX2OperationParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAX2PathPoints(AX2PathPoints node)
+    public void caseAX2OperationParameter(AX2OperationParameter node)
     {
-        inAX2PathPoints(node);
+        inAX2OperationParameter(node);
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
@@ -1072,23 +1072,23 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getX2Token().apply(this);
         }
-        outAX2PathPoints(node);
+        outAX2OperationParameter(node);
     }
 
-    public void inAY2PathPoints(AY2PathPoints node)
+    public void inAY2OperationParameter(AY2OperationParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAY2PathPoints(AY2PathPoints node)
+    public void outAY2OperationParameter(AY2OperationParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAY2PathPoints(AY2PathPoints node)
+    public void caseAY2OperationParameter(AY2OperationParameter node)
     {
-        inAY2PathPoints(node);
+        inAY2OperationParameter(node);
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
@@ -1097,23 +1097,23 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getY2Token().apply(this);
         }
-        outAY2PathPoints(node);
+        outAY2OperationParameter(node);
     }
 
-    public void inARxPathPoints(ARxPathPoints node)
+    public void inARxOperationParameter(ARxOperationParameter node)
     {
         defaultIn(node);
     }
 
-    public void outARxPathPoints(ARxPathPoints node)
+    public void outARxOperationParameter(ARxOperationParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseARxPathPoints(ARxPathPoints node)
+    public void caseARxOperationParameter(ARxOperationParameter node)
     {
-        inARxPathPoints(node);
+        inARxOperationParameter(node);
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
@@ -1122,23 +1122,23 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getRxToken().apply(this);
         }
-        outARxPathPoints(node);
+        outARxOperationParameter(node);
     }
 
-    public void inARyPathPoints(ARyPathPoints node)
+    public void inARyOperationParameter(ARyOperationParameter node)
     {
         defaultIn(node);
     }
 
-    public void outARyPathPoints(ARyPathPoints node)
+    public void outARyOperationParameter(ARyOperationParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseARyPathPoints(ARyPathPoints node)
+    public void caseARyOperationParameter(ARyOperationParameter node)
     {
-        inARyPathPoints(node);
+        inARyOperationParameter(node);
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
@@ -1147,23 +1147,23 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getRyToken().apply(this);
         }
-        outARyPathPoints(node);
+        outARyOperationParameter(node);
     }
 
-    public void inARotatePathPoints(ARotatePathPoints node)
+    public void inARotateOperationParameter(ARotateOperationParameter node)
     {
         defaultIn(node);
     }
 
-    public void outARotatePathPoints(ARotatePathPoints node)
+    public void outARotateOperationParameter(ARotateOperationParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseARotatePathPoints(ARotatePathPoints node)
+    public void caseARotateOperationParameter(ARotateOperationParameter node)
     {
-        inARotatePathPoints(node);
+        inARotateOperationParameter(node);
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
@@ -1172,23 +1172,23 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getRotateToken().apply(this);
         }
-        outARotatePathPoints(node);
+        outARotateOperationParameter(node);
     }
 
-    public void inAParametersPathPoints(AParametersPathPoints node)
+    public void inAParametersOperationParameter(AParametersOperationParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAParametersPathPoints(AParametersPathPoints node)
+    public void outAParametersOperationParameter(AParametersOperationParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAParametersPathPoints(AParametersPathPoints node)
+    public void caseAParametersOperationParameter(AParametersOperationParameter node)
     {
-        inAParametersPathPoints(node);
+        inAParametersOperationParameter(node);
         if(node.getString() != null)
         {
             node.getString().apply(this);
@@ -1197,65 +1197,65 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getParametersToken().apply(this);
         }
-        outAParametersPathPoints(node);
+        outAParametersOperationParameter(node);
     }
 
-    public void inAColorPathAdjustment(AColorPathAdjustment node)
+    public void inAColorCommandParameter(AColorCommandParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAColorPathAdjustment(AColorPathAdjustment node)
+    public void outAColorCommandParameter(AColorCommandParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAColorPathAdjustment(AColorPathAdjustment node)
+    public void caseAColorCommandParameter(AColorCommandParameter node)
     {
-        inAColorPathAdjustment(node);
+        inAColorCommandParameter(node);
         if(node.getColorAdjustment() != null)
         {
             node.getColorAdjustment().apply(this);
         }
-        outAColorPathAdjustment(node);
+        outAColorCommandParameter(node);
     }
 
-    public void inAGeometryPathAdjustment(AGeometryPathAdjustment node)
+    public void inAGeometryCommandParameter(AGeometryCommandParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAGeometryPathAdjustment(AGeometryPathAdjustment node)
+    public void outAGeometryCommandParameter(AGeometryCommandParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAGeometryPathAdjustment(AGeometryPathAdjustment node)
+    public void caseAGeometryCommandParameter(AGeometryCommandParameter node)
     {
-        inAGeometryPathAdjustment(node);
+        inAGeometryCommandParameter(node);
         if(node.getGeometryAdjustment() != null)
         {
             node.getGeometryAdjustment().apply(this);
         }
-        outAGeometryPathAdjustment(node);
+        outAGeometryCommandParameter(node);
     }
 
-    public void inAStrokePathAdjustment(AStrokePathAdjustment node)
+    public void inAStrokeCommandParameter(AStrokeCommandParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAStrokePathAdjustment(AStrokePathAdjustment node)
+    public void outAStrokeCommandParameter(AStrokeCommandParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAStrokePathAdjustment(AStrokePathAdjustment node)
+    public void caseAStrokeCommandParameter(AStrokeCommandParameter node)
     {
-        inAStrokePathAdjustment(node);
+        inAStrokeCommandParameter(node);
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
@@ -1264,23 +1264,23 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getStrokewidthToken().apply(this);
         }
-        outAStrokePathAdjustment(node);
+        outAStrokeCommandParameter(node);
     }
 
-    public void inAParametersPathAdjustment(AParametersPathAdjustment node)
+    public void inAParametersCommandParameter(AParametersCommandParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAParametersPathAdjustment(AParametersPathAdjustment node)
+    public void outAParametersCommandParameter(AParametersCommandParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAParametersPathAdjustment(AParametersPathAdjustment node)
+    public void caseAParametersCommandParameter(AParametersCommandParameter node)
     {
-        inAParametersPathAdjustment(node);
+        inAParametersCommandParameter(node);
         if(node.getString() != null)
         {
             node.getString().apply(this);
@@ -1289,7 +1289,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getParametersToken().apply(this);
         }
-        outAParametersPathAdjustment(node);
+        outAParametersCommandParameter(node);
     }
 
     public void inAHueBackgroundAdjustment(AHueBackgroundAdjustment node)
@@ -2080,9 +2080,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getRRbkt().apply(this);
         }
-        if(node.getExpression2() != null)
+        if(node.getExtendedExpression() != null)
         {
-            node.getExpression2().apply(this);
+            node.getExtendedExpression().apply(this);
         }
         if(node.getLRbkt() != null)
         {
@@ -2112,91 +2112,91 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAFunctionExpression(node);
     }
 
-    public void inANumberExpression2(ANumberExpression2 node)
+    public void inANumberExtendedExpression(ANumberExtendedExpression node)
     {
         defaultIn(node);
     }
 
-    public void outANumberExpression2(ANumberExpression2 node)
+    public void outANumberExtendedExpression(ANumberExtendedExpression node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseANumberExpression2(ANumberExpression2 node)
+    public void caseANumberExtendedExpression(ANumberExtendedExpression node)
     {
-        inANumberExpression2(node);
+        inANumberExtendedExpression(node);
         if(node.getNumber() != null)
         {
             node.getNumber().apply(this);
         }
-        outANumberExpression2(node);
+        outANumberExtendedExpression(node);
     }
 
-    public void inAFunctionExpression2(AFunctionExpression2 node)
+    public void inAFunctionExtendedExpression(AFunctionExtendedExpression node)
     {
         defaultIn(node);
     }
 
-    public void outAFunctionExpression2(AFunctionExpression2 node)
+    public void outAFunctionExtendedExpression(AFunctionExtendedExpression node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAFunctionExpression2(AFunctionExpression2 node)
+    public void caseAFunctionExtendedExpression(AFunctionExtendedExpression node)
     {
-        inAFunctionExpression2(node);
+        inAFunctionExtendedExpression(node);
         if(node.getFunction() != null)
         {
             node.getFunction().apply(this);
         }
-        outAFunctionExpression2(node);
+        outAFunctionExtendedExpression(node);
     }
 
-    public void inANestedExpression2(ANestedExpression2 node)
+    public void inANestedExtendedExpression(ANestedExtendedExpression node)
     {
         defaultIn(node);
     }
 
-    public void outANestedExpression2(ANestedExpression2 node)
+    public void outANestedExtendedExpression(ANestedExtendedExpression node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseANestedExpression2(ANestedExpression2 node)
+    public void caseANestedExtendedExpression(ANestedExtendedExpression node)
     {
-        inANestedExpression2(node);
+        inANestedExtendedExpression(node);
         if(node.getRRbkt() != null)
         {
             node.getRRbkt().apply(this);
         }
-        if(node.getExpression2() != null)
+        if(node.getExtendedExpression() != null)
         {
-            node.getExpression2().apply(this);
+            node.getExtendedExpression().apply(this);
         }
         if(node.getLRbkt() != null)
         {
             node.getLRbkt().apply(this);
         }
-        outANestedExpression2(node);
+        outANestedExtendedExpression(node);
     }
 
-    public void inAComposedExpression2(AComposedExpression2 node)
+    public void inAComposedExtendedExpression(AComposedExtendedExpression node)
     {
         defaultIn(node);
     }
 
-    public void outAComposedExpression2(AComposedExpression2 node)
+    public void outAComposedExtendedExpression(AComposedExtendedExpression node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAComposedExpression2(AComposedExpression2 node)
+    public void caseAComposedExtendedExpression(AComposedExtendedExpression node)
     {
-        inAComposedExpression2(node);
+        inAComposedExtendedExpression(node);
         if(node.getExpression() != null)
         {
             node.getExpression().apply(this);
@@ -2205,11 +2205,11 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getOperator().apply(this);
         }
-        if(node.getExpression2() != null)
+        if(node.getExtendedExpression() != null)
         {
-            node.getExpression2().apply(this);
+            node.getExtendedExpression().apply(this);
         }
-        outAComposedExpression2(node);
+        outAComposedExtendedExpression(node);
     }
 
     public void inAArg0Function(AArg0Function node)
@@ -2234,9 +2234,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getLRbkt().apply(this);
         }
-        if(node.getString() != null)
+        if(node.getFunctionArg0() != null)
         {
-            node.getString().apply(this);
+            node.getFunctionArg0().apply(this);
         }
         outAArg0Function(node);
     }
@@ -2267,9 +2267,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getLRbkt().apply(this);
         }
-        if(node.getString() != null)
+        if(node.getFunctionArg1() != null)
         {
-            node.getString().apply(this);
+            node.getFunctionArg1().apply(this);
         }
         outAArg1Function(node);
     }
@@ -2308,9 +2308,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getLRbkt().apply(this);
         }
-        if(node.getString() != null)
+        if(node.getFunctionArg2() != null)
         {
-            node.getString().apply(this);
+            node.getFunctionArg2().apply(this);
         }
         outAArg2Function(node);
     }
@@ -2329,9 +2329,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAFirstExpression(AFirstExpression node)
     {
         inAFirstExpression(node);
-        if(node.getExpression2() != null)
+        if(node.getExtendedExpression() != null)
         {
-            node.getExpression2().apply(this);
+            node.getExtendedExpression().apply(this);
         }
         outAFirstExpression(node);
     }
@@ -2350,9 +2350,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseASecondExpression(ASecondExpression node)
     {
         inASecondExpression(node);
-        if(node.getExpression2() != null)
+        if(node.getExtendedExpression() != null)
         {
-            node.getExpression2().apply(this);
+            node.getExtendedExpression().apply(this);
         }
         outASecondExpression(node);
     }
@@ -2371,9 +2371,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAThirdExpression(AThirdExpression node)
     {
         inAThirdExpression(node);
-        if(node.getExpression2() != null)
+        if(node.getExtendedExpression() != null)
         {
-            node.getExpression2().apply(this);
+            node.getExtendedExpression().apply(this);
         }
         outAThirdExpression(node);
     }
