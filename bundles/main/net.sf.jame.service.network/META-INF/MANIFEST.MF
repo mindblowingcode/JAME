@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAME Service Network Plug-in
+Bundle-SymbolicName: net.sf.jame.service.network;singleton:=true
+Bundle-Version: 1.1.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: net.sf.jame.service.network,
+ net.sf.jame.service.network.spool
+Require-Bundle: net.sf.jame.core;bundle-version="1.1.0",
+ net.sf.jame.service;bundle-version="1.1.0",
+ net.sf.jame.twister;bundle-version="1.1.0"
+Import-Package: org.apache.log4j;version="1.2.15"

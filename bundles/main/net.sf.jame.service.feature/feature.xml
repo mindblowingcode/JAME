@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="net.sf.jame.service.feature"
+      label="JAME Service Feature"
+      version="1.1.0"
+      provider-name="Andrea Medeghini">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.apache.derby" version="10.5.3.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.ffmpeg4java" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.freeimage4java" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="net.jxta" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.core" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.twister" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.osgi" version="1.4.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.runtime" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.launcher" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.app" version="1.0.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="net.sf.jame.service"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.jame.service.encoders"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.jame.service.jxta"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.jame.service.network"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+</feature>

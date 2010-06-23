@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="extensions" name="ContextFree" schema="schema/extensions.exsd"/>
+   <extension
+         id="twisterExtensions"
+         name="ContextFree"
+         point="net.sf.jame.twister.extensions">
+      <image
+            configClass="net.sf.jame.contextfree.extensions.image.ContextFreeImageConfig"
+            id="twister.frame.layer.image.contextfree"
+            name="ContextFree Fractal"
+            runtimeClass="net.sf.jame.contextfree.extensions.image.ContextFreeImageRuntime"/>
+   </extension>
+   <extension
+         id="coreExtensions"
+         name="ContextFree"
+         point="net.sf.jame.core.extensions">
+      <extensionConfigXMLImporter
+            id="twister.frame.layer.image.contextfree"
+            name="ContextFree Fractal"
+            runtimeClass="net.sf.jame.contextfree.extensions.image.ContextFreeImageConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="twister.frame.layer.image.contextfree"
+            name="ContextFree Fractal"
+            runtimeClass="net.sf.jame.contextfree.extensions.image.ContextFreeImageConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="twister.frame.layer.image.contextfree"
+            name="ContextFree Fractal"
+            runtimeClass="net.sf.jame.contextfree.extensions.image.ContextFreeImageConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.color.targetHue"
+            name="TargetHue PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetHuePathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.color.targetHue"
+            name="TargetHue PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetHuePathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.color.targetHue"
+            name="TargetHue PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetHuePathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.color.targetBrightness"
+            name="TargetBrightness PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetBrightnessPathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.color.targetBrightness"
+            name="TargetBrightness PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetBrightnessPathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.color.targetBrightness"
+            name="TargetBrightness PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetBrightnessPathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.color.targetSaturation"
+            name="TargetSaturation PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetSaturationPathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.color.targetSaturation"
+            name="TargetSaturation PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetSaturationPathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.color.targetSaturation"
+            name="TargetSaturation PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetSaturationPathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.color.targetAlpha"
+            name="TargetAlpha PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetAlphaPathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.color.targetAlpha"
+            name="TargetAlpha PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetAlphaPathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.color.targetAlpha"
+            name="TargetAlpha PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetAlphaPathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.color.targetHue"
+            name="TargetHue PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetHuePathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.color.targetHue"
+            name="TargetHue PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetHuePathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.color.targetHue"
+            name="TargetHue PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetHuePathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.color.currentBrightness"
+            name="CurrentBrightness PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentBrightnessPathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.color.currentBrightness"
+            name="CurrentBrightness PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentBrightnessPathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.color.currentBrightness"
+            name="CurrentBrightness PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentBrightnessPathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.color.currentSaturation"
+            name="CurrentSaturation PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentSaturationPathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.color.currentSaturation"
+            name="CurrentSaturation PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentSaturationPathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.color.currentSaturation"
+            name="CurrentSaturation PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentSaturationPathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.color.currentAlpha"
+            name="CurrentAlpha PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentAlphaPathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.color.currentAlpha"
+            name="CurrentAlpha PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentAlphaPathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.color.currentAlpha"
+            name="CurrentAlpha PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentAlphaPathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.geometry.x"
+            name="X PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.XPathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.geometry.x"
+            name="X PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.XPathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.geometry.x"
+            name="X PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.XPathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.geometry.y"
+            name="Y PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.YPathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.geometry.y"
+            name="Y PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.YPathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.geometry.y"
+            name="Y PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.YPathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.geometry.size"
+            name="Size PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.SizePathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.geometry.size"
+            name="Size PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.SizePathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.geometry.size"
+            name="Size PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.SizePathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.geometry.size2"
+            name="Size2 PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.Size2PathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.geometry.size2"
+            name="Size2 PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.Size2PathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.geometry.size2"
+            name="Size2 PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.Size2PathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.geometry.skew"
+            name="Skew PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.SkewPathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.geometry.skew"
+            name="Skew PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.SkewPathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.geometry.skew"
+            name="Skew PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.SkewPathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.geometry.flip"
+            name="Flip PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.FlipPathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.geometry.flip"
+            name="Flip PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.FlipPathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.geometry.flip"
+            name="Flip PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.FlipPathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.adjustment.geometry.rotate"
+            name="Rotate PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.RotatePathAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.adjustment.geometry.rotate"
+            name="Rotate PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.RotatePathAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.adjustment.geometry.rotate"
+            name="Rotate PathAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.RotatePathAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.operation.lineto"
+            name="LineTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.operation.lineto"
+            name="LineTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.operation.lineto"
+            name="LineTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.operation.arcto"
+            name="ArcTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcToPathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.operation.arcto"
+            name="ArcTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcToPathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.operation.arcto"
+            name="ArcTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcToPathReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.operation.curveto"
+            name="CurveTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveToPathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.operation.curveto"
+            name="CurveTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveToPathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.operation.curveto"
+            name="CurveTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveToPathReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.operation.moveto"
+            name="MoveTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveToPathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.operation.moveto"
+            name="MoveTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveToPathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.operation.moveto"
+            name="MoveTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveToPathReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.operation.linerel"
+            name="LineRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineRelPathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.operation.linerel"
+            name="LineRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineRelPathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.operation.linerel"
+            name="LineRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineRelPathReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.operation.arcrel"
+            name="ArcRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcRelPathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.operation.arcrel"
+            name="ArcRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcRelPathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.operation.arcrel"
+            name="ArcRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcRelPathReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.operation.curverel"
+            name="CurveRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveRelPathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.operation.curverel"
+            name="CurveRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveRelPathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.operation.curverel"
+            name="CurveRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveRelPathReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.operation.moverel"
+            name="MoveRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveRelPathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.operation.moverel"
+            name="MoveRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveRelPathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.operation.moverel"
+            name="MoveTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveRelPathReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.operation.closepoly"
+            name="ClosePoly PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ClosePolyPathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.operation.closepoly"
+            name="ClosePoly PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ClosePolyPathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.operation.closepoly"
+            name="MoveTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ClosePolyPathReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.command.fill"
+            name="Fill PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.FillPathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.command.fill"
+            name="Fill PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.FillPathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.command.fill"
+            name="Fill PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.FillPathReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.command.stroke"
+            name="Stroke PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.command.stroke"
+            name="Stroke PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.command.stroke"
+            name="Stroke PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementConfigNodeBuilderRuntime"/>
+      <!--
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.single"
+            name="Single PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.SinglePathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.single"
+            name="Single PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.SinglePathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.single"
+            name="Single PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.SinglePathReplacementConfigNodeBuilderRuntime"/>
+       -->
+      <extensionConfigXMLImporter
+            id="contextfree.path.replacement.multi"
+            name="Multi PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MultiPathReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.path.replacement.multi"
+            name="Multi PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MultiPathReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.path.replacement.multi"
+            name="Multi PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MultiPathReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.targetBrightness"
+            name="TargetBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetBrightnessShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.targetBrightness"
+            name="TargetBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetBrightnessShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.targetBrightness"
+            name="TargetBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetBrightnessShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.targetSaturation"
+            name="TargetSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetSaturationShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.targetSaturation"
+            name="TargetSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetSaturationShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.targetSaturation"
+            name="TargetSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetSaturationShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.targetAlpha"
+            name="TargetAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetAlphaShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.targetAlpha"
+            name="TargetAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetAlphaShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.targetAlpha"
+            name="TargetAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetAlphaShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.currentBrightness"
+            name="CurrentBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.currentBrightness"
+            name="CurrentBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.currentBrightness"
+            name="CurrentBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.currentSaturation"
+            name="CurrentSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentSaturationShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.currentSaturation"
+            name="CurrentSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentSaturationShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.currentSaturation"
+            name="CurrentSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentSaturationShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.color.currentAlpha"
+            name="CurrentAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.color.currentAlpha"
+            name="CurrentAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.color.currentAlpha"
+            name="CurrentAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.geometry.x"
+            name="X ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.XShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.geometry.x"
+            name="X ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.XShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.geometry.x"
+            name="X ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.XShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.geometry.y"
+            name="Y ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.YShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.geometry.y"
+            name="Y ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.YShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.geometry.y"
+            name="Y ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.YShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.geometry.z"
+            name="Z ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.ZShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.geometry.z"
+            name="Z ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.ZShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.geometry.z"
+            name="Z ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.ZShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.geometry.size"
+            name="Size ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.SizeShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.geometry.size"
+            name="Size ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.SizeShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.geometry.size"
+            name="Size ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.SizeShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.geometry.size2"
+            name="Size2 ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.Size2ShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.geometry.size2"
+            name="Size2 ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.Size2ShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.geometry.size2"
+            name="Size2 ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.Size2ShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.geometry.size3"
+            name="Size3 ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.Size3ShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.geometry.size3"
+            name="Size3 ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.Size3ShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.geometry.size3"
+            name="Size3 ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.Size3ShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.geometry.skew"
+            name="Skew ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.SkewShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.geometry.skew"
+            name="Skew ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.SkewShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.geometry.skew"
+            name="Skew ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.SkewShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.geometry.flip"
+            name="Flip ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.FlipShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.geometry.flip"
+            name="Flip ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.FlipShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.geometry.flip"
+            name="Flip ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.FlipShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.adjustment.geometry.rotate"
+            name="Rotate ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.RotateShapeAdjustmentConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.adjustment.geometry.rotate"
+            name="Rotate ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.RotateShapeAdjustmentConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.adjustment.geometry.rotate"
+            name="Rotate ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.RotateShapeAdjustmentConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.figure.rule"
+            name="Rule Fugure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.RuleFigureConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.figure.rule"
+            name="Rule Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.RuleFigureConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.figure.rule"
+            name="Rule Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.RuleFigureConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.figure.path"
+            name="Path Fugure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.figure.path"
+            name="Path Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.figure.path"
+            name="Path Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.figure.triangle"
+            name="Path Fugure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.figure.triangle"
+            name="Triangle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.TriangleFigureConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.figure.triangle"
+            name="Triangle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.TriangleFigureConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.figure.square"
+            name="Square Fugure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.SquareFigureConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.figure.square"
+            name="Square Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.SquareFigureConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.figure.square"
+            name="Square Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.SquareFigureConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.figure.circle"
+            name="Circle Fugure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.CircleFigureConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.figure.circle"
+            name="Circle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.CircleFigureConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.figure.circle"
+            name="Circle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.CircleFigureConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.replacement.single"
+            name="Single Replacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.SingleShapeReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.replacement.single"
+            name="Single Replacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.SingleShapeReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.replacement.single"
+            name="Single Replacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.SingleShapeReplacementConfigNodeBuilderRuntime"/>
+      <extensionConfigXMLImporter
+            id="contextfree.shape.replacement.multi"
+            name="LoopShape Replacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.MultiShapeReplacementConfigXMLImporterRuntime"/>
+      <extensionConfigXMLExporter
+            id="contextfree.shape.replacement.multi"
+            name="Multi Replacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.MultiShapeReplacementConfigXMLExporterRuntime"/>
+      <nodeBuilder
+            id="contextfree.shape.replacement.multi"
+            name="Multi Replacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.MultiShapeReplacementConfigNodeBuilderRuntime"/>
+   </extension>
+   <extension
+         id="contextfreeExtensions"
+         name="ContextFree"
+         point="net.sf.jame.contextfree.extensions">
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetHuePathAdjustmentConfig"
+            id="contextfree.path.adjustment.color.targetHue"
+            name="TargetHue Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetHuePathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetBrightnessPathAdjustmentConfig"
+            id="contextfree.path.adjustment.color.targetBrightness"
+            name="TargetBrightness Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetBrightnessPathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetSaturationPathAdjustmentConfig"
+            id="contextfree.path.adjustment.color.targetSaturation"
+            name="TargetSaturation Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetSaturationPathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetAlphaPathAdjustmentConfig"
+            id="contextfree.path.adjustment.color.targetAlpha"
+            name="TargetAlpha Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.TargetAlphaPathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentHuePathAdjustmentConfig"
+            id="contextfree.path.adjustment.color.currentHue"
+            name="CurrentHue Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentHuePathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentBrightnessPathAdjustmentConfig"
+            id="contextfree.path.adjustment.color.currentBrightness"
+            name="CurrentBrightness Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentBrightnessPathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentSaturationPathAdjustmentConfig"
+            id="contextfree.path.adjustment.color.currentSaturation"
+            name="CurrentSaturation Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentSaturationPathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentAlphaPathAdjustmentConfig"
+            id="contextfree.path.adjustment.color.currentAlpha"
+            name="CurrentAlpha Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.CurrentAlphaPathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.XPathAdjustmentConfig"
+            id="contextfree.path.adjustment.geometry.x"
+            name="X Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.XPathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.YPathAdjustmentConfig"
+            id="contextfree.path.adjustment.geometry.y"
+            name="Y Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.YPathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.SizePathAdjustmentConfig"
+            id="contextfree.path.adjustment.geometry.size"
+            name="Size Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.SizePathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.Size2PathAdjustmentConfig"
+            id="contextfree.path.adjustment.geometry.size2"
+            name="Size2 Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.Size2PathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.SkewPathAdjustmentConfig"
+            id="contextfree.path.adjustment.geometry.skew"
+            name="Skew Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.SkewPathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.FlipPathAdjustmentConfig"
+            id="contextfree.path.adjustment.geometry.flip"
+            name="Flip Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.FlipPathAdjustmentRuntime"/>
+      <pathAdjustment
+            configClass="net.sf.jame.contextfree.extensions.pathAdjustment.RotatePathAdjustmentConfig"
+            id="contextfree.path.adjustment.geometry.rotate"
+            name="Rotate Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathAdjustment.RotatePathAdjustmentRuntime"/>
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathReplacementConfig"
+            id="contextfree.path.replacement.operation.lineto"
+            name="LineTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathReplacementRuntime"/>
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcToPathReplacementConfig"
+            id="contextfree.path.replacement.operation.arcto"
+            name="ArcTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcToPathReplacementRuntime"/>
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveToPathReplacementConfig"
+            id="contextfree.path.replacement.operation.curveto"
+            name="CurveTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveToPathReplacementRuntime"/>
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveToPathReplacementConfig"
+            id="contextfree.path.replacement.operation.moveto"
+            name="MoveTo PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveToPathReplacementRuntime"/>
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.LineRelPathReplacementConfig"
+            id="contextfree.path.replacement.operation.linerel"
+            name="LineRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineRelPathReplacementRuntime"/>
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcRelPathReplacementConfig"
+            id="contextfree.path.replacement.operation.arcrel"
+            name="ArcRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcRelPathReplacementRuntime"/>
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveRelPathReplacementConfig"
+            id="contextfree.path.replacement.operation.curverel"
+            name="CurveRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveRelPathReplacementRuntime"/>
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveRelPathReplacementConfig"
+            id="contextfree.path.replacement.operation.moverel"
+            name="MoveRel PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveRelPathReplacementRuntime"/>
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.ClosePolyPathReplacementConfig"
+            id="contextfree.path.replacement.operation.closepoly"
+            name="ClosePoly PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ClosePolyPathReplacementRuntime"/>
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.FillPathReplacementConfig"
+            id="contextfree.path.replacement.command.fill"
+            name="Fill PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.FillPathReplacementRuntime"/>
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementConfig"
+            id="contextfree.path.replacement.command.stroke"
+            name="Stroke PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementRuntime"/>
+      <!--
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.SinglePathReplacementConfig"
+            id="contextfree.path.replacement.single"
+            name="Single PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.SinglePathReplacementRuntime"/>
+       -->
+      <pathReplacement
+            configClass="net.sf.jame.contextfree.extensions.pathReplacement.MultiPathReplacementConfig"
+            id="contextfree.path.replacement.multi"
+            name="Multi PathReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MultiPathReplacementRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.color.targetHue"
+            name="TargetHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetBrightnessShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.color.targetBrightness"
+            name="TargetBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetBrightnessShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetSaturationShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.color.targetSaturation"
+            name="TargetSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetSaturationShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetAlphaShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.color.targetAlpha"
+            name="TargetAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetAlphaShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentHueShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.color.currentHue"
+            name="CurrentHue ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentHueShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.color.currentBrightness"
+            name="CurrentBrightness ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentSaturationShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.color.currentSaturation"
+            name="CurrentSaturation ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentSaturationShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.color.currentAlpha"
+            name="CurrentAlpha ShapeAdjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.XShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.geometry.x"
+            name="X Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.XShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.YShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.geometry.y"
+            name="Y Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.YShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.ZShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.geometry.z"
+            name="Z Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.ZShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.SizeShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.geometry.size"
+            name="Size Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.SizeShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.Size2ShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.geometry.size2"
+            name="Size2 Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.Size2ShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.Size3ShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.geometry.size3"
+            name="Size3 Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.Size3ShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.SkewShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.geometry.skew"
+            name="Skew Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.SkewShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.FlipShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.geometry.flip"
+            name="Flip Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.FlipShapeAdjustmentRuntime"/>
+      <shapeAdjustment
+            configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.RotateShapeAdjustmentConfig"
+            id="contextfree.shape.adjustment.geometry.rotate"
+            name="Rotate Adjustment"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.RotateShapeAdjustmentRuntime"/>
+      <shapeReplacement
+            configClass="net.sf.jame.contextfree.extensions.shapeReplacement.SingleShapeReplacementConfig"
+            id="contextfree.shape.replacement.single"
+            name="Single ShapeReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.SingleShapeReplacementRuntime"/>
+      <shapeReplacement
+            configClass="net.sf.jame.contextfree.extensions.shapeReplacement.MultiShapeReplacementConfig"
+            id="contextfree.shape.replacement.multi"
+            name="Multi ShapeReplacement"
+            runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.MultiShapeReplacementRuntime"/>
+      <figure
+            configClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfig"
+            id="contextfree.figure.path"
+            name="Path Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.PathFigureRuntime"/>
+      <figure
+            configClass="net.sf.jame.contextfree.extensions.figure.RuleFigureConfig"
+            id="contextfree.figure.rule"
+            name="Rule Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.RuleFigureRuntime"/>
+      <figure
+            configClass="net.sf.jame.contextfree.extensions.figure.TriangleFigureConfig"
+            id="contextfree.figure.triangle"
+            name="Triangle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.TriangleFigureRuntime"/>
+      <figure
+            configClass="net.sf.jame.contextfree.extensions.figure.SquareFigureConfig"
+            id="contextfree.figure.square"
+            name="Square Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.SquareFigureRuntime"/>
+      <figure
+            configClass="net.sf.jame.contextfree.extensions.figure.CircleFigureConfig"
+            id="contextfree.figure.circle"
+            name="Circle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.CircleFigureRuntime"/>
+   </extension>
+
+</plugin>

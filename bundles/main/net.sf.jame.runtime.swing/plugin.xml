@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         id="application"
+         name="JAME Application"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="net.sf.jame.runtime.swing.JAME">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="product"
+         name="JAME"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="net.sf.jame.runtime.swing.application"
+            name="JAME">
+         <property
+               name="appName"
+               value="JAME">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

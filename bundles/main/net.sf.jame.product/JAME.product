@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="JAME" uid="net.sf.jame" id="net.sf.jame.runtime.swing.product" application="net.sf.jame.runtime.swing.application" version="6.1.0" useFeatures="true" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>--launcher.secondThread</programArgs>
+      <vmArgs>-Declipse.service.jobs=false -Declipse.service.pref=false -Declipse.ignoreApp=false -Dosgi.noShutdown=false -Xms256m -Xmx1024m -DdebugLevel=INFO -Dappenders=file -Djame.hcells=1 -Djame.vcells=1 -Djame.lowMemory=false -Djame.jxta.multicast=true -Djame.jxta.relay.seeds=seeds.txt -Djame.jxta.rendezvous.seeds=seeds.txt</vmArgs>
+   </launcherArgs>
+
+   <windowImages/>
+
+   <launcher name="JAME">
+      <linux icon="/net.sf.jame.product/icons/JAME.xpm"/>
+      <macosx icon="/net.sf.jame.product/icons/JAME.icns"/>
+      <solaris/>
+      <win useIco="true">
+         <ico path="/net.sf.jame.product/icons/JAME.ico"/>
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+      <plugin id="javax.servlet"/>
+      <plugin id="net.jxta"/>
+      <plugin id="net.sf.ffmpeg4java"/>
+      <plugin id="net.sf.ffmpeg4java.linux.x86" fragment="true"/>
+      <plugin id="net.sf.ffmpeg4java.linux.x86_64" fragment="true"/>
+      <plugin id="net.sf.ffmpeg4java.macosx.x86" fragment="true"/>
+      <plugin id="net.sf.ffmpeg4java.macosx.x86_64" fragment="true"/>
+      <plugin id="net.sf.ffmpeg4java.windows.x86" fragment="true"/>
+      <plugin id="net.sf.ffmpeg4java.windows.x86_64" fragment="true"/>
+      <plugin id="net.sf.freeimage4java"/>
+      <plugin id="net.sf.freeimage4java.linux.x86" fragment="true"/>
+      <plugin id="net.sf.freeimage4java.linux.x86_64" fragment="true"/>
+      <plugin id="net.sf.freeimage4java.macosx.x86" fragment="true"/>
+      <plugin id="net.sf.freeimage4java.macosx.x86_64" fragment="true"/>
+      <plugin id="net.sf.freeimage4java.windows.x86" fragment="true"/>
+      <plugin id="net.sf.freeimage4java.windows.x86_64" fragment="true"/>
+      <plugin id="net.sf.jame" fragment=""/>
+      <plugin id="net.sf.jame.core"/>
+      <plugin id="net.sf.jame.core.swing"/>
+      <plugin id="net.sf.jame.launcher"/>
+      <plugin id="net.sf.jame.launcher.swing"/>
+      <plugin id="net.sf.jame.mandelbrot"/>
+      <plugin id="net.sf.jame.mandelbrot.swing"/>
+      <plugin id="net.sf.jame.media"/>
+      <plugin id="net.sf.jame.media.swing"/>
+      <plugin id="net.sf.jame.networking" fragment=""/>
+      <plugin id="net.sf.jame.networking.jxta" fragment=""/>
+      <plugin id="net.sf.jame.runtime"/>
+      <plugin id="net.sf.jame.runtime.swing"/>
+      <plugin id="net.sf.jame.service"/>
+      <plugin id="net.sf.jame.service.encoders"/>
+      <plugin id="net.sf.jame.service.swing" fragment=""/>
+      <plugin id="net.sf.jame.twister"/>
+      <plugin id="net.sf.jame.twister.swing"/>
+      <plugin id="org.apache.derby"/>
+      <plugin id="org.apache.log4j"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.jdesktop.swingworker"/>
+      <plugin id="org.mozilla.rhino"/>
+   </plugins>
+
+   <features>
+      <feature id="net.sf.jame.feature" version="6.1.0"/>
+   </features>
+
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.app" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="0" />
+   </configurations>
+
+</product>

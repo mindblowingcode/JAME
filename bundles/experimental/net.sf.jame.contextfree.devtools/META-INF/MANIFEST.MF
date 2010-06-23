@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAME ContextFree DevTools Plug-in
+Bundle-SymbolicName: net.sf.jame.contextfree.devtools;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: net.sf.jame.core;bundle-version="1.1.0",
+ net.sf.jame.devtools;bundle-version="1.0.0",
+ net.sf.jame.devtools.core;bundle-version="1.0.0",
+ net.sf.jame.devtools.twister;bundle-version="1.0.0",
+ org.junit4;bundle-version="4.3.1"
+Import-Package: org.apache.log4j;version="1.2.15",
+ org.eclipse.core.runtime;version="3.4.0"

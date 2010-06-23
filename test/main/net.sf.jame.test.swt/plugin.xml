@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="swttest"
+         name="SWTTest"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="net.sf.jame.test.swtapp.TestSWTApplication">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="swttest"
+         name="SWTTest Product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="net.sf.jame.test.swt.swttest"
+            description="SWTTest"
+            name="SWTTest">
+         <property
+               name="appName"
+               value="SWTTest">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

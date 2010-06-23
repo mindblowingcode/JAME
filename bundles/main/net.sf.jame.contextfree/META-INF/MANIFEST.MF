@@ -1,0 +1,37 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAME ContextFree Plug-in
+Bundle-SymbolicName: net.sf.jame.contextfree;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: net.sf.jame.core;bundle-version="1.1.0",
+ net.sf.jame.twister;bundle-version="1.1.0"
+Export-Package: net.sf.jame.contextfree,
+ net.sf.jame.contextfree.cfdg,
+ net.sf.jame.contextfree.cfdg.analysis,
+ net.sf.jame.contextfree.cfdg.figure,
+ net.sf.jame.contextfree.cfdg.figure.extension,
+ net.sf.jame.contextfree.cfdg.lexer,
+ net.sf.jame.contextfree.cfdg.node,
+ net.sf.jame.contextfree.cfdg.parser,
+ net.sf.jame.contextfree.cfdg.pathAdjustment,
+ net.sf.jame.contextfree.cfdg.pathAdjustment.extension,
+ net.sf.jame.contextfree.cfdg.pathReplacement,
+ net.sf.jame.contextfree.cfdg.pathReplacement.extension,
+ net.sf.jame.contextfree.cfdg.shapeAdjustment,
+ net.sf.jame.contextfree.cfdg.shapeAdjustment.extension,
+ net.sf.jame.contextfree.cfdg.shapeReplacement,
+ net.sf.jame.contextfree.cfdg.shapeReplacement.extension,
+ net.sf.jame.contextfree.extensions,
+ net.sf.jame.contextfree.extensions.figure,
+ net.sf.jame.contextfree.extensions.image,
+ net.sf.jame.contextfree.extensions.pathAdjustment,
+ net.sf.jame.contextfree.extensions.pathReplacement,
+ net.sf.jame.contextfree.extensions.shapeAdjustment,
+ net.sf.jame.contextfree.extensions.shapeReplacement,
+ net.sf.jame.contextfree.parser,
+ net.sf.jame.contextfree.renderer
+Import-Package: org.apache.log4j;version="1.2.15",
+ org.eclipse.core.runtime;version="3.4.0"
