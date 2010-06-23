@@ -42,7 +42,7 @@ public class FlipShapeAdjustmentConfigXMLImporterRuntime extends ExtensionConfig
 			checkClassId(element, this.getConfigElementClassId());
 			final FlipShapeAdjustmentConfig extensionConfig = this.createExtensionConfig();
 			final List<Element> propertyElements = getProperties(element);
-			if (propertyElements.size() == 2) {
+			if (propertyElements.size() == 1) {
 				try {
 					importProperties(extensionConfig, propertyElements);
 				}
@@ -60,20 +60,13 @@ public class FlipShapeAdjustmentConfigXMLImporterRuntime extends ExtensionConfig
 		 * @throws XMLImportException
 		 */
 		protected void importProperties(final FlipShapeAdjustmentConfig extensionConfig, final List<Element> propertyElements) throws ExtensionException, XMLImportException {
-			importFlipX(extensionConfig, propertyElements.get(0));
-			importFlipY(extensionConfig, propertyElements.get(1));
+			importAngle(extensionConfig, propertyElements.get(0));
 		}
 	
-		private void importFlipX(final FlipShapeAdjustmentConfig extensionConfig, final Element element) throws XMLImportException {
-			final List<Element> flipXElements = this.getElements(element, FloatElement.CLASS_ID);
-			if (flipXElements.size() == 1) {
-				extensionConfig.setFlipX(new FloatElementXMLImporter().importFromElement(flipXElements.get(0)).getValue());
-			}
-		}
-		private void importFlipY(final FlipShapeAdjustmentConfig extensionConfig, final Element element) throws XMLImportException {
-			final List<Element> flipYElements = this.getElements(element, FloatElement.CLASS_ID);
-			if (flipYElements.size() == 1) {
-				extensionConfig.setFlipY(new FloatElementXMLImporter().importFromElement(flipYElements.get(0)).getValue());
+		private void importAngle(final FlipShapeAdjustmentConfig extensionConfig, final Element element) throws XMLImportException {
+			final List<Element> angleElements = this.getElements(element, FloatElement.CLASS_ID);
+			if (angleElements.size() == 1) {
+				extensionConfig.setAngle(new FloatElementXMLImporter().importFromElement(angleElements.get(0)).getValue());
 			}
 		}
 	}

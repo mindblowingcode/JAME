@@ -5,6 +5,7 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementXMLExporter;
+import net.sf.jame.core.common.FloatElementXMLExporter;
 import net.sf.jame.core.common.StringElementXMLExporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLExportException;
@@ -49,11 +50,15 @@ public class StrokePathReplacementConfigXMLExporterRuntime extends ExtensionConf
 		 * @see net.sf.jame.core.common.ConfigurableExtensionReferenceElementXMLExporter#exportProperties(net.sf.jame.twister.util.ConfigurableExtensionConfigElement, org.w3c.dom.Element, net.sf.jame.core.xml.XMLNodeBuilder, java.lang.String)
 		 */
 		protected void exportProperties(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws ExtensionException, XMLExportException {
+			exportWidth(extensionConfig, createProperty(builder, element, "width"), builder);
 			exportCup(extensionConfig, createProperty(builder, element, "cup"), builder);
 			exportJoin(extensionConfig, createProperty(builder, element, "join"), builder);
 			exportPathAdjustmentListElement(extensionConfig, createProperty(builder, element, "pathAdjustmentList"), builder);
 		}
 	
+		private void exportWidth(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+			element.appendChild(new FloatElementXMLExporter().exportToElement(extensionConfig.getWidthElement(), builder));
+		}
 		private void exportCup(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			element.appendChild(new StringElementXMLExporter().exportToElement(extensionConfig.getCupElement(), builder));
 		}

@@ -239,6 +239,7 @@ public class GenerateContextFree {
 
 	private ProcessorParameters createStrokePathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("width", "1f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("cup", "\"butt\"", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("join", "\"miter\"", ProcessorCardinality.NONE));
 		descriptors.add(new ProcessorDescriptor("pathAdjustment", "PathAdjustment", "PathAdjustment", "net.sf.jame.contextfree.cfdg.pathAdjustment", "PathAdjustmentConfigElement", "net.sf.jame.contextfree.cfdg.pathAdjustment", "PathAdjustmentRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.MANY));
@@ -335,8 +336,7 @@ public class GenerateContextFree {
 
 	private ProcessorParameters createFlipPathAdjustmentExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
-		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("flipX", "0f", ProcessorCardinality.NONE));
-		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("flipY", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("angle", "0f", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("flipPathAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathAdjustment", "FlipPathAdjustmentConfig", "net.sf.jame.contextfree.extensions.pathAdjustment", "FlipPathAdjustmentRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
@@ -434,8 +434,7 @@ public class GenerateContextFree {
 
 	private ProcessorParameters createFlipShapeAdjustmentExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
-		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("flipX", "0f", ProcessorCardinality.NONE));
-		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("flipY", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("angle", "0f", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("flipShapeAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.shapeAdjustment", "FlipShapeAdjustmentConfig", "net.sf.jame.contextfree.extensions.shapeAdjustment", "FlipShapeAdjustmentRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 

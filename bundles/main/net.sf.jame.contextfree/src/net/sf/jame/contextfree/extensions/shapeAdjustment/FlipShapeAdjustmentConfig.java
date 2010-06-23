@@ -16,16 +16,14 @@ import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExt
  */
 public class FlipShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 	private static final long serialVersionUID = 1L;
-	private FloatElement flipXElement;
-	private FloatElement flipYElement;
+	private FloatElement angleElement;
 
 	/**
 	 * 
 	 */
 	@Override
 	protected void createConfigElements() {
-		flipXElement = new FloatElement(0f);
-		flipYElement = new FloatElement(0f);
+		angleElement = new FloatElement(0f);
 	}
 
 	/**
@@ -34,50 +32,29 @@ public class FlipShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 	@Override
 	public List<ConfigElement> getConfigElements() {
 		final List<ConfigElement> elements = new ArrayList<ConfigElement>(1);
-		elements.add(flipXElement);
-		elements.add(flipYElement);
+		elements.add(angleElement);
 		return elements;
 	}
 
 	/**
 	 * @return
 	 */
-	public FloatElement getFlipXElement() {
-		return flipXElement;
+	public FloatElement getAngleElement() {
+		return angleElement;
 	}
 	
 	/**
 	 * @return
 	 */
-	public Float getFlipX() {
-		return flipXElement.getValue();
+	public Float getAngle() {
+		return angleElement.getValue();
 	}
 
 	/**
 	 * @param value
 	 */
-	public void setFlipX(final Float value) {
-		flipXElement.setValue(value);
-	}
-	/**
-	 * @return
-	 */
-	public FloatElement getFlipYElement() {
-		return flipYElement;
-	}
-	
-	/**
-	 * @return
-	 */
-	public Float getFlipY() {
-		return flipYElement.getValue();
-	}
-
-	/**
-	 * @param value
-	 */
-	public void setFlipY(final Float value) {
-		flipYElement.setValue(value);
+	public void setAngle(final Float value) {
+		angleElement.setValue(value);
 	}
 
 	/**
@@ -92,20 +69,12 @@ public class FlipShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 			return false;
 		}
 		final FlipShapeAdjustmentConfig other = (FlipShapeAdjustmentConfig) obj;
-		if (flipXElement == null) {
-			if (other.flipXElement != null) {
+		if (angleElement == null) {
+			if (other.angleElement != null) {
 				return false;
 			}
 		}
-		else if (!flipXElement.equals(other.flipXElement)) {
-			return false;
-		}
-		if (flipYElement == null) {
-			if (other.flipYElement != null) {
-				return false;
-			}
-		}
-		else if (!flipYElement.equals(other.flipYElement)) {
+		else if (!angleElement.equals(other.angleElement)) {
 			return false;
 		}
 		return true;
@@ -117,8 +86,7 @@ public class FlipShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 	@Override
 	public FlipShapeAdjustmentConfig clone() {
 		final FlipShapeAdjustmentConfig config = new FlipShapeAdjustmentConfig();
-		config.setFlipX(getFlipX());
-		config.setFlipY(getFlipY());
+		config.setAngle(getAngle());
 		return config;
 	}
 }

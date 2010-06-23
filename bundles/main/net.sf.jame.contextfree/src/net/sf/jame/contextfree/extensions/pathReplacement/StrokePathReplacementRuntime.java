@@ -24,6 +24,8 @@ import net.sf.jame.core.config.ValueConfigElement;
  * @author Andrea Medeghini
  */
 public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntime<StrokePathReplacementConfig> {
+	private Float width;
+	private WidthListener widthListener;
 	private String cup;
 	private CupListener cupListener;
 	private String join;
@@ -36,6 +38,9 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 	 */
 	@Override
 	public void configReloaded() {
+		setWidth(getConfig().getWidth());
+		widthListener = new WidthListener();
+		getConfig().getWidthElement().addChangeListener(widthListener);
 		setCup(getConfig().getCup());
 		cupListener = new CupListener();
 		getConfig().getCupElement().addChangeListener(cupListener);
@@ -52,6 +57,10 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 
 	@Override
 	public void dispose() {
+		if ((getConfig() != null) && (widthListener != null)) {
+			getConfig().getWidthElement().removeChangeListener(widthListener);
+		}
+		widthListener = null;
 		if ((getConfig() != null) && (cupListener != null)) {
 			getConfig().getCupElement().removeChangeListener(cupListener);
 		}
@@ -67,6 +76,33 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 		super.dispose();
 	}
 	
+	/**
+	 * @return the width.
+	 */
+	public Float getWidth() {
+		return width;
+	}
+
+	private void setWidth(final Float width) {
+		this.width = width;
+	}
+	
+	private class WidthListener implements ValueChangeListener {
+		/**
+		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
+		 */
+		public void valueChanged(final ValueChangeEvent e) {
+			switch (e.getEventType()) {
+				case ValueConfigElement.VALUE_CHANGED: {
+					fireChanged();
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		}
+	}
 	/**
 	 * @return the cup.
 	 */
@@ -227,13 +263,13 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-		return new CommandContextFreeNode(context, state, limits);
+		return new OperationContextFreeNode(context, state, limits);
 	}
 	
-	private class CommandContextFreeNode extends ContextFreeNode {
+	private class OperationContextFreeNode extends ContextFreeNode {
 		private ContextFreeState state;
 		
-		public CommandContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		public OperationContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
 			this.state = state;
 		}
 

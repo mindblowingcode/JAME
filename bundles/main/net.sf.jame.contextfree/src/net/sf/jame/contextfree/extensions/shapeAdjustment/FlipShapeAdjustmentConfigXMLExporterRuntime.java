@@ -48,15 +48,11 @@ public class FlipShapeAdjustmentConfigXMLExporterRuntime extends ExtensionConfig
 		 * @see net.sf.jame.core.common.ConfigurableExtensionReferenceElementXMLExporter#exportProperties(net.sf.jame.twister.util.ConfigurableExtensionConfigElement, org.w3c.dom.Element, net.sf.jame.core.xml.XMLNodeBuilder, java.lang.String)
 		 */
 		protected void exportProperties(final FlipShapeAdjustmentConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws ExtensionException, XMLExportException {
-			exportFlipX(extensionConfig, createProperty(builder, element, "flipX"), builder);
-			exportFlipY(extensionConfig, createProperty(builder, element, "flipY"), builder);
+			exportAngle(extensionConfig, createProperty(builder, element, "angle"), builder);
 		}
 	
-		private void exportFlipX(final FlipShapeAdjustmentConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-			element.appendChild(new FloatElementXMLExporter().exportToElement(extensionConfig.getFlipXElement(), builder));
-		}
-		private void exportFlipY(final FlipShapeAdjustmentConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-			element.appendChild(new FloatElementXMLExporter().exportToElement(extensionConfig.getFlipYElement(), builder));
+		private void exportAngle(final FlipShapeAdjustmentConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+			element.appendChild(new FloatElementXMLExporter().exportToElement(extensionConfig.getAngleElement(), builder));
 		}
 	}
 }
