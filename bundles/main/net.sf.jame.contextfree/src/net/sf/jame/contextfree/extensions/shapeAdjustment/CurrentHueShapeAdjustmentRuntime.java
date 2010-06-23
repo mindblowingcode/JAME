@@ -17,6 +17,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class CurrentHueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<CurrentHueShapeAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
+	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -68,12 +69,12 @@ public class CurrentHueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRu
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		delta = (value - state.getCurrentHue()) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setCurrentHue(delta * time);
 	}
 }

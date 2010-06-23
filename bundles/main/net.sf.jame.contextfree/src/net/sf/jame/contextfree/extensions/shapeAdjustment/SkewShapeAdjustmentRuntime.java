@@ -19,6 +19,8 @@ public class SkewShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<
 	private ShearXListener shearXListener;
 	private Float shearY;
 	private ShearYListener shearYListener;
+	private float deltaX;
+	private float deltaY;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -104,7 +106,8 @@ public class SkewShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		deltaX = (state.getSkewX() - shearX) / times;
+		deltaY = (state.getSkewY() - shearY) / times;
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class TargetAlphaPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<TargetAlphaPathAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
+	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -68,13 +69,12 @@ public class TargetAlphaPathAdjustmentRuntime extends PathAdjustmentExtensionRun
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		delta = (value - state.getTargetAlpha()) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setTargetAlpha(delta * time);
 	}
 }
-
