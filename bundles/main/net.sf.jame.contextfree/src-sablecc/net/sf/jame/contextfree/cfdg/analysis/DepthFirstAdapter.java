@@ -800,8 +800,8 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getLCbkt().apply(this);
         }
         {
-            List<PGeometryAdjustment> copy = new ArrayList<PGeometryAdjustment>(node.getGeometryAdjustment());
-            for(PGeometryAdjustment e : copy)
+            List<PPathAdjustment> copy = new ArrayList<PPathAdjustment>(node.getPathAdjustment());
+            for(PPathAdjustment e : copy)
             {
                 e.apply(this);
             }
@@ -1218,9 +1218,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAGeometryCommandParameter(AGeometryCommandParameter node)
     {
         inAGeometryCommandParameter(node);
-        if(node.getGeometryAdjustment() != null)
+        if(node.getPathAdjustment() != null)
         {
-            node.getGeometryAdjustment().apply(this);
+            node.getPathAdjustment().apply(this);
         }
         outAGeometryCommandParameter(node);
     }
@@ -1525,64 +1525,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAGeometryShapeAdjustment(node);
     }
 
-    public void inAZShapeAdjustment(AZShapeAdjustment node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAZShapeAdjustment(AZShapeAdjustment node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAZShapeAdjustment(AZShapeAdjustment node)
-    {
-        inAZShapeAdjustment(node);
-        if(node.getZToken() != null)
-        {
-            node.getZToken().apply(this);
-        }
-        if(node.getExpression() != null)
-        {
-            node.getExpression().apply(this);
-        }
-        outAZShapeAdjustment(node);
-    }
-
-    public void inASize3ShapeAdjustment(ASize3ShapeAdjustment node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASize3ShapeAdjustment(ASize3ShapeAdjustment node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASize3ShapeAdjustment(ASize3ShapeAdjustment node)
-    {
-        inASize3ShapeAdjustment(node);
-        if(node.getSizeToken() != null)
-        {
-            node.getSizeToken().apply(this);
-        }
-        if(node.getFirstExpression() != null)
-        {
-            node.getFirstExpression().apply(this);
-        }
-        if(node.getSecondExpression() != null)
-        {
-            node.getSecondExpression().apply(this);
-        }
-        if(node.getThirdExpression() != null)
-        {
-            node.getThirdExpression().apply(this);
-        }
-        outASize3ShapeAdjustment(node);
-    }
-
     public void inACurrentColorAdjustment(ACurrentColorAdjustment node)
     {
         defaultIn(node);
@@ -1841,6 +1783,189 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAAlphaTargetColorAdjustment(node);
     }
 
+    public void inAXPathAdjustment(AXPathAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAXPathAdjustment(AXPathAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAXPathAdjustment(AXPathAdjustment node)
+    {
+        inAXPathAdjustment(node);
+        if(node.getXToken() != null)
+        {
+            node.getXToken().apply(this);
+        }
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outAXPathAdjustment(node);
+    }
+
+    public void inAYPathAdjustment(AYPathAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAYPathAdjustment(AYPathAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAYPathAdjustment(AYPathAdjustment node)
+    {
+        inAYPathAdjustment(node);
+        if(node.getYToken() != null)
+        {
+            node.getYToken().apply(this);
+        }
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outAYPathAdjustment(node);
+    }
+
+    public void inASizePathAdjustment(ASizePathAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASizePathAdjustment(ASizePathAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASizePathAdjustment(ASizePathAdjustment node)
+    {
+        inASizePathAdjustment(node);
+        if(node.getSizeToken() != null)
+        {
+            node.getSizeToken().apply(this);
+        }
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outASizePathAdjustment(node);
+    }
+
+    public void inASize2PathAdjustment(ASize2PathAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASize2PathAdjustment(ASize2PathAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASize2PathAdjustment(ASize2PathAdjustment node)
+    {
+        inASize2PathAdjustment(node);
+        if(node.getSizeToken() != null)
+        {
+            node.getSizeToken().apply(this);
+        }
+        if(node.getFirstExpression() != null)
+        {
+            node.getFirstExpression().apply(this);
+        }
+        if(node.getSecondExpression() != null)
+        {
+            node.getSecondExpression().apply(this);
+        }
+        outASize2PathAdjustment(node);
+    }
+
+    public void inAFlipPathAdjustment(AFlipPathAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAFlipPathAdjustment(AFlipPathAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAFlipPathAdjustment(AFlipPathAdjustment node)
+    {
+        inAFlipPathAdjustment(node);
+        if(node.getFlipToken() != null)
+        {
+            node.getFlipToken().apply(this);
+        }
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outAFlipPathAdjustment(node);
+    }
+
+    public void inASkewPathAdjustment(ASkewPathAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASkewPathAdjustment(ASkewPathAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASkewPathAdjustment(ASkewPathAdjustment node)
+    {
+        inASkewPathAdjustment(node);
+        if(node.getSkewToken() != null)
+        {
+            node.getSkewToken().apply(this);
+        }
+        if(node.getFirstExpression() != null)
+        {
+            node.getFirstExpression().apply(this);
+        }
+        if(node.getSecondExpression() != null)
+        {
+            node.getSecondExpression().apply(this);
+        }
+        outASkewPathAdjustment(node);
+    }
+
+    public void inARotatePathAdjustment(ARotatePathAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outARotatePathAdjustment(ARotatePathAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseARotatePathAdjustment(ARotatePathAdjustment node)
+    {
+        inARotatePathAdjustment(node);
+        if(node.getRotateToken() != null)
+        {
+            node.getRotateToken().apply(this);
+        }
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outARotatePathAdjustment(node);
+    }
+
     public void inAXGeometryAdjustment(AXGeometryAdjustment node)
     {
         defaultIn(node);
@@ -1889,6 +2014,31 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getExpression().apply(this);
         }
         outAYGeometryAdjustment(node);
+    }
+
+    public void inAZGeometryAdjustment(AZGeometryAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAZGeometryAdjustment(AZGeometryAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAZGeometryAdjustment(AZGeometryAdjustment node)
+    {
+        inAZGeometryAdjustment(node);
+        if(node.getZToken() != null)
+        {
+            node.getZToken().apply(this);
+        }
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        outAZGeometryAdjustment(node);
     }
 
     public void inASizeGeometryAdjustment(ASizeGeometryAdjustment node)
@@ -1943,6 +2093,39 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getSecondExpression().apply(this);
         }
         outASize2GeometryAdjustment(node);
+    }
+
+    public void inASize3GeometryAdjustment(ASize3GeometryAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASize3GeometryAdjustment(ASize3GeometryAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASize3GeometryAdjustment(ASize3GeometryAdjustment node)
+    {
+        inASize3GeometryAdjustment(node);
+        if(node.getSizeToken() != null)
+        {
+            node.getSizeToken().apply(this);
+        }
+        if(node.getFirstExpression() != null)
+        {
+            node.getFirstExpression().apply(this);
+        }
+        if(node.getSecondExpression() != null)
+        {
+            node.getSecondExpression().apply(this);
+        }
+        if(node.getThirdExpression() != null)
+        {
+            node.getThirdExpression().apply(this);
+        }
+        outASize3GeometryAdjustment(node);
     }
 
     public void inAFlipGeometryAdjustment(AFlipGeometryAdjustment node)

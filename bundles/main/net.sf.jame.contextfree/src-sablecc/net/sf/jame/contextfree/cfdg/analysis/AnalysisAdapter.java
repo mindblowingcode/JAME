@@ -339,16 +339,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAZShapeAdjustment(AZShapeAdjustment node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseASize3ShapeAdjustment(ASize3ShapeAdjustment node)
-    {
-        defaultCase(node);
-    }
-
     public void caseACurrentColorAdjustment(ACurrentColorAdjustment node)
     {
         defaultCase(node);
@@ -399,6 +389,41 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAXPathAdjustment(AXPathAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAYPathAdjustment(AYPathAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseASizePathAdjustment(ASizePathAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseASize2PathAdjustment(ASize2PathAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAFlipPathAdjustment(AFlipPathAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseASkewPathAdjustment(ASkewPathAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseARotatePathAdjustment(ARotatePathAdjustment node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAXGeometryAdjustment(AXGeometryAdjustment node)
     {
         defaultCase(node);
@@ -409,12 +434,22 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAZGeometryAdjustment(AZGeometryAdjustment node)
+    {
+        defaultCase(node);
+    }
+
     public void caseASizeGeometryAdjustment(ASizeGeometryAdjustment node)
     {
         defaultCase(node);
     }
 
     public void caseASize2GeometryAdjustment(ASize2GeometryAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseASize3GeometryAdjustment(ASize3GeometryAdjustment node)
     {
         defaultCase(node);
     }

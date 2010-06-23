@@ -4,10 +4,12 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
+import java.lang.Float;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
+import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
@@ -18,6 +20,7 @@ import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExt
  */
 public class StrokePathReplacementConfig extends PathReplacementExtensionConfig {
 	private static final long serialVersionUID = 1L;
+	private FloatElement widthElement;
 	private StringElement cupElement;
 	private StringElement joinElement;
 	private ListConfigElement<PathAdjustmentConfigElement> pathAdjustmentListElement;
@@ -27,6 +30,7 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	 */
 	@Override
 	protected void createConfigElements() {
+		widthElement = new FloatElement(1f);
 		cupElement = new StringElement("butt");
 		joinElement = new StringElement("miter");
 		pathAdjustmentListElement = new ListConfigElement<PathAdjustmentConfigElement>("pathAdjustment");
@@ -38,12 +42,33 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	@Override
 	public List<ConfigElement> getConfigElements() {
 		final List<ConfigElement> elements = new ArrayList<ConfigElement>(1);
+		elements.add(widthElement);
 		elements.add(cupElement);
 		elements.add(joinElement);
 		elements.add(pathAdjustmentListElement);
 		return elements;
 	}
 
+	/**
+	 * @return
+	 */
+	public FloatElement getWidthElement() {
+		return widthElement;
+	}
+	
+	/**
+	 * @return
+	 */
+	public Float getWidth() {
+		return widthElement.getValue();
+	}
+
+	/**
+	 * @param value
+	 */
+	public void setWidth(final Float value) {
+		widthElement.setValue(value);
+	}
 	/**
 	 * @return
 	 */
@@ -179,6 +204,14 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 			return false;
 		}
 		final StrokePathReplacementConfig other = (StrokePathReplacementConfig) obj;
+		if (widthElement == null) {
+			if (other.widthElement != null) {
+				return false;
+			}
+		}
+		else if (!widthElement.equals(other.widthElement)) {
+			return false;
+		}
 		if (cupElement == null) {
 			if (other.cupElement != null) {
 				return false;
@@ -212,6 +245,7 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	@Override
 	public StrokePathReplacementConfig clone() {
 		final StrokePathReplacementConfig config = new StrokePathReplacementConfig();
+		config.setWidth(getWidth());
 		config.setCup(getCup());
 		config.setJoin(getJoin());
 		config.pathAdjustmentListElement.copyFrom(getPathAdjustmentListElement());

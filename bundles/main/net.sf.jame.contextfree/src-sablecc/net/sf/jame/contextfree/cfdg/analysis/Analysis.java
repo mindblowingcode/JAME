@@ -66,8 +66,6 @@ public interface Analysis extends Switch
     void caseASizeSizeAdjustment(ASizeSizeAdjustment node);
     void caseAColorShapeAdjustment(AColorShapeAdjustment node);
     void caseAGeometryShapeAdjustment(AGeometryShapeAdjustment node);
-    void caseAZShapeAdjustment(AZShapeAdjustment node);
-    void caseASize3ShapeAdjustment(ASize3ShapeAdjustment node);
     void caseACurrentColorAdjustment(ACurrentColorAdjustment node);
     void caseATargetColorAdjustment(ATargetColorAdjustment node);
     void caseAHueCurrentColorAdjustment(AHueCurrentColorAdjustment node);
@@ -78,10 +76,19 @@ public interface Analysis extends Switch
     void caseABrightnessTargetColorAdjustment(ABrightnessTargetColorAdjustment node);
     void caseASaturationTargetColorAdjustment(ASaturationTargetColorAdjustment node);
     void caseAAlphaTargetColorAdjustment(AAlphaTargetColorAdjustment node);
+    void caseAXPathAdjustment(AXPathAdjustment node);
+    void caseAYPathAdjustment(AYPathAdjustment node);
+    void caseASizePathAdjustment(ASizePathAdjustment node);
+    void caseASize2PathAdjustment(ASize2PathAdjustment node);
+    void caseAFlipPathAdjustment(AFlipPathAdjustment node);
+    void caseASkewPathAdjustment(ASkewPathAdjustment node);
+    void caseARotatePathAdjustment(ARotatePathAdjustment node);
     void caseAXGeometryAdjustment(AXGeometryAdjustment node);
     void caseAYGeometryAdjustment(AYGeometryAdjustment node);
+    void caseAZGeometryAdjustment(AZGeometryAdjustment node);
     void caseASizeGeometryAdjustment(ASizeGeometryAdjustment node);
     void caseASize2GeometryAdjustment(ASize2GeometryAdjustment node);
+    void caseASize3GeometryAdjustment(ASize3GeometryAdjustment node);
     void caseAFlipGeometryAdjustment(AFlipGeometryAdjustment node);
     void caseASkewGeometryAdjustment(ASkewGeometryAdjustment node);
     void caseARotateGeometryAdjustment(ARotateGeometryAdjustment node);

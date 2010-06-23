@@ -37,26 +37,16 @@ public class FlipPathAdjustmentConfigNodeBuilderRuntime extends NodeBuilderExten
 		 */
 		@Override
 		public void createNodes(final Node parentNode) {
-			parentNode.appendChildNode(new FlipXElementNode(getConfig()));
-			parentNode.appendChildNode(new FlipYElementNode(getConfig()));
+			parentNode.appendChildNode(new AngleElementNode(getConfig()));
 		}
 
-		private class FlipXElementNode extends FloatElementNode {
+		private class AngleElementNode extends FloatElementNode {
 			/**
 			 * @param config
 			 */
-			public FlipXElementNode(final FlipPathAdjustmentConfig config) {
-				super(config.getExtensionId() + ".flipX", config.getFlipXElement());
-				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.FlipXElement"));
-			}
-		}
-		private class FlipYElementNode extends FloatElementNode {
-			/**
-			 * @param config
-			 */
-			public FlipYElementNode(final FlipPathAdjustmentConfig config) {
-				super(config.getExtensionId() + ".flipY", config.getFlipYElement());
-				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.FlipYElement"));
+			public AngleElementNode(final FlipPathAdjustmentConfig config) {
+				super(config.getExtensionId() + ".angle", config.getAngleElement());
+				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.AngleElement"));
 			}
 		}
 	}

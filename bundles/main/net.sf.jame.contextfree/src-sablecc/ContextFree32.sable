@@ -202,7 +202,7 @@ Productions
 
 	path_declaration = path string l_cbkt path_replacement_declaration* r_cbkt;
 
-  	path_replacement_declaration = {multi} number star l_cbkt geometry_adjustment+ r_cbkt path_replacement_block | {single} path_replacement; 
+  	path_replacement_declaration = {multi} number star l_cbkt path_adjustment+ r_cbkt path_replacement_block | {single} path_replacement; 
 
   	path_replacement = {operation} path_operation | {command} path_command; 
 
@@ -210,7 +210,7 @@ Productions
 	
   	operation_parameter = {x} x_token expression | {y} y_token expression | {x1} x1_token expression | {y1} y1_token expression | {x2} x2_token expression | {y2} y2_token expression | {rx} rx_token expression | {ry} ry_token expression | {rotate} rotate_token expression | {parameters} parameters_token string; 
 
-  	command_parameter = {color} color_adjustment | {geometry} geometry_adjustment | {stroke} strokewidth_token expression | {parameters} parameters_token string; 
+  	command_parameter = {color} color_adjustment | {geometry} path_adjustment | {stroke} strokewidth_token expression | {parameters} parameters_token string; 
 
     background_adjustment = {hue} hue_token expression | {brightness} brightness_token expression | {saturation} saturation_token expression | {alpha} alpha_token expression;
 
@@ -218,7 +218,7 @@ Productions
   		
     size_adjustment = {x} x_token expression | {y} y_token expression | {size} size_token first_expression second_expression;
   		
-    shape_adjustment = {color} color_adjustment | {geometry} geometry_adjustment | {z} z_token expression | {size3} size_token first_expression second_expression third_expression; 
+    shape_adjustment = {color} color_adjustment | {geometry} geometry_adjustment; 
 
     color_adjustment = {current} current_color_adjustment | {target} target_color_adjustment; 
 
@@ -226,7 +226,9 @@ Productions
 
     target_color_adjustment = {hue} target_hue_token expression | {brightness} target_brightness_token expression | {saturation} target_saturation_token expression | {alpha} target_alpha_token expression; 
 
-    geometry_adjustment = {x} x_token expression | {y} y_token expression | {size} size_token expression | {size2} size_token first_expression second_expression | {flip} flip_token expression | {skew} skew_token first_expression second_expression | {rotate} rotate_token expression; 
+    path_adjustment = {x} x_token expression | {y} y_token expression | {size} size_token expression | {size2} size_token first_expression second_expression | {flip} flip_token expression | {skew} skew_token first_expression second_expression | {rotate} rotate_token expression; 
+
+    geometry_adjustment = {x} x_token expression | {y} y_token expression | {z} z_token expression | {size} size_token expression | {size2} size_token first_expression second_expression | {size3} size_token first_expression second_expression third_expression | {flip} flip_token expression | {skew} skew_token first_expression second_expression | {rotate} rotate_token expression;
 
   	expression = {number} number | {nested} l_rbkt extended_expression r_rbkt | {function} function; 
 
