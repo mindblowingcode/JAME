@@ -17,6 +17,8 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class SizeShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<SizeShapeAdjustmentConfig> {
 	private Float scale;
 	private ScaleListener scaleListener;
+	private float deltaX;
+	private float deltaY;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -68,12 +70,14 @@ public class SizeShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		deltaX = (state.getSizeX() - scale) / times;
+		deltaY = (state.getSizeY() - scale) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setSizeX(deltaX * time);
+		state.setSizeY(deltaY * time);
 	}
 }

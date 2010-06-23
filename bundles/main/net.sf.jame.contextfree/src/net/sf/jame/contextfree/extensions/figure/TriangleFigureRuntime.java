@@ -51,7 +51,7 @@ public class TriangleFigureRuntime<T extends TriangleFigureConfig> extends Figur
 			t.translate(state.getX(), state.getY());
 			t.rotate(state.getRotation());
 			t.shear(state.getSkewX(), state.getSkewY());
-			t.scale((state.getFlipX() < 0 ? -1 : +1) * state.getSizeX(), (state.getFlipY() < 0 ? -1 : +1) * state.getSizeY());
+			t.scale(state.getSizeX(), state.getSizeY());
 			t.transform(p, 0, q, 0, p.length / 2);
 			for (int i = 0; i < q.length; i += 2) {
 				limits.addPoint(q[i + 0], q[i + 1]);

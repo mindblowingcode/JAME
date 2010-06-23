@@ -17,6 +17,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class YPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<YPathAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
+	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -68,12 +69,12 @@ public class YPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<YPath
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		delta = (state.getY() - value) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setY(delta * time);
 	}
 }

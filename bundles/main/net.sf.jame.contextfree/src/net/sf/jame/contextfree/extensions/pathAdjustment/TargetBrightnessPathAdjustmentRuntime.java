@@ -17,6 +17,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class TargetBrightnessPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<TargetBrightnessPathAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
+	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -68,13 +69,12 @@ public class TargetBrightnessPathAdjustmentRuntime extends PathAdjustmentExtensi
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		delta = (value - state.getTargetBrightness()) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setTargetBrightness(delta * time);
 	}
 }
-

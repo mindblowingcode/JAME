@@ -17,6 +17,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class TargetSaturationShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<TargetSaturationShapeAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
+	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -68,12 +69,12 @@ public class TargetSaturationShapeAdjustmentRuntime extends ShapeAdjustmentExten
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		delta = (value - state.getTargetSaturation()) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setTargetSaturation(delta * time);
 	}
 }
