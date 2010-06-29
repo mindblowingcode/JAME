@@ -29,7 +29,7 @@ public class TriangleFigureRuntime<T extends TriangleFigureConfig> extends Figur
 	}
 
 	public String getName() {
-		return "triangle";
+		return "TRIANGLE";
 	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {

@@ -68,6 +68,10 @@ public class ZShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<ZSh
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
+		if (times == 0) {
+			state.setZ(value);
+			return;
+		}
 		delta = (state.getZ() - value) / times;
 	}
 

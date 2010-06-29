@@ -29,7 +29,7 @@ public class SquareFigureRuntime<T extends SquareFigureConfig> extends FigureExt
 	}
 
 	public String getName() {
-		return "square";
+		return "SQUARE";
 	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {

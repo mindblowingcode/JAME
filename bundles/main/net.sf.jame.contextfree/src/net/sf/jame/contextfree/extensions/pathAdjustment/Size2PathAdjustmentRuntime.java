@@ -106,6 +106,11 @@ public class Size2PathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<S
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
+		if (times == 0) {
+			state.setSizeX(scaleX);
+			state.setSizeY(scaleY);
+			return;
+		}
 		deltaX = (state.getSizeX() - scaleX) / times;
 		deltaY = (state.getSizeY() - scaleY) / times;
 	}

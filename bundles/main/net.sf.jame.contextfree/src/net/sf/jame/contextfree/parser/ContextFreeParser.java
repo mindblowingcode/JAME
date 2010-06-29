@@ -136,7 +136,25 @@ public class ContextFreeParser {
 		@Override
 		public void inACfdg(ACfdg node) {
 			super.inACfdg(node);
-			config.setCFDG(new CFDGConfigElement());
+			CFDGConfigElement cfdgElement = new CFDGConfigElement();
+			try {
+				FigureConfigElement triangleFigureElement = new FigureConfigElement();
+				cfdgElement.appendFigureConfigElement(triangleFigureElement);
+				ConfigurableExtensionReference<FigureExtensionConfig> triangleReference = ContextFreeRegistry.getInstance().getFigureExtension("contextfree.figure.triangle").createConfigurableExtensionReference();
+				triangleFigureElement.setExtensionReference(triangleReference);
+				FigureConfigElement squareFigureElement = new FigureConfigElement();
+				cfdgElement.appendFigureConfigElement(squareFigureElement);
+				ConfigurableExtensionReference<FigureExtensionConfig> squareReference = ContextFreeRegistry.getInstance().getFigureExtension("contextfree.figure.square").createConfigurableExtensionReference();
+				squareFigureElement.setExtensionReference(squareReference);
+				FigureConfigElement circleFigureElement = new FigureConfigElement();
+				cfdgElement.appendFigureConfigElement(circleFigureElement);
+				ConfigurableExtensionReference<FigureExtensionConfig> circleReference = ContextFreeRegistry.getInstance().getFigureExtension("contextfree.figure.circle").createConfigurableExtensionReference();
+				circleFigureElement.setExtensionReference(circleReference);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			config.setCFDG(cfdgElement);
 		}
 
 		/**
@@ -176,7 +194,7 @@ public class ContextFreeParser {
 		public void inAStartshapeDeclaration(AStartshapeDeclaration node) {
 			super.inAStartshapeDeclaration(node);
 			logger.info("StartshapeDeclaration " + node);
-			config.getCFDG().setStartshape(node.getStartshape().getText());
+			config.getCFDG().setStartshape(node.getString().getText());
 		}
 
 		/**
@@ -896,7 +914,7 @@ public class ContextFreeParser {
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AFlipPathAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			FlipPathAdjustmentConfig config = new FlipPathAdjustmentConfig();
-			config.setAngle(evaluateExpression(geometryAdjustment.getExpression()));
+			config.setAngle((float) (Math.PI * evaluateExpression(geometryAdjustment.getExpression())) / 180f);
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.flip");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -904,7 +922,7 @@ public class ContextFreeParser {
 		
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ARotatePathAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			RotatePathAdjustmentConfig config = new RotatePathAdjustmentConfig();
-			config.setAngle(evaluateExpression(geometryAdjustment.getExpression()));
+			config.setAngle((float) (Math.PI * evaluateExpression(geometryAdjustment.getExpression())) / 180f);
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.rotate");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1482,7 +1500,7 @@ public class ContextFreeParser {
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AFlipGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			FlipShapeAdjustmentConfig config = new FlipShapeAdjustmentConfig();
-			config.setAngle(evaluateExpression(geometryAdjustment.getExpression()));
+			config.setAngle((float) (Math.PI * evaluateExpression(geometryAdjustment.getExpression())) / 180f);
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.flip");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1490,7 +1508,7 @@ public class ContextFreeParser {
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ARotateGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			RotateShapeAdjustmentConfig config = new RotateShapeAdjustmentConfig();
-			config.setAngle(evaluateExpression(geometryAdjustment.getExpression()));
+			config.setAngle((float) (Math.PI * evaluateExpression(geometryAdjustment.getExpression())) / 180f);
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.rotate");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;

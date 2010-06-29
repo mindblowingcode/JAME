@@ -69,6 +69,10 @@ public class CurrentHueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRu
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
+		if (times == 0) {
+			state.setCurrentHue(value);
+			return;
+		}
 		delta = (value - state.getCurrentHue()) / times;
 	}
 

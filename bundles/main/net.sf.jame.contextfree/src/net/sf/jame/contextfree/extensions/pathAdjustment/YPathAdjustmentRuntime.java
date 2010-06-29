@@ -69,6 +69,10 @@ public class YPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<YPath
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
+		if (times == 0) {
+			state.setY(value);
+			return;
+		}
 		delta = (state.getY() - value) / times;
 	}
 

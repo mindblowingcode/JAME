@@ -106,6 +106,11 @@ public class SkewShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
+		if (times == 0) {
+			state.setSkewX(shearX);
+			state.setSkewY(shearY);
+			return;
+		}
 		deltaX = (state.getSkewX() - shearX) / times;
 		deltaY = (state.getSkewY() - shearY) / times;
 	}

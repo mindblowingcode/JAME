@@ -68,6 +68,10 @@ public class FlipShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
+		if (times == 0) {
+			state.setFlip(angle);
+			return;
+		}
 		delta = state.getFlip() - angle;
 	}
 

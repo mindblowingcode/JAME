@@ -69,6 +69,10 @@ public class CurrentAlphaShapeAdjustmentRuntime extends ShapeAdjustmentExtension
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
+		if (times == 0) {
+			state.setCurrentAlpha(value);
+			return;
+		}
 		delta = (value - state.getCurrentAlpha()) / times;
 	}
 
