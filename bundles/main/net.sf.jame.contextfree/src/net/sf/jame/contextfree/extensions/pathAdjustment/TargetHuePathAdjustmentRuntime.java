@@ -69,6 +69,10 @@ public class TargetHuePathAdjustmentRuntime extends PathAdjustmentExtensionRunti
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
+		if (times == 0) {
+			state.setTargetHue(value);
+			return;
+		}
 		delta = (value - state.getTargetHue()) / times;
 	}
 

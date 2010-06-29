@@ -69,6 +69,10 @@ public class XShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<XSh
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
+		if (times == 0) {
+			state.setX(value);
+			return;
+		}
 		delta = (state.getX() - value) / times;
 	}
 

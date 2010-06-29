@@ -87,7 +87,7 @@ Helpers
   	
   	digit = ['0'..'9'];
 
-	integer = non_zero_digit+ digit*;
+	integer = digit | non_zero_digit+ digit*;
 
 	rational = digit+ '.' digit* | '.' digit+;
 

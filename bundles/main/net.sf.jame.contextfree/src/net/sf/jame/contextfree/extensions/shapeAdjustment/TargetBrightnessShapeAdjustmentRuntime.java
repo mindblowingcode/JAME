@@ -69,6 +69,10 @@ public class TargetBrightnessShapeAdjustmentRuntime extends ShapeAdjustmentExten
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
+		if (times == 0) {
+			state.setTargetBrightness(value);
+			return;
+		}
 		delta = (value - state.getTargetBrightness()) / times;
 	}
 

@@ -69,6 +69,10 @@ public class XPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<XPath
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
+		if (times == 0) {
+			state.setX(value);
+			return;
+		}
 		delta = (state.getX() - value) / times;
 	}
 
