@@ -905,8 +905,8 @@ public class ContextFreeParser {
 		
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ASkewPathAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			SkewPathAdjustmentConfig config = new SkewPathAdjustmentConfig();
-			config.setShearX(evaluateExpression(geometryAdjustment.getFirstExpression()));
-			config.setShearY(evaluateExpression(geometryAdjustment.getSecondExpression()));
+			config.setShearX((float) (Math.PI * evaluateExpression(geometryAdjustment.getFirstExpression())) / 180f);
+			config.setShearY((float) (Math.PI * evaluateExpression(geometryAdjustment.getSecondExpression())) / 180f);
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.skew");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1491,8 +1491,8 @@ public class ContextFreeParser {
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASkewGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			SkewShapeAdjustmentConfig config = new SkewShapeAdjustmentConfig();
-			config.setShearX(evaluateExpression(geometryAdjustment.getFirstExpression()));
-			config.setShearY(evaluateExpression(geometryAdjustment.getSecondExpression()));
+			config.setShearX((float) (Math.PI * evaluateExpression(geometryAdjustment.getFirstExpression())) / 180f);
+			config.setShearY((float) (Math.PI * evaluateExpression(geometryAdjustment.getSecondExpression())) / 180f);
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.skew");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
