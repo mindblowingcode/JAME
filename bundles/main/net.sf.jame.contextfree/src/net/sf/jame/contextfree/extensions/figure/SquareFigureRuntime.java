@@ -7,7 +7,6 @@ package net.sf.jame.contextfree.extensions.figure;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 
@@ -43,18 +42,12 @@ public class SquareFigureRuntime<T extends SquareFigureConfig> extends FigureExt
 		private float[] q;
 
 		public FigureContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			a = AlphaComposite.Src.derive(state.getCurrentAlpha());
-			c = Color.getHSBColor(state.getCurrentHue(), state.getCurrentSaturation(), state.getCurrentBrightness());
 			p = new float[] { -0.5f, -0.5f, -0.5f, +0.5f, +0.5f, +0.5f, +0.5f, -0.5f };
 			q = new float[p.length];
-			AffineTransform t = new AffineTransform();
-			t.translate(state.getX(), state.getY());
-			t.rotate(state.getRotation());
-			t.rotate(+state.getFlip());
-			t.scale(-1, -1);
-			t.shear(state.getSkewX(), state.getSkewY());
-			t.scale(state.getSizeX(), state.getSizeY());
-			t.transform(p, 0, q, 0, p.length / 2);
+			float[] hsba = state.getHSBA();
+			a = AlphaComposite.Src.derive(hsba[3]);
+			c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
+			state.transform(p, q);
 			for (int i = 0; i < q.length; i += 2) {
 				limits.addPoint(q[i + 0], q[i + 1]);
 			}

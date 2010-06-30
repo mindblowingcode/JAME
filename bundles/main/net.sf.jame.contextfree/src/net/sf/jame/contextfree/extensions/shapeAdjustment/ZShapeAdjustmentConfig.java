@@ -4,11 +4,9 @@
  */
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
-import java.lang.Boolean;
 import java.lang.Float;
 import java.util.ArrayList;
 import java.util.List;
-import net.sf.jame.core.common.BooleanElement;
 import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
@@ -16,10 +14,9 @@ import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExt
 /**
  * @author Andrea Medeghini
  */
-public class CurrentBrightnessShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
+public class ZShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 	private static final long serialVersionUID = 1L;
 	private FloatElement valueElement;
-	private BooleanElement targetElement;
 
 	/**
 	 * 
@@ -27,7 +24,6 @@ public class CurrentBrightnessShapeAdjustmentConfig extends ShapeAdjustmentExten
 	@Override
 	protected void createConfigElements() {
 		valueElement = new FloatElement(0f);
-		targetElement = new BooleanElement(false);
 	}
 
 	/**
@@ -37,7 +33,6 @@ public class CurrentBrightnessShapeAdjustmentConfig extends ShapeAdjustmentExten
 	public List<ConfigElement> getConfigElements() {
 		final List<ConfigElement> elements = new ArrayList<ConfigElement>(1);
 		elements.add(valueElement);
-		elements.add(targetElement);
 		return elements;
 	}
 
@@ -61,26 +56,6 @@ public class CurrentBrightnessShapeAdjustmentConfig extends ShapeAdjustmentExten
 	public void setValue(final Float value) {
 		valueElement.setValue(value);
 	}
-	/**
-	 * @return
-	 */
-	public BooleanElement getTargetElement() {
-		return targetElement;
-	}
-	
-	/**
-	 * @return
-	 */
-	public Boolean isTarget() {
-		return targetElement.getValue();
-	}
-
-	/**
-	 * @param value
-	 */
-	public void setTarget(final Boolean value) {
-		targetElement.setValue(value);
-	}
 
 	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -93,21 +68,13 @@ public class CurrentBrightnessShapeAdjustmentConfig extends ShapeAdjustmentExten
 		if (obj == null) {
 			return false;
 		}
-		final CurrentBrightnessShapeAdjustmentConfig other = (CurrentBrightnessShapeAdjustmentConfig) obj;
+		final ZShapeAdjustmentConfig other = (ZShapeAdjustmentConfig) obj;
 		if (valueElement == null) {
 			if (other.valueElement != null) {
 				return false;
 			}
 		}
 		else if (!valueElement.equals(other.valueElement)) {
-			return false;
-		}
-		if (targetElement == null) {
-			if (other.targetElement != null) {
-				return false;
-			}
-		}
-		else if (!targetElement.equals(other.targetElement)) {
 			return false;
 		}
 		return true;
@@ -117,10 +84,9 @@ public class CurrentBrightnessShapeAdjustmentConfig extends ShapeAdjustmentExten
 	 * @return
 	 */
 	@Override
-	public CurrentBrightnessShapeAdjustmentConfig clone() {
-		final CurrentBrightnessShapeAdjustmentConfig config = new CurrentBrightnessShapeAdjustmentConfig();
+	public ZShapeAdjustmentConfig clone() {
+		final ZShapeAdjustmentConfig config = new ZShapeAdjustmentConfig();
 		config.setValue(getValue());
-		config.setTarget(isTarget());
 		return config;
 	}
 }

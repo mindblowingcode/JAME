@@ -4,12 +4,11 @@
  */
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
-import java.lang.Float;
+import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 /**
  * @author Andrea Medeghini
@@ -17,7 +16,6 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class YShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<YShapeAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
-	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -67,18 +65,7 @@ public class YShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<YSh
 	}
 
 	@Override
-	public void configureState(ContextFreeState state, int times) {
-		// TODO Auto-generated method stub
-		if (times == 0) {
-			state.setY(value);
-			return;
-		}
-		delta = (state.getY() - value) / times;
-	}
-
-	@Override
-	public void updateState(ContextFreeState state, int time) {
-		// TODO Auto-generated method stub
-		state.setY(delta * time);
+	public void updateState(ContextFreeState state) {
+		state.translate(0, value, 0);
 	}
 }

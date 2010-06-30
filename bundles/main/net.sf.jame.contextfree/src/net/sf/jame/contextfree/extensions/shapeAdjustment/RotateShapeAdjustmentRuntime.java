@@ -17,7 +17,6 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class RotateShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<RotateShapeAdjustmentConfig> {
 	private Float angle;
 	private AngleListener angleListener;
-	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -67,18 +66,7 @@ public class RotateShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntim
 	}
 
 	@Override
-	public void configureState(ContextFreeState state, int times) {
-		// TODO Auto-generated method stub
-		if (times == 0) {
-			state.setRotation(angle);
-			return;
-		}
-		delta = state.getRotation() - angle;
-	}
-
-	@Override
-	public void updateState(ContextFreeState state, int time) {
-		// TODO Auto-generated method stub
-		state.setRotation(delta * time);
+	public void updateState(ContextFreeState state) {
+		state.rotate(angle);
 	}
 }

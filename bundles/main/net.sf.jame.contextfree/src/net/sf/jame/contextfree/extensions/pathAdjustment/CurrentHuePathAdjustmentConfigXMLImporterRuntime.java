@@ -5,6 +5,8 @@
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
 import java.util.List;
+import net.sf.jame.core.common.BooleanElement;
+import net.sf.jame.core.common.BooleanElementXMLImporter;
 import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.common.FloatElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionException;
@@ -42,7 +44,7 @@ public class CurrentHuePathAdjustmentConfigXMLImporterRuntime extends ExtensionC
 			checkClassId(element, this.getConfigElementClassId());
 			final CurrentHuePathAdjustmentConfig extensionConfig = this.createExtensionConfig();
 			final List<Element> propertyElements = getProperties(element);
-			if (propertyElements.size() == 1) {
+			if (propertyElements.size() == 2) {
 				try {
 					importProperties(extensionConfig, propertyElements);
 				}
@@ -61,12 +63,19 @@ public class CurrentHuePathAdjustmentConfigXMLImporterRuntime extends ExtensionC
 		 */
 		protected void importProperties(final CurrentHuePathAdjustmentConfig extensionConfig, final List<Element> propertyElements) throws ExtensionException, XMLImportException {
 			importValue(extensionConfig, propertyElements.get(0));
+			importTarget(extensionConfig, propertyElements.get(1));
 		}
 	
 		private void importValue(final CurrentHuePathAdjustmentConfig extensionConfig, final Element element) throws XMLImportException {
 			final List<Element> valueElements = this.getElements(element, FloatElement.CLASS_ID);
 			if (valueElements.size() == 1) {
 				extensionConfig.setValue(new FloatElementXMLImporter().importFromElement(valueElements.get(0)).getValue());
+			}
+		}
+		private void importTarget(final CurrentHuePathAdjustmentConfig extensionConfig, final Element element) throws XMLImportException {
+			final List<Element> targetElements = this.getElements(element, BooleanElement.CLASS_ID);
+			if (targetElements.size() == 1) {
+				extensionConfig.setTarget(new BooleanElementXMLImporter().importFromElement(targetElements.get(0)).getValue());
 			}
 		}
 	}

@@ -236,7 +236,8 @@ public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensi
 		public RuleContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
 			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
 				ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
-				ContextFreeNode child = shapeReplacementRuntime.buildNode(context, state, limits);
+				ContextFreeState nodeState = state.clone();
+				ContextFreeNode child = shapeReplacementRuntime.buildNode(context, nodeState, limits);
 				if (child != null) {
 					addChild(child);
 				}

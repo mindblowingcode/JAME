@@ -5,6 +5,7 @@
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
 import net.sf.jame.contextfree.ContextFreeResources;
+import net.sf.jame.core.common.BooleanElementNode;
 import net.sf.jame.core.common.FloatElementNode;
 import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.tree.Node;
@@ -38,6 +39,7 @@ public class CurrentBrightnessPathAdjustmentConfigNodeBuilderRuntime extends Nod
 		@Override
 		public void createNodes(final Node parentNode) {
 			parentNode.appendChildNode(new ValueElementNode(getConfig()));
+			parentNode.appendChildNode(new TargetElementNode(getConfig()));
 		}
 
 		private class ValueElementNode extends FloatElementNode {
@@ -47,6 +49,15 @@ public class CurrentBrightnessPathAdjustmentConfigNodeBuilderRuntime extends Nod
 			public ValueElementNode(final CurrentBrightnessPathAdjustmentConfig config) {
 				super(config.getExtensionId() + ".value", config.getValueElement());
 				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.ValueElement"));
+			}
+		}
+		private class TargetElementNode extends BooleanElementNode {
+			/**
+			 * @param config
+			 */
+			public TargetElementNode(final CurrentBrightnessPathAdjustmentConfig config) {
+				super(config.getExtensionId() + ".target", config.getTargetElement());
+				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.TargetElement"));
 			}
 		}
 	}

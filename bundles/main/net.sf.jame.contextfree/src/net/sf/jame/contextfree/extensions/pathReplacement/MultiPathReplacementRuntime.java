@@ -311,12 +311,8 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 	
 	private class ReplacementContextFreeNode extends ContextFreeNode {
 		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			ContextFreeState nodeState = state.clone(); 
-			for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
-				PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
-				pathAdjustmentRuntime.configureState(nodeState, times);
-			}
 			for (int t = 0; t < times; t++) {
+				ContextFreeState nodeState = state.clone(); 
 				for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
 					PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
 					pathAdjustmentRuntime.updateState(nodeState, t);

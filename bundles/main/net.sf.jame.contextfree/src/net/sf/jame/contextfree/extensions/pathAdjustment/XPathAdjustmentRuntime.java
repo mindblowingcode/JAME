@@ -4,12 +4,11 @@
  */
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
-import java.lang.Float;
+import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 /**
  * @author Andrea Medeghini
@@ -17,7 +16,6 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class XPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<XPathAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
-	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -67,18 +65,7 @@ public class XPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<XPath
 	}
 	
 	@Override
-	public void configureState(ContextFreeState state, int times) {
-		// TODO Auto-generated method stub
-		if (times == 0) {
-			state.setX(value);
-			return;
-		}
-		delta = (state.getX() - value) / times;
-	}
-
-	@Override
-	public void updateState(ContextFreeState state, int time) {
-		// TODO Auto-generated method stub
-		state.setX(delta * time);
+	public void updateState(ContextFreeState state) {
+		state.translate(value, 0, 0);
 	}
 }
