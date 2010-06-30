@@ -288,24 +288,28 @@ public class GenerateContextFree {
 	private ProcessorParameters createCurrentHuePathAdjustmentExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("value", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("target", "false", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("currentHuePathAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathAdjustment", "CurrentHuePathAdjustmentConfig", "net.sf.jame.contextfree.extensions.pathAdjustment", "CurrentHuePathAdjustmentRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
 	private ProcessorParameters createCurrentBrightnessPathAdjustmentExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("value", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("target", "false", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("currentBrightnessPathAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathAdjustment", "CurrentBrightnessPathAdjustmentConfig", "net.sf.jame.contextfree.extensions.pathAdjustment", "CurrentBrightnessPathAdjustmentRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
 	private ProcessorParameters createCurrentSaturationPathAdjustmentExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("value", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("target", "false", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("currentSaturationPathAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathAdjustment", "CurrentSaturationPathAdjustmentConfig", "net.sf.jame.contextfree.extensions.pathAdjustment", "CurrentSaturationPathAdjustmentRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
 	private ProcessorParameters createCurrentAlphaPathAdjustmentExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("value", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("target", "false", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("currentAlphaPathAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathAdjustment", "CurrentAlphaPathAdjustmentConfig", "net.sf.jame.contextfree.extensions.pathAdjustment", "CurrentAlphaPathAdjustmentRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
@@ -380,24 +384,28 @@ public class GenerateContextFree {
 	private ProcessorParameters createCurrentHueShapeAdjustmentExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("value", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("target", "false", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("currentHueShapeAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.shapeAdjustment", "CurrentHueShapeAdjustmentConfig", "net.sf.jame.contextfree.extensions.shapeAdjustment", "CurrentHueShapeAdjustmentRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
 	private ProcessorParameters createCurrentBrightnessShapeAdjustmentExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("value", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("target", "false", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("currentBrightnessShapeAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.shapeAdjustment", "CurrentBrightnessShapeAdjustmentConfig", "net.sf.jame.contextfree.extensions.shapeAdjustment", "CurrentBrightnessShapeAdjustmentRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
 	private ProcessorParameters createCurrentSaturationShapeAdjustmentExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("value", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("target", "false", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("currentSaturationShapeAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.shapeAdjustment", "CurrentSaturationShapeAdjustmentConfig", "net.sf.jame.contextfree.extensions.shapeAdjustment", "CurrentSaturationShapeAdjustmentRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
 	private ProcessorParameters createCurrentAlphaShapeAdjustmentExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("value", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("target", "false", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("currentAlphaShapeAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.shapeAdjustment", "CurrentAlphaShapeAdjustmentConfig", "net.sf.jame.contextfree.extensions.shapeAdjustment", "CurrentAlphaShapeAdjustmentRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 

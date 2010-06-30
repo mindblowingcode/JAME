@@ -4,12 +4,11 @@
  */
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
-import java.lang.Float;
+import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 /**
  * @author Andrea Medeghini
@@ -21,9 +20,6 @@ public class Size3ShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime
 	private ScaleYListener scaleYListener;
 	private Float scaleZ;
 	private ScaleZListener scaleZListener;
-	private float deltaX;
-	private float deltaY;
-	private float deltaZ;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -141,24 +137,7 @@ public class Size3ShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime
 	}
 
 	@Override
-	public void configureState(ContextFreeState state, int times) {
-		// TODO Auto-generated method stub
-		if (times == 0) {
-			state.setSizeX(scaleX);
-			state.setSizeY(scaleY);
-			state.setSizeZ(scaleZ);
-			return;
-		}
-		deltaX = (state.getSizeX() - scaleX) / times;
-		deltaY = (state.getSizeY() - scaleY) / times;
-		deltaZ = (state.getSizeZ() - scaleZ) / times;
-	}
-
-	@Override
-	public void updateState(ContextFreeState state, int time) {
-		// TODO Auto-generated method stub
-		state.setSizeX(deltaX * time);
-		state.setSizeY(deltaY * time);
-		state.setSizeZ(deltaZ * time);
+	public void updateState(ContextFreeState state) {
+		state.scale(scaleX, scaleY, scaleZ);
 	}
 }

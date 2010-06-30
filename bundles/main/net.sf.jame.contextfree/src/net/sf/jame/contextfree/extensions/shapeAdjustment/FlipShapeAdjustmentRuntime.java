@@ -16,7 +16,6 @@ import net.sf.jame.core.config.ValueConfigElement;
 public class FlipShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<FlipShapeAdjustmentConfig> {
 	private Float angle;
 	private AngleListener angleListener;
-	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -66,18 +65,7 @@ public class FlipShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<
 	}
 
 	@Override
-	public void configureState(ContextFreeState state, int times) {
-		// TODO Auto-generated method stub
-		if (times == 0) {
-			state.setFlip(angle);
-			return;
-		}
-		delta = state.getFlip() - angle;
-	}
-
-	@Override
-	public void updateState(ContextFreeState state, int time) {
-		// TODO Auto-generated method stub
-		state.setFlip(delta * time);
+	public void updateState(ContextFreeState state) {
+		state.flip(angle);
 	}
 }

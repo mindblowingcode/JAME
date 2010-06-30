@@ -25,191 +25,106 @@
  */
 package net.sf.jame.contextfree.renderer;
 
+import java.awt.geom.AffineTransform;
+
 public class ContextFreeState implements Cloneable {
-	private float targetHue = 0;
-	private float targetSaturation = 0.5f;
-	private float targetBrightness = 0.5f;
-	private float targetAlpha = 1;
-	private float currentHue = 0;
-	private float currentSaturation = 1.0f;
-	private float currentBrightness = 1.0f;
-	private float currentAlpha = 1f;
-	private float x = 0;
-	private float y = 0;
+	private AffineTransform at = new AffineTransform();
+	private float[] currentHSBA = new float[] { 1, 0, 0, 1 };
+	private float[] targetHSBA = new float[] { 1, 0, 0, 1 };
 	private float z = 0;
-	private float sizeX = 1;
-	private float sizeY = 1;
-	private float sizeZ = 1;
-	private float skewX = 0;
-	private float skewY = 0;
-	private float flip = 0;
-	private float rotation = 0;
 
-	public float getTargetHue() {
-		return targetHue;
+	public void translate(float tx, float ty, float tz) {
+		at.translate(tx, ty);
+		z += tz;
 	}
 
-	public void setTargetHue(float targetHue) {
-		this.targetHue = targetHue;
+	public void skew(float sx, float sy) {
+		at.shear(sx, sy);
 	}
 
-	public float getTargetSaturation() {
-		return targetSaturation;
+	public void scale(float sx, float sy, float sz) {
+		at.scale(sx, sy);
 	}
 
-	public void setTargetSaturation(float targetSaturation) {
-		this.targetSaturation = targetSaturation;
+	public void flip(float a) {
+		at.rotate(-a);
+		at.scale(1, -1);
+		at.rotate(+a);
 	}
 
-	public float getTargetBrightness() {
-		return targetBrightness;
+	public void rotate(float a) {
+		at.rotate(a);
+	}
+	
+	public void transform(float[] p, float[] q) {
+		at.transform(p, 0, q, 0, p.length / 2);
 	}
 
-	public void setTargetBrightness(float targetBrightness) {
-		this.targetBrightness = targetBrightness;
+	public void addHue(float value, boolean target) {
+		if (target) {
+			currentHSBA[0] += (targetHSBA[0] - currentHSBA[0]) * value;
+		} else {
+			currentHSBA[0] += value;
+		}
+	}
+	
+	public void addSaturation(float value, boolean target) {
+		if (target) {
+			currentHSBA[1] += (targetHSBA[1] - currentHSBA[1]) * value;
+		} else {
+			currentHSBA[1] += value;
+		}
 	}
 
-	public float getTargetAlpha() {
-		return targetAlpha;
+	public void addBrightness(float value, boolean target) {
+		if (target) {
+			currentHSBA[2] += (targetHSBA[2] - currentHSBA[2]) * value;
+		} else {
+			currentHSBA[2] += value;
+		}
 	}
 
-	public void setTargetAlpha(float targetAlpha) {
-		this.targetAlpha = targetAlpha;
+	public void addAlpha(float value, boolean target) {
+		if (target) {
+			currentHSBA[3] += (targetHSBA[3] - currentHSBA[3]) * value;
+		} else {
+			currentHSBA[3] += value;
+		}
 	}
 
-	public float getCurrentHue() {
-		return currentHue;
+	public void addTargetHue(float value) {
+		targetHSBA[0] += value;
+	}
+	
+	public void addTargetSaturation(float value) {
+		targetHSBA[1] += value;
 	}
 
-	public void setCurrentHue(float currentHue) {
-		this.currentHue = currentHue;
+	public void addTargetBrightness(float value) {
+		targetHSBA[2] += value;
 	}
 
-	public float getCurrentSaturation() {
-		return currentSaturation;
+	public void addTargetAlpha(float value) {
+		targetHSBA[3] += value;
 	}
-
-	public void setCurrentSaturation(float currentSaturation) {
-		this.currentSaturation = currentSaturation;
+	
+	public float[] getHSBA() {
+		return currentHSBA;
 	}
-
-	public float getCurrentBrightness() {
-		return currentBrightness;
-	}
-
-	public void setCurrentBrightness(float currentBrightness) {
-		this.currentBrightness = currentBrightness;
-	}
-
-	public float getCurrentAlpha() {
-		return currentAlpha;
-	}
-
-	public void setCurrentAlpha(float currentAlpha) {
-		this.currentAlpha = currentAlpha;
-	}
-
-	public float getX() {
-		return x;
-	}
-
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	public float getY() {
-		return y;
-	}
-
-	public void setY(float y) {
-		this.y = y;
-	}
-
-	public float getZ() {
-		return z;
-	}
-
-	public void setZ(float z) {
-		this.z = z;
-	}
-
-	public float getSizeX() {
-		return sizeX;
-	}
-
-	public void setSizeX(float sizeX) {
-		this.sizeX = sizeX;
-	}
-
-	public float getSizeY() {
-		return sizeY;
-	}
-
-	public void setSizeY(float sizeY) {
-		this.sizeY = sizeY;
-	}
-
-	public float getSizeZ() {
-		return sizeZ;
-	}
-
-	public void setSizeZ(float sizeZ) {
-		this.sizeZ = sizeZ;
-	}
-
-	public float getFlip() {
-		return flip;
-	}
-
-	public void setFlip(float flip) {
-		this.flip = flip;
-	}
-
-	public float getSkewX() {
-		return skewX;
-	}
-
-	public void setSkewX(float skewX) {
-		this.skewX = skewX;
-	}
-
-	public float getSkewY() {
-		return skewY;
-	}
-
-	public void setSkewY(float skewY) {
-		this.skewY = skewY;
-	}
-
-	public float getRotation() {
-		return rotation;
-	}
-
-	public void setRotation(float rotation) {
-		this.rotation = rotation;
-	}
-
+	
 	@Override
 	public ContextFreeState clone() {
 		ContextFreeState state = new ContextFreeState();
-		state.setTargetHue(getTargetHue());
-		state.setTargetSaturation(getTargetSaturation());
-		state.setTargetBrightness(getTargetBrightness());
-		state.setTargetAlpha(getTargetAlpha());
-		state.setCurrentHue(getCurrentHue());
-		state.setCurrentSaturation(getCurrentSaturation());
-		state.setCurrentBrightness(getCurrentBrightness());
-		state.setCurrentAlpha(getCurrentAlpha());
-		state.setX(getX());
-		state.setY(getY());
-		state.setZ(getZ());
-		state.setSizeX(getSizeX());
-		state.setSizeY(getSizeY());
-		state.setSizeZ(getSizeZ());
-		state.setSkewX(getSkewX());
-		state.setSkewY(getSkewY());
-		state.setFlip(getFlip());
-		state.setRotation(getRotation());
+		at.setTransform(state.at);
+		state.currentHSBA[0] = currentHSBA[0];
+		state.currentHSBA[1] = currentHSBA[1];
+		state.currentHSBA[2] = currentHSBA[2];
+		state.currentHSBA[3] = currentHSBA[3];
+		state.targetHSBA[0] = targetHSBA[0];
+		state.targetHSBA[1] = targetHSBA[1];
+		state.targetHSBA[2] = targetHSBA[2];
+		state.targetHSBA[3] = targetHSBA[3];
+		state.z = z;
 		return state;
 	}
 }

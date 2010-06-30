@@ -199,8 +199,9 @@ public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensi
 	private class PathContextFreeNode extends ContextFreeNode {
 		public PathContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
 			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
-				PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
-				ContextFreeNode child = pathReplacementRuntime.buildNode(context, state, limits);
+				PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
+				ContextFreeState nodeState = state.clone();
+				ContextFreeNode child = pathReplacementRuntime.buildNode(context, nodeState, limits);
 				if (child != null) {
 					addChild(child);
 				}

@@ -4,12 +4,11 @@
  */
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
-import java.lang.Float;
+import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 /**
  * @author Andrea Medeghini
@@ -17,7 +16,8 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class CurrentHueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<CurrentHueShapeAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
-	private float delta;
+	private Boolean target;
+	private TargetListener targetListener;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -27,6 +27,9 @@ public class CurrentHueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRu
 		setValue(getConfig().getValue());
 		valueListener = new ValueListener();
 		getConfig().getValueElement().addChangeListener(valueListener);
+		setTarget(getConfig().isTarget());
+		targetListener = new TargetListener();
+		getConfig().getTargetElement().addChangeListener(targetListener);
 	}
 
 	@Override
@@ -35,6 +38,10 @@ public class CurrentHueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRu
 			getConfig().getValueElement().removeChangeListener(valueListener);
 		}
 		valueListener = null;
+		if ((getConfig() != null) && (targetListener != null)) {
+			getConfig().getTargetElement().removeChangeListener(targetListener);
+		}
+		targetListener = null;
 		super.dispose();
 	}
 	
@@ -65,20 +72,37 @@ public class CurrentHueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRu
 			}
 		}
 	}
+	/**
+	 * @return the target.
+	 */
+	public Boolean isTarget() {
+		return target;
+	}
 
-	@Override
-	public void configureState(ContextFreeState state, int times) {
-		// TODO Auto-generated method stub
-		if (times == 0) {
-			state.setCurrentHue(value);
-			return;
+	private void setTarget(final Boolean target) {
+		this.target = target;
+	}
+	
+	private class TargetListener implements ValueChangeListener {
+		/**
+		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
+		 */
+		public void valueChanged(final ValueChangeEvent e) {
+			switch (e.getEventType()) {
+				case ValueConfigElement.VALUE_CHANGED: {
+					fireChanged();
+					break;
+				}
+				default: {
+					break;
+				}
+			}
 		}
-		delta = (value - state.getCurrentHue()) / times;
 	}
 
 	@Override
-	public void updateState(ContextFreeState state, int time) {
-		// TODO Auto-generated method stub
-		state.setCurrentHue(delta * time);
+	public void updateState(ContextFreeState state) {
+		state.addHue(value, target);
 	}
 }
+

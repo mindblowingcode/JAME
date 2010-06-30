@@ -311,12 +311,8 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 	
 	private class ReplacementContextFreeNode extends ContextFreeNode {
 		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			ContextFreeState nodeState = state.clone(); 
-			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
-				ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
-				shapeAdjustmentRuntime.configureState(nodeState, times);
-			}
 			for (int t = 0; t < times; t++) {
+				ContextFreeState nodeState = state.clone(); 
 				for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
 					ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
 					shapeAdjustmentRuntime.updateState(nodeState, t);

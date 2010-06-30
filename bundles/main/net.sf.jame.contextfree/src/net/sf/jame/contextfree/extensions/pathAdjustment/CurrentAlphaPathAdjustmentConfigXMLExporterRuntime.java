@@ -4,6 +4,7 @@
  */
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
+import net.sf.jame.core.common.BooleanElementXMLExporter;
 import net.sf.jame.core.common.FloatElementXMLExporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLExportException;
@@ -49,10 +50,14 @@ public class CurrentAlphaPathAdjustmentConfigXMLExporterRuntime extends Extensio
 		 */
 		protected void exportProperties(final CurrentAlphaPathAdjustmentConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws ExtensionException, XMLExportException {
 			exportValue(extensionConfig, createProperty(builder, element, "value"), builder);
+			exportTarget(extensionConfig, createProperty(builder, element, "target"), builder);
 		}
 	
 		private void exportValue(final CurrentAlphaPathAdjustmentConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			element.appendChild(new FloatElementXMLExporter().exportToElement(extensionConfig.getValueElement(), builder));
+		}
+		private void exportTarget(final CurrentAlphaPathAdjustmentConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+			element.appendChild(new BooleanElementXMLExporter().exportToElement(extensionConfig.getTargetElement(), builder));
 		}
 	}
 }

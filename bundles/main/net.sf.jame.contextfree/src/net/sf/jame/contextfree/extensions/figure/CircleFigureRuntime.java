@@ -7,7 +7,6 @@ package net.sf.jame.contextfree.extensions.figure;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 
@@ -43,26 +42,20 @@ public class CircleFigureRuntime<T extends CircleFigureConfig> extends FigureExt
 		private float[] q;
 
 		public FigureContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			a = AlphaComposite.Src.derive(state.getCurrentAlpha());
-			c = Color.getHSBColor(state.getCurrentHue(), state.getCurrentSaturation(), state.getCurrentBrightness());
 			int n = 50;
 			p = new float[n * 2];
 			q = new float[p.length];
-			double a = 0;
+			double e = 0;
 			double d = 2 * Math.PI / n;
 			for (int t = 0; t < n * 2; t += 2) {
-				p[t + 0] = (float) (0.5 * Math.cos(a));
-				p[t + 1] = (float) (0.5 * Math.sin(a));
-				a += d;
+				p[t + 0] = (float) (0.5 * Math.cos(e));
+				p[t + 1] = (float) (0.5 * Math.sin(e));
+				e += d;
 			}
-			AffineTransform t = new AffineTransform();
-			t.translate(state.getX(), state.getY());
-			t.rotate(state.getRotation());
-			t.rotate(+state.getFlip());
-			t.scale(-1, -1);
-			t.shear(state.getSkewX(), state.getSkewY());
-			t.scale(state.getSizeX(), state.getSizeY());
-			t.transform(p, 0, q, 0, p.length / 2);
+			float[] hsba = state.getHSBA();
+			a = AlphaComposite.Src.derive(hsba[3]);
+			c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
+			state.transform(p, q);
 			for (int i = 0; i < q.length; i += 2) {
 				limits.addPoint(q[i + 0], q[i + 1]);
 			}

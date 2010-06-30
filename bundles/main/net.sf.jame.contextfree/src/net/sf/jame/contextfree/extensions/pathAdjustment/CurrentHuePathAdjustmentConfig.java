@@ -4,9 +4,11 @@
  */
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
+import java.lang.Boolean;
 import java.lang.Float;
 import java.util.ArrayList;
 import java.util.List;
+import net.sf.jame.core.common.BooleanElement;
 import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionConfig;
@@ -17,6 +19,7 @@ import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExten
 public class CurrentHuePathAdjustmentConfig extends PathAdjustmentExtensionConfig {
 	private static final long serialVersionUID = 1L;
 	private FloatElement valueElement;
+	private BooleanElement targetElement;
 
 	/**
 	 * 
@@ -24,6 +27,7 @@ public class CurrentHuePathAdjustmentConfig extends PathAdjustmentExtensionConfi
 	@Override
 	protected void createConfigElements() {
 		valueElement = new FloatElement(0f);
+		targetElement = new BooleanElement(false);
 	}
 
 	/**
@@ -33,6 +37,7 @@ public class CurrentHuePathAdjustmentConfig extends PathAdjustmentExtensionConfi
 	public List<ConfigElement> getConfigElements() {
 		final List<ConfigElement> elements = new ArrayList<ConfigElement>(1);
 		elements.add(valueElement);
+		elements.add(targetElement);
 		return elements;
 	}
 
@@ -56,6 +61,26 @@ public class CurrentHuePathAdjustmentConfig extends PathAdjustmentExtensionConfi
 	public void setValue(final Float value) {
 		valueElement.setValue(value);
 	}
+	/**
+	 * @return
+	 */
+	public BooleanElement getTargetElement() {
+		return targetElement;
+	}
+	
+	/**
+	 * @return
+	 */
+	public Boolean isTarget() {
+		return targetElement.getValue();
+	}
+
+	/**
+	 * @param value
+	 */
+	public void setTarget(final Boolean value) {
+		targetElement.setValue(value);
+	}
 
 	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -77,6 +102,14 @@ public class CurrentHuePathAdjustmentConfig extends PathAdjustmentExtensionConfi
 		else if (!valueElement.equals(other.valueElement)) {
 			return false;
 		}
+		if (targetElement == null) {
+			if (other.targetElement != null) {
+				return false;
+			}
+		}
+		else if (!targetElement.equals(other.targetElement)) {
+			return false;
+		}
 		return true;
 	}
 
@@ -87,6 +120,7 @@ public class CurrentHuePathAdjustmentConfig extends PathAdjustmentExtensionConfi
 	public CurrentHuePathAdjustmentConfig clone() {
 		final CurrentHuePathAdjustmentConfig config = new CurrentHuePathAdjustmentConfig();
 		config.setValue(getValue());
+		config.setTarget(isTarget());
 		return config;
 	}
 }

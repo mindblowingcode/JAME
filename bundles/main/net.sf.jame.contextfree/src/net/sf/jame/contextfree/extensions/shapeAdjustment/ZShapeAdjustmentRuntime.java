@@ -16,7 +16,6 @@ import net.sf.jame.core.config.ValueConfigElement;
 public class ZShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<ZShapeAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
-	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -66,18 +65,7 @@ public class ZShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<ZSh
 	}
 
 	@Override
-	public void configureState(ContextFreeState state, int times) {
-		// TODO Auto-generated method stub
-		if (times == 0) {
-			state.setZ(value);
-			return;
-		}
-		delta = (state.getZ() - value) / times;
-	}
-
-	@Override
-	public void updateState(ContextFreeState state, int time) {
-		// TODO Auto-generated method stub
-		state.setZ(delta * time);
+	public void updateState(ContextFreeState state) {
+		state.translate(0, 0, value);
 	}
 }

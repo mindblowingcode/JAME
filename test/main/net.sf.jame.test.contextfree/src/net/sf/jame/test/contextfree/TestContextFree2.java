@@ -64,8 +64,9 @@ public class TestContextFree2 {
 //			"CIRCLE { x 1 }\n" +
 //			"SQUARE { r 45 y 1 }\n" +
 //			"SQUARE { skew 45 0 }\n" +
-//			"SQUARE { s 2 1 r 45 skew 10 10 }\n" +
-			"TRIANGLE { flip 90 }\n" +
+//			"SQUARE { s 2 1 r 45 skew 10 10 flip 5 }\n" +
+			"SQUARE { s 2 1 r 45 flip 5 }\n" +
+			"TRIANGLE { h 1| sat 0.5 b 0.5 flip 5 }\n" +
 			"}\n" +
 			"";
 			System.out.println(text);
