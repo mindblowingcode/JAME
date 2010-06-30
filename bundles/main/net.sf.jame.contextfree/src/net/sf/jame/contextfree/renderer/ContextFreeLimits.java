@@ -44,6 +44,6 @@ public class ContextFreeLimits {
 	
 	public ContextFreeArea getArea() {
 		float scale = Math.min((width - 2 * border) / Math.abs(maxX - minX), (height - 2 * border) / Math.abs(maxY - minY));
-		return new ContextFreeArea(x + (width + (minX + maxX) * scale) / 2, y + (height + (minY + maxY) * scale) / 2, width, height, +scale, -scale);
+		return new ContextFreeArea(x + (width - (minX + maxX) * scale) / 2, y + (height + (minY + maxY) * scale) / 2, width, height, +scale, -scale);
 	}
 }

@@ -17,6 +17,8 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class SizePathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<SizePathAdjustmentConfig> {
 	private Float scale;
 	private ScaleListener scaleListener;
+	private float deltaX;
+	private float deltaY;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -68,12 +70,19 @@ public class SizePathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<Si
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		if (times == 0) {
+			state.setSizeX(scale);
+			state.setSizeY(scale);
+			return;
+		}
+		deltaX = (state.getSizeX() - scale) / times;
+		deltaY = (state.getSizeY() - scale) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setSizeX(deltaX * time);
+		state.setSizeY(deltaY * time);
 	}
 }

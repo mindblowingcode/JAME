@@ -29,7 +29,7 @@ public class CircleFigureRuntime<T extends CircleFigureConfig> extends FigureExt
 	}
 
 	public String getName() {
-		return "circle";
+		return "CIRCLE";
 	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
@@ -51,15 +51,17 @@ public class CircleFigureRuntime<T extends CircleFigureConfig> extends FigureExt
 			double a = 0;
 			double d = 2 * Math.PI / n;
 			for (int t = 0; t < n * 2; t += 2) {
-				p[t + 0] = (float) Math.cos(a);
-				p[t + 1] = (float) Math.sin(a);
+				p[t + 0] = (float) (0.5 * Math.cos(a));
+				p[t + 1] = (float) (0.5 * Math.sin(a));
 				a += d;
 			}
 			AffineTransform t = new AffineTransform();
 			t.translate(state.getX(), state.getY());
 			t.rotate(state.getRotation());
+			t.rotate(+state.getFlip());
+			t.scale(-1, -1);
 			t.shear(state.getSkewX(), state.getSkewY());
-			t.scale((state.getFlipX() < 0 ? -1 : +1) * state.getSizeX(), (state.getFlipY() < 0 ? -1 : +1) * state.getSizeY());
+			t.scale(state.getSizeX(), state.getSizeY());
 			t.transform(p, 0, q, 0, p.length / 2);
 			for (int i = 0; i < q.length; i += 2) {
 				limits.addPoint(q[i + 0], q[i + 1]);

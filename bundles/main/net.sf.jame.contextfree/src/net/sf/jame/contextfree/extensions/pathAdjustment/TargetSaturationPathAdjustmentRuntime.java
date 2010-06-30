@@ -17,6 +17,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class TargetSaturationPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<TargetSaturationPathAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
+	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -68,13 +69,16 @@ public class TargetSaturationPathAdjustmentRuntime extends PathAdjustmentExtensi
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		if (times == 0) {
+			state.setTargetSaturation(value);
+			return;
+		}
+		delta = (value - state.getTargetSaturation()) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setTargetSaturation(delta * time);
 	}
 }
-
