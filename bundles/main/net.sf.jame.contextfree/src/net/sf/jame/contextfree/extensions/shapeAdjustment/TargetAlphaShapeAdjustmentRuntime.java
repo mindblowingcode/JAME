@@ -17,6 +17,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class TargetAlphaShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<TargetAlphaShapeAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
+	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -68,12 +69,16 @@ public class TargetAlphaShapeAdjustmentRuntime extends ShapeAdjustmentExtensionR
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		if (times == 0) {
+			state.setTargetAlpha(value);
+			return;
+		}
+		delta = (value - state.getTargetAlpha()) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setTargetAlpha(delta * time);
 	}
 }

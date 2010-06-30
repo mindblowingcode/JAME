@@ -4,12 +4,11 @@
  */
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
-import java.lang.Float;
+import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 /**
  * @author Andrea Medeghini
@@ -17,6 +16,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class ZShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<ZShapeAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
+	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -68,12 +68,16 @@ public class ZShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<ZSh
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		if (times == 0) {
+			state.setZ(value);
+			return;
+		}
+		delta = (state.getZ() - value) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setZ(delta * time);
 	}
 }

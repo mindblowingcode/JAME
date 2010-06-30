@@ -39,10 +39,10 @@ public class ContextFreeState implements Cloneable {
 	private float z = 0;
 	private float sizeX = 1;
 	private float sizeY = 1;
-	private float flipX = 1;
-	private float flipY = 1;
+	private float sizeZ = 1;
 	private float skewX = 0;
 	private float skewY = 0;
+	private float flip = 0;
 	private float rotation = 0;
 
 	public float getTargetHue() {
@@ -149,20 +149,20 @@ public class ContextFreeState implements Cloneable {
 		this.sizeY = sizeY;
 	}
 
-	public float getFlipX() {
-		return flipX;
+	public float getSizeZ() {
+		return sizeZ;
 	}
 
-	public void setFlipX(float flipX) {
-		this.flipX = flipX;
+	public void setSizeZ(float sizeZ) {
+		this.sizeZ = sizeZ;
 	}
 
-	public float getFlipY() {
-		return flipY;
+	public float getFlip() {
+		return flip;
 	}
 
-	public void setFlipY(float flipY) {
-		this.flipY = flipY;
+	public void setFlip(float flip) {
+		this.flip = flip;
 	}
 
 	public float getSkewX() {
@@ -205,10 +205,10 @@ public class ContextFreeState implements Cloneable {
 		state.setZ(getZ());
 		state.setSizeX(getSizeX());
 		state.setSizeY(getSizeY());
-		state.setFlipX(getFlipX());
-		state.setFlipY(getFlipY());
+		state.setSizeZ(getSizeZ());
 		state.setSkewX(getSkewX());
 		state.setSkewY(getSkewY());
+		state.setFlip(getFlip());
 		state.setRotation(getRotation());
 		return state;
 	}

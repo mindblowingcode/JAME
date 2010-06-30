@@ -19,6 +19,8 @@ public class Size2PathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<S
 	private ScaleXListener scaleXListener;
 	private Float scaleY;
 	private ScaleYListener scaleYListener;
+	private float deltaX;
+	private float deltaY;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -104,12 +106,19 @@ public class Size2PathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<S
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		if (times == 0) {
+			state.setSizeX(scaleX);
+			state.setSizeY(scaleY);
+			return;
+		}
+		deltaX = (state.getSizeX() - scaleX) / times;
+		deltaY = (state.getSizeY() - scaleY) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setSizeX(deltaX * time);
+		state.setSizeY(deltaY * time);
 	}
 }

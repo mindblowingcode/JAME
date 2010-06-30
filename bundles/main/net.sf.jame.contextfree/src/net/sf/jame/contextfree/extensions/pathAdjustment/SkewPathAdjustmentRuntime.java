@@ -19,6 +19,8 @@ public class SkewPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<Sk
 	private ShearXListener shearXListener;
 	private Float shearY;
 	private ShearYListener shearYListener;
+	private float deltaX;
+	private float deltaY;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -104,12 +106,19 @@ public class SkewPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<Sk
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		if (times == 0) {
+			state.setSkewX(shearX);
+			state.setSkewY(shearY);
+			return;
+		}
+		deltaX = (state.getSkewX() - shearX) / times;
+		deltaY = (state.getSkewY() - shearY) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setSkewX(deltaX * time);
+		state.setSkewY(deltaY * time);
 	}
 }

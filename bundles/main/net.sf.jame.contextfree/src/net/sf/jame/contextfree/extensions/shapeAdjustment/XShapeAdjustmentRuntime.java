@@ -17,6 +17,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeState;
 public class XShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<XShapeAdjustmentConfig> {
 	private Float value;
 	private ValueListener valueListener;
+	private float delta;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -68,12 +69,16 @@ public class XShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<XSh
 	@Override
 	public void configureState(ContextFreeState state, int times) {
 		// TODO Auto-generated method stub
-		
+		if (times == 0) {
+			state.setX(value);
+			return;
+		}
+		delta = (state.getX() - value) / times;
 	}
 
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setX(delta * time);
 	}
 }

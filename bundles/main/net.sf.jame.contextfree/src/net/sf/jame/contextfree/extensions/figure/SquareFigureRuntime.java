@@ -29,7 +29,7 @@ public class SquareFigureRuntime<T extends SquareFigureConfig> extends FigureExt
 	}
 
 	public String getName() {
-		return "square";
+		return "SQUARE";
 	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
@@ -50,8 +50,10 @@ public class SquareFigureRuntime<T extends SquareFigureConfig> extends FigureExt
 			AffineTransform t = new AffineTransform();
 			t.translate(state.getX(), state.getY());
 			t.rotate(state.getRotation());
+			t.rotate(+state.getFlip());
+			t.scale(-1, -1);
 			t.shear(state.getSkewX(), state.getSkewY());
-			t.scale((state.getFlipX() < 0 ? -1 : +1) * state.getSizeX(), (state.getFlipY() < 0 ? -1 : +1) * state.getSizeY());
+			t.scale(state.getSizeX(), state.getSizeY());
 			t.transform(p, 0, q, 0, p.length / 2);
 			for (int i = 0; i < q.length; i += 2) {
 				limits.addPoint(q[i + 0], q[i + 1]);
