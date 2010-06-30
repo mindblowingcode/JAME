@@ -50,6 +50,8 @@ public class TriangleFigureRuntime<T extends TriangleFigureConfig> extends Figur
 			AffineTransform t = new AffineTransform();
 			t.translate(state.getX(), state.getY());
 			t.rotate(state.getRotation());
+			t.scale(-1, -1);
+			t.rotate(state.getFlip());
 			t.shear(state.getSkewX(), state.getSkewY());
 			t.scale(state.getSizeX(), state.getSizeY());
 			t.transform(p, 0, q, 0, p.length / 2);

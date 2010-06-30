@@ -118,6 +118,7 @@ public class SkewPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<Sk
 	@Override
 	public void updateState(ContextFreeState state, int time) {
 		// TODO Auto-generated method stub
-		
+		state.setSkewX(deltaX * time);
+		state.setSkewY(deltaY * time);
 	}
 }

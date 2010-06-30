@@ -60,9 +60,12 @@ public class TestContextFree2 {
 			"tile { s 30 30 }\n" +
 			"size { s 30 30 }\n" +
 			"rule Foo 0.1 {\n" +
-			"TRIANGLE { x 0 }\n" +
-			"CIRCLE { x 1 }\n" +
-			"SQUARE { r 45 y 1 }\n" +
+//			"TRIANGLE { x 0 }\n" +
+//			"CIRCLE { x 1 }\n" +
+//			"SQUARE { r 45 y 1 }\n" +
+//			"SQUARE { skew 45 0 }\n" +
+//			"SQUARE { s 2 1 r 45 skew 10 10 }\n" +
+			"TRIANGLE { flip 90 }\n" +
 			"}\n" +
 			"";
 			System.out.println(text);

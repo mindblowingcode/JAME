@@ -50,6 +50,8 @@ public class SquareFigureRuntime<T extends SquareFigureConfig> extends FigureExt
 			AffineTransform t = new AffineTransform();
 			t.translate(state.getX(), state.getY());
 			t.rotate(state.getRotation());
+			t.rotate(+state.getFlip());
+			t.scale(-1, -1);
 			t.shear(state.getSkewX(), state.getSkewY());
 			t.scale(state.getSizeX(), state.getSizeY());
 			t.transform(p, 0, q, 0, p.length / 2);
