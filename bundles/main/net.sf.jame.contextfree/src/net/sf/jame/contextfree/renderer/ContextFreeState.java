@@ -115,7 +115,7 @@ public class ContextFreeState implements Cloneable {
 	@Override
 	public ContextFreeState clone() {
 		ContextFreeState state = new ContextFreeState();
-		at.setTransform(state.at);
+		state.at.setTransform(at);
 		state.currentHSBA[0] = currentHSBA[0];
 		state.currentHSBA[1] = currentHSBA[1];
 		state.currentHSBA[2] = currentHSBA[2];
