@@ -133,21 +133,23 @@ public class LineToPathReplacementRuntime extends PathReplacementExtensionRuntim
 	}
 	
 	private class OperationContextFreeNode extends ContextFreeNode {
-		private ContextFreeState state;
+		private float[] p; 
+		private float[] q;
 		
 		public OperationContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			this.state = state;
+			p = new float[2];
+			q = new float[p.length];
+			p[0] = x;
+			p[1] = y;
+			state.transform(p, q);
+			for (int i = 0; i < q.length; i += 2) {
+				limits.addPoint(q[i + 0], q[i + 1]);
+			}
+			state.lineTo(q[0], q[1]);
 		}
 
 		@Override
 		public void drawNode(Graphics2D g2d, ContextFreeArea area) {
-//			Color c = new Color((((int) Math.rint((255 * state.getCurrentAlpha()))) << 24) |  Color.HSBtoRGB(state.getCurrentHue(), state.getCurrentSaturation(), state.getCurrentBrightness()));
-//			g2d.setColor(c);
-//			float sx = area.getScaleX();
-//			float sy = area.getScaleY();
-//			float x = area.getX() + state.getX() * sx;
-//			float y = area.getY() + state.getY() * sy;
-//			g2d.draw(new Line2D.Float(x, y, x + getConfig().getX().floatValue() * sx, y + getConfig().getY().floatValue() * sy));
 		}
 	}
 }

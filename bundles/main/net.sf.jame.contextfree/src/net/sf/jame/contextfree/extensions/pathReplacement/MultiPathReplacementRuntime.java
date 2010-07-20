@@ -315,7 +315,7 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 				ContextFreeState nodeState = state.clone(); 
 				for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
 					PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
-					pathAdjustmentRuntime.updateState(nodeState, t);
+					pathAdjustmentRuntime.updateState(nodeState);
 				}
 				for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
 					PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 

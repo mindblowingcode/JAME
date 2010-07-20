@@ -315,7 +315,7 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 				ContextFreeState nodeState = state.clone(); 
 				for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
 					ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
-					shapeAdjustmentRuntime.updateState(nodeState, t);
+					shapeAdjustmentRuntime.updateState(nodeState);
 				}
 				for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
 					ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i); 

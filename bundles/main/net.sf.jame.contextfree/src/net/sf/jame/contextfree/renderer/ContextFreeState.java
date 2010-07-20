@@ -25,12 +25,20 @@
  */
 package net.sf.jame.contextfree.renderer;
 
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ContextFreeState implements Cloneable {
 	private AffineTransform at = new AffineTransform();
+	private List<GeneralPath> pathList = new LinkedList<GeneralPath>();  
 	private float[] currentHSBA = new float[] { 1, 0, 0, 1 };
 	private float[] targetHSBA = new float[] { 1, 0, 0, 1 };
+	private GeneralPath path;
+	private float x = 0;
+	private float y = 0;
 	private float z = 0;
 
 	public void translate(float tx, float ty, float tz) {
@@ -126,5 +134,47 @@ public class ContextFreeState implements Cloneable {
 		state.targetHSBA[3] = targetHSBA[3];
 		state.z = z;
 		return state;
+	}
+	
+	private GeneralPath generalPath() {
+		if (path == null) {
+			path = new GeneralPath();
+		}
+		return path;
+	}
+
+	public void lineTo(float x, float y) {
+		GeneralPath path = generalPath();
+		path.lineTo(x, y);
+	}
+
+	public void moveTo(float x, float y) {
+		GeneralPath path = generalPath();
+		path.moveTo(x, y);
+	}
+
+	public void curveTo(float x, float y, float x1, float y1, float x2, float y2) {
+		GeneralPath path = generalPath();
+		path.curveTo(x1, y1, x2, y2, x, y);
+	}
+
+	public void arcTo(float x, float y, float x1, float y1, float x2, float y2) {
+		GeneralPath path = generalPath();
+		//TODO arcto
+	}
+
+	public void closePath() {
+		GeneralPath path = generalPath();
+		path.closePath();
+	}
+
+	public void fillPath(Graphics2D g2d) {
+		GeneralPath path = generalPath();
+		g2d.fill(path);
+	}
+
+	public void drawPath(Graphics2D g2d) {
+		GeneralPath path = generalPath();
+		g2d.draw(path);
 	}
 }
