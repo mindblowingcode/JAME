@@ -195,7 +195,7 @@ public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfi
 		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
 			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
 				ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
-				shapeAdjustmentRuntime.updateState(state, 0);
+				shapeAdjustmentRuntime.updateState(state);
 			}
 			ContextFreeState nodeState = state.clone();
 			ContextFreeNode child = context.buildPathOrRuleNode(nodeState, limits, shape);
