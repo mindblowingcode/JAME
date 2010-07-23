@@ -251,14 +251,12 @@ public class CurveToPathReplacementRuntime extends PathReplacementExtensionRunti
 	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-		return new OperationContextFreeNode(context, state, limits);
+		return new ReplacementContextFreeNode(context, state, limits);
 	}
 	
-	private class OperationContextFreeNode extends ContextFreeNode {
-		private ContextFreeState state;
-		
-		public OperationContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			this.state = state;
+	private class ReplacementContextFreeNode extends ContextFreeNode {
+		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+			state.curveTo(x, y, x1, y1, x2, y2);
 		}
 
 		@Override

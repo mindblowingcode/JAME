@@ -4,13 +4,14 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
+import java.lang.Boolean;
+import java.lang.Float;
 import java.util.ArrayList;
 import java.util.List;
-
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
+import net.sf.jame.core.common.BooleanElement;
 import net.sf.jame.core.common.FloatElement;
-import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.config.ConfigElement;
+import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 
 /**
  * @author Andrea Medeghini
@@ -22,7 +23,8 @@ public class ArcRelPathReplacementConfig extends PathReplacementExtensionConfig 
 	private FloatElement rxElement;
 	private FloatElement ryElement;
 	private FloatElement rElement;
-	private StringElement modeElement;
+	private BooleanElement sweepElement;
+	private BooleanElement largeElement;
 
 	/**
 	 * 
@@ -31,10 +33,11 @@ public class ArcRelPathReplacementConfig extends PathReplacementExtensionConfig 
 	protected void createConfigElements() {
 		xElement = new FloatElement(0f);
 		yElement = new FloatElement(0f);
-		rxElement = new FloatElement(0f);
-		ryElement = new FloatElement(0f);
+		rxElement = new FloatElement(1f);
+		ryElement = new FloatElement(1f);
 		rElement = new FloatElement(0f);
-		modeElement = new StringElement("cw");
+		sweepElement = new BooleanElement(false);
+		largeElement = new BooleanElement(false);
 	}
 
 	/**
@@ -48,7 +51,8 @@ public class ArcRelPathReplacementConfig extends PathReplacementExtensionConfig 
 		elements.add(rxElement);
 		elements.add(ryElement);
 		elements.add(rElement);
-		elements.add(modeElement);
+		elements.add(sweepElement);
+		elements.add(largeElement);
 		return elements;
 	}
 
@@ -155,22 +159,42 @@ public class ArcRelPathReplacementConfig extends PathReplacementExtensionConfig 
 	/**
 	 * @return
 	 */
-	public StringElement getModeElement() {
-		return modeElement;
+	public BooleanElement getSweepElement() {
+		return sweepElement;
 	}
 	
 	/**
 	 * @return
 	 */
-	public String getMode() {
-		return modeElement.getValue();
+	public Boolean isSweep() {
+		return sweepElement.getValue();
 	}
 
 	/**
 	 * @param value
 	 */
-	public void setMode(final String value) {
-		modeElement.setValue(value);
+	public void setSweep(final Boolean value) {
+		sweepElement.setValue(value);
+	}
+	/**
+	 * @return
+	 */
+	public BooleanElement getLargeElement() {
+		return largeElement;
+	}
+	
+	/**
+	 * @return
+	 */
+	public Boolean isLarge() {
+		return largeElement.getValue();
+	}
+
+	/**
+	 * @param value
+	 */
+	public void setLarge(final Boolean value) {
+		largeElement.setValue(value);
 	}
 
 	/**
@@ -225,12 +249,20 @@ public class ArcRelPathReplacementConfig extends PathReplacementExtensionConfig 
 		else if (!rElement.equals(other.rElement)) {
 			return false;
 		}
-		if (modeElement == null) {
-			if (other.modeElement != null) {
+		if (sweepElement == null) {
+			if (other.sweepElement != null) {
 				return false;
 			}
 		}
-		else if (!modeElement.equals(other.modeElement)) {
+		else if (!sweepElement.equals(other.sweepElement)) {
+			return false;
+		}
+		if (largeElement == null) {
+			if (other.largeElement != null) {
+				return false;
+			}
+		}
+		else if (!largeElement.equals(other.largeElement)) {
 			return false;
 		}
 		return true;
@@ -247,7 +279,8 @@ public class ArcRelPathReplacementConfig extends PathReplacementExtensionConfig 
 		config.setRx(getRx());
 		config.setRy(getRy());
 		config.setR(getR());
-		config.setMode(getMode());
+		config.setSweep(isSweep());
+		config.setLarge(isLarge());
 		return config;
 	}
 }

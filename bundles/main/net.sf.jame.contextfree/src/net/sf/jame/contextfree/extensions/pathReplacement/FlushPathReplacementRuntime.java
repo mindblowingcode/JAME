@@ -8,7 +8,6 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Path2D;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
@@ -22,14 +21,11 @@ import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
-import net.sf.jame.core.config.ValueConfigElement;
 
 /**
  * @author Andrea Medeghini
  */
-public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<FillPathReplacementConfig> {
-	private String rule;
-	private RuleListener ruleListener;
+public class FlushPathReplacementRuntime extends PathReplacementExtensionRuntime<FlushPathReplacementConfig> {
 	private ListRuntimeElement<PathAdjustmentRuntimeElement> pathAdjustmentListElement;
 	private PathAdjustmentListElementListener pathAdjustmentListElementListener;
 
@@ -38,9 +34,6 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 	 */
 	@Override
 	public void configReloaded() {
-		setRule(getConfig().getRule());
-		ruleListener = new RuleListener();
-		getConfig().getRuleElement().addChangeListener(ruleListener);
 		pathAdjustmentListElement = new ListRuntimeElement<PathAdjustmentRuntimeElement>();
 		for (int i = 0; i < getConfig().getPathAdjustmentConfigElementCount(); i++) {
 			pathAdjustmentListElement.appendElement(new PathAdjustmentRuntimeElement(getConfig().getPathAdjustmentConfigElement(i)));
@@ -51,10 +44,6 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 
 	@Override
 	public void dispose() {
-		if ((getConfig() != null) && (ruleListener != null)) {
-			getConfig().getRuleElement().removeChangeListener(ruleListener);
-		}
-		ruleListener = null;
 		if ((getConfig() != null) && (pathAdjustmentListElementListener != null)) {
 			getConfig().getPathAdjustmentListElement().removeChangeListener(pathAdjustmentListElementListener);
 		}
@@ -62,33 +51,6 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 		super.dispose();
 	}
 	
-	/**
-	 * @return the rule.
-	 */
-	public String getRule() {
-		return rule;
-	}
-
-	private void setRule(final String rule) {
-		this.rule = rule;
-	}
-	
-	private class RuleListener implements ValueChangeListener {
-		/**
-		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
-		 */
-		public void valueChanged(final ValueChangeEvent e) {
-			switch (e.getEventType()) {
-				case ValueConfigElement.VALUE_CHANGED: {
-					fireChanged();
-					break;
-				}
-				default: {
-					break;
-				}
-			}
-		}
-	}
 	/**
 	 * Returns a pathAdjustment element.
 	 * 
@@ -202,24 +164,11 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 		private ContextFreeState state;
 		private AlphaComposite a; 
 		private Color c;
-		private int r;
-
+		
 		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			this.state = state;
 			float[] hsba = state.getHSBA();
 			a = AlphaComposite.Src.derive(hsba[3]);
 			c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
-			r = getRule(rule);
-			state.limits(limits);
-		}
-
-		private int getRule(String rule) {
-			if ("evenodd".equals(rule)) { 
-				return Path2D.WIND_EVEN_ODD;
-			} else if ("nonzero".equals(rule)) { 
-				return Path2D.WIND_NON_ZERO;
-			}
-			throw new IllegalArgumentException("Rule not supported");
 		}
 
 		@Override
@@ -231,7 +180,7 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 			float ty = area.getY();
 			t.translate(tx, ty);
 			t.scale(sx, sy);
-			state.fill(g2d, t, a, c, r);
+			state.flush(g2d, t, a, c);
 		}
 	}
 }

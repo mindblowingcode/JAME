@@ -4,13 +4,9 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
-import java.lang.Float;
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
-import net.sf.jame.core.common.FloatElement;
-import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
@@ -18,11 +14,8 @@ import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExt
 /**
  * @author Andrea Medeghini
  */
-public class StrokePathReplacementConfig extends PathReplacementExtensionConfig {
+public class FlushPathReplacementConfig extends PathReplacementExtensionConfig {
 	private static final long serialVersionUID = 1L;
-	private FloatElement widthElement;
-	private StringElement capElement;
-	private StringElement joinElement;
 	private ListConfigElement<PathAdjustmentConfigElement> pathAdjustmentListElement;
 
 	/**
@@ -30,9 +23,6 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	 */
 	@Override
 	protected void createConfigElements() {
-		widthElement = new FloatElement(0.1f);
-		capElement = new StringElement("butt");
-		joinElement = new StringElement("miter");
 		pathAdjustmentListElement = new ListConfigElement<PathAdjustmentConfigElement>("pathAdjustment");
 	}
 
@@ -42,73 +32,10 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	@Override
 	public List<ConfigElement> getConfigElements() {
 		final List<ConfigElement> elements = new ArrayList<ConfigElement>(1);
-		elements.add(widthElement);
-		elements.add(capElement);
-		elements.add(joinElement);
 		elements.add(pathAdjustmentListElement);
 		return elements;
 	}
 
-	/**
-	 * @return
-	 */
-	public FloatElement getWidthElement() {
-		return widthElement;
-	}
-	
-	/**
-	 * @return
-	 */
-	public Float getWidth() {
-		return widthElement.getValue();
-	}
-
-	/**
-	 * @param value
-	 */
-	public void setWidth(final Float value) {
-		widthElement.setValue(value);
-	}
-	/**
-	 * @return
-	 */
-	public StringElement getCapElement() {
-		return capElement;
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getCap() {
-		return capElement.getValue();
-	}
-
-	/**
-	 * @param value
-	 */
-	public void setCap(final String value) {
-		capElement.setValue(value);
-	}
-	/**
-	 * @return
-	 */
-	public StringElement getJoinElement() {
-		return joinElement;
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getJoin() {
-		return joinElement.getValue();
-	}
-
-	/**
-	 * @param value
-	 */
-	public void setJoin(final String value) {
-		joinElement.setValue(value);
-	}
 	/**
 	 * @return
 	 */
@@ -203,31 +130,7 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 		if (obj == null) {
 			return false;
 		}
-		final StrokePathReplacementConfig other = (StrokePathReplacementConfig) obj;
-		if (widthElement == null) {
-			if (other.widthElement != null) {
-				return false;
-			}
-		}
-		else if (!widthElement.equals(other.widthElement)) {
-			return false;
-		}
-		if (capElement == null) {
-			if (other.capElement != null) {
-				return false;
-			}
-		}
-		else if (!capElement.equals(other.capElement)) {
-			return false;
-		}
-		if (joinElement == null) {
-			if (other.joinElement != null) {
-				return false;
-			}
-		}
-		else if (!joinElement.equals(other.joinElement)) {
-			return false;
-		}
+		final FlushPathReplacementConfig other = (FlushPathReplacementConfig) obj;
 		if (pathAdjustmentListElement == null) {
 			if (other.pathAdjustmentListElement != null) {
 				return false;
@@ -243,11 +146,8 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	 * @return
 	 */
 	@Override
-	public StrokePathReplacementConfig clone() {
-		final StrokePathReplacementConfig config = new StrokePathReplacementConfig();
-		config.setWidth(getWidth());
-		config.setCap(getCap());
-		config.setJoin(getJoin());
+	public FlushPathReplacementConfig clone() {
+		final FlushPathReplacementConfig config = new FlushPathReplacementConfig();
 		config.pathAdjustmentListElement.copyFrom(getPathAdjustmentListElement());
 		return config;
 	}

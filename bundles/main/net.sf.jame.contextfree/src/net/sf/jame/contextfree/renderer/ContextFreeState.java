@@ -25,14 +25,21 @@
  */
 package net.sf.jame.contextfree.renderer;
 
+import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
 
 public class ContextFreeState implements Cloneable {
 	private AffineTransform at = new AffineTransform();
 	private float[] currentHSBA = new float[] { 1, 0, 0, 1 };
 	private float[] targetHSBA = new float[] { 1, 0, 0, 1 };
 	private ExtendedGeneralPath path;
+	private boolean toFill = true;
+	private float x1 = 0;
+	private float y1 = 0;
 	private float x = 0;
 	private float y = 0;
 	private float z = 0;
@@ -133,6 +140,10 @@ public class ContextFreeState implements Cloneable {
 	}
 	
 	private ExtendedGeneralPath generalPath() {
+		if (!toFill) {
+			path = null;
+			toFill = true;
+		}
 		if (path == null) {
 			path = new ExtendedGeneralPath();
 		}
@@ -142,6 +153,8 @@ public class ContextFreeState implements Cloneable {
 	public void moveTo(float x, float y) {
 		this.x = x;
 		this.y = y;
+		this.x1 = x;
+		this.y1 = y;
 		ExtendedGeneralPath path = generalPath();
 		path.moveTo(x, y);
 	}
@@ -149,6 +162,8 @@ public class ContextFreeState implements Cloneable {
 	public void lineTo(float x, float y) {
 		this.x = x;
 		this.y = y;
+		this.x1 = x;
+		this.y1 = y;
 		ExtendedGeneralPath path = generalPath();
 		path.lineTo(x, y);
 	}
@@ -156,6 +171,8 @@ public class ContextFreeState implements Cloneable {
 	public void arcTo(float x, float y, float rx, float ry, float angle, boolean largeArcFlag, boolean sweepFlag) {
 		this.x = x;
 		this.y = y;
+		this.x1 = x;
+		this.y1 = y;
 		ExtendedGeneralPath path = generalPath();
 		path.arcTo(rx, ry, angle, largeArcFlag, sweepFlag, x, y);
 	}
@@ -163,6 +180,17 @@ public class ContextFreeState implements Cloneable {
 	public void quadTo(float x, float y, float x1, float y1) {
 		this.x = x;
 		this.y = y;
+		this.x1 = x1;
+		this.y1 = y1;
+		ExtendedGeneralPath path = generalPath();
+		path.quadTo(x1, y1, x, y);
+	}
+
+	public void quadTo(float x, float y) {
+		this.x = x;
+		this.y = y;
+		this.x1 = x + x - x1;
+		this.y1 = y + y - y1;
 		ExtendedGeneralPath path = generalPath();
 		path.quadTo(x1, y1, x, y);
 	}
@@ -170,6 +198,17 @@ public class ContextFreeState implements Cloneable {
 	public void curveTo(float x, float y, float x1, float y1, float x2, float y2) {
 		this.x = x;
 		this.y = y;
+		this.x1 = x1;
+		this.y1 = y1;
+		ExtendedGeneralPath path = generalPath();
+		path.curveTo(x1, y1, x2, y2, x, y);
+	}
+	
+	public void curveTo(float x, float y, float x2, float y2) {
+		this.x = x;
+		this.y = y;
+		this.x1 = x + x - x1;
+		this.y1 = y + y - y1;
 		ExtendedGeneralPath path = generalPath();
 		path.curveTo(x1, y1, x2, y2, x, y);
 	}
@@ -179,6 +218,8 @@ public class ContextFreeState implements Cloneable {
 		this.y += y;
 		x = this.x;
 		y = this.y;
+		this.x1 = x;
+		this.y1 = y;
 		ExtendedGeneralPath path = generalPath();
 		path.moveTo(x, y);
 	}
@@ -188,6 +229,8 @@ public class ContextFreeState implements Cloneable {
 		this.y += y;
 		x = this.x;
 		y = this.y;
+		this.x1 = x;
+		this.y1 = y;
 		ExtendedGeneralPath path = generalPath();
 		path.lineTo(x, y);
 	}
@@ -197,6 +240,8 @@ public class ContextFreeState implements Cloneable {
 		this.y += y;
 		x = this.x;
 		y = this.y;
+		this.x1 = x;
+		this.y1 = y;
 		ExtendedGeneralPath path = generalPath();
 		path.arcTo(rx, ry, angle, largeArcFlag, sweepFlag, x, y);
 	}
@@ -206,6 +251,19 @@ public class ContextFreeState implements Cloneable {
 		this.y += y;
 		x = this.x;
 		y = this.y;
+		this.x1 = x1;
+		this.y1 = y1;
+		ExtendedGeneralPath path = generalPath();
+		path.quadTo(x1, y1, x, y);
+	}
+
+	public void quadRel(float x, float y) {
+		this.x += x;
+		this.y += y;
+		x = this.x;
+		y = this.y;
+		this.x1 = x + x - x1;
+		this.y1 = y + y - y1;
 		ExtendedGeneralPath path = generalPath();
 		path.quadTo(x1, y1, x, y);
 	}
@@ -215,26 +273,69 @@ public class ContextFreeState implements Cloneable {
 		this.y += y;
 		x = this.x;
 		y = this.y;
+		this.x1 = x1;
+		this.y1 = y1;
+		ExtendedGeneralPath path = generalPath();
+		path.curveTo(x1, y1, x2, y2, x, y);
+	}
+	
+	public void curveRel(float x, float y, float x2, float y2) {
+		this.x += x;
+		this.y += y;
+		x = this.x;
+		y = this.y;
+		this.x1 = x + x - x1;
+		this.y1 = y + y - y1;
 		ExtendedGeneralPath path = generalPath();
 		path.curveTo(x1, y1, x2, y2, x, y);
 	}
 
-	public void closePath() {
+	public void closePath(Boolean align) {
 		ExtendedGeneralPath path = generalPath();
 		path.closePath();
 	}
 
-	public void fillPath(Graphics2D g2d) {
-		ExtendedGeneralPath path = generalPath();
-		g2d.fill(path);
+	public void limits(ContextFreeLimits limits) {
+		float[] q = new float[6];
+		if (path != null) {
+			PathIterator p = path.getPathIterator(at, 0.01);
+			while (!p.isDone()) {
+				if (p.currentSegment(q) == PathIterator.SEG_LINETO) {
+					limits.addPoint(q[0], q[1]);
+				}
+				p.next();
+			}
+		}
 	}
 
-	public void drawPath(Graphics2D g2d) {
-		ExtendedGeneralPath path = generalPath();
-		g2d.draw(path);
+	public void fill(Graphics2D g2d, AffineTransform t, AlphaComposite a, Color c, int rule) {
+		if (path != null) {
+			g2d.setComposite(a);
+			g2d.setColor(c);
+			t.preConcatenate(at);
+			t.createTransformedShape(path);
+			path.setWindingRule(rule);
+			g2d.fill(path);
+		}
+		toFill = false;
 	}
 
-	public void flushPath() {
+	public void draw(Graphics2D g2d, AffineTransform t, AlphaComposite a, Color c, BasicStroke s) {
+		if (path != null) {
+			g2d.setComposite(a);
+			g2d.setStroke(s);
+			g2d.setColor(c);
+			t.preConcatenate(at);
+			t.createTransformedShape(path);
+			g2d.draw(path);
+		}
+		toFill = false;
+	}
+	
+	public void flush(Graphics2D g2d, AffineTransform t, AlphaComposite a, Color c) {
+		if (toFill) {
+			fill(g2d, t, a, c, PathIterator.WIND_NON_ZERO);
+		}
 		path = null;
 	}
 }

@@ -19,11 +19,15 @@ import net.sf.jame.core.config.ValueConfigElement;
 /**
  * @author Andrea Medeghini
  */
-public class MoveRelPathReplacementRuntime extends PathReplacementExtensionRuntime<MoveRelPathReplacementConfig> {
+public class SmoothCurveRelPathReplacementRuntime extends PathReplacementExtensionRuntime<SmoothCurveRelPathReplacementConfig> {
 	private Float x;
 	private XListener xListener;
 	private Float y;
 	private YListener yListener;
+	private Float x2;
+	private X2Listener x2Listener;
+	private Float y2;
+	private Y2Listener y2Listener;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -36,6 +40,12 @@ public class MoveRelPathReplacementRuntime extends PathReplacementExtensionRunti
 		setY(getConfig().getY());
 		yListener = new YListener();
 		getConfig().getYElement().addChangeListener(yListener);
+		setX2(getConfig().getX2());
+		x2Listener = new X2Listener();
+		getConfig().getX2Element().addChangeListener(x2Listener);
+		setY2(getConfig().getY2());
+		y2Listener = new Y2Listener();
+		getConfig().getY2Element().addChangeListener(y2Listener);
 	}
 
 	@Override
@@ -48,6 +58,14 @@ public class MoveRelPathReplacementRuntime extends PathReplacementExtensionRunti
 			getConfig().getYElement().removeChangeListener(yListener);
 		}
 		yListener = null;
+		if ((getConfig() != null) && (x2Listener != null)) {
+			getConfig().getX2Element().removeChangeListener(x2Listener);
+		}
+		x2Listener = null;
+		if ((getConfig() != null) && (y2Listener != null)) {
+			getConfig().getY2Element().removeChangeListener(y2Listener);
+		}
+		y2Listener = null;
 		super.dispose();
 	}
 	
@@ -105,6 +123,60 @@ public class MoveRelPathReplacementRuntime extends PathReplacementExtensionRunti
 			}
 		}
 	}
+	/**
+	 * @return the x2.
+	 */
+	public Float getX2() {
+		return x2;
+	}
+
+	private void setX2(final Float x2) {
+		this.x2 = x2;
+	}
+	
+	private class X2Listener implements ValueChangeListener {
+		/**
+		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
+		 */
+		public void valueChanged(final ValueChangeEvent e) {
+			switch (e.getEventType()) {
+				case ValueConfigElement.VALUE_CHANGED: {
+					fireChanged();
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		}
+	}
+	/**
+	 * @return the y2.
+	 */
+	public Float getY2() {
+		return y2;
+	}
+
+	private void setY2(final Float y2) {
+		this.y2 = y2;
+	}
+	
+	private class Y2Listener implements ValueChangeListener {
+		/**
+		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
+		 */
+		public void valueChanged(final ValueChangeEvent e) {
+			switch (e.getEventType()) {
+				case ValueConfigElement.VALUE_CHANGED: {
+					fireChanged();
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		}
+	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
 		return new ReplacementContextFreeNode(context, state, limits);
@@ -112,7 +184,7 @@ public class MoveRelPathReplacementRuntime extends PathReplacementExtensionRunti
 	
 	private class ReplacementContextFreeNode extends ContextFreeNode {
 		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			state.moveRel(x, y);
+			state.curveRel(x, y, x2, y2);
 		}
 
 		@Override

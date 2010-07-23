@@ -4,7 +4,11 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
+import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
@@ -41,9 +45,9 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 		setWidth(getConfig().getWidth());
 		widthListener = new WidthListener();
 		getConfig().getWidthElement().addChangeListener(widthListener);
-		setCup(getConfig().getCup());
+		setCup(getConfig().getCap());
 		cupListener = new CupListener();
-		getConfig().getCupElement().addChangeListener(cupListener);
+		getConfig().getCapElement().addChangeListener(cupListener);
 		setJoin(getConfig().getJoin());
 		joinListener = new JoinListener();
 		getConfig().getJoinElement().addChangeListener(joinListener);
@@ -62,7 +66,7 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 		}
 		widthListener = null;
 		if ((getConfig() != null) && (cupListener != null)) {
-			getConfig().getCupElement().removeChangeListener(cupListener);
+			getConfig().getCapElement().removeChangeListener(cupListener);
 		}
 		cupListener = null;
 		if ((getConfig() != null) && (joinListener != null)) {
@@ -263,18 +267,55 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-		return new OperationContextFreeNode(context, state, limits);
+		return new ReplacementContextFreeNode(context, state, limits);
 	}
 	
-	private class OperationContextFreeNode extends ContextFreeNode {
+	private class ReplacementContextFreeNode extends ContextFreeNode {
 		private ContextFreeState state;
-		
-		public OperationContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			this.state = state;
+		private AlphaComposite a; 
+		private BasicStroke s;
+		private Color c;
+
+		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+			float[] hsba = state.getHSBA();
+			a = AlphaComposite.Src.derive(hsba[3]);
+			c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
+			s = new BasicStroke(width, getCap(cup), getJoin(join));
+			state.limits(limits);
+		}
+
+		private int getCap(String cap) {
+			if ("buttcap".equals(cup)) {
+				return BasicStroke.CAP_BUTT;
+			} else if ("roundcap".equals(cup)) {
+				return BasicStroke.CAP_ROUND;
+			} else if ("squarecap".equals(cup)) {
+				return BasicStroke.CAP_SQUARE;
+			}
+			throw new IllegalArgumentException("Cap not supported");
+		}
+
+		private int getJoin(String join) {
+			if ("miterjoin".equals(join)) {
+				return BasicStroke.JOIN_MITER;
+			} else if ("roundjoin".equals(join)) {
+				return BasicStroke.JOIN_ROUND;
+			} else if ("beveljoin".equals(join)) {
+				return BasicStroke.JOIN_BEVEL;
+			}
+			throw new IllegalArgumentException("Join not supported");
 		}
 
 		@Override
 		public void drawNode(Graphics2D g2d, ContextFreeArea area) {
+			AffineTransform t = new AffineTransform();
+			float sx = area.getScaleX();
+			float sy = area.getScaleY();
+			float tx = area.getX();
+			float ty = area.getY();
+			t.translate(tx, ty);
+			t.scale(sx, sy);
+			state.draw(g2d, t, a, c, s);
 		}
 	}
 }
