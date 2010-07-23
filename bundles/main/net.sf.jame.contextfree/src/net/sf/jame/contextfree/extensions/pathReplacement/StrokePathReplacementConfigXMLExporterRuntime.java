@@ -51,7 +51,7 @@ public class StrokePathReplacementConfigXMLExporterRuntime extends ExtensionConf
 		 */
 		protected void exportProperties(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws ExtensionException, XMLExportException {
 			exportWidth(extensionConfig, createProperty(builder, element, "width"), builder);
-			exportCup(extensionConfig, createProperty(builder, element, "cup"), builder);
+			exportCap(extensionConfig, createProperty(builder, element, "cap"), builder);
 			exportJoin(extensionConfig, createProperty(builder, element, "join"), builder);
 			exportPathAdjustmentListElement(extensionConfig, createProperty(builder, element, "pathAdjustmentList"), builder);
 		}
@@ -59,8 +59,8 @@ public class StrokePathReplacementConfigXMLExporterRuntime extends ExtensionConf
 		private void exportWidth(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			element.appendChild(new FloatElementXMLExporter().exportToElement(extensionConfig.getWidthElement(), builder));
 		}
-		private void exportCup(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-			element.appendChild(new StringElementXMLExporter().exportToElement(extensionConfig.getCupElement(), builder));
+		private void exportCap(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+			element.appendChild(new StringElementXMLExporter().exportToElement(extensionConfig.getCapElement(), builder));
 		}
 		private void exportJoin(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			element.appendChild(new StringElementXMLExporter().exportToElement(extensionConfig.getJoinElement(), builder));

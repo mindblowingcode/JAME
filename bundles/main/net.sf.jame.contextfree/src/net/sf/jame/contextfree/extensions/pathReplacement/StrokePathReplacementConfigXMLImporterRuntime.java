@@ -65,7 +65,7 @@ public class StrokePathReplacementConfigXMLImporterRuntime extends ExtensionConf
 		 */
 		protected void importProperties(final StrokePathReplacementConfig extensionConfig, final List<Element> propertyElements) throws ExtensionException, XMLImportException {
 			importWidth(extensionConfig, propertyElements.get(0));
-			importCup(extensionConfig, propertyElements.get(1));
+			importCap(extensionConfig, propertyElements.get(1));
 			importJoin(extensionConfig, propertyElements.get(2));
 			importPathAdjustmentListElement(extensionConfig, propertyElements.get(3));
 		}
@@ -76,10 +76,10 @@ public class StrokePathReplacementConfigXMLImporterRuntime extends ExtensionConf
 				extensionConfig.setWidth(new FloatElementXMLImporter().importFromElement(widthElements.get(0)).getValue());
 			}
 		}
-		private void importCup(final StrokePathReplacementConfig extensionConfig, final Element element) throws XMLImportException {
-			final List<Element> cupElements = this.getElements(element, StringElement.CLASS_ID);
-			if (cupElements.size() == 1) {
-				extensionConfig.setCup(new StringElementXMLImporter().importFromElement(cupElements.get(0)).getValue());
+		private void importCap(final StrokePathReplacementConfig extensionConfig, final Element element) throws XMLImportException {
+			final List<Element> capElements = this.getElements(element, StringElement.CLASS_ID);
+			if (capElements.size() == 1) {
+				extensionConfig.setCap(new StringElementXMLImporter().importFromElement(capElements.get(0)).getValue());
 			}
 		}
 		private void importJoin(final StrokePathReplacementConfig extensionConfig, final Element element) throws XMLImportException {

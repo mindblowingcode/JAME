@@ -7,8 +7,6 @@ package net.sf.jame.contextfree.extensions.pathReplacement;
 import net.sf.jame.contextfree.ContextFreeResources;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementNode;
-import net.sf.jame.core.common.FloatElementNode;
-import net.sf.jame.core.common.StringElementNode;
 import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeBuilder;
@@ -22,20 +20,20 @@ import net.sf.jame.core.util.ConfigElementListNodeValue;
 /**
  * @author Andrea Medeghini
  */
-public class StrokePathReplacementConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
+public class FlushPathReplacementConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime#createNodeBuilder(net.sf.jame.core.extension.ExtensionConfig)
 	 */
 	@Override
 	public NodeBuilder createNodeBuilder(final ExtensionConfig config) {
-		return new ConfigNodeBuilder((StrokePathReplacementConfig) config);
+		return new ConfigNodeBuilder((FlushPathReplacementConfig) config);
 	}
 
-	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<StrokePathReplacementConfig> {
+	private class ConfigNodeBuilder extends AbstractExtensionConfigNodeBuilder<FlushPathReplacementConfig> {
 		/**
 		 * @param config
 		 */
-		public ConfigNodeBuilder(final StrokePathReplacementConfig config) {
+		public ConfigNodeBuilder(final FlushPathReplacementConfig config) {
 			super(config);
 		}
 
@@ -44,46 +42,16 @@ public class StrokePathReplacementConfigNodeBuilderRuntime extends NodeBuilderEx
 		 */
 		@Override
 		public void createNodes(final Node parentNode) {
-			parentNode.appendChildNode(new WidthElementNode(getConfig()));
-			parentNode.appendChildNode(new CapElementNode(getConfig()));
-			parentNode.appendChildNode(new JoinElementNode(getConfig()));
 			parentNode.appendChildNode(new PathAdjustmentListElementNode(getConfig()));
 		}
 
-		private class WidthElementNode extends FloatElementNode {
-			/**
-			 * @param config
-			 */
-			public WidthElementNode(final StrokePathReplacementConfig config) {
-				super(config.getExtensionId() + ".width", config.getWidthElement());
-				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.WidthElement"));
-			}
-		}
-		private class CapElementNode extends StringElementNode {
-			/**
-			 * @param config
-			 */
-			public CapElementNode(final StrokePathReplacementConfig config) {
-				super(config.getExtensionId() + ".cap", config.getCapElement());
-				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.CapElement"));
-			}
-		}
-		private class JoinElementNode extends StringElementNode {
-			/**
-			 * @param config
-			 */
-			public JoinElementNode(final StrokePathReplacementConfig config) {
-				super(config.getExtensionId() + ".join", config.getJoinElement());
-				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.JoinElement"));
-			}
-		}
 		private class PathAdjustmentListElementNode extends AbstractConfigElementListNode<PathAdjustmentConfigElement> {
 			public static final String NODE_CLASS = "node.class.PathAdjustmentListElement";
 			
 			/**
 			 * @param config
 			 */
-			public PathAdjustmentListElementNode(final StrokePathReplacementConfig config) {
+			public PathAdjustmentListElementNode(final FlushPathReplacementConfig config) {
 				super(config.getExtensionId() + ".pathAdjustmentList", config.getPathAdjustmentListElement());
 				setNodeClass(PathAdjustmentListElementNode.NODE_CLASS);
 				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.PathAdjustmentListElement"));

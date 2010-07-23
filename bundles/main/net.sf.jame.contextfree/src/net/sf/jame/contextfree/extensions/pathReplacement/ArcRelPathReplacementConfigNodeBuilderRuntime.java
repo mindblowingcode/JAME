@@ -5,8 +5,8 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.contextfree.ContextFreeResources;
+import net.sf.jame.core.common.BooleanElementNode;
 import net.sf.jame.core.common.FloatElementNode;
-import net.sf.jame.core.common.StringElementNode;
 import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeBuilder;
@@ -43,7 +43,8 @@ public class ArcRelPathReplacementConfigNodeBuilderRuntime extends NodeBuilderEx
 			parentNode.appendChildNode(new RxElementNode(getConfig()));
 			parentNode.appendChildNode(new RyElementNode(getConfig()));
 			parentNode.appendChildNode(new RElementNode(getConfig()));
-			parentNode.appendChildNode(new ModeElementNode(getConfig()));
+			parentNode.appendChildNode(new SweepElementNode(getConfig()));
+			parentNode.appendChildNode(new LargeElementNode(getConfig()));
 		}
 
 		private class XElementNode extends FloatElementNode {
@@ -91,13 +92,22 @@ public class ArcRelPathReplacementConfigNodeBuilderRuntime extends NodeBuilderEx
 				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.RElement"));
 			}
 		}
-		private class ModeElementNode extends StringElementNode {
+		private class SweepElementNode extends BooleanElementNode {
 			/**
 			 * @param config
 			 */
-			public ModeElementNode(final ArcRelPathReplacementConfig config) {
-				super(config.getExtensionId() + ".mode", config.getModeElement());
-				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.ModeElement"));
+			public SweepElementNode(final ArcRelPathReplacementConfig config) {
+				super(config.getExtensionId() + ".sweep", config.getSweepElement());
+				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.SweepElement"));
+			}
+		}
+		private class LargeElementNode extends BooleanElementNode {
+			/**
+			 * @param config
+			 */
+			public LargeElementNode(final ArcRelPathReplacementConfig config) {
+				super(config.getExtensionId() + ".large", config.getLargeElement());
+				setNodeLabel(ContextFreeResources.getInstance().getString("node.label.LargeElement"));
 			}
 		}
 	}

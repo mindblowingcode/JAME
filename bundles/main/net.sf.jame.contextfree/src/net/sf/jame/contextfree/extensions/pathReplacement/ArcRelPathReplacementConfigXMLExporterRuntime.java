@@ -4,14 +4,13 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
+import net.sf.jame.core.common.BooleanElementXMLExporter;
 import net.sf.jame.core.common.FloatElementXMLExporter;
-import net.sf.jame.core.common.StringElementXMLExporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLNodeBuilder;
 import net.sf.jame.core.xml.extension.ExtensionConfigXMLExporterExtensionRuntime;
-
 import org.w3c.dom.Element;
 
 /**
@@ -55,7 +54,8 @@ public class ArcRelPathReplacementConfigXMLExporterRuntime extends ExtensionConf
 			exportRx(extensionConfig, createProperty(builder, element, "rx"), builder);
 			exportRy(extensionConfig, createProperty(builder, element, "ry"), builder);
 			exportR(extensionConfig, createProperty(builder, element, "r"), builder);
-			exportMode(extensionConfig, createProperty(builder, element, "mode"), builder);
+			exportSweep(extensionConfig, createProperty(builder, element, "sweep"), builder);
+			exportLarge(extensionConfig, createProperty(builder, element, "large"), builder);
 		}
 	
 		private void exportX(final ArcRelPathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
@@ -73,8 +73,11 @@ public class ArcRelPathReplacementConfigXMLExporterRuntime extends ExtensionConf
 		private void exportR(final ArcRelPathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			element.appendChild(new FloatElementXMLExporter().exportToElement(extensionConfig.getRElement(), builder));
 		}
-		private void exportMode(final ArcRelPathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-			element.appendChild(new StringElementXMLExporter().exportToElement(extensionConfig.getModeElement(), builder));
+		private void exportSweep(final ArcRelPathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+			element.appendChild(new BooleanElementXMLExporter().exportToElement(extensionConfig.getSweepElement(), builder));
+		}
+		private void exportLarge(final ArcRelPathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
+			element.appendChild(new BooleanElementXMLExporter().exportToElement(extensionConfig.getLargeElement(), builder));
 		}
 	}
 }

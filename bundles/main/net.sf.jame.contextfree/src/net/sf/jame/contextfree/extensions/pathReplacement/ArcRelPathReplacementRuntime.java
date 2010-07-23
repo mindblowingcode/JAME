@@ -30,8 +30,10 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 	private RyListener ryListener;
 	private Float r;
 	private RListener rListener;
-	private String mode;
-	private ModeListener modeListener;
+	private Boolean sweep;
+	private SweepListener sweepListener;
+	private Boolean large;
+	private LargeListener largeListener;
 
 	/**
 	 * @see net.sf.jame.core.extension.ConfigurableExtensionRuntime#configReloaded()
@@ -53,9 +55,12 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 		setR(getConfig().getR());
 		rListener = new RListener();
 		getConfig().getRElement().addChangeListener(rListener);
-		setMode(getConfig().getMode());
-		modeListener = new ModeListener();
-		getConfig().getModeElement().addChangeListener(modeListener);
+		setSweep(getConfig().isSweep());
+		sweepListener = new SweepListener();
+		getConfig().getSweepElement().addChangeListener(sweepListener);
+		setLarge(getConfig().isLarge());
+		largeListener = new LargeListener();
+		getConfig().getLargeElement().addChangeListener(largeListener);
 	}
 
 	@Override
@@ -80,10 +85,14 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 			getConfig().getRElement().removeChangeListener(rListener);
 		}
 		rListener = null;
-		if ((getConfig() != null) && (modeListener != null)) {
-			getConfig().getModeElement().removeChangeListener(modeListener);
+		if ((getConfig() != null) && (sweepListener != null)) {
+			getConfig().getSweepElement().removeChangeListener(sweepListener);
 		}
-		modeListener = null;
+		sweepListener = null;
+		if ((getConfig() != null) && (largeListener != null)) {
+			getConfig().getLargeElement().removeChangeListener(largeListener);
+		}
+		largeListener = null;
 		super.dispose();
 	}
 	
@@ -223,17 +232,44 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 		}
 	}
 	/**
-	 * @return the mode.
+	 * @return the sweep.
 	 */
-	public String getMode() {
-		return mode;
+	public Boolean isSweep() {
+		return sweep;
 	}
 
-	private void setMode(final String mode) {
-		this.mode = mode;
+	private void setSweep(final Boolean sweep) {
+		this.sweep = sweep;
 	}
 	
-	private class ModeListener implements ValueChangeListener {
+	private class SweepListener implements ValueChangeListener {
+		/**
+		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
+		 */
+		public void valueChanged(final ValueChangeEvent e) {
+			switch (e.getEventType()) {
+				case ValueConfigElement.VALUE_CHANGED: {
+					fireChanged();
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		}
+	}
+	/**
+	 * @return the large.
+	 */
+	public Boolean isLarge() {
+		return large;
+	}
+
+	private void setLarge(final Boolean large) {
+		this.large = large;
+	}
+	
+	private class LargeListener implements ValueChangeListener {
 		/**
 		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
 		 */
@@ -251,14 +287,12 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-		return new OperationContextFreeNode(context, state, limits);
+		return new ReplacementContextFreeNode(context, state, limits);
 	}
-	
-	private class OperationContextFreeNode extends ContextFreeNode {
-		private ContextFreeState state;
-		
-		public OperationContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			this.state = state;
+
+	private class ReplacementContextFreeNode extends ContextFreeNode {
+		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+			state.arcRel(x, y, rx, ry, r, large, sweep);
 		}
 
 		@Override

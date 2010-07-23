@@ -19,7 +19,7 @@ import net.sf.jame.core.config.ValueConfigElement;
 /**
  * @author Andrea Medeghini
  */
-public class MoveRelPathReplacementRuntime extends PathReplacementExtensionRuntime<MoveRelPathReplacementConfig> {
+public class SmoothQuadToPathReplacementRuntime extends PathReplacementExtensionRuntime<SmoothQuadToPathReplacementConfig> {
 	private Float x;
 	private XListener xListener;
 	private Float y;
@@ -112,7 +112,7 @@ public class MoveRelPathReplacementRuntime extends PathReplacementExtensionRunti
 	
 	private class ReplacementContextFreeNode extends ContextFreeNode {
 		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			state.moveRel(x, y);
+			state.quadTo(x, y);
 		}
 
 		@Override
@@ -120,3 +120,4 @@ public class MoveRelPathReplacementRuntime extends PathReplacementExtensionRunti
 		}
 	}
 }
+

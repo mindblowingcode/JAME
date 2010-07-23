@@ -166,7 +166,8 @@ public class GenerateContextFree {
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("rx", "0f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("ry", "0f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("r", "0f", ProcessorCardinality.NONE));
-		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("mode", "\"cw\"", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("sweep", "false", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("large", "false", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("arctoPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "ArcToPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "ArcToPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
@@ -179,6 +180,31 @@ public class GenerateContextFree {
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x2", "0f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y2", "0f", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("curvetoPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "CurveToPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "CurveToPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
+
+	private ProcessorParameters createQuadToPathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
+		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x1", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y1", "0f", ProcessorCardinality.NONE));
+		return new ProcessorParameters(new ProcessorDescriptor("quadtoPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "QuadToPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "QuadToPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
+	
+	private ProcessorParameters createSmoothCurveToPathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
+		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x2", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y2", "0f", ProcessorCardinality.NONE));
+		return new ProcessorParameters(new ProcessorDescriptor("smoothcurvetoPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "SmoothCurveToPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "SmoothCurveToPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
+
+	private ProcessorParameters createSmoothQuadToPathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
+		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y", "0f", ProcessorCardinality.NONE));
+		return new ProcessorParameters(new ProcessorDescriptor("smoothquadtoPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "SmoothQuadToPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "SmoothQuadToPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
 	private ProcessorParameters createMoveToPathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
@@ -202,7 +228,8 @@ public class GenerateContextFree {
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("rx", "0f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("ry", "0f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("r", "0f", ProcessorCardinality.NONE));
-		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("mode", "\"cw\"", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("sweep", "false", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("large", "false", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("arcrelPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "ArcRelPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "ArcRelPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
@@ -215,6 +242,31 @@ public class GenerateContextFree {
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x2", "0f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y2", "0f", ProcessorCardinality.NONE));
 		return new ProcessorParameters(new ProcessorDescriptor("curverelPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "CurveRelPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "CurveRelPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
+
+	private ProcessorParameters createQuadRelPathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
+		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x1", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y1", "0f", ProcessorCardinality.NONE));
+		return new ProcessorParameters(new ProcessorDescriptor("quadrelPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "QuadRelPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "QuadRelPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
+
+	private ProcessorParameters createSmoothCurveRelPathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
+		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x2", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y2", "0f", ProcessorCardinality.NONE));
+		return new ProcessorParameters(new ProcessorDescriptor("smoothcurverelPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "SmoothCurveRelPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "SmoothCurveRelPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
+
+	private ProcessorParameters createSmoothQuadRelPathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
+		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x", "0f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y", "0f", ProcessorCardinality.NONE));
+		return new ProcessorParameters(new ProcessorDescriptor("smoothquadrelPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "SmoothQuadRelPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "SmoothQuadRelPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
 	private ProcessorParameters createMoveRelPathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
@@ -240,10 +292,16 @@ public class GenerateContextFree {
 	private ProcessorParameters createStrokePathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("width", "1f", ProcessorCardinality.NONE));
-		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("cup", "\"butt\"", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("cap", "\"butt\"", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("join", "\"miter\"", ProcessorCardinality.NONE));
 		descriptors.add(new ProcessorDescriptor("pathAdjustment", "PathAdjustment", "PathAdjustment", "net.sf.jame.contextfree.cfdg.pathAdjustment", "PathAdjustmentConfigElement", "net.sf.jame.contextfree.cfdg.pathAdjustment", "PathAdjustmentRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.MANY));
 		return new ProcessorParameters(new ProcessorDescriptor("strokePathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "StrokePathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "StrokePathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
+	}
+
+	private ProcessorParameters createFlushPathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
+		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
+		descriptors.add(new ProcessorDescriptor("pathAdjustment", "PathAdjustment", "PathAdjustment", "net.sf.jame.contextfree.cfdg.pathAdjustment", "PathAdjustmentConfigElement", "net.sf.jame.contextfree.cfdg.pathAdjustment", "PathAdjustmentRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.MANY));
+		return new ProcessorParameters(new ProcessorDescriptor("flushPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "FlushPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "FlushPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
 //	private ProcessorParameters createSinglePathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
@@ -1311,6 +1369,75 @@ public class GenerateContextFree {
 	}
 
 	@Test
+	public void generateQuadToPathReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			variables.put("parentConfigPackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentConfigClass", "PathReplacementExtensionConfig");
+			variables.put("parentRuntimePackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentRuntimeClass", "PathReplacementExtensionRuntime");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createQuadToPathReplacementExtensionParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateSmoothCurveToPathReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			variables.put("parentConfigPackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentConfigClass", "PathReplacementExtensionConfig");
+			variables.put("parentRuntimePackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentRuntimeClass", "PathReplacementExtensionRuntime");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createSmoothCurveToPathReplacementExtensionParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateSmoothQuadToPathReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			variables.put("parentConfigPackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentConfigClass", "PathReplacementExtensionConfig");
+			variables.put("parentRuntimePackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentRuntimeClass", "PathReplacementExtensionRuntime");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createSmoothQuadToPathReplacementExtensionParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
 	public void generateMoveToPathReplacementExtension() {
 		try {
 			File path = new File("build");
@@ -1403,6 +1530,75 @@ public class GenerateContextFree {
 	}
 
 	@Test
+	public void generateQuadRelPathReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			variables.put("parentConfigPackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentConfigClass", "PathReplacementExtensionConfig");
+			variables.put("parentRuntimePackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentRuntimeClass", "PathReplacementExtensionRuntime");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createQuadRelPathReplacementExtensionParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateSmoothCurveRelPathReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			variables.put("parentConfigPackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentConfigClass", "PathReplacementExtensionConfig");
+			variables.put("parentRuntimePackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentRuntimeClass", "PathReplacementExtensionRuntime");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createSmoothCurveRelPathReplacementExtensionParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateSmoothQuadRelPathReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			variables.put("parentConfigPackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentConfigClass", "PathReplacementExtensionConfig");
+			variables.put("parentRuntimePackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentRuntimeClass", "PathReplacementExtensionRuntime");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createSmoothQuadRelPathReplacementExtensionParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
 	public void generateMoveRelPathReplacementExtension() {
 		try {
 			File path = new File("build");
@@ -1485,6 +1681,29 @@ public class GenerateContextFree {
 			variables.put("parentRuntimeClass", "PathReplacementExtensionRuntime");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createStrokePathReplacementExtensionParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateFlushPathReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			variables.put("parentConfigPackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentConfigClass", "PathReplacementExtensionConfig");
+			variables.put("parentRuntimePackage", "net.sf.jame.contextfree.cfdg.pathReplacement.extension");
+			variables.put("parentRuntimeClass", "PathReplacementExtensionRuntime");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createFlushPathReplacementExtensionParameters(descriptorExtensionMap);
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
 				processorRuntime.process(path, parameters, variables);
 			}

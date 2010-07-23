@@ -5,16 +5,14 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import java.util.List;
-
+import net.sf.jame.core.common.BooleanElement;
+import net.sf.jame.core.common.BooleanElementXMLImporter;
 import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.common.FloatElementXMLImporter;
-import net.sf.jame.core.common.StringElement;
-import net.sf.jame.core.common.StringElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
 import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
-
 import org.w3c.dom.Element;
 
 /**
@@ -46,7 +44,7 @@ public class ArcToPathReplacementConfigXMLImporterRuntime extends ExtensionConfi
 			checkClassId(element, this.getConfigElementClassId());
 			final ArcToPathReplacementConfig extensionConfig = this.createExtensionConfig();
 			final List<Element> propertyElements = getProperties(element);
-			if (propertyElements.size() == 6) {
+			if (propertyElements.size() == 7) {
 				try {
 					importProperties(extensionConfig, propertyElements);
 				}
@@ -69,7 +67,8 @@ public class ArcToPathReplacementConfigXMLImporterRuntime extends ExtensionConfi
 			importRx(extensionConfig, propertyElements.get(2));
 			importRy(extensionConfig, propertyElements.get(3));
 			importR(extensionConfig, propertyElements.get(4));
-			importMode(extensionConfig, propertyElements.get(5));
+			importSweep(extensionConfig, propertyElements.get(5));
+			importLarge(extensionConfig, propertyElements.get(6));
 		}
 	
 		private void importX(final ArcToPathReplacementConfig extensionConfig, final Element element) throws XMLImportException {
@@ -102,10 +101,16 @@ public class ArcToPathReplacementConfigXMLImporterRuntime extends ExtensionConfi
 				extensionConfig.setR(new FloatElementXMLImporter().importFromElement(rElements.get(0)).getValue());
 			}
 		}
-		private void importMode(final ArcToPathReplacementConfig extensionConfig, final Element element) throws XMLImportException {
-			final List<Element> modeElements = this.getElements(element, StringElement.CLASS_ID);
-			if (modeElements.size() == 1) {
-				extensionConfig.setMode(new StringElementXMLImporter().importFromElement(modeElements.get(0)).getValue());
+		private void importSweep(final ArcToPathReplacementConfig extensionConfig, final Element element) throws XMLImportException {
+			final List<Element> sweepElements = this.getElements(element, BooleanElement.CLASS_ID);
+			if (sweepElements.size() == 1) {
+				extensionConfig.setSweep(new BooleanElementXMLImporter().importFromElement(sweepElements.get(0)).getValue());
+			}
+		}
+		private void importLarge(final ArcToPathReplacementConfig extensionConfig, final Element element) throws XMLImportException {
+			final List<Element> largeElements = this.getElements(element, BooleanElement.CLASS_ID);
+			if (largeElements.size() == 1) {
+				extensionConfig.setLarge(new BooleanElementXMLImporter().importFromElement(largeElements.get(0)).getValue());
 			}
 		}
 	}

@@ -129,23 +129,12 @@ public class LineToPathReplacementRuntime extends PathReplacementExtensionRuntim
 	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-		return new OperationContextFreeNode(context, state, limits);
+		return new ReplacementContextFreeNode(context, state, limits);
 	}
 	
-	private class OperationContextFreeNode extends ContextFreeNode {
-		private float[] p; 
-		private float[] q;
-		
-		public OperationContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-			p = new float[2];
-			q = new float[p.length];
-			p[0] = x;
-			p[1] = y;
-			state.transform(p, q);
-			for (int i = 0; i < q.length; i += 2) {
-				limits.addPoint(q[i + 0], q[i + 1]);
-			}
-			state.lineTo(q[0], q[1]);
+	private class ReplacementContextFreeNode extends ContextFreeNode {
+		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+			state.lineTo(x, y);
 		}
 
 		@Override

@@ -51,17 +51,23 @@ import net.sf.jame.contextfree.extensions.pathAdjustment.TargetHuePathAdjustment
 import net.sf.jame.contextfree.extensions.pathAdjustment.TargetSaturationPathAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.pathAdjustment.XPathAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.pathAdjustment.YPathAdjustmentConfig;
-import net.sf.jame.contextfree.extensions.pathReplacement.ArcRelPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.ArcToPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.ClosePolyPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.CurveRelPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.CurveToPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.FillPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.FlushPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.LineRelPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.LineToPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.MoveRelPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.MoveToPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.MultiPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.QuadRelPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.QuadToPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.SmoothCurveRelPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.SmoothCurveToPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.SmoothQuadRelPathReplacementConfig;
+import net.sf.jame.contextfree.extensions.pathReplacement.SmoothQuadToPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementConfig;
 import net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentConfig;
@@ -683,11 +689,22 @@ public class ContextFreeParser {
 					config.appendPathReplacementConfigElement(pathReplacementElement);
 				}
 			}
+			PathReplacementConfigElement pathReplacementElement = createFlushPathReplacementElement();
+			config.appendPathReplacementConfigElement(pathReplacementElement);
 			ConfigurableExtension<FigureExtensionRuntime<?>, FigureExtensionConfig> extension = ContextFreeRegistry.getInstance().getFigureExtension("contextfree.figure.path");
 			ConfigurableExtensionReference<FigureExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			FigureConfigElement figureElement = new FigureConfigElement();
 			figureElement.setExtensionReference(reference);
 			return figureElement;
+		}
+
+		private PathReplacementConfigElement createFlushPathReplacementElement() throws ExtensionNotFoundException {
+			FlushPathReplacementConfig config = new FlushPathReplacementConfig();
+			PathReplacementConfigElement pathReplacementElement = new PathReplacementConfigElement();
+			ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.command.flush");
+			ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+			pathReplacementElement.setExtensionReference(reference);
+			return pathReplacementElement;
 		}
 
 		private PathReplacementConfigElement createPathReplacementElement(PPathReplacementDeclaration pathReplacementDeclaration) throws ExtensionNotFoundException {
@@ -955,7 +972,18 @@ public class ContextFreeParser {
 				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 				return reference; 
 			} else if ("ARCTO".equals(operation)) {
+				boolean elliptical = false;
+				for (POperationParameter parameter : pathOperation.getOperationParameter()) {
+					if (parameter instanceof ARxOperationParameter) {
+						elliptical = true;
+					} else if (parameter instanceof ARyOperationParameter) {
+						elliptical = true;
+					}
+				}
 				ArcToPathReplacementConfig config = new ArcToPathReplacementConfig();
+				if (!elliptical) {
+					config.setR(1f);
+				}
 				for (POperationParameter parameter : pathOperation.getOperationParameter()) {
 					if (parameter instanceof AXOperationParameter) {
 						config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
@@ -968,32 +996,105 @@ public class ContextFreeParser {
 					} else if (parameter instanceof ARyOperationParameter) {
 						config.setRy(evaluateExpression(((ARyOperationParameter) parameter).getExpression()));
 					} else if (parameter instanceof AParametersOperationParameter) {
-						config.setMode(((AParametersOperationParameter) parameter).getString().getText());
+						String param = ((AParametersOperationParameter) parameter).getString().getText();
+						if ("cw".equals(param)) {
+							config.setSweep(true);
+						} else if ("large".equals(param)) {
+							config.setLarge(true);
+						}
 					}
+				}
+				if (!elliptical) {
+					config.setRx(config.getR());
+					config.setRy(config.getR());
+					config.setR(0f);
 				}
 				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.arcto");
 				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 				return reference; 
 			} else if ("CURVETO".equals(operation)) {
-				CurveToPathReplacementConfig config = new CurveToPathReplacementConfig();
+				boolean cubic = false;
+				boolean smooth = true;
 				for (POperationParameter parameter : pathOperation.getOperationParameter()) {
-					if (parameter instanceof AXOperationParameter) {
-						config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
-					} else if (parameter instanceof AYOperationParameter) {
-						config.setY(evaluateExpression(((AYOperationParameter) parameter).getExpression()));
-					} else if (parameter instanceof AX1OperationParameter) {
-						config.setX1(evaluateExpression(((AX1OperationParameter) parameter).getExpression()));
+					if (parameter instanceof AX1OperationParameter) {
+						smooth = false;
 					} else if (parameter instanceof AY1OperationParameter) {
-						config.setY1(evaluateExpression(((AY1OperationParameter) parameter).getExpression()));
+						smooth = false;
 					} else if (parameter instanceof AX2OperationParameter) {
-						config.setX2(evaluateExpression(((AX2OperationParameter) parameter).getExpression()));
+						cubic = true;
 					} else if (parameter instanceof AY2OperationParameter) {
-						config.setY2(evaluateExpression(((AY2OperationParameter) parameter).getExpression()));
+						cubic = true;
 					}
 				}
-				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.curveto");
-				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-				return reference; 
+				if (cubic) {
+					if (smooth) {
+						SmoothCurveToPathReplacementConfig config = new SmoothCurveToPathReplacementConfig();
+						for (POperationParameter parameter : pathOperation.getOperationParameter()) {
+							if (parameter instanceof AXOperationParameter) {
+								config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AYOperationParameter) {
+								config.setY(evaluateExpression(((AYOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AX2OperationParameter) {
+								config.setX2(evaluateExpression(((AX2OperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AY2OperationParameter) {
+								config.setY2(evaluateExpression(((AY2OperationParameter) parameter).getExpression()));
+							}
+						}
+						ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.smoothcurveto");
+						ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+						return reference;
+					} else {
+						CurveToPathReplacementConfig config = new CurveToPathReplacementConfig();
+						for (POperationParameter parameter : pathOperation.getOperationParameter()) {
+							if (parameter instanceof AXOperationParameter) {
+								config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AYOperationParameter) {
+								config.setY(evaluateExpression(((AYOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AX1OperationParameter) {
+								config.setX1(evaluateExpression(((AX1OperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AY1OperationParameter) {
+								config.setY1(evaluateExpression(((AY1OperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AX2OperationParameter) {
+								config.setX2(evaluateExpression(((AX2OperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AY2OperationParameter) {
+								config.setY2(evaluateExpression(((AY2OperationParameter) parameter).getExpression()));
+							}
+						}
+						ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.curveto");
+						ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+						return reference;
+					}
+				} else {
+					if (smooth) {
+						SmoothQuadToPathReplacementConfig config = new SmoothQuadToPathReplacementConfig();
+						for (POperationParameter parameter : pathOperation.getOperationParameter()) {
+							if (parameter instanceof AXOperationParameter) {
+								config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AYOperationParameter) {
+								config.setY(evaluateExpression(((AYOperationParameter) parameter).getExpression()));
+							}
+						}
+						ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.smoothquadto");
+						ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+						return reference;
+					} else {
+						QuadToPathReplacementConfig config = new QuadToPathReplacementConfig();
+						for (POperationParameter parameter : pathOperation.getOperationParameter()) {
+							if (parameter instanceof AXOperationParameter) {
+								config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AYOperationParameter) {
+								config.setY(evaluateExpression(((AYOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AX1OperationParameter) {
+								config.setX1(evaluateExpression(((AX1OperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AY1OperationParameter) {
+								config.setY1(evaluateExpression(((AY1OperationParameter) parameter).getExpression()));
+							}
+						}
+						ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.quadto");
+						ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+						return reference;
+					}
+				}
 			} else if ("MOVETO".equals(operation)) {
 				MoveToPathReplacementConfig config = new MoveToPathReplacementConfig();
 				for (POperationParameter parameter : pathOperation.getOperationParameter()) {
@@ -1019,7 +1120,18 @@ public class ContextFreeParser {
 				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 				return reference; 
 			} else if ("ARCREL".equals(operation)) {
-				ArcRelPathReplacementConfig config = new ArcRelPathReplacementConfig();
+				boolean elliptical = false;
+				for (POperationParameter parameter : pathOperation.getOperationParameter()) {
+					if (parameter instanceof ARxOperationParameter) {
+						elliptical = true;
+					} else if (parameter instanceof ARyOperationParameter) {
+						elliptical = true;
+					}
+				}
+				ArcToPathReplacementConfig config = new ArcToPathReplacementConfig();
+				if (!elliptical) {
+					config.setR(1f);
+				}
 				for (POperationParameter parameter : pathOperation.getOperationParameter()) {
 					if (parameter instanceof AXOperationParameter) {
 						config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
@@ -1032,32 +1144,105 @@ public class ContextFreeParser {
 					} else if (parameter instanceof ARyOperationParameter) {
 						config.setRy(evaluateExpression(((ARyOperationParameter) parameter).getExpression()));
 					} else if (parameter instanceof AParametersOperationParameter) {
-						config.setMode(((AParametersOperationParameter) parameter).getString().getText());
+						String param = ((AParametersOperationParameter) parameter).getString().getText();
+						if ("cw".equals(param)) {
+							config.setSweep(true);
+						} else if ("large".equals(param)) {
+							config.setLarge(true);
+						}
 					}
+				}
+				if (!elliptical) {
+					config.setRx(config.getR());
+					config.setRy(config.getR());
+					config.setR(0f);
 				}
 				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.arcrel");
 				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 				return reference; 
 			} else if ("CURVEREL".equals(operation)) {
-				CurveRelPathReplacementConfig config = new CurveRelPathReplacementConfig();
+				boolean cubic = false;
+				boolean smooth = true;
 				for (POperationParameter parameter : pathOperation.getOperationParameter()) {
-					if (parameter instanceof AXOperationParameter) {
-						config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
-					} else if (parameter instanceof AYOperationParameter) {
-						config.setY(evaluateExpression(((AYOperationParameter) parameter).getExpression()));
-					} else if (parameter instanceof AX1OperationParameter) {
-						config.setX1(evaluateExpression(((AX1OperationParameter) parameter).getExpression()));
+					if (parameter instanceof AX1OperationParameter) {
+						smooth = false;
 					} else if (parameter instanceof AY1OperationParameter) {
-						config.setY1(evaluateExpression(((AY1OperationParameter) parameter).getExpression()));
+						smooth = false;
 					} else if (parameter instanceof AX2OperationParameter) {
-						config.setX2(evaluateExpression(((AX2OperationParameter) parameter).getExpression()));
+						cubic = true;
 					} else if (parameter instanceof AY2OperationParameter) {
-						config.setY2(evaluateExpression(((AY2OperationParameter) parameter).getExpression()));
+						cubic = true;
 					}
 				}
-				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.curverel");
-				ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-				return reference; 
+				if (cubic) {
+					if (smooth) {
+						SmoothCurveRelPathReplacementConfig config = new SmoothCurveRelPathReplacementConfig();
+						for (POperationParameter parameter : pathOperation.getOperationParameter()) {
+							if (parameter instanceof AXOperationParameter) {
+								config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AYOperationParameter) {
+								config.setY(evaluateExpression(((AYOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AX2OperationParameter) {
+								config.setX2(evaluateExpression(((AX2OperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AY2OperationParameter) {
+								config.setY2(evaluateExpression(((AY2OperationParameter) parameter).getExpression()));
+							}
+						}
+						ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.smoothcurverel");
+						ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+						return reference;
+					} else {
+						CurveRelPathReplacementConfig config = new CurveRelPathReplacementConfig();
+						for (POperationParameter parameter : pathOperation.getOperationParameter()) {
+							if (parameter instanceof AXOperationParameter) {
+								config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AYOperationParameter) {
+								config.setY(evaluateExpression(((AYOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AX1OperationParameter) {
+								config.setX1(evaluateExpression(((AX1OperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AY1OperationParameter) {
+								config.setY1(evaluateExpression(((AY1OperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AX2OperationParameter) {
+								config.setX2(evaluateExpression(((AX2OperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AY2OperationParameter) {
+								config.setY2(evaluateExpression(((AY2OperationParameter) parameter).getExpression()));
+							}
+						}
+						ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.curverel");
+						ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+						return reference;
+					}
+				} else {
+					if (smooth) {
+						SmoothQuadRelPathReplacementConfig config = new SmoothQuadRelPathReplacementConfig();
+						for (POperationParameter parameter : pathOperation.getOperationParameter()) {
+							if (parameter instanceof AXOperationParameter) {
+								config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AYOperationParameter) {
+								config.setY(evaluateExpression(((AYOperationParameter) parameter).getExpression()));
+							}
+						}
+						ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.smoothquadrel");
+						ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+						return reference;
+					} else {
+						QuadRelPathReplacementConfig config = new QuadRelPathReplacementConfig();
+						for (POperationParameter parameter : pathOperation.getOperationParameter()) {
+							if (parameter instanceof AXOperationParameter) {
+								config.setX(evaluateExpression(((AXOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AYOperationParameter) {
+								config.setY(evaluateExpression(((AYOperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AX1OperationParameter) {
+								config.setX1(evaluateExpression(((AX1OperationParameter) parameter).getExpression()));
+							} else if (parameter instanceof AY1OperationParameter) {
+								config.setY1(evaluateExpression(((AY1OperationParameter) parameter).getExpression()));
+							}
+						}
+						ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.quadrel");
+						ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+						return reference;
+					}
+				}
 			} else if ("MOVEREL".equals(operation)) {
 				MoveRelPathReplacementConfig config = new MoveRelPathReplacementConfig();
 				for (POperationParameter parameter : pathOperation.getOperationParameter()) {
@@ -1074,7 +1259,10 @@ public class ContextFreeParser {
 				ClosePolyPathReplacementConfig config = new ClosePolyPathReplacementConfig();
 				for (POperationParameter parameter : pathOperation.getOperationParameter()) {
 					if (parameter instanceof AParametersOperationParameter) {
-						config.setAlign(Boolean.valueOf(((AParametersOperationParameter) parameter).getString().getText()));
+						String param = ((AParametersOperationParameter) parameter).getString().getText();
+						if ("align".equals(param)) {
+							config.setAlign(true);
+						}
 					}
 				}
 				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.operation.closepoly");
@@ -1110,7 +1298,12 @@ public class ContextFreeParser {
 							config.appendPathAdjustmentConfigElement(pathAdjustmentElement);
 						}
 					} else if (commadParameter instanceof AParametersCommandParameter) {
-						config.setRule(((AParametersCommandParameter) commadParameter).getString().getText());
+						String param = ((AParametersCommandParameter) commadParameter).getString().getText();
+						if ("evenodd".equals(param)) {
+							config.setRule("evenodd");
+						} else {
+							config.setRule("nonzero");
+						}
 					}
 				}
 				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.command.fill");
@@ -1131,10 +1324,18 @@ public class ContextFreeParser {
 						}
 					} else if (commadParameter instanceof AParametersCommandParameter) {
 						String param = ((AParametersCommandParameter) commadParameter).getString().getText();
-						if (param.endsWith("cup")) {
-							config.setCup(param);
-						} else if (param.endsWith("join")) {
-							config.setJoin(param);
+						if (param.equals("buttcap")) {
+							config.setCap("buttcap");
+						} else if (param.equals("roundcap")) {
+							config.setCap("roundcap");
+						} else if (param.equals("squarecap")) {
+							config.setCap("roundcap");
+						} else if (param.equals("miterjoin")) {
+							config.setJoin("miterjoin");
+						} else if (param.equals("roundjoin")) {
+							config.setJoin("roundjoin");
+						} else if (param.equals("beveljoin")) {
+							config.setJoin("beveljoin");
 						}
 					} else if (commadParameter instanceof AStrokeCommandParameter) {
 						config.setWidth(evaluateExpression(((AStrokeCommandParameter) commadParameter).getExpression()));
@@ -1185,10 +1386,18 @@ public class ContextFreeParser {
 						}
 					} else if (commadParameter instanceof AParametersCommandParameter) {
 						String param = ((AParametersCommandParameter) commadParameter).getString().getText();
-						if (param.endsWith("cup")) {
-							config.setCup(param);
-						} else if (param.endsWith("join")) {
-							config.setJoin(param);
+						if (param.equals("buttcap")) {
+							config.setCap("buttcap");
+						} else if (param.equals("roundcap")) {
+							config.setCap("roundcap");
+						} else if (param.equals("squarecap")) {
+							config.setCap("roundcap");
+						} else if (param.equals("miterjoin")) {
+							config.setJoin("miterjoin");
+						} else if (param.equals("roundjoin")) {
+							config.setJoin("roundjoin");
+						} else if (param.equals("beveljoin")) {
+							config.setJoin("beveljoin");
 						}
 					} else if (commadParameter instanceof AStrokeCommandParameter) {
 						config.setWidth(evaluateExpression(((AStrokeCommandParameter) commadParameter).getExpression()));
