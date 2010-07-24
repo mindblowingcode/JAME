@@ -165,7 +165,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		if (this.tile != tile) {
 			this.tile = tile;
 			if (hints.get(TwisterRenderingHints.KEY_TYPE) == TwisterRenderingHints.TYPE_OVERLAY) {
-				rendererStrategy = new OverlayRendererStrategy(tile);
+				rendererStrategy = null; //new OverlayRendererStrategy(tile);
 			}
 			else {
 				rendererStrategy = new DefaultRendererStrategy(tile);
@@ -455,6 +455,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 			manager.setRenderingHints(hints);
 			manager.setRuntime(contextFreeRuntime.getCFDG());
 			loadConfig();
+			manager.setTile(tile);
 			manager.start();
 		}
 

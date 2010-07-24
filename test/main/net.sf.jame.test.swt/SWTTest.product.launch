@@ -20,10 +20,11 @@
 <stringAttribute key="product" value="net.sf.jame.test.swt.swttest"/>
 <stringAttribute key="productFile" value="/net.sf.jame.test.swtapp/SWTTest.product"/>
 <booleanAttribute key="restart" value="false"/>
-<stringAttribute key="selected_target_plugins" value="org.eclipse.core.runtime@default:true,org.eclipse.swt.win32.win32.x86@default:false,org.eclipse.core.runtime.compatibility.registry@default:false,org.eclipse.osgi@-1:true,org.eclipse.equinox.app@default:default,org.eclipse.core.jobs@default:default,org.eclipse.core.contenttype@default:default,org.eclipse.equinox.preferences@default:default,org.eclipse.core.runtime.compatibility.auth@default:default,org.eclipse.equinox.common@2:true,javax.servlet@default:default,org.eclipse.osgi.services@default:default,org.eclipse.equinox.registry@default:default,org.eclipse.swt@default:default"/>
+<stringAttribute key="selected_target_plugins" value="org.eclipse.equinox.registry@default:default,org.eclipse.core.jobs@default:default,org.eclipse.swt.cocoa.macosx.x86_64*3.5.2.v3557f@default:false,org.eclipse.swt@default:default,org.eclipse.equinox.app@default:default,org.eclipse.equinox.preferences@default:default,org.eclipse.core.runtime@default:true,org.eclipse.core.contenttype@default:default,org.eclipse.osgi,org.eclipse.core.runtime.compatibility.registry@default:false,org.eclipse.equinox.common@default:default"/>
 <stringAttribute key="selected_workspace_plugins" value="net.sf.jame.test.swt@default:default"/>
 <booleanAttribute key="show_selected_only" value="true"/>
 <booleanAttribute key="tracing" value="false"/>
+<booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfig" value="true"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
 <booleanAttribute key="useProduct" value="true"/>
