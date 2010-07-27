@@ -88,23 +88,23 @@ public class GenerateContextFree {
 	}
 
 	private ProcessorParameters createFigureExtensionParameters() {
-		return new ProcessorParameters(new ProcessorDescriptor("figure", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.figure.extension", "FigureExtensionConfig", "net.sf.jame.contextfree.cfdg.figure.extension", "FigureExtensionRuntime", "net.sf.jame.contextfree.cfdg.figure.extension", "FigureExtensionRegistry", null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
+		return new ProcessorParameters(new ProcessorDescriptor("figure", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.figure.extension", "FigureExtensionConfig", "net.sf.jame.contextfree.cfdg.figure.extension", "FigureExtensionRuntime", "net.sf.jame.contextfree.cfdg.figure.extension", "FigureExtensionRegistry", "net.sf.jame.contextfree", "ContextFreeRegistry", "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
 	}
 
 	private ProcessorParameters createPathAdjustmentExtensionParameters() {
-		return new ProcessorParameters(new ProcessorDescriptor("pathAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.pathAdjustment.extension", "PathAdjustmentExtensionConfig", "net.sf.jame.contextfree.cfdg.pathAdjustment.extension", "PathAdjustmentExtensionRuntime", "net.sf.jame.contextfree.cfdg.pathAdjustment.extension", "PathAdjustmentExtensionRegistry", null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
+		return new ProcessorParameters(new ProcessorDescriptor("pathAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.pathAdjustment.extension", "PathAdjustmentExtensionConfig", "net.sf.jame.contextfree.cfdg.pathAdjustment.extension", "PathAdjustmentExtensionRuntime", "net.sf.jame.contextfree.cfdg.pathAdjustment.extension", "PathAdjustmentExtensionRegistry", "net.sf.jame.contextfree", "ContextFreeRegistry", "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
 	}
 
 	private ProcessorParameters createPathReplacementExtensionParameters() {
-		return new ProcessorParameters(new ProcessorDescriptor("pathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.pathReplacement.extension", "PathReplacementExtensionConfig", "net.sf.jame.contextfree.cfdg.pathReplacement.extension", "PathReplacementExtensionRuntime", "net.sf.jame.contextfree.cfdg.pathReplacement.extension", "PathReplacementExtensionRegistry", null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
+		return new ProcessorParameters(new ProcessorDescriptor("pathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.pathReplacement.extension", "PathReplacementExtensionConfig", "net.sf.jame.contextfree.cfdg.pathReplacement.extension", "PathReplacementExtensionRuntime", "net.sf.jame.contextfree.cfdg.pathReplacement.extension", "PathReplacementExtensionRegistry", "net.sf.jame.contextfree", "ContextFreeRegistry", "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
 	}
 	
 	private ProcessorParameters createShapeAdjustmentExtensionParameters() {
-		return new ProcessorParameters(new ProcessorDescriptor("shapeAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.shapeAdjustment.extension", "ShapeAdjustmentExtensionConfig", "net.sf.jame.contextfree.cfdg.shapeAdjustment.extension", "ShapeAdjustmentExtensionRuntime", "net.sf.jame.contextfree.cfdg.shapeAdjustment.extension", "ShapeAdjustmentExtensionRegistry", null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
+		return new ProcessorParameters(new ProcessorDescriptor("shapeAdjustment", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.shapeAdjustment.extension", "ShapeAdjustmentExtensionConfig", "net.sf.jame.contextfree.cfdg.shapeAdjustment.extension", "ShapeAdjustmentExtensionRuntime", "net.sf.jame.contextfree.cfdg.shapeAdjustment.extension", "ShapeAdjustmentExtensionRegistry", "net.sf.jame.contextfree", "ContextFreeRegistry", "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
 	}
 	
 	private ProcessorParameters createShapeReplacementExtensionParameters() {
-		return new ProcessorParameters(new ProcessorDescriptor("shapeReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.shapeReplacement.extension", "ShapeReplacementExtensionConfig", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension", "ShapeReplacementExtensionRuntime", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension", "ShapeReplacementExtensionRegistry", null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
+		return new ProcessorParameters(new ProcessorDescriptor("shapeReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.cfdg.shapeReplacement.extension", "ShapeReplacementExtensionConfig", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension", "ShapeReplacementExtensionRuntime", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension", "ShapeReplacementExtensionRegistry", "net.sf.jame.contextfree", "ContextFreeRegistry", "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
 	}
 
 	private ProcessorParameters createRuleExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
@@ -619,6 +619,11 @@ public class GenerateContextFree {
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
 			variables.put("generateAbstractClass", "yes");
+			variables.put("generateReferenceEditor", "yes");
+			variables.put("generateReferenceElementEditor", "yes");
+			variables.put("generateReferenceElementListEditor", "yes");
+			variables.put("configElementPackageName", "net.sf.jame.contextfree.cfdg.figure");
+			variables.put("configElementClassName", "FigureConfigElement");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createFigureExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -746,45 +751,6 @@ public class GenerateContextFree {
 	}
 
 	@Test
-	public void generatePathReplacement() {
-		try {
-			File path = new File("build");
-			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
-			populateProcessorExtensionMap(processorExtensionMap);
-			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
-			Map<String, String> variables = createVariables();
-			populateDescriptorExtensionMap(descriptorExtensionMap);
-			ProcessorParameters parameters = createPathReplacementParameters(descriptorExtensionMap);
-			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
-				processorRuntime.process(path, parameters, variables);
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void generatePathReplacementExtension() {
-		try {
-			File path = new File("build");
-			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
-			populateProcessorExtensionMap(processorExtensionMap);
-			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
-			Map<String, String> variables = createVariables();
-			variables.put("generateAbstractClass", "yes");
-			populateDescriptorExtensionMap(descriptorExtensionMap);
-			ProcessorParameters parameters = createPathReplacementExtensionParameters();
-			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
-				processorRuntime.process(path, parameters, variables);
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
 	public void generatePathAdjustment() {
 		try {
 			File path = new File("build");
@@ -812,6 +778,11 @@ public class GenerateContextFree {
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
 			variables.put("generateAbstractClass", "yes");
+			variables.put("generateReferenceEditor", "yes");
+			variables.put("generateReferenceElementEditor", "yes");
+			variables.put("generateReferenceElementListEditor", "yes");
+			variables.put("configElementPackageName", "net.sf.jame.contextfree.cfdg.pathAdjustment");
+			variables.put("configElementClassName", "PathAdjustmentConfigElement");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createPathAdjustmentExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -1169,7 +1140,7 @@ public class GenerateContextFree {
 	}
 
 	@Test
-	public void generateShapeReplacement() {
+	public void generatePathReplacement() {
 		try {
 			File path = new File("build");
 			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
@@ -1177,7 +1148,7 @@ public class GenerateContextFree {
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
 			populateDescriptorExtensionMap(descriptorExtensionMap);
-			ProcessorParameters parameters = createShapeReplacementParameters(descriptorExtensionMap);
+			ProcessorParameters parameters = createPathReplacementParameters(descriptorExtensionMap);
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
 				processorRuntime.process(path, parameters, variables);
 			}
@@ -1188,7 +1159,7 @@ public class GenerateContextFree {
 	}
 
 	@Test
-	public void generateShapeReplacementExtension() {
+	public void generatePathReplacementExtension() {
 		try {
 			File path = new File("build");
 			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
@@ -1196,54 +1167,13 @@ public class GenerateContextFree {
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
 			variables.put("generateAbstractClass", "yes");
+			variables.put("generateReferenceEditor", "yes");
+			variables.put("generateReferenceElementEditor", "yes");
+			variables.put("generateReferenceElementListEditor", "yes");
+			variables.put("configElementPackageName", "net.sf.jame.contextfree.cfdg.pathReplacement");
+			variables.put("configElementClassName", "PathReplacementConfigElement");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
-			ProcessorParameters parameters = createShapeReplacementExtensionParameters();
-			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
-				processorRuntime.process(path, parameters, variables);
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void generateSingleShapeReplacementExtension() {
-		try {
-			File path = new File("build");
-			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
-			populateProcessorExtensionMap(processorExtensionMap);
-			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
-			Map<String, String> variables = createVariables();
-			variables.put("parentConfigPackage", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension");
-			variables.put("parentConfigClass", "ShapeReplacementExtensionConfig");
-			variables.put("parentRuntimePackage", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension");
-			variables.put("parentRuntimeClass", "ShapeReplacementExtensionRuntime");
-			populateDescriptorExtensionMap(descriptorExtensionMap);
-			ProcessorParameters parameters = createSingleShapeReplacementExtensionParameters(descriptorExtensionMap);
-			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
-				processorRuntime.process(path, parameters, variables);
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void generateMultiShapeReplacementExtension() {
-		try {
-			File path = new File("build");
-			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
-			populateProcessorExtensionMap(processorExtensionMap);
-			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
-			Map<String, String> variables = createVariables();
-			variables.put("parentConfigPackage", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension");
-			variables.put("parentConfigClass", "ShapeReplacementExtensionConfig");
-			variables.put("parentRuntimePackage", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension");
-			variables.put("parentRuntimeClass", "ShapeReplacementExtensionRuntime");
-			populateDescriptorExtensionMap(descriptorExtensionMap);
-			ProcessorParameters parameters = createMultiShapeReplacementExtensionParameters(descriptorExtensionMap);
+			ProcessorParameters parameters = createPathReplacementExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
 				processorRuntime.process(path, parameters, variables);
 			}
@@ -1741,6 +1671,11 @@ public class GenerateContextFree {
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
 			variables.put("generateAbstractClass", "yes");
+			variables.put("generateReferenceEditor", "yes");
+			variables.put("generateReferenceElementEditor", "yes");
+			variables.put("generateReferenceElementListEditor", "yes");
+			variables.put("configElementPackageName", "net.sf.jame.contextfree.cfdg.shapeAdjustment");
+			variables.put("configElementClassName", "ShapeAdjustmentConfigElement");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createShapeAdjustmentExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -2134,6 +2069,96 @@ public class GenerateContextFree {
 			variables.put("parentRuntimeClass", "ShapeAdjustmentExtensionRuntime");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createRotateShapeAdjustmentExtensionParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateShapeReplacement() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createShapeReplacementParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateShapeReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			variables.put("generateAbstractClass", "yes");
+			variables.put("generateReferenceEditor", "yes");
+			variables.put("generateReferenceElementEditor", "yes");
+			variables.put("generateReferenceElementListEditor", "yes");
+			variables.put("configElementPackageName", "net.sf.jame.contextfree.cfdg.shapeReplacement");
+			variables.put("configElementClassName", "ShapeReplacementConfigElement");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createShapeReplacementExtensionParameters();
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateSingleShapeReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			variables.put("parentConfigPackage", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension");
+			variables.put("parentConfigClass", "ShapeReplacementExtensionConfig");
+			variables.put("parentRuntimePackage", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension");
+			variables.put("parentRuntimeClass", "ShapeReplacementExtensionRuntime");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createSingleShapeReplacementExtensionParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateMultiShapeReplacementExtension() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+			variables.put("parentConfigPackage", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension");
+			variables.put("parentConfigClass", "ShapeReplacementExtensionConfig");
+			variables.put("parentRuntimePackage", "net.sf.jame.contextfree.cfdg.shapeReplacement.extension");
+			variables.put("parentRuntimeClass", "ShapeReplacementExtensionRuntime");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createMultiShapeReplacementExtensionParameters(descriptorExtensionMap);
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
 				processorRuntime.process(path, parameters, variables);
 			}

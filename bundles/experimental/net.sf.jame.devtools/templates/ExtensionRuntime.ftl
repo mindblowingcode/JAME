@@ -13,7 +13,7 @@ import ${import};
 /**
  * @author ${author}
  */
-public abstract class ${extension.extensionRuntimeClassName} extends ExtensionRuntime {
+<#if generateAbstractClass?exists>public abstract<#else>public</#if> class <#if parentRuntimeClass?exists>${extension.extensionRuntimeClassName} extends ${parentRuntimeClass}<#else>${extension.extensionRuntimeClassName}</#if> extends ExtensionRuntime {
 }
 <#elseif extension.configurableExtension>
 /**
