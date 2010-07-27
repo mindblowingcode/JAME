@@ -50,7 +50,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
-		ContextFreeLimits limits = new ContextFreeLimits((getBufferWidth() - getTile().getTileSize().getX()) / 2, (getBufferHeight() - getTile().getTileSize().getY()) / 2, getTile().getTileSize().getX(), getTile().getTileSize().getY(), 8);
+		ContextFreeLimits limits = new ContextFreeLimits((getBufferWidth() - getTile().getTileSize().getX()) / 2 + getTile().getTileBorder().getX(), (getBufferHeight() - getTile().getTileSize().getY()) / 2 + getTile().getTileBorder().getY(), getTile().getTileSize().getX(), getTile().getTileSize().getY(), 8);
 		ContextFreeState state = new ContextFreeState(); 
 		context.registerFigures();
 		Graphics2D g2d = getGraphics();

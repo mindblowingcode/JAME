@@ -65,6 +65,21 @@
             runtimeClass="net.sf.jame.devtools.extensions.processor.ExtensionRegistryProcessorRuntime">
       </processor>
       <processor
+            id="devtools.processor.editorruntime"
+            name="EditorRuntime Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.EditorProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.nodeactionxmlexporterruntime"
+            name="NodeActionXMLExporterRuntime Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.NodeActionXMLExporterProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.nodeactionxmlimporterruntime"
+            name="NodeActionXMLImporterRuntime Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.NodeActionXMLImporterProcessorRuntime">
+      </processor>
+      <processor
             id="devtools.processor.registry"
             name="Registry Processor"
             runtimeClass="net.sf.jame.devtools.extensions.processor.RegistryProcessorRuntime">
