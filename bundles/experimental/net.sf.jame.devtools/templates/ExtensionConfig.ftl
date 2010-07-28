@@ -49,9 +49,9 @@ import ${import};
 		<#if subelement.cardinality == "NONE">
 		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new ${subelement.configElementClassName}();
 		<#elseif subelement.cardinality == "ONE">
-		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new SingleConfigElement<${subelement.configElementClassName}>("${subelement.elementName?uncap_first}");
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new SingleConfigElement<${subelement.configElementClassName}>("${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}");
 		<#elseif subelement.cardinality == "MANY">
-		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new ListConfigElement<${subelement.configElementClassName}>("${subelement.elementName?uncap_first}");
+		${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new ListConfigElement<${subelement.configElementClassName}>("${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}");
 		</#if>
 		</#if>
 		</#list>

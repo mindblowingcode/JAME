@@ -2,7 +2,7 @@
  * $Id:$
  *
  */
-package ${extension.extensionRuntimePackageName};
+package ${editorPackageName};
 
 <#list imports as import>
 import ${import};

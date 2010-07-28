@@ -656,7 +656,7 @@
             runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.RotateShapeAdjustmentConfigNodeBuilderRuntime"/>
       <extensionConfigXMLImporter
             id="contextfree.figure.rule"
-            name="Rule Fugure"
+            name="Rule Figure"
             runtimeClass="net.sf.jame.contextfree.extensions.figure.RuleFigureConfigXMLImporterRuntime"/>
       <extensionConfigXMLExporter
             id="contextfree.figure.rule"
@@ -668,7 +668,7 @@
             runtimeClass="net.sf.jame.contextfree.extensions.figure.RuleFigureConfigNodeBuilderRuntime"/>
       <extensionConfigXMLImporter
             id="contextfree.figure.path"
-            name="Path Fugure"
+            name="Path Figure"
             runtimeClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfigXMLImporterRuntime"/>
       <extensionConfigXMLExporter
             id="contextfree.figure.path"
@@ -680,8 +680,8 @@
             runtimeClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfigNodeBuilderRuntime"/>
       <extensionConfigXMLImporter
             id="contextfree.figure.triangle"
-            name="Path Fugure"
-            runtimeClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfigXMLImporterRuntime"/>
+            name="Triangle Figure"
+            runtimeClass="net.sf.jame.contextfree.extensions.figure.TriangleFigureConfigXMLImporterRuntime"/>
       <extensionConfigXMLExporter
             id="contextfree.figure.triangle"
             name="Triangle Figure"
@@ -692,7 +692,7 @@
             runtimeClass="net.sf.jame.contextfree.extensions.figure.TriangleFigureConfigNodeBuilderRuntime"/>
       <extensionConfigXMLImporter
             id="contextfree.figure.square"
-            name="Square Fugure"
+            name="Square Figure"
             runtimeClass="net.sf.jame.contextfree.extensions.figure.SquareFigureConfigXMLImporterRuntime"/>
       <extensionConfigXMLExporter
             id="contextfree.figure.square"
@@ -704,7 +704,7 @@
             runtimeClass="net.sf.jame.contextfree.extensions.figure.SquareFigureConfigNodeBuilderRuntime"/>
       <extensionConfigXMLImporter
             id="contextfree.figure.circle"
-            name="Circle Fugure"
+            name="Circle Figure"
             runtimeClass="net.sf.jame.contextfree.extensions.figure.CircleFigureConfigXMLImporterRuntime"/>
       <extensionConfigXMLExporter
             id="contextfree.figure.circle"
@@ -821,144 +821,144 @@
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathReplacementConfig"
             id="contextfree.path.replacement.operation.lineto"
-            name="LineTo PathReplacement"
+            name="LineTo Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineToPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcToPathReplacementConfig"
             id="contextfree.path.replacement.operation.arcto"
-            name="ArcTo PathReplacement"
+            name="ArcTo Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcToPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveToPathReplacementConfig"
             id="contextfree.path.replacement.operation.curveto"
-            name="CurveTo PathReplacement"
+            name="CurveTo Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveToPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.QuadToPathReplacementConfig"
             id="contextfree.path.replacement.operation.quadto"
-            name="QuadTo PathReplacement"
+            name="QuadTo Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.QuadToPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.SmoothCurveToPathReplacementConfig"
             id="contextfree.path.replacement.operation.smoothcurveto"
-            name="SmoothCurveTo PathReplacement"
+            name="SmoothCurveTo Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.SmoothCurveToPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.SmoothQuadToPathReplacementConfig"
             id="contextfree.path.replacement.operation.smoothquadto"
-            name="SmoothQuadTo PathReplacement"
+            name="SmoothQuadTo Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.SmoothQuadToPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveToPathReplacementConfig"
             id="contextfree.path.replacement.operation.moveto"
-            name="MoveTo PathReplacement"
+            name="MoveTo Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveToPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.LineRelPathReplacementConfig"
             id="contextfree.path.replacement.operation.linerel"
-            name="LineRel PathReplacement"
+            name="LineRel Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.LineRelPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcRelPathReplacementConfig"
             id="contextfree.path.replacement.operation.arcrel"
-            name="ArcRel PathReplacement"
+            name="ArcRel Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ArcRelPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveRelPathReplacementConfig"
             id="contextfree.path.replacement.operation.curverel"
-            name="CurveRel PathReplacement"
+            name="CurveRel Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.CurveRelPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.QuadRelPathReplacementConfig"
             id="contextfree.path.replacement.operation.quadrel"
-            name="QuadRel PathReplacement"
+            name="QuadRel Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.QuadRelPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.SmoothCurveRelPathReplacementConfig"
             id="contextfree.path.replacement.operation.smoothcurverel"
-            name="SmoothCurveRel PathReplacement"
+            name="SmoothCurveRel Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.SmoothCurveRelPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.SmoothQuadRelPathReplacementConfig"
             id="contextfree.path.replacement.operation.smoothquadrel"
-            name="SmoothQuadRel PathReplacement"
+            name="SmoothQuadRel Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.SmoothQuadRelPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveRelPathReplacementConfig"
             id="contextfree.path.replacement.operation.moverel"
-            name="MoveRel PathReplacement"
+            name="MoveRel Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MoveRelPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.ClosePolyPathReplacementConfig"
             id="contextfree.path.replacement.operation.closepoly"
-            name="ClosePoly PathReplacement"
+            name="ClosePoly Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.ClosePolyPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.FillPathReplacementConfig"
             id="contextfree.path.replacement.command.fill"
-            name="Fill PathReplacement"
+            name="Fill Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.FillPathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementConfig"
             id="contextfree.path.replacement.command.stroke"
-            name="Stroke PathReplacement"
+            name="Stroke Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementRuntime"/>
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.FlushPathReplacementConfig"
             id="contextfree.path.replacement.command.flush"
-            name="Flush PathReplacement"
+            name="Flush Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.FlushPathReplacementRuntime"/>
       <!--
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.SinglePathReplacementConfig"
             id="contextfree.path.replacement.single"
-            name="Single PathReplacement"
+            name="Single Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.SinglePathReplacementRuntime"/>
        -->
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.MultiPathReplacementConfig"
             id="contextfree.path.replacement.multi"
-            name="Multi PathReplacement"
+            name="Multi Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.MultiPathReplacementRuntime"/>
       <shapeAdjustment
             configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentConfig"
             id="contextfree.shape.adjustment.color.targetHue"
-            name="TargetHue ShapeAdjustment"
+            name="TargetHue Adjustment"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetHueShapeAdjustmentRuntime"/>
       <shapeAdjustment
             configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetBrightnessShapeAdjustmentConfig"
             id="contextfree.shape.adjustment.color.targetBrightness"
-            name="TargetBrightness ShapeAdjustment"
+            name="TargetBrightness Adjustment"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetBrightnessShapeAdjustmentRuntime"/>
       <shapeAdjustment
             configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetSaturationShapeAdjustmentConfig"
             id="contextfree.shape.adjustment.color.targetSaturation"
-            name="TargetSaturation ShapeAdjustment"
+            name="TargetSaturation Adjustment"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetSaturationShapeAdjustmentRuntime"/>
       <shapeAdjustment
             configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetAlphaShapeAdjustmentConfig"
             id="contextfree.shape.adjustment.color.targetAlpha"
-            name="TargetAlpha ShapeAdjustment"
+            name="TargetAlpha Adjustment"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.TargetAlphaShapeAdjustmentRuntime"/>
       <shapeAdjustment
             configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentHueShapeAdjustmentConfig"
             id="contextfree.shape.adjustment.color.currentHue"
-            name="CurrentHue ShapeAdjustment"
+            name="CurrentHue Adjustment"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentHueShapeAdjustmentRuntime"/>
       <shapeAdjustment
             configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentConfig"
             id="contextfree.shape.adjustment.color.currentBrightness"
-            name="CurrentBrightness ShapeAdjustment"
+            name="CurrentBrightness Adjustment"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentBrightnessShapeAdjustmentRuntime"/>
       <shapeAdjustment
             configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentSaturationShapeAdjustmentConfig"
             id="contextfree.shape.adjustment.color.currentSaturation"
-            name="CurrentSaturation ShapeAdjustment"
+            name="CurrentSaturation Adjustment"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentSaturationShapeAdjustmentRuntime"/>
       <shapeAdjustment
             configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentConfig"
             id="contextfree.shape.adjustment.color.currentAlpha"
-            name="CurrentAlpha ShapeAdjustment"
+            name="CurrentAlpha Adjustment"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentAlphaShapeAdjustmentRuntime"/>
       <shapeAdjustment
             configClass="net.sf.jame.contextfree.extensions.shapeAdjustment.XShapeAdjustmentConfig"
@@ -1008,12 +1008,12 @@
       <shapeReplacement
             configClass="net.sf.jame.contextfree.extensions.shapeReplacement.SingleShapeReplacementConfig"
             id="contextfree.shape.replacement.single"
-            name="Single ShapeReplacement"
+            name="Single Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.SingleShapeReplacementRuntime"/>
       <shapeReplacement
             configClass="net.sf.jame.contextfree.extensions.shapeReplacement.MultiShapeReplacementConfig"
             id="contextfree.shape.replacement.multi"
-            name="Multi ShapeReplacement"
+            name="Multi Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.shapeReplacement.MultiShapeReplacementRuntime"/>
       <figure
             configClass="net.sf.jame.contextfree.extensions.figure.PathFigureConfig"

@@ -2,7 +2,7 @@
  * $Id:$
  *
  */
-package ${extension.extensionRuntimePackageName};
+package ${editorPackageName};
 
 <#list imports as import>
 import ${import};
@@ -44,7 +44,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getInsertBeforeLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.insert${extension.elementName?cap_first}Before");
+		return ${resourcesClassName}.getInstance().getString("action.insert${extension.elementName?cap_first}Before");
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getInsertAfterLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.insert${extension.elementName?cap_first}After");
+		return ${resourcesClassName}.getInstance().getString("action.insert${extension.elementName?cap_first}After");
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getRemoveLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.remove${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("action.remove${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getInsertAfterTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.insert${extension.elementName?cap_first}After");
+		return ${resourcesClassName}.getInstance().getString("tooltip.insert${extension.elementName?cap_first}After");
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getInsertBeforeTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.insert${extension.elementName?cap_first}Before");
+		return ${resourcesClassName}.getInstance().getString("tooltip.insert${extension.elementName?cap_first}Before");
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getRemoveTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.remove${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("tooltip.remove${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getMoveDownLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.moveUp${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("action.moveUp${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getMoveDownTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.moveDown${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("tooltip.moveDown${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getMoveUpLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.moveUp${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("action.moveUp${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getMoveUpTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.moveUp${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("tooltip.moveUp${extension.elementName?cap_first}");
 	}
 } 
 <#elseif extension.configurableExtension>
@@ -156,7 +156,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getInsertBeforeLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.insert${extension.elementName?cap_first}Before");
+		return ${resourcesClassName}.getInstance().getString("action.insert${extension.elementName?cap_first}Before");
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getInsertAfterLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.insert${extension.elementName?cap_first}After");
+		return ${resourcesClassName}.getInstance().getString("action.insert${extension.elementName?cap_first}After");
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getRemoveLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.remove${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("action.remove${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getInsertAfterTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.insert${extension.elementName?cap_first}After");
+		return ${resourcesClassName}.getInstance().getString("tooltip.insert${extension.elementName?cap_first}After");
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getInsertBeforeTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.insert${extension.elementName?cap_first}Before");
+		return ${resourcesClassName}.getInstance().getString("tooltip.insert${extension.elementName?cap_first}Before");
 	}
 
 	/**
@@ -196,7 +196,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getRemoveTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.remove${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("tooltip.remove${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -204,7 +204,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getMoveDownLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.moveUp${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("action.moveUp${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getMoveDownTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.moveDown${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("tooltip.moveDown${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -220,7 +220,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getMoveUpLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.moveUp${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("action.moveUp${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -228,7 +228,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getMoveUpTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.moveUp${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("tooltip.moveUp${extension.elementName?cap_first}");
 	}
 } 
 </#if>
