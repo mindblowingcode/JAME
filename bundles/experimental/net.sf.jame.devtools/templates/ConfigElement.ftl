@@ -61,9 +61,9 @@ public class ${element.configElementClassName} extends AbstractConfigElement {
 	<#if subelement.cardinality == "NONE">
 	private final ${subelement.configElementClassName} ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new ${subelement.configElementClassName}();
 	<#elseif subelement.cardinality == "ONE">
-	private final SingleConfigElement<${subelement.configElementClassName}> ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new SingleConfigElement<${subelement.configElementClassName}>("${subelement.elementName?uncap_first}");
+	private final SingleConfigElement<${subelement.configElementClassName}> ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new SingleConfigElement<${subelement.configElementClassName}>("${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}");
 	<#elseif subelement.cardinality == "MANY">
-	private final ListConfigElement<${subelement.configElementClassName}> ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new ListConfigElement<${subelement.configElementClassName}>("${subelement.elementName?uncap_first}");
+	private final ListConfigElement<${subelement.configElementClassName}> ${subelement.elementName?uncap_first}${subelement.fieldNameSuffix} = new ListConfigElement<${subelement.configElementClassName}>("${subelement.elementName?uncap_first}${subelement.fieldNameSuffix}");
 	</#if>
 	</#if>
 	</#list>

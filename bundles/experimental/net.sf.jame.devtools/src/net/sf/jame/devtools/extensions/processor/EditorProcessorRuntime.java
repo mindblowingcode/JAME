@@ -52,11 +52,11 @@ public class EditorProcessorRuntime extends ProcessorExtensionRuntime {
 		try {
 			ProcessorDescriptor element = parameters.getElement();
 			if (element.isExtension() || element.isConfigurableExtension()) {
-				File packagePath = new File(path, element.getExtensionRuntimePackageName().replace('.', '/'));
-				packagePath.mkdirs();
-				Configuration config = new Configuration();
-				config.setTemplateLoader(new ProcessorTemplateLoader());
 				if (variables.containsKey("generateReferenceEditor")) {
+					File packagePath = new File(path, variables.get("editorPackageName").replace('.', '/'));
+					packagePath.mkdirs();
+					Configuration config = new Configuration();
+					config.setTemplateLoader(new ProcessorTemplateLoader());
 					HashMap<String, Object> map = new HashMap<String, Object>();
 					Set<String> imports = new HashSet<String>();
 					prepare(imports, element);
@@ -70,6 +70,10 @@ public class EditorProcessorRuntime extends ProcessorExtensionRuntime {
 					template.process(map, new PrintWriter(new File(packagePath, capitalize(element.getElementName()) + "ReferenceEditorRuntime.java")));
 				}
 				if (variables.containsKey("generateReferenceElementEditor")) {
+					File packagePath = new File(path, variables.get("editorPackageName").replace('.', '/'));
+					packagePath.mkdirs();
+					Configuration config = new Configuration();
+					config.setTemplateLoader(new ProcessorTemplateLoader());
 					HashMap<String, Object> map = new HashMap<String, Object>();
 					Set<String> imports = new HashSet<String>();
 					prepare(imports, element);
@@ -83,6 +87,10 @@ public class EditorProcessorRuntime extends ProcessorExtensionRuntime {
 					template.process(map, new PrintWriter(new File(packagePath, capitalize(element.getElementName()) + "ReferenceElementEditorRuntime.java")));
 				} 
 				if (variables.containsKey("generateReferenceElementListEditor")) {
+					File packagePath = new File(path, variables.get("editorPackageName").replace('.', '/'));
+					packagePath.mkdirs();
+					Configuration config = new Configuration();
+					config.setTemplateLoader(new ProcessorTemplateLoader());
 					HashMap<String, Object> map = new HashMap<String, Object>();
 					Set<String> imports = new HashSet<String>();
 					prepare(imports, element);
@@ -97,6 +105,10 @@ public class EditorProcessorRuntime extends ProcessorExtensionRuntime {
 				}
 			}
 			else if (element.isComplexElement() || element.isSimpleElement()) {
+				File packagePath = new File(path, variables.get("editorPackageName").replace('.', '/'));
+				packagePath.mkdirs();
+				Configuration config = new Configuration();
+				config.setTemplateLoader(new ProcessorTemplateLoader());
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				Set<String> imports = new HashSet<String>();
 				prepare(imports, element);
@@ -106,10 +118,6 @@ public class EditorProcessorRuntime extends ProcessorExtensionRuntime {
 				Collections.sort(sortedImports);
 				map.put("imports", sortedImports);
 				map.put("element", element);
-				File packagePath = new File(path, element.getRuntimeElementPackageName().replace('.', '/'));
-				packagePath.mkdirs();
-				Configuration config = new Configuration();
-				config.setTemplateLoader(new ProcessorTemplateLoader());
 				Template template = config.getTemplate("templates/ElementEditorRuntime.ftl");
 				template.process(map, new PrintWriter(new File(packagePath, capitalize(element.getElementName()) + "EditorRuntime.java")));
 			}
@@ -165,8 +173,8 @@ public class EditorProcessorRuntime extends ProcessorExtensionRuntime {
 			imports.add("net.sf.jame.core.swing.extension.ConfigurableExtensionComboBoxModel");
 		}
 		imports.add("net.sf.jame.core.tree.NodeValue");
-		imports.add(descriptor.getResourcesPackageName() + "." + descriptor.getResourcesClassName());
 		imports.add(descriptor.getRegistryPackageName() + "." + descriptor.getRegistryClassName());
+		imports.add(variables.get("resourcesPackageName") + "." + variables.get("resourcesClassName"));
 		imports.add(variables.get("configElementPackageName") + "." + variables.get("configElementClassName"));
 		imports.add(variables.get("configElementPackageName") + "." + variables.get("configElementClassName") + "NodeValue");
 	}
@@ -182,8 +190,8 @@ public class EditorProcessorRuntime extends ProcessorExtensionRuntime {
 			imports.add("net.sf.jame.core.swing.extension.ConfigurableExtensionComboBoxModel");
 		}
 		imports.add("net.sf.jame.core.tree.NodeValue");
-		imports.add(descriptor.getResourcesPackageName() + "." + descriptor.getResourcesClassName());
 		imports.add(descriptor.getRegistryPackageName() + "." + descriptor.getRegistryClassName());
+		imports.add(variables.get("resourcesPackageName") + "." + variables.get("resourcesClassName"));
 		imports.add(variables.get("configElementPackageName") + "." + variables.get("configElementClassName"));
 		imports.add(variables.get("configElementPackageName") + "." + variables.get("configElementClassName") + "NodeValue");
 	}

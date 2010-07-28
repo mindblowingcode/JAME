@@ -2,7 +2,7 @@
  * $Id:$
  *
  */
-package ${extension.extensionRuntimePackageName};
+package ${editorPackageName};
 
 <#list imports as import>
 import ${import};
@@ -36,7 +36,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getAppendLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.append${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("action.append${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getRemoveAllLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.removeAll${extension.elementName?cap_first}s");
+		return ${resourcesClassName}.getInstance().getString("action.removeAll${extension.elementName?cap_first}s");
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getAppendTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.append${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("tooltip.append${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getRemoveAllTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.removeAll${extension.elementName?cap_first}s");
+		return ${resourcesClassName}.getInstance().getString("tooltip.removeAll${extension.elementName?cap_first}s");
 	}
 } 
 <#elseif extension.configurableExtension>
@@ -92,7 +92,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getAppendLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.append${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("action.append${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getRemoveAllLabel() {
-		return ${extension.resourcesClassName}.getInstance().getString("action.removeAll${extension.elementName?cap_first}s");
+		return ${resourcesClassName}.getInstance().getString("action.removeAll${extension.elementName?cap_first}s");
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getAppendTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.append${extension.elementName?cap_first}");
+		return ${resourcesClassName}.getInstance().getString("tooltip.append${extension.elementName?cap_first}");
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class <#if parentRuntimeClass?exists>${extension.elementName?cap_first}Re
 	 */
 	@Override
 	protected String getRemoveAllTooltip() {
-		return ${extension.resourcesClassName}.getInstance().getString("tooltip.removeAll${extension.elementName?cap_first}s");
+		return ${resourcesClassName}.getInstance().getString("tooltip.removeAll${extension.elementName?cap_first}s");
 	}
 } 
 </#if>

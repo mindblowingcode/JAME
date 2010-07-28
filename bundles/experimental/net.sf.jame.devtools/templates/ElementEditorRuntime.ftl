@@ -2,7 +2,7 @@
  * $Id:$
  *
  */
-package ${element.runtimeElementPackageName};
+package ${editorPackageName};
 
 <#list imports as import>
 import ${import};

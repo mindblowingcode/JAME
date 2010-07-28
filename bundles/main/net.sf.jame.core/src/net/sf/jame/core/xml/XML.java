@@ -110,7 +110,11 @@ public class XML {
 	 * @return
 	 */
 	public static final String getStringElementValue(final Element element, final String name) {
-		return ((Element) element.getElementsByTagName(name).item(0)).getFirstChild().getNodeValue();
+		Node firstChild = ((Element) element.getElementsByTagName(name).item(0)).getFirstChild();
+		if (firstChild != null) {
+			return firstChild.getNodeValue();
+		}
+		return "";
 	}
 
 	/**
@@ -183,7 +187,11 @@ public class XML {
 	 * @return
 	 */
 	public static final String getStringElementValue(final Element element, final String name, final int index) {
-		return ((Element) element.getElementsByTagName(name).item(index)).getFirstChild().getNodeValue();
+		Node firstChild = ((Element) element.getElementsByTagName(name).item(index)).getFirstChild();
+		if (firstChild != null) {
+			return firstChild.getNodeValue();
+		}
+		return "";
 	}
 
 	/**

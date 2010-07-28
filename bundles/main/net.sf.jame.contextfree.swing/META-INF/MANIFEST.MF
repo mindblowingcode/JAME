@@ -14,5 +14,6 @@ Require-Bundle: net.sf.jame.core;bundle-version="1.1.0",
 Export-Package: net.sf.jame.contextfree.swing,
  net.sf.jame.contextfree.swing.extensions,
  net.sf.jame.contextfree.swing.extensions.adapter,
+ net.sf.jame.contextfree.swing.extensions.editor,
  net.sf.jame.contextfree.swing.extensions.view
 Import-Package: org.apache.log4j;version="1.2.15"
