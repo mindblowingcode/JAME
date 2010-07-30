@@ -588,7 +588,12 @@ public class ContextFree {
 			populateProcessorExtensionMap(processorExtensionMap);
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
+			variables.put("generateElementEditor", "yes");
 			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateElementNodeActionXMLExporter", "yes");
+			variables.put("generateElementNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createCFDGParameters(descriptorExtensionMap);
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -608,7 +613,14 @@ public class ContextFree {
 			populateProcessorExtensionMap(processorExtensionMap);
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
+			variables.put("generateElementEditor", "yes");
 			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateElementNodeActionXMLExporter", "yes");
+			variables.put("generateElementNodeActionXMLImporter", "yes");
+			variables.put("generateElementListNodeActionXMLExporter", "yes");
+			variables.put("generateElementListNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createFigureParameters(descriptorExtensionMap);
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -637,6 +649,10 @@ public class ContextFree {
 			variables.put("resourcesPackageName", "net.sf.jame.contextfree.swing.extensions");
 			variables.put("resourcesClassName", "ContextFreeSwingExtensionResources");
 			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateReferenceNodeActionXMLExporter", "yes");
+			variables.put("generateReferenceNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createFigureExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -771,7 +787,14 @@ public class ContextFree {
 			populateProcessorExtensionMap(processorExtensionMap);
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
+			variables.put("generateElementEditor", "yes");
 			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateElementNodeActionXMLExporter", "yes");
+			variables.put("generateElementNodeActionXMLImporter", "yes");
+			variables.put("generateElementListNodeActionXMLExporter", "yes");
+			variables.put("generateElementListNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createPathAdjustmentParameters(descriptorExtensionMap);
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -800,6 +823,10 @@ public class ContextFree {
 			variables.put("resourcesPackageName", "net.sf.jame.contextfree.swing.extensions");
 			variables.put("resourcesClassName", "ContextFreeSwingExtensionResources");
 			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateReferenceNodeActionXMLExporter", "yes");
+			variables.put("generateReferenceNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createPathAdjustmentExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -1164,7 +1191,14 @@ public class ContextFree {
 			populateProcessorExtensionMap(processorExtensionMap);
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
+			variables.put("generateElementEditor", "yes");
 			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateElementNodeActionXMLExporter", "yes");
+			variables.put("generateElementNodeActionXMLImporter", "yes");
+			variables.put("generateElementListNodeActionXMLExporter", "yes");
+			variables.put("generateElementListNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createPathReplacementParameters(descriptorExtensionMap);
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -1193,6 +1227,10 @@ public class ContextFree {
 			variables.put("resourcesPackageName", "net.sf.jame.contextfree.swing.extensions");
 			variables.put("resourcesClassName", "ContextFreeSwingExtensionResources");
 			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateReferenceNodeActionXMLExporter", "yes");
+			variables.put("generateReferenceNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createPathReplacementExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -1672,7 +1710,14 @@ public class ContextFree {
 			populateProcessorExtensionMap(processorExtensionMap);
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
+			variables.put("generateElementEditor", "yes");
 			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateElementNodeActionXMLExporter", "yes");
+			variables.put("generateElementNodeActionXMLImporter", "yes");
+			variables.put("generateElementListNodeActionXMLExporter", "yes");
+			variables.put("generateElementListNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createShapeAdjustmentParameters(descriptorExtensionMap);
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -1701,6 +1746,10 @@ public class ContextFree {
 			variables.put("resourcesPackageName", "net.sf.jame.contextfree.swing.extensions");
 			variables.put("resourcesClassName", "ContextFreeSwingExtensionResources");
 			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateReferenceNodeActionXMLExporter", "yes");
+			variables.put("generateReferenceNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createShapeAdjustmentExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -2111,7 +2160,14 @@ public class ContextFree {
 			populateProcessorExtensionMap(processorExtensionMap);
 			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
 			Map<String, String> variables = createVariables();
+			variables.put("generateElementEditor", "yes");
 			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateElementNodeActionXMLExporter", "yes");
+			variables.put("generateElementNodeActionXMLImporter", "yes");
+			variables.put("generateElementListNodeActionXMLExporter", "yes");
+			variables.put("generateElementListNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createShapeReplacementParameters(descriptorExtensionMap);
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
@@ -2140,6 +2196,10 @@ public class ContextFree {
 			variables.put("resourcesPackageName", "net.sf.jame.contextfree.swing.extensions");
 			variables.put("resourcesClassName", "ContextFreeSwingExtensionResources");
 			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateReferenceNodeActionXMLExporter", "yes");
+			variables.put("generateReferenceNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createShapeReplacementExtensionParameters();
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
