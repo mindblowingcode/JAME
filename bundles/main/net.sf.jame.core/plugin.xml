@@ -79,6 +79,14 @@
             name="StringElement"
             runtimeClass="net.sf.jame.core.extensions.action.StringNodeActionXMLImporterRuntime"/>
       <actionXMLImporter
+            id="node.class.FloatElement"
+            name="FloatElement"
+            runtimeClass="net.sf.jame.core.extensions.action.FloatNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.DoubleElement"
+            name="DoubleElement"
+            runtimeClass="net.sf.jame.core.extensions.action.DoubleNodeActionXMLImporterRuntime"/>
+      <actionXMLImporter
             id="node.class.BooleanElement"
             name="BooleanElement"
             runtimeClass="net.sf.jame.core.extensions.action.BooleanNodeActionXMLImporterRuntime"/>
@@ -102,6 +110,14 @@
             id="node.class.StringElement"
             name="StringElement"
             runtimeClass="net.sf.jame.core.extensions.action.StringNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.FloatElement"
+            name="FloatElement"
+            runtimeClass="net.sf.jame.core.extensions.action.FloatNodeActionXMLExporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.DoubleElement"
+            name="DoubleElement"
+            runtimeClass="net.sf.jame.core.extensions.action.DoubleNodeActionXMLExporterRuntime"/>
       <actionXMLExporter
             id="node.class.BooleanElement"
             name="BooleanElement"

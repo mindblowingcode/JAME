@@ -36,7 +36,6 @@ import java.util.Map;
 import java.util.Set;
 
 import net.sf.jame.devtools.DevToolsException;
-import net.sf.jame.devtools.ProcessorCardinality;
 import net.sf.jame.devtools.ProcessorDescriptor;
 import net.sf.jame.devtools.ProcessorParameters;
 import net.sf.jame.devtools.extension.ProcessorExtensionRuntime;
@@ -52,24 +51,60 @@ public class NodeActionXMLImporterProcessorRuntime extends ProcessorExtensionRun
 	public void process(File path, ProcessorParameters parameters, Map<String, String> variables) throws DevToolsException {
 		try {
 			ProcessorDescriptor element = parameters.getElement();
-			List<ProcessorDescriptor> elements = parameters.getElements();
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			Set<String> imports = new HashSet<String>();
-			prepare(imports, element);
-			prepare(imports, elements);
-			List<String> sortedImports = new LinkedList<String>(imports);
-			Collections.sort(sortedImports);
-			map.putAll(variables);
-			map.put("imports", sortedImports);
-			map.put("element", element);
-			map.put("subelements", elements);
-			if (element.isComplexElement()) {
-				File packagePath = new File(path, element.getRuntimeElementPackageName().replace('.', '/'));
-				packagePath.mkdirs();
-				Configuration config = new Configuration();
-				config.setTemplateLoader(new ProcessorTemplateLoader());
-				Template template = config.getTemplate("templates/NodeActionXMLImporterRuntime.ftl");
-				template.process(map, new PrintWriter(new File(packagePath, element.getRuntimeElementClassName() + ".java")));
+			if (element.isExtension() || element.isConfigurableExtension()) {
+				if (variables.containsKey("generateReferenceNodeActionXMLImporter")) {
+					File packagePath = new File(path, variables.get("nodeActionXMLImporterPackageName").replace('.', '/'));
+					packagePath.mkdirs();
+					Configuration config = new Configuration();
+					config.setTemplateLoader(new ProcessorTemplateLoader());
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					Set<String> imports = new HashSet<String>();
+					prepare(imports, element);
+					map.putAll(variables);
+					prepareReferenceNodeActionXMLImporter(imports, element, variables);
+					List<String> sortedImports = new LinkedList<String>(imports);
+					Collections.sort(sortedImports);
+					map.put("imports", sortedImports);
+					map.put("extension", element);
+					Template template = config.getTemplate("templates/ReferenceNodeActionXMLImporterRuntime.ftl");
+					template.process(map, new PrintWriter(new File(packagePath, capitalize(element.getElementName()) + "ReferenceNodeActionXMLImporterRuntime.java")));
+				}
+			}
+			else if (element.isComplexElement() || element.isSimpleElement()) {
+				if (variables.containsKey("generateElementNodeActionXMLImporter")) {
+					File packagePath = new File(path, variables.get("nodeActionXMLImporterPackageName").replace('.', '/'));
+					packagePath.mkdirs();
+					Configuration config = new Configuration();
+					config.setTemplateLoader(new ProcessorTemplateLoader());
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					Set<String> imports = new HashSet<String>();
+					prepare(imports, element);
+					map.putAll(variables);
+					prepareElementNodeActionXMLImporter(imports, element, variables);
+					List<String> sortedImports = new LinkedList<String>(imports);
+					Collections.sort(sortedImports);
+					map.put("imports", sortedImports);
+					map.put("element", element);
+					Template template = config.getTemplate("templates/ElementNodeActionXMLImporterRuntime.ftl");
+					template.process(map, new PrintWriter(new File(packagePath, capitalize(element.getElementName()) + "ElementNodeActionXMLImporterRuntime.java")));
+				} 
+				if (variables.containsKey("generateElementListNodeActionXMLImporter")) {
+					File packagePath = new File(path, variables.get("nodeActionXMLImporterPackageName").replace('.', '/'));
+					packagePath.mkdirs();
+					Configuration config = new Configuration();
+					config.setTemplateLoader(new ProcessorTemplateLoader());
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					Set<String> imports = new HashSet<String>();
+					prepare(imports, element);
+					map.putAll(variables);
+					prepareElementListNodeActionXMLImporter(imports, element, variables);
+					List<String> sortedImports = new LinkedList<String>(imports);
+					Collections.sort(sortedImports);
+					map.put("imports", sortedImports);
+					map.put("element", element);
+					Template template = config.getTemplate("templates/ElementListNodeActionXMLImporterRuntime.ftl");
+					template.process(map, new PrintWriter(new File(packagePath, capitalize(element.getElementName()) + "ElementListNodeActionXMLImporterRuntime.java")));
+				}
 			}
 		}
 		catch (Exception e) {
@@ -82,52 +117,36 @@ public class NodeActionXMLImporterProcessorRuntime extends ProcessorExtensionRun
 	 */
 	@Override
 	public String getName() {
-		return "EditorElement";
+		return "NodeActionXMLImporterRuntime";
 	}
 
 	private void prepare(Set<String> imports, ProcessorDescriptor descriptor) {
-		imports.add("net.sf.jame.core.config.ValueChangeEvent");
-		imports.add("net.sf.jame.core.config.ValueChangeListener");
 	}
 
-	private void prepare(Set<String> imports, List<ProcessorDescriptor> descriptors) {
-		for (ProcessorDescriptor descriptor : descriptors) {
-			if (descriptor.isExtensionElement()) {
-				imports.add("net.sf.jame.core.config.ValueConfigElement");
-				imports.add("net.sf.jame.core.common.ExtensionReferenceElement");
-				imports.add("net.sf.jame.core.extension.ExtensionException");
-				imports.add("net.sf.jame.core.extension.ExtensionNotFoundException");
-				imports.add("net.sf.jame.core.extension.ExtensionReference");
-				imports.add(descriptor.getExtensionRuntimePackageName() + "." + descriptor.getExtensionRuntimeClassName());
-				imports.add(descriptor.getRegistryPackageName() + "." + descriptor.getRegistryClassName());
-			}
-			else if (descriptor.isConfigurableExtensionElement()) {
-				imports.add("net.sf.jame.core.config.ValueConfigElement");
-				imports.add("net.sf.jame.core.common.ExtensionReferenceElement");
-				imports.add("net.sf.jame.core.extension.ExtensionException");
-				imports.add("net.sf.jame.core.extension.ExtensionNotFoundException");
-				imports.add("net.sf.jame.core.extension.ConfigurableExtensionReference");
-				imports.add(descriptor.getExtensionConfigPackageName() + "." + descriptor.getExtensionConfigClassName());
-				imports.add(descriptor.getExtensionRuntimePackageName() + "." + descriptor.getExtensionRuntimeClassName());
-				imports.add(descriptor.getRegistryPackageName() + "." + descriptor.getRegistryClassName());
-			}
-			else if (descriptor.isComplexElement()) {
-				if (descriptor.getCardinality() == ProcessorCardinality.ONE) {
-					imports.add("net.sf.jame.core.config.SingleConfigElement");
-					imports.add("net.sf.jame.core.config.SingleRuntimeElement");
-					imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
-				}
-				if (descriptor.getCardinality() == ProcessorCardinality.MANY) {
-					imports.add("net.sf.jame.core.config.ListConfigElement");
-					imports.add("net.sf.jame.core.config.ListRuntimeElement");
-					imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
-				}
-				imports.add(descriptor.getRuntimeElementPackageName() + "." + descriptor.getRuntimeElementClassName());
-			}
-			else if (descriptor.isSimpleElement()) {
-				imports.add("net.sf.jame.core.config.ValueConfigElement");
-				imports.add(descriptor.getValuePackageName() + "." + descriptor.getValueClassName());
-			}
+	private void prepareReferenceNodeActionXMLImporter(Set<String> imports, ProcessorDescriptor descriptor, Map<String, String> variables) {
+		if (descriptor.isExtension()) {
+			imports.add("net.sf.jame.core.util.ExtensionReferenceElementNodeActionXMLImporterRuntime");
+		} else {
+			imports.add("net.sf.jame.core.util.ConfigurableExtensionReferenceElementNodeActionXMLImporterRuntime");
 		}
+		imports.add(descriptor.getExtensionConfigPackageName() + "." + descriptor.getExtensionConfigClassName());
+		imports.add(descriptor.getRegistryPackageName() + "." + descriptor.getRegistryClassName());
 	}
+
+	private void prepareElementNodeActionXMLImporter(Set<String> imports, ProcessorDescriptor descriptor, Map<String, String> variables) {
+		imports.add("net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime");
+		imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
+		imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName() + "XMLImporter");
+	}
+
+	private void prepareElementListNodeActionXMLImporter(Set<String> imports, ProcessorDescriptor descriptor, Map<String, String> variables) {
+		imports.add("net.sf.jame.core.util.ConfigElementListNodeActionXMLImporterRuntime");
+		imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
+		imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName() + "XMLImporter");
+	}
+
+	private static String capitalize(String word) {
+        word = word.substring(0, 1).toUpperCase() + word.substring(1);
+        return word;
+    }
 }

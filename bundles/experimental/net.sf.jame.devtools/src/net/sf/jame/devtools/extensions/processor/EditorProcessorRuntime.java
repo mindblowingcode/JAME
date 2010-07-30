@@ -105,21 +105,23 @@ public class EditorProcessorRuntime extends ProcessorExtensionRuntime {
 				}
 			}
 			else if (element.isComplexElement() || element.isSimpleElement()) {
-				File packagePath = new File(path, variables.get("editorPackageName").replace('.', '/'));
-				packagePath.mkdirs();
-				Configuration config = new Configuration();
-				config.setTemplateLoader(new ProcessorTemplateLoader());
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				Set<String> imports = new HashSet<String>();
-				prepare(imports, element);
-				map.putAll(variables);
-				prepareElementEditor(imports, element);
-				List<String> sortedImports = new LinkedList<String>(imports);
-				Collections.sort(sortedImports);
-				map.put("imports", sortedImports);
-				map.put("element", element);
-				Template template = config.getTemplate("templates/ElementEditorRuntime.ftl");
-				template.process(map, new PrintWriter(new File(packagePath, capitalize(element.getElementName()) + "EditorRuntime.java")));
+				if (variables.containsKey("generateElementEditor")) {
+					File packagePath = new File(path, variables.get("editorPackageName").replace('.', '/'));
+					packagePath.mkdirs();
+					Configuration config = new Configuration();
+					config.setTemplateLoader(new ProcessorTemplateLoader());
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					Set<String> imports = new HashSet<String>();
+					prepare(imports, element);
+					map.putAll(variables);
+					prepareElementEditor(imports, element);
+					List<String> sortedImports = new LinkedList<String>(imports);
+					Collections.sort(sortedImports);
+					map.put("imports", sortedImports);
+					map.put("element", element);
+					Template template = config.getTemplate("templates/ElementEditorRuntime.ftl");
+					template.process(map, new PrintWriter(new File(packagePath, capitalize(element.getElementName()) + "EditorRuntime.java")));
+				}
 			}
 		}
 		catch (Exception e) {
