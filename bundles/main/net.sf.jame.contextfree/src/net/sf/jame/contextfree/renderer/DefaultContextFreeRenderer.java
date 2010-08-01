@@ -29,7 +29,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.core.util.Color32bit;
 
 /**
@@ -46,7 +45,6 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 	@Override
 	protected void doRender(boolean dynamicZoom) {
 		updateTransform();
-		CFDGRuntimeElement cfdgRuntime = getRuntime();
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);

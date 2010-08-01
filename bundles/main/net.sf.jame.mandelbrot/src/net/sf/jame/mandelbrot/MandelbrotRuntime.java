@@ -48,7 +48,7 @@ public class MandelbrotRuntime extends RuntimeElement {
 	 */
 	public MandelbrotRuntime(final MandelbrotConfig config) {
 		this.config = config;
-		fractalElement = new MandelbrotFractalRuntimeElement(config.getMandelbrotFractalConfigElement());
+		fractalElement = new MandelbrotFractalRuntimeElement(config.getMandelbrotFractal());
 		fractalListener = new FractalElementListener();
 		config.getFractalSingleElement().addChangeListener(fractalListener);
 		viewListener = new ViewElementListener();
@@ -164,7 +164,7 @@ public class MandelbrotRuntime extends RuntimeElement {
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
-					setMandelbrotFractal(new MandelbrotFractalRuntimeElement(config.getMandelbrotFractalConfigElement()));
+					setMandelbrotFractal(new MandelbrotFractalRuntimeElement(config.getMandelbrotFractal()));
 					fireChanged();
 					break;
 				}

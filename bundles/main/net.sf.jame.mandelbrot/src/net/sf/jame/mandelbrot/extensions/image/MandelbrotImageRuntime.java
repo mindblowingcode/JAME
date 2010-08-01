@@ -69,6 +69,10 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	@Override
 	public void configReloaded() {
 		mandelbrotRuntime = new MandelbrotRuntime(getConfig().getMandelbrotConfig());
+		if (rendererStrategy != null) {
+			rendererStrategy.dispose();
+			rendererStrategy = null;
+		}
 	}
 
 	/**
@@ -312,7 +316,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 				manager = new MandelbrotManager(new SimpleMandelbrotRenderer(Thread.MIN_PRIORITY + 1));
 			}
 			manager.setRenderingHints(hints);
-			manager.setRuntime(mandelbrotRuntime.getMandelbrotFractal());
+			manager.setRuntime(mandelbrotRuntime);
 			loadConfig();
 			manager.setTile(tile);
 			manager.start();
@@ -485,7 +489,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 				manager = new MandelbrotManager(new SimpleMandelbrotRenderer(Thread.MIN_PRIORITY + 1));
 			}
 			manager.setRenderingHints(hints);
-			manager.setRuntime(mandelbrotRuntime.getMandelbrotFractal());
+			manager.setRuntime(mandelbrotRuntime);
 			loadConfig();
 			final Rectangle previewArea = getConfig().getMandelbrotConfig().getPreviewArea();
 			final int px = (int) Math.rint(tile.getImageSize().getX() * previewArea.getX());

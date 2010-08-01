@@ -169,7 +169,9 @@ public class ContextFreeParser {
 		@Override
 		public void inARuleDeclaration(ARuleDeclaration node) {
 			super.inARuleDeclaration(node);
-			logger.info("RuleDeclaration " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("RuleDeclaration " + node);
+			}
 			try {
 				FigureConfigElement figureElement = createRuleFigureElement(node);
 				config.getCFDG().appendFigureConfigElement(figureElement);
@@ -184,7 +186,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAPathDeclaration(APathDeclaration node) {
 			super.inAPathDeclaration(node);
-			logger.info("PathDeclaration " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("PathDeclaration " + node);
+			}
 			try {
 				FigureConfigElement figureElement = createPathFigureElement(node);
 				config.getCFDG().appendFigureConfigElement(figureElement);
@@ -199,7 +203,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAStartshapeDeclaration(AStartshapeDeclaration node) {
 			super.inAStartshapeDeclaration(node);
-			logger.info("StartshapeDeclaration " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("StartshapeDeclaration " + node);
+			}
 			config.getCFDG().setStartshape(node.getString().getText());
 		}
 
@@ -209,7 +215,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAIncludeDeclaration(AIncludeDeclaration node) {
 			super.inAIncludeDeclaration(node);
-			logger.info("IncludeDeclaration " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("IncludeDeclaration " + node);
+			}
 			try {
 				ContextFreeConfig tmpConfig = parseConfig(new File(node.getFilename().getText()));
 				for (int i = 0; i < tmpConfig.getCFDG().getFigureConfigElementCount(); i++) {
@@ -227,7 +235,9 @@ public class ContextFreeParser {
 		@Override
 		public void inABackgroundDeclaration(ABackgroundDeclaration node) {
 			super.inABackgroundDeclaration(node);
-			logger.info("BackgroundDeclaration " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("BackgroundDeclaration " + node);
+			}
 			config.getCFDG().setBackground(new Color32bit(0xFFFFFFFF));
 			for (PBackgroundAdjustment adjustment : node.getBackgroundAdjustment()) {
 				if (adjustment instanceof AHueBackgroundAdjustment) {
@@ -263,7 +273,9 @@ public class ContextFreeParser {
 		@Override
 		public void inATileDeclaration(ATileDeclaration node) {
 			super.inATileDeclaration(node);
-			logger.info("TileDeclaration " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("TileDeclaration " + node);
+			}
 			for (PTileAdjustment adjustment : node.getTileAdjustment()) {
 				if (adjustment instanceof ATileAdjustment) {
 					PFirstExpression firstExpression = ((ATileAdjustment) adjustment).getFirstExpression();
@@ -286,7 +298,9 @@ public class ContextFreeParser {
 		@Override
 		public void inASizeDeclaration(ASizeDeclaration node) {
 			super.inASizeDeclaration(node);
-			logger.info("SizeDeclaration " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("SizeDeclaration " + node);
+			}
 			for (PSizeAdjustment adjustment : node.getSizeAdjustment()) {
 				if (adjustment instanceof ASizeSizeAdjustment) {
 					PFirstExpression firstExpression = ((ASizeSizeAdjustment) adjustment).getFirstExpression();
@@ -315,7 +329,9 @@ public class ContextFreeParser {
 		@Override
 	    public void inAMultiShapeReplacementDeclaration(AMultiShapeReplacementDeclaration node) {
 			super.inAMultiShapeReplacementDeclaration(node);
-	    	logger.info("MultiShapeReplacementDeclaration " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("MultiShapeReplacementDeclaration " + node);
+			}
 	    }
 
 		/**
@@ -324,7 +340,9 @@ public class ContextFreeParser {
 		@Override
 	    public void inASingleShapeReplacementDeclaration(ASingleShapeReplacementDeclaration node) {
 			super.inASingleShapeReplacementDeclaration(node);
-	    	logger.info("SingleShapeReplacementDeclaration " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("SingleShapeReplacementDeclaration " + node);
+			}
 	    }
 
 		/**
@@ -333,7 +351,9 @@ public class ContextFreeParser {
 		@Override
 	    public void inAMultiPathReplacementDeclaration(AMultiPathReplacementDeclaration node) {
 			super.inAMultiPathReplacementDeclaration(node);
-	    	logger.info("MultiPathReplacementDeclaration " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("MultiPathReplacementDeclaration " + node);
+			}
 	    }
 
 		/**
@@ -342,7 +362,9 @@ public class ContextFreeParser {
 		@Override
 	    public void inASinglePathReplacementDeclaration(ASinglePathReplacementDeclaration node) {
 			super.inASinglePathReplacementDeclaration(node);
-	    	logger.info("SinglePathReplacementDeclaration " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("SinglePathReplacementDeclaration " + node);
+			}
 	    }
 
 		/**
@@ -351,7 +373,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAOperationPathReplacement(AOperationPathReplacement node) {
 			super.inAOperationPathReplacement(node);
-			logger.info("OperationPathReplacement " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("OperationPathReplacement " + node);
+			}
 		}
 
 		/**
@@ -360,7 +384,9 @@ public class ContextFreeParser {
 		@Override
 		public void inACommandPathReplacement(ACommandPathReplacement node) {
 			super.inACommandPathReplacement(node);
-			logger.info("CommandPathReplacement " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("CommandPathReplacement " + node);
+			}
 		}
 
 		/**
@@ -369,7 +395,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAColorShapeAdjustment(AColorShapeAdjustment node) {
 			super.inAColorShapeAdjustment(node);
-			logger.info("ColorShapeAdjustment " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("ColorShapeAdjustment " + node);
+			}
 		}
 
 		/**
@@ -378,7 +406,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAGeometryShapeAdjustment(AGeometryShapeAdjustment node) {
 			super.inAGeometryShapeAdjustment(node);
-			logger.info("GeometryShapeAdjustment " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("GeometryShapeAdjustment " + node);
+			}
 		}
 
 		/**
@@ -387,7 +417,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAColorCommandParameter(AColorCommandParameter node) {
 			super.inAColorCommandParameter(node);
-			logger.info("ColorCommandParameter " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("ColorCommandParameter " + node);
+			}
 		}
 
 		/**
@@ -396,7 +428,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAGeometryCommandParameter(AGeometryCommandParameter node) {
 			super.inAGeometryCommandParameter(node);
-			logger.info("GeometryCommandParameter " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("GeometryCommandParameter " + node);
+			}
 		}
 
 		/**
@@ -405,7 +439,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAStrokeCommandParameter(AStrokeCommandParameter node) {
 			super.inAStrokeCommandParameter(node);
-			logger.info("StrokeCommandParameter " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("StrokeCommandParameter " + node);
+			}
 		}
 
 		/**
@@ -414,7 +450,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAParametersOperationParameter(AParametersOperationParameter node) {
 			super.inAParametersOperationParameter(node);
-			logger.info("ParametersOperationParameter " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("ParametersOperationParameter " + node);
+			}
 		}
 
 		/**
@@ -423,7 +461,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAParametersCommandParameter(AParametersCommandParameter node) {
 			super.inAParametersCommandParameter(node);
-			logger.info("ParametersCommandParameter " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("ParametersCommandParameter " + node);
+			}
 		}
 
 		/**
@@ -432,7 +472,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAArg0Function(AArg0Function node) {
 			super.inAArg0Function(node);
-			logger.info("Arg0Function " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("Arg0Function " + node);
+			}
 		}
 
 		/**
@@ -441,7 +483,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAArg1Function(AArg1Function node) {
 			super.inAArg1Function(node);
-			logger.info("Arg1Function " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("Arg1Function " + node);
+			}
 		}
 
 		/**
@@ -450,7 +494,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAArg2Function(AArg2Function node) {
 			super.inAArg2Function(node);
-			logger.info("Arg2Function " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("Arg2Function " + node);
+			}
 		}
 
 		/**
@@ -459,7 +505,9 @@ public class ContextFreeParser {
 		@Override
 		public void inANumberExpression(ANumberExpression node) {
 			super.inANumberExpression(node);
-			logger.info("NumberExpression " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("NumberExpression " + node);
+			}
 		}
 
 		/**
@@ -468,7 +516,9 @@ public class ContextFreeParser {
 		@Override
 		public void inANestedExpression(ANestedExpression node) {
 			super.inANestedExpression(node);
-			logger.info("NestedExpression " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("NestedExpression " + node);
+			}
 		}
 
 		/**
@@ -477,7 +527,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAFunctionExpression(AFunctionExpression node) {
 			super.inAFunctionExpression(node);
-			logger.info("FunctionExpression " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("FunctionExpression " + node);
+			}
 		}
 
 		/**
@@ -486,7 +538,9 @@ public class ContextFreeParser {
 		@Override
 		public void inANumberExtendedExpression(ANumberExtendedExpression node) {
 			super.inANumberExtendedExpression(node);
-			logger.info("NumberExtendedExpression " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("NumberExtendedExpression " + node);
+			}
 		}
 
 		/**
@@ -495,7 +549,9 @@ public class ContextFreeParser {
 		@Override
 		public void inANestedExtendedExpression(ANestedExtendedExpression node) {
 			super.inANestedExtendedExpression(node);
-			logger.info("NestedExtendedExpression " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("NestedExtendedExpression " + node);
+			}
 		}
 
 		/**
@@ -504,7 +560,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAFunctionExtendedExpression(AFunctionExtendedExpression node) {
 			super.inAFunctionExtendedExpression(node);
-			logger.info("FunctionExtendedExpression " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("FunctionExtendedExpression " + node);
+			}
 		}
 
 		/**
@@ -513,7 +571,9 @@ public class ContextFreeParser {
 		@Override
 		public void inAComposedExtendedExpression(AComposedExtendedExpression node) {
 			super.inAComposedExtendedExpression(node);
-			logger.info("ComposedExtendedExpression " + node);
+			if (logger.isDebugEnabled()) {
+				logger.debug("ComposedExtendedExpression " + node);
+			}
 		}
 		
 		public float evaluateExpression(PExpression expression) {
@@ -1413,7 +1473,9 @@ public class ContextFreeParser {
 		private FigureConfigElement createRuleFigureElement(ARuleDeclaration ruleDeclaration) throws ExtensionNotFoundException {
 			RuleFigureConfig config = new RuleFigureConfig();
 			config.setName(ruleDeclaration.getString().getText());
-			config.setProbability(Float.valueOf(ruleDeclaration.getNumber().getText()));
+			if (ruleDeclaration.getNumber() != null) {
+				config.setProbability(Float.valueOf(ruleDeclaration.getNumber().getText()));
+			}
 			for (PShapeReplacementDeclaration shapeReplacementDeclaration : ruleDeclaration.getShapeReplacementDeclaration()) {
 				ShapeReplacementConfigElement shapeReplacementElement = createShapeReplacementElement(shapeReplacementDeclaration);
 				if (shapeReplacementElement != null) {

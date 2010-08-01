@@ -159,29 +159,29 @@ public final class FastXaosMandelbrotRenderer extends AbstractMandelbrotRenderer
 		updateRegion();
 		updateTransform();
 		renderingStrategy.updateParameters();
-		if (runtime.getRenderingFormula().getFormulaRuntime() != null) {
-			runtime.getRenderingFormula().getFormulaRuntime().prepareForRendering(runtime.getProcessingFormula().getFormulaRuntime(), runtime.getOrbitTrap().getOrbitTrapRuntime());
-			if (runtime.getOrbitTrap().getOrbitTrapRuntime() != null) {
-				runtime.getOrbitTrap().getOrbitTrapRuntime().prepareForProcessing(runtime.getOrbitTrap().getCenter());
+		if (fractalRuntime.getRenderingFormula().getFormulaRuntime() != null) {
+			fractalRuntime.getRenderingFormula().getFormulaRuntime().prepareForRendering(fractalRuntime.getProcessingFormula().getFormulaRuntime(), fractalRuntime.getOrbitTrap().getOrbitTrapRuntime());
+			if (fractalRuntime.getOrbitTrap().getOrbitTrapRuntime() != null) {
+				fractalRuntime.getOrbitTrap().getOrbitTrapRuntime().prepareForProcessing(fractalRuntime.getOrbitTrap().getCenter());
 			}
 		}
-		for (int i = 0; i < runtime.getOutcolouringFormulaCount(); i++) {
-			if (runtime.getOutcolouringFormula(i).getFormulaRuntime() != null) {
-				if (runtime.getOutcolouringFormula(i).isAutoIterations() && (runtime.getRenderingFormula().getFormulaRuntime() != null)) {
-					runtime.getOutcolouringFormula(i).getFormulaRuntime().prepareForRendering(runtime.getRenderingFormula().getFormulaRuntime(), runtime.getRenderingFormula().getFormulaRuntime().getIterations());
+		for (int i = 0; i < fractalRuntime.getOutcolouringFormulaCount(); i++) {
+			if (fractalRuntime.getOutcolouringFormula(i).getFormulaRuntime() != null) {
+				if (fractalRuntime.getOutcolouringFormula(i).isAutoIterations() && (fractalRuntime.getRenderingFormula().getFormulaRuntime() != null)) {
+					fractalRuntime.getOutcolouringFormula(i).getFormulaRuntime().prepareForRendering(fractalRuntime.getRenderingFormula().getFormulaRuntime(), fractalRuntime.getRenderingFormula().getFormulaRuntime().getIterations());
 				}
 				else {
-					runtime.getOutcolouringFormula(i).getFormulaRuntime().prepareForRendering(runtime.getRenderingFormula().getFormulaRuntime(), runtime.getOutcolouringFormula(i).getIterations());
+					fractalRuntime.getOutcolouringFormula(i).getFormulaRuntime().prepareForRendering(fractalRuntime.getRenderingFormula().getFormulaRuntime(), fractalRuntime.getOutcolouringFormula(i).getIterations());
 				}
 			}
 		}
-		for (int i = 0; i < runtime.getIncolouringFormulaCount(); i++) {
-			if (runtime.getIncolouringFormula(i).getFormulaRuntime() != null) {
-				if (runtime.getIncolouringFormula(i).isAutoIterations() && (runtime.getRenderingFormula().getFormulaRuntime() != null)) {
-					runtime.getIncolouringFormula(i).getFormulaRuntime().prepareForRendering(runtime.getRenderingFormula().getFormulaRuntime(), runtime.getRenderingFormula().getFormulaRuntime().getIterations());
+		for (int i = 0; i < fractalRuntime.getIncolouringFormulaCount(); i++) {
+			if (fractalRuntime.getIncolouringFormula(i).getFormulaRuntime() != null) {
+				if (fractalRuntime.getIncolouringFormula(i).isAutoIterations() && (fractalRuntime.getRenderingFormula().getFormulaRuntime() != null)) {
+					fractalRuntime.getIncolouringFormula(i).getFormulaRuntime().prepareForRendering(fractalRuntime.getRenderingFormula().getFormulaRuntime(), fractalRuntime.getRenderingFormula().getFormulaRuntime().getIterations());
 				}
 				else {
-					runtime.getIncolouringFormula(i).getFormulaRuntime().prepareForRendering(runtime.getRenderingFormula().getFormulaRuntime(), runtime.getIncolouringFormula(i).getIterations());
+					fractalRuntime.getIncolouringFormula(i).getFormulaRuntime().prepareForRendering(fractalRuntime.getRenderingFormula().getFormulaRuntime(), fractalRuntime.getIncolouringFormula(i).getIterations());
 				}
 			}
 		}
@@ -234,9 +234,9 @@ public final class FastXaosMandelbrotRenderer extends AbstractMandelbrotRenderer
 		else {
 			stepy = FastXaosMandelbrotRenderer.initReallocTableAndPosition(renderedData.reallocY, renderedData.positionY, beginy, endy);
 		}
-		if ((runtime.getRenderingFormula().getFormulaRuntime() != null) && (runtime.getTransformingFormula().getFormulaRuntime() != null)) {
-			final double symy = runtime.getRenderingFormula().getFormulaRuntime().getVerticalSymetryPoint();
-			if (isVerticalSymetrySupported && runtime.getRenderingFormula().getFormulaRuntime().isVerticalSymetryAllowed() && runtime.getTransformingFormula().getFormulaRuntime().isVerticalSymetryAllowed() && (!((beginy > symy) || (symy > endy)))) {
+		if ((fractalRuntime.getRenderingFormula().getFormulaRuntime() != null) && (fractalRuntime.getTransformingFormula().getFormulaRuntime() != null)) {
+			final double symy = fractalRuntime.getRenderingFormula().getFormulaRuntime().getVerticalSymetryPoint();
+			if (isVerticalSymetrySupported && fractalRuntime.getRenderingFormula().getFormulaRuntime().isVerticalSymetryAllowed() && fractalRuntime.getTransformingFormula().getFormulaRuntime().isVerticalSymetryAllowed() && (!((beginy > symy) || (symy > endy)))) {
 				FastXaosMandelbrotRenderer.prepareSymetry(renderedData.reallocY, (int) ((symy - beginy) / stepy), symy, stepy);
 			}
 		}
@@ -252,9 +252,9 @@ public final class FastXaosMandelbrotRenderer extends AbstractMandelbrotRenderer
 		else {
 			stepx = FastXaosMandelbrotRenderer.initReallocTableAndPosition(renderedData.reallocX, renderedData.positionX, beginx, endx);
 		}
-		if ((runtime.getRenderingFormula().getFormulaRuntime() != null) && (runtime.getTransformingFormula().getFormulaRuntime() != null)) {
-			final double symx = runtime.getRenderingFormula().getFormulaRuntime().getHorizontalSymetryPoint();
-			if (isHorizontalSymetrySupported && runtime.getRenderingFormula().getFormulaRuntime().isHorizontalSymetryAllowed() && runtime.getTransformingFormula().getFormulaRuntime().isHorizontalSymetryAllowed() && (!((beginx > symx) || (symx > endx)))) {
+		if ((fractalRuntime.getRenderingFormula().getFormulaRuntime() != null) && (fractalRuntime.getTransformingFormula().getFormulaRuntime() != null)) {
+			final double symx = fractalRuntime.getRenderingFormula().getFormulaRuntime().getHorizontalSymetryPoint();
+			if (isHorizontalSymetrySupported && fractalRuntime.getRenderingFormula().getFormulaRuntime().isHorizontalSymetryAllowed() && fractalRuntime.getTransformingFormula().getFormulaRuntime().isHorizontalSymetryAllowed() && (!((beginx > symx) || (symx > endx)))) {
 				FastXaosMandelbrotRenderer.prepareSymetry(renderedData.reallocX, (int) ((symx - beginx) / stepx), symx, stepx);
 			}
 		}
@@ -1823,14 +1823,14 @@ public final class FastXaosMandelbrotRenderer extends AbstractMandelbrotRenderer
 		 * @see net.sf.jame.mandelbrot.renderer.AbstractMandelbrotRenderer.RenderingStrategy#isVerticalSymetrySupported()
 		 */
 		public boolean isVerticalSymetrySupported() {
-			for (int i = 0; i < runtime.getOutcolouringFormulaCount(); i++) {
-				final OutcolouringFormulaRuntimeElement outcolouringFormula = runtime.getOutcolouringFormula(i);
+			for (int i = 0; i < fractalRuntime.getOutcolouringFormulaCount(); i++) {
+				final OutcolouringFormulaRuntimeElement outcolouringFormula = fractalRuntime.getOutcolouringFormula(i);
 				if ((outcolouringFormula.getFormulaRuntime() != null) && !outcolouringFormula.getFormulaRuntime().isVerticalSymetryAllowed()) {
 					return false;
 				}
 			}
-			for (int i = 0; i < runtime.getIncolouringFormulaCount(); i++) {
-				final IncolouringFormulaRuntimeElement incolouringFormula = runtime.getIncolouringFormula(i);
+			for (int i = 0; i < fractalRuntime.getIncolouringFormulaCount(); i++) {
+				final IncolouringFormulaRuntimeElement incolouringFormula = fractalRuntime.getIncolouringFormula(i);
 				if ((incolouringFormula.getFormulaRuntime() != null) && !incolouringFormula.getFormulaRuntime().isVerticalSymetryAllowed()) {
 					return false;
 				}
@@ -1842,14 +1842,14 @@ public final class FastXaosMandelbrotRenderer extends AbstractMandelbrotRenderer
 		 * @see net.sf.jame.mandelbrot.renderer.AbstractMandelbrotRenderer.RenderingStrategy#isHorizontalSymetrySupported()
 		 */
 		public boolean isHorizontalSymetrySupported() {
-			for (int i = 0; i < runtime.getOutcolouringFormulaCount(); i++) {
-				final OutcolouringFormulaRuntimeElement outcolouringFormula = runtime.getOutcolouringFormula(i);
+			for (int i = 0; i < fractalRuntime.getOutcolouringFormulaCount(); i++) {
+				final OutcolouringFormulaRuntimeElement outcolouringFormula = fractalRuntime.getOutcolouringFormula(i);
 				if ((outcolouringFormula.getFormulaRuntime() != null) && !outcolouringFormula.getFormulaRuntime().isHorizontalSymetryAllowed()) {
 					return false;
 				}
 			}
-			for (int i = 0; i < runtime.getIncolouringFormulaCount(); i++) {
-				final IncolouringFormulaRuntimeElement incolouringFormula = runtime.getIncolouringFormula(i);
+			for (int i = 0; i < fractalRuntime.getIncolouringFormulaCount(); i++) {
+				final IncolouringFormulaRuntimeElement incolouringFormula = fractalRuntime.getIncolouringFormula(i);
 				if ((incolouringFormula.getFormulaRuntime() != null) && !incolouringFormula.getFormulaRuntime().isHorizontalSymetryAllowed()) {
 					return false;
 				}
@@ -1861,8 +1861,8 @@ public final class FastXaosMandelbrotRenderer extends AbstractMandelbrotRenderer
 		 * @see net.sf.jame.mandelbrot.renderer.AbstractMandelbrotRenderer.RenderingStrategy#renderPoint(net.sf.jame.mandelbrot.renderer.RenderedPoint)
 		 */
 		public int renderPoint(final RenderedPoint p, final Complex px, final Complex pw) {
-			if ((runtime.getRenderingFormula().getFormulaRuntime() != null) && (runtime.getTransformingFormula().getFormulaRuntime() != null)) {
-				runtime.getTransformingFormula().getFormulaRuntime().renderPoint(pw);
+			if ((fractalRuntime.getRenderingFormula().getFormulaRuntime() != null) && (fractalRuntime.getTransformingFormula().getFormulaRuntime() != null)) {
+				fractalRuntime.getTransformingFormula().getFormulaRuntime().renderPoint(pw);
 				p.xr = px.r;
 				p.xi = px.i;
 				p.wr = pw.r;
@@ -1880,9 +1880,9 @@ public final class FastXaosMandelbrotRenderer extends AbstractMandelbrotRenderer
 		 * @see net.sf.jame.mandelbrot.renderer.AbstractMandelbrotRenderer.RenderingStrategy#updateParameters()
 		 */
 		public void updateParameters() {
-			if (runtime.getRenderingFormula().getFormulaRuntime() != null) {
-				renderedData.x0 = runtime.getRenderingFormula().getFormulaRuntime().getInitialPoint().r;
-				renderedData.y0 = runtime.getRenderingFormula().getFormulaRuntime().getInitialPoint().i;
+			if (fractalRuntime.getRenderingFormula().getFormulaRuntime() != null) {
+				renderedData.x0 = fractalRuntime.getRenderingFormula().getFormulaRuntime().getInitialPoint().r;
+				renderedData.y0 = fractalRuntime.getRenderingFormula().getFormulaRuntime().getInitialPoint().i;
 			}
 			else {
 				renderedData.x0 = 0;
@@ -1910,8 +1910,8 @@ public final class FastXaosMandelbrotRenderer extends AbstractMandelbrotRenderer
 		 * @see net.sf.jame.mandelbrot.renderer.AbstractMandelbrotRenderer.RenderingStrategy#renderPoint(net.sf.jame.mandelbrot.renderer.RenderedPoint)
 		 */
 		public int renderPoint(final RenderedPoint p, final Complex px, final Complex pw) {
-			if ((runtime.getRenderingFormula().getFormulaRuntime() != null) && (runtime.getTransformingFormula().getFormulaRuntime() != null)) {
-				runtime.getTransformingFormula().getFormulaRuntime().renderPoint(px);
+			if ((fractalRuntime.getRenderingFormula().getFormulaRuntime() != null) && (fractalRuntime.getTransformingFormula().getFormulaRuntime() != null)) {
+				fractalRuntime.getTransformingFormula().getFormulaRuntime().renderPoint(px);
 				p.xr = pw.r;
 				p.xi = pw.i;
 				p.wr = px.r;

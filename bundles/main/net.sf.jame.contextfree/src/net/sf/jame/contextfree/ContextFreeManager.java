@@ -28,7 +28,6 @@ package net.sf.jame.contextfree;
 import java.awt.Graphics2D;
 import java.util.Map;
 
-import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.contextfree.renderer.ContextFreeRenderer;
 import net.sf.jame.core.util.Tile;
 import net.sf.jame.twister.util.View;
@@ -81,7 +80,7 @@ public class ContextFreeManager {
 	/**
 	 * @param runtime
 	 */
-	public void setRuntime(final CFDGRuntimeElement runtime) {
+	public void setRuntime(final ContextFreeRuntime runtime) {
 		renderer.setRuntime(runtime);
 	}
 

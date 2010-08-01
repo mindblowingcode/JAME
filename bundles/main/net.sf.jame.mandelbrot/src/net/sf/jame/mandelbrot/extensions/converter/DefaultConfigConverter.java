@@ -907,7 +907,7 @@ public class DefaultConfigConverter implements ConfigConverter {
 					incolouringFormulaElement.setReference(MandelbrotRegistry.getInstance().getIncolouringFormulaExtension(MandelbrotConfigBuilder.DEFAULT_INCOLOURING_FORMULA_EXTENSION_ID).createConfigurableExtensionReference());
 					fractalElement.appendOutcolouringFormulaConfigElement(outcolouringFormulaElement);
 					outcolouringFormulaElement.setReference(MandelbrotRegistry.getInstance().getOutcolouringFormulaExtension(MandelbrotConfigBuilder.DEFAULT_OUTCOLOURING_FORMULA_EXTENSION_ID).createConfigurableExtensionReference());
-					imageConfig.getMandelbrotConfig().setMandelbrotFractalConfigElement(fractalElement);
+					imageConfig.getMandelbrotConfig().setMandelbrotFractal(fractalElement);
 					ConfigurableExtensionReference<ImageExtensionConfig> reference = TwisterRegistry.getInstance().getImageExtension("twister.frame.layer.image.mandelbrot").createConfigurableExtensionReference(imageConfig);
 					imageElement.setReference(reference);
 					imageLayerElement.setImageConfigElement(imageElement);
@@ -1064,7 +1064,7 @@ public class DefaultConfigConverter implements ConfigConverter {
 					incolouringFormulaElement.setReference(MandelbrotRegistry.getInstance().getIncolouringFormulaExtension(MandelbrotConfigBuilder.DEFAULT_INCOLOURING_FORMULA_EXTENSION_ID).createConfigurableExtensionReference());
 					fractalElement.appendOutcolouringFormulaConfigElement(outcolouringFormulaElement);
 					outcolouringFormulaElement.setReference(MandelbrotRegistry.getInstance().getOutcolouringFormulaExtension(MandelbrotConfigBuilder.DEFAULT_OUTCOLOURING_FORMULA_EXTENSION_ID).createConfigurableExtensionReference());
-					imageConfig.getMandelbrotConfig().setMandelbrotFractalConfigElement(fractalElement);
+					imageConfig.getMandelbrotConfig().setMandelbrotFractal(fractalElement);
 					ConfigurableExtensionReference<ImageExtensionConfig> reference = TwisterRegistry.getInstance().getImageExtension("twister.frame.layer.image.mandelbrot").createConfigurableExtensionReference(imageConfig);
 					imageElement.setReference(reference);
 					imageLayerElement.setImageConfigElement(imageElement);

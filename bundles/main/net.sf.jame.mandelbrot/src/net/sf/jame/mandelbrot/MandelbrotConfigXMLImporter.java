@@ -145,7 +145,7 @@ public class MandelbrotConfigXMLImporter extends XMLImporter<MandelbrotConfig> {
 		final List<Element> elements = this.getElements(element, MandelbrotFractalConfigElement.CLASS_ID);
 		if (elements.size() == 1) {
 			final MandelbrotFractalConfigElement mandelbrotFractal = new MandelbrotFractalConfigElementXMLImporter().importFromElement(elements.get(0));
-			config.setMandelbrotFractalConfigElement(mandelbrotFractal);
+			config.setMandelbrotFractal(mandelbrotFractal);
 		}
 	}
 

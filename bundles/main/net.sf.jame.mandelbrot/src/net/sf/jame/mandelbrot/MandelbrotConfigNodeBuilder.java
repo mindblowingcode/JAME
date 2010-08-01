@@ -63,7 +63,7 @@ public class MandelbrotConfigNodeBuilder {
 	 * @param parentNode
 	 */
 	public void createNodes(final Node parentNode) {
-		final MandelbrotFractalConfigElement fractalElement = config.getMandelbrotFractalConfigElement();
+		final MandelbrotFractalConfigElement fractalElement = config.getMandelbrotFractal();
 		final MandelbrotFractalElementNode fractalNode = new MandelbrotFractalElementNode(fractalElement);
 		parentNode.appendChildNode(fractalNode);
 		parentNode.appendChildNode(new ViewNode(config));
@@ -274,7 +274,7 @@ public class MandelbrotConfigNodeBuilder {
 			@Override
 			protected void doSetValue(final NodeValue<?> value) {
 				config.getFractalSingleElement().removeChangeListener(listener);
-				config.setMandelbrotFractalConfigElement(((MandelbrotFractalConfigElementNodeValue) value).getValue());
+				config.setMandelbrotFractal(((MandelbrotFractalConfigElementNodeValue) value).getValue());
 				config.getFractalSingleElement().addChangeListener(listener);
 			}
 
