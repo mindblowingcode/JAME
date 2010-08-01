@@ -18,7 +18,11 @@ public class ${element.configElementClassName}XMLExporter extends ValueConfigEle
 	 */
 	@Override
 	protected String formatValue(final ${element.valueClassName} value) {
+		<#if element.valuePackageName == "java.lang" && element.valueClassName == "String">
+		return value;
+		<#else>
 		return ${element.valueClassName}.toString(value);
+		</#if>
 	}
 }
 <#elseif element.complexElement>

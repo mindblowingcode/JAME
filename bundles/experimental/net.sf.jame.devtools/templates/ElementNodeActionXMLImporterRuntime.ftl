@@ -10,12 +10,12 @@ import ${import};
 /**
  * @author ${author}
  */
-public class ${element.elementName?cap_first}ElementNodeActionXMLImporterRuntime extends ConfigElementNodeActionXMLImporterRuntime<${element.elementName?cap_first}ConfigElement> {
+public class ${element.elementName?cap_first}ElementNodeActionXMLImporterRuntime extends ConfigElementNodeActionXMLImporterRuntime<${element.configElementClassName}> {
 	/**
 	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime#createImporter()
 	 */
 	@Override
-	protected ${element.elementName?cap_first}ConfigElementXMLImporter createImporter() {
-		return new ${element.elementName?cap_first}ConfigElementXMLImporter();
+	protected ${element.configElementClassName}XMLImporter createImporter() {
+		return new ${element.configElementClassName}XMLImporter();
 	}
 }

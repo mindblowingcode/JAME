@@ -5,7 +5,7 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementXMLExporter;
-import net.sf.jame.core.common.StringElementXMLExporter;
+import net.sf.jame.contextfree.common.FillRuleElementXMLExporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLExporter;
@@ -54,7 +54,7 @@ public class FillPathReplacementConfigXMLExporterRuntime extends ExtensionConfig
 		}
 	
 		private void exportRule(final FillPathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-			element.appendChild(new StringElementXMLExporter().exportToElement(extensionConfig.getRuleElement(), builder));
+			element.appendChild(new FillRuleElementXMLExporter().exportToElement(extensionConfig.getRuleElement(), builder));
 		}
 		private void exportPathAdjustmentListElement(final FillPathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			final PathAdjustmentConfigElementXMLExporter pathAdjustmentExporter = new PathAdjustmentConfigElementXMLExporter();

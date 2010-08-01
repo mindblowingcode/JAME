@@ -8,7 +8,7 @@ import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
-import net.sf.jame.core.common.StringElement;
+import net.sf.jame.contextfree.common.FillRuleElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
@@ -18,7 +18,7 @@ import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExt
  */
 public class FillPathReplacementConfig extends PathReplacementExtensionConfig {
 	private static final long serialVersionUID = 1L;
-	private StringElement ruleElement;
+	private FillRuleElement ruleElement;
 	private ListConfigElement<PathAdjustmentConfigElement> pathAdjustmentListElement;
 
 	/**
@@ -26,7 +26,7 @@ public class FillPathReplacementConfig extends PathReplacementExtensionConfig {
 	 */
 	@Override
 	protected void createConfigElements() {
-		ruleElement = new StringElement("non-zero");
+		ruleElement = new FillRuleElement("non-zero");
 		pathAdjustmentListElement = new ListConfigElement<PathAdjustmentConfigElement>("pathAdjustmentListElement");
 	}
 
@@ -44,7 +44,7 @@ public class FillPathReplacementConfig extends PathReplacementExtensionConfig {
 	/**
 	 * @return
 	 */
-	public StringElement getRuleElement() {
+	public FillRuleElement getRuleElement() {
 		return ruleElement;
 	}
 	

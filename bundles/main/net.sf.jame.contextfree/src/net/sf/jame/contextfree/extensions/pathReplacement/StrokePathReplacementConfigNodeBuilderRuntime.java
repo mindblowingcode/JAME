@@ -6,9 +6,10 @@ package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementNode;
+import net.sf.jame.contextfree.common.StrokeCapElementNode;
+import net.sf.jame.contextfree.common.StrokeJoinElementNode;
+import net.sf.jame.contextfree.common.StrokeWidthElementNode;
 import net.sf.jame.contextfree.extensions.ContextFreeExtensionResources;
-import net.sf.jame.core.common.FloatElementNode;
-import net.sf.jame.core.common.StringElementNode;
 import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeBuilder;
@@ -50,7 +51,7 @@ public class StrokePathReplacementConfigNodeBuilderRuntime extends NodeBuilderEx
 			parentNode.appendChildNode(new PathAdjustmentListElementNode(getConfig()));
 		}
 
-		private class WidthElementNode extends FloatElementNode {
+		private class WidthElementNode extends StrokeWidthElementNode {
 			/**
 			 * @param config
 			 */
@@ -59,7 +60,7 @@ public class StrokePathReplacementConfigNodeBuilderRuntime extends NodeBuilderEx
 				setNodeLabel(ContextFreeExtensionResources.getInstance().getString("node.label.WidthElement"));
 			}
 		}
-		private class CapElementNode extends StringElementNode {
+		private class CapElementNode extends StrokeJoinElementNode {
 			/**
 			 * @param config
 			 */
@@ -68,7 +69,7 @@ public class StrokePathReplacementConfigNodeBuilderRuntime extends NodeBuilderEx
 				setNodeLabel(ContextFreeExtensionResources.getInstance().getString("node.label.CapElement"));
 			}
 		}
-		private class JoinElementNode extends StringElementNode {
+		private class JoinElementNode extends StrokeCapElementNode {
 			/**
 			 * @param config
 			 */

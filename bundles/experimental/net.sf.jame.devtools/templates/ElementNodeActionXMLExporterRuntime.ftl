@@ -10,13 +10,13 @@ import ${import};
 /**
  * @author ${author}
  */
-public class ${element.elementName?cap_first}ElementNodeActionXMLExporterRuntime extends ConfigElementNodeActionXMLExporterRuntime<${element.elementName?cap_first}ConfigElement> {
+public class ${element.elementName?cap_first}ElementNodeActionXMLExporterRuntime extends ConfigElementNodeActionXMLExporterRuntime<${element.configElementClassName}> {
 	/**
 	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime#createExporter()
 	 */
 	@Override
-	protected ${element.elementName?cap_first}ConfigElementXMLExporter createExporter() {
-		return new ${element.elementName?cap_first}ConfigElementXMLExporter();
+	protected ${element.configElementClassName}XMLExporter createExporter() {
+		return new ${element.configElementClassName}XMLExporter();
 	}
 }
  

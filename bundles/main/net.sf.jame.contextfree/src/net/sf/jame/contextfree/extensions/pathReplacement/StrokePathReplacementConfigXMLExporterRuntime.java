@@ -5,8 +5,9 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementXMLExporter;
-import net.sf.jame.core.common.FloatElementXMLExporter;
-import net.sf.jame.core.common.StringElementXMLExporter;
+import net.sf.jame.contextfree.common.StrokeCapElementXMLExporter;
+import net.sf.jame.contextfree.common.StrokeJoinElementXMLExporter;
+import net.sf.jame.contextfree.common.StrokeWidthElementXMLExporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLExporter;
@@ -57,13 +58,13 @@ public class StrokePathReplacementConfigXMLExporterRuntime extends ExtensionConf
 		}
 	
 		private void exportWidth(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-			element.appendChild(new FloatElementXMLExporter().exportToElement(extensionConfig.getWidthElement(), builder));
+			element.appendChild(new StrokeWidthElementXMLExporter().exportToElement(extensionConfig.getWidthElement(), builder));
 		}
 		private void exportCap(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-			element.appendChild(new StringElementXMLExporter().exportToElement(extensionConfig.getCapElement(), builder));
+			element.appendChild(new StrokeJoinElementXMLExporter().exportToElement(extensionConfig.getCapElement(), builder));
 		}
 		private void exportJoin(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-			element.appendChild(new StringElementXMLExporter().exportToElement(extensionConfig.getJoinElement(), builder));
+			element.appendChild(new StrokeCapElementXMLExporter().exportToElement(extensionConfig.getJoinElement(), builder));
 		}
 		private void exportPathAdjustmentListElement(final StrokePathReplacementConfig extensionConfig, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
 			final PathAdjustmentConfigElementXMLExporter pathAdjustmentExporter = new PathAdjustmentConfigElementXMLExporter();

@@ -9,8 +9,9 @@ import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
-import net.sf.jame.core.common.FloatElement;
-import net.sf.jame.core.common.StringElement;
+import net.sf.jame.contextfree.common.StrokeCapElement;
+import net.sf.jame.contextfree.common.StrokeJoinElement;
+import net.sf.jame.contextfree.common.StrokeWidthElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
@@ -20,9 +21,9 @@ import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExt
  */
 public class StrokePathReplacementConfig extends PathReplacementExtensionConfig {
 	private static final long serialVersionUID = 1L;
-	private FloatElement widthElement;
-	private StringElement capElement;
-	private StringElement joinElement;
+	private StrokeWidthElement widthElement;
+	private StrokeJoinElement capElement;
+	private StrokeCapElement joinElement;
 	private ListConfigElement<PathAdjustmentConfigElement> pathAdjustmentListElement;
 
 	/**
@@ -30,9 +31,12 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	 */
 	@Override
 	protected void createConfigElements() {
-		widthElement = new FloatElement(1f);
-		capElement = new StringElement("butt");
-		joinElement = new StringElement("miter");
+		widthElement = new StrokeWidthElement(1f);
+		widthElement.setMaximum(getStrokeWidthMax());
+		widthElement.setMinimum(getStrokeWidthMin());
+		widthElement.setStep(getStrokeWidthStep());
+		capElement = new StrokeJoinElement("butt");
+		joinElement = new StrokeCapElement("miter");
 		pathAdjustmentListElement = new ListConfigElement<PathAdjustmentConfigElement>("pathAdjustmentListElement");
 	}
 
@@ -52,7 +56,7 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	/**
 	 * @return
 	 */
-	public FloatElement getWidthElement() {
+	public StrokeWidthElement getWidthElement() {
 		return widthElement;
 	}
 	
@@ -72,7 +76,7 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	/**
 	 * @return
 	 */
-	public StringElement getCapElement() {
+	public StrokeJoinElement getCapElement() {
 		return capElement;
 	}
 	
@@ -92,7 +96,7 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	/**
 	 * @return
 	 */
-	public StringElement getJoinElement() {
+	public StrokeCapElement getJoinElement() {
 		return joinElement;
 	}
 	
@@ -109,6 +113,28 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	public void setJoin(final String value) {
 		joinElement.setValue(value);
 	}
+	
+	/**
+	 * @return
+	 */
+	public Float getStrokeWidthMin() {
+		return 0.01f;
+	}
+
+	/**
+	 * @return
+	 */
+	public Float getStrokeWidthMax() {
+		return 100f;
+	}
+
+	/**
+	 * @return
+	 */
+	public Float getStrokeWidthStep() {
+		return 0.01f;
+	}
+
 	/**
 	 * @return
 	 */

@@ -6,8 +6,8 @@ package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementNode;
+import net.sf.jame.contextfree.common.FillRuleElementNode;
 import net.sf.jame.contextfree.extensions.ContextFreeExtensionResources;
-import net.sf.jame.core.common.StringElementNode;
 import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeBuilder;
@@ -47,7 +47,7 @@ public class FillPathReplacementConfigNodeBuilderRuntime extends NodeBuilderExte
 			parentNode.appendChildNode(new PathAdjustmentListElementNode(getConfig()));
 		}
 
-		private class RuleElementNode extends StringElementNode {
+		private class RuleElementNode extends FillRuleElementNode {
 			/**
 			 * @param config
 			 */
