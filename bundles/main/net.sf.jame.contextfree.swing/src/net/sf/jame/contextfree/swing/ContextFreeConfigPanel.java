@@ -32,6 +32,7 @@ import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -41,15 +42,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import net.sf.jame.contextfree.ContextFreeConfig;
-import net.sf.jame.contextfree.cfdg.CFDGConfigElement;
+import net.sf.jame.contextfree.parser.ContextFreeParser;
+import net.sf.jame.contextfree.parser.ContextFreeParserException;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
@@ -70,7 +75,6 @@ import net.sf.jame.twister.util.Speed;
  */
 public class ContextFreeConfigPanel extends ViewPanel {
 	private static final long serialVersionUID = 1L;
-	private ContextFreeFractalPanel fractalPanel;
 	private final ContextFreeImagePanel imagePanel;
 	private final ViewContext viewContext;
 	private final RenderContext context;
@@ -94,19 +98,13 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		oddColor = getBackground().brighter();
 		evenColor = getBackground().brighter();
 		imagePanel = new ContextFreeImagePanel(config);
-		fractalPanel = new ContextFreeFractalPanel(config, config.getCFDG());
 		setLayout(new StackLayout());
-		add(fractalPanel);
 		add(imagePanel);
 		setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.DARK_GRAY));
 		configListener = new ValueChangeListener() {
 			public void valueChanged(final ValueChangeEvent e) {
 				switch (e.getEventType()) {
 					case ValueConfigElement.VALUE_CHANGED: {
-						remove(fractalPanel);
-						fractalPanel.dispose();
-						fractalPanel = new ContextFreeFractalPanel(config, config.getCFDG());
-						add(fractalPanel, BorderLayout.CENTER);
 						viewContext.setComponent(ContextFreeConfigPanel.this);
 						break;
 					}
@@ -122,7 +120,6 @@ public class ContextFreeConfigPanel extends ViewPanel {
 	@Override
 	public void dispose() {
 		config.getCFDGSingleElement().removeChangeListener(configListener);
-		fractalPanel.dispose();
 		imagePanel.dispose();
 	}
 
@@ -296,6 +293,10 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		private static final long serialVersionUID = 1L;
 		private final ValueChangeListener speedListener;
 		private final ContextFreeConfig config;
+		private JTextField pathTextField;
+		private JButton chooseButton;
+		private JButton reloadButton;
+		private JFileChooser chooser;
 
 		public ContextFreeImagePanel(final ContextFreeConfig config) {
 			this.config = config;
@@ -320,7 +321,27 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			tmpPanel6.add(createSpace());
 			tmpPanel6.add(shiftSpeedTextfield);
 			tmpPanel6.add(Box.createHorizontalGlue());
+			JLabel pathLabel = createTextLabel("cfdgPath", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
+			pathTextField = createTextField("", 300, GUIFactory.DEFAULT_HEIGHT);
+			pathTextField.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.cfdgPath"));
+			chooseButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
+			reloadButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
+			chooseButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.chooseCFDG"));
+			reloadButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.reloadCFDG"));
+			chooseButton.setText(ContextFreeSwingResources.getInstance().getString("label.chooseCFDG"));
+			reloadButton.setText(ContextFreeSwingResources.getInstance().getString("label.reloadCFDG"));
+			final Box tmpPanel1 = createHorizontalBox(false);
+			tmpPanel1.add(pathLabel);
+			tmpPanel1.add(createSpace());
+			tmpPanel1.add(pathTextField);
+			tmpPanel1.add(createSpace());
+			tmpPanel1.add(chooseButton);
+			tmpPanel1.add(createSpace());
+			tmpPanel1.add(reloadButton);
+			tmpPanel1.add(Box.createHorizontalGlue());
 			final Box tmpPanel = createVerticalBox(false);
+			tmpPanel.add(Box.createVerticalStrut(8));
+			tmpPanel.add(tmpPanel1);
 			tmpPanel.add(Box.createVerticalStrut(8));
 			tmpPanel.add(tmpPanel4);
 			tmpPanel.add(Box.createVerticalStrut(8));
@@ -383,6 +404,57 @@ public class ContextFreeConfigPanel extends ViewPanel {
 				}
 			};
 			rotationSpeedTextfield.addActionListener(rotationSpeedActionListener);
+			final ActionListener chooseActionListener = new ActionListener() {
+				public void actionPerformed(final ActionEvent e) {
+					try {
+						if (chooser == null) {
+							chooser = new JFileChooser();
+							chooser.setMultiSelectionEnabled(false);
+						}
+						if (chooser.showOpenDialog(ContextFreeConfigPanel.this) == JFileChooser.APPROVE_OPTION) {
+							if (chooser.getSelectedFile() != null) {
+								File file = chooser.getSelectedFile();
+								pathTextField.setText(file.getAbsolutePath());
+								loadFile(config, pathTextField.getText());
+							}
+						}
+					}
+					catch (InterruptedException x) {
+						Thread.currentThread().interrupt();
+					}
+				}
+			};
+			chooseButton.addActionListener(chooseActionListener);
+			final ActionListener reloadActionListener = new ActionListener() {
+				public void actionPerformed(final ActionEvent e) {
+					try {
+						context.acquire();
+						config.getContext().updateTimestamp();
+						loadFile(config, pathTextField.getText());
+						context.release();
+						context.refresh();
+					}
+					catch (InterruptedException x) {
+						Thread.currentThread().interrupt();
+					}
+				}
+			};
+			reloadButton.addActionListener(reloadActionListener);
+			final ActionListener pathActionListener = new ActionListener() {
+				public void actionPerformed(final ActionEvent e) {
+					try {
+						context.acquire();
+						config.getContext().updateTimestamp();
+						loadFile(config, pathTextField.getText());
+						context.release();
+						context.refresh();
+					}
+					catch (InterruptedException x) {
+						Thread.currentThread().interrupt();
+					}
+				}
+			};
+			pathTextField.addActionListener(pathActionListener);
 			speedListener = new ValueChangeListener() {
 				public void valueChanged(final ValueChangeEvent e) {
 					zoomSpeedTextfield.removeActionListener(zoomSpeedActionListener);
@@ -402,15 +474,22 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		public void dispose() {
 			config.getSpeedElement().removeChangeListener(speedListener);
 		}
-	}
 
-	private class ContextFreeFractalPanel extends JPanel {
-		private static final long serialVersionUID = 1L;
-
-		public ContextFreeFractalPanel(ContextFreeConfig config, CFDGConfigElement contextFreeFractalConfigElement) {
-		}
-
-		public void dispose() {
+		private void loadFile(final ContextFreeConfig config, String path)	throws InterruptedException {
+			try {
+				ContextFreeParser parser = new ContextFreeParser();
+				ContextFreeConfig newConfig = parser.parseConfig(new File(path));
+				context.acquire();
+				config.getContext().updateTimestamp();
+				config.setCFDG(newConfig.getCFDG());
+				context.release();
+				context.refresh();
+			} catch (ContextFreeParserException x) {
+				x.printStackTrace();
+				JTextArea textArea = new JTextArea();
+				textArea.setText(x.getMessage());
+				JOptionPane.showMessageDialog(ContextFreeImagePanel.this, textArea, ContextFreeSwingResources.getInstance().getString("message.cfdgParserError"), JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 }

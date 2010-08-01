@@ -92,6 +92,13 @@ Helpers
 	rational = digit+ '.' digit* | '.' digit+;
 
 
+States
+	
+	normal,
+	path,
+	rule;
+	
+	
 Tokens
 
   	bar = '|';
@@ -109,15 +116,6 @@ Tokens
   	l_sbkt = '[';
   	r_sbkt = ']';
   
-  	startshape = 'startshape';
-  	background = 'background';
-  	include = 'include';
-  	tile = 'tile';
-  	size = 'size';
-  	rule = 'rule';
-  	path = 'path';
-  	shape = 'shape';
-  	
   	size_token = 'size' | 's';
   	hue_token = 'hue' | 'h';
   	saturation_token = 'saturation' | 'sat';
@@ -147,11 +145,17 @@ Tokens
   	operation = 'MOVETO' | 'LINETO' | 'ARCTO' | 'CURVETO' | 'MOVEREL' | 'LINEREL' | 'ARCREL' | 'CURVEREL' | 'CLOSEPOLY';
 
   	function_arg0 = 'rnd';
-
   	function_arg1 = 'sin' | 'cos' | 'tan' | 'asin' | 'acos' | 'atan' | 'sinh' | 'cosh' | 'tanh' | 'log' | 'exp' | 'abs' | 'sqrt';
-
   	function_arg2 = 'min' | 'max' | 'atan2' | 'hypot';
-
+  	
+  	startshape = 'startshape';
+  	background = 'background';
+  	include = 'include';
+  	tile = 'tile';
+  	//size = 'size';
+  	rule = 'rule';
+  	path = 'path';
+  	
  	filename = letter_or_digit letter_or_digit* '.cfdg' | '"' letter_or_digit letter_or_digit* '.cfdg' '"';
 
  	string = letter letter_or_digit*;
@@ -163,7 +167,7 @@ Tokens
   	line_comment = ('//' | '#') input_character* line_terminator?;
   	
   	block_comment = '/*' '*'* (not_star_not_slash not_star* '*'+)* '/';
-
+  	
 
 Ignored Tokens
 
@@ -184,7 +188,7 @@ Productions
   		
    	tile_declaration = tile l_cbkt tile_adjustment+ r_cbkt;
   		
-   	size_declaration = size l_cbkt size_adjustment+ r_cbkt;
+   	size_declaration = size_token l_cbkt size_adjustment+ r_cbkt;
   		
 	rule_declaration = rule string number? l_cbkt shape_replacement_declaration+ r_cbkt;
 

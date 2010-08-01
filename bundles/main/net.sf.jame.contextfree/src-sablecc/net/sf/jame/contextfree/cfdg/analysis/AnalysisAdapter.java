@@ -599,46 +599,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTStartshape(TStartshape node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTBackground(TBackground node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTInclude(TInclude node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTTile(TTile node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTSize(TSize node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTRule(TRule node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTPath(TPath node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTShape(TShape node)
-    {
-        defaultCase(node);
-    }
-
     public void caseTSizeToken(TSizeToken node)
     {
         defaultCase(node);
@@ -775,6 +735,36 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTFunctionArg2(TFunctionArg2 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTStartshape(TStartshape node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTBackground(TBackground node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTInclude(TInclude node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTTile(TTile node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTRule(TRule node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTPath(TPath node)
     {
         defaultCase(node);
     }

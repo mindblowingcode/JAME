@@ -85,6 +85,10 @@
             id="node.class.StrokeWidthElement"
             name="StrokeWidthElement"
             runtimeClass="net.sf.jame.contextfree.swing.extensions.editor.StrokeWidthElementEditorRuntime"/>
+      <editor
+            id="contextfree.shape.replacement.single.shape"
+            name="RuleName"
+            runtimeClass="net.sf.jame.contextfree.swing.extensions.editor.RuleNameEditorRuntime"/>
    </extension>
    <extension
          id="twisterExtensions"

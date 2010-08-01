@@ -60,7 +60,7 @@ public class StrokeCapElementEditorRuntime extends EditorExtensionRuntime {
 	private class EditorComponent extends JPanel implements NodeEditorComponent {
 		private static final long serialVersionUID = 1L;
 		private final NodeEditor nodeEditor;
-		private final JComboBox ruleComboBox;
+		private final JComboBox capComboBox;
 
 		/**
 		 * @param nodeEditor
@@ -68,12 +68,12 @@ public class StrokeCapElementEditorRuntime extends EditorExtensionRuntime {
 		public EditorComponent(final NodeEditor nodeEditor) {
 			this.nodeEditor = nodeEditor;
 			setLayout(new FlowLayout(FlowLayout.CENTER));
-			ruleComboBox = GUIFactory.createComboBox(new StrokeCapComboBoxModel(), ContextFreeSwingExtensionResources.getInstance().getString("tooltip.strokeCap"));
-			ruleComboBox.setRenderer(new StrokeCapCellRenderer());
-			ruleComboBox.setSelectedItem((((StrokeCapElementNodeValue) nodeEditor.getNodeValue()).getValue()));
-			ruleComboBox.addActionListener(new NodeEditorActionListener(nodeEditor));
+			capComboBox = GUIFactory.createComboBox(new StrokeCapComboBoxModel(), ContextFreeSwingExtensionResources.getInstance().getString("tooltip.strokeCap"));
+			capComboBox.setRenderer(new StrokeCapCellRenderer());
+			capComboBox.setSelectedItem((((StrokeCapElementNodeValue) nodeEditor.getNodeValue()).getValue()));
+			capComboBox.addActionListener(new NodeEditorActionListener(nodeEditor));
 			this.add(GUIFactory.createLabel(nodeEditor.getNodeLabel(), SwingConstants.CENTER));
-			this.add(ruleComboBox);
+			this.add(capComboBox);
 		}
 
 		/**
@@ -88,7 +88,7 @@ public class StrokeCapElementEditorRuntime extends EditorExtensionRuntime {
 		 */
 		public void reloadValue() {
 			if (nodeEditor.getNodeValue() != null) {
-				ruleComboBox.setSelectedItem((((StrokeCapElementNodeValue) nodeEditor.getNodeValue()).getValue()));
+				capComboBox.setSelectedItem((((StrokeCapElementNodeValue) nodeEditor.getNodeValue()).getValue()));
 			}
 		}
 

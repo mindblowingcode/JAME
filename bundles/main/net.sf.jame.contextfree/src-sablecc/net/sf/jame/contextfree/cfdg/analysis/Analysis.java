@@ -119,14 +119,6 @@ public interface Analysis extends Switch
     void caseTRRbkt(TRRbkt node);
     void caseTLSbkt(TLSbkt node);
     void caseTRSbkt(TRSbkt node);
-    void caseTStartshape(TStartshape node);
-    void caseTBackground(TBackground node);
-    void caseTInclude(TInclude node);
-    void caseTTile(TTile node);
-    void caseTSize(TSize node);
-    void caseTRule(TRule node);
-    void caseTPath(TPath node);
-    void caseTShape(TShape node);
     void caseTSizeToken(TSizeToken node);
     void caseTHueToken(THueToken node);
     void caseTSaturationToken(TSaturationToken node);
@@ -155,6 +147,12 @@ public interface Analysis extends Switch
     void caseTFunctionArg0(TFunctionArg0 node);
     void caseTFunctionArg1(TFunctionArg1 node);
     void caseTFunctionArg2(TFunctionArg2 node);
+    void caseTStartshape(TStartshape node);
+    void caseTBackground(TBackground node);
+    void caseTInclude(TInclude node);
+    void caseTTile(TTile node);
+    void caseTRule(TRule node);
+    void caseTPath(TPath node);
     void caseTFilename(TFilename node);
     void caseTString(TString node);
     void caseTNumber(TNumber node);

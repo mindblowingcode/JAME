@@ -194,10 +194,14 @@ public abstract class NodeEditor {
 
 	/**
 	 * @param index
-	 * @return the child.
+	 * @return the editor of the child.
 	 */
-	public Node getChildNode(final int index) {
-		return node.getChildNode(index);
+	public NodeEditor getChildNodeEditor(final int index) {
+		return node.getChildNode(index).getNodeEditor();
+	}
+
+	public String getChildNodeValueAsString(int index) {
+		return node.getChildNode(index).getValueAsString();
 	}
 
 	/**
