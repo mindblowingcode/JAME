@@ -37,11 +37,12 @@ import net.sf.jame.core.util.Colors;
 import net.sf.jame.core.util.DefaultThreadFactory;
 import net.sf.jame.core.util.DoubleVector2D;
 import net.sf.jame.core.util.DoubleVector4D;
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.IntegerVector2D;
 import net.sf.jame.core.util.IntegerVector4D;
 import net.sf.jame.core.util.RenderWorker;
 import net.sf.jame.core.util.Surface;
+import net.sf.jame.core.util.Tile;
+import net.sf.jame.mandelbrot.MandelbrotRuntime;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalRuntimeElement;
 import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaRuntimeElement;
 import net.sf.jame.mandelbrot.fractal.outcolouring.OutcolouringFormulaRuntimeElement;
@@ -77,12 +78,13 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 	private AffineTransform transform = new AffineTransform();
 	protected RenderedArea area = new RenderedArea();
 	protected RenderingStrategy renderingStrategy;
-	protected MandelbrotFractalRuntimeElement runtime;
+	protected MandelbrotRuntime runtime;
 	private final Complex center = new Complex();
 	private final Complex scale = new Complex();
 	protected View newView = new View(new IntegerVector4D(0, 0, 0, 0), new DoubleVector4D(0, 0, 1, 0), new DoubleVector4D(0, 0, 0, 0));
 	protected View oldView = new View(new IntegerVector4D(0, 0, 0, 0), new DoubleVector4D(0, 0, 1, 0), new DoubleVector4D(0, 0, 0, 0));
 	protected int percent = 100;
+	protected MandelbrotFractalRuntimeElement fractalRuntime;
 	protected int status = TwisterRenderer.STATUS_TERMINATED;
 	private final MandelbrotWorker renderWorker;
 	protected final ThreadFactory factory;
@@ -162,15 +164,17 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 	/**
 	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#getRuntime()
 	 */
-	public MandelbrotFractalRuntimeElement getRuntime() {
+	public MandelbrotRuntime getRuntime() {
 		return runtime;
 	}
 
 	/**
 	 * @see net.sf.jame.mandelbrot.renderer.MandelbrotRenderer#setRuntime(net.sf.jame.mandelbrot.fractal.MandelbrotFractalRuntimeElement)
 	 */
-	public void setRuntime(final MandelbrotFractalRuntimeElement fractal) {
-		this.runtime = fractal;
+	public void setRuntime(final MandelbrotRuntime runtime) {
+		synchronized (this) {
+			this.runtime = runtime;
+		}
 	}
 
 	/**
@@ -316,6 +320,7 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 
 	private void render() {
 		synchronized (this) {
+			fractalRuntime = runtime.getMandelbrotFractal();
 			if (oldView != newView) {
 				viewChanged = true;
 				updateView(newView);
@@ -329,22 +334,22 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 			if ((newConstant != oldConstant) && (newImageMode != 0)) {
 				setMode(MandelbrotRenderer.MODE_CALCULATE);
 			}
-			if (runtime.isRenderingFormulaChanged()) {
+			if (fractalRuntime.isRenderingFormulaChanged()) {
 				setMode(MandelbrotRenderer.MODE_CALCULATE);
 			}
-			if (runtime.isTransformingFormulaChanged()) {
+			if (fractalRuntime.isTransformingFormulaChanged()) {
 				setMode(MandelbrotRenderer.MODE_CALCULATE);
 			}
-			if (runtime.isProcessingFormulaChanged()) {
+			if (fractalRuntime.isProcessingFormulaChanged()) {
 				setMode(MandelbrotRenderer.MODE_CALCULATE);
 			}
-			if (runtime.isOrbitTrapChanged()) {
+			if (fractalRuntime.isOrbitTrapChanged()) {
 				setMode(MandelbrotRenderer.MODE_CALCULATE);
 			}
-			if (runtime.isIncolouringFormulaChanged()) {
+			if (fractalRuntime.isIncolouringFormulaChanged()) {
 				setMode(MandelbrotRenderer.MODE_REFRESH);
 			}
-			if (runtime.isOutcolouringFormulaChanged()) {
+			if (fractalRuntime.isOutcolouringFormulaChanged()) {
 				setMode(MandelbrotRenderer.MODE_REFRESH);
 			}
 			// if (!isDynamic) {
@@ -363,7 +368,7 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 		}
 		if (oldImageMode == 0) {
 			renderingStrategy = getMandelbrotRenderingStrategy();
-			if ((runtime.getRenderingFormula() != null) && (runtime.getRenderingFormula().getFormulaRuntime() != null) && !runtime.getRenderingFormula().getFormulaRuntime().isMandelbrotModeAllowed()) {
+			if ((fractalRuntime.getRenderingFormula() != null) && (fractalRuntime.getRenderingFormula().getFormulaRuntime() != null) && !fractalRuntime.getRenderingFormula().getFormulaRuntime().isMandelbrotModeAllowed()) {
 				status = TwisterRenderer.STATUS_TERMINATED;
 				newBuffer.clearRect(0, 0, newImage.getWidth(), newImage.getHeight());
 				dynamicZoom = false;
@@ -458,15 +463,15 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 	 * 
 	 */
 	protected void updateRegion() {
-		if ((runtime.getRenderingFormula() != null) && (runtime.getRenderingFormula().getFormulaRuntime() != null)) {
-			final DoubleVector2D s = runtime.getRenderingFormula().getFormulaRuntime().getScale();
+		if ((fractalRuntime.getRenderingFormula() != null) && (fractalRuntime.getRenderingFormula().getFormulaRuntime() != null)) {
+			final DoubleVector2D s = fractalRuntime.getRenderingFormula().getFormulaRuntime().getScale();
 			final double x = oldView.getPosition().getX();
 			final double y = oldView.getPosition().getY();
 			final double z = oldView.getPosition().getZ();
 			scale.r = s.getX() * z;
 			scale.i = s.getY() * z;
-			center.r = runtime.getRenderingFormula().getFormulaRuntime().getCenter().getX() + x;
-			center.i = runtime.getRenderingFormula().getFormulaRuntime().getCenter().getY() + y;
+			center.r = fractalRuntime.getRenderingFormula().getFormulaRuntime().getCenter().getX() + x;
+			center.i = fractalRuntime.getRenderingFormula().getFormulaRuntime().getCenter().getY() + y;
 			final double imageOffsetX = (imageDim - oldTile.getImageSize().getX() - oldTile.getTileBorder().getX() * 2) / 2;
 			final double imageOffsetY = (imageDim - oldTile.getImageSize().getY() - oldTile.getTileBorder().getY() * 2) / 2;
 			double sx = (scale.r * 0.5d * imageDim) / oldTile.getImageSize().getX();
@@ -518,7 +523,7 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 	 * @return the color.
 	 */
 	protected int renderPoint(final RenderedPoint cp) {
-		runtime.getRenderingFormula().getFormulaRuntime().renderPoint(cp);
+		fractalRuntime.getRenderingFormula().getFormulaRuntime().renderPoint(cp);
 		return renderColor(cp);
 	}
 
@@ -530,8 +535,8 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 		int newRGB = 0;
 		int tmpRGB = 0;
 		if (cp.time > 0) {
-			if (runtime.getOutcolouringFormulaCount() == 1) {
-				final OutcolouringFormulaRuntimeElement outcolouringFormula = runtime.getOutcolouringFormula(0);
+			if (fractalRuntime.getOutcolouringFormulaCount() == 1) {
+				final OutcolouringFormulaRuntimeElement outcolouringFormula = fractalRuntime.getOutcolouringFormula(0);
 				if ((outcolouringFormula.getFormulaRuntime() != null) && outcolouringFormula.isEnabled()) {
 					if (newShiftValue != 0) {
 						newRGB = outcolouringFormula.getFormulaRuntime().renderColor(cp, newShiftValue);
@@ -542,8 +547,8 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 				}
 			}
 			else {
-				for (int i = 0; i < runtime.getOutcolouringFormulaCount(); i++) {
-					final OutcolouringFormulaRuntimeElement outcolouringFormula = runtime.getOutcolouringFormula(i);
+				for (int i = 0; i < fractalRuntime.getOutcolouringFormulaCount(); i++) {
+					final OutcolouringFormulaRuntimeElement outcolouringFormula = fractalRuntime.getOutcolouringFormula(i);
 					if ((outcolouringFormula.getFormulaRuntime() != null) && outcolouringFormula.isEnabled()) {
 						if (newShiftValue != 0) {
 							tmpRGB = outcolouringFormula.getFormulaRuntime().renderColor(cp, newShiftValue);
@@ -558,8 +563,8 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 			return newRGB;
 		}
 		else {
-			if (runtime.getIncolouringFormulaCount() == 1) {
-				final IncolouringFormulaRuntimeElement incolouringFormula = runtime.getIncolouringFormula(0);
+			if (fractalRuntime.getIncolouringFormulaCount() == 1) {
+				final IncolouringFormulaRuntimeElement incolouringFormula = fractalRuntime.getIncolouringFormula(0);
 				if ((incolouringFormula.getFormulaRuntime() != null) && incolouringFormula.isEnabled()) {
 					if (newShiftValue != 0) {
 						newRGB = incolouringFormula.getFormulaRuntime().renderColor(cp, newShiftValue);
@@ -570,8 +575,8 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 				}
 			}
 			else {
-				for (int i = 0; i < runtime.getIncolouringFormulaCount(); i++) {
-					final IncolouringFormulaRuntimeElement incolouringFormula = runtime.getIncolouringFormula(i);
+				for (int i = 0; i < fractalRuntime.getIncolouringFormulaCount(); i++) {
+					final IncolouringFormulaRuntimeElement incolouringFormula = fractalRuntime.getIncolouringFormula(i);
 					if ((incolouringFormula.getFormulaRuntime() != null) && incolouringFormula.isEnabled()) {
 						if (newShiftValue != 0) {
 							tmpRGB = incolouringFormula.getFormulaRuntime().renderColor(cp, newShiftValue);
@@ -596,14 +601,14 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 	 * @return true if solidguess is supported.
 	 */
 	public boolean isSolidGuessSupported() {
-		for (int i = 0; i < runtime.getOutcolouringFormulaCount(); i++) {
-			final OutcolouringFormulaRuntimeElement outcolouringFormula = runtime.getOutcolouringFormula(i);
+		for (int i = 0; i < fractalRuntime.getOutcolouringFormulaCount(); i++) {
+			final OutcolouringFormulaRuntimeElement outcolouringFormula = fractalRuntime.getOutcolouringFormula(i);
 			if ((outcolouringFormula.getFormulaRuntime() != null) && !outcolouringFormula.getFormulaRuntime().isSolidGuessAllowed() && outcolouringFormula.isEnabled()) {
 				return false;
 			}
 		}
-		for (int i = 0; i < runtime.getIncolouringFormulaCount(); i++) {
-			final IncolouringFormulaRuntimeElement incolouringFormula = runtime.getIncolouringFormula(i);
+		for (int i = 0; i < fractalRuntime.getIncolouringFormulaCount(); i++) {
+			final IncolouringFormulaRuntimeElement incolouringFormula = fractalRuntime.getIncolouringFormula(i);
 			if ((incolouringFormula.getFormulaRuntime() != null) && !incolouringFormula.getFormulaRuntime().isSolidGuessAllowed() && incolouringFormula.isEnabled()) {
 				return false;
 			}

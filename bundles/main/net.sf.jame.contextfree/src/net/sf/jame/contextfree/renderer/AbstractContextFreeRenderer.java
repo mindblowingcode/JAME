@@ -31,6 +31,7 @@ import java.awt.image.BufferedImage;
 import java.util.Map;
 import java.util.concurrent.ThreadFactory;
 
+import net.sf.jame.contextfree.ContextFreeRuntime;
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.core.util.DefaultThreadFactory;
 import net.sf.jame.core.util.DoubleVector4D;
@@ -62,10 +63,11 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 	private boolean dynamic = false;
 	private boolean dynamicZoom = false;
 	private AffineTransform transform = new AffineTransform();
-	protected CFDGRuntimeElement runtime;
+	protected ContextFreeRuntime runtime;
 	protected View newView = new View(new IntegerVector4D(0, 0, 0, 0), new DoubleVector4D(0, 0, 1, 0), new DoubleVector4D(0, 0, 0, 0));
 	protected View oldView = new View(new IntegerVector4D(0, 0, 0, 0), new DoubleVector4D(0, 0, 1, 0), new DoubleVector4D(0, 0, 0, 0));
 	protected int percent = 100;
+	protected CFDGRuntimeElement cfdgRuntime;
 	protected int status = TwisterRenderer.STATUS_TERMINATED;
 	private final ContextFreeWorker renderWorker;
 	protected final ThreadFactory factory;
@@ -314,12 +316,12 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 		startTasks();
 	}
 
-	public CFDGRuntimeElement getRuntime() {
+	public ContextFreeRuntime getRuntime() {
 		return runtime;
 	}
 
-	public void setRuntime(CFDGRuntimeElement fractal) {
-		this.runtime = fractal;
+	public void setRuntime(ContextFreeRuntime runtime) {
+		this.runtime = runtime;
 	}
 
 	/**
@@ -396,6 +398,7 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 
 	private void render() {
 		synchronized (this) {
+			cfdgRuntime = runtime.getCFDG();
 			if (oldView != newView) {
 				viewChanged = true;
 				updateView(newView);

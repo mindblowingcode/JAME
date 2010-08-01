@@ -68,7 +68,7 @@ public class MandelbrotConfigBuilder {
 		final IncolouringFormulaConfigElement incolouringFormulaElement = new IncolouringFormulaConfigElement();
 		final OutcolouringFormulaConfigElement outcolouringFormulaElement = new OutcolouringFormulaConfigElement();
 		final OrbitTrapConfigElement orbitTrapElement = new OrbitTrapConfigElement();
-		config.setMandelbrotFractalConfigElement(fractalElement);
+		config.setMandelbrotFractal(fractalElement);
 		fractalElement.setRenderingFormulaConfigElement(renderingFormulaElement);
 		renderingFormulaElement.setReference(MandelbrotRegistry.getInstance().getRenderingFormulaExtension(MandelbrotConfigBuilder.DEFAULT_RENDERING_FORMULA_EXTENSION_ID).createConfigurableExtensionReference());
 		fractalElement.setTransformingFormulaConfigElement(transformingFormulaElement);

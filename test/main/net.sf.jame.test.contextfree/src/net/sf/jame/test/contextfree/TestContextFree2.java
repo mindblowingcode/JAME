@@ -85,7 +85,7 @@ public class TestContextFree2 {
 			renderer.setTile(tile);
 			IntegerVector2D bufferSize = new IntegerVector2D(tile.getTileSize().getX() + tile.getTileBorder().getX() * 2, tile.getTileSize().getY() + tile.getTileBorder().getY() * 2);
 			Surface surface = new Surface(bufferSize.getX(), bufferSize.getY());
-			renderer.setRuntime(runtime.getCFDG());
+			renderer.setRuntime(runtime);
 			renderer.start();
 			try {
 				renderer.startRenderer();

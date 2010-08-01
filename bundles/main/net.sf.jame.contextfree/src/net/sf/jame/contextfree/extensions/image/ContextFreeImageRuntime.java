@@ -55,6 +55,10 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	@Override
 	public void configReloaded() {
 		contextFreeRuntime = new ContextFreeRuntime(getConfig().getContextFreeConfig());
+		if (rendererStrategy != null) {
+			rendererStrategy.dispose();
+			rendererStrategy = null;
+		}
 	}
 
 	/**
@@ -288,7 +292,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 				manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 1));
 			}
 			manager.setRenderingHints(hints);
-			manager.setRuntime(contextFreeRuntime.getCFDG());
+			manager.setRuntime(contextFreeRuntime);
 			loadConfig();
 			manager.setTile(tile);
 			manager.start();
@@ -453,7 +457,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 				manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 1));
 			}
 			manager.setRenderingHints(hints);
-			manager.setRuntime(contextFreeRuntime.getCFDG());
+			manager.setRuntime(contextFreeRuntime);
 			loadConfig();
 			manager.setTile(tile);
 			manager.start();

@@ -71,14 +71,14 @@ public class MandelbrotConfig extends AbstractConfigElement {
 	/**
 	 * @return the mandelbrotFractalElement
 	 */
-	public MandelbrotFractalConfigElement getMandelbrotFractalConfigElement() {
+	public MandelbrotFractalConfigElement getMandelbrotFractal() {
 		return fractalSingleElement.getValue();
 	}
 
 	/**
 	 * @param fractalElement the fractalElement to set
 	 */
-	public void setMandelbrotFractalConfigElement(final MandelbrotFractalConfigElement fractalElement) {
+	public void setMandelbrotFractal(final MandelbrotFractalConfigElement fractalElement) {
 		fractalSingleElement.setValue(fractalElement);
 	}
 
@@ -230,7 +230,7 @@ public class MandelbrotConfig extends AbstractConfigElement {
 		config.setShowOrbitTrap(getShowOrbitTrap());
 		config.setShowPreview(getShowPreview());
 		config.setPreviewArea(getPreviewArea());
-		config.setMandelbrotFractalConfigElement(getMandelbrotFractalConfigElement().clone());
+		config.setMandelbrotFractal(getMandelbrotFractal().clone());
 		return config;
 	}
 

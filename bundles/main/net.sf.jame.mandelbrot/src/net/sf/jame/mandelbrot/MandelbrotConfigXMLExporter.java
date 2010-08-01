@@ -77,7 +77,7 @@ public class MandelbrotConfigXMLExporter extends XMLExporter<MandelbrotConfig> {
 	 * @throws XMLExportException
 	 */
 	protected void exportMandelbrotFractal(final MandelbrotConfig config, final Element element, final XMLNodeBuilder builder) throws XMLExportException {
-		element.appendChild(new MandelbrotFractalConfigElementXMLExporter().exportToElement(config.getMandelbrotFractalConfigElement(), builder));
+		element.appendChild(new MandelbrotFractalConfigElementXMLExporter().exportToElement(config.getMandelbrotFractal(), builder));
 	}
 
 	/**

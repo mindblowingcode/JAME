@@ -30,7 +30,6 @@ import java.util.Map;
 
 import net.sf.jame.core.util.DoubleVector2D;
 import net.sf.jame.core.util.Tile;
-import net.sf.jame.mandelbrot.fractal.MandelbrotFractalRuntimeElement;
 import net.sf.jame.mandelbrot.renderer.MandelbrotRenderer;
 import net.sf.jame.twister.util.View;
 
@@ -81,7 +80,7 @@ public class MandelbrotManager {
 	/**
 	 * @param runtime
 	 */
-	public void setRuntime(final MandelbrotFractalRuntimeElement runtime) {
+	public void setRuntime(final MandelbrotRuntime runtime) {
 		renderer.setRuntime(runtime);
 	}
 

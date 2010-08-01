@@ -458,7 +458,7 @@ public class MandelbrotInputAdapterRuntime extends DefaultInputAdapterRuntime {
 						y = y + center.getY() + (z * scale.getY()) * ((Math.cos(a) * mandelbrotHandler.getNormalizedLastMousePositionY()) - (Math.sin(a) * mandelbrotHandler.getNormalizedLastMousePositionX()));
 						// getRenderContext().stopRenderers();
 						config.getContext().updateTimestamp();
-						config.getMandelbrotConfig().getMandelbrotFractalConfigElement().getOrbitTrapConfigElement().setCenter(new DoubleVector2D(x, -y));
+						config.getMandelbrotConfig().getMandelbrotFractal().getOrbitTrapConfigElement().setCenter(new DoubleVector2D(x, -y));
 						// getRenderContext().refresh();
 						// getRenderContext().startRenderers();
 					}
@@ -506,7 +506,7 @@ public class MandelbrotInputAdapterRuntime extends DefaultInputAdapterRuntime {
 						y = y + center.getY() + (z * scale.getY()) * ((Math.cos(a) * mandelbrotHandler.getNormalizedLastMousePositionY()) - (Math.sin(a) * mandelbrotHandler.getNormalizedLastMousePositionX()));
 						// getRenderContext().stopRenderers();
 						config.getContext().updateTimestamp();
-						config.getMandelbrotConfig().getMandelbrotFractalConfigElement().getOrbitTrapConfigElement().setCenter(new DoubleVector2D(x, -y));
+						config.getMandelbrotConfig().getMandelbrotFractal().getOrbitTrapConfigElement().setCenter(new DoubleVector2D(x, -y));
 						// getRenderContext().refresh();
 						// getRenderContext().startRenderers();
 					}
@@ -689,7 +689,7 @@ public class MandelbrotInputAdapterRuntime extends DefaultInputAdapterRuntime {
 		if (imageConfig != null) {
 			final MandelbrotConfig mandelbrotConfig = imageConfig.getMandelbrotConfig();
 			if (mandelbrotConfig != null) {
-				final MandelbrotFractalConfigElement fractalElement = mandelbrotConfig.getMandelbrotFractalConfigElement();
+				final MandelbrotFractalConfigElement fractalElement = mandelbrotConfig.getMandelbrotFractal();
 				if (fractalElement != null) {
 					final RenderingFormulaConfigElement formulaElement = fractalElement.getRenderingFormulaConfigElement();
 					if (formulaElement != null) {

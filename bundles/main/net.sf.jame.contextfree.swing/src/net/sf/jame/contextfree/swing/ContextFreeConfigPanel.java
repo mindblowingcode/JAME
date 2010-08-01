@@ -406,21 +406,25 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			rotationSpeedTextfield.addActionListener(rotationSpeedActionListener);
 			final ActionListener chooseActionListener = new ActionListener() {
 				public void actionPerformed(final ActionEvent e) {
-					try {
-						if (chooser == null) {
-							chooser = new JFileChooser();
-							chooser.setMultiSelectionEnabled(false);
-						}
-						if (chooser.showOpenDialog(ContextFreeConfigPanel.this) == JFileChooser.APPROVE_OPTION) {
-							if (chooser.getSelectedFile() != null) {
-								File file = chooser.getSelectedFile();
-								pathTextField.setText(file.getAbsolutePath());
+					if (chooser == null) {
+						chooser = new JFileChooser();
+						chooser.setMultiSelectionEnabled(false);
+					}
+					if (chooser.showOpenDialog(ContextFreeConfigPanel.this) == JFileChooser.APPROVE_OPTION) {
+						if (chooser.getSelectedFile() != null) {
+							File file = chooser.getSelectedFile();
+							pathTextField.setText(file.getAbsolutePath());
+							try {
+								context.acquire();
+								config.getContext().updateTimestamp();
 								loadFile(config, pathTextField.getText());
+								context.release();
+								context.refresh();
+							}
+							catch (InterruptedException x) {
+								Thread.currentThread().interrupt();
 							}
 						}
-					}
-					catch (InterruptedException x) {
-						Thread.currentThread().interrupt();
 					}
 				}
 			};
@@ -479,11 +483,8 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			try {
 				ContextFreeParser parser = new ContextFreeParser();
 				ContextFreeConfig newConfig = parser.parseConfig(new File(path));
-				context.acquire();
 				config.getContext().updateTimestamp();
 				config.setCFDG(newConfig.getCFDG());
-				context.release();
-				context.refresh();
 			} catch (ContextFreeParserException x) {
 				x.printStackTrace();
 				JTextArea textArea = new JTextArea();

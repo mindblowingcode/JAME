@@ -130,7 +130,7 @@ public class MandelbrotConfigPanel extends ViewPanel {
 		oddColor = getBackground().brighter();
 		evenColor = getBackground().brighter();
 		imagePanel = new MandelbrotImagePanel(config);
-		fractalPanel = new MandelbrotFractalPanel(config, config.getMandelbrotFractalConfigElement());
+		fractalPanel = new MandelbrotFractalPanel(config, config.getMandelbrotFractal());
 		setLayout(new StackLayout());
 		add(fractalPanel);
 		add(imagePanel);
@@ -141,7 +141,7 @@ public class MandelbrotConfigPanel extends ViewPanel {
 					case ValueConfigElement.VALUE_CHANGED: {
 						remove(fractalPanel);
 						fractalPanel.dispose();
-						fractalPanel = new MandelbrotFractalPanel(config, config.getMandelbrotFractalConfigElement());
+						fractalPanel = new MandelbrotFractalPanel(config, config.getMandelbrotFractal());
 						add(fractalPanel, BorderLayout.CENTER);
 						viewContext.setComponent(MandelbrotConfigPanel.this);
 						break;
