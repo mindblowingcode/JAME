@@ -264,9 +264,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseASizeDeclaration(ASizeDeclaration node)
     {
         inASizeDeclaration(node);
-        if(node.getSize() != null)
+        if(node.getSizeToken() != null)
         {
-            node.getSize().apply(this);
+            node.getSizeToken().apply(this);
         }
         if(node.getLCbkt() != null)
         {

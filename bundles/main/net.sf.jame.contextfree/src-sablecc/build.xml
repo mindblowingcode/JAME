@@ -9,7 +9,7 @@
     <target name="generate" description="Generate the parser for cfdg files">
         <java dir="src-sablecc" classname="org.sablecc.sablecc.SableCC">
         	<classpath path="${env.SABLECC_HOME}/lib/sablecc.jar"/>
-        	<arg value="ContextFree32.sable"/>
+        	<arg value="ContextFree32.sablecc"/>
     	</java>
     </target>
 </project>

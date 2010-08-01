@@ -38,8 +38,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import net.sf.jame.contextfree.common.StrokeJoinElementNodeValue;
 import net.sf.jame.contextfree.swing.extensions.ContextFreeSwingExtensionResources;
+import net.sf.jame.core.common.StringElementNodeValue;
 import net.sf.jame.core.swing.NodeEditorComponent;
 import net.sf.jame.core.swing.editor.extension.EditorExtensionRuntime;
 import net.sf.jame.core.swing.util.GUIFactory;
@@ -48,7 +48,7 @@ import net.sf.jame.core.tree.NodeEditor;
 /**
  * @author Andrea Medeghini
  */
-public class StrokeJoinElementEditorRuntime extends EditorExtensionRuntime {
+public class RuleNameEditorRuntime extends EditorExtensionRuntime {
 	/**
 	 * @see net.sf.jame.core.swing.editor.extension.EditorExtensionRuntime#createEditor(net.sf.jame.core.tree.NodeEditor)
 	 */
@@ -60,7 +60,7 @@ public class StrokeJoinElementEditorRuntime extends EditorExtensionRuntime {
 	private class EditorComponent extends JPanel implements NodeEditorComponent {
 		private static final long serialVersionUID = 1L;
 		private final NodeEditor nodeEditor;
-		private final JComboBox joinComboBox;
+		private final JComboBox nameComboBox;
 
 		/**
 		 * @param nodeEditor
@@ -68,12 +68,12 @@ public class StrokeJoinElementEditorRuntime extends EditorExtensionRuntime {
 		public EditorComponent(final NodeEditor nodeEditor) {
 			this.nodeEditor = nodeEditor;
 			setLayout(new FlowLayout(FlowLayout.CENTER));
-			joinComboBox = GUIFactory.createComboBox(new StrokeJoinComboBoxModel(), ContextFreeSwingExtensionResources.getInstance().getString("tooltip.strokeJoin"));
-			joinComboBox.setRenderer(new StrokeJoinListCellRenderer());
-			joinComboBox.setSelectedItem((((StrokeJoinElementNodeValue) nodeEditor.getNodeValue()).getValue()));
-			joinComboBox.addActionListener(new NodeEditorActionListener(nodeEditor));
+			nameComboBox = GUIFactory.createComboBox(new RuleNameComboBoxModel(nodeEditor), ContextFreeSwingExtensionResources.getInstance().getString("tooltip.ruleName"));
+			nameComboBox.setRenderer(new RuleNameListCellRenderer());
+			nameComboBox.setSelectedItem((((StringElementNodeValue) nodeEditor.getNodeValue()).getValue()));
+			nameComboBox.addActionListener(new NodeEditorActionListener(nodeEditor));
 			this.add(GUIFactory.createLabel(nodeEditor.getNodeLabel(), SwingConstants.CENTER));
-			this.add(joinComboBox);
+			this.add(nameComboBox);
 		}
 
 		/**
@@ -88,7 +88,7 @@ public class StrokeJoinElementEditorRuntime extends EditorExtensionRuntime {
 		 */
 		public void reloadValue() {
 			if (nodeEditor.getNodeValue() != null) {
-				joinComboBox.setSelectedItem((((StrokeJoinElementNodeValue) nodeEditor.getNodeValue()).getValue()));
+				nameComboBox.setSelectedItem((((StringElementNodeValue) nodeEditor.getNodeValue()).getValue()));
 			}
 		}
 
@@ -115,22 +115,31 @@ public class StrokeJoinElementEditorRuntime extends EditorExtensionRuntime {
 		public void actionPerformed(final ActionEvent e) {
 			final String rule = (String) ((JComboBox) e.getSource()).getSelectedItem();
 			if (!rule.equals(nodeEditor.getNodeValue().getValue())) {
-				nodeEditor.setNodeValue(new StrokeJoinElementNodeValue(rule));
+				nodeEditor.setNodeValue(new StringElementNodeValue(rule));
 			}
 		}
 	}
 
-	private class StrokeJoinComboBoxModel extends DefaultComboBoxModel {
+	private class RuleNameComboBoxModel extends DefaultComboBoxModel {
 		private static final long serialVersionUID = 1L;
 
-		public StrokeJoinComboBoxModel() {
-			addElement("miter");
-			addElement("round");
-			addElement("bevel");
+		public RuleNameComboBoxModel(NodeEditor nodeEditor) {
+			NodeEditor figureListNodeEditor = nodeEditor.getParentNodeEditor();
+			while (!figureListNodeEditor.getNodeClass().equals("node.class.FigureListElement")) {
+				figureListNodeEditor = figureListNodeEditor.getParentNodeEditor();
+				if (figureListNodeEditor == null) {
+					break;
+				}
+			}
+			if (figureListNodeEditor != null) {
+				for (int i = 0; i < figureListNodeEditor.getChildNodeCount(); i++) {
+					addElement(figureListNodeEditor.getChildNodeEditor(i).getChildNodeEditor(0).getChildNodeValueAsString(0));
+				}
+			}
 		}
 	}
 
-	private class StrokeJoinListCellRenderer extends DefaultListCellRenderer {
+	private class RuleNameListCellRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 1L;
 
 		/**

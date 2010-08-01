@@ -8,7 +8,7 @@ import net.sf.jame.contextfree.cfdg.analysis.*;
 @SuppressWarnings("nls")
 public final class ASizeDeclaration extends PSizeDeclaration
 {
-    private TSize _size_;
+    private TSizeToken _sizeToken_;
     private TLCbkt _lCbkt_;
     private final LinkedList<PSizeAdjustment> _sizeAdjustment_ = new LinkedList<PSizeAdjustment>();
     private TRCbkt _rCbkt_;
@@ -19,13 +19,13 @@ public final class ASizeDeclaration extends PSizeDeclaration
     }
 
     public ASizeDeclaration(
-        @SuppressWarnings("hiding") TSize _size_,
+        @SuppressWarnings("hiding") TSizeToken _sizeToken_,
         @SuppressWarnings("hiding") TLCbkt _lCbkt_,
         @SuppressWarnings("hiding") List<PSizeAdjustment> _sizeAdjustment_,
         @SuppressWarnings("hiding") TRCbkt _rCbkt_)
     {
         // Constructor
-        setSize(_size_);
+        setSizeToken(_sizeToken_);
 
         setLCbkt(_lCbkt_);
 
@@ -39,7 +39,7 @@ public final class ASizeDeclaration extends PSizeDeclaration
     public Object clone()
     {
         return new ASizeDeclaration(
-            cloneNode(this._size_),
+            cloneNode(this._sizeToken_),
             cloneNode(this._lCbkt_),
             cloneList(this._sizeAdjustment_),
             cloneNode(this._rCbkt_));
@@ -50,16 +50,16 @@ public final class ASizeDeclaration extends PSizeDeclaration
         ((Analysis) sw).caseASizeDeclaration(this);
     }
 
-    public TSize getSize()
+    public TSizeToken getSizeToken()
     {
-        return this._size_;
+        return this._sizeToken_;
     }
 
-    public void setSize(TSize node)
+    public void setSizeToken(TSizeToken node)
     {
-        if(this._size_ != null)
+        if(this._sizeToken_ != null)
         {
-            this._size_.parent(null);
+            this._sizeToken_.parent(null);
         }
 
         if(node != null)
@@ -72,7 +72,7 @@ public final class ASizeDeclaration extends PSizeDeclaration
             node.parent(this);
         }
 
-        this._size_ = node;
+        this._sizeToken_ = node;
     }
 
     public TLCbkt getLCbkt()
@@ -149,7 +149,7 @@ public final class ASizeDeclaration extends PSizeDeclaration
     public String toString()
     {
         return ""
-            + toString(this._size_)
+            + toString(this._sizeToken_)
             + toString(this._lCbkt_)
             + toString(this._sizeAdjustment_)
             + toString(this._rCbkt_);
@@ -159,9 +159,9 @@ public final class ASizeDeclaration extends PSizeDeclaration
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._size_ == child)
+        if(this._sizeToken_ == child)
         {
-            this._size_ = null;
+            this._sizeToken_ = null;
             return;
         }
 
@@ -189,9 +189,9 @@ public final class ASizeDeclaration extends PSizeDeclaration
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._size_ == oldChild)
+        if(this._sizeToken_ == oldChild)
         {
-            setSize((TSize) newChild);
+            setSizeToken((TSizeToken) newChild);
             return;
         }
 
