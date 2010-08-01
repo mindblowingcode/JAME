@@ -69,6 +69,22 @@
             id="node.class.ShapeReplacementListElement"
             name="ShapeReplacementListElement"
             runtimeClass="net.sf.jame.contextfree.swing.extensions.editor.ShapeReplacementReferenceElementListEditorRuntime"/>
+      <editor
+            id="node.class.FillRuleElement"
+            name="FillRuleElement"
+            runtimeClass="net.sf.jame.contextfree.swing.extensions.editor.FillRuleElementEditorRuntime"/>
+      <editor
+            id="node.class.StrokeCapElement"
+            name="StrokeCapElement"
+            runtimeClass="net.sf.jame.contextfree.swing.extensions.editor.StrokeCapElementEditorRuntime"/>
+      <editor
+            id="node.class.StrokeJoinElement"
+            name="StrokeJoinElement"
+            runtimeClass="net.sf.jame.contextfree.swing.extensions.editor.StrokeJoinElementEditorRuntime"/>
+      <editor
+            id="node.class.StrokeWidthElement"
+            name="StrokeWidthElement"
+            runtimeClass="net.sf.jame.contextfree.swing.extensions.editor.StrokeWidthElementEditorRuntime"/>
    </extension>
    <extension
          id="twisterExtensions"

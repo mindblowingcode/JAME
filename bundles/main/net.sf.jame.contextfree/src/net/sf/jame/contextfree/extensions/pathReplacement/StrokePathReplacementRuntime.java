@@ -30,8 +30,8 @@ import net.sf.jame.core.config.ValueConfigElement;
 public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntime<StrokePathReplacementConfig> {
 	private Float width;
 	private WidthListener widthListener;
-	private String cup;
-	private CupListener cupListener;
+	private String cap;
+	private CapListener capListener;
 	private String join;
 	private JoinListener joinListener;
 	private ListRuntimeElement<PathAdjustmentRuntimeElement> pathAdjustmentListElement;
@@ -45,9 +45,9 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 		setWidth(getConfig().getWidth());
 		widthListener = new WidthListener();
 		getConfig().getWidthElement().addChangeListener(widthListener);
-		setCup(getConfig().getCap());
-		cupListener = new CupListener();
-		getConfig().getCapElement().addChangeListener(cupListener);
+		setCap(getConfig().getCap());
+		capListener = new CapListener();
+		getConfig().getCapElement().addChangeListener(capListener);
 		setJoin(getConfig().getJoin());
 		joinListener = new JoinListener();
 		getConfig().getJoinElement().addChangeListener(joinListener);
@@ -65,10 +65,10 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 			getConfig().getWidthElement().removeChangeListener(widthListener);
 		}
 		widthListener = null;
-		if ((getConfig() != null) && (cupListener != null)) {
-			getConfig().getCapElement().removeChangeListener(cupListener);
+		if ((getConfig() != null) && (capListener != null)) {
+			getConfig().getCapElement().removeChangeListener(capListener);
 		}
-		cupListener = null;
+		capListener = null;
 		if ((getConfig() != null) && (joinListener != null)) {
 			getConfig().getJoinElement().removeChangeListener(joinListener);
 		}
@@ -108,17 +108,17 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 		}
 	}
 	/**
-	 * @return the cup.
+	 * @return the cap.
 	 */
-	public String getCup() {
-		return cup;
+	public String getCap() {
+		return cap;
 	}
 
-	private void setCup(final String cup) {
-		this.cup = cup;
+	private void setCap(final String cap) {
+		this.cap = cap;
 	}
 	
-	private class CupListener implements ValueChangeListener {
+	private class CapListener implements ValueChangeListener {
 		/**
 		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
 		 */
@@ -280,27 +280,27 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 			float[] hsba = state.getHSBA();
 			a = AlphaComposite.Src.derive(hsba[3]);
 			c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
-			s = new BasicStroke(width, getCap(cup), getJoin(join));
+			s = new BasicStroke(width, getCap(cap), getJoin(join));
 			state.limits(limits);
 		}
 
 		private int getCap(String cap) {
-			if ("buttcap".equals(cup)) {
+			if ("butt".equals(cap)) {
 				return BasicStroke.CAP_BUTT;
-			} else if ("roundcap".equals(cup)) {
+			} else if ("round".equals(cap)) {
 				return BasicStroke.CAP_ROUND;
-			} else if ("squarecap".equals(cup)) {
+			} else if ("square".equals(cap)) {
 				return BasicStroke.CAP_SQUARE;
 			}
 			throw new IllegalArgumentException("Cap not supported");
 		}
 
 		private int getJoin(String join) {
-			if ("miterjoin".equals(join)) {
+			if ("miter".equals(join)) {
 				return BasicStroke.JOIN_MITER;
-			} else if ("roundjoin".equals(join)) {
+			} else if ("round".equals(join)) {
 				return BasicStroke.JOIN_ROUND;
-			} else if ("beveljoin".equals(join)) {
+			} else if ("bevel".equals(join)) {
 				return BasicStroke.JOIN_BEVEL;
 			}
 			throw new IllegalArgumentException("Join not supported");

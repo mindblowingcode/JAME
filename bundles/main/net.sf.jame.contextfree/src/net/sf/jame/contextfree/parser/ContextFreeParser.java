@@ -1300,9 +1300,9 @@ public class ContextFreeParser {
 					} else if (commadParameter instanceof AParametersCommandParameter) {
 						String param = ((AParametersCommandParameter) commadParameter).getString().getText();
 						if ("evenodd".equals(param)) {
-							config.setRule("evenodd");
+							config.setRule("even-odd");
 						} else {
-							config.setRule("nonzero");
+							config.setRule("non-zero");
 						}
 					}
 				}

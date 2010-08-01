@@ -7,8 +7,8 @@ package net.sf.jame.contextfree.extensions.pathReplacement;
 import java.util.List;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementXMLImporter;
-import net.sf.jame.core.common.StringElement;
-import net.sf.jame.core.common.StringElementXMLImporter;
+import net.sf.jame.contextfree.common.FillRuleElement;
+import net.sf.jame.contextfree.common.FillRuleElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
@@ -67,9 +67,9 @@ public class FillPathReplacementConfigXMLImporterRuntime extends ExtensionConfig
 		}
 	
 		private void importRule(final FillPathReplacementConfig extensionConfig, final Element element) throws XMLImportException {
-			final List<Element> ruleElements = this.getElements(element, StringElement.CLASS_ID);
+			final List<Element> ruleElements = this.getElements(element, FillRuleElement.CLASS_ID);
 			if (ruleElements.size() == 1) {
-				extensionConfig.setRule(new StringElementXMLImporter().importFromElement(ruleElements.get(0)).getValue());
+				extensionConfig.setRule(new FillRuleElementXMLImporter().importFromElement(ruleElements.get(0)).getValue());
 			}
 		}
 		private void importPathAdjustmentListElement(final FillPathReplacementConfig extensionConfig, final Element element) throws XMLImportException {

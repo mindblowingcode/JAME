@@ -7,10 +7,12 @@ package net.sf.jame.contextfree.extensions.pathReplacement;
 import java.util.List;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementXMLImporter;
-import net.sf.jame.core.common.FloatElement;
-import net.sf.jame.core.common.FloatElementXMLImporter;
-import net.sf.jame.core.common.StringElement;
-import net.sf.jame.core.common.StringElementXMLImporter;
+import net.sf.jame.contextfree.common.StrokeCapElement;
+import net.sf.jame.contextfree.common.StrokeCapElementXMLImporter;
+import net.sf.jame.contextfree.common.StrokeJoinElement;
+import net.sf.jame.contextfree.common.StrokeJoinElementXMLImporter;
+import net.sf.jame.contextfree.common.StrokeWidthElement;
+import net.sf.jame.contextfree.common.StrokeWidthElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
@@ -71,21 +73,21 @@ public class StrokePathReplacementConfigXMLImporterRuntime extends ExtensionConf
 		}
 	
 		private void importWidth(final StrokePathReplacementConfig extensionConfig, final Element element) throws XMLImportException {
-			final List<Element> widthElements = this.getElements(element, FloatElement.CLASS_ID);
+			final List<Element> widthElements = this.getElements(element, StrokeWidthElement.CLASS_ID);
 			if (widthElements.size() == 1) {
-				extensionConfig.setWidth(new FloatElementXMLImporter().importFromElement(widthElements.get(0)).getValue());
+				extensionConfig.setWidth(new StrokeWidthElementXMLImporter().importFromElement(widthElements.get(0)).getValue());
 			}
 		}
 		private void importCap(final StrokePathReplacementConfig extensionConfig, final Element element) throws XMLImportException {
-			final List<Element> capElements = this.getElements(element, StringElement.CLASS_ID);
+			final List<Element> capElements = this.getElements(element, StrokeJoinElement.CLASS_ID);
 			if (capElements.size() == 1) {
-				extensionConfig.setCap(new StringElementXMLImporter().importFromElement(capElements.get(0)).getValue());
+				extensionConfig.setCap(new StrokeJoinElementXMLImporter().importFromElement(capElements.get(0)).getValue());
 			}
 		}
 		private void importJoin(final StrokePathReplacementConfig extensionConfig, final Element element) throws XMLImportException {
-			final List<Element> joinElements = this.getElements(element, StringElement.CLASS_ID);
+			final List<Element> joinElements = this.getElements(element, StrokeCapElement.CLASS_ID);
 			if (joinElements.size() == 1) {
-				extensionConfig.setJoin(new StringElementXMLImporter().importFromElement(joinElements.get(0)).getValue());
+				extensionConfig.setJoin(new StrokeCapElementXMLImporter().importFromElement(joinElements.get(0)).getValue());
 			}
 		}
 		private void importPathAdjustmentListElement(final StrokePathReplacementConfig extensionConfig, final Element element) throws XMLImportException {

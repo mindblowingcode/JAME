@@ -866,6 +866,34 @@
             id="node.class.ShapeReplacementListElement"
             name="ShapeReplacementListElement"
             runtimeClass="net.sf.jame.contextfree.extensions.action.ShapeReplacementElementListNodeActionXMLImporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.FillRuleElement"
+            name="FillRuleElement"
+            runtimeClass="net.sf.jame.contextfree.extensions.action.FillRuleElementNodeActionXMLExporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.FillRuleElement"
+            name="FillRuleElement"
+            runtimeClass="net.sf.jame.contextfree.extensions.action.FillRuleElementNodeActionXMLImporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.StrokeJoinElement"
+            name="StrokeJoinElement"
+            runtimeClass="net.sf.jame.contextfree.extensions.action.StrokeJoinElementNodeActionXMLExporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.StrokeJoinElement"
+            name="StrokeJoinElement"
+            runtimeClass="net.sf.jame.contextfree.extensions.action.StrokeJoinElementNodeActionXMLImporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.StrokeCapElement"
+            name="StrokeCapElement"
+            runtimeClass="net.sf.jame.contextfree.extensions.action.StrokeCapElementNodeActionXMLExporterRuntime"/>
+      <actionXMLImporter
+            id="node.class.StrokeCapElement"
+            name="StrokeCapElement"
+            runtimeClass="net.sf.jame.contextfree.extensions.action.StrokeCapElementNodeActionXMLImporterRuntime"/>
+      <actionXMLExporter
+            id="node.class.StrokeWidthElement"
+            name="StrokeWidthElement"
+            runtimeClass="net.sf.jame.contextfree.extensions.action.StrokeWidthElementNodeActionXMLExporterRuntime"/>
    </extension>
    <extension
          id="contextfreeExtensions"

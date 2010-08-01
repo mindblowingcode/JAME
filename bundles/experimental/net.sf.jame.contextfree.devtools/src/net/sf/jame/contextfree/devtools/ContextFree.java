@@ -284,16 +284,16 @@ public class ContextFree {
 
 	private ProcessorParameters createFillPathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
-		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("rule", "\"non-zero\"", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("FillRule").createDescriptor("rule", "\"non-zero\"", ProcessorCardinality.NONE));
 		descriptors.add(new ProcessorDescriptor("pathAdjustment", "PathAdjustment", "PathAdjustment", "net.sf.jame.contextfree.cfdg.pathAdjustment", "PathAdjustmentConfigElement", "net.sf.jame.contextfree.cfdg.pathAdjustment", "PathAdjustmentRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree.extensions", "ContextFreeExtensionResources", null, null, null, "get", "set", ProcessorCardinality.MANY));
 		return new ProcessorParameters(new ProcessorDescriptor("fillPathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "FillPathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "FillPathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree.extensions", "ContextFreeExtensionResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
 
 	private ProcessorParameters createStrokePathReplacementExtensionParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
-		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("width", "1f", ProcessorCardinality.NONE));
-		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("cap", "\"butt\"", ProcessorCardinality.NONE));
-		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("join", "\"miter\"", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("StrokeWidth").createDescriptor("width", "1f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("StrokeJoin").createDescriptor("cap", "\"butt\"", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("StrokeCap").createDescriptor("join", "\"miter\"", ProcessorCardinality.NONE));
 		descriptors.add(new ProcessorDescriptor("pathAdjustment", "PathAdjustment", "PathAdjustment", "net.sf.jame.contextfree.cfdg.pathAdjustment", "PathAdjustmentConfigElement", "net.sf.jame.contextfree.cfdg.pathAdjustment", "PathAdjustmentRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree.extensions", "ContextFreeExtensionResources", null, null, null, "get", "set", ProcessorCardinality.MANY));
 		return new ProcessorParameters(new ProcessorDescriptor("strokePathReplacement", "Extension", null, null, null, null, null, "net.sf.jame.contextfree.extensions.pathReplacement", "StrokePathReplacementConfig", "net.sf.jame.contextfree.extensions.pathReplacement", "StrokePathReplacementRuntime", null, null, null, null, "net.sf.jame.contextfree.extensions", "ContextFreeExtensionResources", null, null, null, null, null, ProcessorCardinality.NONE), descriptors);
 	}
@@ -545,6 +545,22 @@ public class ContextFree {
 
 	private ProcessorParameters createSwingExtensionResourcesParameters() {
 		return new ProcessorParameters(new ProcessorDescriptor("resources", "Resources", null, null, null, null, null, null, null, null, null, null, null, null, null, "net.sf.jame.contextfree.swing.extensions", "ContextFreeSwingExtensionResources", null, null, null, null, null, ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
+	}
+
+	private ProcessorParameters createFillRuleElementParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
+		return new ProcessorParameters(new ProcessorDescriptor("fillRule", "FillRule", "FillRule", "net.sf.jame.contextfree.common", "FillRuleElement", null, null, null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", "java.lang", "String", "\"non-zero\"", "get", "set", ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
+	}
+
+	private ProcessorParameters createStrokeJoinElementParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
+		return new ProcessorParameters(new ProcessorDescriptor("strokeJoin", "StrokeJoin", "StrokeJoin", "net.sf.jame.contextfree.common", "StrokeJoinElement", null, null, null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", "java.lang", "String", "\"butt\"", "get", "set", ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
+	}
+
+	private ProcessorParameters createStrokeCapElementParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
+		return new ProcessorParameters(new ProcessorDescriptor("strokeCap", "StrokeCap", "StrokeCap", "net.sf.jame.contextfree.common", "StrokeCapElement", null, null, null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", "java.lang", "String", "\"miter\"", "get", "set", ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
+	}
+
+	private ProcessorParameters createStrokeWidthElementParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
+		return new ProcessorParameters(new ProcessorDescriptor("strokeWidth", "StrokeWidth", "StrokeWidth", "net.sf.jame.contextfree.common", "StrokeWidthElement", null, null, null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", "java.lang", "Float", "1f", "get", "set", ProcessorCardinality.NONE), new LinkedList<ProcessorDescriptor>());
 	}
 
 	private void populateProcessorExtensionMap(Map<String, ProcessorExtensionRuntime> map) {
@@ -2324,6 +2340,106 @@ public class ContextFree {
 			Map<String, String> variables = createVariables();
 			populateDescriptorExtensionMap(descriptorExtensionMap);
 			ProcessorParameters parameters = createSwingExtensionResourcesParameters();
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateFillRule() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+//			variables.put("generateElementEditor", "yes");
+//			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateElementNodeActionXMLExporter", "yes");
+			variables.put("generateElementNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createFillRuleElementParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateStrokeJoin() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+//			variables.put("generateElementEditor", "yes");
+//			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateElementNodeActionXMLExporter", "yes");
+			variables.put("generateElementNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createStrokeJoinElementParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateStrokeCap() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+//			variables.put("generateElementEditor", "yes");
+//			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateElementNodeActionXMLExporter", "yes");
+			variables.put("generateElementNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createStrokeCapElementParameters(descriptorExtensionMap);
+			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
+				processorRuntime.process(path, parameters, variables);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void generateStrokeWidth() {
+		try {
+			File path = new File("build");
+			Map<String, ProcessorExtensionRuntime> processorExtensionMap = new HashMap<String, ProcessorExtensionRuntime>();
+			populateProcessorExtensionMap(processorExtensionMap);
+			Map<String, DescriptorExtensionRuntime> descriptorExtensionMap = new HashMap<String, DescriptorExtensionRuntime>();
+			Map<String, String> variables = createVariables();
+//			variables.put("generateElementEditor", "yes");
+//			variables.put("editorPackageName", "net.sf.jame.contextfree.swing.extensions.editor");
+			variables.put("generateElementNodeActionXMLExporter", "yes");
+			variables.put("generateElementNodeActionXMLImporter", "yes");
+			variables.put("nodeActionXMLExporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			variables.put("nodeActionXMLImporterPackageName", "net.sf.jame.contextfree.extensions.action");
+			populateDescriptorExtensionMap(descriptorExtensionMap);
+			ProcessorParameters parameters = createStrokeWidthElementParameters(descriptorExtensionMap);
 			for (ProcessorExtensionRuntime processorRuntime : processorExtensionMap.values()) {
 				processorRuntime.process(path, parameters, variables);
 			}
