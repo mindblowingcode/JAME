@@ -417,9 +417,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseABasicShapeReplacement(ABasicShapeReplacement node)
     {
         inABasicShapeReplacement(node);
-        if(node.getRCbkt() != null)
+        if(node.getRSbkt() != null)
         {
-            node.getRCbkt().apply(this);
+            node.getRSbkt().apply(this);
         }
         {
             List<PShapeAdjustment> copy = new ArrayList<PShapeAdjustment>(node.getShapeAdjustment());
@@ -429,9 +429,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
                 e.apply(this);
             }
         }
-        if(node.getLCbkt() != null)
+        if(node.getLSbkt() != null)
         {
-            node.getLCbkt().apply(this);
+            node.getLSbkt().apply(this);
         }
         if(node.getString() != null)
         {
@@ -454,9 +454,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAOrderedShapeReplacement(AOrderedShapeReplacement node)
     {
         inAOrderedShapeReplacement(node);
-        if(node.getRSbkt() != null)
+        if(node.getRCbkt() != null)
         {
-            node.getRSbkt().apply(this);
+            node.getRCbkt().apply(this);
         }
         {
             List<PShapeAdjustment> copy = new ArrayList<PShapeAdjustment>(node.getShapeAdjustment());
@@ -466,9 +466,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
                 e.apply(this);
             }
         }
-        if(node.getLSbkt() != null)
+        if(node.getLCbkt() != null)
         {
-            node.getLSbkt().apply(this);
+            node.getLCbkt().apply(this);
         }
         if(node.getString() != null)
         {
@@ -687,9 +687,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseABasicPathCommand(ABasicPathCommand node)
     {
         inABasicPathCommand(node);
-        if(node.getRCbkt() != null)
+        if(node.getRSbkt() != null)
         {
-            node.getRCbkt().apply(this);
+            node.getRSbkt().apply(this);
         }
         {
             List<PCommandParameter> copy = new ArrayList<PCommandParameter>(node.getCommandParameter());
@@ -699,9 +699,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
                 e.apply(this);
             }
         }
-        if(node.getLCbkt() != null)
+        if(node.getLSbkt() != null)
         {
-            node.getLCbkt().apply(this);
+            node.getLSbkt().apply(this);
         }
         if(node.getCommand() != null)
         {
@@ -724,9 +724,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAOrderedPathCommand(AOrderedPathCommand node)
     {
         inAOrderedPathCommand(node);
-        if(node.getRSbkt() != null)
+        if(node.getRCbkt() != null)
         {
-            node.getRSbkt().apply(this);
+            node.getRCbkt().apply(this);
         }
         {
             List<PCommandParameter> copy = new ArrayList<PCommandParameter>(node.getCommandParameter());
@@ -736,9 +736,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
                 e.apply(this);
             }
         }
-        if(node.getLSbkt() != null)
+        if(node.getLCbkt() != null)
         {
-            node.getLSbkt().apply(this);
+            node.getLCbkt().apply(this);
         }
         if(node.getCommand() != null)
         {

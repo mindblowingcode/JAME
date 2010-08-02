@@ -9,9 +9,9 @@ import net.sf.jame.contextfree.cfdg.analysis.*;
 public final class AOrderedShapeReplacement extends PShapeReplacement
 {
     private TString _string_;
-    private TLSbkt _lSbkt_;
+    private TLCbkt _lCbkt_;
     private final LinkedList<PShapeAdjustment> _shapeAdjustment_ = new LinkedList<PShapeAdjustment>();
-    private TRSbkt _rSbkt_;
+    private TRCbkt _rCbkt_;
 
     public AOrderedShapeReplacement()
     {
@@ -20,18 +20,18 @@ public final class AOrderedShapeReplacement extends PShapeReplacement
 
     public AOrderedShapeReplacement(
         @SuppressWarnings("hiding") TString _string_,
-        @SuppressWarnings("hiding") TLSbkt _lSbkt_,
+        @SuppressWarnings("hiding") TLCbkt _lCbkt_,
         @SuppressWarnings("hiding") List<PShapeAdjustment> _shapeAdjustment_,
-        @SuppressWarnings("hiding") TRSbkt _rSbkt_)
+        @SuppressWarnings("hiding") TRCbkt _rCbkt_)
     {
         // Constructor
         setString(_string_);
 
-        setLSbkt(_lSbkt_);
+        setLCbkt(_lCbkt_);
 
         setShapeAdjustment(_shapeAdjustment_);
 
-        setRSbkt(_rSbkt_);
+        setRCbkt(_rCbkt_);
 
     }
 
@@ -40,9 +40,9 @@ public final class AOrderedShapeReplacement extends PShapeReplacement
     {
         return new AOrderedShapeReplacement(
             cloneNode(this._string_),
-            cloneNode(this._lSbkt_),
+            cloneNode(this._lCbkt_),
             cloneList(this._shapeAdjustment_),
-            cloneNode(this._rSbkt_));
+            cloneNode(this._rCbkt_));
     }
 
     public void apply(Switch sw)
@@ -75,16 +75,16 @@ public final class AOrderedShapeReplacement extends PShapeReplacement
         this._string_ = node;
     }
 
-    public TLSbkt getLSbkt()
+    public TLCbkt getLCbkt()
     {
-        return this._lSbkt_;
+        return this._lCbkt_;
     }
 
-    public void setLSbkt(TLSbkt node)
+    public void setLCbkt(TLCbkt node)
     {
-        if(this._lSbkt_ != null)
+        if(this._lCbkt_ != null)
         {
-            this._lSbkt_.parent(null);
+            this._lCbkt_.parent(null);
         }
 
         if(node != null)
@@ -97,7 +97,7 @@ public final class AOrderedShapeReplacement extends PShapeReplacement
             node.parent(this);
         }
 
-        this._lSbkt_ = node;
+        this._lCbkt_ = node;
     }
 
     public LinkedList<PShapeAdjustment> getShapeAdjustment()
@@ -120,16 +120,16 @@ public final class AOrderedShapeReplacement extends PShapeReplacement
         }
     }
 
-    public TRSbkt getRSbkt()
+    public TRCbkt getRCbkt()
     {
-        return this._rSbkt_;
+        return this._rCbkt_;
     }
 
-    public void setRSbkt(TRSbkt node)
+    public void setRCbkt(TRCbkt node)
     {
-        if(this._rSbkt_ != null)
+        if(this._rCbkt_ != null)
         {
-            this._rSbkt_.parent(null);
+            this._rCbkt_.parent(null);
         }
 
         if(node != null)
@@ -142,7 +142,7 @@ public final class AOrderedShapeReplacement extends PShapeReplacement
             node.parent(this);
         }
 
-        this._rSbkt_ = node;
+        this._rCbkt_ = node;
     }
 
     @Override
@@ -150,9 +150,9 @@ public final class AOrderedShapeReplacement extends PShapeReplacement
     {
         return ""
             + toString(this._string_)
-            + toString(this._lSbkt_)
+            + toString(this._lCbkt_)
             + toString(this._shapeAdjustment_)
-            + toString(this._rSbkt_);
+            + toString(this._rCbkt_);
     }
 
     @Override
@@ -165,9 +165,9 @@ public final class AOrderedShapeReplacement extends PShapeReplacement
             return;
         }
 
-        if(this._lSbkt_ == child)
+        if(this._lCbkt_ == child)
         {
-            this._lSbkt_ = null;
+            this._lCbkt_ = null;
             return;
         }
 
@@ -176,9 +176,9 @@ public final class AOrderedShapeReplacement extends PShapeReplacement
             return;
         }
 
-        if(this._rSbkt_ == child)
+        if(this._rCbkt_ == child)
         {
-            this._rSbkt_ = null;
+            this._rCbkt_ = null;
             return;
         }
 
@@ -195,9 +195,9 @@ public final class AOrderedShapeReplacement extends PShapeReplacement
             return;
         }
 
-        if(this._lSbkt_ == oldChild)
+        if(this._lCbkt_ == oldChild)
         {
-            setLSbkt((TLSbkt) newChild);
+            setLCbkt((TLCbkt) newChild);
             return;
         }
 
@@ -219,9 +219,9 @@ public final class AOrderedShapeReplacement extends PShapeReplacement
             }
         }
 
-        if(this._rSbkt_ == oldChild)
+        if(this._rCbkt_ == oldChild)
         {
-            setRSbkt((TRSbkt) newChild);
+            setRCbkt((TRCbkt) newChild);
             return;
         }
 

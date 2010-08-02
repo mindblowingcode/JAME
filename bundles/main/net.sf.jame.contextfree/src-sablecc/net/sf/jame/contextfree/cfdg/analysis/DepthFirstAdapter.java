@@ -413,9 +413,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getString().apply(this);
         }
-        if(node.getLCbkt() != null)
+        if(node.getLSbkt() != null)
         {
-            node.getLCbkt().apply(this);
+            node.getLSbkt().apply(this);
         }
         {
             List<PShapeAdjustment> copy = new ArrayList<PShapeAdjustment>(node.getShapeAdjustment());
@@ -424,9 +424,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
                 e.apply(this);
             }
         }
-        if(node.getRCbkt() != null)
+        if(node.getRSbkt() != null)
         {
-            node.getRCbkt().apply(this);
+            node.getRSbkt().apply(this);
         }
         outABasicShapeReplacement(node);
     }
@@ -449,9 +449,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getString().apply(this);
         }
-        if(node.getLSbkt() != null)
+        if(node.getLCbkt() != null)
         {
-            node.getLSbkt().apply(this);
+            node.getLCbkt().apply(this);
         }
         {
             List<PShapeAdjustment> copy = new ArrayList<PShapeAdjustment>(node.getShapeAdjustment());
@@ -460,9 +460,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
                 e.apply(this);
             }
         }
-        if(node.getRSbkt() != null)
+        if(node.getRCbkt() != null)
         {
-            node.getRSbkt().apply(this);
+            node.getRCbkt().apply(this);
         }
         outAOrderedShapeReplacement(node);
     }
@@ -679,9 +679,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getCommand().apply(this);
         }
-        if(node.getLCbkt() != null)
+        if(node.getLSbkt() != null)
         {
-            node.getLCbkt().apply(this);
+            node.getLSbkt().apply(this);
         }
         {
             List<PCommandParameter> copy = new ArrayList<PCommandParameter>(node.getCommandParameter());
@@ -690,9 +690,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
                 e.apply(this);
             }
         }
-        if(node.getRCbkt() != null)
+        if(node.getRSbkt() != null)
         {
-            node.getRCbkt().apply(this);
+            node.getRSbkt().apply(this);
         }
         outABasicPathCommand(node);
     }
@@ -715,9 +715,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getCommand().apply(this);
         }
-        if(node.getLSbkt() != null)
+        if(node.getLCbkt() != null)
         {
-            node.getLSbkt().apply(this);
+            node.getLCbkt().apply(this);
         }
         {
             List<PCommandParameter> copy = new ArrayList<PCommandParameter>(node.getCommandParameter());
@@ -726,9 +726,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
                 e.apply(this);
             }
         }
-        if(node.getRSbkt() != null)
+        if(node.getRCbkt() != null)
         {
-            node.getRSbkt().apply(this);
+            node.getRCbkt().apply(this);
         }
         outAOrderedPathCommand(node);
     }

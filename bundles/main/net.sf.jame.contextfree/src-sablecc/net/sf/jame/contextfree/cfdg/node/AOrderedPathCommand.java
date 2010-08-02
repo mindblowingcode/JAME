@@ -9,9 +9,9 @@ import net.sf.jame.contextfree.cfdg.analysis.*;
 public final class AOrderedPathCommand extends PPathCommand
 {
     private TCommand _command_;
-    private TLSbkt _lSbkt_;
+    private TLCbkt _lCbkt_;
     private final LinkedList<PCommandParameter> _commandParameter_ = new LinkedList<PCommandParameter>();
-    private TRSbkt _rSbkt_;
+    private TRCbkt _rCbkt_;
 
     public AOrderedPathCommand()
     {
@@ -20,18 +20,18 @@ public final class AOrderedPathCommand extends PPathCommand
 
     public AOrderedPathCommand(
         @SuppressWarnings("hiding") TCommand _command_,
-        @SuppressWarnings("hiding") TLSbkt _lSbkt_,
+        @SuppressWarnings("hiding") TLCbkt _lCbkt_,
         @SuppressWarnings("hiding") List<PCommandParameter> _commandParameter_,
-        @SuppressWarnings("hiding") TRSbkt _rSbkt_)
+        @SuppressWarnings("hiding") TRCbkt _rCbkt_)
     {
         // Constructor
         setCommand(_command_);
 
-        setLSbkt(_lSbkt_);
+        setLCbkt(_lCbkt_);
 
         setCommandParameter(_commandParameter_);
 
-        setRSbkt(_rSbkt_);
+        setRCbkt(_rCbkt_);
 
     }
 
@@ -40,9 +40,9 @@ public final class AOrderedPathCommand extends PPathCommand
     {
         return new AOrderedPathCommand(
             cloneNode(this._command_),
-            cloneNode(this._lSbkt_),
+            cloneNode(this._lCbkt_),
             cloneList(this._commandParameter_),
-            cloneNode(this._rSbkt_));
+            cloneNode(this._rCbkt_));
     }
 
     public void apply(Switch sw)
@@ -75,16 +75,16 @@ public final class AOrderedPathCommand extends PPathCommand
         this._command_ = node;
     }
 
-    public TLSbkt getLSbkt()
+    public TLCbkt getLCbkt()
     {
-        return this._lSbkt_;
+        return this._lCbkt_;
     }
 
-    public void setLSbkt(TLSbkt node)
+    public void setLCbkt(TLCbkt node)
     {
-        if(this._lSbkt_ != null)
+        if(this._lCbkt_ != null)
         {
-            this._lSbkt_.parent(null);
+            this._lCbkt_.parent(null);
         }
 
         if(node != null)
@@ -97,7 +97,7 @@ public final class AOrderedPathCommand extends PPathCommand
             node.parent(this);
         }
 
-        this._lSbkt_ = node;
+        this._lCbkt_ = node;
     }
 
     public LinkedList<PCommandParameter> getCommandParameter()
@@ -120,16 +120,16 @@ public final class AOrderedPathCommand extends PPathCommand
         }
     }
 
-    public TRSbkt getRSbkt()
+    public TRCbkt getRCbkt()
     {
-        return this._rSbkt_;
+        return this._rCbkt_;
     }
 
-    public void setRSbkt(TRSbkt node)
+    public void setRCbkt(TRCbkt node)
     {
-        if(this._rSbkt_ != null)
+        if(this._rCbkt_ != null)
         {
-            this._rSbkt_.parent(null);
+            this._rCbkt_.parent(null);
         }
 
         if(node != null)
@@ -142,7 +142,7 @@ public final class AOrderedPathCommand extends PPathCommand
             node.parent(this);
         }
 
-        this._rSbkt_ = node;
+        this._rCbkt_ = node;
     }
 
     @Override
@@ -150,9 +150,9 @@ public final class AOrderedPathCommand extends PPathCommand
     {
         return ""
             + toString(this._command_)
-            + toString(this._lSbkt_)
+            + toString(this._lCbkt_)
             + toString(this._commandParameter_)
-            + toString(this._rSbkt_);
+            + toString(this._rCbkt_);
     }
 
     @Override
@@ -165,9 +165,9 @@ public final class AOrderedPathCommand extends PPathCommand
             return;
         }
 
-        if(this._lSbkt_ == child)
+        if(this._lCbkt_ == child)
         {
-            this._lSbkt_ = null;
+            this._lCbkt_ = null;
             return;
         }
 
@@ -176,9 +176,9 @@ public final class AOrderedPathCommand extends PPathCommand
             return;
         }
 
-        if(this._rSbkt_ == child)
+        if(this._rCbkt_ == child)
         {
-            this._rSbkt_ = null;
+            this._rCbkt_ = null;
             return;
         }
 
@@ -195,9 +195,9 @@ public final class AOrderedPathCommand extends PPathCommand
             return;
         }
 
-        if(this._lSbkt_ == oldChild)
+        if(this._lCbkt_ == oldChild)
         {
-            setLSbkt((TLSbkt) newChild);
+            setLCbkt((TLCbkt) newChild);
             return;
         }
 
@@ -219,9 +219,9 @@ public final class AOrderedPathCommand extends PPathCommand
             }
         }
 
-        if(this._rSbkt_ == oldChild)
+        if(this._rCbkt_ == oldChild)
         {
-            setRSbkt((TRSbkt) newChild);
+            setRCbkt((TRCbkt) newChild);
             return;
         }
 

@@ -34,8 +34,8 @@ import java.awt.geom.PathIterator;
 
 public class ContextFreeState implements Cloneable {
 	private AffineTransform at = new AffineTransform();
-	private float[] currentHSBA = new float[] { 1, 0, 0, 1 };
-	private float[] targetHSBA = new float[] { 1, 0, 0, 1 };
+	private float[] currentHSBA = new float[] { 0, 1, 0, 1 };
+	private float[] targetHSBA = new float[] { 0, 1, 0, 1 };
 	private ExtendedGeneralPath path;
 	private boolean toFill = true;
 	private float x1 = 0;
@@ -77,6 +77,8 @@ public class ContextFreeState implements Cloneable {
 		} else {
 			currentHSBA[0] += value;
 		}
+		if (currentHSBA[0] < 0) currentHSBA[0] = 0;
+		if (currentHSBA[0] > 1) currentHSBA[0] = 1;
 	}
 	
 	public void addSaturation(float value, boolean target) {
@@ -85,6 +87,8 @@ public class ContextFreeState implements Cloneable {
 		} else {
 			currentHSBA[1] += value;
 		}
+		if (currentHSBA[1] < 0) currentHSBA[1] = 0;
+		if (currentHSBA[1] > 1) currentHSBA[1] = 1;
 	}
 
 	public void addBrightness(float value, boolean target) {
@@ -93,6 +97,8 @@ public class ContextFreeState implements Cloneable {
 		} else {
 			currentHSBA[2] += value;
 		}
+		if (currentHSBA[2] < 0) currentHSBA[2] = 0;
+		if (currentHSBA[2] > 1) currentHSBA[2] = 1;
 	}
 
 	public void addAlpha(float value, boolean target) {
@@ -101,22 +107,32 @@ public class ContextFreeState implements Cloneable {
 		} else {
 			currentHSBA[3] += value;
 		}
+		if (currentHSBA[3] < 0) currentHSBA[3] = 0;
+		if (currentHSBA[3] > 1) currentHSBA[3] = 1;
 	}
 
 	public void addTargetHue(float value) {
 		targetHSBA[0] += value;
+		if (targetHSBA[0] < 0) targetHSBA[0] = 0;
+		if (targetHSBA[0] > 1) targetHSBA[0] = 1;
 	}
 	
 	public void addTargetSaturation(float value) {
 		targetHSBA[1] += value;
+		if (targetHSBA[1] < 0) targetHSBA[1] = 0;
+		if (targetHSBA[1] > 1) targetHSBA[1] = 1;
 	}
 
 	public void addTargetBrightness(float value) {
 		targetHSBA[2] += value;
+		if (targetHSBA[2] < 0) targetHSBA[2] = 0;
+		if (targetHSBA[2] > 1) targetHSBA[2] = 1;
 	}
 
 	public void addTargetAlpha(float value) {
 		targetHSBA[3] += value;
+		if (targetHSBA[3] < 0) targetHSBA[3] = 0;
+		if (targetHSBA[3] > 1) targetHSBA[3] = 1;
 	}
 	
 	public float[] getHSBA() {
