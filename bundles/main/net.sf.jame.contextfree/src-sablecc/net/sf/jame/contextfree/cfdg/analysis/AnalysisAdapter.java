@@ -74,12 +74,37 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseARuleFigureDeclaration(ARuleFigureDeclaration node)
+    public void caseAStartshapeCfdgDeclaration(AStartshapeCfdgDeclaration node)
     {
         defaultCase(node);
     }
 
-    public void caseAPathFigureDeclaration(APathFigureDeclaration node)
+    public void caseAIncludeCfdgDeclaration(AIncludeCfdgDeclaration node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseABackgroundCfdgDeclaration(ABackgroundCfdgDeclaration node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseATileCfdgDeclaration(ATileCfdgDeclaration node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseASizeCfdgDeclaration(ASizeCfdgDeclaration node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseARuleCfdgDeclaration(ARuleCfdgDeclaration node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAPathCfdgDeclaration(APathCfdgDeclaration node)
     {
         defaultCase(node);
     }

@@ -5,45 +5,45 @@ package net.sf.jame.contextfree.cfdg.node;
 import net.sf.jame.contextfree.cfdg.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ARuleFigureDeclaration extends PFigureDeclaration
+public final class ASizeCfdgDeclaration extends PCfdgDeclaration
 {
-    private PRuleDeclaration _ruleDeclaration_;
+    private PSizeDeclaration _sizeDeclaration_;
 
-    public ARuleFigureDeclaration()
+    public ASizeCfdgDeclaration()
     {
         // Constructor
     }
 
-    public ARuleFigureDeclaration(
-        @SuppressWarnings("hiding") PRuleDeclaration _ruleDeclaration_)
+    public ASizeCfdgDeclaration(
+        @SuppressWarnings("hiding") PSizeDeclaration _sizeDeclaration_)
     {
         // Constructor
-        setRuleDeclaration(_ruleDeclaration_);
+        setSizeDeclaration(_sizeDeclaration_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ARuleFigureDeclaration(
-            cloneNode(this._ruleDeclaration_));
+        return new ASizeCfdgDeclaration(
+            cloneNode(this._sizeDeclaration_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseARuleFigureDeclaration(this);
+        ((Analysis) sw).caseASizeCfdgDeclaration(this);
     }
 
-    public PRuleDeclaration getRuleDeclaration()
+    public PSizeDeclaration getSizeDeclaration()
     {
-        return this._ruleDeclaration_;
+        return this._sizeDeclaration_;
     }
 
-    public void setRuleDeclaration(PRuleDeclaration node)
+    public void setSizeDeclaration(PSizeDeclaration node)
     {
-        if(this._ruleDeclaration_ != null)
+        if(this._sizeDeclaration_ != null)
         {
-            this._ruleDeclaration_.parent(null);
+            this._sizeDeclaration_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ARuleFigureDeclaration extends PFigureDeclaration
             node.parent(this);
         }
 
-        this._ruleDeclaration_ = node;
+        this._sizeDeclaration_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._ruleDeclaration_);
+            + toString(this._sizeDeclaration_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._ruleDeclaration_ == child)
+        if(this._sizeDeclaration_ == child)
         {
-            this._ruleDeclaration_ = null;
+            this._sizeDeclaration_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ARuleFigureDeclaration extends PFigureDeclaration
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._ruleDeclaration_ == oldChild)
+        if(this._sizeDeclaration_ == oldChild)
         {
-            setRuleDeclaration((PRuleDeclaration) newChild);
+            setSizeDeclaration((PSizeDeclaration) newChild);
             return;
         }
 
