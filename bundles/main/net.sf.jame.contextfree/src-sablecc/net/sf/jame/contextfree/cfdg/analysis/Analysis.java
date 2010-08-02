@@ -13,8 +13,13 @@ public interface Analysis extends Switch
 
     void caseStart(Start node);
     void caseACfdg(ACfdg node);
-    void caseARuleFigureDeclaration(ARuleFigureDeclaration node);
-    void caseAPathFigureDeclaration(APathFigureDeclaration node);
+    void caseAStartshapeCfdgDeclaration(AStartshapeCfdgDeclaration node);
+    void caseAIncludeCfdgDeclaration(AIncludeCfdgDeclaration node);
+    void caseABackgroundCfdgDeclaration(ABackgroundCfdgDeclaration node);
+    void caseATileCfdgDeclaration(ATileCfdgDeclaration node);
+    void caseASizeCfdgDeclaration(ASizeCfdgDeclaration node);
+    void caseARuleCfdgDeclaration(ARuleCfdgDeclaration node);
+    void caseAPathCfdgDeclaration(APathCfdgDeclaration node);
     void caseAStartshapeDeclaration(AStartshapeDeclaration node);
     void caseAIncludeDeclaration(AIncludeDeclaration node);
     void caseABackgroundDeclaration(ABackgroundDeclaration node);

@@ -8,12 +8,7 @@ import net.sf.jame.contextfree.cfdg.analysis.*;
 @SuppressWarnings("nls")
 public final class ACfdg extends PCfdg
 {
-    private final LinkedList<PStartshapeDeclaration> _startshapeDeclaration_ = new LinkedList<PStartshapeDeclaration>();
-    private final LinkedList<PIncludeDeclaration> _includeDeclaration_ = new LinkedList<PIncludeDeclaration>();
-    private PBackgroundDeclaration _backgroundDeclaration_;
-    private PTileDeclaration _tileDeclaration_;
-    private PSizeDeclaration _sizeDeclaration_;
-    private final LinkedList<PFigureDeclaration> _figureDeclaration_ = new LinkedList<PFigureDeclaration>();
+    private final LinkedList<PCfdgDeclaration> _cfdgDeclaration_ = new LinkedList<PCfdgDeclaration>();
 
     public ACfdg()
     {
@@ -21,25 +16,10 @@ public final class ACfdg extends PCfdg
     }
 
     public ACfdg(
-        @SuppressWarnings("hiding") List<PStartshapeDeclaration> _startshapeDeclaration_,
-        @SuppressWarnings("hiding") List<PIncludeDeclaration> _includeDeclaration_,
-        @SuppressWarnings("hiding") PBackgroundDeclaration _backgroundDeclaration_,
-        @SuppressWarnings("hiding") PTileDeclaration _tileDeclaration_,
-        @SuppressWarnings("hiding") PSizeDeclaration _sizeDeclaration_,
-        @SuppressWarnings("hiding") List<PFigureDeclaration> _figureDeclaration_)
+        @SuppressWarnings("hiding") List<PCfdgDeclaration> _cfdgDeclaration_)
     {
         // Constructor
-        setStartshapeDeclaration(_startshapeDeclaration_);
-
-        setIncludeDeclaration(_includeDeclaration_);
-
-        setBackgroundDeclaration(_backgroundDeclaration_);
-
-        setTileDeclaration(_tileDeclaration_);
-
-        setSizeDeclaration(_sizeDeclaration_);
-
-        setFigureDeclaration(_figureDeclaration_);
+        setCfdgDeclaration(_cfdgDeclaration_);
 
     }
 
@@ -47,12 +27,7 @@ public final class ACfdg extends PCfdg
     public Object clone()
     {
         return new ACfdg(
-            cloneList(this._startshapeDeclaration_),
-            cloneList(this._includeDeclaration_),
-            cloneNode(this._backgroundDeclaration_),
-            cloneNode(this._tileDeclaration_),
-            cloneNode(this._sizeDeclaration_),
-            cloneList(this._figureDeclaration_));
+            cloneList(this._cfdgDeclaration_));
     }
 
     public void apply(Switch sw)
@@ -60,131 +35,16 @@ public final class ACfdg extends PCfdg
         ((Analysis) sw).caseACfdg(this);
     }
 
-    public LinkedList<PStartshapeDeclaration> getStartshapeDeclaration()
+    public LinkedList<PCfdgDeclaration> getCfdgDeclaration()
     {
-        return this._startshapeDeclaration_;
+        return this._cfdgDeclaration_;
     }
 
-    public void setStartshapeDeclaration(List<PStartshapeDeclaration> list)
+    public void setCfdgDeclaration(List<PCfdgDeclaration> list)
     {
-        this._startshapeDeclaration_.clear();
-        this._startshapeDeclaration_.addAll(list);
-        for(PStartshapeDeclaration e : list)
-        {
-            if(e.parent() != null)
-            {
-                e.parent().removeChild(e);
-            }
-
-            e.parent(this);
-        }
-    }
-
-    public LinkedList<PIncludeDeclaration> getIncludeDeclaration()
-    {
-        return this._includeDeclaration_;
-    }
-
-    public void setIncludeDeclaration(List<PIncludeDeclaration> list)
-    {
-        this._includeDeclaration_.clear();
-        this._includeDeclaration_.addAll(list);
-        for(PIncludeDeclaration e : list)
-        {
-            if(e.parent() != null)
-            {
-                e.parent().removeChild(e);
-            }
-
-            e.parent(this);
-        }
-    }
-
-    public PBackgroundDeclaration getBackgroundDeclaration()
-    {
-        return this._backgroundDeclaration_;
-    }
-
-    public void setBackgroundDeclaration(PBackgroundDeclaration node)
-    {
-        if(this._backgroundDeclaration_ != null)
-        {
-            this._backgroundDeclaration_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._backgroundDeclaration_ = node;
-    }
-
-    public PTileDeclaration getTileDeclaration()
-    {
-        return this._tileDeclaration_;
-    }
-
-    public void setTileDeclaration(PTileDeclaration node)
-    {
-        if(this._tileDeclaration_ != null)
-        {
-            this._tileDeclaration_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._tileDeclaration_ = node;
-    }
-
-    public PSizeDeclaration getSizeDeclaration()
-    {
-        return this._sizeDeclaration_;
-    }
-
-    public void setSizeDeclaration(PSizeDeclaration node)
-    {
-        if(this._sizeDeclaration_ != null)
-        {
-            this._sizeDeclaration_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._sizeDeclaration_ = node;
-    }
-
-    public LinkedList<PFigureDeclaration> getFigureDeclaration()
-    {
-        return this._figureDeclaration_;
-    }
-
-    public void setFigureDeclaration(List<PFigureDeclaration> list)
-    {
-        this._figureDeclaration_.clear();
-        this._figureDeclaration_.addAll(list);
-        for(PFigureDeclaration e : list)
+        this._cfdgDeclaration_.clear();
+        this._cfdgDeclaration_.addAll(list);
+        for(PCfdgDeclaration e : list)
         {
             if(e.parent() != null)
             {
@@ -199,47 +59,14 @@ public final class ACfdg extends PCfdg
     public String toString()
     {
         return ""
-            + toString(this._startshapeDeclaration_)
-            + toString(this._includeDeclaration_)
-            + toString(this._backgroundDeclaration_)
-            + toString(this._tileDeclaration_)
-            + toString(this._sizeDeclaration_)
-            + toString(this._figureDeclaration_);
+            + toString(this._cfdgDeclaration_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._startshapeDeclaration_.remove(child))
-        {
-            return;
-        }
-
-        if(this._includeDeclaration_.remove(child))
-        {
-            return;
-        }
-
-        if(this._backgroundDeclaration_ == child)
-        {
-            this._backgroundDeclaration_ = null;
-            return;
-        }
-
-        if(this._tileDeclaration_ == child)
-        {
-            this._tileDeclaration_ = null;
-            return;
-        }
-
-        if(this._sizeDeclaration_ == child)
-        {
-            this._sizeDeclaration_ = null;
-            return;
-        }
-
-        if(this._figureDeclaration_.remove(child))
+        if(this._cfdgDeclaration_.remove(child))
         {
             return;
         }
@@ -251,67 +78,13 @@ public final class ACfdg extends PCfdg
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        for(ListIterator<PStartshapeDeclaration> i = this._startshapeDeclaration_.listIterator(); i.hasNext();)
+        for(ListIterator<PCfdgDeclaration> i = this._cfdgDeclaration_.listIterator(); i.hasNext();)
         {
             if(i.next() == oldChild)
             {
                 if(newChild != null)
                 {
-                    i.set((PStartshapeDeclaration) newChild);
-                    newChild.parent(this);
-                    oldChild.parent(null);
-                    return;
-                }
-
-                i.remove();
-                oldChild.parent(null);
-                return;
-            }
-        }
-
-        for(ListIterator<PIncludeDeclaration> i = this._includeDeclaration_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
-                    i.set((PIncludeDeclaration) newChild);
-                    newChild.parent(this);
-                    oldChild.parent(null);
-                    return;
-                }
-
-                i.remove();
-                oldChild.parent(null);
-                return;
-            }
-        }
-
-        if(this._backgroundDeclaration_ == oldChild)
-        {
-            setBackgroundDeclaration((PBackgroundDeclaration) newChild);
-            return;
-        }
-
-        if(this._tileDeclaration_ == oldChild)
-        {
-            setTileDeclaration((PTileDeclaration) newChild);
-            return;
-        }
-
-        if(this._sizeDeclaration_ == oldChild)
-        {
-            setSizeDeclaration((PSizeDeclaration) newChild);
-            return;
-        }
-
-        for(ListIterator<PFigureDeclaration> i = this._figureDeclaration_.listIterator(); i.hasNext();)
-        {
-            if(i.next() == oldChild)
-            {
-                if(newChild != null)
-                {
-                    i.set((PFigureDeclaration) newChild);
+                    i.set((PCfdgDeclaration) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
                     return;

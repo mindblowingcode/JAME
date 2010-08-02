@@ -51,34 +51,8 @@ public class DepthFirstAdapter extends AnalysisAdapter
     {
         inACfdg(node);
         {
-            List<PStartshapeDeclaration> copy = new ArrayList<PStartshapeDeclaration>(node.getStartshapeDeclaration());
-            for(PStartshapeDeclaration e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        {
-            List<PIncludeDeclaration> copy = new ArrayList<PIncludeDeclaration>(node.getIncludeDeclaration());
-            for(PIncludeDeclaration e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        if(node.getBackgroundDeclaration() != null)
-        {
-            node.getBackgroundDeclaration().apply(this);
-        }
-        if(node.getTileDeclaration() != null)
-        {
-            node.getTileDeclaration().apply(this);
-        }
-        if(node.getSizeDeclaration() != null)
-        {
-            node.getSizeDeclaration().apply(this);
-        }
-        {
-            List<PFigureDeclaration> copy = new ArrayList<PFigureDeclaration>(node.getFigureDeclaration());
-            for(PFigureDeclaration e : copy)
+            List<PCfdgDeclaration> copy = new ArrayList<PCfdgDeclaration>(node.getCfdgDeclaration());
+            for(PCfdgDeclaration e : copy)
             {
                 e.apply(this);
             }
@@ -86,46 +60,151 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outACfdg(node);
     }
 
-    public void inARuleFigureDeclaration(ARuleFigureDeclaration node)
+    public void inAStartshapeCfdgDeclaration(AStartshapeCfdgDeclaration node)
     {
         defaultIn(node);
     }
 
-    public void outARuleFigureDeclaration(ARuleFigureDeclaration node)
+    public void outAStartshapeCfdgDeclaration(AStartshapeCfdgDeclaration node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseARuleFigureDeclaration(ARuleFigureDeclaration node)
+    public void caseAStartshapeCfdgDeclaration(AStartshapeCfdgDeclaration node)
     {
-        inARuleFigureDeclaration(node);
+        inAStartshapeCfdgDeclaration(node);
+        if(node.getStartshapeDeclaration() != null)
+        {
+            node.getStartshapeDeclaration().apply(this);
+        }
+        outAStartshapeCfdgDeclaration(node);
+    }
+
+    public void inAIncludeCfdgDeclaration(AIncludeCfdgDeclaration node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAIncludeCfdgDeclaration(AIncludeCfdgDeclaration node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAIncludeCfdgDeclaration(AIncludeCfdgDeclaration node)
+    {
+        inAIncludeCfdgDeclaration(node);
+        if(node.getIncludeDeclaration() != null)
+        {
+            node.getIncludeDeclaration().apply(this);
+        }
+        outAIncludeCfdgDeclaration(node);
+    }
+
+    public void inABackgroundCfdgDeclaration(ABackgroundCfdgDeclaration node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABackgroundCfdgDeclaration(ABackgroundCfdgDeclaration node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABackgroundCfdgDeclaration(ABackgroundCfdgDeclaration node)
+    {
+        inABackgroundCfdgDeclaration(node);
+        if(node.getBackgroundDeclaration() != null)
+        {
+            node.getBackgroundDeclaration().apply(this);
+        }
+        outABackgroundCfdgDeclaration(node);
+    }
+
+    public void inATileCfdgDeclaration(ATileCfdgDeclaration node)
+    {
+        defaultIn(node);
+    }
+
+    public void outATileCfdgDeclaration(ATileCfdgDeclaration node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseATileCfdgDeclaration(ATileCfdgDeclaration node)
+    {
+        inATileCfdgDeclaration(node);
+        if(node.getTileDeclaration() != null)
+        {
+            node.getTileDeclaration().apply(this);
+        }
+        outATileCfdgDeclaration(node);
+    }
+
+    public void inASizeCfdgDeclaration(ASizeCfdgDeclaration node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASizeCfdgDeclaration(ASizeCfdgDeclaration node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASizeCfdgDeclaration(ASizeCfdgDeclaration node)
+    {
+        inASizeCfdgDeclaration(node);
+        if(node.getSizeDeclaration() != null)
+        {
+            node.getSizeDeclaration().apply(this);
+        }
+        outASizeCfdgDeclaration(node);
+    }
+
+    public void inARuleCfdgDeclaration(ARuleCfdgDeclaration node)
+    {
+        defaultIn(node);
+    }
+
+    public void outARuleCfdgDeclaration(ARuleCfdgDeclaration node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseARuleCfdgDeclaration(ARuleCfdgDeclaration node)
+    {
+        inARuleCfdgDeclaration(node);
         if(node.getRuleDeclaration() != null)
         {
             node.getRuleDeclaration().apply(this);
         }
-        outARuleFigureDeclaration(node);
+        outARuleCfdgDeclaration(node);
     }
 
-    public void inAPathFigureDeclaration(APathFigureDeclaration node)
+    public void inAPathCfdgDeclaration(APathCfdgDeclaration node)
     {
         defaultIn(node);
     }
 
-    public void outAPathFigureDeclaration(APathFigureDeclaration node)
+    public void outAPathCfdgDeclaration(APathCfdgDeclaration node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAPathFigureDeclaration(APathFigureDeclaration node)
+    public void caseAPathCfdgDeclaration(APathCfdgDeclaration node)
     {
-        inAPathFigureDeclaration(node);
+        inAPathCfdgDeclaration(node);
         if(node.getPathDeclaration() != null)
         {
             node.getPathDeclaration().apply(this);
         }
-        outAPathFigureDeclaration(node);
+        outAPathCfdgDeclaration(node);
     }
 
     public void inAStartshapeDeclaration(AStartshapeDeclaration node)

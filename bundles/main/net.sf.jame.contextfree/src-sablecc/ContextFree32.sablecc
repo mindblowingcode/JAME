@@ -92,13 +92,6 @@ Helpers
 	rational = digit+ '.' digit* | '.' digit+;
 
 
-States
-	
-	normal,
-	path,
-	rule;
-	
-	
 Tokens
 
   	bar = '|';
@@ -176,21 +169,21 @@ Ignored Tokens
        
 Productions
   	
-    cfdg = startshape_declaration+ include_declaration* background_declaration? tile_declaration? size_declaration? figure_declaration+;
+    cfdg = cfdg_declaration+;
   
-    figure_declaration = {rule} rule_declaration | {path} path_declaration;
+    cfdg_declaration = {startshape} startshape_declaration | {include} include_declaration | {background} background_declaration | {tile} tile_declaration | {size} size_declaration | {rule} rule_declaration | {path} path_declaration;
 
     startshape_declaration = startshape string;
   		
    	include_declaration = include filename;
   		
-   	background_declaration = background l_cbkt background_adjustment+ r_cbkt;
+   	background_declaration = background l_cbkt background_adjustment* r_cbkt;
   		
-   	tile_declaration = tile l_cbkt tile_adjustment+ r_cbkt;
+   	tile_declaration = tile l_cbkt tile_adjustment* r_cbkt;
   		
-   	size_declaration = size_token l_cbkt size_adjustment+ r_cbkt;
+   	size_declaration = size_token l_cbkt size_adjustment* r_cbkt;
   		
-	rule_declaration = rule string number? l_cbkt shape_replacement_declaration+ r_cbkt;
+	rule_declaration = rule string number? l_cbkt shape_replacement_declaration* r_cbkt;
 
     shape_replacement_declaration = {multi} number star l_cbkt shape_adjustment+ r_cbkt shape_replacement_block | {single} shape_replacement;
 		

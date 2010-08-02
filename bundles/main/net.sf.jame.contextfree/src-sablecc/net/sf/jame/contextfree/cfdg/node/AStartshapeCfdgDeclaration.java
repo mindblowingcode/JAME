@@ -5,45 +5,45 @@ package net.sf.jame.contextfree.cfdg.node;
 import net.sf.jame.contextfree.cfdg.analysis.*;
 
 @SuppressWarnings("nls")
-public final class APathFigureDeclaration extends PFigureDeclaration
+public final class AStartshapeCfdgDeclaration extends PCfdgDeclaration
 {
-    private PPathDeclaration _pathDeclaration_;
+    private PStartshapeDeclaration _startshapeDeclaration_;
 
-    public APathFigureDeclaration()
+    public AStartshapeCfdgDeclaration()
     {
         // Constructor
     }
 
-    public APathFigureDeclaration(
-        @SuppressWarnings("hiding") PPathDeclaration _pathDeclaration_)
+    public AStartshapeCfdgDeclaration(
+        @SuppressWarnings("hiding") PStartshapeDeclaration _startshapeDeclaration_)
     {
         // Constructor
-        setPathDeclaration(_pathDeclaration_);
+        setStartshapeDeclaration(_startshapeDeclaration_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new APathFigureDeclaration(
-            cloneNode(this._pathDeclaration_));
+        return new AStartshapeCfdgDeclaration(
+            cloneNode(this._startshapeDeclaration_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAPathFigureDeclaration(this);
+        ((Analysis) sw).caseAStartshapeCfdgDeclaration(this);
     }
 
-    public PPathDeclaration getPathDeclaration()
+    public PStartshapeDeclaration getStartshapeDeclaration()
     {
-        return this._pathDeclaration_;
+        return this._startshapeDeclaration_;
     }
 
-    public void setPathDeclaration(PPathDeclaration node)
+    public void setStartshapeDeclaration(PStartshapeDeclaration node)
     {
-        if(this._pathDeclaration_ != null)
+        if(this._startshapeDeclaration_ != null)
         {
-            this._pathDeclaration_.parent(null);
+            this._startshapeDeclaration_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class APathFigureDeclaration extends PFigureDeclaration
             node.parent(this);
         }
 
-        this._pathDeclaration_ = node;
+        this._startshapeDeclaration_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._pathDeclaration_);
+            + toString(this._startshapeDeclaration_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._pathDeclaration_ == child)
+        if(this._startshapeDeclaration_ == child)
         {
-            this._pathDeclaration_ = null;
+            this._startshapeDeclaration_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class APathFigureDeclaration extends PFigureDeclaration
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._pathDeclaration_ == oldChild)
+        if(this._startshapeDeclaration_ == oldChild)
         {
-            setPathDeclaration((PPathDeclaration) newChild);
+            setStartshapeDeclaration((PStartshapeDeclaration) newChild);
             return;
         }
 
