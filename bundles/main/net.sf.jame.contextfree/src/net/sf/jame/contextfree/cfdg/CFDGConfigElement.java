@@ -29,7 +29,7 @@ public class CFDGConfigElement extends AbstractConfigElement {
 	private final FloatElement heightElement = new FloatElement(0f);
 	private final FloatElement tileWidthElement = new FloatElement(0f);
 	private final FloatElement tileHeightElement = new FloatElement(0f);
-	private final ColorElement backgroundElement = new ColorElement(new Color32bit(0xFF000000));
+	private final ColorElement backgroundElement = new ColorElement(new Color32bit(0xFFFFFFFF));
 	private final ListConfigElement<FigureConfigElement> figureListElement = new ListConfigElement<FigureConfigElement>("figureListElement");
 
 	/**

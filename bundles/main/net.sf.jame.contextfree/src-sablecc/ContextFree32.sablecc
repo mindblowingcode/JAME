@@ -194,7 +194,7 @@ Productions
 
     shape_replacement_declaration = {multi} number star l_cbkt shape_adjustment+ r_cbkt shape_replacement_block | {single} shape_replacement;
 		
-    shape_replacement = {basic} string l_cbkt shape_adjustment* r_cbkt | {ordered} string l_sbkt shape_adjustment* r_sbkt;
+    shape_replacement = {basic} string l_sbkt shape_adjustment* r_sbkt | {ordered} string l_cbkt shape_adjustment* r_cbkt;
 		
 	shape_replacement_block = {basic} shape_replacement | {list} l_cbkt shape_replacement_declaration+ r_cbkt;
 	
@@ -202,7 +202,7 @@ Productions
 		
   	path_operation = operation l_cbkt operation_parameter* r_cbkt; 
   	
-  	path_command = {basic} command l_cbkt command_parameter* r_cbkt | {ordered} command l_sbkt command_parameter* r_sbkt; 
+  	path_command = {basic} command l_sbkt command_parameter* r_sbkt | {ordered} command l_cbkt command_parameter* r_cbkt; 
 
 	path_declaration = path string l_cbkt path_replacement_declaration* r_cbkt;
 

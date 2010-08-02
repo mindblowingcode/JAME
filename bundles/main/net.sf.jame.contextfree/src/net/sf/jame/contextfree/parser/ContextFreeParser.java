@@ -936,7 +936,7 @@ public class ContextFreeParser {
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AHueCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
 			CurrentHuePathAdjustmentConfig config = new CurrentHuePathAdjustmentConfig();
-			config.setValue(evaluateExpression(colorAdjustment.getExpression()));
+			config.setValue(evaluateExpression(colorAdjustment.getExpression()) / 360);
 			config.setTarget(colorAdjustment.getBar() != null);
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.color.currentHue");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
@@ -945,7 +945,7 @@ public class ContextFreeParser {
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AHueTargetColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
 			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig();
-			config.setValue(evaluateExpression(colorAdjustment.getExpression()));
+			config.setValue(evaluateExpression(colorAdjustment.getExpression()) / 360);
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.color.targetHue");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1702,7 +1702,7 @@ public class ContextFreeParser {
 
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AHueCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
 			CurrentHueShapeAdjustmentConfig config = new CurrentHueShapeAdjustmentConfig();
-			config.setValue(evaluateExpression(colorAdjustment.getExpression()));
+			config.setValue(evaluateExpression(colorAdjustment.getExpression()) / 360);
 			config.setTarget(colorAdjustment.getBar() != null);
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.currentHue");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
@@ -1711,7 +1711,7 @@ public class ContextFreeParser {
 
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AHueTargetColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
 			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig();
-			config.setValue(evaluateExpression(colorAdjustment.getExpression()));
+			config.setValue(evaluateExpression(colorAdjustment.getExpression()) / 360);
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.targetHue");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -2003,7 +2003,7 @@ public class ContextFreeParser {
 							}
 							return 0;
 						}
-						return cap1 - cap2; 
+						return cap2 - cap1; 
 					} else if (o1 instanceof AGeometryShapeAdjustment) {
 						PGeometryAdjustment ga1 = ((AGeometryShapeAdjustment) o1).getGeometryAdjustment();
 						PGeometryAdjustment ga2 = ((AGeometryShapeAdjustment) o2).getGeometryAdjustment();

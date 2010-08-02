@@ -2254,73 +2254,6 @@ public class Parser
         {
             // Block
         TString tstringNode2;
-        TLCbkt tlcbktNode3;
-        LinkedList listNode4 = new LinkedList();
-        TRCbkt trcbktNode5;
-        tstringNode2 = (TString)nodeArrayList1.get(0);
-        tlcbktNode3 = (TLCbkt)nodeArrayList2.get(0);
-        {
-            // Block
-        }
-        trcbktNode5 = (TRCbkt)nodeArrayList3.get(0);
-
-        pshapereplacementNode1 = new ABasicShapeReplacement(tstringNode2, tlcbktNode3, listNode4, trcbktNode5);
-        }
-	nodeList.add(pshapereplacementNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new28() /* reduce AAbasicshapereplacement2ShapeReplacement */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PShapeReplacement pshapereplacementNode1;
-        {
-            // Block
-        TString tstringNode2;
-        TLCbkt tlcbktNode3;
-        LinkedList listNode5 = new LinkedList();
-        TRCbkt trcbktNode6;
-        tstringNode2 = (TString)nodeArrayList1.get(0);
-        tlcbktNode3 = (TLCbkt)nodeArrayList2.get(0);
-        {
-            // Block
-        LinkedList listNode4 = new LinkedList();
-        listNode4 = (LinkedList)nodeArrayList3.get(0);
-	if(listNode4 != null)
-	{
-	  listNode5.addAll(listNode4);
-	}
-        }
-        trcbktNode6 = (TRCbkt)nodeArrayList4.get(0);
-
-        pshapereplacementNode1 = new ABasicShapeReplacement(tstringNode2, tlcbktNode3, listNode5, trcbktNode6);
-        }
-	nodeList.add(pshapereplacementNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new29() /* reduce AAorderedshapereplacement1ShapeReplacement */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PShapeReplacement pshapereplacementNode1;
-        {
-            // Block
-        TString tstringNode2;
         TLSbkt tlsbktNode3;
         LinkedList listNode4 = new LinkedList();
         TRSbkt trsbktNode5;
@@ -2331,7 +2264,7 @@ public class Parser
         }
         trsbktNode5 = (TRSbkt)nodeArrayList3.get(0);
 
-        pshapereplacementNode1 = new AOrderedShapeReplacement(tstringNode2, tlsbktNode3, listNode4, trsbktNode5);
+        pshapereplacementNode1 = new ABasicShapeReplacement(tstringNode2, tlsbktNode3, listNode4, trsbktNode5);
         }
 	nodeList.add(pshapereplacementNode1);
         return nodeList;
@@ -2340,7 +2273,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new30() /* reduce AAorderedshapereplacement2ShapeReplacement */
+    ArrayList new28() /* reduce AAbasicshapereplacement2ShapeReplacement */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -2368,7 +2301,74 @@ public class Parser
         }
         trsbktNode6 = (TRSbkt)nodeArrayList4.get(0);
 
-        pshapereplacementNode1 = new AOrderedShapeReplacement(tstringNode2, tlsbktNode3, listNode5, trsbktNode6);
+        pshapereplacementNode1 = new ABasicShapeReplacement(tstringNode2, tlsbktNode3, listNode5, trsbktNode6);
+        }
+	nodeList.add(pshapereplacementNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new29() /* reduce AAorderedshapereplacement1ShapeReplacement */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PShapeReplacement pshapereplacementNode1;
+        {
+            // Block
+        TString tstringNode2;
+        TLCbkt tlcbktNode3;
+        LinkedList listNode4 = new LinkedList();
+        TRCbkt trcbktNode5;
+        tstringNode2 = (TString)nodeArrayList1.get(0);
+        tlcbktNode3 = (TLCbkt)nodeArrayList2.get(0);
+        {
+            // Block
+        }
+        trcbktNode5 = (TRCbkt)nodeArrayList3.get(0);
+
+        pshapereplacementNode1 = new AOrderedShapeReplacement(tstringNode2, tlcbktNode3, listNode4, trcbktNode5);
+        }
+	nodeList.add(pshapereplacementNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new30() /* reduce AAorderedshapereplacement2ShapeReplacement */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PShapeReplacement pshapereplacementNode1;
+        {
+            // Block
+        TString tstringNode2;
+        TLCbkt tlcbktNode3;
+        LinkedList listNode5 = new LinkedList();
+        TRCbkt trcbktNode6;
+        tstringNode2 = (TString)nodeArrayList1.get(0);
+        tlcbktNode3 = (TLCbkt)nodeArrayList2.get(0);
+        {
+            // Block
+        LinkedList listNode4 = new LinkedList();
+        listNode4 = (LinkedList)nodeArrayList3.get(0);
+	if(listNode4 != null)
+	{
+	  listNode5.addAll(listNode4);
+	}
+        }
+        trcbktNode6 = (TRCbkt)nodeArrayList4.get(0);
+
+        pshapereplacementNode1 = new AOrderedShapeReplacement(tstringNode2, tlcbktNode3, listNode5, trcbktNode6);
         }
 	nodeList.add(pshapereplacementNode1);
         return nodeList;
@@ -2609,73 +2609,6 @@ public class Parser
         {
             // Block
         TCommand tcommandNode2;
-        TLCbkt tlcbktNode3;
-        LinkedList listNode4 = new LinkedList();
-        TRCbkt trcbktNode5;
-        tcommandNode2 = (TCommand)nodeArrayList1.get(0);
-        tlcbktNode3 = (TLCbkt)nodeArrayList2.get(0);
-        {
-            // Block
-        }
-        trcbktNode5 = (TRCbkt)nodeArrayList3.get(0);
-
-        ppathcommandNode1 = new ABasicPathCommand(tcommandNode2, tlcbktNode3, listNode4, trcbktNode5);
-        }
-	nodeList.add(ppathcommandNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new41() /* reduce AAbasicpathcommand2PathCommand */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PPathCommand ppathcommandNode1;
-        {
-            // Block
-        TCommand tcommandNode2;
-        TLCbkt tlcbktNode3;
-        LinkedList listNode5 = new LinkedList();
-        TRCbkt trcbktNode6;
-        tcommandNode2 = (TCommand)nodeArrayList1.get(0);
-        tlcbktNode3 = (TLCbkt)nodeArrayList2.get(0);
-        {
-            // Block
-        LinkedList listNode4 = new LinkedList();
-        listNode4 = (LinkedList)nodeArrayList3.get(0);
-	if(listNode4 != null)
-	{
-	  listNode5.addAll(listNode4);
-	}
-        }
-        trcbktNode6 = (TRCbkt)nodeArrayList4.get(0);
-
-        ppathcommandNode1 = new ABasicPathCommand(tcommandNode2, tlcbktNode3, listNode5, trcbktNode6);
-        }
-	nodeList.add(ppathcommandNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new42() /* reduce AAorderedpathcommand1PathCommand */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PPathCommand ppathcommandNode1;
-        {
-            // Block
-        TCommand tcommandNode2;
         TLSbkt tlsbktNode3;
         LinkedList listNode4 = new LinkedList();
         TRSbkt trsbktNode5;
@@ -2686,7 +2619,7 @@ public class Parser
         }
         trsbktNode5 = (TRSbkt)nodeArrayList3.get(0);
 
-        ppathcommandNode1 = new AOrderedPathCommand(tcommandNode2, tlsbktNode3, listNode4, trsbktNode5);
+        ppathcommandNode1 = new ABasicPathCommand(tcommandNode2, tlsbktNode3, listNode4, trsbktNode5);
         }
 	nodeList.add(ppathcommandNode1);
         return nodeList;
@@ -2695,7 +2628,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new43() /* reduce AAorderedpathcommand2PathCommand */
+    ArrayList new41() /* reduce AAbasicpathcommand2PathCommand */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -2723,7 +2656,74 @@ public class Parser
         }
         trsbktNode6 = (TRSbkt)nodeArrayList4.get(0);
 
-        ppathcommandNode1 = new AOrderedPathCommand(tcommandNode2, tlsbktNode3, listNode5, trsbktNode6);
+        ppathcommandNode1 = new ABasicPathCommand(tcommandNode2, tlsbktNode3, listNode5, trsbktNode6);
+        }
+	nodeList.add(ppathcommandNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new42() /* reduce AAorderedpathcommand1PathCommand */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PPathCommand ppathcommandNode1;
+        {
+            // Block
+        TCommand tcommandNode2;
+        TLCbkt tlcbktNode3;
+        LinkedList listNode4 = new LinkedList();
+        TRCbkt trcbktNode5;
+        tcommandNode2 = (TCommand)nodeArrayList1.get(0);
+        tlcbktNode3 = (TLCbkt)nodeArrayList2.get(0);
+        {
+            // Block
+        }
+        trcbktNode5 = (TRCbkt)nodeArrayList3.get(0);
+
+        ppathcommandNode1 = new AOrderedPathCommand(tcommandNode2, tlcbktNode3, listNode4, trcbktNode5);
+        }
+	nodeList.add(ppathcommandNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new43() /* reduce AAorderedpathcommand2PathCommand */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PPathCommand ppathcommandNode1;
+        {
+            // Block
+        TCommand tcommandNode2;
+        TLCbkt tlcbktNode3;
+        LinkedList listNode5 = new LinkedList();
+        TRCbkt trcbktNode6;
+        tcommandNode2 = (TCommand)nodeArrayList1.get(0);
+        tlcbktNode3 = (TLCbkt)nodeArrayList2.get(0);
+        {
+            // Block
+        LinkedList listNode4 = new LinkedList();
+        listNode4 = (LinkedList)nodeArrayList3.get(0);
+	if(listNode4 != null)
+	{
+	  listNode5.addAll(listNode4);
+	}
+        }
+        trcbktNode6 = (TRCbkt)nodeArrayList4.get(0);
+
+        ppathcommandNode1 = new AOrderedPathCommand(tcommandNode2, tlcbktNode3, listNode5, trcbktNode6);
         }
 	nodeList.add(ppathcommandNode1);
         return nodeList;
@@ -5315,7 +5315,7 @@ public class Parser
 			{{-1, ERROR, 141}, {6, SHIFT, 200}, },
 			{{-1, REDUCE, 113}, },
 			{{-1, REDUCE, 108}, },
-			{{-1, REDUCE, 27}, },
+			{{-1, REDUCE, 29}, },
 			{{-1, ERROR, 145}, {9, SHIFT, 201}, {38, SHIFT, 68}, {39, SHIFT, 69}, {40, SHIFT, 70}, {49, SHIFT, 202}, },
 			{{-1, ERROR, 146}, {9, SHIFT, 75}, {38, SHIFT, 68}, {39, SHIFT, 69}, {40, SHIFT, 70}, {49, SHIFT, 76}, },
 			{{-1, ERROR, 147}, {9, SHIFT, 75}, {38, SHIFT, 68}, {39, SHIFT, 69}, {40, SHIFT, 70}, {49, SHIFT, 76}, },
@@ -5337,11 +5337,11 @@ public class Parser
 			{{-1, REDUCE, 78}, },
 			{{-1, REDUCE, 76}, },
 			{{-1, ERROR, 165}, {8, SHIFT, 220}, {13, SHIFT, 145}, {14, SHIFT, 146}, {15, SHIFT, 147}, {16, SHIFT, 148}, {17, SHIFT, 149}, {18, SHIFT, 150}, {19, SHIFT, 151}, {20, SHIFT, 152}, {21, SHIFT, 153}, {22, SHIFT, 154}, {23, SHIFT, 155}, {24, SHIFT, 156}, {32, SHIFT, 157}, {33, SHIFT, 158}, {34, SHIFT, 159}, },
-			{{-1, REDUCE, 29}, },
+			{{-1, REDUCE, 27}, },
 			{{-1, ERROR, 167}, {12, SHIFT, 222}, {13, SHIFT, 145}, {14, SHIFT, 146}, {15, SHIFT, 147}, {16, SHIFT, 148}, {17, SHIFT, 149}, {18, SHIFT, 150}, {19, SHIFT, 151}, {20, SHIFT, 152}, {21, SHIFT, 153}, {22, SHIFT, 154}, {23, SHIFT, 155}, {24, SHIFT, 156}, {32, SHIFT, 157}, {33, SHIFT, 158}, {34, SHIFT, 159}, },
 			{{-1, ERROR, 168}, {13, SHIFT, 145}, {14, SHIFT, 146}, {15, SHIFT, 147}, {16, SHIFT, 148}, {17, SHIFT, 149}, {18, SHIFT, 150}, {19, SHIFT, 151}, {20, SHIFT, 152}, {21, SHIFT, 153}, {22, SHIFT, 154}, {23, SHIFT, 155}, {24, SHIFT, 156}, {32, SHIFT, 157}, {33, SHIFT, 158}, {34, SHIFT, 159}, },
 			{{-1, REDUCE, 24}, },
-			{{-1, REDUCE, 40}, },
+			{{-1, REDUCE, 42}, },
 			{{-1, ERROR, 171}, {9, SHIFT, 201}, {38, SHIFT, 68}, {39, SHIFT, 69}, {40, SHIFT, 70}, {49, SHIFT, 202}, },
 			{{-1, ERROR, 172}, {9, SHIFT, 75}, {38, SHIFT, 68}, {39, SHIFT, 69}, {40, SHIFT, 70}, {49, SHIFT, 76}, },
 			{{-1, ERROR, 173}, {9, SHIFT, 75}, {38, SHIFT, 68}, {39, SHIFT, 69}, {40, SHIFT, 70}, {49, SHIFT, 76}, },
@@ -5354,7 +5354,7 @@ public class Parser
 			{{-1, REDUCE, 62}, },
 			{{-1, REDUCE, 63}, },
 			{{-1, ERROR, 182}, {8, SHIFT, 233}, {13, SHIFT, 171}, {14, SHIFT, 146}, {15, SHIFT, 147}, {16, SHIFT, 148}, {17, SHIFT, 149}, {18, SHIFT, 150}, {19, SHIFT, 151}, {20, SHIFT, 152}, {21, SHIFT, 153}, {22, SHIFT, 172}, {23, SHIFT, 173}, {31, SHIFT, 174}, {32, SHIFT, 175}, {33, SHIFT, 176}, {34, SHIFT, 177}, {35, SHIFT, 178}, },
-			{{-1, REDUCE, 42}, },
+			{{-1, REDUCE, 40}, },
 			{{-1, ERROR, 184}, {12, SHIFT, 235}, {13, SHIFT, 171}, {14, SHIFT, 146}, {15, SHIFT, 147}, {16, SHIFT, 148}, {17, SHIFT, 149}, {18, SHIFT, 150}, {19, SHIFT, 151}, {20, SHIFT, 152}, {21, SHIFT, 153}, {22, SHIFT, 172}, {23, SHIFT, 173}, {31, SHIFT, 174}, {32, SHIFT, 175}, {33, SHIFT, 176}, {34, SHIFT, 177}, {35, SHIFT, 178}, },
 			{{-1, REDUCE, 38}, },
 			{{-1, ERROR, 186}, {9, SHIFT, 75}, {38, SHIFT, 68}, {39, SHIFT, 69}, {40, SHIFT, 70}, {49, SHIFT, 76}, },
@@ -5391,9 +5391,9 @@ public class Parser
 			{{-1, REDUCE, 106}, },
 			{{-1, REDUCE, 104}, },
 			{{-1, ERROR, 219}, {9, SHIFT, 67}, {38, SHIFT, 68}, {39, SHIFT, 69}, {40, SHIFT, 70}, {49, SHIFT, 71}, },
-			{{-1, REDUCE, 28}, },
-			{{-1, REDUCE, 135}, },
 			{{-1, REDUCE, 30}, },
+			{{-1, REDUCE, 135}, },
+			{{-1, REDUCE, 28}, },
 			{{-1, ERROR, 223}, {8, SHIFT, 258}, {13, SHIFT, 145}, {14, SHIFT, 146}, {15, SHIFT, 147}, {16, SHIFT, 148}, {17, SHIFT, 149}, {18, SHIFT, 150}, {19, SHIFT, 151}, {20, SHIFT, 152}, {21, SHIFT, 153}, {22, SHIFT, 154}, {23, SHIFT, 155}, {24, SHIFT, 156}, {32, SHIFT, 157}, {33, SHIFT, 158}, {34, SHIFT, 159}, },
 			{{-1, REDUCE, 93}, },
 			{{-1, ERROR, 225}, {9, SHIFT, 67}, {38, SHIFT, 68}, {39, SHIFT, 69}, {40, SHIFT, 70}, {49, SHIFT, 71}, },
@@ -5404,9 +5404,9 @@ public class Parser
 			{{-1, REDUCE, 95}, },
 			{{-1, ERROR, 231}, {9, SHIFT, 67}, {38, SHIFT, 68}, {39, SHIFT, 69}, {40, SHIFT, 70}, {49, SHIFT, 71}, },
 			{{-1, REDUCE, 64}, },
-			{{-1, REDUCE, 41}, },
-			{{-1, REDUCE, 139}, },
 			{{-1, REDUCE, 43}, },
+			{{-1, REDUCE, 139}, },
+			{{-1, REDUCE, 41}, },
 			{{-1, REDUCE, 52}, },
 			{{-1, REDUCE, 53}, },
 			{{-1, REDUCE, 54}, },
