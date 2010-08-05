@@ -12,8 +12,8 @@ import java.awt.geom.Line2D;
 
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeArea;
+import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeLimits;
 import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
@@ -31,8 +31,8 @@ public class SquareFigureRuntime<T extends SquareFigureConfig> extends FigureExt
 		return "SQUARE";
 	}
 
-	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-		return new FigureContextFreeNode(context, state, limits);
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+		return new FigureContextFreeNode(context, state, bounds);
 	}
 	
 	private class FigureContextFreeNode extends ContextFreeNode {
@@ -41,7 +41,7 @@ public class SquareFigureRuntime<T extends SquareFigureConfig> extends FigureExt
 		private float[] p;
 		private float[] q;
 
-		public FigureContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		public FigureContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
 			p = new float[] { -0.5f, -0.5f, -0.5f, +0.5f, +0.5f, +0.5f, +0.5f, -0.5f };
 			q = new float[p.length];
 			float[] hsba = state.getHSBA();
@@ -49,7 +49,9 @@ public class SquareFigureRuntime<T extends SquareFigureConfig> extends FigureExt
 			c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
 			state.transform(p, q);
 			for (int i = 0; i < q.length; i += 2) {
-				limits.addPoint(q[i + 0], q[i + 1]);
+				float x = q[i + 0];
+				float y = q[i + 1];
+				bounds.addPoint(x, y);
 			}
 		}
 

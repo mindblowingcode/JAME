@@ -14,8 +14,8 @@ import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeArea;
+import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeLimits;
 import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ListConfigElement;
@@ -194,8 +194,8 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 		}
 	}
 
-	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-		return new ReplacementContextFreeNode(context, state, limits);
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+		return new ReplacementContextFreeNode(context, state, bounds);
 	}
 	
 	private class ReplacementContextFreeNode extends ContextFreeNode {
@@ -204,13 +204,13 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 		private Color c;
 		private int r;
 
-		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
 			this.state = state;
 			float[] hsba = state.getHSBA();
 			a = AlphaComposite.Src.derive(hsba[3]);
 			c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
 			r = getRule(rule);
-			state.limits(limits);
+			state.bounds(bounds);
 		}
 
 		private int getRule(String rule) {

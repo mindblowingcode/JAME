@@ -223,7 +223,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 		boolean isChanged = (mandelbrotRuntime != null) && ((mandelbrotRuntime.changeCount() > 0) || mandelbrotRuntime.getViewChanged());
 		final int status = (rendererStrategy != null) ? rendererStrategy.getRenderingStatus() : -1;
 		isChanged |= (status == TwisterRenderer.STATUS_RENDERING) || (lastStatus == TwisterRenderer.STATUS_RENDERING);
-		lastStatus = (rendererStrategy != null) ? rendererStrategy.getRenderingStatus() : -1;
+		lastStatus = status;
 		return super.isChanged() || isChanged;
 	}
 

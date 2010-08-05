@@ -9,8 +9,8 @@ import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeLimits;
 import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ListConfigElement;
@@ -305,12 +305,12 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 		}
 	}
 	
-	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-		return new ReplacementContextFreeNode(context, state, limits);
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+		return new ReplacementContextFreeNode(context, state, bounds);
 	}
 	
 	private class ReplacementContextFreeNode extends ContextFreeNode {
-		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
 			for (int t = 0; t < times; t++) {
 				ContextFreeState nodeState = state.clone(); 
 				for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
@@ -319,7 +319,7 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 				}
 				for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
 					PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
-					ContextFreeNode child = pathReplacementRuntime.buildNode(context, nodeState, limits);
+					ContextFreeNode child = pathReplacementRuntime.buildNode(context, nodeState, bounds);
 					if (child != null) {
 						addChild(child);
 					}

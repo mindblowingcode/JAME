@@ -7,8 +7,8 @@ package net.sf.jame.contextfree.extensions.figure;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
+import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeLimits;
 import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreeRule;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
@@ -228,16 +228,16 @@ public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensi
 		context.registerRule(this);
 	}
 
-	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-		return new RuleContextFreeNode(context, state, limits);
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+		return new RuleContextFreeNode(context, state, bounds);
 	}
 	
 	private class RuleContextFreeNode extends ContextFreeNode {
-		public RuleContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		public RuleContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
 			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
 				ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
 				ContextFreeState nodeState = state.clone();
-				ContextFreeNode child = shapeReplacementRuntime.buildNode(context, nodeState, limits);
+				ContextFreeNode child = shapeReplacementRuntime.buildNode(context, nodeState, bounds);
 				if (child != null) {
 					addChild(child);
 				}

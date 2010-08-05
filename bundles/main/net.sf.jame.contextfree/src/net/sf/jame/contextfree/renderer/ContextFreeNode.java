@@ -21,14 +21,10 @@ public abstract class ContextFreeNode {
 	protected void drawNode(Graphics2D g2d, ContextFreeArea area) {
 	}
 
-	private final void drawChilds(Graphics2D g2d, ContextFreeArea area) {
+	public final void draw(Graphics2D g2d, ContextFreeArea area) {
+		drawNode(g2d, area);
 		for (ContextFreeNode child : childList) {
 			child.draw(g2d, area);
 		}
-	}
-
-	public final void draw(Graphics2D g2d, ContextFreeArea area) {
-		drawNode(g2d, area);
-		drawChilds(g2d, area);
 	}
 }

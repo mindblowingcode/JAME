@@ -94,11 +94,7 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.core.util.Color32bit;
 import net.sf.jame.core.util.Colors;
 
-import org.apache.log4j.Logger;
-
 public class ContextFreeParser {
-	private static final Logger logger = Logger.getLogger(ContextFreeParser.class);
-	
 	public ContextFreeConfig parseConfig(String text) throws ContextFreeParserException {
 		return parseConfig(new StringReader(text));
 	}
@@ -174,9 +170,6 @@ public class ContextFreeParser {
 		@Override
 		public void inARuleDeclaration(ARuleDeclaration node) {
 			super.inARuleDeclaration(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("RuleDeclaration " + node);
-			}
 			try {
 				FigureConfigElement figureElement = createRuleFigureElement(node);
 				config.getCFDG().appendFigureConfigElement(figureElement);
@@ -191,9 +184,6 @@ public class ContextFreeParser {
 		@Override
 		public void inAPathDeclaration(APathDeclaration node) {
 			super.inAPathDeclaration(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("PathDeclaration " + node);
-			}
 			try {
 				FigureConfigElement figureElement = createPathFigureElement(node);
 				config.getCFDG().appendFigureConfigElement(figureElement);
@@ -208,9 +198,6 @@ public class ContextFreeParser {
 		@Override
 		public void inAStartshapeDeclaration(AStartshapeDeclaration node) {
 			super.inAStartshapeDeclaration(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("StartshapeDeclaration " + node);
-			}
 			if (!startshapeFound) {
 				config.getCFDG().setStartshape(node.getString().getText());
 				startshapeFound = true;
@@ -223,9 +210,6 @@ public class ContextFreeParser {
 		@Override
 		public void inAIncludeDeclaration(AIncludeDeclaration node) {
 			super.inAIncludeDeclaration(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("IncludeDeclaration " + node);
-			}
 			try {
 				ContextFreeConfig tmpConfig = parseConfig(new File(node.getFilename().getText()));
 				for (int i = 0; i < tmpConfig.getCFDG().getFigureConfigElementCount(); i++) {
@@ -249,9 +233,6 @@ public class ContextFreeParser {
 		@Override
 		public void inABackgroundDeclaration(ABackgroundDeclaration node) {
 			super.inABackgroundDeclaration(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("BackgroundDeclaration " + node);
-			}
 			if (!backgroundFound) {
 //				config.getCFDG().setBackground(new Color32bit(0xFFFFFFFF));
 				for (PBackgroundAdjustment adjustment : node.getBackgroundAdjustment()) {
@@ -300,9 +281,6 @@ public class ContextFreeParser {
 		@Override
 		public void inATileDeclaration(ATileDeclaration node) {
 			super.inATileDeclaration(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("TileDeclaration " + node);
-			}
 			if (!tileFound) {
 				for (PTileAdjustment adjustment : node.getTileAdjustment()) {
 					if (adjustment instanceof ATileAdjustment) {
@@ -328,9 +306,6 @@ public class ContextFreeParser {
 		@Override
 		public void inASizeDeclaration(ASizeDeclaration node) {
 			super.inASizeDeclaration(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("SizeDeclaration " + node);
-			}
 			if (!sizeFound) {
 				for (PSizeAdjustment adjustment : node.getSizeAdjustment()) {
 					if (adjustment instanceof ASizeSizeAdjustment) {
@@ -356,259 +331,6 @@ public class ContextFreeParser {
 			}
 		}
 
-		/**
-		 * 
-		 */
-		@Override
-	    public void inAMultiShapeReplacementDeclaration(AMultiShapeReplacementDeclaration node) {
-			super.inAMultiShapeReplacementDeclaration(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("MultiShapeReplacementDeclaration " + node);
-			}
-	    }
-
-		/**
-		 * 
-		 */
-		@Override
-	    public void inASingleShapeReplacementDeclaration(ASingleShapeReplacementDeclaration node) {
-			super.inASingleShapeReplacementDeclaration(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("SingleShapeReplacementDeclaration " + node);
-			}
-	    }
-
-		/**
-		 * 
-		 */
-		@Override
-	    public void inAMultiPathReplacementDeclaration(AMultiPathReplacementDeclaration node) {
-			super.inAMultiPathReplacementDeclaration(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("MultiPathReplacementDeclaration " + node);
-			}
-	    }
-
-		/**
-		 * 
-		 */
-		@Override
-	    public void inASinglePathReplacementDeclaration(ASinglePathReplacementDeclaration node) {
-			super.inASinglePathReplacementDeclaration(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("SinglePathReplacementDeclaration " + node);
-			}
-	    }
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAOperationPathReplacement(AOperationPathReplacement node) {
-			super.inAOperationPathReplacement(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("OperationPathReplacement " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inACommandPathReplacement(ACommandPathReplacement node) {
-			super.inACommandPathReplacement(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("CommandPathReplacement " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAColorShapeAdjustment(AColorShapeAdjustment node) {
-			super.inAColorShapeAdjustment(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("ColorShapeAdjustment " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAGeometryShapeAdjustment(AGeometryShapeAdjustment node) {
-			super.inAGeometryShapeAdjustment(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("GeometryShapeAdjustment " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAColorCommandParameter(AColorCommandParameter node) {
-			super.inAColorCommandParameter(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("ColorCommandParameter " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAGeometryCommandParameter(AGeometryCommandParameter node) {
-			super.inAGeometryCommandParameter(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("GeometryCommandParameter " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAStrokeCommandParameter(AStrokeCommandParameter node) {
-			super.inAStrokeCommandParameter(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("StrokeCommandParameter " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAParametersOperationParameter(AParametersOperationParameter node) {
-			super.inAParametersOperationParameter(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("ParametersOperationParameter " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAParametersCommandParameter(AParametersCommandParameter node) {
-			super.inAParametersCommandParameter(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("ParametersCommandParameter " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAArg0Function(AArg0Function node) {
-			super.inAArg0Function(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("Arg0Function " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAArg1Function(AArg1Function node) {
-			super.inAArg1Function(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("Arg1Function " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAArg2Function(AArg2Function node) {
-			super.inAArg2Function(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("Arg2Function " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inANumberExpression(ANumberExpression node) {
-			super.inANumberExpression(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("NumberExpression " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inANestedExpression(ANestedExpression node) {
-			super.inANestedExpression(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("NestedExpression " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAFunctionExpression(AFunctionExpression node) {
-			super.inAFunctionExpression(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("FunctionExpression " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inANumberExtendedExpression(ANumberExtendedExpression node) {
-			super.inANumberExtendedExpression(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("NumberExtendedExpression " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inANestedExtendedExpression(ANestedExtendedExpression node) {
-			super.inANestedExtendedExpression(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("NestedExtendedExpression " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAFunctionExtendedExpression(AFunctionExtendedExpression node) {
-			super.inAFunctionExtendedExpression(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("FunctionExtendedExpression " + node);
-			}
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public void inAComposedExtendedExpression(AComposedExtendedExpression node) {
-			super.inAComposedExtendedExpression(node);
-			if (logger.isDebugEnabled()) {
-				logger.debug("ComposedExtendedExpression " + node);
-			}
-		}
-		
 		public float evaluateExpression(PExpression expression) {
 			if (expression instanceof AFunctionExpression) {
 				return evaluateExpression((AFunctionExpression) expression);

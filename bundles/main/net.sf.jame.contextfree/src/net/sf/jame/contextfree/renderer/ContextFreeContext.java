@@ -65,23 +65,23 @@ public class ContextFreeContext {
 		ruleMap.remove(rule);
 	}
 
-	public ContextFreeNode buildPathOrRuleNode(ContextFreeState state, ContextFreeLimits limits, String figureName) {
+	public ContextFreeNode buildPathOrRuleNode(ContextFreeState state, ContextFreeBounds bounds, String figureName) {
 		ContextFreePath path = pathMap.get(figureName);
 		if (path != null) {
-			return path.buildNode(this, state, limits);
+			return path.buildNode(this, state, bounds);
 		} else {
 			ContextFreeRule rule = ruleMap.get(figureName);
 			if (rule != null) {
-				return rule.buildNode(this, state, limits);
+				return rule.buildNode(this, state, bounds);
 			}
 		}
 		return null;
 	}
 
-	public ContextFreeNode buildRuleNode(ContextFreeState state, ContextFreeLimits limits, String figureName) {
+	public ContextFreeNode buildRuleNode(ContextFreeState state, ContextFreeBounds bounds, String figureName) {
 		ContextFreeRule rule = ruleMap.get(figureName);
 		if (rule != null) {
-			return rule.buildNode(this, state, limits);
+			return rule.buildNode(this, state, bounds);
 		}
 		return null;
 	}
