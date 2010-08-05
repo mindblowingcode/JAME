@@ -311,13 +311,15 @@ public class ContextFreeState implements Cloneable {
 		path.closePath();
 	}
 
-	public void limits(ContextFreeLimits limits) {
+	public void bounds(ContextFreeBounds bounds) {
 		float[] q = new float[6];
 		if (path != null) {
 			PathIterator p = path.getPathIterator(at, 0.01);
 			while (!p.isDone()) {
 				if (p.currentSegment(q) == PathIterator.SEG_LINETO) {
-					limits.addPoint(q[0], q[1]);
+					float x = q[0];
+					float y = q[1];
+					bounds.addPoint(x, y);
 				}
 				p.next();
 			}

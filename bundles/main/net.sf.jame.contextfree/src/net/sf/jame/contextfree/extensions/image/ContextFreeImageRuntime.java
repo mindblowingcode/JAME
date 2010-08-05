@@ -169,7 +169,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		if (this.tile != tile) {
 			this.tile = tile;
 			if (hints.get(TwisterRenderingHints.KEY_TYPE) == TwisterRenderingHints.TYPE_OVERLAY) {
-				rendererStrategy = null; //new OverlayRendererStrategy(tile);
+				rendererStrategy = new OverlayRendererStrategy(tile);
 			}
 			else {
 				rendererStrategy = new DefaultRendererStrategy(tile);
@@ -209,7 +209,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 		boolean isChanged = (contextFreeRuntime != null) && (contextFreeRuntime.changeCount() > 0);
 		final int status = (rendererStrategy != null) ? rendererStrategy.getRenderingStatus() : -1;
 		isChanged |= (status == TwisterRenderer.STATUS_RENDERING) || (lastStatus == TwisterRenderer.STATUS_RENDERING);
-		lastStatus = (rendererStrategy != null) ? rendererStrategy.getRenderingStatus() : -1;
+		lastStatus = status;
 		return super.isChanged() || isChanged;
 	}
 
@@ -437,132 +437,66 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	private class OverlayRendererStrategy implements RendererStrategy {
-		private ContextFreeManager manager;
-		private boolean suspended = false;
-		private boolean dirty = true;
-
 		/**
 		 * @param tile
 		 */
 		public OverlayRendererStrategy(final Tile tile) {
-			if (hints.get(TwisterRenderingHints.KEY_QUALITY) == TwisterRenderingHints.QUALITY_REALTIME) {
-				if (hints.get(TwisterRenderingHints.KEY_MEMORY) == TwisterRenderingHints.MEMORY_LOW) {
-					manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 2));
-				}
-				else {
-					manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 2));
-				}
-			}
-			else {
-				manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 1));
-			}
-			manager.setRenderingHints(hints);
-			manager.setRuntime(contextFreeRuntime);
-			loadConfig();
-			manager.setTile(tile);
-			manager.start();
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#startRenderer()
 		 */
 		public void startRenderer() {
-			if (!suspended) {
-				manager.startRenderer();
-			}
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#abortRenderer()
 		 */
 		public void abortRenderer() {
-			if (!suspended) {
-				manager.abortRenderer();
-			}
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#joinRenderer()
 		 */
 		public void joinRenderer() throws InterruptedException {
-			if (!suspended) {
-				manager.joinRenderer();
-			}
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#getRenderingStatus()
 		 */
 		public int getRenderingStatus() {
-			return manager.getRenderingStatus();
+			return -1;
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#drawImage(java.awt.Graphics2D)
 		 */
 		public void drawImage(final Graphics2D g2d) {
-			if (tile != null) {
-				if (dirty) {
-					dirty = false;
-					try {
-						manager.joinRenderer();
-						if (!suspended) {
-							manager.startRenderer();
-						}
-					}
-					catch (final InterruptedException e) {
-						Thread.currentThread().interrupt();
-					}
-				}
-			}
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#drawImage(java.awt.Graphics2D, int, int)
 		 */
 		public void drawImage(final Graphics2D g2d, final int x, final int y) {
-			this.drawImage(g2d);
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#drawImage(java.awt.Graphics2D, int, int, int, int)
 		 */
 		public void drawImage(final Graphics2D g2d, final int x, final int y, final int w, final int h) {
-			this.drawImage(g2d);
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#prepareImage(boolean)
 		 */
 		public void prepareImage(final boolean isDynamicRequired) {
-			if (isDynamicRequired) {
-				if (!suspended) {
-					if (contextFreeRuntime.isChanged()) {
-						dirty = true;
-					}
-					if (dirty) {
-						manager.abortRenderer();
-						loadConfig();
-					}
-				}
-			}
-			else {
-				loadConfig();
-			}
-		}
-
-		private void loadConfig() {
+			contextFreeRuntime.isChanged();
 		}
 
 		/**
 		 * @see net.sf.jame.ContextFreeImageRuntime.extensions.image.ContextFreeImageRuntime.RendererStrategy#dispose()
 		 */
 		public void dispose() {
-			if (manager != null) {
-				manager.stop();
-				manager.dispose();
-				manager = null;
-			}
 		}
 
 		/**

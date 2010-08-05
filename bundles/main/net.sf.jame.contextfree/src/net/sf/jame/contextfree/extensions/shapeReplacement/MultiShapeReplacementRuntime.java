@@ -9,8 +9,8 @@ import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentRuntimeElemen
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeLimits;
 import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ListConfigElement;
@@ -305,12 +305,12 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 		}
 	}
 	
-	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
-		return new ReplacementContextFreeNode(context, state, limits);
+	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+		return new ReplacementContextFreeNode(context, state, bounds);
 	}
 	
 	private class ReplacementContextFreeNode extends ContextFreeNode {
-		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits) {
+		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
 			for (int t = 0; t < times; t++) {
 				ContextFreeState nodeState = state.clone(); 
 				for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
@@ -318,8 +318,8 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 					shapeAdjustmentRuntime.updateState(nodeState);
 				}
 				for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
-					ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i); 
-					ContextFreeNode child = shapeReplacementRuntime.buildNode(context, nodeState, limits);
+					ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
+					ContextFreeNode child = shapeReplacementRuntime.buildNode(context, nodeState, bounds);
 					if (child != null) {
 						addChild(child);
 					}

@@ -4,8 +4,8 @@
  */
 package net.sf.jame.contextfree.cfdg.pathReplacement.extension;
 
+import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeLimits;
 import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
@@ -17,8 +17,8 @@ public abstract class PathReplacementExtensionRuntime<T extends PathReplacementE
 	/**
 	 * @param context
 	 * @param state
-	 * @param limits
+	 * @param bounds
 	 * @return 
 	 */
-	public abstract ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeLimits limits);
+	public abstract ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds);
 }
