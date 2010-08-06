@@ -26,9 +26,11 @@
 package net.sf.jame.contextfree.renderer;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
@@ -37,11 +39,16 @@ public class ContextFreeContext {
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
+	private Set<String> shapeSet = new LinkedHashSet<String>();
 
 	public ContextFreeContext(CFDGRuntimeElement runtime) {
 		this.runtime = runtime;
 	}
 
+	public boolean isRecursiveShape(String shape) {
+		return shapeSet.contains(shape);
+	}
+	
 	public void registerFigures() {
 		for (int i = 0; i < runtime.getFigureElementCount(); i++) {
 			FigureRuntimeElement figure = runtime.getFigureElement(i);
@@ -65,25 +72,31 @@ public class ContextFreeContext {
 		ruleMap.remove(rule);
 	}
 
-	public ContextFreeNode buildPathOrRuleNode(ContextFreeState state, ContextFreeBounds bounds, String figureName) {
-		ContextFreePath path = pathMap.get(figureName);
+	public ContextFreeNode buildPathOrRuleNode(ContextFreeState state, ContextFreeBounds bounds, String shape) {
+		shapeSet.add(shape);
+		ContextFreeNode node = null;
+		ContextFreePath path = pathMap.get(shape);
 		if (path != null) {
-			return path.buildNode(this, state, bounds);
+			node = path.buildNode(this, state, bounds);
 		} else {
-			ContextFreeRule rule = ruleMap.get(figureName);
+			ContextFreeRule rule = ruleMap.get(shape);
 			if (rule != null) {
-				return rule.buildNode(this, state, bounds);
+				node = rule.buildNode(this, state, bounds);
 			}
 		}
-		return null;
+		shapeSet.remove(shape);
+		return node;
 	}
 
-	public ContextFreeNode buildRuleNode(ContextFreeState state, ContextFreeBounds bounds, String figureName) {
-		ContextFreeRule rule = ruleMap.get(figureName);
+	public ContextFreeNode buildRuleNode(ContextFreeState state, ContextFreeBounds bounds, String shape) {
+		shapeSet.add(shape);
+		ContextFreeNode node = null;
+		ContextFreeRule rule = ruleMap.get(shape);
 		if (rule != null) {
-			return rule.buildNode(this, state, bounds);
+			node = rule.buildNode(this, state, bounds);
 		}
-		return null;
+		shapeSet.remove(shape);
+		return node;
 	}
 	
 	private class RuleMap {

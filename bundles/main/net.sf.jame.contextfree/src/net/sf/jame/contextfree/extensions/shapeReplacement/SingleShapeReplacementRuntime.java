@@ -21,6 +21,8 @@ import net.sf.jame.core.config.ValueConfigElement;
  * @author Andrea Medeghini
  */
 public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfig> extends ShapeReplacementExtensionRuntime<T> {
+	public static final float MIN_SIZE = 5;
+	public static final float MAX_SIZE = 1000;
 	private String shape;
 	private ShapeListener shapeListener;
 	private ListRuntimeElement<ShapeAdjustmentRuntimeElement> shapeAdjustmentListElement;
@@ -198,10 +200,53 @@ public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfi
 				shapeAdjustmentRuntime.updateState(state);
 			}
 			ContextFreeState nodeState = state.clone();
-			ContextFreeNode child = context.buildPathOrRuleNode(nodeState, bounds, shape);
-			if (child != null) {
+			if (!context.isRecursiveShape(shape)) {
+				ContextFreeNode child = context.buildPathOrRuleNode(nodeState, bounds, shape);
+				addChild(child);
+			} else {
+				ShapeContextFreeNode child = new ShapeContextFreeNode(context, nodeState, bounds);
 				addChild(child);
 			}
+		}
+	}
+	
+	private class ShapeContextFreeNode extends ContextFreeNode {
+		private final ContextFreeContext context;
+		private final ContextFreeState state;
+		private final ContextFreeBounds bounds;
+		private boolean expanded;
+		
+		public ShapeContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+			this.context = context;
+			this.state = state;
+			this.bounds = bounds;
+		}
+
+		protected boolean expandNode() {
+			if (!expanded) {
+				expanded = true;
+				ContextFreeBounds nodeBounds = new ContextFreeBounds(bounds.getWidth(), bounds.getHeight()); 
+				ContextFreeNode child = context.buildPathOrRuleNode(state, nodeBounds, shape);
+				if (child != null && nodeBounds.isValid()) {
+					if (bounds.isValid()) {
+						float sx = ((nodeBounds.getMaxX() - nodeBounds.getMinX()) * bounds.getWidth()) / (bounds.getMaxX() - bounds.getMinX());
+						float sy = ((nodeBounds.getMaxY() - nodeBounds.getMinY()) * bounds.getHeight()) / (bounds.getMaxY() - bounds.getMinY());
+						if ((sx < MIN_SIZE && sy < MIN_SIZE) || (sx > MAX_SIZE && sy > MAX_SIZE) || (Math.abs(sx - bounds.getWidth()) < 0.01 && Math.abs(sy - bounds.getHeight()) < 0.01)) {
+							return false;
+						}
+						bounds.addPoint(nodeBounds.getMinX(), nodeBounds.getMinY());
+						bounds.addPoint(nodeBounds.getMaxX(), nodeBounds.getMaxY());
+						addChild(child);
+						return true;
+					} else {
+						bounds.addPoint(nodeBounds.getMinX(), nodeBounds.getMinY());
+						bounds.addPoint(nodeBounds.getMaxX(), nodeBounds.getMaxY());
+						addChild(child);
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 	}
 }

@@ -27,4 +27,16 @@ public abstract class ContextFreeNode {
 			child.draw(g2d, area);
 		}
 	}
+
+	protected boolean expandNode() {
+		return false;
+	}
+
+	public final boolean expand() {
+		boolean expanded = expandNode();
+		for (ContextFreeNode child : childList) {
+			expanded |= child.expand();
+		}
+		return expanded;
+	}
 }
