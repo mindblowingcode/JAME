@@ -48,7 +48,9 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
-		ContextFreeBounds bounds = new ContextFreeBounds();
+		int width = getTile().getTileSize().getX();
+		int height = getTile().getTileSize().getY();
+		ContextFreeBounds bounds = new ContextFreeBounds(width, height);
 		ContextFreeState state = new ContextFreeState(); 
 		context.registerFigures();
 		Graphics2D g2d = getGraphics();
@@ -57,6 +59,8 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
 		ContextFreeNode startNode = context.buildRuleNode(state, bounds, startshape);
 		if (startNode != null) {
+			while (startNode.expand()) {
+			}
 			startNode.draw(g2d, creatreArea(bounds, 8));
 		}
 		percent = 100;

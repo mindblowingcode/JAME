@@ -4,19 +4,15 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeArea;
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
+import net.sf.jame.contextfree.renderer.FlushContextFreeNode;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -157,30 +153,7 @@ public class FlushPathReplacementRuntime extends PathReplacementExtensionRuntime
 	}
 
 	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
-		return new ReplacementContextFreeNode(context, state, bounds);
-	}
-
-	private class ReplacementContextFreeNode extends ContextFreeNode {
-		private ContextFreeState state;
-		private AlphaComposite a; 
-		private Color c;
-		
-		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
-			float[] hsba = state.getHSBA();
-			a = AlphaComposite.Src.derive(hsba[3]);
-			c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
-		}
-
-		@Override
-		public void drawNode(Graphics2D g2d, ContextFreeArea area) {
-			AffineTransform t = new AffineTransform();
-			float sx = area.getScaleX();
-			float sy = area.getScaleY();
-			float tx = area.getX();
-			float ty = area.getY();
-			t.translate(tx, ty);
-			t.scale(sx, sy);
-			state.flush(g2d, t, a, c);
-		}
+		state.bounds(bounds);
+		return new FlushContextFreeNode(state);
 	}
 }
