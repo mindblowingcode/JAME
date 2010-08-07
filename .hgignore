@@ -52,9 +52,13 @@ syntax: regexp
 syntax: regexp
 ^test/main/net.sf.jame.test.service/bin$
 syntax: regexp
+^text/main/net.sf.jame.test.contextfree/bin$
+syntax: regexp
 ^test/main/net.sf.jame.test/bin$
 syntax: regexp
 ^bundles/experimental/net.sf.jame.devtools.twister/bin$
+syntax: regexp
+^bundles/experimental/net.sf.jame.devtools.contextfree/bin$
 syntax: regexp
 ^test/main/net.sf.jame.test.twister/bin$
 syntax: regexp
