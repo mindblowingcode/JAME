@@ -9,9 +9,10 @@ import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ComposedContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeNode;
+import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
@@ -305,26 +306,22 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 		}
 	}
 	
-	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
-		return new ReplacementContextFreeNode(context, state, bounds);
-	}
-	
-	private class ReplacementContextFreeNode extends ContextFreeNode {
-		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
-			for (int t = 0; t < times; t++) {
-				ContextFreeState nodeState = state.clone(); 
-				for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
-					PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
-					pathAdjustmentRuntime.updateState(nodeState);
-				}
-				for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
-					PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
-					ContextFreeNode child = pathReplacementRuntime.buildNode(context, nodeState, bounds);
-					if (child != null) {
-						addChild(child);
-					}
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+		ComposedContextFreeShape pathShape = new ComposedContextFreeShape(state.getZ()); 
+		for (int t = 0; t < times; t++) {
+			for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
+				PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
+				pathAdjustmentRuntime.updateState(state);
+			}
+			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
+				PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
+				ContextFreeState newState = state.clone(); 
+				ContextFreeShape shape = pathReplacementRuntime.createShape(context, newState, bounds);
+				if (shape != null) {
+					pathShape.addShape(shape);
 				}
 			}
 		}
+		return pathShape;
 	}
 }

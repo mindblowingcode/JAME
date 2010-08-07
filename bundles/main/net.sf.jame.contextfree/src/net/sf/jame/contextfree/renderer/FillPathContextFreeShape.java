@@ -9,13 +9,15 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 
-public class FillContextFreeNode extends ContextFreeNode {
+public class FillPathContextFreeShape extends DefaultContextFreeShape {
 	private ContextFreeState state;
 	private AlphaComposite a; 
 	private Color c;
 	private int r;
 
-	public FillContextFreeNode(ContextFreeState state, String rule) {
+	public FillPathContextFreeShape(ContextFreeState state, String rule) {
+		super(state.getZ());
+		this.state = state;
 		float[] hsba = state.getHSBA();
 		a = AlphaComposite.Src.derive(hsba[3]);
 		c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
@@ -23,16 +25,16 @@ public class FillContextFreeNode extends ContextFreeNode {
 	}
 
 	private int getRule(String rule) {
-		if ("evenodd".equals(rule)) { 
+		if ("even-odd".equals(rule)) { 
 			return Path2D.WIND_EVEN_ODD;
-		} else if ("nonzero".equals(rule)) { 
+		} else if ("non-zero".equals(rule)) { 
 			return Path2D.WIND_NON_ZERO;
 		}
 		throw new IllegalArgumentException("Rule not supported");
 	}
 
 	@Override
-	public void drawNode(Graphics2D g2d, ContextFreeArea area) {
+	public void render(Graphics2D g2d, ContextFreeArea area) {
 		AffineTransform t = new AffineTransform();
 		float sx = area.getScaleX();
 		float sy = area.getScaleY();

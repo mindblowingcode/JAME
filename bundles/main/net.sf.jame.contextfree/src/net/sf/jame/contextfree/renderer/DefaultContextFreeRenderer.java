@@ -29,12 +29,16 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
+import org.apache.log4j.Logger;
+
 import net.sf.jame.core.util.Color32bit;
 
 /**
  * @author Andrea Medeghini
  */
 public final class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
+	private static final Logger logger = Logger.getLogger(DefaultContextFreeRenderer.class);
+	
 	/**
 	 * 
 	 */
@@ -44,39 +48,50 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 
 	@Override
 	protected void doRender(boolean dynamicZoom) {
+		long time = System.nanoTime();
 		updateTransform();
+		int width = getTile().getTileSize().getX();
+		int height = getTile().getTileSize().getY();
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
-		int width = getTile().getTileSize().getX();
-		int height = getTile().getTileSize().getY();
-		ContextFreeBounds bounds = new ContextFreeBounds(width, height);
+		ContextFreeBounds bounds = new DefaultContextFreeBounds(width, height);
 		ContextFreeState state = new ContextFreeState(); 
 		context.registerFigures();
 		Graphics2D g2d = getGraphics();
 		configure(g2d);
 		g2d.setColor(new Color(background.getARGB()));
 		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
-		ContextFreeNode startNode = context.buildRuleNode(state, bounds, startshape);
-		if (startNode != null) {
-			while (startNode.expand()) {
-			}
-			startNode.draw(g2d, creatreArea(bounds, 8));
+		context.buildRule(state, bounds, startshape);
+		logger.debug("Create time " + (System.nanoTime() - time) / 1000000 + "ms");
+		time = System.nanoTime();
+		while (context.expandShapes()) {
 		}
+		logger.debug("Expand time " + (System.nanoTime() - time) / 1000000 + "ms");
+		if (logger.isTraceEnabled()) {
+			logger.trace("Total shapes " + context.getShapesCount());
+		}
+		time = System.nanoTime();
+		context.renderShape(g2d, creatreArea(bounds, 8));
+		logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
 		percent = 100;
 	}
 
 	private ContextFreeArea creatreArea(ContextFreeBounds bounds, int border) {
-		int width = getTile().getTileSize().getX();
-		int height = getTile().getTileSize().getY();
-		int x = (getBufferWidth() - width) / 2 + getTile().getTileBorder().getX();
-		int y = (getBufferHeight() - height) / 2 + getTile().getTileBorder().getY();
-		float maxX = bounds.getMaxX();
-		float maxY = bounds.getMaxY();
-		float minX = bounds.getMinX();
-		float minY = bounds.getMinY();
-		float scale = Math.min((width - 2 * border) / Math.abs(maxX - minX), (height - 2 * border) / Math.abs(maxY - minY));
-		return new ContextFreeArea(x + (width - (minX + maxX) * scale) / 2, y + (height + (minY + maxY) * scale) / 2, width, height, +scale, -scale);
+		int borderWidth = getTile().getTileBorder().getX();
+		int borderHeight = getTile().getTileBorder().getY();
+		int tileWidth = getTile().getTileSize().getX();
+		int tileHeight = getTile().getTileSize().getY();
+		int x = getBufferWidth() / 2 + borderWidth;
+		int y = getBufferHeight() / 2 + borderHeight;
+		float maxX = (float) bounds.getMaxX();
+		float maxY = (float) bounds.getMaxY();
+		float minX = (float) bounds.getMinX();
+		float minY = (float) bounds.getMinY();
+		float scale = Math.min((tileWidth - 2 * border) / Math.abs(maxX - minX), (tileHeight - 2 * border) / Math.abs(maxY - minY));
+		float sx = +1.0f * scale;
+		float sy = -1.0f * scale;
+		return new ContextFreeArea(x - (maxX + minX) * sx / 2, y - (maxY + minY) * sy / 2, tileWidth, tileHeight, sx, sy);
 	}
 
 	protected void configure(Graphics2D g2d) {

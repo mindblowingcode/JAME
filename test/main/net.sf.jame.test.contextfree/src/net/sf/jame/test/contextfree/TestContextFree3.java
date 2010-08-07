@@ -25,22 +25,22 @@
  */
 package net.sf.jame.test.contextfree;
 
+import static junit.framework.Assert.fail;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileReader;
 
 import javax.imageio.ImageIO;
 
 import net.sf.jame.contextfree.ContextFreeConfig;
-import net.sf.jame.contextfree.ContextFreeConfigBuilder;
 import net.sf.jame.contextfree.ContextFreeConfigNodeBuilder;
 import net.sf.jame.contextfree.ContextFreeRuntime;
-import net.sf.jame.contextfree.extensions.image.ContextFreeImageConfig;
+import net.sf.jame.contextfree.parser.ContextFreeParser;
 import net.sf.jame.contextfree.renderer.ContextFreeRenderer;
 import net.sf.jame.contextfree.renderer.DefaultContextFreeRenderer;
-import net.sf.jame.core.extension.ExtensionException;
-import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.core.log4j.Configurator;
 import net.sf.jame.core.tree.RootNode;
 import net.sf.jame.core.tree.Tree;
@@ -50,22 +50,31 @@ import net.sf.jame.core.util.Tile;
 
 import org.junit.Test;
 
-public class TestContextFree {
-	private static final int IMAGE_HEIGHT = 200;
-	private static final int IMAGE_WIDTH = 200;
+public class TestContextFree3 {
+	private static final int IMAGE_HEIGHT = 500;
+	private static final int IMAGE_WIDTH = 500;
 
 	@Test
-	public void render() {
+	public void parse() {
 		try {
 			Configurator.configure();
-			ContextFreeConfigBuilder builder = new ContextFreeConfigBuilder(new ContextFreeImageConfig());
-			ContextFreeConfig config = builder.createDefaultConfig();
-			ContextFreeRuntime runtime = new ContextFreeRuntime(config);
+			BufferedReader reader = new BufferedReader(new FileReader(new File("welcome.cfdg")));
+			String line = null;
+			StringBuilder builder = new StringBuilder();
+			while ((line = reader.readLine()) != null) {
+				builder.append(line);
+				builder.append("\n");
+			}
+			String text = builder.toString();
+			System.out.println(text);
+			ContextFreeParser parser = new ContextFreeParser();
+			ContextFreeConfig config = parser.parseConfig(text);
 			RootNode rootNode = new RootNode("contextfree");
 			ContextFreeConfigNodeBuilder nodeBuilder = new ContextFreeConfigNodeBuilder(config);
 			nodeBuilder.createNodes(rootNode);
 			Tree tree = new Tree(rootNode);
 			System.out.println(tree);
+			ContextFreeRuntime runtime = new ContextFreeRuntime(config);
 			ContextFreeRenderer renderer = new DefaultContextFreeRenderer(Thread.MIN_PRIORITY);
 			IntegerVector2D imageSize = new IntegerVector2D(IMAGE_WIDTH, IMAGE_HEIGHT);
 			IntegerVector2D nullSize = new IntegerVector2D(0, 0);
@@ -86,12 +95,7 @@ public class TestContextFree {
 			renderer.drawImage(g2d);
 			g2d.setColor(Color.WHITE);
 			g2d.drawRect(0, 0, surface.getWidth() - 1, surface.getHeight() - 1);
-			try {
-				ImageIO.write(surface.getImage(), "png", new File("testcf.png"));
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			ImageIO.write(surface.getImage(), "png", new File("testcf.png"));
 			renderer.stop();
 			renderer.dispose();
 			rootNode.dispose();
@@ -99,11 +103,9 @@ public class TestContextFree {
 			config.dispose();
 			surface.dispose();
 		}
-		catch (ExtensionNotFoundException e) {
+		catch (Exception e) {
 			e.printStackTrace();
-		}
-		catch (ExtensionException e) {
-			e.printStackTrace();
+			fail(e.getMessage());
 		}
 	}
 }

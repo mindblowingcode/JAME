@@ -9,13 +9,14 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
-public class StrokeContextFreeNode extends ContextFreeNode {
+public class DrawPathContextFreeShape extends DefaultContextFreeShape {
 	private ContextFreeState state;
 	private AlphaComposite a; 
 	private BasicStroke s;
 	private Color c;
 
-	public StrokeContextFreeNode(ContextFreeState state, String cap, String join, Float width) {
+	public DrawPathContextFreeShape(ContextFreeState state, String cap, String join, Float width) {
+		super(state.getZ());
 		float[] hsba = state.getHSBA();
 		a = AlphaComposite.Src.derive(hsba[3]);
 		c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
@@ -45,7 +46,7 @@ public class StrokeContextFreeNode extends ContextFreeNode {
 	}
 
 	@Override
-	public void drawNode(Graphics2D g2d, ContextFreeArea area) {
+	public void render(Graphics2D g2d, ContextFreeArea area) {
 		AffineTransform t = new AffineTransform();
 		float sx = area.getScaleX();
 		float sy = area.getScaleY();

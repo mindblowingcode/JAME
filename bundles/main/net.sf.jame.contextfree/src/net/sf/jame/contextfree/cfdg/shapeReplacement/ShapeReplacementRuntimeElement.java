@@ -4,12 +4,12 @@
  */
 package net.sf.jame.contextfree.cfdg.shapeReplacement;
 
+
 import net.sf.jame.contextfree.ContextFreeRegistry;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.common.ExtensionReferenceElement;
 import net.sf.jame.core.config.RuntimeElement;
@@ -124,10 +124,9 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 		}
 	}
 
-	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
 		if (extensionRuntime != null) {
-			return extensionRuntime.buildNode(context, state, bounds);
+			extensionRuntime.createShapes(context, state, bounds);
 		}
-		return null;
 	}
 }

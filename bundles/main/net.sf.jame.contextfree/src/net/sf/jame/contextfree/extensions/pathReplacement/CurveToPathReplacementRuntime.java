@@ -4,13 +4,10 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
-import java.awt.Graphics2D;
-
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeArea;
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeNode;
+import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
@@ -250,17 +247,8 @@ public class CurveToPathReplacementRuntime extends PathReplacementExtensionRunti
 		}
 	}
 
-	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
-		return new ReplacementContextFreeNode(context, state, bounds);
-	}
-
-	private class ReplacementContextFreeNode extends ContextFreeNode {
-		public ReplacementContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
-			state.curveTo(x, y, x1, y1, x2, y2);
-		}
-
-		@Override
-		public void drawNode(Graphics2D g2d, ContextFreeArea area) {
-		}
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+		state.curveTo(x, y, x1, y1, x2, y2);
+		return null;
 	}
 }
