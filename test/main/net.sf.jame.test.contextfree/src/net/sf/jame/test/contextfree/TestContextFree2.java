@@ -39,6 +39,7 @@ import net.sf.jame.contextfree.ContextFreeRuntime;
 import net.sf.jame.contextfree.parser.ContextFreeParser;
 import net.sf.jame.contextfree.renderer.ContextFreeRenderer;
 import net.sf.jame.contextfree.renderer.DefaultContextFreeRenderer;
+import net.sf.jame.core.log4j.Configurator;
 import net.sf.jame.core.tree.RootNode;
 import net.sf.jame.core.tree.Tree;
 import net.sf.jame.core.util.IntegerVector2D;
@@ -54,14 +55,19 @@ public class TestContextFree2 {
 	@Test
 	public void parse() {
 		try {
+			Configurator.configure();
 			String text = "" +
 			"startshape Foo\n" +
 //			"background { b -1 }\n" +
 //			"tile { s 30 30 }\n" +
 //			"size { s 30 30 }\n" +
-			"rule Foo 0.1 {\n" +
-			"TRIANGLE { x 0 }\n" +
-			"CIRCLE { x 1 }\n" +
+			"rule Foo {\n" +
+			"TRIANGLE { }\n" +
+			"Foo { s 0.5 x 1 }\n" +
+//			"CIRCLE { x 2  y 1 }\n" +
+//			"CIRCLE { x 1  y 0 }\n" +
+//			"SQUARE { x 0 }\n" +
+//			"SQUARE { x 2 }\n" +
 //			"SQUARE { r 45 y 1 }\n" +
 //			"SQUARE { skew 45 0 }\n" +
 //			"SQUARE { s 2 1 r 45 skew 10 10 flip 5 }\n" +

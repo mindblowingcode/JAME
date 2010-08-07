@@ -29,8 +29,11 @@ import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.PathIterator;
+import java.awt.geom.Rectangle2D;
 
 public class ContextFreeState implements Cloneable {
 	private AffineTransform at = new AffineTransform();
@@ -305,6 +308,11 @@ public class ContextFreeState implements Cloneable {
 		ExtendedGeneralPath path = generalPath();
 		path.curveTo(x1, y1, x2, y2, x, y);
 	}
+	
+	public void circle() {
+		ExtendedGeneralPath path = generalPath();
+		path.append(new Ellipse2D.Float(x - 0.5f, y - 0.5f, 1f, 1f), true);
+	}
 
 	public void closePath(Boolean align) {
 		ExtendedGeneralPath path = generalPath();
@@ -312,28 +320,20 @@ public class ContextFreeState implements Cloneable {
 	}
 
 	public void bounds(ContextFreeBounds bounds) {
-		float[] q = new float[6];
-		if (path != null) {
-			PathIterator p = path.getPathIterator(at, 0.01);
-			while (!p.isDone()) {
-				if (p.currentSegment(q) == PathIterator.SEG_LINETO) {
-					float x = q[0];
-					float y = q[1];
-					bounds.addPoint(x, y);
-				}
-				p.next();
-			}
-		}
+		ExtendedGeneralPath path = generalPath();
+		Rectangle2D pathBounds = path.getBounds2D();
+		bounds.addPoint(pathBounds.getMinX(), pathBounds.getMinY());
+		bounds.addPoint(pathBounds.getMaxX(), pathBounds.getMaxY());
 	}
 
 	public void fill(Graphics2D g2d, AffineTransform t, AlphaComposite a, Color c, int rule) {
 		if (path != null) {
 			g2d.setComposite(a);
 			g2d.setColor(c);
-			t.preConcatenate(at);
-			t.createTransformedShape(path);
+			t.concatenate(at);
+			Shape shape = t.createTransformedShape(path);
 			path.setWindingRule(rule);
-			g2d.fill(path);
+			g2d.fill(shape);
 		}
 		toFill = false;
 	}
@@ -343,9 +343,9 @@ public class ContextFreeState implements Cloneable {
 			g2d.setComposite(a);
 			g2d.setStroke(s);
 			g2d.setColor(c);
-			t.preConcatenate(at);
-			t.createTransformedShape(path);
-			g2d.draw(path);
+			t.concatenate(at);
+			Shape shape = t.createTransformedShape(path);
+			g2d.draw(shape);
 		}
 		toFill = false;
 	}
@@ -355,5 +355,9 @@ public class ContextFreeState implements Cloneable {
 			fill(g2d, t, a, c, PathIterator.WIND_NON_ZERO);
 		}
 		path = null;
+	}
+
+	public float getZ() {
+		return z;
 	}
 }

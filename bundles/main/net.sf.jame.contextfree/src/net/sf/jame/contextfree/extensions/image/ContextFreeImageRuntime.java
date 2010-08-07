@@ -168,6 +168,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	public void setTile(final Tile tile) {
 		if (this.tile != tile) {
 			this.tile = tile;
+//			if (hints.get(TwisterRenderingHints.KEY_TYPE) == TwisterRenderingHints.TYPE_OVERLAY || hints.get(TwisterRenderingHints.KEY_TYPE) == TwisterRenderingHints.TYPE_PREVIEW) {
 			if (hints.get(TwisterRenderingHints.KEY_TYPE) == TwisterRenderingHints.TYPE_OVERLAY) {
 				rendererStrategy = new OverlayRendererStrategy(tile);
 			}

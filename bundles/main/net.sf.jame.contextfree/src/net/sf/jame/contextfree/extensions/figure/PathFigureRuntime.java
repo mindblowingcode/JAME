@@ -7,10 +7,11 @@ package net.sf.jame.contextfree.extensions.figure;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
+import net.sf.jame.contextfree.renderer.ComposedContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeNode;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
+import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
@@ -192,20 +193,16 @@ public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensi
 		context.registerPath(this);
 	}
 
-	public ContextFreeNode buildNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
-		return new PathContextFreeNode(context, state, bounds);
-	}
-	
-	private class PathContextFreeNode extends ContextFreeNode {
-		public PathContextFreeNode(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
-			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
-				PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
-				ContextFreeState nodeState = state.clone();
-				ContextFreeNode child = pathReplacementRuntime.buildNode(context, nodeState, bounds);
-				if (child != null) {
-					addChild(child);
-				}
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+		ComposedContextFreeShape pathShape = new ComposedContextFreeShape(state.getZ()); 
+		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
+			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
+			ContextFreeState newState = state.clone();
+			ContextFreeShape shape = pathReplacementRuntime.createShape(context, newState, bounds);
+			if (shape != null) {
+				pathShape.addShape(shape);
 			}
 		}
+		return pathShape;
 	}
 }
