@@ -12,7 +12,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
-import net.sf.jame.contextfree.renderer.FillPathContextFreeShape;
+import net.sf.jame.contextfree.renderer.SolidPathShape;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -191,6 +191,6 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 
 	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
 		state.bounds(bounds);
-		return new FillPathContextFreeShape(state, rule);
+		return new SolidPathShape(state, rule);
 	}
 }

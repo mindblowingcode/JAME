@@ -10,7 +10,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
-import net.sf.jame.contextfree.renderer.FillPathContextFreeShape;
+import net.sf.jame.contextfree.renderer.SolidPathShape;
 
 /**
  * @author Andrea Medeghini
@@ -40,6 +40,6 @@ public class TriangleFigureRuntime<T extends TriangleFigureConfig> extends Figur
 		state.lineRel(+1f, +0f);
 		state.lineRel(-0.5f, b);
 		state.closePath(false);
-		return new FillPathContextFreeShape(state, "even-odd");
+		return new SolidPathShape(state, "even-odd");
 	}
 }

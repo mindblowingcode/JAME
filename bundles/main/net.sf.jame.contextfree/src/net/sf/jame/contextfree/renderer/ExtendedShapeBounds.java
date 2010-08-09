@@ -1,13 +1,13 @@
 package net.sf.jame.contextfree.renderer;
 
-public class ProxyContextFreeBounds implements ContextFreeBounds {
+public class ExtendedShapeBounds implements ContextFreeBounds {
 	private double minX = Double.MAX_VALUE;
 	private double minY = Double.MAX_VALUE;
 	private double maxX = Double.MIN_VALUE;
 	private double maxY = Double.MIN_VALUE;
 	private ContextFreeBounds bounds;
 
-	public ProxyContextFreeBounds(ContextFreeBounds bounds) {
+	public ExtendedShapeBounds(ContextFreeBounds bounds) {
 		this.bounds = bounds;
 	}
 

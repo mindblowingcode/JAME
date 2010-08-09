@@ -48,7 +48,7 @@ public class ContextFreeContext {
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
-	private Set<ContextFreeShape> renderSet = new TreeSet<ContextFreeShape>(new ContextFreeShapeComparator());
+	private Set<ContextFreeShape> renderSet = new TreeSet<ContextFreeShape>(new ShapeComparator());
 	private Set<ContextFreeShape> expandSet = new HashSet<ContextFreeShape>();
 	private Set<ContextFreeShape> createSet = new HashSet<ContextFreeShape>();
 	private Set<ContextFreeShape> commitSet = new HashSet<ContextFreeShape>();
@@ -144,22 +144,22 @@ public class ContextFreeContext {
 			}
 			buildSet.remove(shape);
 		} else {
-			createSet.add(new RecursiveContextFreeShape(this, state, bounds, shape));
+			createSet.add(new RecursiveShape(this, state, bounds, shape));
 		}
 	}
 	
 	public void expandRule(ContextFreeShape oldShape, ContextFreeState state, ContextFreeBounds bounds, String shape) {
-		ContextFreeBounds nodeBounds = new ProxyContextFreeBounds(bounds);
+		ContextFreeBounds shapeBounds = new ExtendedShapeBounds(bounds);
 		if (logger.isTraceEnabled()) {
 			logger.trace("Expanding " + shape);
 		}
-		createShapes(state, nodeBounds, shape);
-		if (createSet.size() > 0 && nodeBounds.isValid()) {
+		createShapes(state, shapeBounds, shape);
+		if (createSet.size() > 0 && shapeBounds.isValid()) {
 			if (bounds.isValid()) {
-				double maxX = nodeBounds.getMaxX();
-				double maxY = nodeBounds.getMaxY();
-				double minX = nodeBounds.getMinX();
-				double minY = nodeBounds.getMinY();
+				double maxX = shapeBounds.getMaxX();
+				double maxY = shapeBounds.getMaxY();
+				double minX = shapeBounds.getMinX();
+				double minY = shapeBounds.getMinY();
 				double bMaxX = bounds.getMaxX();
 				double bMinX = bounds.getMinX();
 				double bMaxY = bounds.getMaxY();

@@ -12,7 +12,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
-import net.sf.jame.contextfree.renderer.DrawPathContextFreeShape;
+import net.sf.jame.contextfree.renderer.PathShape;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -263,6 +263,6 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 
 	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
 		state.bounds(bounds);
-		return new DrawPathContextFreeShape(state, cap, join, width);
+		return new PathShape(state, cap, join, width);
 	}
 }

@@ -55,7 +55,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
-		ContextFreeBounds bounds = new DefaultContextFreeBounds(width, height);
+		ContextFreeBounds bounds = new ShapeBounds(width, height);
 		ContextFreeState state = new ContextFreeState(); 
 		context.registerFigures();
 		Graphics2D g2d = getGraphics();

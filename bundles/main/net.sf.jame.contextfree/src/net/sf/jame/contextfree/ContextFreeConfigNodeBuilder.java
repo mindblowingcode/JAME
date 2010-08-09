@@ -60,8 +60,8 @@ public class ContextFreeConfigNodeBuilder {
 	 * @param parentNode
 	 */
 	public void createNodes(final Node parentNode) {
-		parentNode.appendChildNode(new ViewNode(config));
-		parentNode.appendChildNode(new SpeedNode(config));
+//		parentNode.appendChildNode(new ViewNode(config));
+//		parentNode.appendChildNode(new SpeedNode(config));
 		parentNode.appendChildNode(new CFDGElementNode(config.getCFDG()));
 	}
 

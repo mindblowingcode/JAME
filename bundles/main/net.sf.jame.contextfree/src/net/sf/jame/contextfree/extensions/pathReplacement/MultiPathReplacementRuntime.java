@@ -9,7 +9,7 @@ import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ComposedContextFreeShape;
+import net.sf.jame.contextfree.renderer.ComposedShape;
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreeShape;
@@ -307,7 +307,7 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 	}
 	
 	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
-		ComposedContextFreeShape pathShape = new ComposedContextFreeShape(state.getZ()); 
+		ComposedShape pathShape = new ComposedShape(state); 
 		for (int t = 0; t < times; t++) {
 			for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
 				PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);

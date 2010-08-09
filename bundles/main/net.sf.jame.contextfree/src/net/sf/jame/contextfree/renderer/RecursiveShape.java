@@ -3,13 +3,13 @@
  */
 package net.sf.jame.contextfree.renderer;
 
-public class RecursiveContextFreeShape extends DefaultContextFreeShape {
+public class RecursiveShape extends ContextFreeShape {
 	private final ContextFreeContext context;
 	private final ContextFreeState state;
 	private final ContextFreeBounds bounds;
 	private final String shape;
 	
-	public RecursiveContextFreeShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds, String shape) {
+	public RecursiveShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds, String shape) {
 		super(state.getZ());
 		this.context = context;
 		this.state = state;

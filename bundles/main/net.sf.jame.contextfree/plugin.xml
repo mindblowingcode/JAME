@@ -412,6 +412,7 @@
             id="contextfree.path.replacement.command.stroke"
             name="Stroke PathReplacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementConfigNodeBuilderRuntime"/>
+      <!--
       <extensionConfigXMLImporter
             id="contextfree.path.replacement.command.flush"
             name="Flush PathReplacement"
@@ -424,7 +425,6 @@
             id="contextfree.path.replacement.command.flush"
             name="Flush PathReplacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.FlushPathReplacementConfigNodeBuilderRuntime"/>
-      <!--
       <extensionConfigXMLImporter
             id="contextfree.path.replacement.single"
             name="Single PathReplacement"
@@ -1059,12 +1059,12 @@
             id="contextfree.path.replacement.command.stroke"
             name="Stroke Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementRuntime"/>
+      <!--
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.FlushPathReplacementConfig"
             id="contextfree.path.replacement.command.flush"
             name="Flush Replacement"
             runtimeClass="net.sf.jame.contextfree.extensions.pathReplacement.FlushPathReplacementRuntime"/>
-      <!--
       <pathReplacement
             configClass="net.sf.jame.contextfree.extensions.pathReplacement.SinglePathReplacementConfig"
             id="contextfree.path.replacement.single"
