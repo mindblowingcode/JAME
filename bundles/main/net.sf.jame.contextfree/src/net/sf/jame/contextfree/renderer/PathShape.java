@@ -17,6 +17,7 @@ public class PathShape extends ContextFreeShape {
 
 	public PathShape(ContextFreeState state, String cap, String join, Float width) {
 		super(state.getZ());
+		this.state = state;
 		float[] hsba = state.getHSBA();
 		a = AlphaComposite.Src.derive(hsba[3]);
 		c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
