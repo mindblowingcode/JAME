@@ -41,6 +41,7 @@ public class ContextFreeState implements Cloneable {
 	private float[] targetHSBA = new float[] { 0, 1, 0, 1 };
 	private ExtendedGeneralPath path;
 	private boolean toFill = true;
+	private boolean moveTo = false;
 	private float x1 = 0;
 	private float y1 = 0;
 	private float x = 0;
@@ -165,10 +166,18 @@ public class ContextFreeState implements Cloneable {
 		}
 		if (path == null) {
 			path = new ExtendedGeneralPath();
+			moveTo = false;
 		}
 		return path;
 	}
 	
+	private void ensureMoveTo() {
+		if (!moveTo) {
+			moveTo = true;
+			moveTo(0, 0);
+		}
+	}
+
 	public void moveTo(float x, float y) {
 		this.x = x;
 		this.y = y;
@@ -179,6 +188,7 @@ public class ContextFreeState implements Cloneable {
 	}
 
 	public void lineTo(float x, float y) {
+		ensureMoveTo();
 		this.x = x;
 		this.y = y;
 		this.x1 = x;
@@ -188,6 +198,7 @@ public class ContextFreeState implements Cloneable {
 	}
 
 	public void arcTo(float x, float y, float rx, float ry, float angle, boolean largeArcFlag, boolean sweepFlag) {
+		ensureMoveTo();
 		this.x = x;
 		this.y = y;
 		this.x1 = x;
@@ -197,6 +208,7 @@ public class ContextFreeState implements Cloneable {
 	}
 	
 	public void quadTo(float x, float y, float x1, float y1) {
+		ensureMoveTo();
 		this.x = x;
 		this.y = y;
 		this.x1 = x1;
@@ -206,6 +218,7 @@ public class ContextFreeState implements Cloneable {
 	}
 
 	public void quadTo(float x, float y) {
+		ensureMoveTo();
 		this.x = x;
 		this.y = y;
 		this.x1 = x + x - x1;
@@ -215,6 +228,7 @@ public class ContextFreeState implements Cloneable {
 	}
 	
 	public void curveTo(float x, float y, float x1, float y1, float x2, float y2) {
+		ensureMoveTo();
 		this.x = x;
 		this.y = y;
 		this.x1 = x1;
@@ -224,6 +238,7 @@ public class ContextFreeState implements Cloneable {
 	}
 	
 	public void curveTo(float x, float y, float x2, float y2) {
+		ensureMoveTo();
 		this.x = x;
 		this.y = y;
 		this.x1 = x + x - x1;
@@ -233,6 +248,7 @@ public class ContextFreeState implements Cloneable {
 	}
 	
 	public void moveRel(float x, float y) {
+		ensureMoveTo();
 		this.x += x;
 		this.y += y;
 		x = this.x;
@@ -244,6 +260,7 @@ public class ContextFreeState implements Cloneable {
 	}
 
 	public void lineRel(float x, float y) {
+		ensureMoveTo();
 		this.x += x;
 		this.y += y;
 		x = this.x;
@@ -255,6 +272,7 @@ public class ContextFreeState implements Cloneable {
 	}
 	
 	public void arcRel(float x, float y, float rx, float ry, float angle, boolean largeArcFlag, boolean sweepFlag) {
+		ensureMoveTo();
 		this.x += x;
 		this.y += y;
 		x = this.x;
@@ -266,6 +284,7 @@ public class ContextFreeState implements Cloneable {
 	}
 	
 	public void quadRel(float x, float y, float x1, float y1) {
+		ensureMoveTo();
 		this.x += x;
 		this.y += y;
 		x = this.x;
@@ -277,6 +296,7 @@ public class ContextFreeState implements Cloneable {
 	}
 
 	public void quadRel(float x, float y) {
+		ensureMoveTo();
 		this.x += x;
 		this.y += y;
 		x = this.x;
@@ -288,6 +308,7 @@ public class ContextFreeState implements Cloneable {
 	}
 
 	public void curveRel(float x, float y, float x1, float y1, float x2, float y2) {
+		ensureMoveTo();
 		this.x += x;
 		this.y += y;
 		x = this.x;
@@ -299,6 +320,7 @@ public class ContextFreeState implements Cloneable {
 	}
 	
 	public void curveRel(float x, float y, float x2, float y2) {
+		ensureMoveTo();
 		this.x += x;
 		this.y += y;
 		x = this.x;
@@ -310,6 +332,7 @@ public class ContextFreeState implements Cloneable {
 	}
 	
 	public void circle() {
+		ensureMoveTo();
 		ExtendedGeneralPath path = generalPath();
 		path.append(new Ellipse2D.Float(x - 0.5f, y - 0.5f, 1f, 1f), true);
 	}
