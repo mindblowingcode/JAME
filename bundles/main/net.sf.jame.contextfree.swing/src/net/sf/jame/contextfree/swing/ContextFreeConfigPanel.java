@@ -32,7 +32,12 @@ import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -42,15 +47,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.undo.UndoManager;
 
 import net.sf.jame.contextfree.ContextFreeConfig;
 import net.sf.jame.contextfree.parser.ContextFreeParser;
@@ -70,10 +78,13 @@ import net.sf.jame.twister.swing.TwisterSwingResources;
 import net.sf.jame.twister.swing.ViewPanel;
 import net.sf.jame.twister.util.Speed;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Andrea Medeghini
  */
 public class ContextFreeConfigPanel extends ViewPanel {
+	private static final Logger logger = Logger.getLogger(ContextFreeConfigPanel.class);
 	private static final long serialVersionUID = 1L;
 	private final ContextFreeImagePanel imagePanel;
 	private final ViewContext viewContext;
@@ -293,10 +304,13 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		private static final long serialVersionUID = 1L;
 		private final ValueChangeListener speedListener;
 		private final ContextFreeConfig config;
-		private JTextField pathTextField;
-		private JButton chooseButton;
-		private JButton reloadButton;
+		private UndoManager undoManager = new UndoManager();
+		private JEditorPane editorPane;
+//		private JButton editButton;
+		private JButton loadButton;
+		private JButton renderButton;
 		private JFileChooser chooser;
+//		private JFrame editFrame;
 
 		public ContextFreeImagePanel(final ContextFreeConfig config) {
 			this.config = config;
@@ -321,36 +335,74 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			tmpPanel6.add(createSpace());
 			tmpPanel6.add(shiftSpeedTextfield);
 			tmpPanel6.add(Box.createHorizontalGlue());
-			JLabel pathLabel = createTextLabel("cfdgPath", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
-			pathTextField = createTextField("", 300, GUIFactory.DEFAULT_HEIGHT);
-			pathTextField.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.cfdgPath"));
-			chooseButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
-			reloadButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
-			chooseButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.chooseCFDG"));
-			reloadButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.reloadCFDG"));
-			chooseButton.setText(ContextFreeSwingResources.getInstance().getString("label.chooseCFDG"));
-			reloadButton.setText(ContextFreeSwingResources.getInstance().getString("label.reloadCFDG"));
+//			editFrame = new JFrame();
+//			editFrame.setTitle(ContextFreeSwingResources.getInstance().getString("message.edit"));
+			editorPane = new JEditorPane();
+			JScrollPane scrollPane = new JScrollPane(editorPane);
+			Dimension preferredSize = new Dimension(550, 170);
+			scrollPane.setPreferredSize(preferredSize);
+			scrollPane.setMinimumSize(preferredSize);
+			scrollPane.setMaximumSize(preferredSize);
+//			editFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+//			editFrame.setSize(600, 400);
+//			GUIUtil.centerWindow(editFrame);
+//			editorPane.setContentType("text/plain");
+//			editButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
+//			editButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.edit"));
+//			editButton.setText(ContextFreeSwingResources.getInstance().getString("action.edit"));
+			loadButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
+			loadButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.load"));
+			loadButton.setText(ContextFreeSwingResources.getInstance().getString("action.load"));
+			renderButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
+			renderButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.render"));
+			renderButton.setText(ContextFreeSwingResources.getInstance().getString("action.render"));
+//			final Box tmpPanel1 = createHorizontalBox(false);
+//			tmpPanel1.add(createTextLabel("edit", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT));
+//			tmpPanel1.add(createSpace());
+//			tmpPanel1.add(editButton);
+//			tmpPanel1.add(Box.createHorizontalGlue());
+//			final Box tmpPanel2 = createHorizontalBox(false);
+//			tmpPanel2.add(createTextLabel("load", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT));
+//			tmpPanel2.add(createSpace());
+//			tmpPanel2.add(loadButton);
+//			tmpPanel2.add(Box.createHorizontalGlue());
+//			final Box tmpPanel3 = createHorizontalBox(false);
+//			tmpPanel3.add(createTextLabel("render", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT));
+//			tmpPanel3.add(createSpace());
+//			tmpPanel3.add(renderButton);
+//			tmpPanel3.add(Box.createHorizontalGlue());
+			JLabel editLabel = createTextLabel("drawing", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
+			final Box tmp3Panel = createVerticalBox(false);
+			tmp3Panel.add(editLabel);
+			tmp3Panel.add(Box.createVerticalGlue());
 			final Box tmpPanel1 = createHorizontalBox(false);
-			tmpPanel1.add(pathLabel);
+			tmpPanel1.add(tmp3Panel);
 			tmpPanel1.add(createSpace());
-			tmpPanel1.add(pathTextField);
-			tmpPanel1.add(createSpace());
-			tmpPanel1.add(chooseButton);
-			tmpPanel1.add(createSpace());
-			tmpPanel1.add(reloadButton);
+			tmpPanel1.add(scrollPane);
 			tmpPanel1.add(Box.createHorizontalGlue());
+			final Box tmpPanel2 = createHorizontalBox(false);
+			tmpPanel2.add(Box.createHorizontalStrut(200));
+			tmpPanel2.add(createSpace());
+			tmpPanel2.add(loadButton);
+			tmpPanel2.add(createSpace());
+			tmpPanel2.add(renderButton);
+			tmpPanel2.add(Box.createHorizontalGlue());
 			final Box tmpPanel = createVerticalBox(false);
 			tmpPanel.add(Box.createVerticalStrut(8));
 			tmpPanel.add(tmpPanel1);
 			tmpPanel.add(Box.createVerticalStrut(8));
-			tmpPanel.add(tmpPanel4);
-			tmpPanel.add(Box.createVerticalStrut(8));
-			tmpPanel.add(tmpPanel6);
-			tmpPanel.add(Box.createVerticalStrut(8));
-			tmpPanel.add(tmpPanel5);
+			tmpPanel.add(tmpPanel2);
+//			tmpPanel.add(Box.createVerticalStrut(8));
+//			tmpPanel.add(tmpPanel3);
+//			tmpPanel.add(Box.createVerticalStrut(8));
+//			tmpPanel.add(tmpPanel4);
+//			tmpPanel.add(Box.createVerticalStrut(8));
+//			tmpPanel.add(tmpPanel6);
+//			tmpPanel.add(Box.createVerticalStrut(8));
+//			tmpPanel.add(tmpPanel5);
 			tmpPanel.add(Box.createVerticalStrut(8));
 			setLayout(new BorderLayout());
-			add(tmpPanel, BorderLayout.CENTER);
+			add(tmpPanel, BorderLayout.SOUTH);
 			setBorder(BorderFactory.createEmptyBorder(0, 4, 0, 4));
 			setOpaque(false);
 			final ActionListener zoomSpeedActionListener = new ActionListener() {
@@ -404,37 +456,58 @@ public class ContextFreeConfigPanel extends ViewPanel {
 				}
 			};
 			rotationSpeedTextfield.addActionListener(rotationSpeedActionListener);
-			final ActionListener chooseActionListener = new ActionListener() {
+			final ActionListener loadActionListener = new ActionListener() {
 				public void actionPerformed(final ActionEvent e) {
 					if (chooser == null) {
 						chooser = new JFileChooser();
+						chooser.setDialogTitle(ContextFreeSwingResources.getInstance().getString("label.selectFile"));
 						chooser.setMultiSelectionEnabled(false);
 					}
 					if (chooser.showOpenDialog(ContextFreeConfigPanel.this) == JFileChooser.APPROVE_OPTION) {
 						if (chooser.getSelectedFile() != null) {
-							File file = chooser.getSelectedFile();
-							pathTextField.setText(file.getAbsolutePath());
+							BufferedReader reader = null;
 							try {
+								File file = chooser.getSelectedFile();
+								reader = new BufferedReader(new FileReader(file));
+								StringBuilder builder = new StringBuilder();
+								String line = null;
+								while ((line = reader.readLine()) != null) {
+									builder.append(line);
+									builder.append("\n");
+								}
+								String text = builder.toString();
+								editorPane.setText(text);
 								context.acquire();
 								config.getContext().updateTimestamp();
-								loadFile(config, pathTextField.getText());
+								loadFile(config, editorPane.getText());
 								context.release();
 								context.refresh();
 							}
 							catch (InterruptedException x) {
 								Thread.currentThread().interrupt();
+							} 
+							catch (Exception x) {
+								JOptionPane.showMessageDialog(ContextFreeImagePanel.this, x.getMessage(), ContextFreeSwingResources.getInstance().getString("message.readerError"), JOptionPane.ERROR_MESSAGE);
+							} 
+							finally {
+								if (reader != null) {
+									try {
+										reader.close();
+									} catch (IOException e1) {
+									}
+								}
 							}
 						}
 					}
 				}
 			};
-			chooseButton.addActionListener(chooseActionListener);
-			final ActionListener reloadActionListener = new ActionListener() {
+			loadButton.addActionListener(loadActionListener);
+			final ActionListener renderActionListener = new ActionListener() {
 				public void actionPerformed(final ActionEvent e) {
 					try {
 						context.acquire();
 						config.getContext().updateTimestamp();
-						loadFile(config, pathTextField.getText());
+						loadFile(config, editorPane.getText());
 						context.release();
 						context.refresh();
 					}
@@ -443,22 +516,33 @@ public class ContextFreeConfigPanel extends ViewPanel {
 					}
 				}
 			};
-			reloadButton.addActionListener(reloadActionListener);
-			final ActionListener pathActionListener = new ActionListener() {
-				public void actionPerformed(final ActionEvent e) {
-					try {
-						context.acquire();
-						config.getContext().updateTimestamp();
-						loadFile(config, pathTextField.getText());
-						context.release();
-						context.refresh();
-					}
-					catch (InterruptedException x) {
-						Thread.currentThread().interrupt();
+			renderButton.addActionListener(renderActionListener);
+//			final ActionListener editActionListener = new ActionListener() {
+//				public void actionPerformed(final ActionEvent e) {
+//					editFrame.setVisible(true);
+//				}
+//			};
+//			editButton.addActionListener(editActionListener);
+			final KeyListener keyListener = new KeyListener() {
+				public void keyTyped(KeyEvent e) {
+				}
+				
+				public void keyPressed(KeyEvent e) {
+				}
+				
+				public void keyReleased(KeyEvent e) {
+					if (e.getKeyCode() == KeyEvent.VK_Z && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
+						if (undoManager.canRedo()) {
+							undoManager.undo();
+						}
+					} else if (e.getKeyCode() == KeyEvent.VK_Y && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
+						if (undoManager.canRedo()) {
+							undoManager.redo();
+						}
 					}
 				}
 			};
-			pathTextField.addActionListener(pathActionListener);
+			editorPane.addKeyListener(keyListener);
 			speedListener = new ValueChangeListener() {
 				public void valueChanged(final ValueChangeEvent e) {
 					zoomSpeedTextfield.removeActionListener(zoomSpeedActionListener);
@@ -479,17 +563,17 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			config.getSpeedElement().removeChangeListener(speedListener);
 		}
 
-		private void loadFile(final ContextFreeConfig config, String path)	throws InterruptedException {
+		private void loadFile(final ContextFreeConfig config, String text)	throws InterruptedException {
 			try {
 				ContextFreeParser parser = new ContextFreeParser();
-				ContextFreeConfig newConfig = parser.parseConfig(new File(path));
+				ContextFreeConfig newConfig = parser.parseConfig(text);
 				config.getContext().updateTimestamp();
 				config.setCFDG(newConfig.getCFDG());
 			} catch (ContextFreeParserException x) {
-				x.printStackTrace();
+				logger.error(x);
 				JTextArea textArea = new JTextArea();
 				textArea.setText(x.getMessage());
-				JOptionPane.showMessageDialog(ContextFreeImagePanel.this, textArea, ContextFreeSwingResources.getInstance().getString("message.cfdgParserError"), JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(ContextFreeImagePanel.this, textArea, ContextFreeSwingResources.getInstance().getString("message.parserError"), JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
