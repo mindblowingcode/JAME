@@ -1,6 +1,6 @@
 package net.sf.jame.contextfree.renderer;
 
-public class DefaultContextFreeBounds implements ContextFreeBounds {
+public class ShapeBounds implements ContextFreeBounds {
 	private double minX = Double.MAX_VALUE;
 	private double minY = Double.MAX_VALUE;
 	private double maxX = Double.MIN_VALUE;
@@ -8,7 +8,7 @@ public class DefaultContextFreeBounds implements ContextFreeBounds {
 	private int width;
 	private int height;
 
-	public DefaultContextFreeBounds(int width, int height) {
+	public ShapeBounds(int width, int height) {
 		this.width = width;
 		this.height = height;
 	}

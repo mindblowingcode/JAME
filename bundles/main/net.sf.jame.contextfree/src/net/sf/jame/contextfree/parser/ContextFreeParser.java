@@ -56,7 +56,6 @@ import net.sf.jame.contextfree.extensions.pathReplacement.ClosePolyPathReplaceme
 import net.sf.jame.contextfree.extensions.pathReplacement.CurveRelPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.CurveToPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.FillPathReplacementConfig;
-import net.sf.jame.contextfree.extensions.pathReplacement.FlushPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.LineRelPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.LineToPathReplacementConfig;
 import net.sf.jame.contextfree.extensions.pathReplacement.MoveRelPathReplacementConfig;
@@ -504,8 +503,8 @@ public class ContextFreeParser {
 					config.appendPathReplacementConfigElement(pathReplacementElement);
 				}
 			}
-			PathReplacementConfigElement pathReplacementElement = createFlushPathReplacementElement();
-			config.appendPathReplacementConfigElement(pathReplacementElement);
+//			PathReplacementConfigElement pathReplacementElement = createFlushPathReplacementElement();
+//			config.appendPathReplacementConfigElement(pathReplacementElement);
 			ConfigurableExtension<FigureExtensionRuntime<?>, FigureExtensionConfig> extension = ContextFreeRegistry.getInstance().getFigureExtension("contextfree.figure.path");
 			ConfigurableExtensionReference<FigureExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			FigureConfigElement figureElement = new FigureConfigElement();
@@ -513,14 +512,14 @@ public class ContextFreeParser {
 			return figureElement;
 		}
 
-		private PathReplacementConfigElement createFlushPathReplacementElement() throws ExtensionNotFoundException {
-			FlushPathReplacementConfig config = new FlushPathReplacementConfig();
-			PathReplacementConfigElement pathReplacementElement = new PathReplacementConfigElement();
-			ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.command.flush");
-			ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
-			pathReplacementElement.setExtensionReference(reference);
-			return pathReplacementElement;
-		}
+//		private PathReplacementConfigElement createFlushPathReplacementElement() throws ExtensionNotFoundException {
+//			FlushPathReplacementConfig config = new FlushPathReplacementConfig();
+//			PathReplacementConfigElement pathReplacementElement = new PathReplacementConfigElement();
+//			ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.command.flush");
+//			ConfigurableExtensionReference<PathReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+//			pathReplacementElement.setExtensionReference(reference);
+//			return pathReplacementElement;
+//		}
 
 		private PathReplacementConfigElement createPathReplacementElement(PPathReplacementDeclaration pathReplacementDeclaration) throws ExtensionNotFoundException {
 			if (pathReplacementDeclaration instanceof ASinglePathReplacementDeclaration) {

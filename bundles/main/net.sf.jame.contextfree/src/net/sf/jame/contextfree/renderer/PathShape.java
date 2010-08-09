@@ -9,13 +9,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
-public class DrawPathContextFreeShape extends DefaultContextFreeShape {
+public class PathShape extends ContextFreeShape {
 	private ContextFreeState state;
 	private AlphaComposite a; 
 	private BasicStroke s;
 	private Color c;
 
-	public DrawPathContextFreeShape(ContextFreeState state, String cap, String join, Float width) {
+	public PathShape(ContextFreeState state, String cap, String join, Float width) {
 		super(state.getZ());
 		float[] hsba = state.getHSBA();
 		a = AlphaComposite.Src.derive(hsba[3]);

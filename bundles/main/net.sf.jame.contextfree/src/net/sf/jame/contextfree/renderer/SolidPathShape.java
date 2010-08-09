@@ -9,13 +9,13 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 
-public class FillPathContextFreeShape extends DefaultContextFreeShape {
+public class SolidPathShape extends ContextFreeShape {
 	private ContextFreeState state;
 	private AlphaComposite a; 
 	private Color c;
 	private int r;
 
-	public FillPathContextFreeShape(ContextFreeState state, String rule) {
+	public SolidPathShape(ContextFreeState state, String rule) {
 		super(state.getZ());
 		this.state = state;
 		float[] hsba = state.getHSBA();

@@ -2,10 +2,10 @@ package net.sf.jame.contextfree.renderer;
 
 import java.awt.Graphics2D;
 
-public class DefaultContextFreeShape implements ContextFreeShape {
+public abstract class AbstractShape implements ContextFreeShape {
 	private float z;
 	
-	public DefaultContextFreeShape(float z) {
+	public AbstractShape(float z) {
 		this.z = z;
 	}
 	
