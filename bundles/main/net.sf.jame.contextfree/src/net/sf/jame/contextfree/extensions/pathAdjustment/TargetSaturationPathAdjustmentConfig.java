@@ -89,4 +89,12 @@ public class TargetSaturationPathAdjustmentConfig extends PathAdjustmentExtensio
 		config.setValue(getValue());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (valueElement.getValue() != null) {
+			builder.append("|sat ");
+			builder.append(valueElement.getValue());
+		}
+	}
 }

@@ -283,4 +283,36 @@ public class ArcToPathReplacementConfig extends PathReplacementExtensionConfig {
 		config.setLarge(isLarge());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("ARCTO {");
+		if (xElement.getValue() != null) {
+			builder.append(" x ");
+			builder.append(xElement.getValue());
+		}
+		if (yElement.getValue() != null) {
+			builder.append(" y ");
+			builder.append(yElement.getValue());
+		}
+		if (rElement.getValue() != null) {
+			builder.append(" r ");
+			builder.append(rElement.getValue());
+		} 
+		if (rxElement.getValue() != null) {
+			builder.append(" rx ");
+			builder.append(rxElement.getValue());
+		}
+		if (ryElement.getValue() != null) {
+			builder.append(" ry ");
+			builder.append(ryElement.getValue());
+		}
+		if (sweepElement.getValue() != null) {
+			builder.append(sweepElement.getValue() ? " p cw" : "");
+		}
+		if (largeElement.getValue() != null) {
+			builder.append(largeElement.getValue() ? " p large" : "");
+		}
+		builder.append(" }");
+	}
 }

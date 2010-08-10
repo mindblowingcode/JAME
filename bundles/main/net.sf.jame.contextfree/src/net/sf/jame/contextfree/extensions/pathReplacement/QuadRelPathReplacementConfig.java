@@ -185,4 +185,26 @@ public class QuadRelPathReplacementConfig extends PathReplacementExtensionConfig
 		config.setY1(getY1());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("QUADREL {");
+		if (xElement.getValue() != null) {
+			builder.append(" x ");
+			builder.append(xElement.getValue());
+		}
+		if (yElement.getValue() != null) {
+			builder.append(" y ");
+			builder.append(yElement.getValue());
+		}
+		if (x1Element.getValue() != null) {
+			builder.append(" x1 ");
+			builder.append(x1Element.getValue());
+		}
+		if (y1Element.getValue() != null) {
+			builder.append(" y1 ");
+			builder.append(y1Element.getValue());
+		}
+		builder.append(" }");
+	}
 }

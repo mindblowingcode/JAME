@@ -249,4 +249,34 @@ public class CurveToPathReplacementConfig extends PathReplacementExtensionConfig
 		config.setY2(getY2());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("CURVETO {");
+		if (xElement.getValue() != null) {
+			builder.append(" x ");
+			builder.append(xElement.getValue());
+		}
+		if (yElement.getValue() != null) {
+			builder.append(" y ");
+			builder.append(yElement.getValue());
+		}
+		if (x1Element.getValue() != null) {
+			builder.append(" x1 ");
+			builder.append(x1Element.getValue());
+		}
+		if (y1Element.getValue() != null) {
+			builder.append(" y1 ");
+			builder.append(y1Element.getValue());
+		}
+		if (x2Element.getValue() != null) {
+			builder.append(" x2 ");
+			builder.append(x2Element.getValue());
+		}
+		if (y2Element.getValue() != null) {
+			builder.append(" y2 ");
+			builder.append(y2Element.getValue());
+		}
+		builder.append(" }");
+	}
 }

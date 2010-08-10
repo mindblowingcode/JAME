@@ -109,4 +109,12 @@ public class ShapeReplacementConfigElement extends AbstractConfigElement {
 		extensionElement.dispose();
 		super.dispose();
 	}
+
+	public void toCFDG(StringBuilder builder) {
+		if (extensionElement.getReference() != null) {
+			if (extensionElement.getReference().getExtensionConfig() != null) {
+				extensionElement.getReference().getExtensionConfig().toCFDG(builder);
+			}
+		}
+	}
 }

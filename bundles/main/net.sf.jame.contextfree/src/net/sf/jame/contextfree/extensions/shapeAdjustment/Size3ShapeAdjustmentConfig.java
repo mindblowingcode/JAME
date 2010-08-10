@@ -153,4 +153,17 @@ public class Size3ShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 		config.setScaleZ(getScaleZ());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (scaleXElement.getValue() != null && scaleYElement.getValue() != null && scaleZElement.getValue() != null) {
+			builder.append("s ");
+			builder.append(scaleXElement.getValue());
+			builder.append(" ");
+			builder.append(scaleYElement.getValue());
+			builder.append(" ");
+			builder.append(scaleZElement.getValue());
+		}
+	}
 }
+

@@ -185,4 +185,21 @@ public class FillPathReplacementConfig extends PathReplacementExtensionConfig {
 		config.pathAdjustmentListElement.copyFrom(getPathAdjustmentListElement());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("FILL {");
+		if (ruleElement.getValue() != null) {
+			if (ruleElement.getValue().equals("even-odd")) {
+				builder.append(" p evenodd");
+			} else if (ruleElement.getValue().equals("non-zero")) {
+				builder.append(" p nonzero");
+			}
+		}
+		for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
+			builder.append(" ");
+			pathAdjustmentListElement.getElement(i).toCFDG(builder);
+		}
+		builder.append(" }");
+	}
 }

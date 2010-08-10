@@ -89,4 +89,13 @@ public class TargetHueShapeAdjustmentConfig extends ShapeAdjustmentExtensionConf
 		config.setValue(getValue());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (valueElement.getValue() != null) {
+			builder.append("|h ");
+			builder.append(valueElement.getValue());
+		}
+	}
 }
+

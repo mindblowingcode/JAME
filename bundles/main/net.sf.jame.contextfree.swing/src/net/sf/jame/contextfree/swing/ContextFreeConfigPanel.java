@@ -116,6 +116,9 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			public void valueChanged(final ValueChangeEvent e) {
 				switch (e.getEventType()) {
 					case ValueConfigElement.VALUE_CHANGED: {
+						StringBuilder builder = new StringBuilder();
+						config.getCFDG().toCFDG(builder);
+						System.out.println(builder.toString());
 						viewContext.setComponent(ContextFreeConfigPanel.this);
 						break;
 					}
@@ -338,6 +341,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 //			editFrame = new JFrame();
 //			editFrame.setTitle(ContextFreeSwingResources.getInstance().getString("message.edit"));
 			editorPane = new JEditorPane();
+			editorPane.getDocument().addUndoableEditListener(undoManager);
 			JScrollPane scrollPane = new JScrollPane(editorPane);
 			Dimension preferredSize = new Dimension(550, 170);
 			scrollPane.setPreferredSize(preferredSize);
@@ -531,13 +535,15 @@ public class ContextFreeConfigPanel extends ViewPanel {
 				}
 				
 				public void keyReleased(KeyEvent e) {
-					if (e.getKeyCode() == KeyEvent.VK_Z && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
-						if (undoManager.canRedo()) {
-							undoManager.undo();
-						}
-					} else if (e.getKeyCode() == KeyEvent.VK_Y && (e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) {
-						if (undoManager.canRedo()) {
-							undoManager.redo();
+					if ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0 || (e.getModifiersEx() & KeyEvent.META_DOWN_MASK) != 0) {
+						if (e.getKeyCode() == KeyEvent.VK_Z) {
+							if (undoManager.canUndo()) {
+								undoManager.undo();
+							}
+						} else if (e.getKeyCode() == KeyEvent.VK_Y) {
+							if (undoManager.canRedo()) {
+								undoManager.redo();
+							}
 						}
 					}
 				}

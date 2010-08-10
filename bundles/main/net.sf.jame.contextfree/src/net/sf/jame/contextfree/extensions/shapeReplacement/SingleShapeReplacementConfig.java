@@ -185,4 +185,17 @@ public class SingleShapeReplacementConfig extends ShapeReplacementExtensionConfi
 		config.shapeAdjustmentListElement.copyFrom(getShapeAdjustmentListElement());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (shapeElement.getValue() != null) {
+			builder.append(shapeElement.getValue());
+			builder.append(" {");
+			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
+				builder.append(" ");
+				shapeAdjustmentListElement.getElement(i).toCFDG(builder);
+			}
+			builder.append("}");
+		}
+	}
 }

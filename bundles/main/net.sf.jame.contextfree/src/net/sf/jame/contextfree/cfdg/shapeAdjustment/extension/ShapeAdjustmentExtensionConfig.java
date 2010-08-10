@@ -6,6 +6,7 @@ package net.sf.jame.contextfree.cfdg.shapeAdjustment.extension;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.extension.ExtensionConfig;
 
@@ -48,4 +49,5 @@ public abstract class ShapeAdjustmentExtensionConfig extends ExtensionConfig {
 		return true;
 	}
 
+	public abstract void toCFDG(StringBuilder builder);
 }

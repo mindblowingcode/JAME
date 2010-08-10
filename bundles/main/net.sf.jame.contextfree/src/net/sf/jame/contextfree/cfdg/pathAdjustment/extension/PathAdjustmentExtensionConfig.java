@@ -48,4 +48,5 @@ public abstract class PathAdjustmentExtensionConfig extends ExtensionConfig {
 		return true;
 	}
 
+	public abstract void toCFDG(StringBuilder builder);
 }

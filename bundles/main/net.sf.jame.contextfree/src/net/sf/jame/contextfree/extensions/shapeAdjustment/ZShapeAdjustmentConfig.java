@@ -89,4 +89,12 @@ public class ZShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 		config.setValue(getValue());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (valueElement.getValue() != null) {
+			builder.append("z ");
+			builder.append(valueElement.getValue());
+		}
+	}
 }

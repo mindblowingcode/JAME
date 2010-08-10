@@ -15,6 +15,7 @@ import net.sf.jame.core.config.ConfigContext;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.util.Color32bit;
+import net.sf.jame.core.util.Colors;
 
 /**
  * @author Andrea Medeghini
@@ -435,5 +436,67 @@ public class CFDGConfigElement extends AbstractConfigElement {
 		backgroundElement.dispose();
 		figureListElement.dispose();
 		super.dispose();
+	}
+	
+	public String toCFDG(StringBuilder builder) {
+		if (getStartshape() != null) {
+			builder.append("startshape ");
+			builder.append(getStartshape());
+			builder.append("\n\n");
+		}
+		if (getWidth() != null || getHeight() != null) {
+			builder.append("size { ");
+			builder.append("s");
+			if (getWidth() != null) {
+				builder.append(" ");
+				builder.append(getWidth());
+			}
+			if (getHeight() != null) {
+				builder.append(" ");
+				builder.append(getHeight());
+			}
+			builder.append(" }\n\n");
+		}
+		if (getTileWidth() != null || getTileHeight() != null) {
+			builder.append("tile { ");
+			builder.append("s");
+			if (getTileWidth() != null) {
+				builder.append(" ");
+				builder.append(getTileWidth());
+			}
+			if (getTileHeight() != null) {
+				builder.append(" ");
+				builder.append(getTileHeight());
+			}
+			builder.append(" }\n\n");
+		}
+		if (getBackground() != null) {
+			builder.append("background { ");
+			if (getBackground().getAlpha() != 255) {
+				builder.append("a ");
+				builder.append(1f - getBackground().getAlpha() / 255f);
+				builder.append(" ");
+			}
+			float[] hsbvals = new float[3];
+			Colors.toHSB(getBackground().getARGB(), hsbvals );
+			if (hsbvals[0] != 0) {
+				builder.append("h ");
+				builder.append(0f - hsbvals[0] * 360f);
+			}
+			if (hsbvals[2] != 0) {
+				builder.append("b ");
+				builder.append(1f - hsbvals[2]);
+			}
+			if (hsbvals[1] != 0) {
+				builder.append("sat ");
+				builder.append(0f - hsbvals[1]);
+			}
+			builder.append(" }\n\n");
+		}
+		for (int i = 0; i < figureListElement.getElementCount(); i++) {
+			figureListElement.getElement(i).toCFDG(builder);
+			builder.append("\n");
+		}
+		return builder.toString();
 	}
 }

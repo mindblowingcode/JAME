@@ -121,4 +121,14 @@ public class Size2ShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 		config.setScaleY(getScaleY());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (scaleXElement.getValue() != null && scaleYElement.getValue() != null) {
+			builder.append("s ");
+			builder.append(scaleXElement.getValue());
+			builder.append(" ");
+			builder.append(scaleYElement.getValue());
+		}
+	}
 }

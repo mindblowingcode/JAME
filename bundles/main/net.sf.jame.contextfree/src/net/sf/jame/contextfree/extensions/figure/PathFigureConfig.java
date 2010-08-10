@@ -185,4 +185,16 @@ public class PathFigureConfig extends FigureExtensionConfig {
 		config.pathReplacementListElement.copyFrom(getPathReplacementListElement());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("path ");
+		builder.append(nameElement.getValue());
+		builder.append(" {\n");
+		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
+			pathReplacementListElement.getElement(i).toCFDG(builder);
+			builder.append("\n");
+		}
+		builder.append("}\n");
+	}
 }

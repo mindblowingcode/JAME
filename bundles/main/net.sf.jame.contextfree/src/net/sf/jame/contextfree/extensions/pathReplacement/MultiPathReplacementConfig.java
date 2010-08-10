@@ -280,4 +280,28 @@ public class MultiPathReplacementConfig extends PathReplacementExtensionConfig {
 		config.pathAdjustmentListElement.copyFrom(getPathAdjustmentListElement());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (timesElement.getValue() != null) {
+			builder.append(timesElement.getValue());
+			builder.append(" * ");
+		}
+		if (pathReplacementListElement.getElementCount() > 0) {
+			if (pathAdjustmentListElement.getElementCount() > 0) {
+				builder.append("{");
+				for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
+					builder.append(" ");
+					pathAdjustmentListElement.getElement(i).toCFDG(builder);
+				}
+				builder.append("} ");
+			}
+			builder.append("{\n");
+			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
+				pathReplacementListElement.getElement(i).toCFDG(builder);
+				builder.append("\n");
+			}
+			builder.append("}");
+		}
+	}
 }
