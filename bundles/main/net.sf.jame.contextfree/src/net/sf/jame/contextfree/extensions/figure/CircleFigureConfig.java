@@ -55,4 +55,9 @@ public class CircleFigureConfig extends FigureExtensionConfig {
 		final CircleFigureConfig config = new CircleFigureConfig();
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("/* CIRCLE */\n");
+	}
 }

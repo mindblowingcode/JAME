@@ -123,4 +123,15 @@ public class CurrentBrightnessShapeAdjustmentConfig extends ShapeAdjustmentExten
 		config.setTarget(isTarget());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (valueElement.getValue() != null) {
+			builder.append("b ");
+			builder.append(valueElement.getValue());
+		}
+		if (targetElement.getValue() != null) {
+			builder.append(targetElement.getValue() ? "|" : "");
+		}
+	}
 }

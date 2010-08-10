@@ -55,4 +55,9 @@ public class SquareFigureConfig extends FigureExtensionConfig {
 		final SquareFigureConfig config = new SquareFigureConfig();
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("/* SQUARE */\n");
+	}
 }

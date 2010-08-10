@@ -89,4 +89,14 @@ public class ClosePolyPathReplacementConfig extends PathReplacementExtensionConf
 		config.setAlign(isAlign());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("CLOSEPOLY {");
+		if (alignElement.getValue() != null) {
+			builder.append(" ");
+			builder.append(alignElement.getValue() ? "p align" : "");
+		}
+		builder.append(" }");
+	}
 }

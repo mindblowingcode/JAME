@@ -121,4 +121,18 @@ public class LineRelPathReplacementConfig extends PathReplacementExtensionConfig
 		config.setY(getY());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("LINEREL {");
+		if (xElement.getValue() != null) {
+			builder.append(" x ");
+			builder.append(xElement.getValue());
+		}
+		if (yElement.getValue() != null) {
+			builder.append(" y ");
+			builder.append(yElement.getValue());
+		}
+		builder.append(" }");
+	}
 }

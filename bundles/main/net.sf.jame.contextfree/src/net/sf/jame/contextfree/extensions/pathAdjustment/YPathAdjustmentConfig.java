@@ -89,4 +89,12 @@ public class YPathAdjustmentConfig extends PathAdjustmentExtensionConfig {
 		config.setValue(getValue());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (valueElement.getValue() != null) {
+			builder.append("y ");
+			builder.append(valueElement.getValue());
+		}
+	}
 }

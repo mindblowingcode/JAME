@@ -55,4 +55,9 @@ public class TriangleFigureConfig extends FigureExtensionConfig {
 		final TriangleFigureConfig config = new TriangleFigureConfig();
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("/* TRIANGLE */\n");
+	}
 }

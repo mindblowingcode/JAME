@@ -89,4 +89,13 @@ public class XShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 		config.setValue(getValue());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (valueElement.getValue() != null) {
+			builder.append("x ");
+			builder.append(valueElement.getValue());
+		}
+	}
 }
+

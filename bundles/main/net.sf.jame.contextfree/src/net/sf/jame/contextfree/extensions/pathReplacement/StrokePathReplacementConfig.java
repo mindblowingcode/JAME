@@ -277,4 +277,26 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 		config.pathAdjustmentListElement.copyFrom(getPathAdjustmentListElement());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("STROKE {");
+		if (widthElement.getValue() != null) {
+			builder.append(" width ");
+			builder.append(widthElement.getValue());
+		}
+		if (capElement.getValue() != null) {
+			builder.append(" p cap");
+			builder.append(capElement.getValue());
+		}
+		if (joinElement.getValue() != null) {
+			builder.append(" p join");
+			builder.append(joinElement.getValue());
+		}
+		for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
+			builder.append(" ");
+			pathAdjustmentListElement.getElement(i).toCFDG(builder);
+		}
+		builder.append(" }");
+	}
 }

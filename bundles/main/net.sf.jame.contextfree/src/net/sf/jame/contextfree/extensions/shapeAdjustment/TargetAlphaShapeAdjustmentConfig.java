@@ -89,4 +89,13 @@ public class TargetAlphaShapeAdjustmentConfig extends ShapeAdjustmentExtensionCo
 		config.setValue(getValue());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (valueElement.getValue() != null) {
+			builder.append("|a ");
+			builder.append(valueElement.getValue());
+		}
+	}
 }
+

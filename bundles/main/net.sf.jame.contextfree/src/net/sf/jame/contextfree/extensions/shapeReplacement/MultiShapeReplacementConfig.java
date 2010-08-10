@@ -280,4 +280,28 @@ public class MultiShapeReplacementConfig extends ShapeReplacementExtensionConfig
 		config.shapeAdjustmentListElement.copyFrom(getShapeAdjustmentListElement());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (timesElement.getValue() != null) {
+			builder.append(timesElement.getValue());
+			builder.append(" * ");
+		}
+		if (shapeReplacementListElement.getElementCount() > 0) {
+			if (shapeAdjustmentListElement.getElementCount() > 0) {
+				builder.append("{");
+				for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
+					builder.append(" ");
+					shapeAdjustmentListElement.getElement(i).toCFDG(builder);
+				}
+				builder.append("} ");
+			}
+			builder.append("{\n");
+			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+				shapeReplacementListElement.getElement(i).toCFDG(builder);
+				builder.append("\n");
+			}
+			builder.append("}");
+		}
+	}
 }

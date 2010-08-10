@@ -89,4 +89,12 @@ public class FlipShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 		config.setAngle(getAngle());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (angleElement.getValue() != null) {
+			builder.append("flip ");
+			builder.append(angleElement.getValue());
+		}
+	}
 }

@@ -121,4 +121,14 @@ public class SkewPathAdjustmentConfig extends PathAdjustmentExtensionConfig {
 		config.setShearY(getShearY());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (shearXElement.getValue() != null && shearYElement.getValue() != null) {
+			builder.append("skew ");
+			builder.append(shearXElement.getValue());
+			builder.append(" ");
+			builder.append(shearYElement.getValue());
+		}
+	}
 }

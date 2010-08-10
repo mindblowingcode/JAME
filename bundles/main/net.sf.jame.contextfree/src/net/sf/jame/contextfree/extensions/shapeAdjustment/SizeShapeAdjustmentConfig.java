@@ -89,4 +89,13 @@ public class SizeShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 		config.setScale(getScale());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (scaleElement.getValue() != null) {
+			builder.append("s ");
+			builder.append(scaleElement.getValue());
+		}
+	}
 }
+

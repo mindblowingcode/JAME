@@ -219,4 +219,20 @@ public class RuleFigureConfig extends FigureExtensionConfig {
 		config.shapeReplacementListElement.copyFrom(getShapeReplacementListElement());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("rule ");
+		builder.append(nameElement.getValue());
+		if (probabilityElement.getValue() != 0) {
+			builder.append(" ");
+			builder.append(probabilityElement.getValue());
+		}
+		builder.append(" {\n");
+		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+			shapeReplacementListElement.getElement(i).toCFDG(builder);
+			builder.append("\n");
+		}
+		builder.append("}\n");
+	}
 }

@@ -185,4 +185,26 @@ public class SmoothCurveRelPathReplacementConfig extends PathReplacementExtensio
 		config.setY2(getY2());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		builder.append("CURVEREL {");
+		if (xElement.getValue() != null) {
+			builder.append(" x ");
+			builder.append(xElement.getValue());
+		}
+		if (yElement.getValue() != null) {
+			builder.append(" y ");
+			builder.append(yElement.getValue());
+		}
+		if (x2Element.getValue() != null) {
+			builder.append(" x2 ");
+			builder.append(x2Element.getValue());
+		}
+		if (y2Element.getValue() != null) {
+			builder.append(" y2 ");
+			builder.append(y2Element.getValue());
+		}
+		builder.append(" }");
+	}
 }

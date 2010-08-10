@@ -89,4 +89,12 @@ public class XPathAdjustmentConfig extends PathAdjustmentExtensionConfig {
 		config.setValue(getValue());
 		return config;
 	}
+
+	@Override
+	public void toCFDG(StringBuilder builder) {
+		if (valueElement.getValue() != null) {
+			builder.append("x ");
+			builder.append(valueElement.getValue());
+		}
+	}
 }
