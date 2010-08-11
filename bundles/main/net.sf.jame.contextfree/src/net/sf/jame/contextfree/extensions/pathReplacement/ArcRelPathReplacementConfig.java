@@ -297,7 +297,7 @@ public class ArcRelPathReplacementConfig extends PathReplacementExtensionConfig 
 		}
 		if (rElement.getValue() != null) {
 			builder.append(" r ");
-			builder.append(rElement.getValue());
+			builder.append(rElement.getValue() * 180f / Math.PI);
 		}
 		if (rxElement.getValue() != null) {
 			builder.append(" rx ");

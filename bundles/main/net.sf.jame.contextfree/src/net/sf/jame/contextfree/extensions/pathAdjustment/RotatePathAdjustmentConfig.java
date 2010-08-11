@@ -94,7 +94,7 @@ public class RotatePathAdjustmentConfig extends PathAdjustmentExtensionConfig {
 	public void toCFDG(StringBuilder builder) {
 		if (angleElement.getValue() != null) {
 			builder.append("r ");
-			builder.append(angleElement.getValue());
+			builder.append(angleElement.getValue() * 180f / Math.PI);
 		}
 	}
 }

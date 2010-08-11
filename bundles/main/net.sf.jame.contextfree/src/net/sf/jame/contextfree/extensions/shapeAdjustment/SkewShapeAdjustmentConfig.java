@@ -126,9 +126,9 @@ public class SkewShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 	public void toCFDG(StringBuilder builder) {
 		if (shearXElement.getValue() != null && shearYElement.getValue() != null) {
 			builder.append("skew ");
-			builder.append(shearXElement.getValue());
+			builder.append(shearXElement.getValue() * 180f / Math.PI);
 			builder.append(" ");
-			builder.append(shearYElement.getValue());
+			builder.append(shearYElement.getValue() * 180f / Math.PI);
 		}
 	}
 }

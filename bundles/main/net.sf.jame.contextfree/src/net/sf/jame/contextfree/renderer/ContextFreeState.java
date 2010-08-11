@@ -173,7 +173,6 @@ public class ContextFreeState implements Cloneable {
 	
 	private void ensureMoveTo() {
 		if (!moveTo) {
-			moveTo = true;
 			moveTo(0, 0);
 		}
 	}
@@ -185,6 +184,7 @@ public class ContextFreeState implements Cloneable {
 		this.y1 = y;
 		ExtendedGeneralPath path = generalPath();
 		path.moveTo(x, y);
+		moveTo = true;
 	}
 
 	public void lineTo(float x, float y) {
@@ -248,7 +248,6 @@ public class ContextFreeState implements Cloneable {
 	}
 	
 	public void moveRel(float x, float y) {
-		ensureMoveTo();
 		this.x += x;
 		this.y += y;
 		x = this.x;
@@ -257,6 +256,7 @@ public class ContextFreeState implements Cloneable {
 		this.y1 = y;
 		ExtendedGeneralPath path = generalPath();
 		path.moveTo(x, y);
+		moveTo = true;
 	}
 
 	public void lineRel(float x, float y) {

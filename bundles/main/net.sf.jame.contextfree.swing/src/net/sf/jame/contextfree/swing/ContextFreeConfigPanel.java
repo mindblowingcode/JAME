@@ -116,9 +116,11 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			public void valueChanged(final ValueChangeEvent e) {
 				switch (e.getEventType()) {
 					case ValueConfigElement.VALUE_CHANGED: {
-//						StringBuilder builder = new StringBuilder();
-//						config.getCFDG().toCFDG(builder);
-//						System.out.println(builder.toString());
+						//TODO BEGIN rimuovere quando finito
+						StringBuilder builder = new StringBuilder();
+						config.getCFDG().toCFDG(builder);
+						System.out.println(builder.toString());
+						//END rimuovere quando finito
 						viewContext.setComponent(ContextFreeConfigPanel.this);
 						break;
 					}
