@@ -74,6 +74,9 @@ public class TestContextFree3 {
 			nodeBuilder.createNodes(rootNode);
 			Tree tree = new Tree(rootNode);
 			System.out.println(tree);
+			StringBuilder builder2 = new StringBuilder();
+			config.getCFDG().toCFDG(builder2);
+			System.out.println(builder2.toString());
 			ContextFreeRuntime runtime = new ContextFreeRuntime(config);
 			ContextFreeRenderer renderer = new DefaultContextFreeRenderer(Thread.MIN_PRIORITY);
 			IntegerVector2D imageSize = new IntegerVector2D(IMAGE_WIDTH, IMAGE_HEIGHT);

@@ -128,7 +128,7 @@ public class CurrentHuePathAdjustmentConfig extends PathAdjustmentExtensionConfi
 	public void toCFDG(StringBuilder builder) {
 		if (valueElement.getValue() != null) {
 			builder.append("h ");
-			builder.append(valueElement.getValue());
+			builder.append(valueElement.getValue() * 360);
 		}
 		if (targetElement.getValue() != null) {
 			builder.append(targetElement.getValue() ? "|" : "");
