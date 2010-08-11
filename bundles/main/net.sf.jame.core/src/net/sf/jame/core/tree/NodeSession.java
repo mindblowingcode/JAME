@@ -65,4 +65,14 @@ public interface NodeSession {
 	 * @param isApplyImmediatly
 	 */
 	public void setAcceptImmediatly(boolean isApplyImmediatly);
+
+	public void fireSessionChanged();
+
+	public void fireSessionAccepted();
+
+	public void fireSessionCancelled();
+	
+	public void addSessionListener(NodeSessionListener listener);
+	
+	public void removeSessionListener(NodeSessionListener listener);
 }

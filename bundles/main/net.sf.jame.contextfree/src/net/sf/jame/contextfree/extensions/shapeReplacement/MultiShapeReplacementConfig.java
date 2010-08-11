@@ -4,15 +4,16 @@
  */
 package net.sf.jame.contextfree.extensions.shapeReplacement;
 
-import java.lang.Integer;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
+import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 import net.sf.jame.core.common.IntegerElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 
 /**
  * @author Andrea Medeghini
@@ -282,7 +283,8 @@ public class MultiShapeReplacementConfig extends ShapeReplacementExtensionConfig
 	}
 
 	@Override
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
+		builder.appendTabs();
 		if (timesElement.getValue() != null) {
 			builder.append(timesElement.getValue());
 			builder.append(" * ");
@@ -297,10 +299,12 @@ public class MultiShapeReplacementConfig extends ShapeReplacementExtensionConfig
 				builder.append("} ");
 			}
 			builder.append("{\n");
+			builder.addTab();
 			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
 				shapeReplacementListElement.getElement(i).toCFDG(builder);
 				builder.append("\n");
 			}
+			builder.removeTab();
 			builder.append("}");
 		}
 	}

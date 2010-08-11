@@ -52,9 +52,10 @@ import net.sf.jame.core.tree.NodeAction;
 import net.sf.jame.core.tree.NodeBuilder;
 import net.sf.jame.core.tree.NodeEvent;
 import net.sf.jame.core.tree.NodeSession;
+import net.sf.jame.core.tree.NodeSessionListener;
 import net.sf.jame.core.tree.RootNode;
 import net.sf.jame.core.tree.Tree;
-import net.sf.jame.core.tree.TreeListener;
+import net.sf.jame.core.tree.NodeListener;
 import net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime;
 import net.sf.jame.core.util.RenderContext;
 import net.sf.jame.twister.swing.ViewPanel;
@@ -132,27 +133,27 @@ public class NavigatorViewRuntime extends ViewExtensionRuntime {
 			navigatorTree.expandAll();
 		}
 
-		private class NavigatorTreeListener implements TreeListener {
+		private class NavigatorTreeListener implements NodeListener {
 			/**
-			 * @see net.sf.jame.core.tree.TreeListener#nodeChanged(net.sf.jame.core.tree.NodeEvent)
+			 * @see net.sf.jame.core.tree.NodeListener#nodeChanged(net.sf.jame.core.tree.NodeEvent)
 			 */
 			public void nodeChanged(final NodeEvent e) {
 			}
 
 			/**
-			 * @see net.sf.jame.core.tree.TreeListener#nodeAdded(net.sf.jame.core.tree.NodeEvent)
+			 * @see net.sf.jame.core.tree.NodeListener#nodeAdded(net.sf.jame.core.tree.NodeEvent)
 			 */
 			public void nodeAdded(final NodeEvent e) {
 			}
 
 			/**
-			 * @see net.sf.jame.core.tree.TreeListener#nodeRemoved(net.sf.jame.core.tree.NodeEvent)
+			 * @see net.sf.jame.core.tree.NodeListener#nodeRemoved(net.sf.jame.core.tree.NodeEvent)
 			 */
 			public void nodeRemoved(final NodeEvent e) {
 			}
 
 			/**
-			 * @see net.sf.jame.core.tree.TreeListener#nodeAccepted(net.sf.jame.core.tree.NodeEvent)
+			 * @see net.sf.jame.core.tree.NodeListener#nodeAccepted(net.sf.jame.core.tree.NodeEvent)
 			 */
 			public void nodeAccepted(final NodeEvent e) {
 				GUIUtil.executeTask(new Runnable() {
@@ -163,7 +164,7 @@ public class NavigatorViewRuntime extends ViewExtensionRuntime {
 			}
 
 			/**
-			 * @see net.sf.jame.core.tree.TreeListener#nodeCancelled(net.sf.jame.core.tree.NodeEvent)
+			 * @see net.sf.jame.core.tree.NodeListener#nodeCancelled(net.sf.jame.core.tree.NodeEvent)
 			 */
 			public void nodeCancelled(final NodeEvent e) {
 			}
@@ -250,7 +251,7 @@ public class NavigatorViewRuntime extends ViewExtensionRuntime {
 		 */
 		@Override
 		public void dispose() {
-			tree.getRootNode().removeNodeListener(navigatorTreeListener);
+			tree.getRootNode().removeTreeListener(navigatorTreeListener);
 			navigatorPanel.removeChangeListener(panelSelectionListener);
 			navigatorTree.getModel().removeTreeModelListener(treeModelListener);
 			navigatorTree.getSelectionModel().removeTreeSelectionListener(treeSelectionListener);
@@ -311,6 +312,21 @@ public class NavigatorViewRuntime extends ViewExtensionRuntime {
 		 * @see net.sf.jame.core.tree.NodeSession#setTimestamp(long)
 		 */
 		public void setTimestamp(final long timestamp) {
+		}
+
+		public void fireSessionAccepted() {
+		}
+
+		public void fireSessionCancelled() {
+		}
+
+		public void fireSessionChanged() {
+		}
+
+		public void addSessionListener(NodeSessionListener listener) {
+		}
+
+		public void removeSessionListener(NodeSessionListener listener) {
 		}
 	}
 }

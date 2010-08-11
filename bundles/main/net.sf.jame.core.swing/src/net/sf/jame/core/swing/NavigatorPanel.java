@@ -58,7 +58,7 @@ import net.sf.jame.core.swing.editor.extension.EditorExtensionRuntime;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeEvent;
 import net.sf.jame.core.tree.RootNode;
-import net.sf.jame.core.tree.TreeListener;
+import net.sf.jame.core.tree.NodeListener;
 
 import org.apache.log4j.Logger;
 
@@ -107,7 +107,7 @@ public class NavigatorPanel extends JPanel {
 	}
 
 	public void dispose() {
-		rootNode.removeNodeListener(navigatorTreeListener);
+		rootNode.removeTreeListener(navigatorTreeListener);
 		listeners.clear();
 		if (editor != null) {
 			editor.dispose();
@@ -322,9 +322,9 @@ public class NavigatorPanel extends JPanel {
 		fireChangeEvent();
 	}
 
-	private final class NavigatorTreeListener implements TreeListener {
+	private final class NavigatorTreeListener implements NodeListener {
 		/**
-		 * @see net.sf.jame.core.tree.TreeListener#nodeChanged(net.sf.jame.core.tree.NodeEvent)
+		 * @see net.sf.jame.core.tree.NodeListener#nodeChanged(net.sf.jame.core.tree.NodeEvent)
 		 */
 		public void nodeChanged(final NodeEvent e) {
 			if ((e.getNode() == viewNode) || ((viewNode != null) && viewNode.isChildNode(e.getNode())) || ((viewNode != null) && (e.getNode() == viewNode.getParentNode()))) {
@@ -339,7 +339,7 @@ public class NavigatorPanel extends JPanel {
 		}
 
 		/**
-		 * @see net.sf.jame.core.tree.TreeListener#nodeAdded(net.sf.jame.core.tree.NodeEvent)
+		 * @see net.sf.jame.core.tree.NodeListener#nodeAdded(net.sf.jame.core.tree.NodeEvent)
 		 */
 		public void nodeAdded(final NodeEvent e) {
 			if (((viewNode != null) && viewNode.isChildNode(e.getNode())) || ((viewNode != null) && (e.getNode() == viewNode.getParentNode()))) {
@@ -352,7 +352,7 @@ public class NavigatorPanel extends JPanel {
 		}
 
 		/**
-		 * @see net.sf.jame.core.tree.TreeListener#nodeRemoved(net.sf.jame.core.tree.NodeEvent)
+		 * @see net.sf.jame.core.tree.NodeListener#nodeRemoved(net.sf.jame.core.tree.NodeEvent)
 		 */
 		public void nodeRemoved(final NodeEvent e) {
 			if (e.getNode() == viewNode) {
@@ -369,13 +369,13 @@ public class NavigatorPanel extends JPanel {
 		}
 
 		/**
-		 * @see net.sf.jame.core.tree.TreeListener#nodeAccepted(net.sf.jame.core.tree.NodeEvent)
+		 * @see net.sf.jame.core.tree.NodeListener#nodeAccepted(net.sf.jame.core.tree.NodeEvent)
 		 */
 		public void nodeAccepted(final NodeEvent e) {
 		}
 
 		/**
-		 * @see net.sf.jame.core.tree.TreeListener#nodeCancelled(net.sf.jame.core.tree.NodeEvent)
+		 * @see net.sf.jame.core.tree.NodeListener#nodeCancelled(net.sf.jame.core.tree.NodeEvent)
 		 */
 		public void nodeCancelled(final NodeEvent e) {
 		}

@@ -7,8 +7,8 @@ package net.sf.jame.contextfree.extensions.figure;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
+import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.contextfree.renderer.SolidPathShape;
 

@@ -31,12 +31,14 @@ import java.util.List;
 import net.sf.jame.core.tree.NodeAction;
 import net.sf.jame.core.tree.NodeActionValue;
 import net.sf.jame.core.tree.NodeSession;
+import net.sf.jame.core.tree.NodeSessionListener;
 
 /**
  * @author Andrea Medeghini
  */
 public class TwisterSessionController extends AbstractTwisterController implements NodeSession {
 	// private static final Logger logger = Logger.getLogger(TwisterSessionController.class.getName());
+	private List<NodeSessionListener> listeners = new ArrayList<NodeSessionListener>(); 
 	private final String sessionName;
 	private long refTimestamp;
 	private long timestamp;
@@ -179,5 +181,31 @@ public class TwisterSessionController extends AbstractTwisterController implemen
 	 */
 	public void setAcceptImmediatly(final boolean isAcceptImmediatly) {
 		this.isAcceptImmediatly = isAcceptImmediatly;
+	}
+	
+	public void fireSessionChanged() {
+		for (NodeSessionListener listener : listeners) {
+			listener.fireSessionChanged();
+		}
+	}
+
+	public void fireSessionAccepted() {
+		for (NodeSessionListener listener : listeners) {
+			listener.fireSessionAccepted();
+		}
+	}
+
+	public void fireSessionCancelled() {
+		for (NodeSessionListener listener : listeners) {
+			listener.fireSessionCancelled();
+		}
+	}
+	
+	public void addSessionListener(NodeSessionListener listener) {
+		listeners.add(listener);
+	}
+	
+	public void removeSessionListener(NodeSessionListener listener) {
+		listeners.remove(listener);
 	}
 }

@@ -57,14 +57,14 @@ import net.sf.jame.core.tree.NodeEvent;
 import net.sf.jame.core.tree.NodePath;
 import net.sf.jame.core.tree.RootNode;
 import net.sf.jame.core.tree.TransferableNodeValue;
-import net.sf.jame.core.tree.TreeListener;
+import net.sf.jame.core.tree.NodeListener;
 
 import org.apache.log4j.Logger;
 
 /**
  * @author Andrea Medeghini
  */
-public class NavigatorTree extends JTree implements TreeListener, DropTargetListener, DragGestureListener, DragSourceListener {
+public class NavigatorTree extends JTree implements NodeListener, DropTargetListener, DragGestureListener, DragSourceListener {
 	private static final Logger logger = Logger.getLogger(NavigatorTree.class);
 	private static final long serialVersionUID = 1L;
 
@@ -118,7 +118,7 @@ public class NavigatorTree extends JTree implements TreeListener, DropTargetList
 	}
 
 	/**
-	 * @see net.sf.jame.core.tree.TreeListener#nodeChanged(net.sf.jame.core.tree.NodeEvent)
+	 * @see net.sf.jame.core.tree.NodeListener#nodeChanged(net.sf.jame.core.tree.NodeEvent)
 	 */
 	public void nodeChanged(final NodeEvent e) {
 		GUIUtil.executeTask(new Runnable() {
@@ -130,7 +130,7 @@ public class NavigatorTree extends JTree implements TreeListener, DropTargetList
 	}
 
 	/**
-	 * @see net.sf.jame.core.tree.TreeListener#nodeAdded(net.sf.jame.core.tree.NodeEvent)
+	 * @see net.sf.jame.core.tree.NodeListener#nodeAdded(net.sf.jame.core.tree.NodeEvent)
 	 */
 	public void nodeAdded(final NodeEvent e) {
 		GUIUtil.executeTask(new Runnable() {
@@ -147,7 +147,7 @@ public class NavigatorTree extends JTree implements TreeListener, DropTargetList
 	}
 
 	/**
-	 * @see net.sf.jame.core.tree.TreeListener#nodeRemoved(net.sf.jame.core.tree.NodeEvent)
+	 * @see net.sf.jame.core.tree.NodeListener#nodeRemoved(net.sf.jame.core.tree.NodeEvent)
 	 */
 	public void nodeRemoved(final NodeEvent e) {
 		GUIUtil.executeTask(new Runnable() {
@@ -159,13 +159,13 @@ public class NavigatorTree extends JTree implements TreeListener, DropTargetList
 	}
 
 	/**
-	 * @see net.sf.jame.core.tree.TreeListener#nodeAccepted(net.sf.jame.core.tree.NodeEvent)
+	 * @see net.sf.jame.core.tree.NodeListener#nodeAccepted(net.sf.jame.core.tree.NodeEvent)
 	 */
 	public void nodeAccepted(final NodeEvent e) {
 	}
 
 	/**
-	 * @see net.sf.jame.core.tree.TreeListener#nodeCancelled(net.sf.jame.core.tree.NodeEvent)
+	 * @see net.sf.jame.core.tree.NodeListener#nodeCancelled(net.sf.jame.core.tree.NodeEvent)
 	 */
 	public void nodeCancelled(final NodeEvent e) {
 	}

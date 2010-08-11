@@ -4,8 +4,6 @@
  */
 package net.sf.jame.contextfree.cfdg;
 
-import java.lang.Float;
-import java.lang.String;
 import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
 import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
 import net.sf.jame.core.config.ListConfigElement;

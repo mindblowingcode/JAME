@@ -4,9 +4,9 @@
  */
 package net.sf.jame.contextfree.cfdg.figure;
 
+import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
 import net.sf.jame.core.common.ExtensionReferenceElementNodeValue;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
-import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
 
 /**
  * @author Andrea Medeghini

@@ -4,14 +4,15 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
+import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 import net.sf.jame.contextfree.common.FillRuleElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 
 /**
  * @author Andrea Medeghini
@@ -187,7 +188,8 @@ public class FillPathReplacementConfig extends PathReplacementExtensionConfig {
 	}
 
 	@Override
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
+		builder.appendTabs();
 		builder.append("FILL {");
 		if (ruleElement.getValue() != null) {
 			if (ruleElement.getValue().equals("even-odd")) {

@@ -33,6 +33,7 @@ import java.util.List;
  * @author Andrea Medeghini
  */
 public class DefaultNodeSession implements NodeSession {
+	private List<NodeSessionListener> listeners = new ArrayList<NodeSessionListener>(); 
 	private List<NodeAction> actions = new ArrayList<NodeAction>();
 	private final String sessionName;
 	private long timestamp;
@@ -117,5 +118,31 @@ public class DefaultNodeSession implements NodeSession {
 	 */
 	public void setAcceptImmediatly(final boolean isAcceptImmediatly) {
 		this.isAcceptImmediatly = isAcceptImmediatly;
+	}
+	
+	public void fireSessionChanged() {
+		for (NodeSessionListener listener : listeners) {
+			listener.fireSessionChanged();
+		}
+	}
+
+	public void fireSessionAccepted() {
+		for (NodeSessionListener listener : listeners) {
+			listener.fireSessionAccepted();
+		}
+	}
+
+	public void fireSessionCancelled() {
+		for (NodeSessionListener listener : listeners) {
+			listener.fireSessionCancelled();
+		}
+	}
+	
+	public void addSessionListener(NodeSessionListener listener) {
+		listeners.add(listener);
+	}
+	
+	public void removeSessionListener(NodeSessionListener listener) {
+		listeners.remove(listener);
 	}
 }

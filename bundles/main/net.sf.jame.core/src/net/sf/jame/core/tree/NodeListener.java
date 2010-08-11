@@ -30,7 +30,7 @@ import java.util.EventListener;
 /**
  * @author Andrea Medeghini
  */
-public interface TreeListener extends EventListener {
+public interface NodeListener extends EventListener {
 	/**
 	 * @param e the node event.
 	 */

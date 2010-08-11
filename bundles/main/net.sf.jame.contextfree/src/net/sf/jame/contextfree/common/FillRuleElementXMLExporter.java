@@ -4,7 +4,6 @@
  */
 package net.sf.jame.contextfree.common;
 
-import java.lang.String;
 import net.sf.jame.core.config.ValueConfigElementXMLExporter;
 
 /**

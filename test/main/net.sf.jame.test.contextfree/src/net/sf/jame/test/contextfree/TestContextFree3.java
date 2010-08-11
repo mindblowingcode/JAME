@@ -1,5 +1,5 @@
 /*
- * JAME 6.1 
+ù * JAME 6.1 
  * http://jame.sourceforge.net
  *
  * Copyright 2001, 2010 Andrea Medeghini
@@ -35,6 +35,7 @@ import java.io.FileReader;
 
 import javax.imageio.ImageIO;
 
+import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.ContextFreeConfig;
 import net.sf.jame.contextfree.ContextFreeConfigNodeBuilder;
 import net.sf.jame.contextfree.ContextFreeRuntime;
@@ -74,9 +75,9 @@ public class TestContextFree3 {
 			nodeBuilder.createNodes(rootNode);
 			Tree tree = new Tree(rootNode);
 			System.out.println(tree);
-			StringBuilder builder2 = new StringBuilder();
-			config.getCFDG().toCFDG(builder2);
-			System.out.println(builder2.toString());
+			CFDGBuilder cfdgBuilder = new CFDGBuilder();
+			config.getCFDG().toCFDG(cfdgBuilder);
+			System.out.println(cfdgBuilder.toString());
 			ContextFreeRuntime runtime = new ContextFreeRuntime(config);
 			ContextFreeRenderer renderer = new DefaultContextFreeRenderer(Thread.MIN_PRIORITY);
 			IntegerVector2D imageSize = new IntegerVector2D(IMAGE_WIDTH, IMAGE_HEIGHT);

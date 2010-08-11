@@ -32,7 +32,7 @@ import java.util.List;
  * @author Andrea Medeghini
  */
 public class RootNode extends Node {
-	private List<TreeListener> listeners = new ArrayList<TreeListener>();
+	private List<NodeListener> listeners = new ArrayList<NodeListener>();
 
 	/**
 	 * Constructs a new root node.
@@ -60,7 +60,7 @@ public class RootNode extends Node {
 	 * 
 	 * @param listener the listener to add.
 	 */
-	public void addNodeListener(final TreeListener listener) {
+	public void addNodeListener(final NodeListener listener) {
 		listeners.add(listener);
 	}
 
@@ -69,7 +69,7 @@ public class RootNode extends Node {
 	 * 
 	 * @param listener the listener to remove.
 	 */
-	public void removeNodeListener(final TreeListener listener) {
+	public void removeTreeListener(final NodeListener listener) {
 		listeners.remove(listener);
 	}
 
@@ -78,7 +78,7 @@ public class RootNode extends Node {
 	 */
 	@Override
 	protected void fireNodeAdded(final NodeEvent e) {
-		for (final TreeListener listener : listeners) {
+		for (final NodeListener listener : listeners) {
 			listener.nodeAdded(e);
 		}
 	}
@@ -88,7 +88,7 @@ public class RootNode extends Node {
 	 */
 	@Override
 	protected void fireNodeRemoved(final NodeEvent e) {
-		for (final TreeListener listener : listeners) {
+		for (final NodeListener listener : listeners) {
 			listener.nodeRemoved(e);
 		}
 	}
@@ -98,7 +98,7 @@ public class RootNode extends Node {
 	 */
 	@Override
 	protected void fireNodeChanged(final NodeEvent e) {
-		for (final TreeListener listener : listeners) {
+		for (final NodeListener listener : listeners) {
 			listener.nodeChanged(e);
 		}
 	}
@@ -108,7 +108,7 @@ public class RootNode extends Node {
 	 */
 	@Override
 	protected void fireNodeAccepted(final NodeEvent e) {
-		for (final TreeListener listener : listeners) {
+		for (final NodeListener listener : listeners) {
 			listener.nodeAccepted(e);
 		}
 	}
@@ -118,7 +118,7 @@ public class RootNode extends Node {
 	 */
 	@Override
 	protected void fireNodeCancelled(final NodeEvent e) {
-		for (final TreeListener listener : listeners) {
+		for (final NodeListener listener : listeners) {
 			listener.nodeCancelled(e);
 		}
 	}

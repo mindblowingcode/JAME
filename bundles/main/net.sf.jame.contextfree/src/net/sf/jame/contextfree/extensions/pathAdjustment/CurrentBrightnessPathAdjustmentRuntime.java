@@ -4,13 +4,11 @@
  */
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
-import java.lang.Boolean;
-import java.lang.Float;
+import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 /**
  * @author Andrea Medeghini

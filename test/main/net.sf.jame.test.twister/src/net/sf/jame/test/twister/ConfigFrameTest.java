@@ -41,6 +41,7 @@ import net.sf.jame.core.scripting.JSException;
 import net.sf.jame.core.scripting.JSManager;
 import net.sf.jame.core.tree.NodeAction;
 import net.sf.jame.core.tree.NodeSession;
+import net.sf.jame.core.tree.NodeSessionListener;
 import net.sf.jame.core.util.IntegerVector2D;
 import net.sf.jame.core.util.RenderContext;
 import net.sf.jame.core.util.RenderContextListener;
@@ -293,6 +294,21 @@ public class ConfigFrameTest {
 		 */
 		public void setTimestamp(final long timestamp) {
 			System.out.println("Timestamp = " + timestamp);
+		}
+
+		public void fireSessionAccepted() {
+		}
+
+		public void fireSessionCancelled() {
+		}
+
+		public void fireSessionChanged() {
+		}
+
+		public void addSessionListener(NodeSessionListener listener) {
+		}
+
+		public void removeSessionListener(NodeSessionListener listener) {
 		}
 	}
 }

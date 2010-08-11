@@ -4,14 +4,15 @@
  */
 package net.sf.jame.contextfree.extensions.figure;
 
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jame.contextfree.CFDGBuilder;
+import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
 import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
-import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
 
 /**
  * @author Andrea Medeghini
@@ -187,14 +188,16 @@ public class PathFigureConfig extends FigureExtensionConfig {
 	}
 
 	@Override
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
 		builder.append("path ");
 		builder.append(nameElement.getValue());
 		builder.append(" {\n");
+		builder.addTab();
 		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
 			pathReplacementListElement.getElement(i).toCFDG(builder);
 			builder.append("\n");
 		}
+		builder.removeTab();
 		builder.append("}\n");
 	}
 }

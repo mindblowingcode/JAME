@@ -4,7 +4,6 @@
  */
 package net.sf.jame.contextfree.common;
 
-import java.lang.String;
 import net.sf.jame.contextfree.ContextFreeResources;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;

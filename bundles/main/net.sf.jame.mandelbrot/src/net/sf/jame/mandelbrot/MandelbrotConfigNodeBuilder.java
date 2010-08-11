@@ -34,6 +34,7 @@ import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeAction;
+import net.sf.jame.core.tree.NodeBuilder;
 import net.sf.jame.core.tree.NodeEditor;
 import net.sf.jame.core.tree.NodeValue;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalConfigElement;
@@ -45,7 +46,7 @@ import net.sf.jame.twister.common.ViewElementNode;
 /**
  * @author Andrea Medeghini
  */
-public class MandelbrotConfigNodeBuilder {
+public class MandelbrotConfigNodeBuilder implements NodeBuilder {
 	private final MandelbrotConfig config;
 
 	/**

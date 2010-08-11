@@ -33,6 +33,7 @@ import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeAction;
+import net.sf.jame.core.tree.NodeBuilder;
 import net.sf.jame.core.tree.NodeEditor;
 import net.sf.jame.core.tree.NodeValue;
 import net.sf.jame.twister.common.SpeedElementNode;
@@ -41,7 +42,7 @@ import net.sf.jame.twister.common.ViewElementNode;
 /**
  * @author Andrea Medeghini
  */
-public class ContextFreeConfigNodeBuilder {
+public class ContextFreeConfigNodeBuilder implements NodeBuilder {
 	private final ContextFreeConfig config;
 
 	/**

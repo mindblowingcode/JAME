@@ -4,15 +4,16 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
-import java.lang.Integer;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
+import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 import net.sf.jame.core.common.IntegerElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 
 /**
  * @author Andrea Medeghini
@@ -282,7 +283,8 @@ public class MultiPathReplacementConfig extends PathReplacementExtensionConfig {
 	}
 
 	@Override
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
+		builder.appendTabs();
 		if (timesElement.getValue() != null) {
 			builder.append(timesElement.getValue());
 			builder.append(" * ");
@@ -297,10 +299,12 @@ public class MultiPathReplacementConfig extends PathReplacementExtensionConfig {
 				builder.append("} ");
 			}
 			builder.append("{\n");
+			builder.addTab();
 			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
 				pathReplacementListElement.getElement(i).toCFDG(builder);
 				builder.append("\n");
 			}
+			builder.removeTab();
 			builder.append("}");
 		}
 	}

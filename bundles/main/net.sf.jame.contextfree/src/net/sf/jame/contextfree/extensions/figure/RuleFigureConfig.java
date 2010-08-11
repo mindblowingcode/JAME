@@ -4,16 +4,16 @@
  */
 package net.sf.jame.contextfree.extensions.figure;
 
-import java.lang.Float;
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jame.contextfree.CFDGBuilder;
+import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
-import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
 
 /**
  * @author Andrea Medeghini
@@ -221,7 +221,7 @@ public class RuleFigureConfig extends FigureExtensionConfig {
 	}
 
 	@Override
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
 		builder.append("rule ");
 		builder.append(nameElement.getValue());
 		if (probabilityElement.getValue() != 0) {
@@ -229,10 +229,12 @@ public class RuleFigureConfig extends FigureExtensionConfig {
 			builder.append(probabilityElement.getValue());
 		}
 		builder.append(" {\n");
+		builder.addTab();
 		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
 			shapeReplacementListElement.getElement(i).toCFDG(builder);
 			builder.append("\n");
 		}
+		builder.removeTab();
 		builder.append("}\n");
 	}
 }

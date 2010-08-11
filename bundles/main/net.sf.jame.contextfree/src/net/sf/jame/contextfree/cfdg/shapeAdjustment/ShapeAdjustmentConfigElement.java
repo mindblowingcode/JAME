@@ -4,6 +4,7 @@
  */
 package net.sf.jame.contextfree.cfdg.shapeAdjustment;
 
+import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
 import net.sf.jame.core.common.ConfigurableExtensionReferenceElement;
 import net.sf.jame.core.config.AbstractConfigElement;
@@ -110,7 +111,7 @@ public class ShapeAdjustmentConfigElement extends AbstractConfigElement {
 		super.dispose();
 	}
 
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
 		if (extensionElement.getReference() != null) {
 			if (extensionElement.getReference().getExtensionConfig() != null) {
 				extensionElement.getReference().getExtensionConfig().toCFDG(builder);

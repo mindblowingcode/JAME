@@ -4,12 +4,13 @@
  */
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
-import java.lang.Float;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jame.contextfree.CFDGBuilder;
+import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionConfig;
 import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.config.ConfigElement;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionConfig;
 
 /**
  * @author Andrea Medeghini
@@ -91,7 +92,7 @@ public class YPathAdjustmentConfig extends PathAdjustmentExtensionConfig {
 	}
 
 	@Override
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
 		if (valueElement.getValue() != null) {
 			builder.append("y ");
 			builder.append(valueElement.getValue());

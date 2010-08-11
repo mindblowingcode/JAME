@@ -5,6 +5,7 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import java.util.List;
+
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementXMLImporter;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
@@ -15,6 +16,7 @@ import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
 import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
+
 import org.w3c.dom.Element;
 
 /**
