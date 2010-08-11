@@ -444,9 +444,9 @@ public class CFDGConfigElement extends AbstractConfigElement {
 			builder.append(getStartshape());
 			builder.append("\n\n");
 		}
-		if (getX() != null || getY() != null || getWidth() != null || getHeight() != null) {
+		if ((getX() != null && getX() != 0f) || (getY() != null && getY() != 0f) || (getWidth() != null && getWidth() != 1f) || (getHeight() != null && getHeight() != 1f)) {
 			builder.append("size {");
-			if (getWidth() != null || getHeight() != null) {
+			if ((getWidth() != null && getWidth() != 1f) || (getHeight() != null && getHeight() != 1f)) {
 				builder.append(" s");
 				if (getWidth() != null && getWidth() != 1f) {
 					builder.append(" ");
@@ -467,7 +467,7 @@ public class CFDGConfigElement extends AbstractConfigElement {
 			}
 			builder.append(" }\n\n");
 		}
-		if (getTileWidth() != null || getTileHeight() != null) {
+		if ((getTileWidth() != null && getTileWidth() != 1f) || (getTileHeight() != null && getTileHeight() != 1f)) {
 			builder.append("tile { ");
 			builder.append("s");
 			if (getTileWidth() != null && getTileWidth() != 1f) {
