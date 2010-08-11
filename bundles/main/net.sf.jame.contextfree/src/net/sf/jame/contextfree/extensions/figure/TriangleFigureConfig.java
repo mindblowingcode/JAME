@@ -6,8 +6,10 @@ package net.sf.jame.contextfree.extensions.figure;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.sf.jame.core.config.ConfigElement;
+
+import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
+import net.sf.jame.core.config.ConfigElement;
 
 /**
  * @author Andrea Medeghini
@@ -57,7 +59,7 @@ public class TriangleFigureConfig extends FigureExtensionConfig {
 	}
 
 	@Override
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
 		builder.append("/* TRIANGLE */\n");
 	}
 }

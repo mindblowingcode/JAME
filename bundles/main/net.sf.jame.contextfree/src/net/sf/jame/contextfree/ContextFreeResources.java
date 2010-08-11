@@ -5,6 +5,7 @@
 package net.sf.jame.contextfree;
 
 import java.util.ResourceBundle;
+
 import net.sf.jame.core.util.Resources;
 
 /**

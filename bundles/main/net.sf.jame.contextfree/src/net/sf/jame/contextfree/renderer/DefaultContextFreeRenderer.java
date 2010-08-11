@@ -29,9 +29,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-import org.apache.log4j.Logger;
-
 import net.sf.jame.core.util.Color32bit;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author Andrea Medeghini
@@ -62,7 +62,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		configure(g2d);
 		g2d.setColor(new Color(background.getARGB()));
 		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
-		context.buildRule(state, bounds, startshape);
+		context.buildPathOrRule(state, bounds, startshape);
 		logger.debug("Create time " + (System.nanoTime() - time) / 1000000 + "ms");
 		time = System.nanoTime();
 		while (context.expandShapes()) {

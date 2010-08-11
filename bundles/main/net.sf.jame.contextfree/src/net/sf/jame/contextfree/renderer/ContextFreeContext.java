@@ -125,12 +125,6 @@ public class ContextFreeContext {
 			createShapes(state, bounds, shape);
 		}
 	}
-
-	public void buildRule(ContextFreeState state, ContextFreeBounds bounds, String shape) {
-		createShapes(state, bounds, shape);
-		commitShapes();
-		publishShapes();
-	}
 	
 	private void createShapes(ContextFreeState state, ContextFreeBounds bounds,	String shape) {
 		if (!buildSet.contains(shape)) {

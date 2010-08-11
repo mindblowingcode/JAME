@@ -4,17 +4,17 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
-import java.lang.Float;
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
+import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 import net.sf.jame.contextfree.common.StrokeCapElement;
 import net.sf.jame.contextfree.common.StrokeJoinElement;
 import net.sf.jame.contextfree.common.StrokeWidthElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 
 /**
  * @author Andrea Medeghini
@@ -279,7 +279,8 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	}
 
 	@Override
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
+		builder.appendTabs();
 		builder.append("STROKE {");
 		if (widthElement.getValue() != null) {
 			builder.append(" width ");

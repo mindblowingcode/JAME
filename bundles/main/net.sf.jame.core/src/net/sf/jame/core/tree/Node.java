@@ -260,6 +260,10 @@ public abstract class Node {
 		return session;
 	}
 
+	public boolean existsSession() {
+		return session != null;
+	}
+
 	/**
 	 * @param context
 	 */

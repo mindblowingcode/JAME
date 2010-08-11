@@ -60,6 +60,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.undo.UndoManager;
 
+import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.ContextFreeConfig;
 import net.sf.jame.contextfree.parser.ContextFreeParser;
 import net.sf.jame.contextfree.parser.ContextFreeParserException;
@@ -69,10 +70,14 @@ import net.sf.jame.core.config.ValueConfigElement;
 import net.sf.jame.core.swing.ViewContext;
 import net.sf.jame.core.swing.extension.ExtensionListCellRenderer;
 import net.sf.jame.core.swing.util.GUIFactory;
+import net.sf.jame.core.swing.util.GUIUtil;
 import net.sf.jame.core.swing.util.StackLayout;
 import net.sf.jame.core.tree.NodeSession;
+import net.sf.jame.core.tree.NodeSessionListener;
+import net.sf.jame.core.util.DefaultThreadFactory;
 import net.sf.jame.core.util.DoubleVector4D;
 import net.sf.jame.core.util.RenderContext;
+import net.sf.jame.core.util.Worker;
 import net.sf.jame.twister.swing.TwisterConfigPanel;
 import net.sf.jame.twister.swing.TwisterSwingResources;
 import net.sf.jame.twister.swing.ViewPanel;
@@ -94,6 +99,8 @@ public class ContextFreeConfigPanel extends ViewPanel {
 	private final ContextFreeConfig config;
 	private final Color oddColor;
 	private final Color evenColor;
+	private NodeSessionListener sessionListener;
+	private Worker worker = new Worker(new DefaultThreadFactory("ContextFree Parser", true, Thread.NORM_PRIORITY - 1));
 
 	/**
 	 * @param config
@@ -112,15 +119,23 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		setLayout(new StackLayout());
 		add(imagePanel);
 		setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.DARK_GRAY));
+		sessionListener = new NodeSessionListener() {
+			public void fireSessionChanged() {
+			}
+			
+			public void fireSessionCancelled() {
+				imagePanel.refreshCFDG();
+			}
+			
+			public void fireSessionAccepted() {
+				imagePanel.refreshCFDG();
+			}
+		};
+		session.addSessionListener(sessionListener);
 		configListener = new ValueChangeListener() {
 			public void valueChanged(final ValueChangeEvent e) {
 				switch (e.getEventType()) {
 					case ValueConfigElement.VALUE_CHANGED: {
-						//TODO BEGIN rimuovere quando finito
-						StringBuilder builder = new StringBuilder();
-						config.getCFDG().toCFDG(builder);
-						System.out.println(builder.toString());
-						//END rimuovere quando finito
 						viewContext.setComponent(ContextFreeConfigPanel.this);
 						break;
 					}
@@ -131,11 +146,14 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			}
 		};
 		config.getCFDGSingleElement().addChangeListener(configListener);
+		worker.start();
 	}
 
 	@Override
 	public void dispose() {
+		worker.stop();
 		config.getCFDGSingleElement().removeChangeListener(configListener);
+		session.removeSessionListener(sessionListener);
 		imagePanel.dispose();
 	}
 
@@ -470,39 +488,9 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						chooser.setMultiSelectionEnabled(false);
 					}
 					if (chooser.showOpenDialog(ContextFreeConfigPanel.this) == JFileChooser.APPROVE_OPTION) {
-						if (chooser.getSelectedFile() != null) {
-							BufferedReader reader = null;
-							try {
-								File file = chooser.getSelectedFile();
-								reader = new BufferedReader(new FileReader(file));
-								StringBuilder builder = new StringBuilder();
-								String line = null;
-								while ((line = reader.readLine()) != null) {
-									builder.append(line);
-									builder.append("\n");
-								}
-								String text = builder.toString();
-								editorPane.setText(text);
-								context.acquire();
-								config.getContext().updateTimestamp();
-								loadFile(config, editorPane.getText());
-								context.release();
-								context.refresh();
-							}
-							catch (InterruptedException x) {
-								Thread.currentThread().interrupt();
-							} 
-							catch (Exception x) {
-								JOptionPane.showMessageDialog(ContextFreeImagePanel.this, x.getMessage(), ContextFreeSwingResources.getInstance().getString("message.readerError"), JOptionPane.ERROR_MESSAGE);
-							} 
-							finally {
-								if (reader != null) {
-									try {
-										reader.close();
-									} catch (IOException e1) {
-									}
-								}
-							}
+						File file = chooser.getSelectedFile();
+						if (file != null) {
+							loadConfig(config, file);
 						}
 					}
 				}
@@ -510,16 +498,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			loadButton.addActionListener(loadActionListener);
 			final ActionListener renderActionListener = new ActionListener() {
 				public void actionPerformed(final ActionEvent e) {
-					try {
-						context.acquire();
-						config.getContext().updateTimestamp();
-						loadFile(config, editorPane.getText());
-						context.release();
-						context.refresh();
-					}
-					catch (InterruptedException x) {
-						Thread.currentThread().interrupt();
-					}
+					renderConfig(config, editorPane.getText());
 				}
 			};
 			renderButton.addActionListener(renderActionListener);
@@ -565,17 +544,138 @@ public class ContextFreeConfigPanel extends ViewPanel {
 				}
 			};
 			config.getSpeedElement().addChangeListener(speedListener);
+			refreshCFDG();
+		}
+
+		public void enableButtons() {
+			loadButton.setEnabled(true);
+			renderButton.setEnabled(true);
+		}
+
+		public void disableButtons() {
+			loadButton.setEnabled(false);
+			renderButton.setEnabled(false);
 		}
 
 		public void dispose() {
 			config.getSpeedElement().removeChangeListener(speedListener);
 		}
 
-		private void loadFile(final ContextFreeConfig config, String text)	throws InterruptedException {
+		public void refreshCFDG() {
+			GUIUtil.executeTask(new Runnable() {
+				public void run() {
+					disableButtons();
+				}
+			}, false);
+			worker.addTask(new Runnable() {
+				public void run() {
+					final CFDGBuilder builder = new CFDGBuilder();
+					try {
+						context.acquire();
+						config.getCFDG().toCFDG(builder);
+						context.release();
+					}
+					catch (InterruptedException x) {
+						Thread.currentThread().interrupt();
+					} finally {
+						GUIUtil.executeTask(new Runnable() {
+							public void run() {
+								editorPane.setText(builder.toString());
+								enableButtons();
+							}
+						}, false);
+					}
+				}
+			});
+		}
+
+		private void renderConfig(final ContextFreeConfig config, final String text) {
+			GUIUtil.executeTask(new Runnable() {
+				public void run() {
+					disableButtons();
+				}
+			}, false);
+			worker.addTask(new Runnable() {
+				public void run() {
+					try {
+						context.acquire();
+						session.removeSessionListener(sessionListener);
+						config.getContext().updateTimestamp();
+						loadConfig(config, text);
+						session.addSessionListener(sessionListener);
+						context.release();
+						context.refresh();
+					}
+					catch (InterruptedException x) {
+						Thread.currentThread().interrupt();
+					} finally {
+						GUIUtil.executeTask(new Runnable() {
+							public void run() {
+								enableButtons();
+							}
+						}, false);
+					}
+				}
+			});
+		}
+
+		private void loadConfig(final ContextFreeConfig config, final File file) {
+			GUIUtil.executeTask(new Runnable() {
+				public void run() {
+					disableButtons();
+				}
+			}, false);
+			worker.addTask(new Runnable() {
+				public void run() {
+					final StringBuilder builder = new StringBuilder();
+					BufferedReader reader = null;
+					try {
+						reader = new BufferedReader(new FileReader(file));
+						String line = null;
+						while ((line = reader.readLine()) != null) {
+							builder.append(line);
+							builder.append("\n");
+						}
+						context.acquire();
+						session.removeSessionListener(sessionListener);
+						config.getContext().updateTimestamp();
+						loadConfig(config, builder.toString());
+						session.addSessionListener(sessionListener);
+						context.release();
+						context.refresh();
+					}
+					catch (InterruptedException x) {
+						Thread.currentThread().interrupt();
+					} 
+					catch (final Exception x) {
+						GUIUtil.executeTask(new Runnable() {
+							public void run() {
+								JOptionPane.showMessageDialog(ContextFreeImagePanel.this, x.getMessage(), ContextFreeSwingResources.getInstance().getString("message.readerError"), JOptionPane.ERROR_MESSAGE);
+							}
+						}, false);
+					} 
+					finally {
+						if (reader != null) {
+							try {
+								reader.close();
+							} catch (IOException e1) {
+							}
+						}
+						GUIUtil.executeTask(new Runnable() {
+							public void run() {
+								editorPane.setText(builder.toString());
+								enableButtons();
+							}
+						}, false);
+					}
+				}
+			});
+		}
+
+		private void loadConfig(final ContextFreeConfig config, String text) throws InterruptedException {
 			try {
 				ContextFreeParser parser = new ContextFreeParser();
 				ContextFreeConfig newConfig = parser.parseConfig(text);
-				config.getContext().updateTimestamp();
 				config.setCFDG(newConfig.getCFDG());
 			} catch (ContextFreeParserException x) {
 				logger.error(x);

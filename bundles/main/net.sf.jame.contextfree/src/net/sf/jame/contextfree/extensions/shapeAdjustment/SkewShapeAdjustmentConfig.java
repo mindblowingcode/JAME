@@ -4,12 +4,13 @@
  */
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
-import java.lang.Float;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jame.contextfree.CFDGBuilder;
+import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
 import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.config.ConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
 
 /**
  * @author Andrea Medeghini
@@ -123,7 +124,7 @@ public class SkewShapeAdjustmentConfig extends ShapeAdjustmentExtensionConfig {
 	}
 
 	@Override
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
 		if (shearXElement.getValue() != null && shearYElement.getValue() != null) {
 			builder.append("skew ");
 			builder.append(shearXElement.getValue() * 180f / Math.PI);

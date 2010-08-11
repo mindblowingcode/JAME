@@ -61,7 +61,7 @@ import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeEvent;
 import net.sf.jame.core.tree.NodeSession;
 import net.sf.jame.core.tree.Tree;
-import net.sf.jame.core.tree.TreeListener;
+import net.sf.jame.core.tree.NodeListener;
 import net.sf.jame.core.util.RenderContext;
 
 /**
@@ -181,7 +181,7 @@ public class NavigatorFrame extends JFrame {
 			navigatorPanel.removeChangeListener(panelSelectionListener);
 			navigatorTree.getModel().removeTreeModelListener(treeModelListener);
 			navigatorTree.getSelectionModel().removeTreeSelectionListener(treeSelectionListener);
-			twisterTree.getRootNode().removeNodeListener(navigatorTreeListener);
+			twisterTree.getRootNode().removeTreeListener(navigatorTreeListener);
 		}
 
 		private final class NavigatorChangeListener implements ChangeListener {
@@ -212,7 +212,7 @@ public class NavigatorFrame extends JFrame {
 			}
 		}
 
-		private final class NavigatorTreeListener implements TreeListener {
+		private final class NavigatorTreeListener implements NodeListener {
 			private final RenderContext context;
 			private final NodeSession session;
 
@@ -222,25 +222,28 @@ public class NavigatorFrame extends JFrame {
 			}
 
 			/**
-			 * @see net.sf.jame.core.tree.TreeListener#nodeChanged(net.sf.jame.core.tree.NodeEvent)
+			 * @see net.sf.jame.core.tree.NodeListener#nodeChanged(net.sf.jame.core.tree.NodeEvent)
 			 */
 			public void nodeChanged(final NodeEvent e) {
+				twisterTree.getRootNode().getSession().fireSessionChanged();
 			}
 
 			/**
-			 * @see net.sf.jame.core.tree.TreeListener#nodeAdded(net.sf.jame.core.tree.NodeEvent)
+			 * @see net.sf.jame.core.tree.NodeListener#nodeAdded(net.sf.jame.core.tree.NodeEvent)
 			 */
 			public void nodeAdded(final NodeEvent e) {
+				twisterTree.getRootNode().getSession().fireSessionChanged();
 			}
 
 			/**
-			 * @see net.sf.jame.core.tree.TreeListener#nodeRemoved(net.sf.jame.core.tree.NodeEvent)
+			 * @see net.sf.jame.core.tree.NodeListener#nodeRemoved(net.sf.jame.core.tree.NodeEvent)
 			 */
 			public void nodeRemoved(final NodeEvent e) {
+				twisterTree.getRootNode().getSession().fireSessionChanged();
 			}
 
 			/**
-			 * @see net.sf.jame.core.tree.TreeListener#nodeAccepted(net.sf.jame.core.tree.NodeEvent)
+			 * @see net.sf.jame.core.tree.NodeListener#nodeAccepted(net.sf.jame.core.tree.NodeEvent)
 			 */
 			public void nodeAccepted(final NodeEvent e) {
 				GUIUtil.executeTask(new Runnable() {
@@ -253,7 +256,7 @@ public class NavigatorFrame extends JFrame {
 			}
 
 			/**
-			 * @see net.sf.jame.core.tree.TreeListener#nodeCancelled(net.sf.jame.core.tree.NodeEvent)
+			 * @see net.sf.jame.core.tree.NodeListener#nodeCancelled(net.sf.jame.core.tree.NodeEvent)
 			 */
 			public void nodeCancelled(final NodeEvent e) {
 			}
@@ -394,6 +397,7 @@ public class NavigatorFrame extends JFrame {
 				context.acquire();
 				context.stopRenderers();
 				twisterTree.getRootNode().getContext().updateTimestamp();
+				twisterTree.getRootNode().getSession().fireSessionAccepted();
 				twisterTree.getRootNode().accept();
 				context.startRenderers();
 				context.release();
@@ -409,6 +413,7 @@ public class NavigatorFrame extends JFrame {
 		 */
 		public void doCancel() {
 			twisterTree.getRootNode().cancel();
+			twisterTree.getRootNode().getSession().fireSessionCancelled();
 		}
 	}
 

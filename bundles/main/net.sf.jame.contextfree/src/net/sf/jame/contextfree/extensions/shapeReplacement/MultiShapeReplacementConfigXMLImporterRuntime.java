@@ -5,6 +5,7 @@
 package net.sf.jame.contextfree.extensions.shapeReplacement;
 
 import java.util.List;
+
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElementXMLImporter;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
@@ -15,6 +16,7 @@ import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
 import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
+
 import org.w3c.dom.Element;
 
 /**

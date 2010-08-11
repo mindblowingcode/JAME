@@ -4,9 +4,9 @@
  */
 package net.sf.jame.contextfree.cfdg.pathReplacement;
 
+import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 import net.sf.jame.core.common.ExtensionReferenceElementNodeValue;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 
 /**
  * @author Andrea Medeghini

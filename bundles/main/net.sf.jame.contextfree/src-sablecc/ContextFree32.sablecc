@@ -185,11 +185,11 @@ Productions
   		
 	rule_declaration = rule string number? l_cbkt shape_replacement_declaration* r_cbkt;
 
-    shape_replacement_declaration = {multi} number star l_cbkt shape_adjustment+ r_cbkt shape_replacement_block | {single} shape_replacement;
+    shape_replacement_declaration = {multi} number star l_cbkt shape_adjustment* r_cbkt shape_replacement_block | {single} shape_replacement;
 		
     shape_replacement = {basic} string l_sbkt shape_adjustment* r_sbkt | {ordered} string l_cbkt shape_adjustment* r_cbkt;
 		
-	shape_replacement_block = {basic} shape_replacement | {list} l_cbkt shape_replacement_declaration+ r_cbkt;
+	shape_replacement_block = {basic} shape_replacement | {list} l_cbkt shape_replacement_declaration* r_cbkt;
 	
   	operator = {star} star | {plus} plus | {minus} minus | {slash} slash | {arrow} arrow;
 		
@@ -199,11 +199,11 @@ Productions
 
 	path_declaration = path string l_cbkt path_replacement_declaration* r_cbkt;
 
-  	path_replacement_declaration = {multi} number star l_cbkt path_adjustment+ r_cbkt path_replacement_block | {single} path_replacement; 
+  	path_replacement_declaration = {multi} number star l_cbkt path_adjustment* r_cbkt path_replacement_block | {single} path_replacement; 
 
   	path_replacement = {operation} path_operation | {command} path_command; 
 
-	path_replacement_block = {basic} path_replacement | {list} l_cbkt path_replacement_declaration+ r_cbkt;
+	path_replacement_block = {basic} path_replacement | {list} l_cbkt path_replacement_declaration* r_cbkt;
 	
   	operation_parameter = {x} x_token expression | {y} y_token expression | {x1} x1_token expression | {y1} y1_token expression | {x2} x2_token expression | {y2} y2_token expression | {rx} rx_token expression | {ry} ry_token expression | {rotate} rotate_token expression | {parameters} parameters_token string; 
 

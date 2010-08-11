@@ -34,7 +34,7 @@ public class NodeEvent extends EventObject {
 	private static final long serialVersionUID = 1L;
 	private final NodePath path;
 
-	NodeEvent(final Object source, final NodePath path) {
+	NodeEvent(final Node source, final NodePath path) {
 		super(source);
 		this.path = path;
 	}

@@ -154,6 +154,7 @@ public abstract class NodeEditor {
 		command.setCommand(new SetValueCommand(value, prevValue));
 		if (node.getSession().isAcceptImmediatly()) {
 			node.getContext().updateTimestamp();
+			node.getSession().fireSessionAccepted();
 			node.accept();
 		}
 	}
@@ -218,6 +219,7 @@ public abstract class NodeEditor {
 		command.setCommand(new AppendCommand(newNode));
 		if (node.getSession().isAcceptImmediatly()) {
 			node.getContext().updateTimestamp();
+			node.getSession().fireSessionAccepted();
 			node.accept();
 		}
 	}
@@ -237,6 +239,7 @@ public abstract class NodeEditor {
 		command.setCommand(new InsertBeforeCommand(index, newNode));
 		if (node.getSession().isAcceptImmediatly()) {
 			node.getContext().updateTimestamp();
+			node.getSession().fireSessionAccepted();
 			node.accept();
 		}
 	}
@@ -255,6 +258,7 @@ public abstract class NodeEditor {
 		node.insertNodeAfter(index, newNode);
 		command.setCommand(new InsertAfterCommand(index, newNode));
 		if (node.getSession().isAcceptImmediatly()) {
+			node.getSession().fireSessionAccepted();
 			node.accept();
 		}
 	}
@@ -288,6 +292,7 @@ public abstract class NodeEditor {
 		}
 		if (node.getSession().isAcceptImmediatly()) {
 			node.getContext().updateTimestamp();
+			node.getSession().fireSessionAccepted();
 			node.accept();
 		}
 	}
@@ -307,6 +312,7 @@ public abstract class NodeEditor {
 			node.appendCommand(command);
 			if (node.getSession().isAcceptImmediatly()) {
 				node.getContext().updateTimestamp();
+				node.getSession().fireSessionAccepted();
 				node.accept();
 			}
 		}
@@ -326,6 +332,7 @@ public abstract class NodeEditor {
 			node.appendCommand(command);
 			if (node.getSession().isAcceptImmediatly()) {
 				node.getContext().updateTimestamp();
+				node.getSession().fireSessionAccepted();
 				node.accept();
 			}
 		}
@@ -345,6 +352,7 @@ public abstract class NodeEditor {
 			node.appendCommand(command);
 			if (node.getSession().isAcceptImmediatly()) {
 				node.getContext().updateTimestamp();
+				node.getSession().fireSessionAccepted();
 				node.accept();
 			}
 		}

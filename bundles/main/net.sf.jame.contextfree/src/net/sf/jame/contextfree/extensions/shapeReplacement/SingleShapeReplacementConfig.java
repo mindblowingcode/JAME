@@ -4,14 +4,15 @@
  */
 package net.sf.jame.contextfree.extensions.shapeReplacement;
 
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
+import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 
 /**
  * @author Andrea Medeghini
@@ -187,8 +188,9 @@ public class SingleShapeReplacementConfig extends ShapeReplacementExtensionConfi
 	}
 
 	@Override
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
 		if (shapeElement.getValue() != null) {
+			builder.appendTabs();
 			builder.append(shapeElement.getValue());
 			builder.append(" {");
 			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {

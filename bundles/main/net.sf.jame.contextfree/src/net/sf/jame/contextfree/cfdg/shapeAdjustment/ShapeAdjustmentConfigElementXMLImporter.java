@@ -5,14 +5,15 @@
 package net.sf.jame.contextfree.cfdg.shapeAdjustment;
 
 import java.util.List;
+
 import net.sf.jame.contextfree.ContextFreeRegistry;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
 import net.sf.jame.core.common.ConfigurableExtensionReferenceElement;
 import net.sf.jame.core.common.ConfigurableExtensionReferenceElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
+
 import org.w3c.dom.Element;
 
 /**

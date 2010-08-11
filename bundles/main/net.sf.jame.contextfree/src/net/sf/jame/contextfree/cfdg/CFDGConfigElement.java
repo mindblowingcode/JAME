@@ -4,8 +4,7 @@
  */
 package net.sf.jame.contextfree.cfdg;
 
-import java.lang.Float;
-import java.lang.String;
+import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
 import net.sf.jame.core.common.ColorElement;
 import net.sf.jame.core.common.FloatElement;
@@ -438,7 +437,7 @@ public class CFDGConfigElement extends AbstractConfigElement {
 		super.dispose();
 	}
 	
-	public String toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
 		if (getStartshape() != null) {
 			builder.append("startshape ");
 			builder.append(getStartshape());
@@ -507,6 +506,5 @@ public class CFDGConfigElement extends AbstractConfigElement {
 			figureListElement.getElement(i).toCFDG(builder);
 			builder.append("\n");
 		}
-		return builder.toString();
 	}
 }

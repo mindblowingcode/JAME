@@ -4,6 +4,7 @@
  */
 package net.sf.jame.contextfree.cfdg.pathReplacement;
 
+import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 import net.sf.jame.core.common.ConfigurableExtensionReferenceElement;
 import net.sf.jame.core.config.AbstractConfigElement;
@@ -110,7 +111,7 @@ public class PathReplacementConfigElement extends AbstractConfigElement {
 		super.dispose();
 	}
 
-	public void toCFDG(StringBuilder builder) {
+	public void toCFDG(CFDGBuilder builder) {
 		if (extensionElement.getReference() != null) {
 			if (extensionElement.getReference().getExtensionConfig() != null) {
 				extensionElement.getReference().getExtensionConfig().toCFDG(builder);

@@ -5,14 +5,15 @@
 package net.sf.jame.contextfree.cfdg.pathAdjustment;
 
 import java.util.List;
+
 import net.sf.jame.contextfree.ContextFreeRegistry;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionConfig;
 import net.sf.jame.core.common.ConfigurableExtensionReferenceElement;
 import net.sf.jame.core.common.ConfigurableExtensionReferenceElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
+
 import org.w3c.dom.Element;
 
 /**

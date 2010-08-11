@@ -4,9 +4,9 @@
  */
 package net.sf.jame.contextfree.cfdg.shapeAdjustment;
 
+import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
 import net.sf.jame.core.common.ExtensionReferenceElementNodeValue;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
 
 /**
  * @author Andrea Medeghini

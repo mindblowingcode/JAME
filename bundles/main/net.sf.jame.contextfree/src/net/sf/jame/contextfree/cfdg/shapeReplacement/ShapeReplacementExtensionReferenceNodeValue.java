@@ -4,9 +4,9 @@
  */
 package net.sf.jame.contextfree.cfdg.shapeReplacement;
 
+import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 import net.sf.jame.core.common.ExtensionReferenceElementNodeValue;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 
 /**
  * @author Andrea Medeghini
