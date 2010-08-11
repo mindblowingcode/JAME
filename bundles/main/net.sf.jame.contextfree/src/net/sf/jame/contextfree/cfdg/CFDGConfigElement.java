@@ -26,10 +26,10 @@ public class CFDGConfigElement extends AbstractConfigElement {
 	private final StringElement startshapeElement = new StringElement("");
 	private final FloatElement xElement = new FloatElement(0f);
 	private final FloatElement yElement = new FloatElement(0f);
-	private final FloatElement widthElement = new FloatElement(0f);
-	private final FloatElement heightElement = new FloatElement(0f);
-	private final FloatElement tileWidthElement = new FloatElement(0f);
-	private final FloatElement tileHeightElement = new FloatElement(0f);
+	private final FloatElement widthElement = new FloatElement(1f);
+	private final FloatElement heightElement = new FloatElement(1f);
+	private final FloatElement tileWidthElement = new FloatElement(1f);
+	private final FloatElement tileHeightElement = new FloatElement(1f);
 	private final ColorElement backgroundElement = new ColorElement(new Color32bit(0xFFFFFFFF));
 	private final ListConfigElement<FigureConfigElement> figureListElement = new ListConfigElement<FigureConfigElement>("figureListElement");
 
@@ -444,27 +444,37 @@ public class CFDGConfigElement extends AbstractConfigElement {
 			builder.append(getStartshape());
 			builder.append("\n\n");
 		}
-		if (getWidth() != null || getHeight() != null) {
-			builder.append("size { ");
-			builder.append("s");
-			if (getWidth() != null) {
-				builder.append(" ");
-				builder.append(getWidth());
+		if (getX() != null || getY() != null || getWidth() != null || getHeight() != null) {
+			builder.append("size {");
+			if (getWidth() != null || getHeight() != null) {
+				builder.append(" s");
+				if (getWidth() != null && getWidth() != 1f) {
+					builder.append(" ");
+					builder.append(getWidth());
+				}
+				if (getHeight() != null && getHeight() != 1f) {
+					builder.append(" ");
+					builder.append(getHeight());
+				}
 			}
-			if (getHeight() != null) {
-				builder.append(" ");
-				builder.append(getHeight());
+			if (getX() != null && getX() != 0f) {
+				builder.append(" x ");
+				builder.append(getX());
+			}
+			if (getY() != null && getY() != 0f) {
+				builder.append(" y ");
+				builder.append(getY());
 			}
 			builder.append(" }\n\n");
 		}
 		if (getTileWidth() != null || getTileHeight() != null) {
 			builder.append("tile { ");
 			builder.append("s");
-			if (getTileWidth() != null) {
+			if (getTileWidth() != null && getTileWidth() != 1f) {
 				builder.append(" ");
 				builder.append(getTileWidth());
 			}
-			if (getTileHeight() != null) {
+			if (getTileHeight() != null && getTileHeight() != 1f) {
 				builder.append(" ");
 				builder.append(getTileHeight());
 			}
