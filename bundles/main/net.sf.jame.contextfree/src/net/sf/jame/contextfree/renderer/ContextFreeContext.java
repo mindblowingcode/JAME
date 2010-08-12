@@ -42,23 +42,24 @@ import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
 import org.apache.log4j.Logger;
 
 public class ContextFreeContext {
+	private static final double THRESHOLD = 0.0000000000001;
 	private static final Logger logger = Logger.getLogger(ContextFreeContext.class);
-	public static final float MIN_SIZE = 5;
+	public static final float MIN_SIZE = 2;
 	public static final float MAX_SIZE = 1000;
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
 	private Set<ContextFreeShape> renderSet = new TreeSet<ContextFreeShape>(new ShapeComparator());
 	private Set<ContextFreeShape> expandSet = new HashSet<ContextFreeShape>();
-	private Set<ContextFreeShape> createSet = new HashSet<ContextFreeShape>();
-	private Set<ContextFreeShape> commitSet = new HashSet<ContextFreeShape>();
+	private Set<ContextFreeShape> createdSet = new HashSet<ContextFreeShape>();
+	private Set<ContextFreeShape> recursiveSet = new HashSet<ContextFreeShape>();
 	private Set<String> buildSet = new LinkedHashSet<String>();
 
 	public ContextFreeContext(CFDGRuntimeElement runtime) {
 		this.runtime = runtime;
 	}
 
-	public int getShapesCount() {
+	public int getRenderCount() {
 		return renderSet.size();
 	}
 
@@ -73,21 +74,21 @@ public class ContextFreeContext {
 	}
 
 	public boolean expandShapes() {
-		boolean expand = false;
+		expandSet.addAll(recursiveSet);
+		renderSet.addAll(createdSet);
+		recursiveSet.clear();
+		createdSet.clear();
 		for (Iterator<ContextFreeShape> shapes = expandSet.iterator(); shapes.hasNext();) {
 			ContextFreeShape next = shapes.next();
-			if (next.expand()) {
-				expand |= true;
-				commitShapes();
-				shapes.remove();
-			}
+			next.expand();
+			shapes.remove();
 		}
-		renderSet.addAll(expandSet);
-		expandSet.clear();
-		publishShapes();
-		return expand;
+		if (logger.isTraceEnabled()) {
+			logger.trace("Expand shapes [" + recursiveSet.size() + "/" + createdSet.size() + "/" + renderSet.size() + "]");
+		}
+		return recursiveSet.size() > 0;
 	}
-	
+
 	public void registerFigures() {
 		for (int i = 0; i < runtime.getFigureElementCount(); i++) {
 			FigureRuntimeElement figure = runtime.getFigureElement(i);
@@ -119,7 +120,7 @@ public class ContextFreeContext {
 			}
 			ContextFreeShape pathShape = path.createShape(this, state, bounds);
 			if (pathShape != null) {
-				createSet.add(pathShape);
+				createdSet.add(pathShape);
 			}
 		} else {
 			createShapes(state, bounds, shape);
@@ -138,7 +139,7 @@ public class ContextFreeContext {
 			}
 			buildSet.remove(shape);
 		} else {
-			createSet.add(new RecursiveShape(this, state, bounds, shape));
+			recursiveSet.add(new RecursiveShape(this, state, bounds, shape));
 		}
 	}
 	
@@ -148,49 +149,50 @@ public class ContextFreeContext {
 			logger.trace("Expanding " + shape);
 		}
 		createShapes(state, shapeBounds, shape);
-		if (createSet.size() > 0 && shapeBounds.isValid()) {
-			if (bounds.isValid()) {
-				double maxX = shapeBounds.getMaxX();
-				double maxY = shapeBounds.getMaxY();
-				double minX = shapeBounds.getMinX();
-				double minY = shapeBounds.getMinY();
-				double bMaxX = bounds.getMaxX();
-				double bMinX = bounds.getMinX();
-				double bMaxY = bounds.getMaxY();
-				double bMinY = bounds.getMinY();
-				int bWidth = bounds.getWidth();
-				int bHeight = bounds.getHeight();
-				double sx = ((maxX - minX) * bWidth) / (bMaxX - bMinX);
-				double sy = ((maxY - minY) * bHeight) / (bMaxY - bMinY);
-				if ((sx < MIN_SIZE && sy < MIN_SIZE) || (sx > MAX_SIZE && sy > MAX_SIZE) || (Math.abs(sx - bWidth) < 0.0001 && Math.abs(sy - bHeight) < 0.0001)) {
+		if (createdSet.size() > 0 && shapeBounds.isValid()) {
+			double maxX = shapeBounds.getMaxX();
+			double maxY = shapeBounds.getMaxY();
+			double minX = shapeBounds.getMinX();
+			double minY = shapeBounds.getMinY();
+			double bMaxX = bounds.getMaxX();
+			double bMinX = bounds.getMinX();
+			double bMaxY = bounds.getMaxY();
+			double bMinY = bounds.getMinY();
+			int bWidth = bounds.getWidth();
+			int bHeight = bounds.getHeight();
+			double mx = bMaxX - bMinX;
+			double my = bMaxY - bMinY;
+			if (mx < THRESHOLD) {
+				if (logger.isTraceEnabled()) {
+					logger.trace("Shape too small " + shape);
+				}
+				recursiveSet.clear();
+			}
+			if (my < THRESHOLD) {
+				if (logger.isTraceEnabled()) {
+					logger.trace("Shape too small " + shape);
+				}
+				recursiveSet.clear();
+			}
+			if (mx >= THRESHOLD || my >= THRESHOLD) {
+				double sx = ((maxX - minX) * bWidth) / mx;
+				double sy = ((maxY - minY) * bHeight) / my;
+				if (logger.isTraceEnabled()) {
+					logger.trace("sx = " + sx + ", sy = " + sy);
+				}
+				if ((sx < MIN_SIZE && sy < MIN_SIZE) || (sx > MAX_SIZE && sy > MAX_SIZE) || (Math.abs(sx - bWidth) < 0.001 && Math.abs(sy - bHeight) < 0.001)) {
 					if (logger.isTraceEnabled()) {
 						logger.trace("Shape too small " + shape);
 					}
-					clearShapes();
+					recursiveSet.clear();
 				}
 			}
 		} else {
-			clearShapes();
+			if (logger.isTraceEnabled()) {
+				logger.trace("Shape invalid " + shape);
+			}
+			recursiveSet.clear();
 		}
-	}
-
-	private void clearShapes() {
-		createSet.clear();
-	}
-
-	private void publishShapes() {
-		expandSet.addAll(commitSet);
-		commitSet.clear();
-	}
-
-	private boolean commitShapes() {
-		boolean size = createSet.size() > 0;
-		commitSet.addAll(createSet);
-		if (logger.isTraceEnabled()) {
-			logger.trace("Commit shapes [" + createSet.size() + "/" + commitSet.size() + "]");
-		}
-		clearShapes();
-		return size;
 	}
 	
 	private class RuleMap {

@@ -64,12 +64,14 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
 		context.buildPathOrRule(state, bounds, startshape);
 		logger.debug("Create time " + (System.nanoTime() - time) / 1000000 + "ms");
+		percent = 30;
 		time = System.nanoTime();
 		while (context.expandShapes()) {
 		}
 		logger.debug("Expand time " + (System.nanoTime() - time) / 1000000 + "ms");
-		if (logger.isTraceEnabled()) {
-			logger.trace("Total shapes " + context.getShapesCount());
+		percent = 70;
+		if (logger.isDebugEnabled()) {
+			logger.debug("Total shapes " + context.getRenderCount());
 		}
 		time = System.nanoTime();
 		context.renderShape(g2d, creatreArea(bounds, 8));

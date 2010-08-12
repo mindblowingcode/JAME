@@ -45,6 +45,6 @@ public class ShapeBounds implements ContextFreeBounds {
 	}
 
 	public boolean isValid() {
-		return (maxX - minX) > 0 && (maxY - minY) > 0;
+		return (maxX - minX) > 0 || (maxY - minY) > 0;
 	}
 }

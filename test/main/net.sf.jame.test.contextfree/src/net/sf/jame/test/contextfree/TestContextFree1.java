@@ -50,7 +50,7 @@ import net.sf.jame.core.util.Tile;
 
 import org.junit.Test;
 
-public class TestContextFree {
+public class TestContextFree1 {
 	private static final int IMAGE_HEIGHT = 200;
 	private static final int IMAGE_WIDTH = 200;
 
@@ -87,7 +87,7 @@ public class TestContextFree {
 			g2d.setColor(Color.WHITE);
 			g2d.drawRect(0, 0, surface.getWidth() - 1, surface.getHeight() - 1);
 			try {
-				ImageIO.write(surface.getImage(), "png", new File("testcf.png"));
+				ImageIO.write(surface.getImage(), "png", new File("test1.png"));
 			}
 			catch (IOException e) {
 				e.printStackTrace();

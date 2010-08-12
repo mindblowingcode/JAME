@@ -3,24 +3,18 @@
  */
 package net.sf.jame.contextfree.renderer;
 
-import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 
 public class PathShape extends ContextFreeShape {
+	private ExtendedGeneralPath path;
 	private ContextFreeState state;
-	private AlphaComposite a; 
 	private BasicStroke s;
-	private Color c;
 
 	public PathShape(ContextFreeState state, String cap, String join, Float width) {
 		super(state.getZ());
 		this.state = state;
-		float[] hsba = state.getHSBA();
-		a = AlphaComposite.Src.derive(hsba[3]);
-		c = Color.getHSBColor(hsba[0], hsba[1], hsba[2]);
+		path = state.getPath();
 		s = new BasicStroke(width, getCap(cap), getJoin(join));
 	}
 
@@ -32,7 +26,7 @@ public class PathShape extends ContextFreeShape {
 		} else if ("square".equals(cap)) {
 			return BasicStroke.CAP_SQUARE;
 		}
-		throw new IllegalArgumentException("Cap not supported");
+		throw new IllegalArgumentException("Cap not supported " + cap);
 	}
 
 	private int getJoin(String join) {
@@ -43,18 +37,13 @@ public class PathShape extends ContextFreeShape {
 		} else if ("bevel".equals(join)) {
 			return BasicStroke.JOIN_BEVEL;
 		}
-		throw new IllegalArgumentException("Join not supported");
+		throw new IllegalArgumentException("Join not supported " + join);
 	}
 
 	@Override
 	public void render(Graphics2D g2d, ContextFreeArea area) {
-		AffineTransform t = new AffineTransform();
-		float sx = area.getScaleX();
-		float sy = area.getScaleY();
-		float tx = area.getX();
-		float ty = area.getY();
-		t.translate(tx, ty);
-		t.scale(sx, sy);
-		state.draw(g2d, t, a, c, s);
+		if (path != null) {
+			state.draw(g2d, area, path, s);
+		}
 	}
 }
