@@ -72,6 +72,7 @@ public class Size3ShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setScaleX((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -99,6 +100,7 @@ public class Size3ShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setScaleY((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -126,6 +128,7 @@ public class Size3ShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setScaleZ((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

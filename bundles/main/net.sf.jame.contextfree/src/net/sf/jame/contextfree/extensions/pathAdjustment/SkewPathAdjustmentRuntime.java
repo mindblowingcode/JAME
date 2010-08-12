@@ -63,6 +63,7 @@ public class SkewPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<Sk
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setShearX((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -90,6 +91,7 @@ public class SkewPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<Sk
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setShearY((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

@@ -328,6 +328,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		private final ValueChangeListener speedListener;
 		private final ContextFreeConfig config;
 		private UndoManager undoManager = new UndoManager();
+		private JTextField variationTextField;
 		private JEditorPane editorPane;
 //		private JButton editButton;
 		private JButton loadButton;
@@ -343,6 +344,8 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			final JTextField zoomSpeedTextfield = createTextField(String.valueOf(config.getSpeed().getPosition().getZ()), 200, GUIFactory.DEFAULT_HEIGHT);
 			final JTextField shiftSpeedTextfield = createTextField(String.valueOf(config.getSpeed().getPosition().getW()), 200, GUIFactory.DEFAULT_HEIGHT);
 			final JTextField rotationSpeedTextfield = createTextField(String.valueOf(config.getSpeed().getRotation().getZ()), 200, GUIFactory.DEFAULT_HEIGHT);
+			final JLabel variationLabel = createTextLabel("variation", SwingConstants.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
+			variationTextField = createTextField(String.valueOf(config.getCFDG().getVariation()), 200, GUIFactory.DEFAULT_HEIGHT);
 			final Box tmpPanel4 = createHorizontalBox(false);
 			tmpPanel4.add(zoomSpeedLabel);
 			tmpPanel4.add(createSpace());
@@ -363,7 +366,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			editorPane = new JEditorPane();
 			editorPane.getDocument().addUndoableEditListener(undoManager);
 			JScrollPane scrollPane = new JScrollPane(editorPane);
-			Dimension preferredSize = new Dimension(550, 170);
+			Dimension preferredSize = new Dimension(550, 150);
 			scrollPane.setPreferredSize(preferredSize);
 			scrollPane.setMinimumSize(preferredSize);
 			scrollPane.setMaximumSize(preferredSize);
@@ -395,12 +398,17 @@ public class ContextFreeConfigPanel extends ViewPanel {
 //			tmpPanel3.add(createSpace());
 //			tmpPanel3.add(renderButton);
 //			tmpPanel3.add(Box.createHorizontalGlue());
+			final Box tmpPanel7 = createHorizontalBox(false);
+			tmpPanel7.add(variationLabel);
+			tmpPanel7.add(createSpace());
+			tmpPanel7.add(variationTextField);
+			tmpPanel7.add(Box.createHorizontalGlue());
 			JLabel editLabel = createTextLabel("drawing", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
-			final Box tmp3Panel = createVerticalBox(false);
-			tmp3Panel.add(editLabel);
-			tmp3Panel.add(Box.createVerticalGlue());
+			final Box tmpPanel3 = createVerticalBox(false);
+			tmpPanel3.add(editLabel);
+			tmpPanel3.add(Box.createVerticalGlue());
 			final Box tmpPanel1 = createHorizontalBox(false);
-			tmpPanel1.add(tmp3Panel);
+			tmpPanel1.add(tmpPanel3);
 			tmpPanel1.add(createSpace());
 			tmpPanel1.add(scrollPane);
 			tmpPanel1.add(Box.createHorizontalGlue());
@@ -412,6 +420,8 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			tmpPanel2.add(renderButton);
 			tmpPanel2.add(Box.createHorizontalGlue());
 			final Box tmpPanel = createVerticalBox(false);
+			tmpPanel.add(Box.createVerticalStrut(8));
+			tmpPanel.add(tmpPanel7);
 			tmpPanel.add(Box.createVerticalStrut(8));
 			tmpPanel.add(tmpPanel1);
 			tmpPanel.add(Box.createVerticalStrut(8));
@@ -480,6 +490,21 @@ public class ContextFreeConfigPanel extends ViewPanel {
 				}
 			};
 			rotationSpeedTextfield.addActionListener(rotationSpeedActionListener);
+			final ActionListener variationActionListener = new ActionListener() {
+				public void actionPerformed(final ActionEvent e) {
+					try {
+						context.acquire();
+						config.getContext().updateTimestamp();
+						config.getCFDG().setVariation(variationTextField.getText() != null ? variationTextField.getText() : "ABC");
+						context.release();
+						context.refresh();
+					}
+					catch (InterruptedException x) {
+						Thread.currentThread().interrupt();
+					}
+				}
+			};
+			variationTextField.addActionListener(variationActionListener);
 			final ActionListener loadActionListener = new ActionListener() {
 				public void actionPerformed(final ActionEvent e) {
 					if (chooser == null) {
@@ -581,6 +606,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						GUIUtil.executeTask(new Runnable() {
 							public void run() {
 								editorPane.setText(builder.toString());
+								variationTextField.setText(config.getCFDG().getVariation());
 								enableButtons();
 							}
 						}, false);
@@ -590,8 +616,10 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		}
 
 		private void renderConfig(final ContextFreeConfig config, final String text) {
+			final String[] variation = new String[1];
 			GUIUtil.executeTask(new Runnable() {
 				public void run() {
+					variation[0] = variationTextField.getText();
 					disableButtons();
 				}
 			}, false);
@@ -601,7 +629,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						context.acquire();
 						session.removeSessionListener(sessionListener);
 						config.getContext().updateTimestamp();
-						loadConfig(config, text);
+						loadConfig(config, text, variation[0]);
 						session.addSessionListener(sessionListener);
 						context.release();
 						context.refresh();
@@ -620,8 +648,10 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		}
 
 		private void loadConfig(final ContextFreeConfig config, final File file) {
+			final String[] variation = new String[1];
 			GUIUtil.executeTask(new Runnable() {
 				public void run() {
+					variation[0] = variationTextField.getText();
 					disableButtons();
 				}
 			}, false);
@@ -639,7 +669,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						context.acquire();
 						session.removeSessionListener(sessionListener);
 						config.getContext().updateTimestamp();
-						loadConfig(config, builder.toString());
+						loadConfig(config, builder.toString(), variation[0]);
 						session.addSessionListener(sessionListener);
 						context.release();
 						context.refresh();
@@ -664,6 +694,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						GUIUtil.executeTask(new Runnable() {
 							public void run() {
 								editorPane.setText(builder.toString());
+								variationTextField.setText(config.getCFDG().getVariation());
 								enableButtons();
 							}
 						}, false);
@@ -672,11 +703,12 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			});
 		}
 
-		private void loadConfig(final ContextFreeConfig config, String text) throws InterruptedException {
+		private void loadConfig(final ContextFreeConfig config, String text, String variation) throws InterruptedException {
 			try {
 				ContextFreeParser parser = new ContextFreeParser();
 				ContextFreeConfig newConfig = parser.parseConfig(text);
 				config.setCFDG(newConfig.getCFDG());
+				config.getCFDG().setVariation(variation);
 			} catch (ContextFreeParserException x) {
 				logger.error(x);
 				JTextArea textArea = new JTextArea();

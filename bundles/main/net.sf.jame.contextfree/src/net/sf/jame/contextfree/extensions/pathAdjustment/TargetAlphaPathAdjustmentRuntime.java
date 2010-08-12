@@ -54,6 +54,7 @@ public class TargetAlphaPathAdjustmentRuntime extends PathAdjustmentExtensionRun
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setValue((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

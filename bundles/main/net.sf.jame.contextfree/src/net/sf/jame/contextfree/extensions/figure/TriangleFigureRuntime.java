@@ -15,7 +15,7 @@ import net.sf.jame.contextfree.renderer.SolidPathShape;
 /**
  * @author Andrea Medeghini
  */
-public class TriangleFigureRuntime<T extends TriangleFigureConfig> extends FigureExtensionRuntime<T> implements ContextFreePath {
+public class TriangleFigureRuntime extends FigureExtensionRuntime<TriangleFigureConfig> implements ContextFreePath {
 	@Override
 	public void register(ContextFreeContext contextFreeContext) {
 		contextFreeContext.registerPath(this);

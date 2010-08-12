@@ -57,6 +57,7 @@ public class ClosePolyPathReplacementRuntime extends PathReplacementExtensionRun
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setAlign((Boolean) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

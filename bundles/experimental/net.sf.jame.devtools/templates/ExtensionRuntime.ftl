@@ -378,6 +378,7 @@ import ${import};
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					${subelement.setMethodPrefix}${subelement.elementName?cap_first}((${subelement.valueClassName}) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

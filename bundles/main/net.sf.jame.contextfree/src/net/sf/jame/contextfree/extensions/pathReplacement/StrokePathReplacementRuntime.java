@@ -93,6 +93,7 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setWidth((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -120,6 +121,7 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setCap((String) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -147,6 +149,7 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setJoin((String) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

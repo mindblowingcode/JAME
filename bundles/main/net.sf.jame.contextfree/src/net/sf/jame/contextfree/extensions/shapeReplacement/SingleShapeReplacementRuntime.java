@@ -73,6 +73,7 @@ public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfi
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setShape((String) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

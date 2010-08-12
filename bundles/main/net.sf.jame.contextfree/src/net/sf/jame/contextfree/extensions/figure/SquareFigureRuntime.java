@@ -15,7 +15,7 @@ import net.sf.jame.contextfree.renderer.SolidPathShape;
 /**
  * @author Andrea Medeghini
  */
-public class SquareFigureRuntime<T extends SquareFigureConfig> extends FigureExtensionRuntime<T> implements ContextFreePath {
+public class SquareFigureRuntime extends FigureExtensionRuntime<SquareFigureConfig> implements ContextFreePath {
 	@Override
 	public void register(ContextFreeContext contextFreeContext) {
 		contextFreeContext.registerPath(this);

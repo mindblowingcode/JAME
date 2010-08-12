@@ -265,10 +265,10 @@ public class ContextFreeContext {
 		}
 
 		public ContextFreeRule get() {
-			float number = (float) Math.random() * total;
-			float offset = 0;
+			double number = runtime.random() * total;
+			double offset = 0;
 			for (ContextFreeRule runtime : runtimes) {
-				offset += (runtime.getProbability() > 0) ? runtime.getProbability() : 1f;
+				offset += runtime.getProbability() > 0 ? runtime.getProbability() : 1f;
 				if (number <= offset) {
 					return runtime;
 				}

@@ -54,6 +54,7 @@ public class RotatePathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setAngle((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

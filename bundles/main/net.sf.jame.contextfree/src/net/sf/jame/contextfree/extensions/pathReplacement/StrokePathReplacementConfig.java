@@ -31,7 +31,7 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	 */
 	@Override
 	protected void createConfigElements() {
-		widthElement = new StrokeWidthElement(1f);
+		widthElement = new StrokeWidthElement(0.1f);
 		widthElement.setMaximum(getStrokeWidthMax());
 		widthElement.setMinimum(getStrokeWidthMin());
 		widthElement.setStep(getStrokeWidthStep());
@@ -118,7 +118,7 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	 * @return
 	 */
 	public Float getStrokeWidthMin() {
-		return 0.01f;
+		return 0.001f;
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 	 * @return
 	 */
 	public Float getStrokeWidthStep() {
-		return 0.01f;
+		return 0.001f;
 	}
 
 	/**
