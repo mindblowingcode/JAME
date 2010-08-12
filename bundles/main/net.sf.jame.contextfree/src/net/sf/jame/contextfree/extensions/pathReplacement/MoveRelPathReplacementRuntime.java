@@ -66,6 +66,7 @@ public class MoveRelPathReplacementRuntime extends PathReplacementExtensionRunti
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setX((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -93,6 +94,7 @@ public class MoveRelPathReplacementRuntime extends PathReplacementExtensionRunti
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setY((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

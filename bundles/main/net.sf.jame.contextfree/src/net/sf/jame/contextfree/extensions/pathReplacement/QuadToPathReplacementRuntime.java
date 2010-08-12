@@ -84,6 +84,7 @@ public class QuadToPathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setX((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -111,6 +112,7 @@ public class QuadToPathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setY((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -138,6 +140,7 @@ public class QuadToPathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setX1((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -165,6 +168,7 @@ public class QuadToPathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setY1((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

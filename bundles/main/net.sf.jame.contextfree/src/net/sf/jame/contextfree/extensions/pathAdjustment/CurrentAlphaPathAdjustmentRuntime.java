@@ -63,6 +63,7 @@ public class CurrentAlphaPathAdjustmentRuntime extends PathAdjustmentExtensionRu
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setValue((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -90,6 +91,7 @@ public class CurrentAlphaPathAdjustmentRuntime extends PathAdjustmentExtensionRu
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setTarget((Boolean) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

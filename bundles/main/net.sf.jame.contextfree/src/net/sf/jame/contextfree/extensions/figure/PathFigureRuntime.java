@@ -22,7 +22,7 @@ import net.sf.jame.core.config.ValueConfigElement;
 /**
  * @author Andrea Medeghini
  */
-public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensionRuntime<T> implements ContextFreePath {
+public class PathFigureRuntime extends FigureExtensionRuntime<PathFigureConfig> implements ContextFreePath {
 	private String name;
 	private NameListener nameListener;
 	private ListRuntimeElement<PathReplacementRuntimeElement> pathReplacementListElement;
@@ -75,6 +75,7 @@ public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensi
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setName((String) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

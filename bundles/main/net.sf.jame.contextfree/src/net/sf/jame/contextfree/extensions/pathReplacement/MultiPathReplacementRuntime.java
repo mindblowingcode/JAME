@@ -88,6 +88,7 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setTimes((Integer) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

@@ -20,7 +20,7 @@ import net.sf.jame.core.config.ValueConfigElement;
 /**
  * @author Andrea Medeghini
  */
-public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensionRuntime<T> implements ContextFreeRule {
+public class RuleFigureRuntime extends FigureExtensionRuntime<RuleFigureConfig> implements ContextFreeRule {
 	private String name;
 	private NameListener nameListener;
 	private Float probability;
@@ -82,6 +82,7 @@ public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensi
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setName((String) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -92,7 +93,7 @@ public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensi
 		}
 	}
 	/**
-	 * @return the propability.
+	 * @return the probability.
 	 */
 	public Float getProbability() {
 		return probability;
@@ -109,6 +110,7 @@ public class RuleFigureRuntime<T extends RuleFigureConfig> extends FigureExtensi
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setProbability((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

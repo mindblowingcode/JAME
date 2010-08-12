@@ -86,6 +86,7 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setTimes((Integer) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

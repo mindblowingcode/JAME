@@ -111,6 +111,7 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setX((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -138,6 +139,7 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setY((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -165,6 +167,7 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setRx((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -192,6 +195,7 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setRy((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -219,6 +223,7 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setR((Float) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -246,6 +251,7 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setSweep((Boolean) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
@@ -273,6 +279,7 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setLarge((Boolean) e.getParams()[0]);
 					fireChanged();
 					break;
 				}

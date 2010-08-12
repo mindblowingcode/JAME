@@ -54,6 +54,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		int height = getTile().getTileSize().getY();
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
+		cfdgRuntime.resetRandom();
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
 		ContextFreeBounds bounds = new ShapeBounds(width, height);
 		ContextFreeState state = new ContextFreeState(); 

@@ -291,12 +291,12 @@ public class MultiShapeReplacementConfig extends ShapeReplacementExtensionConfig
 		}
 		if (shapeReplacementListElement.getElementCount() > 0) {
 			if (shapeAdjustmentListElement.getElementCount() > 0) {
-				builder.append("{");
+				builder.append("[");
 				for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
 					builder.append(" ");
 					shapeAdjustmentListElement.getElement(i).toCFDG(builder);
 				}
-				builder.append("} ");
+				builder.append("] ");
 			}
 			builder.append("{\n");
 			builder.addTab();

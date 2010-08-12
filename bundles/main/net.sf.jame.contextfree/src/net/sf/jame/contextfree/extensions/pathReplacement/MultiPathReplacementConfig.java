@@ -291,12 +291,12 @@ public class MultiPathReplacementConfig extends PathReplacementExtensionConfig {
 		}
 		if (pathReplacementListElement.getElementCount() > 0) {
 			if (pathAdjustmentListElement.getElementCount() > 0) {
-				builder.append("{");
+				builder.append("[");
 				for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
 					builder.append(" ");
 					pathAdjustmentListElement.getElement(i).toCFDG(builder);
 				}
-				builder.append("} ");
+				builder.append("] ");
 			}
 			builder.append("{\n");
 			builder.addTab();

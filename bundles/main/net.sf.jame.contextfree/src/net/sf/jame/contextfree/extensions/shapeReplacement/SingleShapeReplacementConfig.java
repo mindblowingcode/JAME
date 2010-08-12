@@ -192,12 +192,12 @@ public class SingleShapeReplacementConfig extends ShapeReplacementExtensionConfi
 		if (shapeElement.getValue() != null) {
 			builder.appendTabs();
 			builder.append(shapeElement.getValue());
-			builder.append(" {");
+			builder.append(" [");
 			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
 				builder.append(" ");
 				shapeAdjustmentListElement.getElement(i).toCFDG(builder);
 			}
-			builder.append("}");
+			builder.append("]");
 		}
 	}
 }

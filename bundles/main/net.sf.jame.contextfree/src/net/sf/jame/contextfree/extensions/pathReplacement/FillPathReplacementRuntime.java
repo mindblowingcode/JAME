@@ -75,6 +75,7 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 		public void valueChanged(final ValueChangeEvent e) {
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
+					setRule((String) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
