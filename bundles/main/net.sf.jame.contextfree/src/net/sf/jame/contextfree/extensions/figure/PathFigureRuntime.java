@@ -195,9 +195,9 @@ public class PathFigureRuntime<T extends PathFigureConfig> extends FigureExtensi
 
 	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
 		ComposedShape pathShape = new ComposedShape(state); 
+		ContextFreeState newState = state.clone();
 		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
 			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
-			ContextFreeState newState = state.clone();
 			ContextFreeShape shape = pathReplacementRuntime.createShape(context, newState, bounds);
 			if (shape != null) {
 				pathShape.addShape(shape);

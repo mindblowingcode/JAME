@@ -99,7 +99,7 @@ public class TestContextFree3 {
 			renderer.drawImage(g2d);
 			g2d.setColor(Color.WHITE);
 			g2d.drawRect(0, 0, surface.getWidth() - 1, surface.getHeight() - 1);
-			ImageIO.write(surface.getImage(), "png", new File("testcf.png"));
+			ImageIO.write(surface.getImage(), "png", new File("test3.png"));
 			renderer.stop();
 			renderer.dispose();
 			rootNode.dispose();

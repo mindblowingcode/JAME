@@ -28,8 +28,9 @@ package net.sf.jame.contextfree.renderer;
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Graphics2D;
-import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.PathIterator;
@@ -40,8 +41,7 @@ public class ContextFreeState implements Cloneable {
 	private float[] currentHSBA = new float[] { 0, 1, 0, 1 };
 	private float[] targetHSBA = new float[] { 0, 1, 0, 1 };
 	private ExtendedGeneralPath path;
-	private boolean toFill = true;
-	private boolean moveTo = false;
+	private boolean fillOrDraw;
 	private float x1 = 0;
 	private float y1 = 0;
 	private float x = 0;
@@ -159,180 +159,147 @@ public class ContextFreeState implements Cloneable {
 		return state;
 	}
 	
-	private ExtendedGeneralPath generalPath() {
-		if (!toFill) {
-			path = null;
-			toFill = true;
-		}
-		if (path == null) {
-			path = new ExtendedGeneralPath();
-			moveTo = false;
-		}
-		return path;
-	}
-	
-	private void ensureMoveTo() {
-		if (!moveTo) {
-			moveTo(0, 0);
-		}
-	}
-
 	public void moveTo(float x, float y) {
+		ExtendedGeneralPath path = generalPath();
 		this.x = x;
 		this.y = y;
 		this.x1 = x;
 		this.y1 = y;
-		ExtendedGeneralPath path = generalPath();
 		path.moveTo(x, y);
-		moveTo = true;
 	}
 
 	public void lineTo(float x, float y) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x = x;
 		this.y = y;
 		this.x1 = x;
 		this.y1 = y;
-		ExtendedGeneralPath path = generalPath();
 		path.lineTo(x, y);
 	}
 
 	public void arcTo(float x, float y, float rx, float ry, float angle, boolean largeArcFlag, boolean sweepFlag) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x = x;
 		this.y = y;
 		this.x1 = x;
 		this.y1 = y;
-		ExtendedGeneralPath path = generalPath();
 		path.arcTo(rx, ry, angle, largeArcFlag, sweepFlag, x, y);
 	}
 	
 	public void quadTo(float x, float y, float x1, float y1) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x = x;
 		this.y = y;
 		this.x1 = x1;
 		this.y1 = y1;
-		ExtendedGeneralPath path = generalPath();
 		path.quadTo(x1, y1, x, y);
 	}
 
 	public void quadTo(float x, float y) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x = x;
 		this.y = y;
 		this.x1 = x + x - x1;
 		this.y1 = y + y - y1;
-		ExtendedGeneralPath path = generalPath();
 		path.quadTo(x1, y1, x, y);
 	}
 	
 	public void curveTo(float x, float y, float x1, float y1, float x2, float y2) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x = x;
 		this.y = y;
 		this.x1 = x1;
 		this.y1 = y1;
-		ExtendedGeneralPath path = generalPath();
 		path.curveTo(x1, y1, x2, y2, x, y);
 	}
 	
 	public void curveTo(float x, float y, float x2, float y2) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x = x;
 		this.y = y;
 		this.x1 = x + x - x1;
 		this.y1 = y + y - y1;
-		ExtendedGeneralPath path = generalPath();
 		path.curveTo(x1, y1, x2, y2, x, y);
 	}
 	
 	public void moveRel(float x, float y) {
+		ExtendedGeneralPath path = generalPath();
 		this.x += x;
 		this.y += y;
 		x = this.x;
 		y = this.y;
 		this.x1 = x;
 		this.y1 = y;
-		ExtendedGeneralPath path = generalPath();
 		path.moveTo(x, y);
-		moveTo = true;
 	}
 
 	public void lineRel(float x, float y) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x += x;
 		this.y += y;
 		x = this.x;
 		y = this.y;
 		this.x1 = x;
 		this.y1 = y;
-		ExtendedGeneralPath path = generalPath();
 		path.lineTo(x, y);
 	}
 	
 	public void arcRel(float x, float y, float rx, float ry, float angle, boolean largeArcFlag, boolean sweepFlag) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x += x;
 		this.y += y;
 		x = this.x;
 		y = this.y;
 		this.x1 = x;
 		this.y1 = y;
-		ExtendedGeneralPath path = generalPath();
 		path.arcTo(rx, ry, angle, largeArcFlag, sweepFlag, x, y);
 	}
 	
 	public void quadRel(float x, float y, float x1, float y1) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x += x;
 		this.y += y;
 		x = this.x;
 		y = this.y;
 		this.x1 = x1;
 		this.y1 = y1;
-		ExtendedGeneralPath path = generalPath();
 		path.quadTo(x1, y1, x, y);
 	}
 
 	public void quadRel(float x, float y) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x += x;
 		this.y += y;
 		x = this.x;
 		y = this.y;
 		this.x1 = x + x - x1;
 		this.y1 = y + y - y1;
-		ExtendedGeneralPath path = generalPath();
 		path.quadTo(x1, y1, x, y);
 	}
 
 	public void curveRel(float x, float y, float x1, float y1, float x2, float y2) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x += x;
 		this.y += y;
 		x = this.x;
 		y = this.y;
 		this.x1 = x1;
 		this.y1 = y1;
-		ExtendedGeneralPath path = generalPath();
 		path.curveTo(x1, y1, x2, y2, x, y);
 	}
 	
 	public void curveRel(float x, float y, float x2, float y2) {
-		ensureMoveTo();
+		ExtendedGeneralPath path = generalPath();
 		this.x += x;
 		this.y += y;
 		x = this.x;
 		y = this.y;
 		this.x1 = x + x - x1;
 		this.y1 = y + y - y1;
-		ExtendedGeneralPath path = generalPath();
 		path.curveTo(x1, y1, x2, y2, x, y);
 	}
 	
 	public void circle() {
-		ensureMoveTo();
 		ExtendedGeneralPath path = generalPath();
 		path.append(new Ellipse2D.Float(x - 0.5f, y - 0.5f, 1f, 1f), true);
 	}
@@ -343,44 +310,91 @@ public class ContextFreeState implements Cloneable {
 	}
 
 	public void bounds(ContextFreeBounds bounds) {
-		ExtendedGeneralPath path = generalPath();
-		Rectangle2D pathBounds = path.getBounds2D();
-		bounds.addPoint(pathBounds.getMinX(), pathBounds.getMinY());
-		bounds.addPoint(pathBounds.getMaxX(), pathBounds.getMaxY());
+		if (path != null) {
+			Rectangle2D pathBounds = path.getBounds2D();
+			bounds.addPoint(pathBounds.getMinX(), pathBounds.getMinY());
+			bounds.addPoint(pathBounds.getMaxX(), pathBounds.getMaxY());
+		}
 	}
 
-	public void fill(Graphics2D g2d, AffineTransform t, AlphaComposite a, Color c, int rule) {
-		if (path != null) {
-			g2d.setComposite(a);
-			g2d.setColor(c);
-			t.concatenate(at);
-			Shape shape = t.createTransformedShape(path);
-			path.setWindingRule(rule);
-			g2d.fill(shape);
-		}
-		toFill = false;
+	public void fill(Graphics2D g2d, ContextFreeArea area, ExtendedGeneralPath path, int rule) {
+		Color color = Color.getHSBColor(currentHSBA[0], currentHSBA[1], currentHSBA[2]);
+		Composite composite = AlphaComposite.Src.derive(currentHSBA[3]);
+		AffineTransform tmpTransform = g2d.getTransform();
+		Composite tmpComposite = g2d.getComposite();
+		Color tmpColor = g2d.getColor();
+		g2d.setComposite(composite);
+		g2d.setColor(color);
+		AffineTransform t = new AffineTransform();
+		float sx = area.getScaleX();
+		float sy = area.getScaleY();
+		float tx = area.getX();
+		float ty = area.getY();
+		t.translate(tx, ty);
+		t.scale(sx, sy);
+		t.concatenate(at);
+		g2d.setTransform(t);
+		path.setWindingRule(rule);
+		g2d.fill(path);
+		g2d.setTransform(tmpTransform);
+		g2d.setComposite(tmpComposite);
+		g2d.setColor(tmpColor);
 	}
 
-	public void draw(Graphics2D g2d, AffineTransform t, AlphaComposite a, Color c, BasicStroke s) {
-		if (path != null) {
-			g2d.setComposite(a);
-			g2d.setStroke(s);
-			g2d.setColor(c);
-			t.concatenate(at);
-			Shape shape = t.createTransformedShape(path);
-			g2d.draw(shape);
-		}
-		toFill = false;
+	public void draw(Graphics2D g2d, ContextFreeArea area, ExtendedGeneralPath path, BasicStroke stroke) {
+		Color color = Color.getHSBColor(currentHSBA[0], currentHSBA[1], currentHSBA[2]);
+		Composite composite = AlphaComposite.Src.derive(currentHSBA[3]);
+		AffineTransform tmpTransform = g2d.getTransform();
+		Composite tmpComposite = g2d.getComposite();
+		Stroke tmpStroke = g2d.getStroke();
+		Color tmpColor = g2d.getColor();
+		g2d.setComposite(composite);
+		g2d.setStroke(stroke);
+		g2d.setColor(color);
+		AffineTransform t = new AffineTransform();
+		float sx = area.getScaleX();
+		float sy = area.getScaleY();
+		float tx = area.getX();
+		float ty = area.getY();
+		t.translate(tx, ty);
+		t.scale(sx, sy);
+		t.concatenate(at);
+		g2d.setTransform(t);
+		g2d.draw(path);
+		g2d.setTransform(tmpTransform);
+		g2d.setComposite(tmpComposite);
+		g2d.setStroke(tmpStroke);
+		g2d.setColor(tmpColor);
 	}
 	
-	public void flush(Graphics2D g2d, AffineTransform t, AlphaComposite a, Color c) {
-		if (toFill) {
-			fill(g2d, t, a, c, PathIterator.WIND_NON_ZERO);
+	public void flush(Graphics2D g2d, ContextFreeArea area) {
+		if (path != null) {
+			fill(g2d, area, path, PathIterator.WIND_NON_ZERO);
+			path = null;
 		}
-		path = null;
 	}
 
 	public float getZ() {
 		return z;
+	}
+	
+	private ExtendedGeneralPath generalPath() {
+		if (fillOrDraw) {
+			fillOrDraw = false;
+			path = null;
+		}
+		if (path == null) {
+			path = new ExtendedGeneralPath();
+			path.moveTo(x, y);
+		}
+		return path;
+	}
+
+	public ExtendedGeneralPath getPath() {
+		fillOrDraw = true;
+		if (path != null) {
+			return (ExtendedGeneralPath) path.clone();
+		}
+		return null;
 	}
 }
