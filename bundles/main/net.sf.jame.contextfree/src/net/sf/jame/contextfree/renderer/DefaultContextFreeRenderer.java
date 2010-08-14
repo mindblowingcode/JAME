@@ -103,23 +103,44 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 				dy = cfdgRuntime.getHeight(); 
 			}
 			AffineTransform t = g2d.getTransform();
-			renderShape(context, g2d, area, dx, dy, -1, -1);
-			g2d.setTransform(t);
-			renderShape(context, g2d, area, dx, dy,  0, -1);
-			g2d.setTransform(t);
-			renderShape(context, g2d, area, dx, dy, +1, -1);
-			g2d.setTransform(t);
-			renderShape(context, g2d, area, dx, dy, -1,  0);
-			g2d.setTransform(t);
 			renderShape(context, g2d, area, dx, dy,  0,  0);
 			g2d.setTransform(t);
-			renderShape(context, g2d, area, dx, dy, +1,  0);
-			g2d.setTransform(t);
-			renderShape(context, g2d, area, dx, dy, -1, +1);
-			g2d.setTransform(t);
-			renderShape(context, g2d, area, dx, dy,  0, +1);
-			g2d.setTransform(t);
-			renderShape(context, g2d, area, dx, dy, +1, +1);
+			if (bounds.getMaxX() > +dx / 2) {
+				if (bounds.getMaxY() > +dy / 2) {
+					renderShape(context, g2d, area, dx, dy, -1,  0);
+					g2d.setTransform(t);
+					renderShape(context, g2d, area, dx, dy, -1, -1);
+					g2d.setTransform(t);
+					renderShape(context, g2d, area, dx, dy,  0, -1);
+					g2d.setTransform(t);
+				}
+				if (bounds.getMinY() < -dy / 2) {
+					renderShape(context, g2d, area, dx, dy,  0, +1);
+					g2d.setTransform(t);
+					renderShape(context, g2d, area, dx, dy, -1, +1);
+					g2d.setTransform(t);
+					renderShape(context, g2d, area, dx, dy, -1,  0);
+					g2d.setTransform(t);
+				}
+			}
+			if (bounds.getMaxX() < -dx / 2) {
+				if (bounds.getMaxY() > +dy / 2) {
+					renderShape(context, g2d, area, dx, dy, +1,  0);
+					g2d.setTransform(t);
+					renderShape(context, g2d, area, dx, dy, +1, +1);
+					g2d.setTransform(t);
+					renderShape(context, g2d, area, dx, dy,  0, +1);
+					g2d.setTransform(t);
+				}
+				if (bounds.getMinY() < -dy / 2) {
+					renderShape(context, g2d, area, dx, dy,  0, -1);
+					g2d.setTransform(t);
+					renderShape(context, g2d, area, dx, dy, +1, -1);
+					g2d.setTransform(t);
+					renderShape(context, g2d, area, dx, dy, +1, 0);
+					g2d.setTransform(t);
+				}
+			}
 		} else {
 			renderShape(context, g2d, area);
 		}
