@@ -59,11 +59,10 @@ public class TestContextFree2 {
 			String text = "" +
 			"startshape Foo\n" +
 //			"background { b -1 }\n" +
-//			"tile { s 30 30 }\n" +
-//			"size { s 30 30 }\n" +
+			"tile { s 3 2 }\n" +
+			"size { s 2 1.2 }\n" +
 			"rule Foo {\n" +
-			"TRIANGLE { }\n" +
-			"Foo { s 0.5 x 1 }\n" +
+			"SQUARE { x 1 y 1 }\n" +
 			//"Foo { s 0.5 x 1 }\n" +
 //			"CIRCLE { x 2  y 1 }\n" +
 //			"CIRCLE { x 1  y 0 }\n" +

@@ -46,4 +46,12 @@ public class ExtendedShapeBounds implements ContextFreeBounds {
 	public boolean isValid() {
 		return (maxX - minX) > 0 || (maxY - minY) > 0;
 	}
+
+	public double getSizeX() {
+		return maxX - minX;
+	}
+
+	public double getSizeY() {
+		return maxY - minY;
+	}
 }

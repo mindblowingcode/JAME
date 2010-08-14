@@ -16,4 +16,8 @@ public interface ContextFreeBounds {
 	public int getHeight();
 
 	public boolean isValid();
+
+	public double getSizeX();
+
+	public double getSizeY();
 }

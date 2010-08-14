@@ -309,7 +309,14 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 	
 	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
 		ComposedShape pathShape = new ComposedShape(state); 
-		for (int t = 0; t < times; t++) {
+		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
+			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
+			ContextFreeShape shape = pathReplacementRuntime.createShape(context, state, bounds);
+			if (shape != null) {
+				pathShape.addShape(shape);
+			}
+		}
+		for (int t = 1; t < times; t++) {
 			for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
 				PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
 				pathAdjustmentRuntime.updateState(state);
