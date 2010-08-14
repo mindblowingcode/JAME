@@ -28,6 +28,7 @@ package net.sf.jame.contextfree.renderer;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 
 import net.sf.jame.core.util.Color32bit;
 
@@ -57,6 +58,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		cfdgRuntime.resetRandom();
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
 		ContextFreeBounds bounds = new ShapeBounds(width, height);
+		ContextFreeBounds size = new ShapeBounds(width, height);
 		ContextFreeState state = new ContextFreeState(); 
 		context.registerFigures();
 		Graphics2D g2d = getGraphics();
@@ -75,12 +77,82 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 			logger.debug("Total shapes " + context.getRenderCount());
 		}
 		time = System.nanoTime();
-		context.renderShape(g2d, creatreArea(bounds, 8));
+		if (cfdgRuntime.getX() != null || cfdgRuntime.getY() != null) {
+			
+		}
+		AffineTransform tmpTransform = g2d.getTransform();
+		ContextFreeArea area = null;
+		if (cfdgRuntime.isUseSize()) {
+			float d = Math.max(cfdgRuntime.getWidth(), cfdgRuntime.getHeight()) / 2; 
+			size.addPoint(-cfdgRuntime.getX() - d, -cfdgRuntime.getY() - d);
+			size.addPoint(-cfdgRuntime.getX() + d, -cfdgRuntime.getY() + d);
+			area = createArea(size, 1.0f);
+		} else {
+			size.addPoint(bounds.getMinX(), bounds.getMinY());
+			size.addPoint(bounds.getMaxX(), bounds.getMaxY());
+			area = createArea(size, 0.9f);
+		}
+		if (cfdgRuntime.isUseTile()) {
+			float dx = 1;
+			float dy = 1; 
+			if (!cfdgRuntime.isUseSize()) {
+				dx = cfdgRuntime.getTileWidth();
+				dy = cfdgRuntime.getTileHeight(); 
+			} else {
+				dx = cfdgRuntime.getWidth();
+				dy = cfdgRuntime.getHeight(); 
+			}
+			AffineTransform t = g2d.getTransform();
+			renderShape(context, g2d, area, dx, dy, -1, -1);
+			g2d.setTransform(t);
+			renderShape(context, g2d, area, dx, dy,  0, -1);
+			g2d.setTransform(t);
+			renderShape(context, g2d, area, dx, dy, +1, -1);
+			g2d.setTransform(t);
+			renderShape(context, g2d, area, dx, dy, -1,  0);
+			g2d.setTransform(t);
+			renderShape(context, g2d, area, dx, dy,  0,  0);
+			g2d.setTransform(t);
+			renderShape(context, g2d, area, dx, dy, +1,  0);
+			g2d.setTransform(t);
+			renderShape(context, g2d, area, dx, dy, -1, +1);
+			g2d.setTransform(t);
+			renderShape(context, g2d, area, dx, dy,  0, +1);
+			g2d.setTransform(t);
+			renderShape(context, g2d, area, dx, dy, +1, +1);
+		} else {
+			renderShape(context, g2d, area);
+		}
+		g2d.setTransform(tmpTransform);
 		logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
 		percent = 100;
 	}
 
-	private ContextFreeArea creatreArea(ContextFreeBounds bounds, int border) {
+	private void renderShape(ContextFreeContext context, Graphics2D g2d, ContextFreeArea area) {
+		float sx = area.getScaleX();
+		float sy = area.getScaleY();
+		float tx = area.getX();
+		float ty = area.getY();
+		g2d.translate(tx, ty);
+		g2d.scale(sx, sy);
+		context.renderShape(g2d, area);
+	}
+
+	private void renderShape(ContextFreeContext context, Graphics2D g2d, ContextFreeArea area, float dx, float dy, float qx, float qy) {
+		float sx = area.getScaleX();
+		float sy = area.getScaleY();
+		float tx = area.getX();
+		float ty = area.getY();
+		float sw = 1.0f / dx;
+		float sh = 1.0f / dy;
+		g2d.translate(tx, ty);
+		g2d.scale(sx, sy);
+		g2d.translate(qx, qy);
+		g2d.scale(sw, sh);
+		context.renderShape(g2d, area);
+	}
+
+	private ContextFreeArea createArea(ContextFreeBounds bounds, float normalizedSize) {
 		int borderWidth = getTile().getTileBorder().getX();
 		int borderHeight = getTile().getTileBorder().getY();
 		int tileWidth = getTile().getTileSize().getX();
@@ -91,9 +163,9 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		float maxY = (float) bounds.getMaxY();
 		float minX = (float) bounds.getMinX();
 		float minY = (float) bounds.getMinY();
-		float scale = Math.min((tileWidth - 2 * border) / Math.abs(maxX - minX), (tileHeight - 2 * border) / Math.abs(maxY - minY));
-		float sx = +1.0f * scale;
-		float sy = -1.0f * scale;
+		float scale = Math.min(tileWidth / Math.abs(maxX - minX), tileHeight / Math.abs(maxY - minY));
+		float sx = +normalizedSize * scale;
+		float sy = -normalizedSize * scale;
 		return new ContextFreeArea(x - (maxX + minX) * sx / 2, y - (maxY + minY) * sy / 2, tileWidth, tileHeight, sx, sy);
 	}
 

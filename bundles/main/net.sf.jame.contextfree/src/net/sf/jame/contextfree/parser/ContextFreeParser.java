@@ -9,6 +9,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import net.sf.jame.contextfree.ContextFreeConfig;
 import net.sf.jame.contextfree.ContextFreeRegistry;
@@ -281,6 +282,7 @@ public class ContextFreeParser {
 		public void inATileDeclaration(ATileDeclaration node) {
 			super.inATileDeclaration(node);
 			if (!tileFound) {
+				config.getCFDG().setUseTile(true);
 				for (PTileAdjustment adjustment : node.getTileAdjustment()) {
 					if (adjustment instanceof ATileAdjustment) {
 						PFirstExpression firstExpression = ((ATileAdjustment) adjustment).getFirstExpression();
@@ -306,6 +308,7 @@ public class ContextFreeParser {
 		public void inASizeDeclaration(ASizeDeclaration node) {
 			super.inASizeDeclaration(node);
 			if (!sizeFound) {
+				config.getCFDG().setUseSize(true);
 				for (PSizeAdjustment adjustment : node.getSizeAdjustment()) {
 					if (adjustment instanceof ASizeSizeAdjustment) {
 						PFirstExpression firstExpression = ((ASizeSizeAdjustment) adjustment).getFirstExpression();
@@ -1162,8 +1165,68 @@ public class ContextFreeParser {
 			return null;
 		}
 
+		private void dropSameParameters(List<PCommandParameter> commandParameters) {
+			AFlipPathAdjustment lastAFlipPathAdjustment = null;
+			ARotatePathAdjustment lastARotatePathAdjustment = null;
+			ASize2PathAdjustment lastASize2PathAdjustment = null;
+			ASizePathAdjustment lastASizePathAdjustment = null;
+			ASkewPathAdjustment lastASkewPathAdjustment = null;
+			AXPathAdjustment lastAXPathAdjustment = null;
+			AYPathAdjustment lastAYPathAdjustment = null;
+			for (int i = commandParameters.size() - 1; i >= 0; i--) {
+				PCommandParameter commandParameter = commandParameters.get(i);
+				if (commandParameter instanceof AGeometryCommandParameter) {
+					PPathAdjustment pathAdjustment = ((AGeometryCommandParameter) commandParameter).getPathAdjustment();
+					if (pathAdjustment instanceof AFlipPathAdjustment) {
+						if (lastAFlipPathAdjustment != null) {
+							commandParameters.remove(commandParameter);
+						} else {
+							lastAFlipPathAdjustment = (AFlipPathAdjustment) pathAdjustment;
+						}
+					} else if (pathAdjustment instanceof ARotatePathAdjustment) {
+						if (lastARotatePathAdjustment != null) {
+							commandParameters.remove(commandParameter);
+						} else {
+							lastARotatePathAdjustment = (ARotatePathAdjustment) pathAdjustment;
+						}
+					} else if (pathAdjustment instanceof ASize2PathAdjustment) {
+						if (lastASize2PathAdjustment != null) {
+							commandParameters.remove(commandParameter);
+						} else {
+							lastASize2PathAdjustment = (ASize2PathAdjustment) pathAdjustment;
+						}
+					} else if (pathAdjustment instanceof ASizePathAdjustment) {
+						if (lastASizePathAdjustment != null) {
+							commandParameters.remove(commandParameter);
+						} else {
+							lastASizePathAdjustment = (ASizePathAdjustment) pathAdjustment;
+						}
+					} else if (pathAdjustment instanceof ASkewPathAdjustment) {
+						if (lastASkewPathAdjustment != null) {
+							commandParameters.remove(commandParameter);
+						} else {
+							lastASkewPathAdjustment = (ASkewPathAdjustment) pathAdjustment;
+						}
+					} else if (pathAdjustment instanceof AXPathAdjustment) {
+						if (lastAXPathAdjustment != null) {
+							commandParameters.remove(commandParameter);
+						} else {
+							lastAXPathAdjustment = (AXPathAdjustment) pathAdjustment;
+						}
+					} else if (pathAdjustment instanceof AYPathAdjustment) {
+						if (lastAYPathAdjustment != null) {
+							commandParameters.remove(commandParameter);
+						} else {
+							lastAYPathAdjustment = (AYPathAdjustment) pathAdjustment;
+						}
+					}
+				}
+			}
+		}
+
 		private ConfigurableExtensionReference<PathReplacementExtensionConfig> createPathReplacementExtensionReference(AOrderedPathCommand pathCommand) throws ExtensionNotFoundException {
 			String command = pathCommand.getCommand().getText();
+			dropSameParameters(pathCommand.getCommandParameter());
 			Collections.sort(pathCommand.getCommandParameter(), new PCommandParameterComparator());
 			if ("FILL".equals(command)) {
 				FillPathReplacementConfig config = new FillPathReplacementConfig();
@@ -1257,7 +1320,6 @@ public class ContextFreeParser {
 		}
 
 		private ShapeReplacementConfigElement createShapeReplacementElement(AMultiShapeReplacementDeclaration shapeReplacementDeclaration) throws ExtensionNotFoundException {
-			//TODO order?
 			MultiShapeReplacementConfig config = new MultiShapeReplacementConfig();
 			config.setTimes(Integer.valueOf(shapeReplacementDeclaration.getNumber().getText()));
 			for (PShapeAdjustment shapeAdjustment : shapeReplacementDeclaration.getShapeAdjustment()) {
@@ -1312,8 +1374,68 @@ public class ContextFreeParser {
 			return reference;
 		}
 		
+		private void dropSameAdjustments(List<PShapeAdjustment> shapeAdjustments) {
+			AFlipGeometryAdjustment lastAFlipGeometryAdjustment = null;
+			ARotateGeometryAdjustment lastARotateGeometryAdjustment = null;
+			ASize2GeometryAdjustment lastASize2GeometryAdjustment = null;
+			ASizeGeometryAdjustment lastASizeGeometryAdjustment = null;
+			ASkewGeometryAdjustment lastASkewGeometryAdjustment = null;
+			AXGeometryAdjustment lastAXGeometryAdjustment = null;
+			AYGeometryAdjustment lastAYGeometryAdjustment = null;
+			for (int i = shapeAdjustments.size() - 1; i >= 0; i--) {
+				PShapeAdjustment shapeAdjustment = shapeAdjustments.get(i);
+				if (shapeAdjustment instanceof AGeometryShapeAdjustment) {
+					PGeometryAdjustment geometryAdjustment = ((AGeometryShapeAdjustment) shapeAdjustment).getGeometryAdjustment();
+					if (geometryAdjustment instanceof AFlipGeometryAdjustment) {
+						if (lastAFlipGeometryAdjustment != null) {
+							shapeAdjustments.remove(shapeAdjustment);
+						} else {
+							lastAFlipGeometryAdjustment = (AFlipGeometryAdjustment) geometryAdjustment;
+						}
+					} else if (geometryAdjustment instanceof ARotateGeometryAdjustment) {
+						if (lastARotateGeometryAdjustment != null) {
+							shapeAdjustments.remove(shapeAdjustment);
+						} else {
+							lastARotateGeometryAdjustment = (ARotateGeometryAdjustment) geometryAdjustment;
+						}
+					} else if (geometryAdjustment instanceof ASize2GeometryAdjustment) {
+						if (lastASize2GeometryAdjustment != null) {
+							shapeAdjustments.remove(shapeAdjustment);
+						} else {
+							lastASize2GeometryAdjustment = (ASize2GeometryAdjustment) geometryAdjustment;
+						}
+					} else if (geometryAdjustment instanceof ASizeGeometryAdjustment) {
+						if (lastASizeGeometryAdjustment != null) {
+							shapeAdjustments.remove(shapeAdjustment);
+						} else {
+							lastASizeGeometryAdjustment = (ASizeGeometryAdjustment) geometryAdjustment;
+						}
+					} else if (geometryAdjustment instanceof ASkewGeometryAdjustment) {
+						if (lastASkewGeometryAdjustment != null) {
+							shapeAdjustments.remove(shapeAdjustment);
+						} else {
+							lastASkewGeometryAdjustment = (ASkewGeometryAdjustment) geometryAdjustment;
+						}
+					} else if (geometryAdjustment instanceof AXGeometryAdjustment) {
+						if (lastAXGeometryAdjustment != null) {
+							shapeAdjustments.remove(shapeAdjustment);
+						} else {
+							lastAXGeometryAdjustment = (AXGeometryAdjustment) geometryAdjustment;
+						}
+					} else if (geometryAdjustment instanceof AYGeometryAdjustment) {
+						if (lastAYGeometryAdjustment != null) {
+							shapeAdjustments.remove(shapeAdjustment);
+						} else {
+							lastAYGeometryAdjustment = (AYGeometryAdjustment) geometryAdjustment;
+						}
+					}
+				}
+			}
+		}
+
 		private ConfigurableExtensionReference<ShapeReplacementExtensionConfig> createShapeReplacementExtensionReference(AOrderedShapeReplacement shapeReplacement)	throws ExtensionNotFoundException {
 			SingleShapeReplacementConfig config = new SingleShapeReplacementConfig();
+			dropSameAdjustments(shapeReplacement.getShapeAdjustment());
 			Collections.sort(shapeReplacement.getShapeAdjustment(), new PShapeAdjustmentComparator());
 			config.setShape(((AOrderedShapeReplacement) shapeReplacement).getString().getText());
 			for (PShapeAdjustment shapeAdjustment : shapeReplacement.getShapeAdjustment()) {
@@ -1549,7 +1671,6 @@ public class ContextFreeParser {
 		
 		private class PCommandParameterComparator implements Comparator<PCommandParameter> {
 			public int compare(PCommandParameter o1, PCommandParameter o2) {
-				//TODO controllare ordine
 				int op1 = 0;
 				int op2 = 0;
 				if (o1 instanceof AColorCommandParameter) {
@@ -1640,30 +1761,30 @@ public class ContextFreeParser {
 							gap1 = 1; 
 						} else if (ga1 instanceof AYPathAdjustment) {
 							gap1 = 2; 
-						} else if (ga1 instanceof ASizePathAdjustment) {
-							gap1 = 3; 
-						} else if (ga1 instanceof ASize2PathAdjustment) {
-							gap1 = 4; 
-						} else if (ga1 instanceof ASkewPathAdjustment) {
-							gap1 = 5; 
-						} else if (ga1 instanceof AFlipPathAdjustment) {
-							gap1 = 6; 
 						} else if (ga1 instanceof ARotatePathAdjustment) {
+							gap1 = 3; 
+						} else if (ga1 instanceof ASizePathAdjustment) {
+							gap1 = 4; 
+						} else if (ga1 instanceof ASize2PathAdjustment) {
+							gap1 = 5; 
+						} else if (ga1 instanceof ASkewPathAdjustment) {
+							gap1 = 6; 
+						} else if (ga1 instanceof AFlipPathAdjustment) {
 							gap1 = 7; 
 						} 
 						if (ga2 instanceof AXPathAdjustment) {
 							gap2 = 1; 
 						} else if (ga2 instanceof AYPathAdjustment) {
 							gap2 = 2; 
-						} else if (ga2 instanceof ASizePathAdjustment) {
-							gap2 = 3; 
-						} else if (ga2 instanceof ASize2PathAdjustment) {
-							gap2 = 4; 
-						} else if (ga2 instanceof ASkewPathAdjustment) {
-							gap2 = 5; 
-						} else if (ga2 instanceof AFlipPathAdjustment) {
-							gap2 = 6; 
 						} else if (ga2 instanceof ARotatePathAdjustment) {
+							gap2 = 3; 
+						} else if (ga2 instanceof ASizePathAdjustment) {
+							gap2 = 4; 
+						} else if (ga2 instanceof ASize2PathAdjustment) {
+							gap2 = 5; 
+						} else if (ga2 instanceof ASkewPathAdjustment) {
+							gap2 = 6; 
+						} else if (ga2 instanceof AFlipPathAdjustment) {
 							gap2 = 7; 
 						} 
 						return gap1 - gap2;
@@ -1676,7 +1797,6 @@ public class ContextFreeParser {
 	
 		private class PShapeAdjustmentComparator implements Comparator<PShapeAdjustment> {
 			public int compare(PShapeAdjustment o1, PShapeAdjustment o2) {
-				//TODO controllare ordine
 				int op1 = 0;
 				int op2 = 0;
 				if (o1 instanceof AColorShapeAdjustment) {
@@ -1767,30 +1887,30 @@ public class ContextFreeParser {
 							gap1 = 1; 
 						} else if (ga1 instanceof AYGeometryAdjustment) {
 							gap1 = 2; 
-						} else if (ga1 instanceof ASizeGeometryAdjustment) {
-							gap1 = 3; 
-						} else if (ga1 instanceof ASize2GeometryAdjustment) {
-							gap1 = 4; 
-						} else if (ga1 instanceof ASkewGeometryAdjustment) {
-							gap1 = 5; 
-						} else if (ga1 instanceof AFlipGeometryAdjustment) {
-							gap1 = 6; 
 						} else if (ga1 instanceof ARotateGeometryAdjustment) {
+							gap1 = 3; 
+						} else if (ga1 instanceof ASizeGeometryAdjustment) {
+							gap1 = 4; 
+						} else if (ga1 instanceof ASize2GeometryAdjustment) {
+							gap1 = 5; 
+						} else if (ga1 instanceof ASkewGeometryAdjustment) {
+							gap1 = 6; 
+						} else if (ga1 instanceof AFlipGeometryAdjustment) {
 							gap1 = 7; 
 						} 
 						if (ga2 instanceof AXGeometryAdjustment) {
 							gap2 = 1; 
 						} else if (ga2 instanceof AYGeometryAdjustment) {
 							gap2 = 2; 
-						} else if (ga2 instanceof ASizeGeometryAdjustment) {
-							gap2 = 3; 
-						} else if (ga2 instanceof ASize2GeometryAdjustment) {
-							gap2 = 4; 
-						} else if (ga2 instanceof ASkewGeometryAdjustment) {
-							gap2 = 5; 
-						} else if (ga2 instanceof AFlipGeometryAdjustment) {
-							gap2 = 6; 
 						} else if (ga2 instanceof ARotateGeometryAdjustment) {
+							gap2 = 3; 
+						} else if (ga2 instanceof ASizeGeometryAdjustment) {
+							gap2 = 4; 
+						} else if (ga2 instanceof ASize2GeometryAdjustment) {
+							gap2 = 5; 
+						} else if (ga2 instanceof ASkewGeometryAdjustment) {
+							gap2 = 6; 
+						} else if (ga2 instanceof AFlipGeometryAdjustment) {
 							gap2 = 7; 
 						} 
 						return gap1 - gap2;

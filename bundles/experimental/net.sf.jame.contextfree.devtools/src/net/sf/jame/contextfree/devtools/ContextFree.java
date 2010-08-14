@@ -47,6 +47,8 @@ public class ContextFree {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
 		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("startshape", "\"\"", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("variation", "\"ABC\"", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("useSize", "false", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("useTile", "false", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x", "0f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y", "0f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("width", "1f", ProcessorCardinality.NONE));
