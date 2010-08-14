@@ -107,38 +107,102 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 			g2d.setTransform(t);
 			if (bounds.getMaxX() > +dx / 2) {
 				if (bounds.getMaxY() > +dy / 2) {
+					if (bounds.getSizeX() >= 1) {
+						renderShape(context, g2d, area, dx, dy, -2,  0);
+						g2d.setTransform(t);
+						renderShape(context, g2d, area, dx, dy, -2, -1);
+						g2d.setTransform(t);
+					}
 					renderShape(context, g2d, area, dx, dy, -1,  0);
 					g2d.setTransform(t);
 					renderShape(context, g2d, area, dx, dy, -1, -1);
 					g2d.setTransform(t);
 					renderShape(context, g2d, area, dx, dy,  0, -1);
 					g2d.setTransform(t);
+					if (bounds.getSizeY() >= 1) {
+						if (bounds.getSizeX() >= 1) {
+							renderShape(context, g2d, area, dx, dy, -2, -2);
+							g2d.setTransform(t);
+						}
+						renderShape(context, g2d, area, dx, dy, -1, -2);
+						g2d.setTransform(t);
+						renderShape(context, g2d, area, dx, dy,  0, -2);
+						g2d.setTransform(t);
+					}
 				}
 				if (bounds.getMinY() < -dy / 2) {
+					if (bounds.getSizeY() >= 1) {
+						if (bounds.getSizeX() >= 1) {
+							renderShape(context, g2d, area, dx, dy, -2, +2);
+							g2d.setTransform(t);
+						}
+						renderShape(context, g2d, area, dx, dy, -1, +2);
+						g2d.setTransform(t);
+						renderShape(context, g2d, area, dx, dy,  0, +2);
+						g2d.setTransform(t);
+					}
 					renderShape(context, g2d, area, dx, dy,  0, +1);
 					g2d.setTransform(t);
 					renderShape(context, g2d, area, dx, dy, -1, +1);
 					g2d.setTransform(t);
 					renderShape(context, g2d, area, dx, dy, -1,  0);
 					g2d.setTransform(t);
+					if (bounds.getSizeX() >= 1) {
+						renderShape(context, g2d, area, dx, dy, -2, +1);
+						g2d.setTransform(t);
+						renderShape(context, g2d, area, dx, dy, -2,  0);
+						g2d.setTransform(t);
+					}
 				}
 			}
 			if (bounds.getMaxX() < -dx / 2) {
 				if (bounds.getMaxY() > +dy / 2) {
+					if (bounds.getSizeX() >= 1) {
+						renderShape(context, g2d, area, dx, dy, +2,  0);
+						g2d.setTransform(t);
+						renderShape(context, g2d, area, dx, dy, +2, +1);
+						g2d.setTransform(t);
+					}
 					renderShape(context, g2d, area, dx, dy, +1,  0);
 					g2d.setTransform(t);
 					renderShape(context, g2d, area, dx, dy, +1, +1);
 					g2d.setTransform(t);
 					renderShape(context, g2d, area, dx, dy,  0, +1);
 					g2d.setTransform(t);
+					if (bounds.getSizeY() >= 1) {
+						if (bounds.getSizeX() >= 1) {
+							renderShape(context, g2d, area, dx, dy, +2, +2);
+							g2d.setTransform(t);
+						}
+						renderShape(context, g2d, area, dx, dy, +1, +2);
+						g2d.setTransform(t);
+						renderShape(context, g2d, area, dx, dy,  0, +2);
+						g2d.setTransform(t);
+					}
 				}
 				if (bounds.getMinY() < -dy / 2) {
+					if (bounds.getSizeY() >= 1) {
+						renderShape(context, g2d, area, dx, dy, +1, -2);
+						g2d.setTransform(t);
+						renderShape(context, g2d, area, dx, dy,  0, -2);
+						g2d.setTransform(t);
+					}
 					renderShape(context, g2d, area, dx, dy,  0, -1);
 					g2d.setTransform(t);
 					renderShape(context, g2d, area, dx, dy, +1, -1);
 					g2d.setTransform(t);
 					renderShape(context, g2d, area, dx, dy, +1, 0);
 					g2d.setTransform(t);
+					if (bounds.getSizeX() >= 1) {
+						if (bounds.getSizeX() >= 1) {
+							renderShape(context, g2d, area, dx, dy, +2, -2);
+							g2d.setTransform(t);
+						}
+						renderShape(context, g2d, area, dx, dy, +2, -1);
+						g2d.setTransform(t);
+						renderShape(context, g2d, area, dx, dy, +2,  0);
+						g2d.setTransform(t);
+					}
 				}
 			}
 		} else {
