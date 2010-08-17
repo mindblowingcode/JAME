@@ -330,14 +330,13 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		private UndoManager undoManager = new UndoManager();
 		private JTextField variationTextField;
 		private JEditorPane editorPane;
-//		private JButton editButton;
 		private JButton loadButton;
 		private JButton renderButton;
 		private JFileChooser chooser;
-//		private JFrame editFrame;
 
 		public ContextFreeImagePanel(final ContextFreeConfig config) {
 			this.config = config;
+			final JLabel editLabel = createTextLabel("drawing", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
 			final JLabel zoomSpeedLabel = createTextLabel("zoomSpeed", SwingConstants.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
 			final JLabel shiftSpeedLabel = createTextLabel("shiftSpeed", SwingConstants.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
 			final JLabel rotationSpeedLabel = createTextLabel("rotationSpeed", SwingConstants.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
@@ -361,56 +360,38 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			tmpPanel6.add(createSpace());
 			tmpPanel6.add(shiftSpeedTextfield);
 			tmpPanel6.add(Box.createHorizontalGlue());
-//			editFrame = new JFrame();
-//			editFrame.setTitle(ContextFreeSwingResources.getInstance().getString("message.edit"));
 			editorPane = new JEditorPane();
 			editorPane.getDocument().addUndoableEditListener(undoManager);
+			editorPane.setContentType("text/plain");
+			editorPane.setText("");
 			JScrollPane scrollPane = new JScrollPane(editorPane);
-			Dimension preferredSize = new Dimension(550, 150);
-			scrollPane.setPreferredSize(preferredSize);
-			scrollPane.setMinimumSize(preferredSize);
-			scrollPane.setMaximumSize(preferredSize);
-//			editFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-//			editFrame.setSize(600, 400);
-//			GUIUtil.centerWindow(editFrame);
-//			editorPane.setContentType("text/plain");
-//			editButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
-//			editButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.edit"));
-//			editButton.setText(ContextFreeSwingResources.getInstance().getString("action.edit"));
+			scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+			scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			JPanel editorPanel = new JPanel(new BorderLayout());
+			editorPanel.setBorder(BorderFactory.createEmptyBorder(0, 4, 0, 4));
+			editorPanel.add(scrollPane, BorderLayout.CENTER);
+			Dimension preferredSize = new Dimension(550, 450);
+			editorPanel.setPreferredSize(preferredSize);
+			editorPanel.setMinimumSize(preferredSize);
+			editorPanel.setMaximumSize(preferredSize);
 			loadButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
 			loadButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.load"));
 			loadButton.setText(ContextFreeSwingResources.getInstance().getString("action.load"));
 			renderButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
 			renderButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.render"));
 			renderButton.setText(ContextFreeSwingResources.getInstance().getString("action.render"));
-//			final Box tmpPanel1 = createHorizontalBox(false);
-//			tmpPanel1.add(createTextLabel("edit", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT));
-//			tmpPanel1.add(createSpace());
-//			tmpPanel1.add(editButton);
-//			tmpPanel1.add(Box.createHorizontalGlue());
-//			final Box tmpPanel2 = createHorizontalBox(false);
-//			tmpPanel2.add(createTextLabel("load", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT));
-//			tmpPanel2.add(createSpace());
-//			tmpPanel2.add(loadButton);
-//			tmpPanel2.add(Box.createHorizontalGlue());
-//			final Box tmpPanel3 = createHorizontalBox(false);
-//			tmpPanel3.add(createTextLabel("render", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT));
-//			tmpPanel3.add(createSpace());
-//			tmpPanel3.add(renderButton);
-//			tmpPanel3.add(Box.createHorizontalGlue());
 			final Box tmpPanel7 = createHorizontalBox(false);
 			tmpPanel7.add(variationLabel);
 			tmpPanel7.add(createSpace());
 			tmpPanel7.add(variationTextField);
 			tmpPanel7.add(Box.createHorizontalGlue());
-			JLabel editLabel = createTextLabel("drawing", JLabel.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
 			final Box tmpPanel3 = createVerticalBox(false);
 			tmpPanel3.add(editLabel);
 			tmpPanel3.add(Box.createVerticalGlue());
 			final Box tmpPanel1 = createHorizontalBox(false);
 			tmpPanel1.add(tmpPanel3);
 			tmpPanel1.add(createSpace());
-			tmpPanel1.add(scrollPane);
+			tmpPanel1.add(editorPanel);
 			tmpPanel1.add(Box.createHorizontalGlue());
 			final Box tmpPanel2 = createHorizontalBox(false);
 			tmpPanel2.add(Box.createHorizontalStrut(200));
@@ -426,17 +407,9 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			tmpPanel.add(tmpPanel1);
 			tmpPanel.add(Box.createVerticalStrut(8));
 			tmpPanel.add(tmpPanel2);
-//			tmpPanel.add(Box.createVerticalStrut(8));
-//			tmpPanel.add(tmpPanel3);
-//			tmpPanel.add(Box.createVerticalStrut(8));
-//			tmpPanel.add(tmpPanel4);
-//			tmpPanel.add(Box.createVerticalStrut(8));
-//			tmpPanel.add(tmpPanel6);
-//			tmpPanel.add(Box.createVerticalStrut(8));
-//			tmpPanel.add(tmpPanel5);
-			tmpPanel.add(Box.createVerticalStrut(8));
+			tmpPanel.add(Box.createVerticalStrut(68));
 			setLayout(new BorderLayout());
-			add(tmpPanel, BorderLayout.SOUTH);
+			add(tmpPanel, BorderLayout.CENTER);
 			setBorder(BorderFactory.createEmptyBorder(0, 4, 0, 4));
 			setOpaque(false);
 			final ActionListener zoomSpeedActionListener = new ActionListener() {
@@ -527,12 +500,6 @@ public class ContextFreeConfigPanel extends ViewPanel {
 				}
 			};
 			renderButton.addActionListener(renderActionListener);
-//			final ActionListener editActionListener = new ActionListener() {
-//				public void actionPerformed(final ActionEvent e) {
-//					editFrame.setVisible(true);
-//				}
-//			};
-//			editButton.addActionListener(editActionListener);
 			final KeyListener keyListener = new KeyListener() {
 				public void keyTyped(KeyEvent e) {
 				}
@@ -569,7 +536,12 @@ public class ContextFreeConfigPanel extends ViewPanel {
 				}
 			};
 			config.getSpeedElement().addChangeListener(speedListener);
-			refreshCFDG();
+			GUIUtil.executeTask(new Runnable() {
+				public void run() {
+					refreshCFDG();
+					revalidate();
+				}
+			}, true);
 		}
 
 		public void enableButtons() {
