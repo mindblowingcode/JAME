@@ -51,8 +51,12 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 	protected void doRender(boolean dynamicZoom) {
 		long time = System.nanoTime();
 		updateTransform();
-		int width = getTile().getTileSize().getX();
-		int height = getTile().getTileSize().getY();
+		float gx = (getBufferWidth() - getTile().getTileSize().getX()) / 2;
+		float gy = (getBufferHeight() - getTile().getTileSize().getY()) / 2;
+		float offsetX = -getTile().getTileOffset().getX() + getTile().getTileSize().getX() + getTile().getTileBorder().getX() + gx;
+		float offsetY = -getTile().getTileOffset().getY() + getTile().getTileSize().getY() + getTile().getTileBorder().getY() + gy;
+		int width = getTile().getImageSize().getX();
+		int height = getTile().getImageSize().getY();
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
 		cfdgRuntime.resetRandom();
@@ -77,132 +81,58 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 			logger.debug("Total shapes " + context.getRenderCount());
 		}
 		time = System.nanoTime();
-		if (cfdgRuntime.getX() != null || cfdgRuntime.getY() != null) {
-			
-		}
 		AffineTransform tmpTransform = g2d.getTransform();
 		ContextFreeArea area = null;
+		float normalization = 1.0f;
 		if (cfdgRuntime.isUseSize()) {
-			float d = Math.max(cfdgRuntime.getWidth(), cfdgRuntime.getHeight()) / 2; 
+			float dx = cfdgRuntime.getWidth() / 2; 
+			float dy = cfdgRuntime.getHeight() / 2;
+			float d = Math.max(dx, dy);
 			size.addPoint(-cfdgRuntime.getX() - d, -cfdgRuntime.getY() - d);
 			size.addPoint(-cfdgRuntime.getX() + d, -cfdgRuntime.getY() + d);
-			area = createArea(size, 1.0f);
 		} else {
-			size.addPoint(bounds.getMinX(), bounds.getMinY());
-			size.addPoint(bounds.getMaxX(), bounds.getMaxY());
-			area = createArea(size, 0.9f);
-		}
-		if (cfdgRuntime.isUseTile()) {
-			float dx = 1;
-			float dy = 1; 
-			if (!cfdgRuntime.isUseSize()) {
-				dx = cfdgRuntime.getTileWidth();
-				dy = cfdgRuntime.getTileHeight(); 
+			if (cfdgRuntime.isUseTile()) {
+				float dx = cfdgRuntime.getTileWidth() / 2; 
+				float dy = cfdgRuntime.getTileHeight() / 2;
+				size.addPoint(-cfdgRuntime.getX() - dx, -cfdgRuntime.getY() - dx);
+				size.addPoint(-cfdgRuntime.getX() + dy, -cfdgRuntime.getY() + dy);
 			} else {
+				size.addPoint(bounds.getMinX(), bounds.getMinY());
+				size.addPoint(bounds.getMaxX(), bounds.getMaxY());
+			}
+			normalization = 0.9f;
+		}
+		area = createArea(size, offsetX, offsetY, normalization);
+		if (cfdgRuntime.isUseTile()) {
+			double dx = cfdgRuntime.getTileWidth();
+			double dy = cfdgRuntime.getTileHeight();
+			if (cfdgRuntime.isUseSize()) {
 				dx = cfdgRuntime.getWidth();
-				dy = cfdgRuntime.getHeight(); 
+				dy = cfdgRuntime.getHeight();
+			}
+			int nx = 0;
+			while (nx * dx >= size.getMinX()) {
+				nx -= 1;
+			}
+			int ny = 0;
+			while (ny * dy >= size.getMinY()) {
+				ny -= 1;
+			}
+			int mx = 0;
+			while (mx * dx <= size.getMaxX()) {
+				mx += 1;
+			}
+			int my = 0;
+			while (my * dy <= size.getMaxY()) {
+				my += 1;
 			}
 			AffineTransform t = g2d.getTransform();
-			renderShape(context, g2d, area, dx, dy,  0,  0);
-			g2d.setTransform(t);
-			if (bounds.getMaxX() > +dx / 2) {
-				if (bounds.getMaxY() > +dy / 2) {
-					if (bounds.getSizeX() >= 1) {
-						renderShape(context, g2d, area, dx, dy, -2,  0);
-						g2d.setTransform(t);
-						renderShape(context, g2d, area, dx, dy, -2, -1);
-						g2d.setTransform(t);
-					}
-					renderShape(context, g2d, area, dx, dy, -1,  0);
+			for (int ix = nx; ix <= mx; ix++) {
+				for (int iy = ny; iy <= my; iy++) {
+					double qx = dx * ix;
+					double qy = dy * iy;
+					renderShape(context, g2d, area, qx, qy);
 					g2d.setTransform(t);
-					renderShape(context, g2d, area, dx, dy, -1, -1);
-					g2d.setTransform(t);
-					renderShape(context, g2d, area, dx, dy,  0, -1);
-					g2d.setTransform(t);
-					if (bounds.getSizeY() >= 1) {
-						if (bounds.getSizeX() >= 1) {
-							renderShape(context, g2d, area, dx, dy, -2, -2);
-							g2d.setTransform(t);
-						}
-						renderShape(context, g2d, area, dx, dy, -1, -2);
-						g2d.setTransform(t);
-						renderShape(context, g2d, area, dx, dy,  0, -2);
-						g2d.setTransform(t);
-					}
-				}
-				if (bounds.getMinY() < -dy / 2) {
-					if (bounds.getSizeY() >= 1) {
-						if (bounds.getSizeX() >= 1) {
-							renderShape(context, g2d, area, dx, dy, -2, +2);
-							g2d.setTransform(t);
-						}
-						renderShape(context, g2d, area, dx, dy, -1, +2);
-						g2d.setTransform(t);
-						renderShape(context, g2d, area, dx, dy,  0, +2);
-						g2d.setTransform(t);
-					}
-					renderShape(context, g2d, area, dx, dy,  0, +1);
-					g2d.setTransform(t);
-					renderShape(context, g2d, area, dx, dy, -1, +1);
-					g2d.setTransform(t);
-					renderShape(context, g2d, area, dx, dy, -1,  0);
-					g2d.setTransform(t);
-					if (bounds.getSizeX() >= 1) {
-						renderShape(context, g2d, area, dx, dy, -2, +1);
-						g2d.setTransform(t);
-						renderShape(context, g2d, area, dx, dy, -2,  0);
-						g2d.setTransform(t);
-					}
-				}
-			}
-			if (bounds.getMaxX() < -dx / 2) {
-				if (bounds.getMaxY() > +dy / 2) {
-					if (bounds.getSizeX() >= 1) {
-						renderShape(context, g2d, area, dx, dy, +2,  0);
-						g2d.setTransform(t);
-						renderShape(context, g2d, area, dx, dy, +2, +1);
-						g2d.setTransform(t);
-					}
-					renderShape(context, g2d, area, dx, dy, +1,  0);
-					g2d.setTransform(t);
-					renderShape(context, g2d, area, dx, dy, +1, +1);
-					g2d.setTransform(t);
-					renderShape(context, g2d, area, dx, dy,  0, +1);
-					g2d.setTransform(t);
-					if (bounds.getSizeY() >= 1) {
-						if (bounds.getSizeX() >= 1) {
-							renderShape(context, g2d, area, dx, dy, +2, +2);
-							g2d.setTransform(t);
-						}
-						renderShape(context, g2d, area, dx, dy, +1, +2);
-						g2d.setTransform(t);
-						renderShape(context, g2d, area, dx, dy,  0, +2);
-						g2d.setTransform(t);
-					}
-				}
-				if (bounds.getMinY() < -dy / 2) {
-					if (bounds.getSizeY() >= 1) {
-						renderShape(context, g2d, area, dx, dy, +1, -2);
-						g2d.setTransform(t);
-						renderShape(context, g2d, area, dx, dy,  0, -2);
-						g2d.setTransform(t);
-					}
-					renderShape(context, g2d, area, dx, dy,  0, -1);
-					g2d.setTransform(t);
-					renderShape(context, g2d, area, dx, dy, +1, -1);
-					g2d.setTransform(t);
-					renderShape(context, g2d, area, dx, dy, +1, 0);
-					g2d.setTransform(t);
-					if (bounds.getSizeX() >= 1) {
-						if (bounds.getSizeX() >= 1) {
-							renderShape(context, g2d, area, dx, dy, +2, -2);
-							g2d.setTransform(t);
-						}
-						renderShape(context, g2d, area, dx, dy, +2, -1);
-						g2d.setTransform(t);
-						renderShape(context, g2d, area, dx, dy, +2,  0);
-						g2d.setTransform(t);
-					}
 				}
 			}
 		} else {
@@ -223,44 +153,37 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		context.renderShape(g2d, area);
 	}
 
-	private void renderShape(ContextFreeContext context, Graphics2D g2d, ContextFreeArea area, float dx, float dy, float qx, float qy) {
+	private void renderShape(ContextFreeContext context, Graphics2D g2d, ContextFreeArea area, double qx, double qy) {
 		float sx = area.getScaleX();
 		float sy = area.getScaleY();
 		float tx = area.getX();
 		float ty = area.getY();
-		float sw = 1.0f / dx;
-		float sh = 1.0f / dy;
 		g2d.translate(tx, ty);
 		g2d.scale(sx, sy);
 		g2d.translate(qx, qy);
-		g2d.scale(sw, sh);
 		context.renderShape(g2d, area);
 	}
 
-	private ContextFreeArea createArea(ContextFreeBounds bounds, float normalizedSize) {
-		int borderWidth = getTile().getTileBorder().getX();
-		int borderHeight = getTile().getTileBorder().getY();
-		int tileWidth = getTile().getTileSize().getX();
-		int tileHeight = getTile().getTileSize().getY();
-		int x = getBufferWidth() / 2 + borderWidth;
-		int y = getBufferHeight() / 2 + borderHeight;
+	private ContextFreeArea createArea(ContextFreeBounds bounds, float tx, float ty, float normalization) {
 		float maxX = (float) bounds.getMaxX();
 		float maxY = (float) bounds.getMaxY();
 		float minX = (float) bounds.getMinX();
 		float minY = (float) bounds.getMinY();
-		float scale = Math.min(tileWidth / Math.abs(maxX - minX), tileHeight / Math.abs(maxY - minY));
-		float sx = +normalizedSize * scale;
-		float sy = -normalizedSize * scale;
-		return new ContextFreeArea(x - (maxX + minX) * sx / 2, y - (maxY + minY) * sy / 2, tileWidth, tileHeight, sx, sy);
+		float scale = Math.min(bounds.getWidth() / Math.abs(maxX - minX), bounds.getHeight() / Math.abs(maxY - minY));
+		float sx = +normalization * scale;
+		float sy = -normalization * scale;
+		float px = tx - (maxX + minX) * sx / 2;
+		float py = ty - (maxY + minY) * sy / 2;
+		return new ContextFreeArea(px, py, bounds.getWidth(), bounds.getHeight(), sx, sy);
 	}
 
 	protected void configure(Graphics2D g2d) {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+		g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 		g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		g2d.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-		g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DEFAULT);
+		g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
 	}
 }

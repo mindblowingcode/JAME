@@ -160,6 +160,8 @@ public class ContextFreeContext {
 			double bMinY = bounds.getMinY();
 			int bWidth = bounds.getWidth();
 			int bHeight = bounds.getHeight();
+			double qx = maxX - minX;
+			double qy = maxY - minY;
 			double mx = bMaxX - bMinX;
 			double my = bMaxY - bMinY;
 			if (mx < THRESHOLD) {
@@ -175,8 +177,8 @@ public class ContextFreeContext {
 				recursiveSet.clear();
 			}
 			if (mx >= THRESHOLD || my >= THRESHOLD) {
-				double sx = ((maxX - minX) * bWidth) / mx;
-				double sy = ((maxY - minY) * bHeight) / my;
+				double sx = (qx * bWidth) / mx;
+				double sy = (qy * bHeight) / my;
 				if (logger.isTraceEnabled()) {
 					logger.trace("sx = " + sx + ", sy = " + sy);
 				}
