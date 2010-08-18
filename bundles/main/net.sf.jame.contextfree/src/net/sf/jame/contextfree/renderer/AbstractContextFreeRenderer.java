@@ -54,7 +54,7 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 	private IntegerVector2D bufferSize;
 	private Tile newTile;
 	private Tile oldTile;
-	private int imageDim;
+	protected int imageDim;
 	private int tileDim;
 	protected double rotationValue;
 	protected int renderMode = ContextFreeRenderer.MODE_CALCULATE;
@@ -62,7 +62,7 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 	protected int oldImageMode = 0;
 	private boolean dynamic = false;
 	private boolean dynamicZoom = false;
-	private AffineTransform transform = new AffineTransform();
+	private final AffineTransform transform = new AffineTransform();
 	protected ContextFreeRuntime runtime;
 	protected View newView = new View(new IntegerVector4D(0, 0, 0, 0), new DoubleVector4D(0, 0, 1, 0), new DoubleVector4D(0, 0, 0, 0));
 	protected View oldView = new View(new IntegerVector4D(0, 0, 0, 0), new DoubleVector4D(0, 0, 1, 0), new DoubleVector4D(0, 0, 0, 0));
@@ -89,7 +89,6 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 	@Override
 	public void finalize() throws Throwable {
 		dispose();
-		transform = null;
 		super.finalize();
 	}
 
@@ -246,11 +245,11 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 	 * 
 	 */
 	protected void updateTransform() {
-		final int offsetX = (getBufferWidth() - oldTile.getTileSize().getX()) / 2;
-		final int offsetY = (getBufferHeight() - oldTile.getTileSize().getY()) / 2;
-		transform = AffineTransform.getTranslateInstance(-offsetX, -offsetY);
-		final int centerX = getBufferWidth() / 2 + oldTile.getTileBorder().getX();
-		final int centerY = getBufferHeight() / 2 + oldTile.getTileBorder().getY();
+		final int offsetX = (getBufferWidth() - oldTile.getTileSize().getX() - oldTile.getTileBorder().getX() * 2) / 2;
+		final int offsetY = (getBufferHeight() - oldTile.getTileSize().getY() - oldTile.getTileBorder().getY() * 2) / 2;
+		transform.setToTranslation(-offsetX, -offsetY);
+		final int centerX = getBufferWidth() / 2;
+		final int centerY = getBufferHeight() / 2;
 		transform.rotate(rotationValue, centerX, centerY);
 	}
 

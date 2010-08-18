@@ -472,8 +472,8 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 			scale.i = s.getY() * z;
 			center.r = fractalRuntime.getRenderingFormula().getFormulaRuntime().getCenter().getX() + x;
 			center.i = fractalRuntime.getRenderingFormula().getFormulaRuntime().getCenter().getY() + y;
-			final double imageOffsetX = (imageDim - oldTile.getImageSize().getX() - oldTile.getTileBorder().getX() * 2) / 2;
-			final double imageOffsetY = (imageDim - oldTile.getImageSize().getY() - oldTile.getTileBorder().getY() * 2) / 2;
+			final double imageOffsetX = (imageDim - oldTile.getImageSize().getX()) / 2;
+			final double imageOffsetY = (imageDim - oldTile.getImageSize().getY()) / 2;
 			double sx = (scale.r * 0.5d * imageDim) / oldTile.getImageSize().getX();
 			double sy = (scale.i * 0.5d * imageDim) / oldTile.getImageSize().getX();
 			Complex p0 = new Complex(center.r - sx, center.i - sy);
@@ -484,15 +484,15 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 			final double di = p1.i - p0.i;
 			t0.r = p0.r + dr * (imageOffsetX + oldTile.getTileOffset().getX() + oldTile.getTileSize().getX() / 2d) / imageDim;
 			t0.i = p0.i + di * (imageOffsetY + oldTile.getTileOffset().getY() + oldTile.getTileSize().getY() / 2d) / imageDim;
-			t1.r = p0.r + dr * (imageOffsetX + oldTile.getImageSize().getX() / 2d) / imageDim;
-			t1.i = p0.i + di * (imageOffsetY + oldTile.getImageSize().getY() / 2d) / imageDim;
+			t1.r = p0.r + dr * 0.5;
+			t1.i = p0.i + di * 0.5;
 			final AffineTransform t = new AffineTransform();
 			t.rotate(-rotationValue, t1.r / dr, t1.i / di);
 			Point2D.Double p = new Point2D.Double(t0.r / dr, t0.i / di);
 			p = (Point2D.Double) t.transform(p, p);
 			p.setLocation(p.getX() * dr, p.getY() * di);
-			sx = dr * (bufferSize.getX() / 2d) / imageDim;
-			sy = di * (bufferSize.getY() / 2d) / imageDim;
+			sx = dr * 0.5 * bufferSize.getX() / imageDim;
+			sy = di * 0.5 * bufferSize.getY() / imageDim;
 			p0 = new Complex(p.getX() - sx, p.getY() - sy);
 			p1 = new Complex(p.getX() + sx, p.getY() + sy);
 			area.points[0] = p0;
@@ -510,11 +510,11 @@ public abstract class AbstractMandelbrotRenderer implements MandelbrotRenderer {
 	 * 
 	 */
 	protected void updateTransform() {
-		final int offsetX = (getBufferWidth() - oldTile.getTileSize().getX()) / 2;
-		final int offsetY = (getBufferHeight() - oldTile.getTileSize().getY()) / 2;
-		transform = AffineTransform.getTranslateInstance(-offsetX, -offsetY);
-		final int centerX = getBufferWidth() / 2 + oldTile.getTileBorder().getX();
-		final int centerY = getBufferHeight() / 2 + oldTile.getTileBorder().getY();
+		final int offsetX = (getBufferWidth() - oldTile.getTileSize().getX() - oldTile.getTileBorder().getX() * 2) / 2;
+		final int offsetY = (getBufferHeight() - oldTile.getTileSize().getY() - oldTile.getTileBorder().getY() * 2) / 2;
+		transform.setToTranslation(-offsetX, -offsetY);
+		final int centerX = getBufferWidth() / 2;
+		final int centerY = getBufferHeight() / 2;
 		transform.rotate(rotationValue, centerX, centerY);
 	}
 
