@@ -115,13 +115,7 @@ public class ContextFreeParser {
 			parser.parse().apply(interpreter);
 			return config;
 		}
-		catch (ParserException e) {
-			throw new ContextFreeParserException(e);
-		}
-		catch (LexerException e) {
-			throw new ContextFreeParserException(e);
-		}
-		catch (IOException e) {
+		catch (Exception e) {
 			throw new ContextFreeParserException(e);
 		}
 	}
@@ -229,7 +223,7 @@ public class ContextFreeParser {
 //				}
 				tmpConfig.dispose();
 			} catch (ContextFreeParserException e) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		}
 
@@ -288,6 +282,7 @@ public class ContextFreeParser {
 		public void inATileDeclaration(ATileDeclaration node) {
 			super.inATileDeclaration(node);
 			if (!tileFound) {
+				config.getCFDG().setUseSize(false);
 				config.getCFDG().setUseTile(true);
 				for (PTileAdjustment adjustment : node.getTileAdjustment()) {
 					if (adjustment instanceof ATileAdjustment) {

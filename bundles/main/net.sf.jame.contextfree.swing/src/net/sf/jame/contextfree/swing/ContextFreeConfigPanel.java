@@ -329,6 +329,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		private final ContextFreeConfig config;
 		private UndoManager undoManager = new UndoManager();
 		private JTextField variationTextField;
+		private JTextField baseDirTextField;
 		private JEditorPane editorPane;
 		private JButton loadButton;
 		private JButton renderButton;
@@ -344,7 +345,9 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			final JTextField shiftSpeedTextfield = createTextField(String.valueOf(config.getSpeed().getPosition().getW()), 200, GUIFactory.DEFAULT_HEIGHT);
 			final JTextField rotationSpeedTextfield = createTextField(String.valueOf(config.getSpeed().getRotation().getZ()), 200, GUIFactory.DEFAULT_HEIGHT);
 			final JLabel variationLabel = createTextLabel("variation", SwingConstants.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
+			final JLabel baseDirLabel = createTextLabel("baseDir", SwingConstants.LEFT, 200, GUIFactory.DEFAULT_HEIGHT);
 			variationTextField = createTextField(String.valueOf(config.getCFDG().getVariation()), 200, GUIFactory.DEFAULT_HEIGHT);
+			baseDirTextField = createTextField(String.valueOf(config.getCFDG().getBaseDir()), 500, GUIFactory.DEFAULT_HEIGHT);
 			final Box tmpPanel4 = createHorizontalBox(false);
 			tmpPanel4.add(zoomSpeedLabel);
 			tmpPanel4.add(createSpace());
@@ -370,7 +373,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			JPanel editorPanel = new JPanel(new BorderLayout());
 			editorPanel.setBorder(BorderFactory.createEmptyBorder(0, 4, 0, 4));
 			editorPanel.add(scrollPane, BorderLayout.CENTER);
-			Dimension preferredSize = new Dimension(550, 450);
+			Dimension preferredSize = new Dimension(550, 350);
 			editorPanel.setPreferredSize(preferredSize);
 			editorPanel.setMinimumSize(preferredSize);
 			editorPanel.setMaximumSize(preferredSize);
@@ -380,6 +383,11 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			renderButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
 			renderButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.render"));
 			renderButton.setText(ContextFreeSwingResources.getInstance().getString("action.render"));
+			final Box tmpPanel8 = createHorizontalBox(false);
+			tmpPanel8.add(baseDirLabel);
+			tmpPanel8.add(createSpace());
+			tmpPanel8.add(baseDirTextField);
+			tmpPanel8.add(Box.createHorizontalGlue());
 			final Box tmpPanel7 = createHorizontalBox(false);
 			tmpPanel7.add(variationLabel);
 			tmpPanel7.add(createSpace());
@@ -401,6 +409,8 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			tmpPanel2.add(renderButton);
 			tmpPanel2.add(Box.createHorizontalGlue());
 			final Box tmpPanel = createVerticalBox(false);
+			tmpPanel.add(Box.createVerticalStrut(8));
+			tmpPanel.add(tmpPanel8);
 			tmpPanel.add(Box.createVerticalStrut(8));
 			tmpPanel.add(tmpPanel7);
 			tmpPanel.add(Box.createVerticalStrut(8));
@@ -478,6 +488,33 @@ public class ContextFreeConfigPanel extends ViewPanel {
 				}
 			};
 			variationTextField.addActionListener(variationActionListener);
+			final ActionListener baseDirActionListener = new ActionListener() {
+				public void actionPerformed(final ActionEvent e) {
+					try {
+						context.acquire();
+						config.getContext().updateTimestamp();
+						config.getCFDG().setBaseDir(baseDirTextField.getText() != null ? baseDirTextField.getText() : System.getProperty("user.home"));
+						try {
+							loadConfig(config, editorPane.getText(), variationTextField.getText());
+						} catch (final ContextFreeParserException x) {
+							logger.error(x);
+							GUIUtil.executeTask(new Runnable() {
+								public void run() {
+									JTextArea textArea = new JTextArea();
+									textArea.setText(x.getMessage());
+									JOptionPane.showMessageDialog(ContextFreeImagePanel.this, textArea, ContextFreeSwingResources.getInstance().getString("message.parserError"), JOptionPane.ERROR_MESSAGE);
+								}
+							}, false);
+						}
+						context.release();
+						context.refresh();
+					}
+					catch (InterruptedException x) {
+						Thread.currentThread().interrupt();
+					}
+				}
+			};
+			baseDirTextField.addActionListener(baseDirActionListener);
 			final ActionListener loadActionListener = new ActionListener() {
 				public void actionPerformed(final ActionEvent e) {
 					if (chooser == null) {
@@ -601,7 +638,18 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						context.acquire();
 						session.removeSessionListener(sessionListener);
 						config.getContext().updateTimestamp();
-						loadConfig(new File(System.getProperty("user.home")), config, text, variation[0]);
+						try {
+							loadConfig(config, text, variation[0]);
+						} catch (final ContextFreeParserException e) {
+							logger.error(e);
+							GUIUtil.executeTask(new Runnable() {
+								public void run() {
+									JTextArea textArea = new JTextArea();
+									textArea.setText(e.getMessage());
+									JOptionPane.showMessageDialog(ContextFreeImagePanel.this, textArea, ContextFreeSwingResources.getInstance().getString("message.parserError"), JOptionPane.ERROR_MESSAGE);
+								}
+							}, false);
+						}
 						session.addSessionListener(sessionListener);
 						context.release();
 						context.refresh();
@@ -641,7 +689,27 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						context.acquire();
 						session.removeSessionListener(sessionListener);
 						config.getContext().updateTimestamp();
-						loadConfig(new File(file.getParent()), config, builder.toString(), variation[0]);
+						String baseDir = file.getParent();
+						config.getCFDG().setBaseDir(baseDir);
+						try {
+							loadConfig(config, builder.toString(), variation[0]);
+							GUIUtil.executeTask(new Runnable() {
+								public void run() {
+									editorPane.setText(builder.toString());
+									variationTextField.setText(config.getCFDG().getVariation());
+									baseDirTextField.setText(config.getCFDG().getBaseDir());
+								}
+							}, false);
+						} catch (final ContextFreeParserException e) {
+							logger.error(e);
+							GUIUtil.executeTask(new Runnable() {
+								public void run() {
+									JTextArea textArea = new JTextArea();
+									textArea.setText(e.getMessage());
+									JOptionPane.showMessageDialog(ContextFreeImagePanel.this, textArea, ContextFreeSwingResources.getInstance().getString("message.parserError"), JOptionPane.ERROR_MESSAGE);
+								}
+							}, false);
+						}
 						session.addSessionListener(sessionListener);
 						context.release();
 						context.refresh();
@@ -649,7 +717,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 					catch (InterruptedException x) {
 						Thread.currentThread().interrupt();
 					} 
-					catch (final Exception x) {
+					catch (final IOException x) {
 						GUIUtil.executeTask(new Runnable() {
 							public void run() {
 								JOptionPane.showMessageDialog(ContextFreeImagePanel.this, x.getMessage(), ContextFreeSwingResources.getInstance().getString("message.readerError"), JOptionPane.ERROR_MESSAGE);
@@ -660,13 +728,11 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						if (reader != null) {
 							try {
 								reader.close();
-							} catch (IOException e1) {
+							} catch (IOException x) {
 							}
 						}
 						GUIUtil.executeTask(new Runnable() {
 							public void run() {
-								editorPane.setText(builder.toString());
-								variationTextField.setText(config.getCFDG().getVariation());
 								enableButtons();
 							}
 						}, false);
@@ -675,18 +741,13 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			});
 		}
 
-		private void loadConfig(File baseDir, ContextFreeConfig config, String text, String variation) throws InterruptedException {
-			try {
-				ContextFreeParser parser = new ContextFreeParser();
-				ContextFreeConfig newConfig = parser.parseConfig(baseDir, text);
-				config.setCFDG(newConfig.getCFDG());
-				config.getCFDG().setVariation(variation);
-			} catch (ContextFreeParserException x) {
-				logger.error(x);
-				JTextArea textArea = new JTextArea();
-				textArea.setText(x.getMessage());
-				JOptionPane.showMessageDialog(ContextFreeImagePanel.this, textArea, ContextFreeSwingResources.getInstance().getString("message.parserError"), JOptionPane.ERROR_MESSAGE);
-			}
+		private void loadConfig(ContextFreeConfig config, String text, String variation) throws ContextFreeParserException {
+			ContextFreeParser parser = new ContextFreeParser();
+			String baseDir = config.getCFDG().getBaseDir();
+			ContextFreeConfig newConfig = parser.parseConfig(new File(baseDir), text);
+			config.setCFDG(newConfig.getCFDG());
+			config.getCFDG().setVariation(variation);
+			config.getCFDG().setBaseDir(baseDir);
 		}
 	}
 }
