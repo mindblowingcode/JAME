@@ -25,6 +25,7 @@ public class CFDGConfigElement extends AbstractConfigElement {
 	public static final String CLASS_ID = "CFDG";
 	private final StringElement startshapeElement = new StringElement("");
 	private final StringElement variationElement = new StringElement("ABC");
+	private final StringElement baseDirElement = new StringElement(System.getProperty("user.home"));
 	private final BooleanElement useSizeElement = new BooleanElement(false);
 	private final BooleanElement useTileElement = new BooleanElement(false);
 	private final FloatElement xElement = new FloatElement(0f);
@@ -51,6 +52,7 @@ public class CFDGConfigElement extends AbstractConfigElement {
 		super.setContext(context);
 		startshapeElement.setContext(context);
 		variationElement.setContext(context);
+		baseDirElement.setContext(context);
 		useSizeElement.setContext(context);
 		useTileElement.setContext(context);
 		xElement.setContext(context);
@@ -71,6 +73,7 @@ public class CFDGConfigElement extends AbstractConfigElement {
 		final CFDGConfigElement element = new CFDGConfigElement();
 		element.setStartshape(getStartshape());
 		element.setVariation(getVariation());
+		element.setBaseDir(getBaseDir());
 		element.setUseSize(isUseSize());
 		element.setUseTile(isUseTile());
 		element.setX(getX());
@@ -91,6 +94,7 @@ public class CFDGConfigElement extends AbstractConfigElement {
 		CFDGConfigElement cfdgElement = (CFDGConfigElement) source;
 		setStartshape(cfdgElement.getStartshape());
 		setVariation(cfdgElement.getVariation());
+		setBaseDir(cfdgElement.getBaseDir());
 		setUseSize(cfdgElement.isUseSize());
 		setUseTile(cfdgElement.isUseTile());
 		setX(cfdgElement.getX());
@@ -142,6 +146,26 @@ public class CFDGConfigElement extends AbstractConfigElement {
 	 */
 	public void setVariation(final String value) {
 		variationElement.setValue(value);
+	}
+	/**
+	 * @return
+	 */
+	public StringElement getBaseDirElement() {
+		return baseDirElement;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getBaseDir() {
+		return baseDirElement.getValue();
+	}
+
+	/**
+	 * @param value
+	 */
+	public void setBaseDir(final String value) {
+		baseDirElement.setValue(value);
 	}
 	/**
 	 * @return
@@ -434,6 +458,14 @@ public class CFDGConfigElement extends AbstractConfigElement {
 		else if (!variationElement.equals(other.variationElement)) {
 			return false;
 		}
+		if (baseDirElement == null) {
+			if (other.baseDirElement != null) {
+				return false;
+			}
+		}
+		else if (!baseDirElement.equals(other.baseDirElement)) {
+			return false;
+		}
 		if (useSizeElement == null) {
 			if (other.useSizeElement != null) {
 				return false;
@@ -524,6 +556,7 @@ public class CFDGConfigElement extends AbstractConfigElement {
 	public void dispose() {
 		startshapeElement.dispose();
 		variationElement.dispose();
+		baseDirElement.dispose();
 		useSizeElement.dispose();
 		useTileElement.dispose();
 		xElement.dispose();

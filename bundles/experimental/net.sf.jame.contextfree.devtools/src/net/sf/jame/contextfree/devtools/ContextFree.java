@@ -45,18 +45,18 @@ import org.junit.Test;
 public class ContextFree {
 	private ProcessorParameters createCFDGParameters(Map<String, DescriptorExtensionRuntime> descriptorExtensionMap) {
 		List<ProcessorDescriptor> descriptors = new LinkedList<ProcessorDescriptor>();
-		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("startshape", "\"\"", ProcessorCardinality.NONE));
-		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("variation", "\"ABC\"", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("baseDir", "System.getProperty(\"user.home\")", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("variation", "\"ABC\"", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("String").createDescriptor("startshape", "\"\"", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Color").createDescriptor("background", "new Color32bit(0xFFFFFFFF)", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("useSize", "false", ProcessorCardinality.NONE));
-		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("useTile", "false", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("x", "0f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("y", "0f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("width", "1f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("height", "1f", ProcessorCardinality.NONE));
+		descriptors.add(descriptorExtensionMap.get("Boolean").createDescriptor("useTile", "false", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("tileWidth", "1f", ProcessorCardinality.NONE));
 		descriptors.add(descriptorExtensionMap.get("Float").createDescriptor("tileHeight", "1f", ProcessorCardinality.NONE));
-		descriptors.add(descriptorExtensionMap.get("Color").createDescriptor("background", "new Color32bit(0xFFFFFFFF)", ProcessorCardinality.NONE));
 		descriptors.add(new ProcessorDescriptor("figure", "Figure", "Figure", "net.sf.jame.contextfree.cfdg.figure", "FigureConfigElement", "net.sf.jame.contextfree.cfdg.figure", "FigureRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.MANY));
 		return new ProcessorParameters(new ProcessorDescriptor("cfdg", "CFDG", "CFDG", "net.sf.jame.contextfree.cfdg", "CFDGConfigElement", "net.sf.jame.contextfree.cfdg", "CFDGRuntimeElement", null, null, null, null, null, null, null, null, "net.sf.jame.contextfree", "ContextFreeResources", null, null, null, "get", "set", ProcessorCardinality.NONE), descriptors);
 	}

@@ -29,6 +29,8 @@ import org.apache.log4j.Logger;
 	private StartshapeListener startshapeListener;
 	private String variation;
 	private VariationListener variationListener;
+	private String baseDir;
+	private BaseDirListener baseDirListener;
 	private Boolean useSize;
 	private UseSizeListener useSizeListener;
 	private Boolean useTile;
@@ -67,6 +69,9 @@ import org.apache.log4j.Logger;
 		setVariation(cfdgElement.getVariation());
 		variationListener = new VariationListener();
 		cfdgElement.getVariationElement().addChangeListener(variationListener);
+		setBaseDir(cfdgElement.getBaseDir());
+		baseDirListener = new BaseDirListener();
+		cfdgElement.getBaseDirElement().addChangeListener(baseDirListener);
 		setUseSize(cfdgElement.isUseSize());
 		useSizeListener = new UseSizeListener();
 		cfdgElement.getUseSizeElement().addChangeListener(useSizeListener);
@@ -115,6 +120,10 @@ import org.apache.log4j.Logger;
 			cfdgElement.getVariationElement().removeChangeListener(variationListener);
 		}
 		variationListener = null;
+		if ((cfdgElement != null) && (baseDirListener != null)) {
+			cfdgElement.getBaseDirElement().removeChangeListener(baseDirListener);
+		}
+		baseDirListener = null;
 		if ((cfdgElement != null) && (useSizeListener != null)) {
 			cfdgElement.getUseSizeElement().removeChangeListener(useSizeListener);
 		}
@@ -216,6 +225,34 @@ import org.apache.log4j.Logger;
 			switch (e.getEventType()) {
 				case ValueConfigElement.VALUE_CHANGED: {
 					setVariation((String) e.getParams()[0]);
+					fireChanged();
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		}
+	}
+	/**
+	 * @return the baseDir.
+	 */
+	public String getBaseDir() {
+		return baseDir;
+	}
+
+	private void setBaseDir(final String baseDir) {
+		this.baseDir = baseDir;
+	}
+	
+	private class BaseDirListener implements ValueChangeListener {
+		/**
+		 * @see net.sf.jame.core.config.ValueChangeListener#valueChanged(net.sf.jame.core.config.ValueChangeEvent)
+		 */
+		public void valueChanged(final ValueChangeEvent e) {
+			switch (e.getEventType()) {
+				case ValueConfigElement.VALUE_CHANGED: {
+					setBaseDir((String) e.getParams()[0]);
 					fireChanged();
 					break;
 				}
