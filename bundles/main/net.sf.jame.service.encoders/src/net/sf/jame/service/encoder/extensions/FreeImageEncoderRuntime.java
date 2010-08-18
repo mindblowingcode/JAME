@@ -76,7 +76,7 @@ public abstract class FreeImageEncoderRuntime<T extends EncoderExtensionConfig> 
 				dib = FreeImage4Java.FreeImage_Allocate(context.getImageWidth(), context.getImageHeight(), channels * 8, 0x00FF0000, 0x0000FF00, 0x000000FF);
 				final byte[] data = context.getTileAsByteArray(0, 0, 0, context.getImageWidth(), context.getImageHeight(), channels);
 				for (int y = 0; y < context.getImageHeight(); y++) {
-					int j = y * context.getImageWidth();
+					int j = (context.getImageHeight() - y - 1) * context.getImageWidth();
 					for (int x = 0; x < context.getImageWidth(); x++) {
 						int i = (j + x) * channels;
 						value.setRgbRed(data[i + 0]);
