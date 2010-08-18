@@ -51,10 +51,8 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 	protected void doRender(boolean dynamicZoom) {
 		long time = System.nanoTime();
 		updateTransform();
-		float gx = (getBufferWidth() - getTile().getTileSize().getX()) / 2;
-		float gy = (getBufferHeight() - getTile().getTileSize().getY()) / 2;
-		float offsetX = -getTile().getTileOffset().getX() + getTile().getTileSize().getX() + getTile().getTileBorder().getX() + gx;
-		float offsetY = -getTile().getTileOffset().getY() + getTile().getTileSize().getY() + getTile().getTileBorder().getY() + gy;
+		float offsetX = getBufferWidth() / 2 + getTile().getImageSize().getX() / 2 - getTile().getTileOffset().getX() - getTile().getTileSize().getX() / 2;
+		float offsetY = getBufferHeight() / 2 + getTile().getImageSize().getY() / 2 - getTile().getTileOffset().getY() - getTile().getTileSize().getY() / 2;
 		int width = getTile().getImageSize().getX();
 		int height = getTile().getImageSize().getY();
 		Color32bit background = cfdgRuntime.getBackground();

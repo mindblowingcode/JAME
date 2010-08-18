@@ -95,23 +95,23 @@ import net.sf.jame.core.util.Color32bit;
 import net.sf.jame.core.util.Colors;
 
 public class ContextFreeParser {
-	public ContextFreeConfig parseConfig(String text) throws ContextFreeParserException {
-		return parseConfig(new StringReader(text));
-	}
-
 	public ContextFreeConfig parseConfig(File file) throws ContextFreeParserException {
 		try {
-			return parseConfig(new FileReader(file));
+			return parseConfig(new File(file.getParent()), new FileReader(file));
 		} catch (FileNotFoundException e) {
 			throw new ContextFreeParserException(e);
 		}
 	}
+	
+	public ContextFreeConfig parseConfig(File baseDir, String text) throws ContextFreeParserException {
+		return parseConfig(baseDir, new StringReader(text));
+	}
 
-	public ContextFreeConfig parseConfig(Reader reader) throws ContextFreeParserException {
+	public ContextFreeConfig parseConfig(File baseDir, Reader reader) throws ContextFreeParserException {
 		try {
 			Parser parser = new Parser(new Lexer(new PushbackReader(reader)));
 			ContextFreeConfig config = new ContextFreeConfig();
-			CFInterpreter interpreter = new CFInterpreter(config);
+			CFInterpreter interpreter = new CFInterpreter(baseDir, config);
 			parser.parse().apply(interpreter);
 			return config;
 		}
@@ -132,8 +132,10 @@ public class ContextFreeParser {
 		private boolean backgroundFound;
 		private boolean tileFound;
 		private boolean sizeFound;
+		private File baseDir;
 		
-		public CFInterpreter(ContextFreeConfig config) {
+		public CFInterpreter(File baseDir, ContextFreeConfig config) {
+			this.baseDir = baseDir;
 			this.config = config;
 		}
 
@@ -211,7 +213,11 @@ public class ContextFreeParser {
 		public void inAIncludeDeclaration(AIncludeDeclaration node) {
 			super.inAIncludeDeclaration(node);
 			try {
-				ContextFreeConfig tmpConfig = parseConfig(new File(node.getFilename().getText()));
+				String path = node.getFilename().getText();
+				if (path.startsWith("\"") && path.endsWith("\"")) {
+					path = path.substring(1, path.length() - 1);
+				}
+				ContextFreeConfig tmpConfig = parseConfig(path.startsWith("/") ? new File(path) : new File(baseDir, path));
 				for (int i = 0; i < tmpConfig.getCFDG().getFigureConfigElementCount(); i++) {
 					config.getCFDG().appendFigureConfigElement(tmpConfig.getCFDG().getFigureConfigElement(i));
 				}

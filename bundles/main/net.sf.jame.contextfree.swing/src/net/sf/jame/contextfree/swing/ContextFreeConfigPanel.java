@@ -601,7 +601,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						context.acquire();
 						session.removeSessionListener(sessionListener);
 						config.getContext().updateTimestamp();
-						loadConfig(config, text, variation[0]);
+						loadConfig(new File(System.getProperty("user.home")), config, text, variation[0]);
 						session.addSessionListener(sessionListener);
 						context.release();
 						context.refresh();
@@ -641,7 +641,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						context.acquire();
 						session.removeSessionListener(sessionListener);
 						config.getContext().updateTimestamp();
-						loadConfig(config, builder.toString(), variation[0]);
+						loadConfig(new File(file.getParent()), config, builder.toString(), variation[0]);
 						session.addSessionListener(sessionListener);
 						context.release();
 						context.refresh();
@@ -675,10 +675,10 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			});
 		}
 
-		private void loadConfig(final ContextFreeConfig config, String text, String variation) throws InterruptedException {
+		private void loadConfig(File baseDir, ContextFreeConfig config, String text, String variation) throws InterruptedException {
 			try {
 				ContextFreeParser parser = new ContextFreeParser();
-				ContextFreeConfig newConfig = parser.parseConfig(text);
+				ContextFreeConfig newConfig = parser.parseConfig(baseDir, text);
 				config.setCFDG(newConfig.getCFDG());
 				config.getCFDG().setVariation(variation);
 			} catch (ContextFreeParserException x) {

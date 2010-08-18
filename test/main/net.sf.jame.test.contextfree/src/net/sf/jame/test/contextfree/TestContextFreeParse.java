@@ -25,6 +25,8 @@
  */
 package net.sf.jame.test.contextfree;
 
+import java.io.File;
+
 import net.sf.jame.contextfree.ContextFreeConfig;
 import net.sf.jame.contextfree.ContextFreeConfigNodeBuilder;
 import net.sf.jame.contextfree.parser.ContextFreeParser;
@@ -70,7 +72,7 @@ public class TestContextFreeParse {
 		try {
 			System.out.println(text);
 			ContextFreeParser parser = new ContextFreeParser();
-			ContextFreeConfig config = parser.parseConfig(text);
+			ContextFreeConfig config = parser.parseConfig(new File(System.getProperty("user.home")), text);
 			RootNode rootNode = new RootNode("contextfree");
 			ContextFreeConfigNodeBuilder nodeBuilder = new ContextFreeConfigNodeBuilder(config);
 			nodeBuilder.createNodes(rootNode);

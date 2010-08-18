@@ -69,7 +69,7 @@ public class TestContextFree3 {
 			String text = builder.toString();
 			System.out.println(text);
 			ContextFreeParser parser = new ContextFreeParser();
-			ContextFreeConfig config = parser.parseConfig(text);
+			ContextFreeConfig config = parser.parseConfig(new File(System.getProperty("user.home")), text);
 			RootNode rootNode = new RootNode("contextfree");
 			ContextFreeConfigNodeBuilder nodeBuilder = new ContextFreeConfigNodeBuilder(config);
 			nodeBuilder.createNodes(rootNode);
