@@ -45,7 +45,7 @@ public class ContextFreeContext {
 	private static final double THRESHOLD = 0.0000000000001;
 	private static final Logger logger = Logger.getLogger(ContextFreeContext.class);
 	public static final float MIN_SIZE = 2;
-	public static final float MAX_SIZE = 1000;
+	public static final float MAX_SIZE = 100000;
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
