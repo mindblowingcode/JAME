@@ -362,9 +362,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getLCbkt().apply(this);
         }
-        if(node.getSizeToken() != null)
+        if(node.getSize() != null)
         {
-            node.getSizeToken().apply(this);
+            node.getSize().apply(this);
         }
         outASizeDeclaration(node);
     }

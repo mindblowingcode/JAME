@@ -7,14 +7,14 @@ import net.sf.jame.contextfree.cfdg.analysis.*;
 @SuppressWarnings("nls")
 public final class TSizeToken extends Token
 {
-    public TSizeToken(String text)
+    public TSizeToken()
     {
-        setText(text);
+        super.setText("s");
     }
 
-    public TSizeToken(String text, int line, int pos)
+    public TSizeToken(int line, int pos)
     {
-        setText(text);
+        super.setText("s");
         setLine(line);
         setPos(pos);
     }
@@ -22,11 +22,17 @@ public final class TSizeToken extends Token
     @Override
     public Object clone()
     {
-      return new TSizeToken(getText(), getLine(), getPos());
+      return new TSizeToken(getLine(), getPos());
     }
 
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTSizeToken(this);
+    }
+
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
+    {
+        throw new RuntimeException("Cannot change TSizeToken text.");
     }
 }
