@@ -156,6 +156,7 @@ public interface Analysis extends Switch
     void caseTBackground(TBackground node);
     void caseTInclude(TInclude node);
     void caseTTile(TTile node);
+    void caseTSize(TSize node);
     void caseTRule(TRule node);
     void caseTPath(TPath node);
     void caseTFilename(TFilename node);

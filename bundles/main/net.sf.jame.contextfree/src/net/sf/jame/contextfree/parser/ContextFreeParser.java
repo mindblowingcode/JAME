@@ -3,7 +3,6 @@ package net.sf.jame.contextfree.parser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PushbackReader;
 import java.io.Reader;
 import java.io.StringReader;
@@ -19,10 +18,8 @@ import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.lexer.Lexer;
-import net.sf.jame.contextfree.cfdg.lexer.LexerException;
 import net.sf.jame.contextfree.cfdg.node.*;
 import net.sf.jame.contextfree.cfdg.parser.Parser;
-import net.sf.jame.contextfree.cfdg.parser.ParserException;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionConfig;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
@@ -287,9 +284,10 @@ public class ContextFreeParser {
 				for (PTileAdjustment adjustment : node.getTileAdjustment()) {
 					if (adjustment instanceof ATileAdjustment) {
 						PFirstExpression firstExpression = ((ATileAdjustment) adjustment).getFirstExpression();
-						if (firstExpression != null && firstExpression instanceof AFirstExpression) {
+						if (firstExpression instanceof AFirstExpression) {
 							float value = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
 							config.getCFDG().setTileWidth(value);
+							config.getCFDG().setTileHeight(value);
 						}
 						PSecondExpression secondExpression = ((ATileAdjustment) adjustment).getSecondExpression();
 						if (secondExpression != null && secondExpression instanceof ASecondExpression) {
@@ -316,9 +314,10 @@ public class ContextFreeParser {
 						if (firstExpression instanceof AFirstExpression) {
 							float value = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
 							config.getCFDG().setWidth(value);
+							config.getCFDG().setHeight(value);
 						}
 						PSecondExpression secondExpression = ((ASizeSizeAdjustment) adjustment).getSecondExpression();
-						if (secondExpression instanceof ASecondExpression) {
+						if (secondExpression != null && secondExpression instanceof ASecondExpression) {
 							float value = evaluateExpression(((ASecondExpression) secondExpression).getExtendedExpression());
 							config.getCFDG().setHeight(value);
 						}

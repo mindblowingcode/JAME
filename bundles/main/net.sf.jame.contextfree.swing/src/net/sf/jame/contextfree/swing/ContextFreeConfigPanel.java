@@ -497,7 +497,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						try {
 							loadConfig(config, editorPane.getText(), variationTextField.getText());
 						} catch (final ContextFreeParserException x) {
-							logger.error(x);
+							logger.error(ContextFreeSwingResources.getInstance().getString("message.parserError"), x);
 							GUIUtil.executeTask(new Runnable() {
 								public void run() {
 									JTextArea textArea = new JTextArea();
@@ -641,7 +641,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						try {
 							loadConfig(config, text, variation[0]);
 						} catch (final ContextFreeParserException e) {
-							logger.error(e);
+							logger.error(ContextFreeSwingResources.getInstance().getString("message.parserError"), e);
 							GUIUtil.executeTask(new Runnable() {
 								public void run() {
 									JTextArea textArea = new JTextArea();
@@ -701,7 +701,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 								}
 							}, false);
 						} catch (final ContextFreeParserException e) {
-							logger.error(e);
+							logger.error(ContextFreeSwingResources.getInstance().getString("message.parserError"), e);
 							GUIUtil.executeTask(new Runnable() {
 								public void run() {
 									JTextArea textArea = new JTextArea();

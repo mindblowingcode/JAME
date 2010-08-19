@@ -83,6 +83,8 @@ Helpers
   	
   	letter_or_digit = unicode_letter | unicode_digit | '$' | '_';
 
+  	letter_or_digit_or_space = letter_or_digit | ' ' | ht;
+
   	non_zero_digit = ['1'..'9'];
   	
   	digit = ['0'..'9'];
@@ -91,6 +93,7 @@ Helpers
 
 	rational = digit+ '.' digit* | '.' digit+;
 
+	size_word = 'size';
 
 Tokens
 
@@ -109,7 +112,7 @@ Tokens
   	l_sbkt = '[';
   	r_sbkt = ']';
   
-  	size_token = 'size' | 's';
+  	size_token = 's';
   	hue_token = 'hue' | 'h';
   	saturation_token = 'saturation' | 'sat';
   	brightness_token = 'brightness' | 'b';
@@ -144,12 +147,13 @@ Tokens
   	startshape = 'startshape';
   	background = 'background';
   	include = 'include';
-  	tile = 'tile';
-  	//size = 'size';
+  	 
+   	tile = 'tile';
+  	size = 'size';
   	rule = 'rule';
   	path = 'path';
-  	
- 	filename = letter_or_digit letter_or_digit* '.cfdg' | '"' letter_or_digit letter_or_digit* '.cfdg' '"';
+ 
+ 	filename = letter_or_digit letter_or_digit* '.cfdg' | '"' letter_or_digit letter_or_digit_or_space* '.cfdg' '"';
 
  	string = letter letter_or_digit*;
 
@@ -181,7 +185,7 @@ Productions
   		
    	tile_declaration = tile l_cbkt tile_adjustment* r_cbkt;
   		
-   	size_declaration = size_token l_cbkt size_adjustment* r_cbkt;
+   	size_declaration = size l_cbkt size_adjustment* r_cbkt;
   		
 	rule_declaration = rule string number? l_cbkt shape_replacement_declaration* r_cbkt;
 
@@ -213,7 +217,7 @@ Productions
 
     tile_adjustment = size_token first_expression second_expression?;
   		
-    size_adjustment = {x} x_token expression | {y} y_token expression | {size} size_token first_expression second_expression;
+    size_adjustment = {x} x_token expression | {y} y_token expression | {size} size_token first_expression second_expression?;
   		
     shape_adjustment = {color} color_adjustment | {geometry} geometry_adjustment; 
 

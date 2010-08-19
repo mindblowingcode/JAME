@@ -784,6 +784,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseTSize(TSize node)
+    {
+        defaultCase(node);
+    }
+
     public void caseTRule(TRule node)
     {
         defaultCase(node);
