@@ -7,7 +7,7 @@ import net.sf.jame.contextfree.cfdg.analysis.*;
 @SuppressWarnings("nls")
 public final class ASizePathAdjustment extends PPathAdjustment
 {
-    private TSizeToken _sizeToken_;
+    private PSizeToken2 _sizeToken2_;
     private PExpression _expression_;
 
     public ASizePathAdjustment()
@@ -16,11 +16,11 @@ public final class ASizePathAdjustment extends PPathAdjustment
     }
 
     public ASizePathAdjustment(
-        @SuppressWarnings("hiding") TSizeToken _sizeToken_,
+        @SuppressWarnings("hiding") PSizeToken2 _sizeToken2_,
         @SuppressWarnings("hiding") PExpression _expression_)
     {
         // Constructor
-        setSizeToken(_sizeToken_);
+        setSizeToken2(_sizeToken2_);
 
         setExpression(_expression_);
 
@@ -30,7 +30,7 @@ public final class ASizePathAdjustment extends PPathAdjustment
     public Object clone()
     {
         return new ASizePathAdjustment(
-            cloneNode(this._sizeToken_),
+            cloneNode(this._sizeToken2_),
             cloneNode(this._expression_));
     }
 
@@ -39,16 +39,16 @@ public final class ASizePathAdjustment extends PPathAdjustment
         ((Analysis) sw).caseASizePathAdjustment(this);
     }
 
-    public TSizeToken getSizeToken()
+    public PSizeToken2 getSizeToken2()
     {
-        return this._sizeToken_;
+        return this._sizeToken2_;
     }
 
-    public void setSizeToken(TSizeToken node)
+    public void setSizeToken2(PSizeToken2 node)
     {
-        if(this._sizeToken_ != null)
+        if(this._sizeToken2_ != null)
         {
-            this._sizeToken_.parent(null);
+            this._sizeToken2_.parent(null);
         }
 
         if(node != null)
@@ -61,7 +61,7 @@ public final class ASizePathAdjustment extends PPathAdjustment
             node.parent(this);
         }
 
-        this._sizeToken_ = node;
+        this._sizeToken2_ = node;
     }
 
     public PExpression getExpression()
@@ -93,7 +93,7 @@ public final class ASizePathAdjustment extends PPathAdjustment
     public String toString()
     {
         return ""
-            + toString(this._sizeToken_)
+            + toString(this._sizeToken2_)
             + toString(this._expression_);
     }
 
@@ -101,9 +101,9 @@ public final class ASizePathAdjustment extends PPathAdjustment
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._sizeToken_ == child)
+        if(this._sizeToken2_ == child)
         {
-            this._sizeToken_ = null;
+            this._sizeToken2_ = null;
             return;
         }
 
@@ -120,9 +120,9 @@ public final class ASizePathAdjustment extends PPathAdjustment
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._sizeToken_ == oldChild)
+        if(this._sizeToken2_ == oldChild)
         {
-            setSizeToken((TSizeToken) newChild);
+            setSizeToken2((PSizeToken2) newChild);
             return;
         }
 

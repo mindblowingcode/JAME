@@ -13,6 +13,8 @@ public interface Analysis extends Switch
 
     void caseStart(Start node);
     void caseACfdg(ACfdg node);
+    void caseASizeSizeToken2(ASizeSizeToken2 node);
+    void caseASizeTokenSizeToken2(ASizeTokenSizeToken2 node);
     void caseAStartshapeCfdgDeclaration(AStartshapeCfdgDeclaration node);
     void caseAIncludeCfdgDeclaration(AIncludeCfdgDeclaration node);
     void caseABackgroundCfdgDeclaration(ABackgroundCfdgDeclaration node);
@@ -124,7 +126,6 @@ public interface Analysis extends Switch
     void caseTRRbkt(TRRbkt node);
     void caseTLSbkt(TLSbkt node);
     void caseTRSbkt(TRSbkt node);
-    void caseTSizeToken(TSizeToken node);
     void caseTHueToken(THueToken node);
     void caseTSaturationToken(TSaturationToken node);
     void caseTBrightnessToken(TBrightnessToken node);
@@ -136,17 +137,18 @@ public interface Analysis extends Switch
     void caseTXToken(TXToken node);
     void caseTYToken(TYToken node);
     void caseTZToken(TZToken node);
+    void caseTRotateToken(TRotateToken node);
+    void caseTSizeToken(TSizeToken node);
+    void caseTFlipToken(TFlipToken node);
+    void caseTSkewToken(TSkewToken node);
+    void caseTParametersToken(TParametersToken node);
+    void caseTStrokewidthToken(TStrokewidthToken node);
     void caseTX1Token(TX1Token node);
     void caseTY1Token(TY1Token node);
     void caseTX2Token(TX2Token node);
     void caseTY2Token(TY2Token node);
     void caseTRxToken(TRxToken node);
     void caseTRyToken(TRyToken node);
-    void caseTParametersToken(TParametersToken node);
-    void caseTRotateToken(TRotateToken node);
-    void caseTFlipToken(TFlipToken node);
-    void caseTSkewToken(TSkewToken node);
-    void caseTStrokewidthToken(TStrokewidthToken node);
     void caseTCommand(TCommand node);
     void caseTOperation(TOperation node);
     void caseTFunctionArg0(TFunctionArg0 node);

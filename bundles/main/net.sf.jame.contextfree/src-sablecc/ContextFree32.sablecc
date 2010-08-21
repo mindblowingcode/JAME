@@ -93,7 +93,6 @@ Helpers
 
 	rational = digit+ '.' digit* | '.' digit+;
 
-	size_word = 'size';
 
 Tokens
 
@@ -112,7 +111,6 @@ Tokens
   	l_sbkt = '[';
   	r_sbkt = ']';
   
-  	size_token = 's';
   	hue_token = 'hue' | 'h';
   	saturation_token = 'saturation' | 'sat';
   	brightness_token = 'brightness' | 'b';
@@ -124,18 +122,20 @@ Tokens
   	x_token = 'x';
   	y_token = 'y';
   	z_token = 'z';
+  	rotate_token = 'rotate' | 'r';
+  	size_token = 's';
+  	flip_token = 'flip' | 'f';
+  	skew_token = 'skew';
+  	parameters_token = 'param' | 'p';
+  	strokewidth_token = 'width';
+  	
   	x1_token = 'x1';
   	y1_token = 'y1';
   	x2_token = 'x2';
   	y2_token = 'y2';
   	rx_token = 'rx';
   	ry_token = 'ry';
-  	parameters_token = 'param' | 'p';
-  	rotate_token = 'rotate' | 'r';
-  	flip_token = 'flip' | 'f';
-  	skew_token = 'skew';
-  	strokewidth_token = 'width';
-  	
+
   	command = 'STROKE' | 'FILL';
 
   	operation = 'MOVETO' | 'LINETO' | 'ARCTO' | 'CURVETO' | 'MOVEREL' | 'LINEREL' | 'ARCREL' | 'CURVEREL' | 'CLOSEPOLY';
@@ -147,13 +147,12 @@ Tokens
   	startshape = 'startshape';
   	background = 'background';
   	include = 'include';
-  	 
    	tile = 'tile';
   	size = 'size';
   	rule = 'rule';
   	path = 'path';
  
- 	filename = letter_or_digit letter_or_digit* '.cfdg' | '"' letter_or_digit letter_or_digit_or_space* '.cfdg' '"';
+ 	filename = letter_or_digit letter_or_digit* '.cfdg' | '"' letter_or_digit_or_space letter_or_digit_or_space* '.cfdg' '"';
 
  	string = letter letter_or_digit*;
 
@@ -174,6 +173,8 @@ Ignored Tokens
 Productions
   	
     cfdg = cfdg_declaration+;
+
+   	size_token2 = {size} size | {size_token} size_token;
   
     cfdg_declaration = {startshape} startshape_declaration | {include} include_declaration | {background} background_declaration | {tile} tile_declaration | {size} size_declaration | {rule} rule_declaration | {path} path_declaration;
 
@@ -215,9 +216,9 @@ Productions
 
     background_adjustment = {hue} hue_token expression | {brightness} brightness_token expression | {saturation} saturation_token expression | {alpha} alpha_token expression;
 
-    tile_adjustment = size_token first_expression second_expression?;
+    tile_adjustment = size_token2 first_expression second_expression?;
   		
-    size_adjustment = {x} x_token expression | {y} y_token expression | {size} size_token first_expression second_expression?;
+    size_adjustment = {x} x_token expression | {y} y_token expression | {size} size_token2 first_expression second_expression?;
   		
     shape_adjustment = {color} color_adjustment | {geometry} geometry_adjustment; 
 
@@ -227,9 +228,9 @@ Productions
 
     target_color_adjustment = {hue} target_hue_token expression | {brightness} target_brightness_token expression | {saturation} target_saturation_token expression | {alpha} target_alpha_token expression; 
 
-    path_adjustment = {x} x_token expression | {y} y_token expression | {size} size_token expression | {size2} size_token first_expression second_expression | {flip} flip_token expression | {skew} skew_token first_expression second_expression | {rotate} rotate_token expression; 
+    path_adjustment = {x} x_token expression | {y} y_token expression | {size} size_token2 expression | {size2} size_token2 first_expression second_expression | {flip} flip_token expression | {skew} skew_token first_expression second_expression | {rotate} rotate_token expression; 
 
-    geometry_adjustment = {x} x_token expression | {y} y_token expression | {z} z_token expression | {size} size_token expression | {size2} size_token first_expression second_expression | {size3} size_token first_expression second_expression third_expression | {flip} flip_token expression | {skew} skew_token first_expression second_expression | {rotate} rotate_token expression;
+    geometry_adjustment = {x} x_token expression | {y} y_token expression | {z} z_token expression | {size} size_token2 expression | {size2} size_token2 first_expression second_expression | {size3} size_token2 first_expression second_expression third_expression | {flip} flip_token expression | {skew} skew_token first_expression second_expression | {rotate} rotate_token expression;
 
   	expression = {number} number | {nested} l_rbkt extended_expression r_rbkt | {function} function; 
 

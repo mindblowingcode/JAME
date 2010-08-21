@@ -60,6 +60,48 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outACfdg(node);
     }
 
+    public void inASizeSizeToken2(ASizeSizeToken2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASizeSizeToken2(ASizeSizeToken2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASizeSizeToken2(ASizeSizeToken2 node)
+    {
+        inASizeSizeToken2(node);
+        if(node.getSize() != null)
+        {
+            node.getSize().apply(this);
+        }
+        outASizeSizeToken2(node);
+    }
+
+    public void inASizeTokenSizeToken2(ASizeTokenSizeToken2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASizeTokenSizeToken2(ASizeTokenSizeToken2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASizeTokenSizeToken2(ASizeTokenSizeToken2 node)
+    {
+        inASizeTokenSizeToken2(node);
+        if(node.getSizeToken() != null)
+        {
+            node.getSizeToken().apply(this);
+        }
+        outASizeTokenSizeToken2(node);
+    }
+
     public void inAStartshapeCfdgDeclaration(AStartshapeCfdgDeclaration node)
     {
         defaultIn(node);
@@ -1468,9 +1510,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseATileAdjustment(ATileAdjustment node)
     {
         inATileAdjustment(node);
-        if(node.getSizeToken() != null)
+        if(node.getSizeToken2() != null)
         {
-            node.getSizeToken().apply(this);
+            node.getSizeToken2().apply(this);
         }
         if(node.getFirstExpression() != null)
         {
@@ -1547,9 +1589,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseASizeSizeAdjustment(ASizeSizeAdjustment node)
     {
         inASizeSizeAdjustment(node);
-        if(node.getSizeToken() != null)
+        if(node.getSizeToken2() != null)
         {
-            node.getSizeToken().apply(this);
+            node.getSizeToken2().apply(this);
         }
         if(node.getFirstExpression() != null)
         {
@@ -1926,9 +1968,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseASizePathAdjustment(ASizePathAdjustment node)
     {
         inASizePathAdjustment(node);
-        if(node.getSizeToken() != null)
+        if(node.getSizeToken2() != null)
         {
-            node.getSizeToken().apply(this);
+            node.getSizeToken2().apply(this);
         }
         if(node.getExpression() != null)
         {
@@ -1951,9 +1993,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseASize2PathAdjustment(ASize2PathAdjustment node)
     {
         inASize2PathAdjustment(node);
-        if(node.getSizeToken() != null)
+        if(node.getSizeToken2() != null)
         {
-            node.getSizeToken().apply(this);
+            node.getSizeToken2().apply(this);
         }
         if(node.getFirstExpression() != null)
         {
@@ -2134,9 +2176,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseASizeGeometryAdjustment(ASizeGeometryAdjustment node)
     {
         inASizeGeometryAdjustment(node);
-        if(node.getSizeToken() != null)
+        if(node.getSizeToken2() != null)
         {
-            node.getSizeToken().apply(this);
+            node.getSizeToken2().apply(this);
         }
         if(node.getExpression() != null)
         {
@@ -2159,9 +2201,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseASize2GeometryAdjustment(ASize2GeometryAdjustment node)
     {
         inASize2GeometryAdjustment(node);
-        if(node.getSizeToken() != null)
+        if(node.getSizeToken2() != null)
         {
-            node.getSizeToken().apply(this);
+            node.getSizeToken2().apply(this);
         }
         if(node.getFirstExpression() != null)
         {
@@ -2188,9 +2230,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseASize3GeometryAdjustment(ASize3GeometryAdjustment node)
     {
         inASize3GeometryAdjustment(node);
-        if(node.getSizeToken() != null)
+        if(node.getSizeToken2() != null)
         {
-            node.getSizeToken().apply(this);
+            node.getSizeToken2().apply(this);
         }
         if(node.getFirstExpression() != null)
         {
