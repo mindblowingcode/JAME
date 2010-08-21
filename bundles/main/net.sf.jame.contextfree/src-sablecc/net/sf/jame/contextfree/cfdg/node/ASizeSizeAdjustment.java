@@ -7,7 +7,7 @@ import net.sf.jame.contextfree.cfdg.analysis.*;
 @SuppressWarnings("nls")
 public final class ASizeSizeAdjustment extends PSizeAdjustment
 {
-    private TSizeToken _sizeToken_;
+    private PSizeToken2 _sizeToken2_;
     private PFirstExpression _firstExpression_;
     private PSecondExpression _secondExpression_;
 
@@ -17,12 +17,12 @@ public final class ASizeSizeAdjustment extends PSizeAdjustment
     }
 
     public ASizeSizeAdjustment(
-        @SuppressWarnings("hiding") TSizeToken _sizeToken_,
+        @SuppressWarnings("hiding") PSizeToken2 _sizeToken2_,
         @SuppressWarnings("hiding") PFirstExpression _firstExpression_,
         @SuppressWarnings("hiding") PSecondExpression _secondExpression_)
     {
         // Constructor
-        setSizeToken(_sizeToken_);
+        setSizeToken2(_sizeToken2_);
 
         setFirstExpression(_firstExpression_);
 
@@ -34,7 +34,7 @@ public final class ASizeSizeAdjustment extends PSizeAdjustment
     public Object clone()
     {
         return new ASizeSizeAdjustment(
-            cloneNode(this._sizeToken_),
+            cloneNode(this._sizeToken2_),
             cloneNode(this._firstExpression_),
             cloneNode(this._secondExpression_));
     }
@@ -44,16 +44,16 @@ public final class ASizeSizeAdjustment extends PSizeAdjustment
         ((Analysis) sw).caseASizeSizeAdjustment(this);
     }
 
-    public TSizeToken getSizeToken()
+    public PSizeToken2 getSizeToken2()
     {
-        return this._sizeToken_;
+        return this._sizeToken2_;
     }
 
-    public void setSizeToken(TSizeToken node)
+    public void setSizeToken2(PSizeToken2 node)
     {
-        if(this._sizeToken_ != null)
+        if(this._sizeToken2_ != null)
         {
-            this._sizeToken_.parent(null);
+            this._sizeToken2_.parent(null);
         }
 
         if(node != null)
@@ -66,7 +66,7 @@ public final class ASizeSizeAdjustment extends PSizeAdjustment
             node.parent(this);
         }
 
-        this._sizeToken_ = node;
+        this._sizeToken2_ = node;
     }
 
     public PFirstExpression getFirstExpression()
@@ -123,7 +123,7 @@ public final class ASizeSizeAdjustment extends PSizeAdjustment
     public String toString()
     {
         return ""
-            + toString(this._sizeToken_)
+            + toString(this._sizeToken2_)
             + toString(this._firstExpression_)
             + toString(this._secondExpression_);
     }
@@ -132,9 +132,9 @@ public final class ASizeSizeAdjustment extends PSizeAdjustment
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._sizeToken_ == child)
+        if(this._sizeToken2_ == child)
         {
-            this._sizeToken_ = null;
+            this._sizeToken2_ = null;
             return;
         }
 
@@ -157,9 +157,9 @@ public final class ASizeSizeAdjustment extends PSizeAdjustment
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._sizeToken_ == oldChild)
+        if(this._sizeToken2_ == oldChild)
         {
-            setSizeToken((TSizeToken) newChild);
+            setSizeToken2((PSizeToken2) newChild);
             return;
         }
 

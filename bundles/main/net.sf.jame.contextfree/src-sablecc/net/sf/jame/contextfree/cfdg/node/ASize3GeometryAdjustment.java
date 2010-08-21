@@ -7,7 +7,7 @@ import net.sf.jame.contextfree.cfdg.analysis.*;
 @SuppressWarnings("nls")
 public final class ASize3GeometryAdjustment extends PGeometryAdjustment
 {
-    private TSizeToken _sizeToken_;
+    private PSizeToken2 _sizeToken2_;
     private PFirstExpression _firstExpression_;
     private PSecondExpression _secondExpression_;
     private PThirdExpression _thirdExpression_;
@@ -18,13 +18,13 @@ public final class ASize3GeometryAdjustment extends PGeometryAdjustment
     }
 
     public ASize3GeometryAdjustment(
-        @SuppressWarnings("hiding") TSizeToken _sizeToken_,
+        @SuppressWarnings("hiding") PSizeToken2 _sizeToken2_,
         @SuppressWarnings("hiding") PFirstExpression _firstExpression_,
         @SuppressWarnings("hiding") PSecondExpression _secondExpression_,
         @SuppressWarnings("hiding") PThirdExpression _thirdExpression_)
     {
         // Constructor
-        setSizeToken(_sizeToken_);
+        setSizeToken2(_sizeToken2_);
 
         setFirstExpression(_firstExpression_);
 
@@ -38,7 +38,7 @@ public final class ASize3GeometryAdjustment extends PGeometryAdjustment
     public Object clone()
     {
         return new ASize3GeometryAdjustment(
-            cloneNode(this._sizeToken_),
+            cloneNode(this._sizeToken2_),
             cloneNode(this._firstExpression_),
             cloneNode(this._secondExpression_),
             cloneNode(this._thirdExpression_));
@@ -49,16 +49,16 @@ public final class ASize3GeometryAdjustment extends PGeometryAdjustment
         ((Analysis) sw).caseASize3GeometryAdjustment(this);
     }
 
-    public TSizeToken getSizeToken()
+    public PSizeToken2 getSizeToken2()
     {
-        return this._sizeToken_;
+        return this._sizeToken2_;
     }
 
-    public void setSizeToken(TSizeToken node)
+    public void setSizeToken2(PSizeToken2 node)
     {
-        if(this._sizeToken_ != null)
+        if(this._sizeToken2_ != null)
         {
-            this._sizeToken_.parent(null);
+            this._sizeToken2_.parent(null);
         }
 
         if(node != null)
@@ -71,7 +71,7 @@ public final class ASize3GeometryAdjustment extends PGeometryAdjustment
             node.parent(this);
         }
 
-        this._sizeToken_ = node;
+        this._sizeToken2_ = node;
     }
 
     public PFirstExpression getFirstExpression()
@@ -153,7 +153,7 @@ public final class ASize3GeometryAdjustment extends PGeometryAdjustment
     public String toString()
     {
         return ""
-            + toString(this._sizeToken_)
+            + toString(this._sizeToken2_)
             + toString(this._firstExpression_)
             + toString(this._secondExpression_)
             + toString(this._thirdExpression_);
@@ -163,9 +163,9 @@ public final class ASize3GeometryAdjustment extends PGeometryAdjustment
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._sizeToken_ == child)
+        if(this._sizeToken2_ == child)
         {
-            this._sizeToken_ = null;
+            this._sizeToken2_ = null;
             return;
         }
 
@@ -194,9 +194,9 @@ public final class ASize3GeometryAdjustment extends PGeometryAdjustment
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._sizeToken_ == oldChild)
+        if(this._sizeToken2_ == oldChild)
         {
-            setSizeToken((TSizeToken) newChild);
+            setSizeToken2((PSizeToken2) newChild);
             return;
         }
 

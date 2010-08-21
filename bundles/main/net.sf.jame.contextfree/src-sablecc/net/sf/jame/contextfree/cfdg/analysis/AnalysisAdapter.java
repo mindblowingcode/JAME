@@ -74,6 +74,16 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseASizeSizeToken2(ASizeSizeToken2 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseASizeTokenSizeToken2(ASizeTokenSizeToken2 node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAStartshapeCfdgDeclaration(AStartshapeCfdgDeclaration node)
     {
         defaultCase(node);
@@ -624,11 +634,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTSizeToken(TSizeToken node)
-    {
-        defaultCase(node);
-    }
-
     public void caseTHueToken(THueToken node)
     {
         defaultCase(node);
@@ -684,6 +689,36 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseTRotateToken(TRotateToken node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTSizeToken(TSizeToken node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTFlipToken(TFlipToken node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTSkewToken(TSkewToken node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTParametersToken(TParametersToken node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTStrokewidthToken(TStrokewidthToken node)
+    {
+        defaultCase(node);
+    }
+
     public void caseTX1Token(TX1Token node)
     {
         defaultCase(node);
@@ -710,31 +745,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTRyToken(TRyToken node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTParametersToken(TParametersToken node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTRotateToken(TRotateToken node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTFlipToken(TFlipToken node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTSkewToken(TSkewToken node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTStrokewidthToken(TStrokewidthToken node)
     {
         defaultCase(node);
     }
