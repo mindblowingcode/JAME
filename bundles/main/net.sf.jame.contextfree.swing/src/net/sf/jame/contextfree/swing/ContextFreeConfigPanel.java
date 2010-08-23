@@ -37,7 +37,9 @@ import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -332,6 +334,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		private JTextField baseDirTextField;
 		private JEditorPane editorPane;
 		private JButton loadButton;
+		private JButton saveButton;
 		private JButton renderButton;
 		private JFileChooser chooser;
 
@@ -364,9 +367,9 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			tmpPanel6.add(shiftSpeedTextfield);
 			tmpPanel6.add(Box.createHorizontalGlue());
 			editorPane = new JEditorPane();
-			editorPane.getDocument().addUndoableEditListener(undoManager);
 			editorPane.setContentType("text/plain");
 			editorPane.setText("");
+			editorPane.getDocument().addUndoableEditListener(undoManager);
 			JScrollPane scrollPane = new JScrollPane(editorPane);
 			scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 			scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -380,6 +383,9 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			loadButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
 			loadButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.load"));
 			loadButton.setText(ContextFreeSwingResources.getInstance().getString("action.load"));
+			saveButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
+			saveButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.save"));
+			saveButton.setText(ContextFreeSwingResources.getInstance().getString("action.save"));
 			renderButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
 			renderButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.render"));
 			renderButton.setText(ContextFreeSwingResources.getInstance().getString("action.render"));
@@ -405,6 +411,8 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			tmpPanel2.add(Box.createHorizontalStrut(200));
 			tmpPanel2.add(createSpace());
 			tmpPanel2.add(loadButton);
+			tmpPanel2.add(createSpace());
+			tmpPanel2.add(saveButton);
 			tmpPanel2.add(createSpace());
 			tmpPanel2.add(renderButton);
 			tmpPanel2.add(Box.createHorizontalGlue());
@@ -531,6 +539,22 @@ public class ContextFreeConfigPanel extends ViewPanel {
 				}
 			};
 			loadButton.addActionListener(loadActionListener);
+			final ActionListener saveActionListener = new ActionListener() {
+				public void actionPerformed(final ActionEvent e) {
+					if (chooser == null) {
+						chooser = new JFileChooser();
+						chooser.setDialogTitle(ContextFreeSwingResources.getInstance().getString("label.selectFile"));
+						chooser.setMultiSelectionEnabled(false);
+					}
+					if (chooser.showSaveDialog(ContextFreeConfigPanel.this) == JFileChooser.APPROVE_OPTION) {
+						File file = chooser.getSelectedFile();
+						if (file != null) {
+							saveConfig(config, file);
+						}
+					}
+				}
+			};
+			saveButton.addActionListener(saveActionListener);
 			final ActionListener renderActionListener = new ActionListener() {
 				public void actionPerformed(final ActionEvent e) {
 					renderConfig(config, editorPane.getText());
@@ -730,6 +754,39 @@ public class ContextFreeConfigPanel extends ViewPanel {
 								reader.close();
 							} catch (IOException x) {
 							}
+						}
+						GUIUtil.executeTask(new Runnable() {
+							public void run() {
+								enableButtons();
+							}
+						}, false);
+					}
+				}
+			});
+		}
+
+		private void saveConfig(final ContextFreeConfig config, final File file) {
+			GUIUtil.executeTask(new Runnable() {
+				public void run() {
+					disableButtons();
+				}
+			}, false);
+			worker.addTask(new Runnable() {
+				public void run() {
+					PrintWriter writer = null;
+					try {
+						writer = new PrintWriter(new FileWriter(file));
+						writer.print(editorPane.getText());
+					} catch (final IOException x) {
+						GUIUtil.executeTask(new Runnable() {
+							public void run() {
+								JOptionPane.showMessageDialog(ContextFreeImagePanel.this, x.getMessage(), ContextFreeSwingResources.getInstance().getString("message.writerError"), JOptionPane.ERROR_MESSAGE);
+							}
+						}, false);
+					} 
+					finally {
+						if (writer != null) {
+							writer.close();
 						}
 						GUIUtil.executeTask(new Runnable() {
 							public void run() {
