@@ -124,9 +124,9 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 		}
 	}
 
-	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		if (extensionRuntime != null) {
-			extensionRuntime.createShapes(context, state, bounds);
+			extensionRuntime.createShapes(context, state, globalBounds, shapeBounds);
 		}
 	}
 }

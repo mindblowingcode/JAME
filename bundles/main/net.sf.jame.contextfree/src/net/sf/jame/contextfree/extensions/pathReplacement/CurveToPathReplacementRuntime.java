@@ -253,7 +253,7 @@ public class CurveToPathReplacementRuntime extends PathReplacementExtensionRunti
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.curveTo(x, y, x1, y1, x2, y2);
 		return null;
 	}

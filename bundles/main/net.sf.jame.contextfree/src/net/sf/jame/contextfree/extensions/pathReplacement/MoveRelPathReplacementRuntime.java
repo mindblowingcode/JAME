@@ -105,7 +105,7 @@ public class MoveRelPathReplacementRuntime extends PathReplacementExtensionRunti
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.moveRel(x, y);
 		return null;
 	}

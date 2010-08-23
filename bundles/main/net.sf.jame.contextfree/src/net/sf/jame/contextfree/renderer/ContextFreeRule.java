@@ -6,5 +6,5 @@ public interface ContextFreeRule {
 	
 	public Float getProbability();
 	
-	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds);
+	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds);
 }

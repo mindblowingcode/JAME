@@ -105,7 +105,7 @@ public class SmoothQuadToPathReplacementRuntime extends PathReplacementExtension
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.quadTo(x, y);
 		return null;
 	}

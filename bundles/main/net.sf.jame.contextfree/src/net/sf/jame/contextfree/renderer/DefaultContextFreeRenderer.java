@@ -59,15 +59,16 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		String startshape = cfdgRuntime.getStartshape();
 		cfdgRuntime.resetRandom();
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
-		ContextFreeBounds bounds = new ShapeBounds(width, height);
-		ContextFreeBounds size = new ShapeBounds(width, height);
+		ContextFreeBounds globalBounds = new ContextFreeBounds(width, height);
+		ContextFreeBounds shapeBounds = new ContextFreeBounds(width, height);
+		ContextFreeBounds bounds = new ContextFreeBounds(width, height);
 		ContextFreeState state = new ContextFreeState(); 
 		context.registerFigures();
 		Graphics2D g2d = getGraphics();
 		configure(g2d);
 		g2d.setColor(new Color(background.getARGB()));
 		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
-		context.buildPathOrRule(state, bounds, startshape);
+		context.buildPathOrRule(state, globalBounds, shapeBounds, startshape);
 		logger.debug("Create time " + (System.nanoTime() - time) / 1000000 + "ms");
 		percent = 30;
 		time = System.nanoTime();
@@ -86,21 +87,21 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 			float dx = cfdgRuntime.getWidth() / 2; 
 			float dy = cfdgRuntime.getHeight() / 2;
 			float d = Math.max(dx, dy);
-			size.addPoint(-cfdgRuntime.getX() - d, -cfdgRuntime.getY() - d);
-			size.addPoint(-cfdgRuntime.getX() + d, -cfdgRuntime.getY() + d);
+			bounds.addPoint(-cfdgRuntime.getX() - d, -cfdgRuntime.getY() - d);
+			bounds.addPoint(-cfdgRuntime.getX() + d, -cfdgRuntime.getY() + d);
 		} else {
 			if (cfdgRuntime.isUseTile()) {
 				float dx = cfdgRuntime.getTileWidth() / 2; 
 				float dy = cfdgRuntime.getTileHeight() / 2;
-				size.addPoint(-cfdgRuntime.getX() - dx, -cfdgRuntime.getY() - dx);
-				size.addPoint(-cfdgRuntime.getX() + dy, -cfdgRuntime.getY() + dy);
+				bounds.addPoint(-cfdgRuntime.getX() - dx, -cfdgRuntime.getY() - dx);
+				bounds.addPoint(-cfdgRuntime.getX() + dy, -cfdgRuntime.getY() + dy);
 			} else {
-				size.addPoint(bounds.getMinX(), bounds.getMinY());
-				size.addPoint(bounds.getMaxX(), bounds.getMaxY());
+				bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
+				bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
 			}
 			normalization = 0.9f;
 		}
-		area = createArea(size, offsetX, offsetY, normalization);
+		area = createArea(bounds, offsetX, offsetY, normalization);
 		if (cfdgRuntime.isUseTile()) {
 			double dx = cfdgRuntime.getTileWidth();
 			double dy = cfdgRuntime.getTileHeight();
@@ -109,19 +110,19 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 				dy = cfdgRuntime.getHeight();
 			}
 			int nx = 0;
-			while (nx * dx >= size.getMinX()) {
+			while (nx * dx >= bounds.getMinX()) {
 				nx -= 1;
 			}
 			int ny = 0;
-			while (ny * dy >= size.getMinY()) {
+			while (ny * dy >= bounds.getMinY()) {
 				ny -= 1;
 			}
 			int mx = 0;
-			while (mx * dx <= size.getMaxX()) {
+			while (mx * dx <= bounds.getMaxX()) {
 				mx += 1;
 			}
 			int my = 0;
-			while (my * dy <= size.getMaxY()) {
+			while (my * dy <= bounds.getMaxY()) {
 				my += 1;
 			}
 			AffineTransform t = g2d.getTransform();

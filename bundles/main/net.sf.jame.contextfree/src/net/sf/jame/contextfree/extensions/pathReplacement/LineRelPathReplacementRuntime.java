@@ -105,7 +105,7 @@ public class LineRelPathReplacementRuntime extends PathReplacementExtensionRunti
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.lineRel(x, y);
 		return null;
 	}

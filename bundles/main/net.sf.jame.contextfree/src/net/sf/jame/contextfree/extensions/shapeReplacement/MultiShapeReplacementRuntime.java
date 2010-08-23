@@ -305,11 +305,11 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 		}
 	}
 	
-	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
 			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
 			ContextFreeState newState = state.clone(); 
-			shapeReplacementRuntime.createShapes(context, newState, bounds);
+			shapeReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
 		}
 		for (int t = 1; t < times; t++) {
 			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
@@ -319,7 +319,7 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
 				ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
 				ContextFreeState newState = state.clone(); 
-				shapeReplacementRuntime.createShapes(context, newState, bounds);
+				shapeReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
 			}
 		}
 	}

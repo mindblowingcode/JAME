@@ -264,8 +264,9 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
-		state.bounds(bounds);
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
+		state.bounds(shapeBounds);
+		state.bounds(globalBounds);
 		return new PathShape(state, cap, join, width);
 	}
 }

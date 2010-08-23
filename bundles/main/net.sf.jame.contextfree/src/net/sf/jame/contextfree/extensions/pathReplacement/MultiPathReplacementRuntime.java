@@ -307,11 +307,11 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 		}
 	}
 	
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		ComposedShape pathShape = new ComposedShape(state); 
 		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
 			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
-			ContextFreeShape shape = pathReplacementRuntime.createShape(context, state, bounds);
+			ContextFreeShape shape = pathReplacementRuntime.createShape(context, state, globalBounds, shapeBounds);
 			if (shape != null) {
 				pathShape.addShape(shape);
 			}
@@ -324,7 +324,7 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 			ContextFreeState newState = state.clone(); 
 			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
 				PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
-				ContextFreeShape shape = pathReplacementRuntime.createShape(context, newState, bounds);
+				ContextFreeShape shape = pathReplacementRuntime.createShape(context, newState, globalBounds, shapeBounds);
 				if (shape != null) {
 					pathShape.addShape(shape);
 				}

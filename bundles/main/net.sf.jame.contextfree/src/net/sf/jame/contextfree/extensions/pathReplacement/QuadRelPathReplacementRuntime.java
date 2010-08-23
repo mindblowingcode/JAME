@@ -179,7 +179,7 @@ public class QuadRelPathReplacementRuntime extends PathReplacementExtensionRunti
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.quadRel(x, y, x1, y1);
 		return null;
 	}
