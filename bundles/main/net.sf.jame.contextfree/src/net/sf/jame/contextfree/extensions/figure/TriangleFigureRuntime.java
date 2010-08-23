@@ -25,7 +25,7 @@ public class TriangleFigureRuntime extends FigureExtensionRuntime<TriangleFigure
 		return "TRIANGLE";
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		float a = (float) (0.5 * Math.tan(Math.PI / 6.0));
 		float b = (float) (0.5 * Math.tan(Math.PI / 3.0));
 		float[] p = new float[] { -0.5f, -a, +0.5f, -a, 0, b - a };
@@ -34,7 +34,8 @@ public class TriangleFigureRuntime extends FigureExtensionRuntime<TriangleFigure
 		for (int i = 0; i < q.length; i += 2) {
 			float x = q[i + 0];
 			float y = q[i + 1];
-			bounds.addPoint(x, y);
+			shapeBounds.addPoint(x, y);
+			globalBounds.addPoint(x, y);
 		}
 		state.moveRel(-0.5f, -a);
 		state.lineRel(+1f, +0f);

@@ -105,7 +105,7 @@ public class MoveToPathReplacementRuntime extends PathReplacementExtensionRuntim
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.moveTo(x, y);
 		return null;
 	}

@@ -179,7 +179,7 @@ public class QuadToPathReplacementRuntime extends PathReplacementExtensionRuntim
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.quadTo(x, y, x1, y1);
 		return null;
 	}

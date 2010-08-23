@@ -17,8 +17,9 @@ public abstract class PathReplacementExtensionRuntime<T extends PathReplacementE
 	/**
 	 * @param context
 	 * @param state
-	 * @param bounds
+	 * @param globalBounds
+	 * @param shapeBounds
 	 * @return
 	 */
-	public abstract ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds);
+	public abstract ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds);
 }

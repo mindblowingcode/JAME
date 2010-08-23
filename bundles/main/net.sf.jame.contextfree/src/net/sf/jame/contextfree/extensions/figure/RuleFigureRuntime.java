@@ -229,11 +229,11 @@ public class RuleFigureRuntime extends FigureExtensionRuntime<RuleFigureConfig> 
 		context.registerRule(this);
 	}
 
-	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
 			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
 			ContextFreeState nodeState = state.clone();
-			shapeReplacementRuntime.createShapes(context, nodeState, bounds);
+			shapeReplacementRuntime.createShapes(context, nodeState, globalBounds, shapeBounds);
 		}
 	}
 }

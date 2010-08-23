@@ -179,7 +179,7 @@ public class SmoothCurveRelPathReplacementRuntime extends PathReplacementExtensi
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.curveRel(x, y, x2, y2);
 		return null;
 	}

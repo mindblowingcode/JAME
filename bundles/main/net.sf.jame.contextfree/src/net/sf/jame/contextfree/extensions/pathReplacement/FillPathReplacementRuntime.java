@@ -190,8 +190,9 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
-		state.bounds(bounds);
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
+		state.bounds(shapeBounds);
+		state.bounds(globalBounds);
 		return new SolidPathShape(state, rule);
 	}
 }

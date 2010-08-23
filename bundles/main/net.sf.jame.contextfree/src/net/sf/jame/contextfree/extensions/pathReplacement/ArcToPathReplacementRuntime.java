@@ -290,7 +290,7 @@ public class ArcToPathReplacementRuntime extends PathReplacementExtensionRuntime
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.arcTo(x, y, rx, ry, r, large, sweep);
 		return null;
 	}

@@ -105,7 +105,7 @@ public class SmoothQuadRelPathReplacementRuntime extends PathReplacementExtensio
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.quadRel(x, y);
 		return null;
 	}

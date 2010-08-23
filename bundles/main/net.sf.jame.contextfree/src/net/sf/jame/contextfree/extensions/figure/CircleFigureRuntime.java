@@ -25,14 +25,15 @@ public class CircleFigureRuntime extends FigureExtensionRuntime<CircleFigureConf
 		return "CIRCLE";
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		float[] p = new float[] { -0.5f, -0.5f, +0.5f, +0.5f };
 		float[] q = new float[p.length];
 		state.transform(p, q);
 		for (int i = 0; i < q.length; i += 2) {
 			float x = q[i + 0];
 			float y = q[i + 1];
-			bounds.addPoint(x, y);
+			shapeBounds.addPoint(x, y);
+			globalBounds.addPoint(x, y);
 		}
 		state.circle();
 		return new SolidPathShape(state, "even-odd");

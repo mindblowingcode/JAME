@@ -188,12 +188,12 @@ public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfi
 		}
 	}
 	
-	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
 			ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
 			shapeAdjustmentRuntime.updateState(state);
 		}
 		ContextFreeState newState = state.clone();
-		context.buildPathOrRule(newState, bounds, shape);
+		context.buildPathOrRule(newState, globalBounds, shapeBounds, shape);
 	}
 }

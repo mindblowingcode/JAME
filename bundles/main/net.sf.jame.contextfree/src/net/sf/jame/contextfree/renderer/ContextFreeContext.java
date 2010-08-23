@@ -42,9 +42,9 @@ import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
 import org.apache.log4j.Logger;
 
 public class ContextFreeContext {
-	private static final double THRESHOLD = 0.0000000000001;
+	private static final double THRESHOLD = 0.0000000001;
 	private static final Logger logger = Logger.getLogger(ContextFreeContext.class);
-	public static final float MIN_SIZE = 2;
+	public static final float MIN_SIZE = 0.5f;
 	public static final float MAX_SIZE = 100000;
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
@@ -52,6 +52,7 @@ public class ContextFreeContext {
 	private Set<ContextFreeShape> renderSet = new TreeSet<ContextFreeShape>(new ShapeComparator());
 	private Set<ContextFreeShape> expandSet = new HashSet<ContextFreeShape>();
 	private Set<ContextFreeShape> createdSet = new HashSet<ContextFreeShape>();
+	private Set<ContextFreeShape> queueSet = new HashSet<ContextFreeShape>();
 	private Set<ContextFreeShape> recursiveSet = new HashSet<ContextFreeShape>();
 	private Set<String> buildSet = new LinkedHashSet<String>();
 
@@ -74,19 +75,25 @@ public class ContextFreeContext {
 	}
 
 	public boolean expandShapes() {
-		expandSet.addAll(recursiveSet);
 		renderSet.addAll(createdSet);
-		recursiveSet.clear();
+		expandSet.addAll(recursiveSet);
 		createdSet.clear();
+		recursiveSet.clear();
 		for (Iterator<ContextFreeShape> shapes = expandSet.iterator(); shapes.hasNext();) {
 			ContextFreeShape next = shapes.next();
 			next.expand();
 			shapes.remove();
+			renderSet.addAll(createdSet);
+			queueSet.addAll(recursiveSet);
+			createdSet.clear();
+			recursiveSet.clear();
 		}
+		expandSet.addAll(queueSet);
+		queueSet.clear();
 		if (logger.isTraceEnabled()) {
 			logger.trace("Expand shapes [" + recursiveSet.size() + "/" + createdSet.size() + "/" + renderSet.size() + "]");
 		}
-		return recursiveSet.size() > 0;
+		return expandSet.size() > 0;
 	}
 
 	public void registerFigures() {
@@ -112,22 +119,22 @@ public class ContextFreeContext {
 		ruleMap.remove(rule);
 	}
 
-	public void buildPathOrRule(ContextFreeState state, ContextFreeBounds bounds, String shape) {
+	public void buildPathOrRule(ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds, String shape) {
 		ContextFreePath path = pathMap.get(shape);
 		if (path != null) {
 			if (logger.isTraceEnabled()) {
 				logger.trace("Path " + shape);
 			}
-			ContextFreeShape pathShape = path.createShape(this, state, bounds);
+			ContextFreeShape pathShape = path.createShape(this, state, globalBounds, shapeBounds);
 			if (pathShape != null) {
 				createdSet.add(pathShape);
 			}
 		} else {
-			createShapes(state, bounds, shape);
+			createShapes(state, globalBounds, shapeBounds, shape);
 		}
 	}
 	
-	private void createShapes(ContextFreeState state, ContextFreeBounds bounds,	String shape) {
+	private void createShapes(ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds, String shape) {
 		if (!buildSet.contains(shape)) {
 			if (logger.isTraceEnabled()) {
 				logger.trace("Rule " + shape);
@@ -135,59 +142,46 @@ public class ContextFreeContext {
 			buildSet.add(shape);
 			ContextFreeRule rule = ruleMap.get(shape);
 			if (rule != null) {
-				rule.createShapes(this, state, bounds);
+				rule.createShapes(this, state, globalBounds, shapeBounds);
 			}
 			buildSet.remove(shape);
 		} else {
-			recursiveSet.add(new RecursiveShape(this, state, bounds, shape));
+			recursiveSet.add(new RecursiveShape(this, state, globalBounds, shapeBounds, shape));
 		}
 	}
 	
-	public void expandRule(ContextFreeShape oldShape, ContextFreeState state, ContextFreeBounds bounds, String shape) {
-		ContextFreeBounds shapeBounds = new ExtendedShapeBounds(bounds);
+	public void expandRule(ContextFreeShape oldShape, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds prevShapeBounds, String shape) {
 		if (logger.isTraceEnabled()) {
 			logger.trace("Expanding " + shape);
 		}
-		createShapes(state, shapeBounds, shape);
+		ContextFreeBounds shapeBounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
+		createShapes(state, globalBounds, shapeBounds, shape);
 		if (createdSet.size() > 0 && shapeBounds.isValid()) {
-			double maxX = shapeBounds.getMaxX();
-			double maxY = shapeBounds.getMaxY();
-			double minX = shapeBounds.getMinX();
-			double minY = shapeBounds.getMinY();
-			double bMaxX = bounds.getMaxX();
-			double bMinX = bounds.getMinX();
-			double bMaxY = bounds.getMaxY();
-			double bMinY = bounds.getMinY();
-			int bWidth = bounds.getWidth();
-			int bHeight = bounds.getHeight();
-			double qx = maxX - minX;
-			double qy = maxY - minY;
-			double mx = bMaxX - bMinX;
-			double my = bMaxY - bMinY;
-			if (mx < THRESHOLD) {
+			double gsx = globalBounds.getSizeX();
+			double gsy = globalBounds.getSizeY();
+			double ssx = shapeBounds.getSizeX();
+			double ssy = shapeBounds.getSizeY();
+			double psx = prevShapeBounds.getSizeX();
+			double psy = prevShapeBounds.getSizeY();
+			int tw = globalBounds.getWidth();
+			int th = globalBounds.getHeight();
+			if (gsx >= THRESHOLD || gsy >= THRESHOLD) {
+				double sx = (ssx / gsx) * tw;
+				double sy = (ssy / gsy) * th;
+				double qx = (psx / gsx) * tw;
+				double qy = (psy / gsy) * th;
 				if (logger.isTraceEnabled()) {
-					logger.trace("Shape too small " + shape);
+					logger.trace("sx = " + sx + ", sy = " + sy + ", qx = " + qx + ", qy = " + qy);
+//					logger.trace("ssx = " + ssx + ", ssy = " + ssy + ", psx = " + psx + ", psy = " + psy);
 				}
-				recursiveSet.clear();
-			}
-			if (my < THRESHOLD) {
-				if (logger.isTraceEnabled()) {
-					logger.trace("Shape too small " + shape);
-				}
-				recursiveSet.clear();
-			}
-			if (mx >= THRESHOLD || my >= THRESHOLD) {
-				double sx = (qx * bWidth) / mx;
-				double sy = (qy * bHeight) / my;
-				if (logger.isTraceEnabled()) {
-					logger.trace("sx = " + sx + ", sy = " + sy);
-				}
-				if ((sx < MIN_SIZE && sy < MIN_SIZE) || (sx > MAX_SIZE && sy > MAX_SIZE) || (Math.abs(sx - bWidth) < 0.001 && Math.abs(sy - bHeight) < 0.001)) {
+				if ((sx < MIN_SIZE && sy < MIN_SIZE) || (sx > MAX_SIZE && sy > MAX_SIZE) || (Math.abs(sx - qx) < 0.0005 && Math.abs(sy - qy) < 0.0005)) {
 					if (logger.isTraceEnabled()) {
-						logger.trace("Shape too small " + shape);
+						logger.trace("Stop recursion for shape " + shape);
 					}
 					recursiveSet.clear();
 				}
+			} else {
+				recursiveSet.clear();
 			}
 		} else {
 			if (logger.isTraceEnabled()) {

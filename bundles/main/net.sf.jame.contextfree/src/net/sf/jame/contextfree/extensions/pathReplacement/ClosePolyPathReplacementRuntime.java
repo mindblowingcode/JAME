@@ -68,7 +68,7 @@ public class ClosePolyPathReplacementRuntime extends PathReplacementExtensionRun
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.closePath(align);
 		return null;
 	}

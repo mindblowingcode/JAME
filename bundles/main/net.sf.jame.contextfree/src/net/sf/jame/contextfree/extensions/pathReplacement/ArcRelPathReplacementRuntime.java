@@ -290,7 +290,7 @@ public class ArcRelPathReplacementRuntime extends PathReplacementExtensionRuntim
 		}
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds) {
+	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		state.arcRel(x, y, rx, ry, r, large, sweep);
 		return null;
 	}

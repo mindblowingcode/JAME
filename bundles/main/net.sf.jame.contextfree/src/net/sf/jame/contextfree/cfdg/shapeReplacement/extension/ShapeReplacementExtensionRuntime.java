@@ -17,7 +17,8 @@ public abstract class ShapeReplacementExtensionRuntime<T extends ShapeReplacemen
 	/**
 	 * @param context
 	 * @param state
-	 * @param bounds
+	 * @param globalBounds
+	 * @param shapeBounds
 	 */
-	public abstract void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds bounds);
+	public abstract void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds);
 }
