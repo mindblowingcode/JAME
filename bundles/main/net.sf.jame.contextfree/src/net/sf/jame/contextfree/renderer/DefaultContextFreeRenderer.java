@@ -69,12 +69,16 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		g2d.setColor(new Color(background.getARGB()));
 		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
 		context.buildPathOrRule(state, globalBounds, shapeBounds, startshape);
-		logger.debug("Create time " + (System.nanoTime() - time) / 1000000 + "ms");
+		if (logger.isDebugEnabled()) {
+			logger.debug("Build time " + (System.nanoTime() - time) / 1000000 + "ms");
+		}
 		percent = 30;
 		time = System.nanoTime();
 		while (context.expandShapes()) {
 		}
-		logger.debug("Expand time " + (System.nanoTime() - time) / 1000000 + "ms");
+		if (logger.isDebugEnabled()) {
+			logger.debug("Expand time " + (System.nanoTime() - time) / 1000000 + "ms");
+		}
 		percent = 70;
 		if (logger.isDebugEnabled()) {
 			logger.debug("Total shapes " + context.getRenderCount());
@@ -138,7 +142,9 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 			renderShape(context, g2d, area);
 		}
 		g2d.setTransform(tmpTransform);
-		logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
+		if (logger.isDebugEnabled()) {
+			logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
+		}
 		percent = 100;
 	}
 
