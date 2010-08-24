@@ -41,7 +41,7 @@ public class ThresholdCreatorRuntime extends CreatorExtensionRuntime {
 			return args[0];
 		}
 		catch (Exception e) {
-			throw new JSException("Threshold creator requires one arguments: #1 of type Number (from 0 to 100)", e);
+			throw new JSException("Threshold creator requires one arguments: #1 of type Number", e);
 		}
 	}
 }

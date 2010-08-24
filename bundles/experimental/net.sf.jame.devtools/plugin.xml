@@ -89,6 +89,16 @@
             name="Resources Processor"
             runtimeClass="net.sf.jame.devtools.extensions.processor.ResourcesProcessorRuntime">
       </processor>
+      <processor
+            id="devtools.processor.creator"
+            name="Creator Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.CreatorProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.enumerator"
+            name="Enumerator Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.EnumeratorProcessorRuntime">
+      </processor>
    </extension>
 
 </plugin>

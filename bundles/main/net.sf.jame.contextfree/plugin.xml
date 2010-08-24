@@ -1197,5 +1197,54 @@
             name="Circle Figure"
             runtimeClass="net.sf.jame.contextfree.extensions.figure.CircleFigureRuntime"/>
    </extension>
+   <extension
+         id="coreExtensions"
+         name="ContextFree"
+         point="net.sf.jame.core.extensions">
+      <creator
+            id="node.class.CFDGElement"
+            name="CFDGCreator"
+            runtimeClass="net.sf.jame.contextfree.extensions.creator.CFDGCreatorRuntime"/>
+      <creator
+            id="node.class.FigureElement"
+            name="FigureCreator"
+            runtimeClass="net.sf.jame.contextfree.extensions.creator.FigureCreatorRuntime"/>
+      <creator
+            id="node.class.PathAdjustmentElement"
+            name="PathAdjustmentCreator"
+            runtimeClass="net.sf.jame.contextfree.extensions.creator.PathAdjustmentCreatorRuntime"/>
+      <creator
+            id="node.class.PathReplacementElement"
+            name="PathReplacementCreator"
+            runtimeClass="net.sf.jame.contextfree.extensions.creator.PathReplacementCreatorRuntime"/>
+      <creator
+            id="node.class.ShapeAdjustmentElement"
+            name="ShapeAdjustmentCreator"
+            runtimeClass="net.sf.jame.contextfree.extensions.creator.ShapeAdjustmentCreatorRuntime"/>
+      <creator
+            id="node.class.ShapeReplacementElement"
+            name="ShapeReplacementCreator"
+            runtimeClass="net.sf.jame.contextfree.extensions.creator.ShapeReplacementCreatorRuntime"/>
+      <enumerator
+            id="node.class.FigureReference"
+            name="FigureEnumerator"
+            runtimeClass="net.sf.jame.contextfree.extensions.enumerator.FigureEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.PathAdjustmentReference"
+            name="PathAdjustmentEnumerator"
+            runtimeClass="net.sf.jame.contextfree.extensions.enumerator.PathAdjustmentEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.PathReplacementReference"
+            name="PathReplacementEnumerator"
+            runtimeClass="net.sf.jame.contextfree.extensions.enumerator.PathReplacementEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.ShapeAdjustmentReference"
+            name="ShapeAdjustmentEnumerator"
+            runtimeClass="net.sf.jame.contextfree.extensions.enumerator.ShapeAdjustmentEnumeratorRuntime"/>
+      <enumerator
+            id="node.class.ShapeReplacementReference"
+            name="ShapeReplacementEnumerator"
+            runtimeClass="net.sf.jame.contextfree.extensions.enumerator.ShapeReplacementEnumeratorRuntime"/>
+   </extension>
 
 </plugin>
