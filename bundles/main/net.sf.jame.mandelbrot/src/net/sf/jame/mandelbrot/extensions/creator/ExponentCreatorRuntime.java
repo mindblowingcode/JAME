@@ -41,7 +41,7 @@ public class ExponentCreatorRuntime extends CreatorExtensionRuntime {
 			return new Integer(((Double) args[0]).intValue());
 		}
 		catch (Exception e) {
-			throw new JSException("Exponent creator requires one arguments: #1 of type Number (from 0 to 100)", e);
+			throw new JSException("Exponent creator requires one arguments: #1 of type Number", e);
 		}
 	}
 }
