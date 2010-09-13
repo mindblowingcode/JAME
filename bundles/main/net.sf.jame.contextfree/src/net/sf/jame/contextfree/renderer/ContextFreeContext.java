@@ -42,7 +42,7 @@ import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
 import org.apache.log4j.Logger;
 
 public class ContextFreeContext {
-	private static final double THRESHOLD = 0.0000000001;
+	private static final double THRESHOLD = 0.00000001;
 	private static final Logger logger = Logger.getLogger(ContextFreeContext.class);
 	public static final float MIN_SIZE = 0.5f;
 	public static final float MAX_SIZE = 100000;
