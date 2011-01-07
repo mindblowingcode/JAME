@@ -26,7 +26,7 @@
 package net.sf.jame.contextfree.renderer;
 
 import java.awt.Graphics2D;
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -44,16 +44,17 @@ import org.apache.log4j.Logger;
 public class ContextFreeContext {
 	private static final double THRESHOLD = 0.00000001;
 	private static final Logger logger = Logger.getLogger(ContextFreeContext.class);
-	public static final float MIN_SIZE = 0.5f;
+	public static final float MIN_SIZE = 1f;
 	public static final float MAX_SIZE = 100000;
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
 	private Set<ContextFreeShape> renderSet = new TreeSet<ContextFreeShape>(new ShapeComparator());
-	private Set<ContextFreeShape> expandSet = new HashSet<ContextFreeShape>();
-	private Set<ContextFreeShape> createdSet = new HashSet<ContextFreeShape>();
-	private Set<ContextFreeShape> queueSet = new HashSet<ContextFreeShape>();
-	private Set<ContextFreeShape> recursiveSet = new HashSet<ContextFreeShape>();
+	private Set<ContextFreeShape> expandSet = new LinkedHashSet<ContextFreeShape>();
+	private Set<ContextFreeShape> createdSet = new LinkedHashSet<ContextFreeShape>();
+	private Set<ContextFreeShape> queueSet = new LinkedHashSet<ContextFreeShape>();
+	private Set<ContextFreeShape> recursiveSet = new LinkedHashSet<ContextFreeShape>();
+	private ExpansionContext expansionContext = new ExpansionContext();
 	private Set<String> buildSet = new LinkedHashSet<String>();
 
 	public ContextFreeContext(CFDGRuntimeElement runtime) {
@@ -101,6 +102,7 @@ public class ContextFreeContext {
 			FigureRuntimeElement figure = runtime.getFigureElement(i);
 			figure.register(this);
 		}
+		processRules();
 	}
 
 	public void registerPath(ContextFreePath path) {
@@ -146,7 +148,10 @@ public class ContextFreeContext {
 			}
 			buildSet.remove(shape);
 		} else {
-			recursiveSet.add(new RecursiveShape(this, state, globalBounds, shapeBounds, shape));
+			RuleEntry entry = ruleMap.map.get(shape);
+			if (entry.valid) {
+				recursiveSet.add(new RecursiveShape(this, state, globalBounds, shapeBounds, shape));
+			}
 		}
 	}
 	
@@ -165,7 +170,7 @@ public class ContextFreeContext {
 			double psy = prevShapeBounds.getSizeY();
 			int tw = globalBounds.getWidth();
 			int th = globalBounds.getHeight();
-			if (gsx >= THRESHOLD || gsy >= THRESHOLD) {
+//			if (gsx >= THRESHOLD || gsy >= THRESHOLD) {
 				double sx = (ssx / gsx) * tw;
 				double sy = (ssy / gsy) * th;
 				double qx = (psx / gsx) * tw;
@@ -174,20 +179,26 @@ public class ContextFreeContext {
 					logger.trace("sx = " + sx + ", sy = " + sy + ", qx = " + qx + ", qy = " + qy);
 //					logger.trace("ssx = " + ssx + ", ssy = " + ssy + ", psx = " + psx + ", psy = " + psy);
 				}
-				if ((sx < MIN_SIZE && sy < MIN_SIZE) || (sx > MAX_SIZE && sy > MAX_SIZE) || (Math.abs(sx - qx) < 0.0005 && Math.abs(sy - qy) < 0.0005)) {
+				if ((sx < MIN_SIZE && sy < MIN_SIZE) || (Math.abs(sx - qx) < 0.0005 && Math.abs(sy - qy) < 0.0005)) {
 					if (logger.isTraceEnabled()) {
 						logger.trace("Stop recursion for shape " + shape);
 					}
 					recursiveSet.clear();
 				}
-			} else {
-				recursiveSet.clear();
-			}
+//				if ((sx < MIN_SIZE && sy < MIN_SIZE) || (sx > MAX_SIZE && sy > MAX_SIZE) || (Math.abs(sx - qx) < 0.0005 && Math.abs(sy - qy) < 0.0005)) {
+//					if (logger.isTraceEnabled()) {
+//						logger.trace("Stop recursion for shape " + shape);
+//					}
+//					recursiveSet.clear();
+//				}
+//			} else {
+//				recursiveSet.clear();
+//			}
 		} else {
-			if (logger.isTraceEnabled()) {
-				logger.trace("Shape invalid " + shape);
-			}
-			recursiveSet.clear();
+//			if (logger.isTraceEnabled()) {
+//				logger.trace("Shape invalid " + shape);
+//			}
+//			recursiveSet.clear();
 		}
 	}
 	
@@ -197,8 +208,8 @@ public class ContextFreeContext {
 		public void add(ContextFreeRule rule) {
 			RuleEntry entry = map.get(rule.getName());
 			if (entry == null) {
-				entry = new RuleEntry();
-				map.put(rule.getName(), entry);
+				entry = new RuleEntry(rule.getName());
+				map.put(entry.getName(), entry);
 			}
 			entry.add(rule);
 		}
@@ -207,7 +218,7 @@ public class ContextFreeContext {
 			RuleEntry entry = map.get(rule.getName());
 			if (entry != null) {
 				entry.remove(rule);
-				if (entry.runtimes.size() == 0) {
+				if (entry.rules.size() == 0) {
 					map.remove(rule.getName());
 				}
 			}
@@ -239,12 +250,22 @@ public class ContextFreeContext {
 	}
 	
 	private class RuleEntry {
-		private List<ContextFreeRule> runtimes = new LinkedList<ContextFreeRule>();
+		private List<ContextFreeRule> rules = new LinkedList<ContextFreeRule>();
 		private float total = 0;
+		private boolean valid;
+		private String rule;
 		
+		public RuleEntry(String rule) {
+			this.rule = rule;
+		}
+		
+		public String getName() {
+			return rule;
+		}
+
 		public void add(ContextFreeRule rule) {
-			runtimes.add(rule);
-			if (rule.getProbability() > 0) {
+			rules.add(rule);
+			if (rule.getProbability() != null && rule.getProbability() > 0) {
 				total += rule.getProbability();
 			} else {
 				total += 1;
@@ -252,8 +273,8 @@ public class ContextFreeContext {
 		}
 		
 		public void remove(ContextFreeRule rule) {
-			runtimes.remove(rule);
-			if (rule.getProbability() > 0) {
+			rules.remove(rule);
+			if (rule.getProbability() != null && rule.getProbability() > 0) {
 				total -= rule.getProbability();
 			} else {
 				total -= 1;
@@ -263,13 +284,85 @@ public class ContextFreeContext {
 		public ContextFreeRule get() {
 			double number = runtime.random() * total;
 			double offset = 0;
-			for (ContextFreeRule runtime : runtimes) {
-				offset += runtime.getProbability() > 0 ? runtime.getProbability() : 1f;
+			for (ContextFreeRule rule : rules) {
+				offset += rule.getProbability() > 0 ? rule.getProbability() : 1f;
 				if (number <= offset) {
-					return runtime;
+					return rule;
 				}
 			}
 			return null;
+		}
+
+		public Collection<ContextFreeRule> rules() {
+			return rules;
+		}
+
+		public void setValid(boolean valid) {
+			this.valid = valid;
+		} 
+	}
+
+	private void processRules() {
+		for (Map.Entry<String, RuleEntry> mapEntry : ruleMap.map.entrySet()) {
+			RuleEntry ruleEntry = mapEntry.getValue();
+			ExpansionNode ruleNode = buildRuleNode(null, ruleEntry.getName(), 1f);
+			ruleEntry.setValid(ruleNode.isValid());
+//			logger.debug(ruleNode);
+		}
+	}
+
+	public ExpansionNode buildRuleNode(ReplacementNode parentNode, String ruleName, float size) {
+		if (!expansionContext.contains(ruleName)) {
+			if (pathMap.get(ruleName) != null) {
+				PathNode pathNode = new PathNode(parentNode, ruleName, size);
+				if (parentNode != null) {
+					parentNode.addChild(pathNode);
+				}
+				return pathNode;
+			} else {
+				RuleEntry ruleEntry = ruleMap.map.get(ruleName);
+				expansionContext.add(ruleName);
+				RuleNode ruleNode = new RuleNode(parentNode, ruleName, size);
+				for (ContextFreeRule rule : ruleEntry.rules()) {
+					rule.buildNode(this, ruleNode, size);
+				}
+				ruleNode.setProbability(ruleEntry.total);
+				if (parentNode != null) {
+					parentNode.addChild(ruleNode);
+				}
+				expansionContext.remove(ruleName);
+				return ruleNode;
+			}
+		} else {
+			RecursionNode recursionNode = new RecursionNode(parentNode, ruleName, size);
+			if (parentNode != null) {
+				parentNode.addChild(recursionNode);
+			}
+			return recursionNode;
+		}
+	}
+
+//	private boolean isProbabilityValid(RuleEntry entry,	ContextFreeRule ruleElement) {
+//		return (getProbability(ruleElement) / entry.total) > 0.01f;
+//	}
+//
+//	private float getProbability(ContextFreeRule ruleElement) {
+//		return ruleElement.getProbability() != null && ruleElement.getProbability() > 0 ? ruleElement.getProbability() : 1;
+//	}
+	
+	private class ExpansionContext {
+		private Set<String> rules = new LinkedHashSet<String>();
+
+		public boolean contains(String name) {
+			return rules.contains(name);
+		}
+		
+		public void add(String name) {
+			rules.add(name);
+		}
+
+		public void remove(String name) {
+			rules.remove(name);
 		}
 	}
 }

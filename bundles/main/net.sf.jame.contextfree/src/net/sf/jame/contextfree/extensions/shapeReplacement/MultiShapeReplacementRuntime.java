@@ -12,6 +12,7 @@ import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementE
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
+import net.sf.jame.contextfree.renderer.ReplacementNode;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -320,6 +321,27 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 				ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
 				ContextFreeState newState = state.clone(); 
 				shapeReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
+			}
+		}
+	}
+
+	@Override
+	public void buildNode(ContextFreeContext context, ReplacementNode parentNode, float size) {
+		float ruleSize = 1;
+		for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
+			ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
+			if (shapeAdjustmentRuntime.isSizeChange()) {
+				ruleSize = shapeAdjustmentRuntime.getSize();
+			}
+		}
+		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
+			shapeReplacementRuntime.buildNode(context, parentNode, size);
+		}
+		for (int t = 1; t < times; t++) {
+			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+				ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
+				shapeReplacementRuntime.buildNode(context, parentNode, size * ruleSize);
 			}
 		}
 	}

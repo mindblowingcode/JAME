@@ -1,5 +1,5 @@
 /*
-� * JAME 6.1 
+ * JAME 6.1 
  * http://jame.sourceforge.net
  *
  * Copyright 2001, 2010 Andrea Medeghini
@@ -29,13 +29,10 @@ import static junit.framework.Assert.fail;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 
 import javax.imageio.ImageIO;
 
-import net.sf.jame.contextfree.CFDGBuilder;
 import net.sf.jame.contextfree.ContextFreeConfig;
 import net.sf.jame.contextfree.ContextFreeConfigNodeBuilder;
 import net.sf.jame.contextfree.ContextFreeRuntime;
@@ -51,22 +48,29 @@ import net.sf.jame.core.util.Tile;
 
 import org.junit.Test;
 
-public class TestContextFree3 {
-	private static final int IMAGE_HEIGHT = 500;
-	private static final int IMAGE_WIDTH = 500;
+public class TestContextFree4 {
+	private static final int IMAGE_HEIGHT = 200;
+	private static final int IMAGE_WIDTH = 200;
 
 	@Test
 	public void parse() {
 		try {
 			Configurator.configure();
-			BufferedReader reader = new BufferedReader(new FileReader(new File("musicsheet.cfdg")));
-			String line = null;
-			StringBuilder builder = new StringBuilder();
-			while ((line = reader.readLine()) != null) {
-				builder.append(line);
-				builder.append("\n");
-			}
-			String text = builder.toString();
+			String text = "" +
+			"startshape Foo\n" +
+			"background { b -1 }\n" +
+			"rule Foo 1 {\n" +
+			"SQUARE { size 1 1 x 1.3 y 1 }\n" +
+			"Foo { s 1 x 1 }\n" +
+			"}\n" +
+			"rule Foo 0.01 {\n" +
+			"Bar { s 1.1 }\n" +
+			"}\n" +
+			"rule Bar 1 {\n" +
+			"CIRCLE { size 1 1 x 1.3 y 1 }\n" +
+			"Foo { s 0.8 x 1 }\n" +
+			"}\n" +
+			"";
 			System.out.println(text);
 			ContextFreeParser parser = new ContextFreeParser();
 			ContextFreeConfig config = parser.parseConfig(new File(System.getProperty("user.home")), text);
@@ -75,9 +79,6 @@ public class TestContextFree3 {
 			nodeBuilder.createNodes(rootNode);
 			Tree tree = new Tree(rootNode);
 			System.out.println(tree);
-			CFDGBuilder cfdgBuilder = new CFDGBuilder();
-			config.getCFDG().toCFDG(cfdgBuilder);
-			System.out.println(cfdgBuilder.toString());
 			ContextFreeRuntime runtime = new ContextFreeRuntime(config);
 			ContextFreeRenderer renderer = new DefaultContextFreeRenderer(Thread.MIN_PRIORITY);
 			IntegerVector2D imageSize = new IntegerVector2D(IMAGE_WIDTH, IMAGE_HEIGHT);
@@ -99,7 +100,7 @@ public class TestContextFree3 {
 			renderer.drawImage(g2d);
 			g2d.setColor(Color.WHITE);
 			g2d.drawRect(0, 0, surface.getWidth() - 1, surface.getHeight() - 1);
-			ImageIO.write(surface.getImage(), "png", new File("test3.png"));
+			ImageIO.write(surface.getImage(), "png", new File("test2.png"));
 			renderer.stop();
 			renderer.dispose();
 			rootNode.dispose();

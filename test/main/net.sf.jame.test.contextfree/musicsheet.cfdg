@@ -1,0 +1,213 @@
+startshape song_book
+ 
+rule song_book { 
+ song_page { } 
+ song_page {x 90} 
+} 
+ 
+rule song_page { 
+  song_line { } 
+  song_line {y -15} 
+  song_line {y -30} 
+  song_line {y -45} 
+  song_line {y -60} 
+  song_line {y -75} 
+} 
+ 
+rule song_line { 
+ measure_with_bars { } 
+ measure_with_bars {x 20} 
+ measure_with_bars {x 40 } 
+ measure_with_bars {x 60} 
+ thin_line {r 90 s 0.25 y -1.95 x 79} 
+} 
+ 
+rule measure_with_bars { 
+   measure { x 2 } 
+   measure_5_lines {s 0.5} 
+   measure_5_lines {s 0.5 x 2} 
+   measure_5_lines {s 0.5 x 4} 
+   thin_line {r 90 s 0.25 y -1.95 x 0} 
+   thin_line {r 90 s 0.25 y -1.95 x 20} 
+} 
+ 
+rule measure { 
+ halfmeasure { } 
+ halfmeasure {x 8} 
+} 
+ 
+rule measure { 
+ quartermeasure { } 
+ halfmeasure {x 4} 
+ quartermeasure {x 12 } 
+} 
+ 
+rule halfmeasure { 
+ r_halfnote { } 
+} 
+ 
+rule halfmeasure { 
+ quartermeasure { } 
+ quartermeasure {x 4} 
+} 
+ 
+rule quartermeasure { 
+ r_quarternote { } 
+} 
+ 
+rule quartermeasure { 
+ eighthmeasure { } 
+ eighthmeasure {x 2} 
+} 
+ 
+rule eighthmeasure { 
+  r_eighthnote { } 
+} 
+ 
+rule eighthmeasure { 
+  sixteenthmeasure { } 
+  sixteenthmeasure {x 1 } 
+} 
+ 
+rule sixteenthmeasure { 
+  r_sixteenthnote { } 
+} 
+ 
+rule r_halfnote 0.2 { halfnote { } } 
+rule r_halfnote { r_halfnote {y 0.5} } 
+rule r_halfnote { r_halfnote {y -0.5} } 
+ 
+rule r_quarternote 0.2 { quarternote { } } 
+rule r_quarternote { r_quarternote {y 0.5} } 
+rule r_quarternote { r_quarternote {y -0.5} } 
+ 
+rule r_eighthnote 0.2 { eighthnote { } } 
+rule r_eighthnote { r_eighthnote {y 0.5} } 
+rule r_eighthnote { r_eighthnote {y -0.5} } 
+ 
+rule r_sixteenthnote 0.2 { sixteenthnote { } } 
+rule r_sixteenthnote { r_sixteenthnote {y 0.5} } 
+rule r_sixteenthnote { r_sixteenthnote {y -0.5} } 
+ 
+rule halfnote { 
+ CIRCLE { } 
+ CIRCLE {b 1.0 s 0.5} 
+ vertbar {s 0.2 x 0.392 y 0.1} 
+} 
+ 
+rule quarternote { 
+ CIRCLE { } 
+ vertbar {s 0.2 x 0.392 y 0.1} 
+} 
+ 
+rule eighthnote { 
+ CIRCLE { } 
+ vertbar {s 0.2 x 0.392 y 0.1} 
+ twisty {y 2.1 r -20 s 0.2 x 0.375} 
+} 
+ 
+rule sixteenthnote { 
+ CIRCLE { } 
+ vertbar {s 0.2 x 0.392 y 0.1} 
+ twisty {y 2.1 r -20 s 0.2 x 0.375} 
+ twisty {y 1.6 r -20 s 0.2 x 0.375} 
+} 
+ 
+rule vertbar { 
+ SQUARE { } 
+ SQUARE {y 1} 
+ SQUARE {y 2} 
+ SQUARE {y 3} 
+ SQUARE {y 4 } 
+ SQUARE {y 5} 
+ SQUARE {y 6} 
+ SQUARE {y 7} 
+ SQUARE {y 8} 
+ SQUARE {y 9} 
+ SQUARE {y 10} 
+} 
+ 
+rule twisty { 
+ quartercircle {x 2 r 180} 
+ quartercircle {x 2.5 y -4} 
+} 
+ 
+rule quartercircle { 
+  parm1 {r 0} 
+  parm1 {r 10} 
+  parm1 {r 20} 
+  parm1 {r 30} 
+  parm1 {r 40} 
+  parm1 {r 50} 
+  parm1 {r 60} 
+  parm1 {r 70} 
+  parm1 {r 80} 
+  parm1 {r 90} 
+} 
+ 
+rule parm1 { 
+  arm1 {r 0} 
+  arm1 {r 1} 
+  arm1 {r 2} 
+  arm1 {r 3} 
+  arm1 {r 4} 
+  arm1 {r 5} 
+  arm1 {r 6} 
+  arm1 {r 7} 
+  arm1 {r 8} 
+  arm1 {r 9} 
+} 
+ 
+rule arm1 { 
+   CIRCLE {x 2} 
+} 
+ 
+rule measure_line { 
+ thin_line {s 0.25} 
+ thin_line {s 0.25 x 4} 
+ thin_line {s 0.25 x 8} 
+ thin_line {s 0.25 x 12} 
+ thin_line {s 0.25 x 16} 
+ thin_line {s 0.25 x 20} 
+ thin_line {s 0.25 x 24} 
+ thin_line {s 0.25 x 28} 
+} 
+ 
+rule thin_line { 
+ SQUARE { } 
+ SQUARE {x 1 } 
+ SQUARE {x 2 } 
+ SQUARE {x 3  } 
+ SQUARE {x 4 } 
+ SQUARE {x 5 } 
+ SQUARE {x 6 } 
+ SQUARE {x 7 } 
+ SQUARE {x 8 } 
+ SQUARE {x 9 } 
+ SQUARE {x 10} 
+ SQUARE {x 11} 
+ SQUARE {x 12} 
+ SQUARE {x 13} 
+ SQUARE {x 14} 
+ SQUARE {x 15} 
+} 
+ 
+rule measure_5_lines { 
+  measure_line { } 
+  measure_line {y 2} 
+  measure_line {y 4} 
+  measure_line {y -2} 
+  measure_line {y -4} 
+} 
+ 
+/****** LINES TO RANDOMIZE ***************/ 
+/* COMMENT TO STRAIGHTEN */
+ 
+rule measure 50 { measure {r 0.1} } 
+rule measure 50 { measure {r -0.1} } 
+rule song_line 50 {song_line {r 0.1 }} 
+rule song_line 50 {song_line {r -0.1 }} 
+rule thin_line 10 { thin_line {r -0.4 } } 
+rule thin_line 10 { thin_line {r 0.4 } } 
+rule quarter_note 10 { quarter_note {b 0.3 } } 
+rule quarter_note 10 { quarter_note {b -0.3 } }  
