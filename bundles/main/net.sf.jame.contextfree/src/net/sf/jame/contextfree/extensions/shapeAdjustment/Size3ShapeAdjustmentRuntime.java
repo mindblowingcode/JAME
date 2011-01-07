@@ -143,4 +143,12 @@ public class Size3ShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime
 	public void updateState(ContextFreeState state) {
 		state.scale(scaleX, scaleY, scaleZ);
 	}
+
+	public boolean isSizeChange() {
+		return true;
+	}
+
+	public float getSize() {
+		return Math.max(scaleX, scaleY);
+	}
 }
