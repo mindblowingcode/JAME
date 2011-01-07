@@ -38,8 +38,8 @@ import java.awt.geom.Rectangle2D;
 
 public class ContextFreeState implements Cloneable {
 	private AffineTransform at = new AffineTransform();
-	private float[] currentHSBA = new float[] { 0, 1, 0, 1 };
-	private float[] targetHSBA = new float[] { 0, 1, 0, 1 };
+	private float[] currentHSBA = new float[] { 0, 0, 0, 1 };
+	private float[] targetHSBA = new float[] { 0, 0, 0, 1 };
 	private ExtendedGeneralPath path;
 	private boolean fillOrDraw;
 	private float x1 = 0;
