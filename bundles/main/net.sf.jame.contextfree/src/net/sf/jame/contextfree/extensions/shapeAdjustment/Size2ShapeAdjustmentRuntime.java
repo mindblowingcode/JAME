@@ -106,4 +106,12 @@ public class Size2ShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime
 	public void updateState(ContextFreeState state) {
 		state.scale(scaleX, scaleY, 1);
 	}
+
+	public boolean isSizeChange() {
+		return true;
+	}
+
+	public float getSize() {
+		return Math.max(scaleX, scaleY);
+	}
 }

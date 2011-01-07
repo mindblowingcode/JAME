@@ -69,4 +69,12 @@ public class SizeShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<
 	public void updateState(ContextFreeState state) {
 		state.scale(scale, scale, 1);
 	}
+
+	public boolean isSizeChange() {
+		return true;
+	}
+
+	public float getSize() {
+		return scale;
+	}
 }
