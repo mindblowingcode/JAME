@@ -15,4 +15,12 @@ public abstract class ShapeAdjustmentExtensionRuntime<T extends ShapeAdjustmentE
 	 * @param state
 	 */
 	public abstract void updateState(ContextFreeState state);
+
+	public boolean isSizeChange() {
+		return false;
+	}
+
+	public float getSize() {
+		return 1f;
+	}
 }

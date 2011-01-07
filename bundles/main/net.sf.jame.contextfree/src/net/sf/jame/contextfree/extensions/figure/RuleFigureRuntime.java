@@ -11,6 +11,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreeRule;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
+import net.sf.jame.contextfree.renderer.ReplacementNode;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -235,5 +236,15 @@ public class RuleFigureRuntime extends FigureExtensionRuntime<RuleFigureConfig> 
 			ContextFreeState nodeState = state.clone();
 			shapeReplacementRuntime.createShapes(context, nodeState, globalBounds, shapeBounds);
 		}
+	}
+
+	public void buildNode(ContextFreeContext context, ReplacementNode parentNode, float size) {
+		ReplacementNode replacementNode = new ReplacementNode(parentNode, name, size);
+		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
+			shapeReplacementRuntime.buildNode(context, replacementNode, size);
+		}
+		replacementNode.setProbability(probability);
+		parentNode.addChild(replacementNode);
 	}
 }

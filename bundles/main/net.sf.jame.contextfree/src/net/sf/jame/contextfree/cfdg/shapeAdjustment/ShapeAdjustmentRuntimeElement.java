@@ -126,4 +126,18 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 			extensionRuntime.updateState(state);
 		}
 	}
+
+	public boolean isSizeChange() {
+		if (extensionRuntime != null) {
+			return extensionRuntime.isSizeChange();
+		}
+		return false;
+	}
+
+	public float getSize() {
+		if (extensionRuntime != null) {
+			return extensionRuntime.getSize();
+		}
+		return 1;
+	}
 }
