@@ -72,3 +72,4 @@ syntax: regexp
 
 syntax: regexp
 ^bundles/experimental/net\.sf\.jame\.contextfree\.devtools/bin$
+bundles/experimental/net.sf.jame.contextfree.devtools/build
