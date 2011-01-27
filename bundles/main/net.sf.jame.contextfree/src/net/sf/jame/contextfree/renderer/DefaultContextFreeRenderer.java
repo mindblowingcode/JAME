@@ -61,7 +61,6 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
 		ContextFreeBounds globalBounds = new ContextFreeBounds(width, height);
 		ContextFreeBounds shapeBounds = new ContextFreeBounds(width, height);
-		ContextFreeBounds bounds = new ContextFreeBounds(width, height);
 		ContextFreeState state = new ContextFreeState(); 
 		context.registerFigures();
 		Graphics2D g2d = getGraphics();
@@ -69,12 +68,47 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		g2d.setColor(new Color(background.getARGB()));
 		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
 		context.buildPathOrRule(state, globalBounds, shapeBounds, startshape);
+		ContextFreeBounds bounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
+		bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
+		bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
 		if (logger.isDebugEnabled()) {
 			logger.debug("Build time " + (System.nanoTime() - time) / 1000000 + "ms");
 		}
 		percent = 30;
 		time = System.nanoTime();
+		renderShapes(context, g2d, true, globalBounds, offsetX, offsetY);
+		context.commitShapes();
+		swapImages();
+		double lastArea = globalBounds.getSizeX() * globalBounds.getSizeY();
 		while (context.expandShapes()) {
+			double currArea = globalBounds.getSizeX() * globalBounds.getSizeY();
+			if (!Double.isInfinite(currArea) && !Double.isNaN(currArea)) {
+				if (Double.isInfinite(lastArea) || Double.isNaN(lastArea)) {
+					bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
+					bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
+					lastArea = currArea;
+				}
+				if ((currArea - lastArea) / lastArea > 20) {
+					logger.debug((currArea - lastArea) / lastArea);
+					g2d = getGraphics();
+					configure(g2d);
+					g2d.setColor(new Color(background.getARGB()));
+					g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
+					context.commitShapes();
+					renderShapes(context, g2d, false, globalBounds, offsetX, offsetY);
+					swapImages();
+					lastArea = currArea;
+					bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
+					bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
+				} else if (context.getCreatedShapes() > 10) {
+					g2d = getGraphics();
+					configure(g2d);
+					copyOldBuffer();
+					renderShapes(context, g2d, true, bounds, offsetX, offsetY);
+					context.commitShapes();
+					swapImages();
+				}
+			}
 		}
 		if (logger.isDebugEnabled()) {
 			logger.debug("Expand time " + (System.nanoTime() - time) / 1000000 + "ms");
@@ -84,8 +118,23 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 			logger.debug("Total shapes " + context.getRenderCount());
 		}
 		time = System.nanoTime();
+		g2d = getGraphics();
+		configure(g2d);
+		g2d.setColor(new Color(background.getARGB()));
+		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
+		context.commitShapes();
+		renderShapes(context, g2d, false, globalBounds, offsetX, offsetY);
+		if (logger.isDebugEnabled()) {
+			logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
+		}
+		swapImages();
+		percent = 100;
+	}
+
+	private void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeBounds globalBounds, float offsetX, float offsetY) {
+		ContextFreeBounds bounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
+		ContextFreeArea area = new ContextFreeArea();
 		AffineTransform tmpTransform = g2d.getTransform();
-		ContextFreeArea area = null;
 		float normalization = 1.0f;
 		if (cfdgRuntime.isUseSize()) {
 			float dx = cfdgRuntime.getWidth() / 2; 
@@ -105,7 +154,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 			}
 			normalization = 0.9f;
 		}
-		area = createArea(bounds, offsetX, offsetY, normalization);
+		updateArea(area, bounds, offsetX, offsetY, normalization);
 		if (cfdgRuntime.isUseTile()) {
 			double dx = cfdgRuntime.getTileWidth();
 			double dy = cfdgRuntime.getTileHeight();
@@ -134,31 +183,31 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 				for (int iy = ny; iy <= my; iy++) {
 					double qx = dx * ix;
 					double qy = dy * iy;
-					renderShape(context, g2d, area, qx, qy);
+					renderShapes(context, g2d, partial, area, qx, qy);
 					g2d.setTransform(t);
 				}
 			}
 		} else {
-			renderShape(context, g2d, area);
+			renderShapes(context, g2d, partial, area);
 		}
 		g2d.setTransform(tmpTransform);
-		if (logger.isDebugEnabled()) {
-			logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
-		}
-		percent = 100;
 	}
 
-	private void renderShape(ContextFreeContext context, Graphics2D g2d, ContextFreeArea area) {
+	private void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeArea area) {
 		float sx = area.getScaleX();
 		float sy = area.getScaleY();
 		float tx = area.getX();
 		float ty = area.getY();
 		g2d.translate(tx, ty);
 		g2d.scale(sx, sy);
-		context.renderShape(g2d, area);
+		if (partial) {
+			context.renderPartial(g2d, area);
+		} else {
+			context.render(g2d, area);
+		}
 	}
 
-	private void renderShape(ContextFreeContext context, Graphics2D g2d, ContextFreeArea area, double qx, double qy) {
+	private void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeArea area, double qx, double qy) {
 		float sx = area.getScaleX();
 		float sy = area.getScaleY();
 		float tx = area.getX();
@@ -166,10 +215,14 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		g2d.translate(tx, ty);
 		g2d.scale(sx, sy);
 		g2d.translate(qx, qy);
-		context.renderShape(g2d, area);
+		if (partial) {
+			context.renderPartial(g2d, area);
+		} else {
+			context.render(g2d, area);
+		}
 	}
 
-	private ContextFreeArea createArea(ContextFreeBounds bounds, float tx, float ty, float normalization) {
+	private void updateArea(ContextFreeArea area, ContextFreeBounds bounds, float tx, float ty, float normalization) {
 		float maxX = (float) bounds.getMaxX();
 		float maxY = (float) bounds.getMaxY();
 		float minX = (float) bounds.getMinX();
@@ -179,7 +232,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		float sy = -normalization * scale;
 		float px = tx - (maxX + minX) * sx / 2;
 		float py = ty - (maxY + minY) * sy / 2;
-		return new ContextFreeArea(px, py, bounds.getWidth(), bounds.getHeight(), sx, sy);
+		area.update(px, py, sx, sy);
 	}
 
 	protected void configure(Graphics2D g2d) {

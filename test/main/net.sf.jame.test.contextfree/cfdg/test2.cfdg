@@ -1,0 +1,13 @@
+startshape Foo
+background { b -1 }
+rule Foo 1 {
+	SQUARE { size 1 1 x 1.3 y 1 }
+	Foo { s 1 x 1 }
+}
+rule Foo 0.01 {
+	Bar { s 1.1 }
+}
+rule Bar 1 {
+	CIRCLE { size 1 1 x 1.3 y 1 }
+	Foo { s 0.8 x 1 }
+}

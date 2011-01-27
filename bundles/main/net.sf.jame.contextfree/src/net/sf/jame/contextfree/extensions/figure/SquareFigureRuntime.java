@@ -10,7 +10,7 @@ import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
 import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
-import net.sf.jame.contextfree.renderer.SolidPathShape;
+import net.sf.jame.contextfree.renderer.support.SolidPathShape;
 
 /**
  * @author Andrea Medeghini

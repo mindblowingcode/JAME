@@ -1,8 +1,12 @@
-package net.sf.jame.contextfree.renderer;
+package net.sf.jame.contextfree.renderer.support;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jame.contextfree.renderer.ContextFreeArea;
+import net.sf.jame.contextfree.renderer.ContextFreeShape;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 public final class ComposedShape extends ContextFreeShape {
 	private List<ContextFreeShape> shapeList = new ArrayList<ContextFreeShape>();

@@ -16,7 +16,7 @@
    limitations under the License.
 
  */
-package net.sf.jame.contextfree.renderer;
+package net.sf.jame.contextfree.renderer.support;
 
 import java.awt.Rectangle;
 import java.awt.Shape;

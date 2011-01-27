@@ -25,6 +25,7 @@
  */
 package net.sf.jame.contextfree.renderer;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -384,8 +385,16 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 	 * @return
 	 */
 	protected Graphics2D getGraphics() {
-		swapImages();
-		return newBuffer;
+		return oldBuffer;
+	}
+	
+	/**
+	 * @param scale 
+	 * @return
+	 */
+	protected void copyOldBuffer() {
+		oldBuffer.setComposite(AlphaComposite.Src);
+		oldBuffer.drawImage(newImage, 0, 0, null);
 	}
 
 	/**
