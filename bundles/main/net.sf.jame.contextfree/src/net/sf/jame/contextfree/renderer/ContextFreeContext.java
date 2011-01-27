@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.renderer;
 
 import java.awt.Graphics2D;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -38,63 +37,65 @@ import java.util.TreeSet;
 
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
+import net.sf.jame.contextfree.renderer.support.ShapeComparator;
+import net.sf.jame.contextfree.renderer.support.UnfinishedShape;
 
 import org.apache.log4j.Logger;
 
 public class ContextFreeContext {
-	private static final double THRESHOLD = 0.00000001;
 	private static final Logger logger = Logger.getLogger(ContextFreeContext.class);
-	public static final float MIN_SIZE = 1f;
-	public static final float MAX_SIZE = 100000;
+	public static final float MIN_AREA = 1f;
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
-	private Set<ContextFreeShape> renderSet = new TreeSet<ContextFreeShape>(new ShapeComparator());
+	private Set<String> buildSet = new LinkedHashSet<String>();
 	private Set<ContextFreeShape> expandSet = new LinkedHashSet<ContextFreeShape>();
 	private Set<ContextFreeShape> createdSet = new LinkedHashSet<ContextFreeShape>();
-	private Set<ContextFreeShape> queueSet = new LinkedHashSet<ContextFreeShape>();
-	private Set<ContextFreeShape> recursiveSet = new LinkedHashSet<ContextFreeShape>();
-	private ExpansionContext expansionContext = new ExpansionContext();
-	private Set<String> buildSet = new LinkedHashSet<String>();
+	private Set<ContextFreeShape> unfinishedSet = new LinkedHashSet<ContextFreeShape>();
+	private Set<ContextFreeShape> finishedSet = new TreeSet<ContextFreeShape>(new ShapeComparator());
 
 	public ContextFreeContext(CFDGRuntimeElement runtime) {
 		this.runtime = runtime;
 	}
 
 	public int getRenderCount() {
-		return renderSet.size();
+		return finishedSet.size();
 	}
 
 	public int getExpandCount() {
 		return expandSet.size();
 	}
 	
-	public void renderShape(Graphics2D g2d, ContextFreeArea area) {
-		for (ContextFreeShape shape : renderSet) {
+	public void render(Graphics2D g2d, ContextFreeArea area) {
+		for (ContextFreeShape shape : finishedSet) {
+			shape.render(g2d, area);
+		}
+	}
+	
+	public void renderPartial(Graphics2D g2d, ContextFreeArea area) {
+		for (ContextFreeShape shape : createdSet) {
 			shape.render(g2d, area);
 		}
 	}
 
-	public boolean expandShapes() {
-		renderSet.addAll(createdSet);
-		expandSet.addAll(recursiveSet);
+	public void commitShapes() {
+		finishedSet.addAll(createdSet);
 		createdSet.clear();
-		recursiveSet.clear();
+	}
+
+	public boolean expandShapes() {
+		expandSet.addAll(unfinishedSet);
+		unfinishedSet.clear();
 		for (Iterator<ContextFreeShape> shapes = expandSet.iterator(); shapes.hasNext();) {
 			ContextFreeShape next = shapes.next();
 			next.expand();
-			shapes.remove();
-			renderSet.addAll(createdSet);
-			queueSet.addAll(recursiveSet);
-			createdSet.clear();
-			recursiveSet.clear();
 		}
-		expandSet.addAll(queueSet);
-		queueSet.clear();
 		if (logger.isTraceEnabled()) {
-			logger.trace("Expand shapes [" + recursiveSet.size() + "/" + createdSet.size() + "/" + renderSet.size() + "]");
+			logger.trace("Expand shapes [" + unfinishedSet.size() + "/" + finishedSet.size() + "]");
 		}
-		return expandSet.size() > 0;
+		int expanded = expandSet.size();
+		expandSet.clear();
+		return expanded > 0;
 	}
 
 	public void registerFigures() {
@@ -102,7 +103,6 @@ public class ContextFreeContext {
 			FigureRuntimeElement figure = runtime.getFigureElement(i);
 			figure.register(this);
 		}
-		processRules();
 	}
 
 	public void registerPath(ContextFreePath path) {
@@ -121,84 +121,56 @@ public class ContextFreeContext {
 		ruleMap.remove(rule);
 	}
 
-	public void buildPathOrRule(ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds, String shape) {
-		ContextFreePath path = pathMap.get(shape);
+	public void buildPathOrRule(ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds, String shapeName) {
+		ContextFreePath path = pathMap.get(shapeName);
 		if (path != null) {
 			if (logger.isTraceEnabled()) {
-				logger.trace("Path " + shape);
+				logger.trace("Path " + shapeName);
 			}
-			ContextFreeShape pathShape = path.createShape(this, state, globalBounds, shapeBounds);
-			if (pathShape != null) {
-				createdSet.add(pathShape);
+			ContextFreeShape shape = path.createShape(this, state, globalBounds, shapeBounds);
+			if (shape != null) {
+				createdSet.add(shape);
 			}
 		} else {
-			createShapes(state, globalBounds, shapeBounds, shape);
+			createShapes(state, globalBounds, shapeBounds, shapeName);
 		}
 	}
 	
-	private void createShapes(ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds, String shape) {
-		if (!buildSet.contains(shape)) {
+	private void createShapes(ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds, String shapeName) {
+		if (!buildSet.contains(shapeName)) {
 			if (logger.isTraceEnabled()) {
-				logger.trace("Rule " + shape);
+				logger.trace("Rule " + shapeName);
 			}
-			buildSet.add(shape);
-			ContextFreeRule rule = ruleMap.get(shape);
+			buildSet.add(shapeName);
+			ContextFreeRule rule = ruleMap.get(shapeName);
 			if (rule != null) {
 				rule.createShapes(this, state, globalBounds, shapeBounds);
 			}
-			buildSet.remove(shape);
+			buildSet.remove(shapeName);
 		} else {
-			RuleEntry entry = ruleMap.map.get(shape);
-			if (entry.valid) {
-				recursiveSet.add(new RecursiveShape(this, state, globalBounds, shapeBounds, shape));
-			}
+			unfinishedSet.add(new UnfinishedShape(this, state, globalBounds, shapeBounds, shapeName));
 		}
 	}
 	
-	public void expandRule(ContextFreeShape oldShape, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds prevShapeBounds, String shape) {
+	public void expandRule(ContextFreeShape oldShape, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds prevShapeBounds, String shapeName) {
 		if (logger.isTraceEnabled()) {
-			logger.trace("Expanding " + shape);
+			logger.trace("Expanding " + shapeName);
 		}
 		ContextFreeBounds shapeBounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
-		createShapes(state, globalBounds, shapeBounds, shape);
-		if (createdSet.size() > 0 && shapeBounds.isValid()) {
-			double gsx = globalBounds.getSizeX();
-			double gsy = globalBounds.getSizeY();
-			double ssx = shapeBounds.getSizeX();
-			double ssy = shapeBounds.getSizeY();
-			double psx = prevShapeBounds.getSizeX();
-			double psy = prevShapeBounds.getSizeY();
-			int tw = globalBounds.getWidth();
-			int th = globalBounds.getHeight();
-//			if (gsx >= THRESHOLD || gsy >= THRESHOLD) {
-				double sx = (ssx / gsx) * tw;
-				double sy = (ssy / gsy) * th;
-				double qx = (psx / gsx) * tw;
-				double qy = (psy / gsy) * th;
+		createShapes(state, globalBounds, shapeBounds, shapeName);
+		if (shapeBounds.isValid()) {
+			double sx = (shapeBounds.getSizeX() / globalBounds.getSizeX()) * globalBounds.getWidth();
+			double sy = (shapeBounds.getSizeY() / globalBounds.getSizeY()) * globalBounds.getHeight();
+			double area = sx * sy;
+			if (logger.isTraceEnabled()) {
+				logger.trace("area = " + area);
+			}
+			if (Double.isNaN(area) || Double.isInfinite(area) || area < MIN_AREA) {
 				if (logger.isTraceEnabled()) {
-					logger.trace("sx = " + sx + ", sy = " + sy + ", qx = " + qx + ", qy = " + qy);
-//					logger.trace("ssx = " + ssx + ", ssy = " + ssy + ", psx = " + psx + ", psy = " + psy);
+					logger.trace("Stop recursion for shape " + shapeName);
 				}
-				if ((sx < MIN_SIZE && sy < MIN_SIZE) || (Math.abs(sx - qx) < 0.0005 && Math.abs(sy - qy) < 0.0005)) {
-					if (logger.isTraceEnabled()) {
-						logger.trace("Stop recursion for shape " + shape);
-					}
-					recursiveSet.clear();
-				}
-//				if ((sx < MIN_SIZE && sy < MIN_SIZE) || (sx > MAX_SIZE && sy > MAX_SIZE) || (Math.abs(sx - qx) < 0.0005 && Math.abs(sy - qy) < 0.0005)) {
-//					if (logger.isTraceEnabled()) {
-//						logger.trace("Stop recursion for shape " + shape);
-//					}
-//					recursiveSet.clear();
-//				}
-//			} else {
-//				recursiveSet.clear();
-//			}
-		} else {
-//			if (logger.isTraceEnabled()) {
-//				logger.trace("Shape invalid " + shape);
-//			}
-//			recursiveSet.clear();
+				unfinishedSet.clear();
+			}
 		}
 	}
 	
@@ -252,7 +224,6 @@ public class ContextFreeContext {
 	private class RuleEntry {
 		private List<ContextFreeRule> rules = new LinkedList<ContextFreeRule>();
 		private float total = 0;
-		private boolean valid;
 		private String rule;
 		
 		public RuleEntry(String rule) {
@@ -292,77 +263,9 @@ public class ContextFreeContext {
 			}
 			return null;
 		}
-
-		public Collection<ContextFreeRule> rules() {
-			return rules;
-		}
-
-		public void setValid(boolean valid) {
-			this.valid = valid;
-		} 
 	}
 
-	private void processRules() {
-		for (Map.Entry<String, RuleEntry> mapEntry : ruleMap.map.entrySet()) {
-			RuleEntry ruleEntry = mapEntry.getValue();
-			ExpansionNode ruleNode = buildRuleNode(null, ruleEntry.getName(), 1f);
-			ruleEntry.setValid(ruleNode.isValid());
-//			logger.debug(ruleNode);
-		}
-	}
-
-	public ExpansionNode buildRuleNode(ReplacementNode parentNode, String ruleName, float size) {
-		if (!expansionContext.contains(ruleName)) {
-			if (pathMap.get(ruleName) != null) {
-				PathNode pathNode = new PathNode(parentNode, ruleName, size);
-				if (parentNode != null) {
-					parentNode.addChild(pathNode);
-				}
-				return pathNode;
-			} else {
-				RuleEntry ruleEntry = ruleMap.map.get(ruleName);
-				expansionContext.add(ruleName);
-				RuleNode ruleNode = new RuleNode(parentNode, ruleName, size);
-				for (ContextFreeRule rule : ruleEntry.rules()) {
-					rule.buildNode(this, ruleNode, size);
-				}
-				ruleNode.setProbability(ruleEntry.total);
-				if (parentNode != null) {
-					parentNode.addChild(ruleNode);
-				}
-				expansionContext.remove(ruleName);
-				return ruleNode;
-			}
-		} else {
-			RecursionNode recursionNode = new RecursionNode(parentNode, ruleName, size);
-			if (parentNode != null) {
-				parentNode.addChild(recursionNode);
-			}
-			return recursionNode;
-		}
-	}
-
-//	private boolean isProbabilityValid(RuleEntry entry,	ContextFreeRule ruleElement) {
-//		return (getProbability(ruleElement) / entry.total) > 0.01f;
-//	}
-//
-//	private float getProbability(ContextFreeRule ruleElement) {
-//		return ruleElement.getProbability() != null && ruleElement.getProbability() > 0 ? ruleElement.getProbability() : 1;
-//	}
-	
-	private class ExpansionContext {
-		private Set<String> rules = new LinkedHashSet<String>();
-
-		public boolean contains(String name) {
-			return rules.contains(name);
-		}
-		
-		public void add(String name) {
-			rules.add(name);
-		}
-
-		public void remove(String name) {
-			rules.remove(name);
-		}
+	public int getCreatedShapes() {
+		return createdSet.size();
 	}
 }

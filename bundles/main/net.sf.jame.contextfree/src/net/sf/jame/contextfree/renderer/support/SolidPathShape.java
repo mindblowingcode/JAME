@@ -1,10 +1,14 @@
 /**
  * 
  */
-package net.sf.jame.contextfree.renderer;
+package net.sf.jame.contextfree.renderer.support;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
+
+import net.sf.jame.contextfree.renderer.ContextFreeArea;
+import net.sf.jame.contextfree.renderer.ContextFreeShape;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 public class SolidPathShape extends ContextFreeShape {
 	private ExtendedGeneralPath path;

@@ -1,0 +1,17 @@
+startshape Foo
+background { b 1 }
+//tile { s 3 2 }
+//size { s 2 1.2 }
+rule Foo 1 {
+	SQUARE { size 1 1 x 1.5 y 0 }
+	Foo { s 0.5 }
+/*	CIRCLE { x 2  y 1 }
+	CIRCLE { x 1  y 0 }
+	SQUARE { x 0 }
+	SQUARE { x 2 }
+	SQUARE { r 45 y 1 }
+	SQUARE { skew 45 0 }
+	SQUARE { s 2 1 r 45 skew 10 10 flip 5 }
+	SQUARE { size 1 1 r 45 flip 5 }
+	TRIANGLE { h 1| sat 0.5 b 0.5 flip 15 }*/
+}

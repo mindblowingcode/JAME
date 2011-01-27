@@ -11,7 +11,6 @@ import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementE
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
-import net.sf.jame.contextfree.renderer.ReplacementNode;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -196,17 +195,5 @@ public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfi
 		}
 		ContextFreeState newState = state.clone();
 		context.buildPathOrRule(newState, globalBounds, shapeBounds, shape);
-	}
-
-	@Override
-	public void buildNode(ContextFreeContext context, ReplacementNode parentNode, float size) {
-		float ruleSize = 1;
-		for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
-			ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
-			if (shapeAdjustmentRuntime.isSizeChange()) {
-				ruleSize = shapeAdjustmentRuntime.getSize();
-			}
-		}
-		context.buildRuleNode(parentNode, shape, size * ruleSize);
 	}
 }

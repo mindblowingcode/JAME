@@ -1,6 +1,8 @@
-package net.sf.jame.contextfree.renderer;
+package net.sf.jame.contextfree.renderer.support;
 
 import java.util.Comparator;
+
+import net.sf.jame.contextfree.renderer.ContextFreeShape;
 
 public class ShapeComparator implements Comparator<ContextFreeShape> {
 	public int compare(ContextFreeShape o1, ContextFreeShape o2) {

@@ -1,10 +1,14 @@
 /**
  * 
  */
-package net.sf.jame.contextfree.renderer;
+package net.sf.jame.contextfree.renderer.support;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
+
+import net.sf.jame.contextfree.renderer.ContextFreeArea;
+import net.sf.jame.contextfree.renderer.ContextFreeShape;
+import net.sf.jame.contextfree.renderer.ContextFreeState;
 
 public class PathShape extends ContextFreeShape {
 	private ExtendedGeneralPath path;

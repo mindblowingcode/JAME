@@ -36,6 +36,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 
+import net.sf.jame.contextfree.renderer.support.ExtendedGeneralPath;
+
 public class ContextFreeState implements Cloneable {
 	private AffineTransform at = new AffineTransform();
 	private float[] currentHSBA = new float[] { 0, 0, 0, 1 };
