@@ -79,6 +79,7 @@ import net.sf.jame.core.tree.NodeSessionListener;
 import net.sf.jame.core.util.DefaultThreadFactory;
 import net.sf.jame.core.util.DoubleVector4D;
 import net.sf.jame.core.util.RenderContext;
+import net.sf.jame.core.util.RenderContextListener;
 import net.sf.jame.core.util.Worker;
 import net.sf.jame.twister.swing.TwisterConfigPanel;
 import net.sf.jame.twister.swing.TwisterSwingResources;
@@ -335,6 +336,7 @@ public class ContextFreeConfigPanel extends ViewPanel {
 		private JEditorPane editorPane;
 		private JButton loadButton;
 		private JButton saveButton;
+		private JButton stopButton;
 		private JButton renderButton;
 		private JFileChooser chooser;
 
@@ -389,6 +391,9 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			renderButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
 			renderButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.render"));
 			renderButton.setText(ContextFreeSwingResources.getInstance().getString("action.render"));
+			stopButton = createTextButton(80, GUIFactory.DEFAULT_HEIGHT);
+			stopButton.setToolTipText(ContextFreeSwingResources.getInstance().getString("tooltip.stop"));
+			stopButton.setText(ContextFreeSwingResources.getInstance().getString("action.stop"));
 			final Box tmpPanel8 = createHorizontalBox(false);
 			tmpPanel8.add(baseDirLabel);
 			tmpPanel8.add(createSpace());
@@ -415,6 +420,8 @@ public class ContextFreeConfigPanel extends ViewPanel {
 			tmpPanel2.add(saveButton);
 			tmpPanel2.add(createSpace());
 			tmpPanel2.add(renderButton);
+			tmpPanel2.add(createSpace());
+			tmpPanel2.add(stopButton);
 			tmpPanel2.add(Box.createHorizontalGlue());
 			final Box tmpPanel = createVerticalBox(false);
 			tmpPanel.add(Box.createVerticalStrut(8));
@@ -561,6 +568,12 @@ public class ContextFreeConfigPanel extends ViewPanel {
 				}
 			};
 			renderButton.addActionListener(renderActionListener);
+			final ActionListener stopActionListener = new ActionListener() {
+				public void actionPerformed(final ActionEvent e) {
+					stopRender();
+				}
+			};
+			stopButton.addActionListener(stopActionListener);
 			final KeyListener keyListener = new KeyListener() {
 				public void keyTyped(KeyEvent e) {
 				}
@@ -607,12 +620,16 @@ public class ContextFreeConfigPanel extends ViewPanel {
 
 		public void enableButtons() {
 			loadButton.setEnabled(true);
+			saveButton.setEnabled(true);
 			renderButton.setEnabled(true);
+			stopButton.setEnabled(true);
 		}
 
 		public void disableButtons() {
 			loadButton.setEnabled(false);
+			saveButton.setEnabled(false);
 			renderButton.setEnabled(false);
+			stopButton.setEnabled(false);
 		}
 
 		public void dispose() {
@@ -677,6 +694,32 @@ public class ContextFreeConfigPanel extends ViewPanel {
 						session.addSessionListener(sessionListener);
 						context.release();
 						context.refresh();
+					}
+					catch (InterruptedException x) {
+						Thread.currentThread().interrupt();
+					} finally {
+						GUIUtil.executeTask(new Runnable() {
+							public void run() {
+								enableButtons();
+							}
+						}, false);
+					}
+				}
+			});
+		}
+
+		private void stopRender() {
+			GUIUtil.executeTask(new Runnable() {
+				public void run() {
+					disableButtons();
+				}
+			}, false);
+			worker.addTask(new Runnable() {
+				public void run() {
+					try {
+						context.acquire();
+						context.stopRenderers();
+						context.release();
 					}
 					catch (InterruptedException x) {
 						Thread.currentThread().interrupt();
