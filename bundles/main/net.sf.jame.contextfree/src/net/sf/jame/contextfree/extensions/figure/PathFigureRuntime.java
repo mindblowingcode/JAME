@@ -10,9 +10,9 @@ import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElemen
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
-import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
-import net.sf.jame.contextfree.renderer.support.ComposedShape;
+import net.sf.jame.contextfree.renderer.support.FinishedShape;
+import net.sf.jame.contextfree.renderer.support.FlushPathShape;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -194,16 +194,12 @@ public class PathFigureRuntime extends FigureExtensionRuntime<PathFigureConfig> 
 		context.registerPath(this);
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
-		ComposedShape pathShape = new ComposedShape(state); 
+	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		ContextFreeState newState = state.clone();
 		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
 			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
-			ContextFreeShape shape = pathReplacementRuntime.createShape(context, newState, globalBounds, shapeBounds);
-			if (shape != null) {
-				pathShape.addShape(shape);
-			}
+			pathReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
 		}
-		return pathShape;
+		context.addShape(new FlushPathShape(state));
 	}
 }

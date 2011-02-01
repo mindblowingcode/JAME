@@ -2,10 +2,9 @@ package net.sf.jame.contextfree.renderer.support;
 
 import java.util.Comparator;
 
-import net.sf.jame.contextfree.renderer.ContextFreeShape;
 
-public class ShapeComparator implements Comparator<ContextFreeShape> {
-	public int compare(ContextFreeShape o1, ContextFreeShape o2) {
+public class ShapeComparator implements Comparator<FinishedShape> {
+	public int compare(FinishedShape o1, FinishedShape o2) {
 		if (o1 == o2) {
 			return 0;
 		}

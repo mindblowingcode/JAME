@@ -8,7 +8,6 @@ import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
-import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.contextfree.renderer.support.SolidPathShape;
 
@@ -25,7 +24,7 @@ public class TriangleFigureRuntime extends FigureExtensionRuntime<TriangleFigure
 		return "TRIANGLE";
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
+	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		float a = (float) (0.5 * Math.tan(Math.PI / 6.0));
 		float b = (float) (0.5 * Math.tan(Math.PI / 3.0));
 		float[] p = new float[] { -0.5f, -a, +0.5f, -a, 0, b - a };
@@ -41,6 +40,6 @@ public class TriangleFigureRuntime extends FigureExtensionRuntime<TriangleFigure
 		state.lineRel(+1f, +0f);
 		state.lineRel(-0.5f, b);
 		state.closePath(false);
-		return new SolidPathShape(state, "even-odd");
+		context.addShape(new SolidPathShape(state, "even-odd"));
 	}
 }

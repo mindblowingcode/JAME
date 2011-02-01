@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
 /**
  * @author Andrea Medeghini
  */
-public final class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
+public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 	private static final Logger logger = Logger.getLogger(DefaultContextFreeRenderer.class);
 	
 	/**
@@ -84,16 +84,12 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 			logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
 		}
 		double lastArea = globalBounds.getSizeX() * globalBounds.getSizeY();
-		time = System.nanoTime();
 		int count = 0;
 		while (context.expandShapes()) {
 			if (isInterrupted()) {
 				break;
 			}
 			count += 1;
-			if (logger.isDebugEnabled()) {
-				logger.debug("Expand (" + count +") time " + (System.nanoTime() - time) / 1000000 + "ms");
-			}
 			double currArea = globalBounds.getSizeX() * globalBounds.getSizeY();
 			if (!Double.isInfinite(currArea) && !Double.isNaN(currArea)) {
 				if (Double.isInfinite(lastArea) || Double.isNaN(lastArea)) {
@@ -101,7 +97,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 					bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
 					lastArea = currArea;
 				}
-				if (count % 100 == 0) {
+				if (count % 1000 == 0) {
 					if ((currArea - lastArea) / lastArea > 0.2) {
 						logger.debug((currArea - lastArea) / lastArea);
 						time = System.nanoTime();
@@ -118,7 +114,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 						lastArea = currArea;
 						bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
 						bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
-					} else if (context.getCreatedShapes() > 100) {
+					} else if (context.getCreatedShapes() > 500) {
 						time = System.nanoTime();
 						g2d = getGraphics();
 						configure(g2d);
@@ -132,7 +128,6 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 					}
 				}
 			}
-			time = System.nanoTime();
 		}
 		percent = 70;
 		if (logger.isDebugEnabled()) {
@@ -155,7 +150,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		}
 	}
 
-	private void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeBounds globalBounds, float offsetX, float offsetY) {
+	protected void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeBounds globalBounds, float offsetX, float offsetY) {
 		ContextFreeBounds bounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
 		ContextFreeArea area = new ContextFreeArea();
 		AffineTransform tmpTransform = g2d.getTransform();
@@ -217,7 +212,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		g2d.setTransform(tmpTransform);
 	}
 
-	private void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeArea area) {
+	protected void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeArea area) {
 		float sx = area.getScaleX();
 		float sy = area.getScaleY();
 		float tx = area.getX();
@@ -231,7 +226,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		}
 	}
 
-	private void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeArea area, double qx, double qy) {
+	protected void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeArea area, double qx, double qy) {
 		float sx = area.getScaleX();
 		float sy = area.getScaleY();
 		float tx = area.getX();
@@ -246,7 +241,7 @@ public final class DefaultContextFreeRenderer extends AbstractContextFreeRendere
 		}
 	}
 
-	private void updateArea(ContextFreeArea area, ContextFreeBounds bounds, float tx, float ty, float normalization) {
+	protected void updateArea(ContextFreeArea area, ContextFreeBounds bounds, float tx, float ty, float normalization) {
 		float maxX = (float) bounds.getMaxX();
 		float maxY = (float) bounds.getMaxY();
 		float minX = (float) bounds.getMinX();

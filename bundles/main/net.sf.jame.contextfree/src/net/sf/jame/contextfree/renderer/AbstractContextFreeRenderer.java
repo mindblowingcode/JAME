@@ -25,7 +25,6 @@
  */
 package net.sf.jame.contextfree.renderer;
 
-import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -128,9 +127,9 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 		tileDim = (int) Math.sqrt(((oldTile.getTileSize().getX() + oldTile.getTileBorder().getX() * 2) * (oldTile.getTileSize().getX() + oldTile.getTileBorder().getX() * 2)) + ((oldTile.getTileSize().getY() + oldTile.getTileBorder().getY() * 2) * (oldTile.getTileSize().getY() + oldTile.getTileBorder().getY() * 2)));
 		bufferSize = new IntegerVector2D(tileDim, tileDim);
 		newImage = new BufferedImage(bufferSize.getX(), bufferSize.getY(), Surface.DEFAULT_TYPE);
-		oldImage = new BufferedImage(bufferSize.getX(), bufferSize.getY(), Surface.DEFAULT_TYPE);
+		oldImage = newImage;//new BufferedImage(bufferSize.getX(), bufferSize.getY(), Surface.DEFAULT_TYPE);
 		newBuffer = newImage.createGraphics();
-		oldBuffer = oldImage.createGraphics();
+		oldBuffer = newBuffer;//oldImage.createGraphics();
 	}
 
 	/**
@@ -393,8 +392,8 @@ public abstract class AbstractContextFreeRenderer implements ContextFreeRenderer
 	 * @return
 	 */
 	protected void copyOldBuffer() {
-		oldBuffer.setComposite(AlphaComposite.Src);
-		oldBuffer.drawImage(newImage, 0, 0, null);
+//		oldBuffer.setComposite(AlphaComposite.Src);
+//		oldBuffer.drawImage(newImage, 0, 0, null);
 	}
 
 	/**

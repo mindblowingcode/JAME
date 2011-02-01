@@ -8,7 +8,6 @@ import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
-import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.contextfree.renderer.support.SolidPathShape;
 
@@ -25,7 +24,7 @@ public class CircleFigureRuntime extends FigureExtensionRuntime<CircleFigureConf
 		return "CIRCLE";
 	}
 
-	public ContextFreeShape createShape(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
+	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
 		float[] p = new float[] { -0.5f, -0.5f, +0.5f, +0.5f };
 		float[] q = new float[p.length];
 		state.transform(p, q);
@@ -36,6 +35,6 @@ public class CircleFigureRuntime extends FigureExtensionRuntime<CircleFigureConf
 			globalBounds.addPoint(x, y);
 		}
 		state.circle();
-		return new SolidPathShape(state, "even-odd");
+		context.addShape(new SolidPathShape(state, "even-odd"));
 	}
 }

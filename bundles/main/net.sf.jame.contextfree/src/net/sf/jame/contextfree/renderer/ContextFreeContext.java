@@ -37,6 +37,7 @@ import java.util.TreeSet;
 
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
+import net.sf.jame.contextfree.renderer.support.FinishedShape;
 import net.sf.jame.contextfree.renderer.support.ShapeComparator;
 import net.sf.jame.contextfree.renderer.support.UnfinishedShape;
 
@@ -44,15 +45,15 @@ import org.apache.log4j.Logger;
 
 public class ContextFreeContext {
 	private static final Logger logger = Logger.getLogger(ContextFreeContext.class);
-	public static final float MIN_AREA = 1f;
+	public static final float MIN_SIZE = 0.0005f;
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
 	private Set<String> buildSet = new LinkedHashSet<String>();
-	private Set<ContextFreeShape> expandSet = new LinkedHashSet<ContextFreeShape>();
-	private Set<ContextFreeShape> createdSet = new LinkedHashSet<ContextFreeShape>();
-	private Set<ContextFreeShape> unfinishedSet = new LinkedHashSet<ContextFreeShape>();
-	private Set<ContextFreeShape> finishedSet = new TreeSet<ContextFreeShape>(new ShapeComparator());
+	private Set<FinishedShape> createdSet = new LinkedHashSet<FinishedShape>();
+	private Set<FinishedShape> finishedSet = new TreeSet<FinishedShape>(new ShapeComparator());
+	private Set<UnfinishedShape> expandSet = new LinkedHashSet<UnfinishedShape>();
+	private Set<UnfinishedShape> unfinishedSet = new LinkedHashSet<UnfinishedShape>();
 
 	public ContextFreeContext(CFDGRuntimeElement runtime) {
 		this.runtime = runtime;
@@ -67,31 +68,40 @@ public class ContextFreeContext {
 	}
 	
 	public void render(Graphics2D g2d, ContextFreeArea area) {
-		for (ContextFreeShape shape : finishedSet) {
+		for (FinishedShape shape : finishedSet) {
 			shape.render(g2d, area);
+			if (Thread.currentThread().isInterrupted()) {
+				break;
+			}
 		}
 	}
 	
 	public void renderPartial(Graphics2D g2d, ContextFreeArea area) {
-		for (ContextFreeShape shape : createdSet) {
+		for (FinishedShape shape : createdSet) {
 			shape.render(g2d, area);
+			if (Thread.currentThread().isInterrupted()) {
+				break;
+			}
 		}
 	}
 
 	public void commitShapes() {
 		finishedSet.addAll(createdSet);
 		createdSet.clear();
+		if (logger.isTraceEnabled()) {
+			logger.trace("Commit shapes [" + unfinishedSet.size() + "/" + finishedSet.size() + "]");
+		}
 	}
 
 	public boolean expandShapes() {
 		expandSet.addAll(unfinishedSet);
 		unfinishedSet.clear();
-		for (Iterator<ContextFreeShape> shapes = expandSet.iterator(); shapes.hasNext();) {
-			ContextFreeShape next = shapes.next();
+		for (Iterator<UnfinishedShape> shapes = expandSet.iterator(); shapes.hasNext();) {
+			UnfinishedShape next = shapes.next();
 			next.expand();
-		}
-		if (logger.isTraceEnabled()) {
-			logger.trace("Expand shapes [" + unfinishedSet.size() + "/" + finishedSet.size() + "]");
+			if (Thread.currentThread().isInterrupted()) {
+				break;
+			}
 		}
 		int expanded = expandSet.size();
 		expandSet.clear();
@@ -121,16 +131,19 @@ public class ContextFreeContext {
 		ruleMap.remove(rule);
 	}
 
+	public void addShape(FinishedShape shape) {
+		if (shape != null) {
+			createdSet.add(shape);
+		}
+	}
+	
 	public void buildPathOrRule(ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds, String shapeName) {
 		ContextFreePath path = pathMap.get(shapeName);
 		if (path != null) {
 			if (logger.isTraceEnabled()) {
 				logger.trace("Path " + shapeName);
 			}
-			ContextFreeShape shape = path.createShape(this, state, globalBounds, shapeBounds);
-			if (shape != null) {
-				createdSet.add(shape);
-			}
+			path.createShapes(this, state, globalBounds, shapeBounds);
 		} else {
 			createShapes(state, globalBounds, shapeBounds, shapeName);
 		}
@@ -152,20 +165,16 @@ public class ContextFreeContext {
 		}
 	}
 	
-	public void expandRule(ContextFreeShape oldShape, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds prevShapeBounds, String shapeName) {
+	public void expandRule(ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds prevShapeBounds, String shapeName) {
 		if (logger.isTraceEnabled()) {
 			logger.trace("Expanding " + shapeName);
 		}
 		ContextFreeBounds shapeBounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
 		createShapes(state, globalBounds, shapeBounds, shapeName);
 		if (shapeBounds.isValid()) {
-			double sx = (shapeBounds.getSizeX() / globalBounds.getSizeX()) * globalBounds.getWidth();
-			double sy = (shapeBounds.getSizeY() / globalBounds.getSizeY()) * globalBounds.getHeight();
-			double area = sx * sy;
-			if (logger.isTraceEnabled()) {
-				logger.trace("area = " + area);
-			}
-			if (Double.isNaN(area) || Double.isInfinite(area) || area < MIN_AREA) {
+			double sx = (shapeBounds.getSizeX() * globalBounds.getWidth()) / globalBounds.getSizeX();
+			double sy = (shapeBounds.getSizeY() * globalBounds.getHeight()) / globalBounds.getSizeY();
+			if ((sx < MIN_SIZE && sy < MIN_SIZE)) {
 				if (logger.isTraceEnabled()) {
 					logger.trace("Stop recursion for shape " + shapeName);
 				}
