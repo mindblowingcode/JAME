@@ -7,10 +7,9 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 
 import net.sf.jame.contextfree.renderer.ContextFreeArea;
-import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 
-public class PathShape extends ContextFreeShape {
+public class PathShape extends FinishedShape {
 	private ExtendedGeneralPath path;
 	private ContextFreeState state;
 	private BasicStroke s;

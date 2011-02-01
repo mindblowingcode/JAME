@@ -32,6 +32,7 @@ import java.util.Map;
 import net.sf.jame.contextfree.ContextFreeManager;
 import net.sf.jame.contextfree.ContextFreeRuntime;
 import net.sf.jame.contextfree.renderer.DefaultContextFreeRenderer;
+import net.sf.jame.contextfree.renderer.SimpleContextFreeRenderer;
 import net.sf.jame.core.util.IntegerVector2D;
 import net.sf.jame.core.util.Tile;
 import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime;
@@ -290,7 +291,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 				}
 			}
 			else {
-				manager = new ContextFreeManager(new DefaultContextFreeRenderer(Thread.MIN_PRIORITY + 1));
+				manager = new ContextFreeManager(new SimpleContextFreeRenderer(Thread.MIN_PRIORITY + 1));
 			}
 			manager.setRenderingHints(hints);
 			manager.setRuntime(contextFreeRuntime);

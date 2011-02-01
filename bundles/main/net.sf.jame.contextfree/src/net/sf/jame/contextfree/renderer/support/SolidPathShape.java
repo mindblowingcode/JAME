@@ -7,10 +7,9 @@ import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 
 import net.sf.jame.contextfree.renderer.ContextFreeArea;
-import net.sf.jame.contextfree.renderer.ContextFreeShape;
 import net.sf.jame.contextfree.renderer.ContextFreeState;
 
-public class SolidPathShape extends ContextFreeShape {
+public class SolidPathShape extends FinishedShape {
 	private ExtendedGeneralPath path;
 	private ContextFreeState state;
 	private int r;
