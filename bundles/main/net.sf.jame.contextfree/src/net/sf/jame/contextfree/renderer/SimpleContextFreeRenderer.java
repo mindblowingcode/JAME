@@ -25,9 +25,6 @@
  */
 package net.sf.jame.contextfree.renderer;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-
 import net.sf.jame.core.util.Color32bit;
 
 import org.apache.log4j.Logger;
@@ -62,25 +59,15 @@ public final class SimpleContextFreeRenderer extends DefaultContextFreeRenderer 
 		ContextFreeBounds shapeBounds = new ContextFreeBounds(width, height);
 		ContextFreeState state = new ContextFreeState(); 
 		context.registerFigures();
-		Graphics2D g2d = getGraphics();
-		configure(g2d);
-		g2d.setColor(new Color(background.getARGB()));
-		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
 		context.buildPathOrRule(state, globalBounds, shapeBounds, startshape);
 		ContextFreeBounds bounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
 		bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
 		bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
 		if (logger.isDebugEnabled()) {
-			logger.debug("Build time " + (System.nanoTime() - time) / 1000000 + "ms");
+			long elapsed = (System.nanoTime() - time) / 1000000;
+			logger.debug("Build time " + elapsed + "ms");
 		}
 		percent = 30;
-		time = System.nanoTime();
-		renderShapes(context, g2d, true, globalBounds, offsetX, offsetY);
-		context.commitShapes();
-		swapImages();
-		if (logger.isDebugEnabled()) {
-			logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
-		}
 		while (context.expandShapes()) {
 			if (isInterrupted()) {
 				break;
@@ -91,15 +78,11 @@ public final class SimpleContextFreeRenderer extends DefaultContextFreeRenderer 
 			logger.debug("Total shapes " + context.getRenderCount());
 		}
 		time = System.nanoTime();
-		g2d = getGraphics();
-		configure(g2d);
-		g2d.setColor(new Color(background.getARGB()));
-		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
 		context.commitShapes();
-		renderShapes(context, g2d, false, globalBounds, offsetX, offsetY);
-		swapImages();
+		renderImage(context, globalBounds, offsetX, offsetY, background, false);
 		if (logger.isDebugEnabled()) {
-			logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
+			long elapsed = (System.nanoTime() - time) / 1000000;
+			logger.debug("Render time " + elapsed + "ms");
 		}
 		percent = 100;
 		if (logger.isDebugEnabled()) {
