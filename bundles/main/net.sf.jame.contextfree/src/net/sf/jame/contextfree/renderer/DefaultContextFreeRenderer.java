@@ -64,24 +64,21 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 		ContextFreeBounds shapeBounds = new ContextFreeBounds(width, height);
 		ContextFreeState state = new ContextFreeState(); 
 		context.registerFigures();
-		Graphics2D g2d = getGraphics();
-		configure(g2d);
-		g2d.setColor(new Color(background.getARGB()));
-		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
 		context.buildPathOrRule(state, globalBounds, shapeBounds, startshape);
 		ContextFreeBounds bounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
 		bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
 		bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
 		if (logger.isDebugEnabled()) {
-			logger.debug("Build time " + (System.nanoTime() - time) / 1000000 + "ms");
+			long elapsed = (System.nanoTime() - time) / 1000000;
+			logger.debug("Build time " + elapsed + "ms");
 		}
 		percent = 30;
 		time = System.nanoTime();
-		renderShapes(context, g2d, true, globalBounds, offsetX, offsetY);
 		context.commitShapes();
-		swapImages();
+		renderImage(context, globalBounds, offsetX, offsetY, background, false);
 		if (logger.isDebugEnabled()) {
-			logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
+			long elapsed = (System.nanoTime() - time) / 1000000;
+			logger.debug("Render time " + elapsed + "ms");
 		}
 		double lastArea = globalBounds.getSizeX() * globalBounds.getSizeY();
 		int count = 0;
@@ -98,32 +95,26 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 					lastArea = currArea;
 				}
 				if (count % 1000 == 0) {
-					if ((currArea - lastArea) / lastArea > 0.2) {
-						logger.debug((currArea - lastArea) / lastArea);
+					double ratio = (currArea - lastArea) / lastArea;
+					if (ratio > 0.2) {
 						time = System.nanoTime();
-						g2d = getGraphics();
-						configure(g2d);
-						g2d.setColor(new Color(background.getARGB()));
-						g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
 						context.commitShapes();
-						renderShapes(context, g2d, false, globalBounds, offsetX, offsetY);
-						swapImages();
-						if (logger.isDebugEnabled()) {
-							logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
-						}
+						renderImage(context, globalBounds, offsetX, offsetY, background, false);
 						lastArea = currArea;
 						bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
 						bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
+						if (logger.isDebugEnabled()) {
+							long elapsed = (System.nanoTime() - time) / 1000000;
+							logger.debug("Render time " + elapsed + "ms");
+						}
 					} else if (context.getCreatedShapes() > 500) {
 						time = System.nanoTime();
-						g2d = getGraphics();
-						configure(g2d);
 						copyOldBuffer();
-						renderShapes(context, g2d, true, bounds, offsetX, offsetY);
+						renderImage(context, globalBounds, offsetX, offsetY, background, true);
 						context.commitShapes();
-						swapImages();
 						if (logger.isDebugEnabled()) {
-							logger.debug("Partial render time " + (System.nanoTime() - time) / 1000000 + "ms");
+							long elapsed = (System.nanoTime() - time) / 1000000;
+							logger.debug("Partial render time " + elapsed + "ms");
 						}
 					}
 				}
@@ -134,20 +125,26 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 			logger.debug("Total shapes " + context.getRenderCount());
 		}
 		time = System.nanoTime();
-		g2d = getGraphics();
-		configure(g2d);
-		g2d.setColor(new Color(background.getARGB()));
-		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
 		context.commitShapes();
-		renderShapes(context, g2d, false, globalBounds, offsetX, offsetY);
-		swapImages();
+		renderImage(context, globalBounds, offsetX, offsetY, background, false);
 		if (logger.isDebugEnabled()) {
-			logger.debug("Render time " + (System.nanoTime() - time) / 1000000 + "ms");
+			long elapsed = (System.nanoTime() - time) / 1000000;
+			logger.debug("Render time " + elapsed + "ms");
 		}
 		percent = 100;
 		if (logger.isDebugEnabled()) {
 			logger.debug("Total time " + (System.nanoTime() - totalTime) / 1000000 + "ms");
 		}
+	}
+
+	protected void renderImage(ContextFreeContext context, ContextFreeBounds globalBounds, float offsetX, float offsetY, Color32bit background, boolean partial) {
+		Graphics2D g2d;
+		g2d = getGraphics();
+		configure(g2d);
+		g2d.setColor(new Color(background.getARGB()));
+		g2d.fillRect(0, 0, getBufferWidth(), getBufferHeight());
+		renderShapes(context, g2d, partial, globalBounds, offsetX, offsetY);
+		swapImages();
 	}
 
 	protected void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeBounds globalBounds, float offsetX, float offsetY) {
@@ -198,32 +195,20 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 				my += 1;
 			}
 			AffineTransform t = g2d.getTransform();
+			double qx = 0;
+			double qy = 0;
 			for (int ix = nx; ix <= mx; ix++) {
+				qx = dx * ix;
 				for (int iy = ny; iy <= my; iy++) {
-					double qx = dx * ix;
-					double qy = dy * iy;
+					qy = dy * iy;
 					renderShapes(context, g2d, partial, area, qx, qy);
 					g2d.setTransform(t);
 				}
 			}
 		} else {
-			renderShapes(context, g2d, partial, area);
+			renderShapes(context, g2d, partial, area, 0, 0);
 		}
 		g2d.setTransform(tmpTransform);
-	}
-
-	protected void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeArea area) {
-		float sx = area.getScaleX();
-		float sy = area.getScaleY();
-		float tx = area.getX();
-		float ty = area.getY();
-		g2d.translate(tx, ty);
-		g2d.scale(sx, sy);
-		if (partial) {
-			context.renderPartial(g2d, area);
-		} else {
-			context.render(g2d, area);
-		}
 	}
 
 	protected void renderShapes(ContextFreeContext context, Graphics2D g2d, boolean partial, ContextFreeArea area, double qx, double qy) {

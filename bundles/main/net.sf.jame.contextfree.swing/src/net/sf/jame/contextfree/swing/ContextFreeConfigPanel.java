@@ -79,7 +79,6 @@ import net.sf.jame.core.tree.NodeSessionListener;
 import net.sf.jame.core.util.DefaultThreadFactory;
 import net.sf.jame.core.util.DoubleVector4D;
 import net.sf.jame.core.util.RenderContext;
-import net.sf.jame.core.util.RenderContextListener;
 import net.sf.jame.core.util.Worker;
 import net.sf.jame.twister.swing.TwisterConfigPanel;
 import net.sf.jame.twister.swing.TwisterSwingResources;
