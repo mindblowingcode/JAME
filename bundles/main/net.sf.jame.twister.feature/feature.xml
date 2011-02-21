@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="net.sf.jame.twister.feature"
+      label="JAME Twister Feature"
+      version="1.1.0"
+      provider-name="Andrea Medeghini">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="net.sf.jame.core" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.media" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.service" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.runtime" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.launcher" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.core.swing" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.jdesktop.swingworker" version="1.2.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="net.sf.jame.twister"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.jame.twister.swing"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+</feature>

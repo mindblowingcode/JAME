@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="extensions" name="DevTools" schema="schema/extensions.exsd"/>
+   <extension
+         point="net.sf.jame.devtools.extensions">
+      <processor
+            id="devtools.processor.configelement"
+            name="ConfigElement Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ConfigElementProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.configelementnode"
+            name="ConfigElementNode Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ConfigElementNodeProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.configelementnodevalue"
+            name="ConfigElementNodeValue Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ConfigElementNodeValueProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.configelementxmlimporter"
+            name="ConfigElementXMLImporter Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ConfigElementXMLImporterProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.configelementxmlexporter"
+            name="ConfigElementXMLExporter Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ConfigElementXMLExporterProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.runtimeelement"
+            name="RuntimeElement Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.RuntimeElementProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.extensionconfig"
+            name="ExtensionConfig Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ExtensionConfigProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.extensionconfigxmlimporter"
+            name="ExtensionConfigXMLImporter Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ExtensionConfigXMLImporterProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.extensionconfigxmlexporter"
+            name="ExtensionConfigXMLExporter Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ExtensionConfigXMLExporterProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.extensionconfignodebuilder"
+            name="ExtensionConfigNodeBuilder Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ExtensionConfigNodeBuilderProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.extensionruntime"
+            name="ExtensionRuntime Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ExtensionRuntimeProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.extensionregistry"
+            name="ExtensionRegistry Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ExtensionRegistryProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.editorruntime"
+            name="EditorRuntime Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.EditorProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.nodeactionxmlexporterruntime"
+            name="NodeActionXMLExporterRuntime Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.NodeActionXMLExporterProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.nodeactionxmlimporterruntime"
+            name="NodeActionXMLImporterRuntime Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.NodeActionXMLImporterProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.registry"
+            name="Registry Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.RegistryProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.resources"
+            name="Resources Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.ResourcesProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.creator"
+            name="Creator Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.CreatorProcessorRuntime">
+      </processor>
+      <processor
+            id="devtools.processor.enumerator"
+            name="Enumerator Processor"
+            runtimeClass="net.sf.jame.devtools.extensions.processor.EnumeratorProcessorRuntime">
+      </processor>
+   </extension>
+
+</plugin>
