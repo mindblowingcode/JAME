@@ -8,9 +8,7 @@ package net.sf.jame.contextfree.extensions.shapeReplacement;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -188,12 +186,13 @@ public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfi
 		}
 	}
 	
-	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
-		for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
-			ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
-			shapeAdjustmentRuntime.updateState(state);
-		}
-		ContextFreeState newState = state.clone();
-		context.buildPathOrRule(newState, globalBounds, shapeBounds, shape);
+	public void process(ContextFreeContext context) {
+//		for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
+//			ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
+//			shapeAdjustmentRuntime.updateState(state);
+//		}
+//		ContextFreeState newState = state.clone();
+//		//context.processShape(newState, globalBounds, shapeBounds, shape);
 	}
+	//TODO
 }

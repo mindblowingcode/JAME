@@ -7,7 +7,7 @@ package net.sf.jame.contextfree.extensions.pathReplacement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
+import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
@@ -67,7 +67,7 @@ public class ClosePolyPathReplacementRuntime extends PathReplacementExtensionRun
 		}
 	}
 
-	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
-		state.closePath(align);
+	public void process(ContextFreeContext context) {
+		//state.closePath(align);
 	}
 }

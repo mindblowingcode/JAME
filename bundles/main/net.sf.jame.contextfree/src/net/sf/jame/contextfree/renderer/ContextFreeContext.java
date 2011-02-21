@@ -26,50 +26,67 @@
 package net.sf.jame.contextfree.renderer;
 
 import java.awt.Graphics2D;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
-import net.sf.jame.contextfree.renderer.support.FinishedShape;
-import net.sf.jame.contextfree.renderer.support.ShapeComparator;
-import net.sf.jame.contextfree.renderer.support.UnfinishedShape;
+import net.sf.jame.contextfree.renderer.support.CFModification;
+import net.sf.jame.contextfree.renderer.support.CFShape;
+import net.sf.jame.contextfree.renderer.support.CFShapeComparator;
 
 import org.apache.log4j.Logger;
 
 public class ContextFreeContext {
 	private static final Logger logger = Logger.getLogger(ContextFreeContext.class);
-	public static final float MIN_SIZE = 0.0005f;
+	public static final float MIN_SIZE = 0.0001f;
+	public static final float SHAPE_BORDER = 2.0f;
+	public static final float FIXED_BORDER = 8.0f;
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
-	private Set<String> buildSet = new LinkedHashSet<String>();
-	private Set<FinishedShape> createdSet = new LinkedHashSet<FinishedShape>();
-	private Set<FinishedShape> finishedSet = new TreeSet<FinishedShape>(new ShapeComparator());
-	private Set<UnfinishedShape> expandSet = new LinkedHashSet<UnfinishedShape>();
-	private Set<UnfinishedShape> unfinishedSet = new LinkedHashSet<UnfinishedShape>();
+	private ArrayList<CFShape> createdSet = new ArrayList<CFShape>();
+	private ArrayList<CFShape> finishedSet = new ArrayList<CFShape>();
+	private ArrayList<CFShape> unfinishedSet = new ArrayList<CFShape>();
+	private float totalArea;
+	private float scaleArea;
+	private float minArea;
+	private float scale;
+	private float currScale;
+	private float fixedBorder;
+	private float shapeBorder;
+	private int width;
+	private int height;
 
-	public ContextFreeContext(CFDGRuntimeElement runtime) {
+	public ContextFreeContext(CFDGRuntimeElement runtime, int width, int height, float border, float minSize) {
 		this.runtime = runtime;
+	    minSize = (minSize < 0.3f) ? 0.3f : minSize;
+	    this.minArea = minSize * minSize;
+	    this.width = width;
+	    this.height = height;
+	    this.fixedBorder = FIXED_BORDER * ((border <= 1) ? border : 1);
+	    this.shapeBorder = SHAPE_BORDER * ((border <= 1) ? 0.5f : (border / 2f));
+	}
+	
+	public int getUnfinishedCount() {
+		return unfinishedSet.size();
 	}
 
-	public int getRenderCount() {
+	public int getFinishedCount() {
 		return finishedSet.size();
 	}
 
-	public int getExpandCount() {
-		return expandSet.size();
+	public int getToDoCount() {
+		return createdSet.size();
 	}
-	
+
 	public void render(Graphics2D g2d, ContextFreeArea area) {
-		for (FinishedShape shape : finishedSet) {
-			shape.render(g2d, area);
+		for (CFShape shape : finishedSet) {
+			//TODO shape.render(g2d, area);
 			if (Thread.currentThread().isInterrupted()) {
 				break;
 			}
@@ -77,35 +94,12 @@ public class ContextFreeContext {
 	}
 	
 	public void renderPartial(Graphics2D g2d, ContextFreeArea area) {
-		for (FinishedShape shape : createdSet) {
-			shape.render(g2d, area);
+		for (CFShape shape : createdSet) {
+			//TODO shape.render(g2d, area);
 			if (Thread.currentThread().isInterrupted()) {
 				break;
 			}
 		}
-	}
-
-	public void commitShapes() {
-		finishedSet.addAll(createdSet);
-		createdSet.clear();
-		if (logger.isTraceEnabled()) {
-			logger.trace("Commit shapes [" + unfinishedSet.size() + "/" + finishedSet.size() + "]");
-		}
-	}
-
-	public boolean expandShapes() {
-		expandSet.addAll(unfinishedSet);
-		unfinishedSet.clear();
-		for (Iterator<UnfinishedShape> shapes = expandSet.iterator(); shapes.hasNext();) {
-			UnfinishedShape next = shapes.next();
-			next.expand();
-			if (Thread.currentThread().isInterrupted()) {
-				break;
-			}
-		}
-		int expanded = expandSet.size();
-		expandSet.clear();
-		return expanded > 0;
 	}
 
 	public void registerFigures() {
@@ -131,56 +125,68 @@ public class ContextFreeContext {
 		ruleMap.remove(rule);
 	}
 
-	public void addShape(FinishedShape shape) {
+	public void addShape(CFShape shape) {
 		if (shape != null) {
 			createdSet.add(shape);
 		}
 	}
-	
-	public void buildPathOrRule(ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds, String shapeName) {
+
+	public void commitShapes() {
+		finishedSet.addAll(createdSet);
+		createdSet.clear();
+		if (logger.isTraceEnabled()) {
+			logger.trace("Commit shapes [" + unfinishedSet.size() + "/" + finishedSet.size() + "]");
+		}
+	}
+
+	public void sortShapes() {
+		Collections.sort(finishedSet, new CFShapeComparator());
+	}
+
+	public boolean executeShape(CFModification mod) {
+		if (unfinishedSet.size() > 0) {
+			CFShape unfinishedShape = unfinishedSet.remove(0);
+			if (Double.isInfinite(unfinishedShape.area())) {
+				return false;
+			}
+			String shapeName = unfinishedShape.getName();
+			processShape(mod, shapeName);
+		}
+		return true;
+	}
+
+	public void processShape(CFModification mod, String shapeName) {
 		ContextFreePath path = pathMap.get(shapeName);
 		if (path != null) {
 			if (logger.isTraceEnabled()) {
 				logger.trace("Path " + shapeName);
 			}
-			path.createShapes(this, state, globalBounds, shapeBounds);
+			path.process(this);
 		} else {
-			createShapes(state, globalBounds, shapeBounds, shapeName);
-		}
-	}
-	
-	private void createShapes(ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds, String shapeName) {
-		if (!buildSet.contains(shapeName)) {
-			if (logger.isTraceEnabled()) {
-				logger.trace("Rule " + shapeName);
-			}
-			buildSet.add(shapeName);
 			ContextFreeRule rule = ruleMap.get(shapeName);
 			if (rule != null) {
-				rule.createShapes(this, state, globalBounds, shapeBounds);
+				if (logger.isTraceEnabled()) {
+					logger.trace("Rule " + shapeName);
+				}
+				rule.process(this);
 			}
-			buildSet.remove(shapeName);
-		} else {
-			unfinishedSet.add(new UnfinishedShape(this, state, globalBounds, shapeBounds, shapeName));
 		}
 	}
-	
-	public void expandRule(ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds prevShapeBounds, String shapeName) {
-		if (logger.isTraceEnabled()) {
-			logger.trace("Expanding " + shapeName);
+
+	private class PathMap {
+		private Map<String, ContextFreePath> map = new LinkedHashMap<String, ContextFreePath>();
+
+		public void add(ContextFreePath path) {
+			map.put(path.getName(), path);
 		}
-		ContextFreeBounds shapeBounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
-		createShapes(state, globalBounds, shapeBounds, shapeName);
-		if (shapeBounds.isValid()) {
-			double sx = (shapeBounds.getSizeX() * globalBounds.getWidth()) / globalBounds.getSizeX();
-			double sy = (shapeBounds.getSizeY() * globalBounds.getHeight()) / globalBounds.getSizeY();
-			if ((sx < MIN_SIZE && sy < MIN_SIZE)) {
-				if (logger.isTraceEnabled()) {
-					logger.trace("Stop recursion for shape " + shapeName);
-				}
-				unfinishedSet.clear();
-			}
+
+		public void remove(ContextFreePath path) {
+			map.remove(path);
 		}
+
+		public ContextFreePath get(String pathName) {
+			return map.get(pathName);
+		} 
 	}
 	
 	private class RuleMap {
@@ -213,23 +219,7 @@ public class ContextFreeContext {
 			return null;
 		} 
 	}
-	
-	private class PathMap {
-		private Map<String, ContextFreePath> map = new LinkedHashMap<String, ContextFreePath>();
 
-		public void add(ContextFreePath path) {
-			map.put(path.getName(), path);
-		}
-
-		public void remove(ContextFreePath path) {
-			map.remove(path);
-		}
-
-		public ContextFreePath get(String pathName) {
-			return map.get(pathName);
-		} 
-	}
-	
 	private class RuleEntry {
 		private List<ContextFreeRule> rules = new LinkedList<ContextFreeRule>();
 		private float total = 0;
@@ -272,9 +262,5 @@ public class ContextFreeContext {
 			}
 			return null;
 		}
-	}
-
-	public int getCreatedShapes() {
-		return createdSet.size();
 	}
 }

@@ -25,6 +25,7 @@
  */
 package net.sf.jame.contextfree.renderer;
 
+import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.util.Color32bit;
 
 import org.apache.log4j.Logger;
@@ -54,32 +55,32 @@ public final class SimpleContextFreeRenderer extends DefaultContextFreeRenderer 
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
 		cfdgRuntime.resetRandom();
-		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
-		ContextFreeBounds globalBounds = new ContextFreeBounds(width, height);
-		ContextFreeBounds shapeBounds = new ContextFreeBounds(width, height);
-		ContextFreeState state = new ContextFreeState(); 
+		ContextFreeContext context = new ContextFreeContext(cfdgRuntime, width, height, 1f, 0.3f);
+//		ContextFreeBounds globalBounds = new ContextFreeBounds(width, height);
+//		ContextFreeBounds shapeBounds = new ContextFreeBounds(width, height);
+		CFModification mod = new CFModification(); 
 		context.registerFigures();
-		context.buildPathOrRule(state, globalBounds, shapeBounds, startshape);
-		ContextFreeBounds bounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
-		bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
-		bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
+		context.processShape(mod, startshape);
+//		ContextFreeBounds bounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
+//		bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
+//		bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
 		if (logger.isDebugEnabled()) {
 			long elapsed = (System.nanoTime() - time) / 1000000;
 			logger.debug("Build time " + elapsed + "ms");
 		}
 		percent = 30;
-		while (context.expandShapes()) {
-			if (isInterrupted()) {
-				break;
-			}
-		}
+//		while (context.expandShapes()) {
+//			if (isInterrupted()) {
+//				break;
+//			}
+//		}
 		percent = 70;
 		if (logger.isDebugEnabled()) {
-			logger.debug("Total shapes " + context.getRenderCount());
+			logger.debug("Total shapes " + context.getFinishedCount());
 		}
 		time = System.nanoTime();
 		context.commitShapes();
-		renderImage(context, globalBounds, offsetX, offsetY, background, false);
+//		renderImage(context, globalBounds, offsetX, offsetY, background, false);
 		if (logger.isDebugEnabled()) {
 			long elapsed = (System.nanoTime() - time) / 1000000;
 			logger.debug("Render time " + elapsed + "ms");

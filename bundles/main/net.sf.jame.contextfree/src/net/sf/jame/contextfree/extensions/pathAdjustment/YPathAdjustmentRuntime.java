@@ -5,7 +5,7 @@
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
+import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
@@ -66,7 +66,7 @@ public class YPathAdjustmentRuntime extends PathAdjustmentExtensionRuntime<YPath
 	}
 
 	@Override
-	public void updateState(ContextFreeState state) {
-		state.translate(0, value, 0);
+	public void apply(CFModification mod) {
+		mod.translate(0, value, 0);
 	}
 }

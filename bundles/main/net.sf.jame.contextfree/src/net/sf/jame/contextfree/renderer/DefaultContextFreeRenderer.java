@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 
+import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.util.Color32bit;
 
 import org.apache.log4j.Logger;
@@ -39,6 +40,7 @@ import org.apache.log4j.Logger;
  */
 public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 	private static final Logger logger = Logger.getLogger(DefaultContextFreeRenderer.class);
+	private static final int MAX_SHAPES = 5000000;
 	
 	/**
 	 * 
@@ -50,7 +52,7 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 	@Override
 	protected void doRender(boolean dynamicZoom) {
 		long totalTime = System.nanoTime();
-		long time = System.nanoTime();
+		long time = totalTime;
 		updateTransform();
 		float offsetX = getBufferWidth() / 2 + getTile().getImageSize().getX() / 2 - getTile().getTileOffset().getX() - getTile().getTileSize().getX() / 2;
 		float offsetY = getBufferHeight() / 2 + getTile().getImageSize().getY() / 2 - getTile().getTileOffset().getY() - getTile().getTileSize().getY() / 2;
@@ -59,78 +61,53 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
 		cfdgRuntime.resetRandom();
-		ContextFreeContext context = new ContextFreeContext(cfdgRuntime);
-		ContextFreeBounds globalBounds = new ContextFreeBounds(width, height);
-		ContextFreeBounds shapeBounds = new ContextFreeBounds(width, height);
-		ContextFreeState state = new ContextFreeState(); 
+
+		ContextFreeContext context = new ContextFreeContext(cfdgRuntime, width, height, 1f, 0.3f);
 		context.registerFigures();
-		context.buildPathOrRule(state, globalBounds, shapeBounds, startshape);
-		ContextFreeBounds bounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
-		bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
-		bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
-		if (logger.isDebugEnabled()) {
-			long elapsed = (System.nanoTime() - time) / 1000000;
-			logger.debug("Build time " + elapsed + "ms");
-		}
-		percent = 30;
-		time = System.nanoTime();
-		context.commitShapes();
-		renderImage(context, globalBounds, offsetX, offsetY, background, false);
-		if (logger.isDebugEnabled()) {
-			long elapsed = (System.nanoTime() - time) / 1000000;
-			logger.debug("Render time " + elapsed + "ms");
-		}
-		double lastArea = globalBounds.getSizeX() * globalBounds.getSizeY();
-		int count = 0;
-		while (context.expandShapes()) {
+
+//		ContextFreeBounds globalBounds = new ContextFreeBounds(width, height);
+//		ContextFreeBounds shapeBounds = new ContextFreeBounds(width, height);
+		CFModification mod = new CFModification(); 
+			
+//		ContextFreeBounds bounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
+//		bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
+//		bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
+
+		context.processShape(mod, startshape);
+		
+		int reportAt = 250;
+		boolean partialDraw = true;
+		
+		for (;;) {
 			if (isInterrupted()) {
 				break;
 			}
-			count += 1;
-			double currArea = globalBounds.getSizeX() * globalBounds.getSizeY();
-			if (!Double.isInfinite(currArea) && !Double.isNaN(currArea)) {
-				if (Double.isInfinite(lastArea) || Double.isNaN(lastArea)) {
-					bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
-					bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
-					lastArea = currArea;
-				}
-				if (count % 1000 == 0) {
-					double ratio = (currArea - lastArea) / lastArea;
-					if (ratio > 0.2) {
-						time = System.nanoTime();
-						context.commitShapes();
-						renderImage(context, globalBounds, offsetX, offsetY, background, false);
-						lastArea = currArea;
-						bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
-						bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
-						if (logger.isDebugEnabled()) {
-							long elapsed = (System.nanoTime() - time) / 1000000;
-							logger.debug("Render time " + elapsed + "ms");
-						}
-					} else if (context.getCreatedShapes() > 500) {
-						time = System.nanoTime();
-						copyOldBuffer();
-						renderImage(context, globalBounds, offsetX, offsetY, background, true);
-						context.commitShapes();
-						if (logger.isDebugEnabled()) {
-							long elapsed = (System.nanoTime() - time) / 1000000;
-							logger.debug("Partial render time " + elapsed + "ms");
-						}
-					}
-				}
-			}
+		    if (context.getUnfinishedCount() == 0) {
+		    	break;
+		    }
+		    if ((context.getFinishedCount() + context.getToDoCount()) > MAX_SHAPES) {
+		        break;
+		    }
+		    if (!context.executeShape(mod)) {
+		    	break;
+		    }
+			if (context.getFinishedCount() > reportAt) {
+				if (partialDraw) {
+					copyOldBuffer();
+//					renderImage(context, globalBounds, offsetX, offsetY, background, true);
+					context.commitShapes();
+	            }
+	            //outputStats();
+	            reportAt = 2 * context.getFinishedCount();
+	        }
 		}
-		percent = 70;
-		if (logger.isDebugEnabled()) {
-			logger.debug("Total shapes " + context.getRenderCount());
-		}
-		time = System.nanoTime();
-		context.commitShapes();
-		renderImage(context, globalBounds, offsetX, offsetY, background, false);
-		if (logger.isDebugEnabled()) {
-			long elapsed = (System.nanoTime() - time) / 1000000;
-			logger.debug("Render time " + elapsed + "ms");
-		}
+		
+		if (!isInterrupted()) {
+			context.commitShapes();
+	        context.sortShapes();
+//			renderImage(context, globalBounds, offsetX, offsetY, background, false);
+	    }
+
 		percent = 100;
 		if (logger.isDebugEnabled()) {
 			logger.debug("Total time " + (System.nanoTime() - totalTime) / 1000000 + "ms");

@@ -9,11 +9,7 @@ import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
-import net.sf.jame.contextfree.renderer.support.FinishedShape;
-import net.sf.jame.contextfree.renderer.support.FlushPathShape;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -307,21 +303,22 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 		}
 	}
 	
-	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
-		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
-			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
-			pathReplacementRuntime.createShapes(context, state, globalBounds, shapeBounds);
-		}
-		for (int t = 1; t < times; t++) {
-			for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
-				PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
-				pathAdjustmentRuntime.updateState(state);
-			}
-			ContextFreeState newState = state.clone(); 
-			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
-				PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
-				pathReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
-			}
-		}
+	public void process(ContextFreeContext context) {
+//		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
+//			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
+//			ContextFreeState newState = state.clone(); 
+//			pathReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
+//		}
+//		for (int t = 1; t < times; t++) {
+//			for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
+//				PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
+//				pathAdjustmentRuntime.apply(state);
+//			}
+//			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
+//				PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
+//				ContextFreeState newState = state.clone(); 
+//				pathReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
+//			}
+//		}
 	}
 }

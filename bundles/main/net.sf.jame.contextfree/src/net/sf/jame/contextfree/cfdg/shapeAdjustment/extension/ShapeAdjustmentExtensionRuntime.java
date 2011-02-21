@@ -4,7 +4,7 @@
  */
 package net.sf.jame.contextfree.cfdg.shapeAdjustment.extension;
 
-import net.sf.jame.contextfree.renderer.ContextFreeState;
+import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
 
 /**
@@ -14,7 +14,7 @@ public abstract class ShapeAdjustmentExtensionRuntime<T extends ShapeAdjustmentE
 	/**
 	 * @param state
 	 */
-	public abstract void updateState(ContextFreeState state);
+	public abstract void apply(CFModification mod);
 
 	public boolean isSizeChange() {
 		return false;

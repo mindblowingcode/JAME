@@ -5,7 +5,7 @@
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
+import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
@@ -66,7 +66,7 @@ public class TargetAlphaPathAdjustmentRuntime extends PathAdjustmentExtensionRun
 	}
 
 	@Override
-	public void updateState(ContextFreeState state) {
-		state.addTargetAlpha(value);
+	public void apply(CFModification mod) {
+		mod.addTargetAlpha(value);
 	}
 }

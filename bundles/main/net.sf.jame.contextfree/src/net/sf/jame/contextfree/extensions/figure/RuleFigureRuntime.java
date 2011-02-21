@@ -7,10 +7,8 @@ package net.sf.jame.contextfree.extensions.figure;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
-import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreeRule;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -229,11 +227,11 @@ public class RuleFigureRuntime extends FigureExtensionRuntime<RuleFigureConfig> 
 		context.registerRule(this);
 	}
 
-	public void createShapes(ContextFreeContext context, ContextFreeState state, ContextFreeBounds globalBounds, ContextFreeBounds shapeBounds) {
-		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
-			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
-			ContextFreeState nodeState = state.clone();
-			shapeReplacementRuntime.createShapes(context, nodeState, globalBounds, shapeBounds);
-		}
+	public void process(ContextFreeContext context) {
+//		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+//			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
+//			ContextFreeState nodeState = state.clone();
+//			shapeReplacementRuntime.createShapes(context, nodeState, globalBounds, shapeBounds);
+//		}
 	}
 }

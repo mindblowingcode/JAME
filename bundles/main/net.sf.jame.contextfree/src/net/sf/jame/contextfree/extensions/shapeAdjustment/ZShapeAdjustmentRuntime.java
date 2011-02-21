@@ -5,7 +5,7 @@
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeState;
+import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
@@ -66,7 +66,7 @@ public class ZShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRuntime<ZSh
 	}
 
 	@Override
-	public void updateState(ContextFreeState state) {
-		state.translate(0, 0, value);
+	public void apply(CFModification mod) {
+		mod.translate(0, 0, value);
 	}
 }
