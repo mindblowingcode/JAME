@@ -44,8 +44,11 @@ import org.apache.log4j.Logger;
 public class ContextFreeContext {
 	private static final Logger logger = Logger.getLogger(ContextFreeContext.class);
 	public static final float MIN_SIZE = 0.0001f;
+<<<<<<< local
 	public static final float SHAPE_BORDER = 2.0f;
 	public static final float FIXED_BORDER = 8.0f;
+=======
+>>>>>>> other
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
