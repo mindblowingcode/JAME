@@ -10,6 +10,7 @@ import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigEleme
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.support.CFShape;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -303,7 +304,7 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 		}
 	}
 	
-	public void process(ContextFreeContext context) {
+	public void process(ContextFreeContext context, CFShape shape) {
 //		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
 //			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
 //			ContextFreeState newState = state.clone(); 

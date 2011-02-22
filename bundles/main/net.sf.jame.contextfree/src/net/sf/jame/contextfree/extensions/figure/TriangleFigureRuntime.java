@@ -7,6 +7,7 @@ package net.sf.jame.contextfree.extensions.figure;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
+import net.sf.jame.contextfree.renderer.support.CFShape;
 
 /**
  * @author Andrea Medeghini
@@ -21,7 +22,7 @@ public class TriangleFigureRuntime extends FigureExtensionRuntime<TriangleFigure
 		return "TRIANGLE";
 	}
 
-	public void process(ContextFreeContext context) {
+	public void process(ContextFreeContext context, CFShape shape) {
 //		float a = (float) (0.5 * Math.tan(Math.PI / 6.0));
 //		float b = (float) (0.5 * Math.tan(Math.PI / 3.0));
 //		float[] p = new float[] { -0.5f, -a, +0.5f, -a, 0, b - a };

@@ -35,7 +35,6 @@ import java.util.Map;
 
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
-import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.contextfree.renderer.support.CFShape;
 import net.sf.jame.contextfree.renderer.support.CFShapeComparator;
 
@@ -44,17 +43,15 @@ import org.apache.log4j.Logger;
 public class ContextFreeContext {
 	private static final Logger logger = Logger.getLogger(ContextFreeContext.class);
 	public static final float MIN_SIZE = 0.0001f;
-<<<<<<< local
 	public static final float SHAPE_BORDER = 2.0f;
 	public static final float FIXED_BORDER = 8.0f;
-=======
->>>>>>> other
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
 	private ArrayList<CFShape> createdSet = new ArrayList<CFShape>();
 	private ArrayList<CFShape> finishedSet = new ArrayList<CFShape>();
 	private ArrayList<CFShape> unfinishedSet = new ArrayList<CFShape>();
+	private ContextFreeBounds bounds;
 	private float totalArea;
 	private float scaleArea;
 	private float minArea;
@@ -67,6 +64,7 @@ public class ContextFreeContext {
 
 	public ContextFreeContext(CFDGRuntimeElement runtime, int width, int height, float border, float minSize) {
 		this.runtime = runtime;
+		bounds = new ContextFreeBounds(width, height);
 	    minSize = (minSize < 0.3f) ? 0.3f : minSize;
 	    this.minArea = minSize * minSize;
 	    this.width = width;
@@ -128,10 +126,12 @@ public class ContextFreeContext {
 		ruleMap.remove(rule);
 	}
 
-	public void addShape(CFShape shape) {
-		if (shape != null) {
-			createdSet.add(shape);
-		}
+	public void addUnfinishedShape(CFShape shape) {
+		unfinishedSet.add(shape);
+	}
+
+	public void addFinishedShape(CFShape shape) {
+		createdSet.add(shape);
 	}
 
 	public void commitShapes() {
@@ -146,32 +146,34 @@ public class ContextFreeContext {
 		Collections.sort(finishedSet, new CFShapeComparator());
 	}
 
-	public boolean executeShape(CFModification mod) {
+	public boolean executeShape() {
 		if (unfinishedSet.size() > 0) {
-			CFShape unfinishedShape = unfinishedSet.remove(0);
-			if (Double.isInfinite(unfinishedShape.area())) {
+			CFShape shape = unfinishedSet.remove(0);
+			if (Double.isInfinite(shape.area())) {
 				return false;
 			}
-			String shapeName = unfinishedShape.getName();
-			processShape(mod, shapeName);
+			processShape(shape);
 		}
 		return true;
 	}
 
-	public void processShape(CFModification mod, String shapeName) {
-		ContextFreePath path = pathMap.get(shapeName);
-		if (path != null) {
-			if (logger.isTraceEnabled()) {
-				logger.trace("Path " + shapeName);
-			}
-			path.process(this);
-		} else {
-			ContextFreeRule rule = ruleMap.get(shapeName);
-			if (rule != null) {
+	public void processShape(CFShape shape) {
+		double area = shape.area();
+		ContextFreeRule rule = ruleMap.get(shape.getName());
+		if (rule != null) {
+			if (!bounds.isValid() || (area * scaleArea >= minArea)) {
 				if (logger.isTraceEnabled()) {
-					logger.trace("Rule " + shapeName);
+					logger.trace("Rule " + shape.getName());
 				}
-				rule.process(this);
+				rule.process(this, shape);
+			}
+		} else {
+			ContextFreePath path = pathMap.get(shape.getName());
+			if (path != null) {
+				if (logger.isTraceEnabled()) {
+					logger.trace("Path " + shape.getName());
+				}
+				path.process(this, shape);
 			}
 		}
 	}

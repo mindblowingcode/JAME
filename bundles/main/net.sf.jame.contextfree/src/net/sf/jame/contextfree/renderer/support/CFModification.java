@@ -3,10 +3,31 @@ package net.sf.jame.contextfree.renderer.support;
 import java.awt.geom.AffineTransform;
 
 public class CFModification implements Cloneable {
-	private AffineTransform at = new AffineTransform();
-	private float[] currentHSBA = new float[] { 0, 0, 0, 1 };
-	private float[] targetHSBA = new float[] { 0, 0, 0, 1 };
-	private float z = 0;
+	private AffineTransform at;
+	private float[] currentHSBA;
+	private float[] targetHSBA;
+	private float z;
+
+	public CFModification() {
+		this.at = new AffineTransform();
+		this.currentHSBA = new float[] { 0, 0, 0, 1 };
+		this.targetHSBA = new float[] { 0, 0, 0, 1 };
+		this.z = 0;
+	}
+
+	public CFModification(AffineTransform at) {
+		this.at = at;
+		this.currentHSBA = new float[] { 0, 0, 0, 1 };
+		this.targetHSBA = new float[] { 0, 0, 0, 1 };
+		this.z = 0;
+	}
+
+	public CFModification(AffineTransform at, float[] currentHSBA, float[] targetHSBA, float z) {
+		this.at = at;
+		this.currentHSBA = currentHSBA;
+		this.targetHSBA = targetHSBA;
+		this.z = z;
+	}
 
 	public void translate(float tx, float ty, float tz) {
 		at.translate(tx, ty);
@@ -113,8 +134,7 @@ public class CFModification implements Cloneable {
 
 	@Override
 	public CFModification clone() {
-		CFModification mod = new CFModification();
-		mod.at.setTransform(at);
+		CFModification mod = new CFModification((AffineTransform) at.clone());
 		mod.currentHSBA[0] = currentHSBA[0];
 		mod.currentHSBA[1] = currentHSBA[1];
 		mod.currentHSBA[2] = currentHSBA[2];
