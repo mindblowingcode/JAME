@@ -5,9 +5,8 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.support.CFModification;
+import net.sf.jame.contextfree.renderer.support.CFPath;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
@@ -104,7 +103,7 @@ public class SmoothQuadRelPathReplacementRuntime extends PathReplacementExtensio
 		}
 	}
 
-	public void process(ContextFreeContext context) {
-	//	state.quadRel(x, y);
+	public void process(ContextFreeContext context, CFPath path) {
+		path.quadRel(x, y);
 	}
 }

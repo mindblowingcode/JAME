@@ -6,6 +6,7 @@ import java.awt.geom.Path2D;
 public class CFPathAttributes implements Cloneable {
 	private BasicStroke stroke = new BasicStroke(1);
 	private int rule = Path2D.WIND_EVEN_ODD;
+	private boolean fill;
 
 	private int getRule(String rule) {
 		if ("even-odd".equals(rule)) { 
@@ -54,11 +55,20 @@ public class CFPathAttributes implements Cloneable {
 		return rule;
 	}
 
+	public boolean isFill() {
+		return fill;
+	}
+
+	public void setFill(boolean fill) {
+		this.fill = fill;
+	}
+
 	@Override
 	public CFPathAttributes clone() {
 		CFPathAttributes pa = new CFPathAttributes();
 		pa.stroke = stroke;
 		pa.rule = rule;
+		pa.fill = fill;
 		return pa;
 	}
 }

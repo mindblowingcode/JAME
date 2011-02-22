@@ -32,11 +32,14 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import net.sf.jame.contextfree.cfdg.CFDGRuntimeElement;
 import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
+import net.sf.jame.contextfree.renderer.support.CFFinishedShape;
+import net.sf.jame.contextfree.renderer.support.CFFinishedShapeComparator;
+import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.contextfree.renderer.support.CFShape;
-import net.sf.jame.contextfree.renderer.support.CFShapeComparator;
 
 import org.apache.log4j.Logger;
 
@@ -48,9 +51,11 @@ public class ContextFreeContext {
 	private CFDGRuntimeElement runtime;
 	private RuleMap ruleMap = new RuleMap();
 	private PathMap pathMap = new PathMap();
-	private ArrayList<CFShape> createdSet = new ArrayList<CFShape>();
-	private ArrayList<CFShape> finishedSet = new ArrayList<CFShape>();
 	private ArrayList<CFShape> unfinishedSet = new ArrayList<CFShape>();
+	private ArrayList<CFFinishedShape> createdSet = new ArrayList<CFFinishedShape>();
+	private ArrayList<CFFinishedShape> finishedSet = new ArrayList<CFFinishedShape>();
+	private Stack<CFModification> modifications = new Stack<CFModification>();
+	private CFModification currentModification = new CFModification();
 	private ContextFreeBounds bounds;
 	private float totalArea;
 	private float scaleArea;
@@ -86,7 +91,7 @@ public class ContextFreeContext {
 	}
 
 	public void render(Graphics2D g2d, ContextFreeArea area) {
-		for (CFShape shape : finishedSet) {
+		for (CFFinishedShape shape : finishedSet) {
 			//TODO shape.render(g2d, area);
 			if (Thread.currentThread().isInterrupted()) {
 				break;
@@ -95,7 +100,7 @@ public class ContextFreeContext {
 	}
 	
 	public void renderPartial(Graphics2D g2d, ContextFreeArea area) {
-		for (CFShape shape : createdSet) {
+		for (CFFinishedShape shape : createdSet) {
 			//TODO shape.render(g2d, area);
 			if (Thread.currentThread().isInterrupted()) {
 				break;
@@ -130,8 +135,24 @@ public class ContextFreeContext {
 		unfinishedSet.add(shape);
 	}
 
-	public void addFinishedShape(CFShape shape) {
+	public void addFinishedShape(CFFinishedShape shape) {
 		createdSet.add(shape);
+	}
+
+	public void pushModification() {
+		modifications.push(currentModification);
+	}
+
+	public void addModification(CFModification modification) {
+		currentModification.add(modification);
+	}
+
+	public void popModification() {
+		currentModification = modifications.pop();
+	}
+
+	public CFModification getCurrentModification() {
+		return currentModification;
 	}
 
 	public void commitShapes() {
@@ -143,7 +164,7 @@ public class ContextFreeContext {
 	}
 
 	public void sortShapes() {
-		Collections.sort(finishedSet, new CFShapeComparator());
+		Collections.sort(finishedSet, new CFFinishedShapeComparator());
 	}
 
 	public boolean executeShape() {

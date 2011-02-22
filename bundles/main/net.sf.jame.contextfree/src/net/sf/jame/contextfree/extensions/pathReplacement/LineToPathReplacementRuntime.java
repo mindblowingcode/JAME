@@ -26,9 +26,8 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.support.CFModification;
+import net.sf.jame.contextfree.renderer.support.CFPath;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
@@ -126,7 +125,7 @@ public class LineToPathReplacementRuntime extends PathReplacementExtensionRuntim
 		}
 	}
 
-	public void process(ContextFreeContext context) {
-//		state.lineTo(x, y);
+	public void process(ContextFreeContext context, CFPath path) {
+		path.lineTo(x, y);
 	}
 }

@@ -14,7 +14,6 @@ import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 
 public class CFPath implements Cloneable {
 	private ExtendedGeneralPath path;
-	private boolean fillOrDraw;
 	private float x1 = 0;
 	private float y1 = 0;
 	private float x = 0;
@@ -212,10 +211,6 @@ public class CFPath implements Cloneable {
 	}
 	
 	private ExtendedGeneralPath generalPath() {
-		if (fillOrDraw) {
-			fillOrDraw = false;
-			path = null;
-		}
 		if (path == null) {
 			path = new ExtendedGeneralPath();
 			path.moveTo(x, y);
@@ -227,7 +222,6 @@ public class CFPath implements Cloneable {
 	public CFPath clone() {
 		CFPath p = new CFPath();
 		p.path = (ExtendedGeneralPath) path.clone();
-		p.fillOrDraw = fillOrDraw;
 		p.x = x;
 		p.y = y;
 		p.x1 = x1;

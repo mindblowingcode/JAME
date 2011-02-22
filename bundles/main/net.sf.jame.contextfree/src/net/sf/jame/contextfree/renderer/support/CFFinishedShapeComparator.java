@@ -3,8 +3,8 @@ package net.sf.jame.contextfree.renderer.support;
 import java.util.Comparator;
 
 
-public class CFShapeComparator implements Comparator<CFShape> {
-	public int compare(CFShape o1, CFShape o2) {
+public class CFFinishedShapeComparator implements Comparator<CFFinishedShape> {
+	public int compare(CFFinishedShape o1, CFFinishedShape o2) {
 		if (o1 == o2) {
 			return 0;
 		}
