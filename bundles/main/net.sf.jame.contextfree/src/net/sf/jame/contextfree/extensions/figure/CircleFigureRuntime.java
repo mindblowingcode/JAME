@@ -7,6 +7,7 @@ package net.sf.jame.contextfree.extensions.figure;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
+import net.sf.jame.contextfree.renderer.support.CFShape;
 
 /**
  * @author Andrea Medeghini
@@ -21,7 +22,7 @@ public class CircleFigureRuntime extends FigureExtensionRuntime<CircleFigureConf
 		return "CIRCLE";
 	}
 
-	public void process(ContextFreeContext context) {
+	public void process(ContextFreeContext context, CFShape shape) {
 //		float[] p = new float[] { -0.5f, -0.5f, +0.5f, +0.5f };
 //		float[] q = new float[p.length];
 //		state.transform(p, q);

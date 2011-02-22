@@ -1,10 +1,22 @@
 package net.sf.jame.contextfree.renderer.support;
 
 public class CFReplacement implements Cloneable {
+	private String name;
+	private int loopCount;
 	private CFModification stateChange;
 
-	public CFReplacement(CFModification stateChange) {
+	public CFReplacement(String name, int loopCount, CFModification stateChange) {
+		this.name = name;
+		this.loopCount = loopCount;
 		this.stateChange = stateChange;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public int getLoopCount() {
+		return loopCount;
 	}
 
 	public CFModification getStateChange() {
@@ -13,7 +25,6 @@ public class CFReplacement implements Cloneable {
 
 	@Override
 	public CFReplacement clone() {
-		CFReplacement rep = new CFReplacement(stateChange.clone());
-		return rep;
+		return new CFReplacement(name, loopCount, stateChange);
 	}
 }

@@ -31,6 +31,7 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 
 import net.sf.jame.contextfree.renderer.support.CFModification;
+import net.sf.jame.contextfree.renderer.support.CFShape;
 import net.sf.jame.core.util.Color32bit;
 
 import org.apache.log4j.Logger;
@@ -65,15 +66,8 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime, width, height, 1f, 0.3f);
 		context.registerFigures();
 
-//		ContextFreeBounds globalBounds = new ContextFreeBounds(width, height);
-//		ContextFreeBounds shapeBounds = new ContextFreeBounds(width, height);
-		CFModification mod = new CFModification(); 
-			
-//		ContextFreeBounds bounds = new ContextFreeBounds(globalBounds.getWidth(), globalBounds.getHeight());
-//		bounds.addPoint(globalBounds.getMinX(), globalBounds.getMinY());
-//		bounds.addPoint(globalBounds.getMaxX(), globalBounds.getMaxY());
-
-		context.processShape(mod, startshape);
+		CFModification worldState = new CFModification();
+		context.processShape(new CFShape(startshape, worldState));
 		
 		int reportAt = 250;
 		boolean partialDraw = true;
@@ -88,7 +82,7 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 		    if ((context.getFinishedCount() + context.getToDoCount()) > MAX_SHAPES) {
 		        break;
 		    }
-		    if (!context.executeShape(mod)) {
+		    if (!context.executeShape()) {
 		    	break;
 		    }
 			if (context.getFinishedCount() > reportAt) {

@@ -43,7 +43,7 @@ public class CFShape implements Cloneable {
 	public CFShape clone() {
 		CFShape s = new CFShape(name, worldState.clone());
 		for (int rep = 0; rep < replacements.size(); rep++) {
-			s.addReplacement(replacements.get(rep).clone());
+			s.addReplacement(replacements.get(rep));
 		}
 		return s;
 	}

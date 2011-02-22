@@ -9,6 +9,7 @@ import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.ContextFreePath;
+import net.sf.jame.contextfree.renderer.support.CFShape;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -190,7 +191,7 @@ public class PathFigureRuntime extends FigureExtensionRuntime<PathFigureConfig> 
 		context.registerPath(this);
 	}
 
-	public void process(ContextFreeContext context) {
+	public void process(ContextFreeContext context, CFShape shape) {
 //		ContextFreeState newState = state.clone();
 //		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
 //			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
