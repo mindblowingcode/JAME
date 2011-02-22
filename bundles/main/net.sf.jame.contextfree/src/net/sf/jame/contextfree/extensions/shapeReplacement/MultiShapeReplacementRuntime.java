@@ -10,6 +10,8 @@ import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigEleme
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.support.CFModification;
+import net.sf.jame.contextfree.renderer.support.CFReplacement;
 import net.sf.jame.contextfree.renderer.support.CFShape;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
@@ -22,6 +24,7 @@ import net.sf.jame.core.config.ValueConfigElement;
  */
 public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig> extends ShapeReplacementExtensionRuntime<T> {
 	private Integer times;
+	private CFModification stateChange;
 	private TimesListener timesListener;
 	private ListRuntimeElement<ShapeReplacementRuntimeElement> shapeReplacementListElement;
 	private ShapeReplacementListElementListener shapeReplacementListElementListener;
@@ -305,22 +308,21 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 	}
 	
 	public void process(ContextFreeContext context, CFShape shape) {
-//		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
-//			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
-//			ContextFreeState newState = state.clone(); 
-//			shapeReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
-//		}
-//		for (int t = 1; t < times; t++) {
-//			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
-//				ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
-//				shapeAdjustmentRuntime.updateState(state);
-//			}
-//			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
-//				ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
-//				ContextFreeState newState = state.clone(); 
-//				shapeReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
-//			}
-//		}
-		//TODO
+		if (stateChange == null) {
+			stateChange = new CFModification();
+			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
+				ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
+				shapeAdjustmentRuntime.apply(stateChange);
+			}
+		}
+		context.pushModification();
+		for (int t = 0; t < times; t++) {
+			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+				ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
+				shapeReplacementRuntime.process(context, shape);
+			}
+			context.addModification(stateChange);
+		}
+		context.popModification();
 	}
 }

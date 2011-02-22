@@ -8,9 +8,10 @@ package net.sf.jame.contextfree.extensions.pathReplacement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.support.CFModification;
+import net.sf.jame.contextfree.renderer.support.CFFinishedShape;
+import net.sf.jame.contextfree.renderer.support.CFPath;
+import net.sf.jame.contextfree.renderer.support.CFPathAttributes;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -262,9 +263,10 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 		}
 	}
 
-	public void process(ContextFreeContext context) {
-//		state.bounds(shapeBounds);
-//		state.bounds(globalBounds);
-//		context.addShape(new PathShape(state, cap, join, width));
+	public void process(ContextFreeContext context, CFPath path) {
+		CFPathAttributes attributes = new CFPathAttributes();
+		attributes.setStroke(cap, join, width);
+		attributes.setFill(false);
+		context.addFinishedShape(new CFFinishedShape(path, attributes, context.getCurrentModification()));
 	}
 }

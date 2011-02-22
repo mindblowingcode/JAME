@@ -9,6 +9,8 @@ import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.support.CFModification;
+import net.sf.jame.contextfree.renderer.support.CFReplacement;
 import net.sf.jame.contextfree.renderer.support.CFShape;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
@@ -21,6 +23,7 @@ import net.sf.jame.core.config.ValueConfigElement;
  */
 public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfig> extends ShapeReplacementExtensionRuntime<T> {
 	private String shape;
+	private CFModification stateChange;
 	private ShapeListener shapeListener;
 	private ListRuntimeElement<ShapeAdjustmentRuntimeElement> shapeAdjustmentListElement;
 	private ShapeAdjustmentListElementListener shapeAdjustmentListElementListener;
@@ -188,12 +191,14 @@ public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfi
 	}
 	
 	public void process(ContextFreeContext context, CFShape shape) {
-//		for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
-//			ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
-//			shapeAdjustmentRuntime.updateState(state);
-//		}
-//		ContextFreeState newState = state.clone();
-//		//context.processShape(newState, globalBounds, shapeBounds, shape);
+		if (stateChange == null) {
+			stateChange = new CFModification();
+			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
+				ShapeAdjustmentRuntimeElement shapeAdjustmentRuntime = shapeAdjustmentListElement.getElement(i);
+				shapeAdjustmentRuntime.apply(stateChange);
+			}
+		}
+		shape.addReplacement(new CFReplacement(this.shape, 0, stateChange));
+		context.addUnfinishedShape(shape);
 	}
-	//TODO
 }

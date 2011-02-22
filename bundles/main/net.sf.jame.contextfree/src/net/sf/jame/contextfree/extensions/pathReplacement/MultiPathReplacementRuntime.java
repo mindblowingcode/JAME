@@ -10,6 +10,8 @@ import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.support.CFModification;
+import net.sf.jame.contextfree.renderer.support.CFPath;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -21,6 +23,7 @@ import net.sf.jame.core.config.ValueConfigElement;
  */
 public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> extends PathReplacementExtensionRuntime<T> {
 	private Integer times;
+	private CFModification stateChange;
 	private TimesListener timesListener;
 	private ListRuntimeElement<PathReplacementRuntimeElement> pathReplacementListElement;
 	private PathReplacementListElementListener pathReplacementListElementListener;
@@ -303,22 +306,22 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 		}
 	}
 	
-	public void process(ContextFreeContext context) {
-//		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
-//			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
-//			ContextFreeState newState = state.clone(); 
-//			pathReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
-//		}
-//		for (int t = 1; t < times; t++) {
-//			for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
-//				PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
-//				pathAdjustmentRuntime.apply(state);
-//			}
-//			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
-//				PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i); 
-//				ContextFreeState newState = state.clone(); 
-//				pathReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
-//			}
-//		}
+	public void process(ContextFreeContext context, CFPath path) {
+		if (stateChange == null) {
+			stateChange = new CFModification();
+			for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
+				PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
+				pathAdjustmentRuntime.apply(stateChange);
+			}
+		}
+		context.pushModification();
+		for (int t = 0; t < times; t++) {
+			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
+				PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
+				pathReplacementRuntime.process(context, path);
+			}
+			context.addModification(stateChange);
+		}
+		context.popModification();
 	}
 }

@@ -145,4 +145,11 @@ public class CFModification implements Cloneable {
 		mod.targetHSBA[3] = targetHSBA[3];
 		return mod;
 	}
+
+	public void add(CFModification modification) {
+		at.concatenate(modification.at);
+		System.arraycopy(modification.currentHSBA, 0, currentHSBA, 0, 4);
+		System.arraycopy(modification.targetHSBA, 0, targetHSBA, 0, 4);
+		z += modification.z;
+	}
 }
