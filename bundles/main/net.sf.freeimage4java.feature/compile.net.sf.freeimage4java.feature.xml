@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Compile net.sf.freeimage4java.feature" default="main">
+	<target name="main">
+		<ant antfile="build.xml" dir="../net.sf.freeimage4java" target="build.jars"/>
+		<ant antfile="build.xml" dir="../net.sf.freeimage4java.macosx.x86_64" target="build.jars"/>
+	</target>
+</project>
