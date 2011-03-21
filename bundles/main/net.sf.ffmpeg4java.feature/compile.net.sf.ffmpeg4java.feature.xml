@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="Compile net.sf.ffmpeg4java.feature" default="main">
-	<target name="main">
-		<ant antfile="build.xml" dir="../net.sf.ffmpeg4java" target="build.jars"/>
-		<ant antfile="build.xml" dir="../net.sf.ffmpeg4java.macosx.x86_64" target="build.jars"/>
-	</target>
-</project>
