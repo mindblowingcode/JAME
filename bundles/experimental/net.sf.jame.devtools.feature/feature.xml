@@ -18,12 +18,13 @@
    </license>
 
    <requires>
+      <import plugin="net.sf.jame.core" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="org.freemarker" version="2.3.5" match="greaterOrEqual"/>
       <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.runtime" version="3.4.0" match="greaterOrEqual"/>
-      <import plugin="net.sf.jame.core" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="net.sf.jame.mandelbrot" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="net.sf.jame.twister" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.contextfree" version="1.0.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
@@ -52,6 +53,13 @@
          download-size="0"
          install-size="0"
          version="1.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.jame.devtools.contextfree"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
