@@ -1,0 +1,75 @@
+
+syntax: regexp
+^bundles/main/net.sf.jame.contextfree/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.contextfree.swing/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.core/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.core.swing/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.launcher/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.launcher.swing/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.mandelbrot.swing/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.media/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.media.swing/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.twister.swing/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.twister/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.runtime.swing/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.runtime/bin$
+syntax: regexp
+^test/main/net.sf.jame.test.contextfree/bin$
+syntax: regexp
+^bundles/experimental/net.sf.jame.devtools.core/bin$
+syntax: regexp
+^bundles/experimental/net.sf.jame.devtools/bin$
+syntax: regexp
+^test/experimental/net.sf.jame.devtools.test/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.mandelbrot/bin$
+syntax: regexp
+^bundles/experimental/net.sf.jame.devtools.mandelbrot/bin$
+syntax: regexp
+^test/main/net.sf.jame.test.mandelbrot/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.service.network/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.service.jxta/bin$
+syntax: regexp
+^test/main/net.sf.jame.test.service.jxta/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.service/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.service.swing/bin$
+syntax: regexp
+^test/main/net.sf.jame.test.service/bin$
+syntax: regexp
+^text/main/net.sf.jame.test.contextfree/bin$
+syntax: regexp
+^test/main/net.sf.jame.test/bin$
+syntax: regexp
+^bundles/experimental/net.sf.jame.devtools.twister/bin$
+syntax: regexp
+^bundles/experimental/net.sf.jame.devtools.contextfree/bin$
+syntax: regexp
+^test/main/net.sf.jame.test.twister/bin$
+syntax: regexp
+^bundles/main/net\.sf\.jame\.service\.encoders/bin$
+syntax: regexp
+^bundles/main/net.sf.jame.launcher.swing/bin$
+syntax: regexp
+^test/main/net\.sf\.jame\.test\.swing/bin$
+syntax: regexp
+^test/main/net\.sf\.jame\.test\.swt/bin$
+
+syntax: regexp
+^bundles/experimental/net\.sf\.jame\.contextfree\.devtools/bin$
+bundles/experimental/net.sf.jame.contextfree.devtools/build

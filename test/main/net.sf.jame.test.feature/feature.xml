@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="net.sf.jame.test.feature"
+      label="Test Feature"
+      version="1.1.0"
+      provider-name="Andrea Medeghini">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.junit4" version="4.3.1" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.core" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.service" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.twister" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.mandelbrot" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.core.swing" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.twister.swing" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.mandelbrot.swing" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.runtime.swing" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.contextfree" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.service.encoders" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.app" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.swt" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.launcher" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.launcher.swing" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.service.network" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="net.sf.jame.service.jxta" version="1.1.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="net.sf.jame.test"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.jame.test.contextfree"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.jame.test.mandelbrot"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.jame.test.service"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.jame.test.twister"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.jame.test.service.jxta"
+         download-size="0"
+         install-size="0"
+         version="1.1.0"
+         unpack="false"/>
+
+</feature>

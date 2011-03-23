@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FreeMarker Plug-in
+Bundle-SymbolicName: org.freemarker;singleton:=true
+Bundle-Version: 2.3.15
+Bundle-Vendor: Andrea Medeghini
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: freemarker.cache;version="2.3.15",
+ freemarker.core;version="2.3.15",
+ freemarker.debug;version="2.3.15",
+ freemarker.debug.impl;version="2.3.15",
+ freemarker.ext.ant;version="2.3.15",
+ freemarker.ext.beans;version="2.3.15",
+ freemarker.ext.dom;version="2.3.15",
+ freemarker.ext.jdom;version="2.3.15",
+ freemarker.ext.jsp;version="2.3.15",
+ freemarker.ext.jython;version="2.3.15",
+ freemarker.ext.rhino;version="2.3.15",
+ freemarker.ext.servlet;version="2.3.15",
+ freemarker.ext.util;version="2.3.15",
+ freemarker.ext.xml;version="2.3.15",
+ freemarker.log;version="2.3.15",
+ freemarker.template;version="2.3.15",
+ freemarker.template.utility;version="2.3.15"
+Bundle-ClassPath: freemarker.jar

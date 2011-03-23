@@ -1,0 +1,6 @@
+=========================================================================
+
+This product includes software developed by Sun Microsystems.
+Copyright (c) 2003-2009 Sun Microsystems, Inc. All Rights Reserved.
+
+=========================================================================
