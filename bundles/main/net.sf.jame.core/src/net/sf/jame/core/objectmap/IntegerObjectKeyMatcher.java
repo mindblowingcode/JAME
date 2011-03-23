@@ -42,7 +42,7 @@ public class IntegerObjectKeyMatcher implements ObjectKeyMatcher<IntegerObjectKe
 	}
 
 	/**
-	 * @see it.trend.lit.studio.core.objectmap.ObjectMatcher#match(java.lang.Object)
+	 * @see net.sf.jame.core.objectmap.ObjectMatcher#match(java.lang.Object)
 	 */
 	public boolean match(final IntegerObjectKey key) {
 		for (int i = 0; i < fields.length; i++) {
