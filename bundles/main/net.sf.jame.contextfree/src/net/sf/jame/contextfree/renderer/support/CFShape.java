@@ -1,38 +1,23 @@
 package net.sf.jame.contextfree.renderer.support;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class CFShape implements Cloneable {
-	private List<CFReplacement> replacements = new ArrayList<CFReplacement>();
-	private CFModification worldState;
-	private String name;
+	private CFModification modification;
+	private int initialShapeType;
 	private double area;
 
-	public CFShape(String name, CFModification worldState) {
-		this.name = name;
-		this.worldState = worldState;
-		area = worldState.getTransform().getDeterminant();
+	public CFShape(int initialShapeType, CFModification modification) {
+		this.modification = modification;
+		this.initialShapeType = initialShapeType;
+		area = modification.getTransform().getDeterminant();
 	}
 
-	public String getName() {
-		return name;
+	public final int getInitialShapeType() {
+		return initialShapeType;
 	}
 
-	public void addReplacement(CFReplacement replacement) {
-		replacements.add(replacement);
-	}
-	
-	public int getReplacementCount() {
-		return replacements.size();
-	}
-	
-	public CFReplacement getReplacement(int index) {
-		return replacements.get(index);
-	}
-	
-	public CFModification getWorldState() {
-		return worldState;
+	public CFModification getModification() {
+		return modification;
 	}
 	
 	public double area() {
@@ -41,10 +26,12 @@ public class CFShape implements Cloneable {
 
 	@Override
 	public CFShape clone() {
-		CFShape s = new CFShape(name, worldState.clone());
-		for (int rep = 0; rep < replacements.size(); rep++) {
-			s.addReplacement(replacements.get(rep));
-		}
+		CFShape s = new CFShape(initialShapeType, modification.clone());
 		return s;
+	}
+
+	public void replace(CFReplacement replacement) {
+		initialShapeType = replacement.getShapeType();
+		modification.add(replacement.getModification());
 	}
 }

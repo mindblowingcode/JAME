@@ -11,7 +11,6 @@ import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElem
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.support.CFModification;
-import net.sf.jame.contextfree.renderer.support.CFReplacement;
 import net.sf.jame.contextfree.renderer.support.CFShape;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;

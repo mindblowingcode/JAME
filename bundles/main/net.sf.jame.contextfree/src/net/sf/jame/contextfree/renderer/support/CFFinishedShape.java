@@ -1,14 +1,14 @@
 package net.sf.jame.contextfree.renderer.support;
 
 public class CFFinishedShape implements Cloneable {
-	private CFModification worldState;
+	private CFModification modification;
 	private CFPathAttributes attributes;
 	private CFPath path;
 
-	public CFFinishedShape(CFPath path, CFPathAttributes attributes, CFModification worldState) {
+	public CFFinishedShape(CFPath path, CFPathAttributes attributes, CFModification modification) {
 		this.path = path;
 		this.attributes = attributes;
-		this.worldState = worldState;
+		this.modification = modification;
 	}
 
 	public CFPathAttributes getAttributes() {
@@ -19,12 +19,12 @@ public class CFFinishedShape implements Cloneable {
 		return path;
 	}
 
-	public CFModification getWorldState() {
-		return worldState;
+	public CFModification getModification() {
+		return modification;
 	}
 	
 	@Override
 	public CFFinishedShape clone() {
-		return new CFFinishedShape(path.clone(), attributes.clone(), worldState.clone());
+		return new CFFinishedShape(path.clone(), attributes.clone(), modification.clone());
 	}
 }

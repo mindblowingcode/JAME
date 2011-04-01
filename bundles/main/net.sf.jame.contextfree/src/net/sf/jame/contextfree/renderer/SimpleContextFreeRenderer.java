@@ -59,7 +59,7 @@ public final class SimpleContextFreeRenderer extends DefaultContextFreeRenderer 
 		ContextFreeContext context = new ContextFreeContext(cfdgRuntime, width, height, 1f, 0.3f);
 		context.registerFigures();
 		CFModification worldState = new CFModification();
-		context.processShape(new CFShape(startshape, worldState));
+//		context.processShape(new CFShape(startshape, worldState));
 		if (logger.isDebugEnabled()) {
 			long elapsed = (System.nanoTime() - time) / 1000000;
 			logger.debug("Build time " + elapsed + "ms");
