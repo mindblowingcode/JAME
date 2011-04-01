@@ -179,24 +179,24 @@ public class ContextFreeContext {
 	}
 
 	public void processShape(CFShape shape) {
-		double area = shape.area();
-		ContextFreeRule rule = ruleMap.get(shape.getName());
-		if (rule != null) {
-			if (!bounds.isValid() || (area * scaleArea >= minArea)) {
-				if (logger.isTraceEnabled()) {
-					logger.trace("Rule " + shape.getName());
-				}
-				rule.process(this, shape);
-			}
-		} else {
-			ContextFreePath path = pathMap.get(shape.getName());
-			if (path != null) {
-				if (logger.isTraceEnabled()) {
-					logger.trace("Path " + shape.getName());
-				}
-				path.process(this, shape);
-			}
-		}
+//		double area = shape.area();
+//		ContextFreeRule rule = ruleMap.get(shape.getName());
+//		if (rule != null) {
+//			if (!bounds.isValid() || (area * scaleArea >= minArea)) {
+//				if (logger.isTraceEnabled()) {
+//					logger.trace("Rule " + shape.getName());
+//				}
+//				rule.process(this, shape);
+//			}
+//		} else {
+//			ContextFreePath path = pathMap.get(shape.getName());
+//			if (path != null) {
+//				if (logger.isTraceEnabled()) {
+//					logger.trace("Path " + shape.getName());
+//				}
+//				path.process(this, shape);
+//			}
+//		}
 	}
 
 	private class PathMap {

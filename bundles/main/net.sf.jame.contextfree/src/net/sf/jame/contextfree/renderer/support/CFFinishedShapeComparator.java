@@ -8,7 +8,7 @@ public class CFFinishedShapeComparator implements Comparator<CFFinishedShape> {
 		if (o1 == o2) {
 			return 0;
 		}
-		float d = o1.getWorldState().getZ() - o2.getWorldState().getZ();
+		float d = o1.getModification().getZ() - o2.getModification().getZ();
 		return d < 0 ? -1 : 1;
 	}
 }

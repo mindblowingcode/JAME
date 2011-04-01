@@ -198,7 +198,7 @@ public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfi
 				shapeAdjustmentRuntime.apply(stateChange);
 			}
 		}
-		shape.addReplacement(new CFReplacement(this.shape, 0, stateChange));
-		context.addUnfinishedShape(shape);
+//		shape.addReplacement(new CFReplacement(this.shape, 0, stateChange));
+//		context.addUnfinishedShape(shape);
 	}
 }

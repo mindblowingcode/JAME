@@ -67,7 +67,7 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 		context.registerFigures();
 
 		CFModification worldState = new CFModification();
-		context.processShape(new CFShape(startshape, worldState));
+//		context.processShape(new CFShape(startshape, worldState));
 		
 		int reportAt = 250;
 		boolean partialDraw = true;
