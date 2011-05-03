@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: FFmpeg4Java Plug-in
 Bundle-SymbolicName: net.sf.ffmpeg4java.win32.x86_64;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.1
 Bundle-Vendor: Andrea Medeghini
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-NativeCode: ffmpeg4java.dll;
