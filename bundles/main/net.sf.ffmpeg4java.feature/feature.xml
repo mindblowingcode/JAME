@@ -2,7 +2,7 @@
 <feature
       id="net.sf.ffmpeg4java.feature"
       label="FFmpeg4Java Feature"
-      version="1.0.0"
+      version="1.0.1"
       provider-name="Andrea Medeghini"
       os="linux,macosx,win32"
       arch="x86,x86_64">
@@ -27,7 +27,7 @@
          id="net.sf.ffmpeg4java"
          download-size="0"
          install-size="0"
-         version="1.0.0"
+         version="1.0.1"
          unpack="false"/>
 
    <plugin
@@ -36,7 +36,7 @@
          arch="x86"
          download-size="0"
          install-size="0"
-         version="1.0.0"
+         version="1.0.1"
          fragment="true"/>
 
    <plugin
@@ -45,7 +45,7 @@
          arch="x86_64"
          download-size="0"
          install-size="0"
-         version="1.0.0"
+         version="1.0.1"
          fragment="true"/>
 
    <plugin
@@ -54,7 +54,7 @@
          arch="x86_64"
          download-size="0"
          install-size="0"
-         version="1.0.0"
+         version="1.0.1"
          fragment="true"/>
 
    <plugin
@@ -63,7 +63,7 @@
          arch="x86"
          download-size="0"
          install-size="0"
-         version="1.0.0"
+         version="1.0.1"
          fragment="true"/>
 
    <plugin
@@ -72,7 +72,7 @@
          arch="x86_64"
          download-size="0"
          install-size="0"
-         version="1.0.0"
+         version="1.0.1"
          fragment="true"/>
 
    <plugin
@@ -81,7 +81,7 @@
          arch="x86"
          download-size="0"
          install-size="0"
-         version="1.0.0"
+         version="1.0.1"
          fragment="true"/>
 
 </feature>
