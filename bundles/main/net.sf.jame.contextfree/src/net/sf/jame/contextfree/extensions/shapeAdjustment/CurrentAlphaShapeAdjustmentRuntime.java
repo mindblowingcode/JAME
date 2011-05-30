@@ -5,6 +5,7 @@
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.support.CFColor;
 import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
@@ -104,7 +105,12 @@ public class CurrentAlphaShapeAdjustmentRuntime extends ShapeAdjustmentExtension
 
 	@Override
 	public void apply(CFModification mod) {
-		mod.addAlpha(value, target);
+		if (target) {
+			mod.getColorTarget().setUseTarget(CFColor.ALPHA_TARGET);
+			mod.getColorTarget().setAlpha(value);
+		} else {
+			mod.getColor().setAlpha(value);
+		}
 	}
 }
 

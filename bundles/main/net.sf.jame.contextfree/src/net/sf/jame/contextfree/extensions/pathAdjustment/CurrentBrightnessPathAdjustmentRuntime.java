@@ -5,6 +5,7 @@
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.support.CFColor;
 import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
@@ -104,6 +105,11 @@ public class CurrentBrightnessPathAdjustmentRuntime extends PathAdjustmentExtens
 
 	@Override
 	public void apply(CFModification mod) {
-		mod.addBrightness(value, target);
+		if (target) {
+			mod.getColorTarget().setUseTarget(CFColor.BRIGHTNESS_TARGET);
+			mod.getColorTarget().setBrightness(value);
+		} else {
+			mod.getColor().setBrightness(value);
+		}
 	}
 }

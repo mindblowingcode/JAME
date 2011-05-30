@@ -82,9 +82,7 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 		    if ((context.getFinishedCount() + context.getToDoCount()) > MAX_SHAPES) {
 		        break;
 		    }
-		    if (!context.executeShape()) {
-		    	break;
-		    }
+		    context.executeShape();
 			if (context.getFinishedCount() > reportAt) {
 				if (partialDraw) {
 					copyOldBuffer();

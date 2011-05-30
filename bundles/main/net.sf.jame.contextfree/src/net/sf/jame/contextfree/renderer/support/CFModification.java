@@ -3,153 +3,96 @@ package net.sf.jame.contextfree.renderer.support;
 import java.awt.geom.AffineTransform;
 
 public class CFModification implements Cloneable {
-	private AffineTransform at;
-	private float[] currentHSBA;
-	private float[] targetHSBA;
-	private float z;
+	private AffineTransform transform;
+	private CFColor color;
+	private CFColor colorTarget;
+	private float sizeZ = 1;
+	private float z = 0;
 
 	public CFModification() {
-		this.at = new AffineTransform();
-		this.currentHSBA = new float[] { 0, 0, 0, 1 };
-		this.targetHSBA = new float[] { 0, 0, 0, 1 };
+		this.transform = new AffineTransform();
+		this.color = new CFColor();
+		this.colorTarget = new CFColor();
 		this.z = 0;
 	}
 
-	public CFModification(AffineTransform at) {
-		this.at = at;
-		this.currentHSBA = new float[] { 0, 0, 0, 1 };
-		this.targetHSBA = new float[] { 0, 0, 0, 1 };
+	public CFModification(AffineTransform transform) {
+		this.transform = transform;
+		this.color = new CFColor();
+		this.colorTarget = new CFColor();
 		this.z = 0;
 	}
 
-	public CFModification(AffineTransform at, float[] currentHSBA, float[] targetHSBA, float z) {
-		this.at = at;
-		this.currentHSBA = currentHSBA;
-		this.targetHSBA = targetHSBA;
+	public CFModification(AffineTransform transform, CFColor color, CFColor colorTarget, float z) {
+		this.transform = transform;
+		this.color = color;
+		this.colorTarget = colorTarget;
 		this.z = z;
 	}
 
 	public void translate(float tx, float ty, float tz) {
-		at.translate(tx, ty);
+		transform.translate(tx, ty);
 		z += tz;
 	}
 
 	public void skew(float sx, float sy) {
-		at.shear(sx, sy);
+		transform.shear(sx, sy);
 	}
 
 	public void scale(float sx, float sy, float sz) {
-		at.scale(sx, sy);
+		transform.scale(sx, sy);
 	}
 
 	public void flip(float a) {
-		at.rotate(-a);
-		at.scale(1, -1);
-		at.rotate(+a);
+		transform.rotate(-a);
+		transform.scale(1, -1);
+		transform.rotate(+a);
 	}
 
 	public void rotate(float a) {
-		at.rotate(a);
+		transform.rotate(a);
 	}
 	
 	public void transform(float[] p, float[] q) {
-		at.transform(p, 0, q, 0, p.length / 2);
+		transform.transform(p, 0, q, 0, p.length / 2);
 	}
 
-	public void addHue(float value, boolean target) {
-		if (target) {
-			currentHSBA[0] += (targetHSBA[0] - currentHSBA[0]) * value;
-		} else {
-			currentHSBA[0] += value;
-		}
-		if (currentHSBA[0] < 0) currentHSBA[0] = 0;
-		if (currentHSBA[0] > 1) currentHSBA[0] = 1;
-	}
-	
-	public void addSaturation(float value, boolean target) {
-		if (target) {
-			currentHSBA[1] += (targetHSBA[1] - currentHSBA[1]) * value;
-		} else {
-			currentHSBA[1] += value;
-		}
-		if (currentHSBA[1] < 0) currentHSBA[1] = 0;
-		if (currentHSBA[1] > 1) currentHSBA[1] = 1;
-	}
-
-	public void addBrightness(float value, boolean target) {
-		if (target) {
-			currentHSBA[2] += (targetHSBA[2] - currentHSBA[2]) * value;
-		} else {
-			currentHSBA[2] += value;
-		}
-		if (currentHSBA[2] < 0) currentHSBA[2] = 0;
-		if (currentHSBA[2] > 1) currentHSBA[2] = 1;
-	}
-
-	public void addAlpha(float value, boolean target) {
-		if (target) {
-			currentHSBA[3] += (targetHSBA[3] - currentHSBA[3]) * value;
-		} else {
-			currentHSBA[3] += value;
-		}
-		if (currentHSBA[3] < 0) currentHSBA[3] = 0;
-		if (currentHSBA[3] > 1) currentHSBA[3] = 1;
-	}
-
-	public void addTargetHue(float value) {
-		targetHSBA[0] += value;
-		if (targetHSBA[0] < 0) targetHSBA[0] = 0;
-		if (targetHSBA[0] > 1) targetHSBA[0] = 1;
-	}
-	
-	public void addTargetSaturation(float value) {
-		targetHSBA[1] += value;
-		if (targetHSBA[1] < 0) targetHSBA[1] = 0;
-		if (targetHSBA[1] > 1) targetHSBA[1] = 1;
-	}
-
-	public void addTargetBrightness(float value) {
-		targetHSBA[2] += value;
-		if (targetHSBA[2] < 0) targetHSBA[2] = 0;
-		if (targetHSBA[2] > 1) targetHSBA[2] = 1;
-	}
-
-	public void addTargetAlpha(float value) {
-		targetHSBA[3] += value;
-		if (targetHSBA[3] < 0) targetHSBA[3] = 0;
-		if (targetHSBA[3] > 1) targetHSBA[3] = 1;
-	}
-	
-	public float[] getHSBA() {
-		return currentHSBA;
-	}
-	
 	public AffineTransform getTransform() {
-		return at;
+		return transform;
 	}
 
 	public float getZ() {
 		return z;
 	}
+	
+	public CFColor getColor() {
+		return color;
+	}
+	
+	public CFColor getColorTarget() {
+		return colorTarget;
+	}
 
 	@Override
 	public CFModification clone() {
-		CFModification mod = new CFModification((AffineTransform) at.clone());
-		mod.currentHSBA[0] = currentHSBA[0];
-		mod.currentHSBA[1] = currentHSBA[1];
-		mod.currentHSBA[2] = currentHSBA[2];
-		mod.currentHSBA[3] = currentHSBA[3];
-		mod.targetHSBA[0] = targetHSBA[0];
-		mod.targetHSBA[1] = targetHSBA[1];
-		mod.targetHSBA[2] = targetHSBA[2];
-		mod.targetHSBA[3] = targetHSBA[3];
-		return mod;
+		CFModification modification = new CFModification((AffineTransform) transform.clone());
+		modification.color = color.clone();
+		modification.colorTarget = colorTarget.clone();
+		modification.z = z;
+		modification.sizeZ = sizeZ;
+		return modification;
 	}
 
-	public void add(CFModification modification) {
-		at.concatenate(modification.at);
-		System.arraycopy(modification.currentHSBA, 0, currentHSBA, 0, 4);
-		System.arraycopy(modification.targetHSBA, 0, targetHSBA, 0, 4);
-		z += modification.z;
+	public void concatenate(CFModification modification) {
+		transform.preConcatenate(modification.transform);
+		z += modification.z * sizeZ;
+		sizeZ *= modification.sizeZ;
+		color.adjustWith(modification.color, colorTarget);
+		colorTarget.adjustWith(modification.colorTarget, colorTarget);
+	}
+
+	@Override
+	public String toString() {
+		return "CFModification [transform=" + transform + ", color=" + color + ", colorTarget=" + colorTarget + ", z=" + z + ", sizeZ=" + sizeZ + "]";
 	}
 }

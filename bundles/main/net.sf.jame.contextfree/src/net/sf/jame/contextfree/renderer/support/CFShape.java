@@ -1,6 +1,5 @@
 package net.sf.jame.contextfree.renderer.support;
 
-
 public class CFShape implements Cloneable {
 	private CFModification modification;
 	private int initialShapeType;
@@ -26,12 +25,17 @@ public class CFShape implements Cloneable {
 
 	@Override
 	public CFShape clone() {
-		CFShape s = new CFShape(initialShapeType, modification.clone());
-		return s;
+		return new CFShape(initialShapeType, modification.clone());
 	}
 
-	public void replace(CFReplacement replacement) {
+	public void concatenate(CFReplacement replacement) {
 		initialShapeType = replacement.getShapeType();
-		modification.add(replacement.getModification());
+		modification.concatenate(replacement.getModification());
+		area = modification.getTransform().getDeterminant();
+	}
+
+	@Override
+	public String toString() {
+		return "CFShape [initialShapeType=" + initialShapeType + ", modification=" + modification + ", area=" + area + "]";
 	}
 }

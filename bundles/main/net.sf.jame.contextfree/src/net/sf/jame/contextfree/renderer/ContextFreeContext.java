@@ -144,7 +144,7 @@ public class ContextFreeContext {
 	}
 
 	public void addModification(CFModification modification) {
-		currentModification.add(modification);
+		currentModification.concatenate(modification);
 	}
 
 	public void popModification() {
@@ -167,36 +167,10 @@ public class ContextFreeContext {
 		Collections.sort(finishedSet, new CFFinishedShapeComparator());
 	}
 
-	public boolean executeShape() {
-		if (unfinishedSet.size() > 0) {
-			CFShape shape = unfinishedSet.remove(0);
-			if (Double.isInfinite(shape.area())) {
-				return false;
-			}
-			processShape(shape);
-		}
-		return true;
+	public void executeShape() {
 	}
 
 	public void processShape(CFShape shape) {
-//		double area = shape.area();
-//		ContextFreeRule rule = ruleMap.get(shape.getName());
-//		if (rule != null) {
-//			if (!bounds.isValid() || (area * scaleArea >= minArea)) {
-//				if (logger.isTraceEnabled()) {
-//					logger.trace("Rule " + shape.getName());
-//				}
-//				rule.process(this, shape);
-//			}
-//		} else {
-//			ContextFreePath path = pathMap.get(shape.getName());
-//			if (path != null) {
-//				if (logger.isTraceEnabled()) {
-//					logger.trace("Path " + shape.getName());
-//				}
-//				path.process(this, shape);
-//			}
-//		}
 	}
 
 	private class PathMap {
