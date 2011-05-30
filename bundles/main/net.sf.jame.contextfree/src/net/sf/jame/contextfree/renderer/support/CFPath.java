@@ -5,12 +5,11 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Composite;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
-
-import net.sf.jame.contextfree.renderer.ContextFreeBounds;
 
 public class CFPath implements Cloneable {
 	private ExtendedGeneralPath path;
@@ -169,22 +168,33 @@ public class CFPath implements Cloneable {
 		path.closePath();
 	}
 
-	public void bounds(ContextFreeBounds bounds) {
+	public void bounds(CFBounds bounds) {
 		ExtendedGeneralPath path = generalPath();
 		Rectangle2D pathBounds = path.getBounds2D();
-		bounds.addPoint(pathBounds.getMinX(), pathBounds.getMinY());
-		bounds.addPoint(pathBounds.getMaxX(), pathBounds.getMaxY());
+		bounds.setMinX(pathBounds.getMinX());
+		bounds.setMinY(pathBounds.getMinY());
+		bounds.setMaxX(pathBounds.getMaxX());
+		bounds.setMaxY(pathBounds.getMaxY());
 	}
 
-	public void fill(Graphics2D g2d, CFModification mod, int rule) {
-		Color color = Color.getHSBColor(mod.getHSBA()[0], mod.getHSBA()[1], mod.getHSBA()[2]);
-		Composite composite = AlphaComposite.Src.derive(mod.getHSBA()[3]);
+	public void render(Graphics2D g2d, CFPathAttribute attribute) {
+		if (attribute.getCommand().equals(CFPathCommand.FILL)) {
+			fill(g2d, attribute.getModification(), attribute.getWindingRule());
+		} else {
+			draw(g2d, attribute.getModification(), attribute.getStroke());
+		}
+	}
+
+	private void fill(Graphics2D g2d, CFModification modification, int rule) {
+		CFColor c = modification.getColor();
+		Color color = Color.getHSBColor(c.getHue() / 360, c.getSaturation(), c.getBrightness());
+		Composite composite = AlphaComposite.Src.derive(c.getAlpha());
 		AffineTransform tmpTransform = g2d.getTransform();
 		Composite tmpComposite = g2d.getComposite();
 		Color tmpColor = g2d.getColor();
 		g2d.setComposite(composite);
 		g2d.setColor(color);
-		g2d.transform(mod.getTransform());
+		g2d.transform(modification.getTransform());
 		path.setWindingRule(rule);
 		g2d.fill(path);
 		g2d.setTransform(tmpTransform);
@@ -192,9 +202,10 @@ public class CFPath implements Cloneable {
 		g2d.setColor(tmpColor);
 	}
 
-	public void draw(Graphics2D g2d, CFModification mod, BasicStroke stroke) {
-		Color color = Color.getHSBColor(mod.getHSBA()[0], mod.getHSBA()[1], mod.getHSBA()[2]);
-		Composite composite = AlphaComposite.Src.derive(mod.getHSBA()[3]);
+	private void draw(Graphics2D g2d, CFModification modification, BasicStroke stroke) {
+		CFColor c = modification.getColor();
+		Color color = Color.getHSBColor(c.getHue() / 360, c.getSaturation(), c.getBrightness());
+		Composite composite = AlphaComposite.Src.derive(c.getAlpha());
 		AffineTransform tmpTransform = g2d.getTransform();
 		Composite tmpComposite = g2d.getComposite();
 		Stroke tmpStroke = g2d.getStroke();
@@ -202,7 +213,7 @@ public class CFPath implements Cloneable {
 		g2d.setComposite(composite);
 		g2d.setStroke(stroke);
 		g2d.setColor(color);
-		g2d.transform(mod.getTransform());
+		g2d.transform(modification.getTransform());
 		g2d.draw(path);
 		g2d.setTransform(tmpTransform);
 		g2d.setComposite(tmpComposite);
@@ -227,5 +238,18 @@ public class CFPath implements Cloneable {
 		p.x1 = x1;
 		p.y1 = y1;
 		return p;
+	}
+
+	public Rectangle2D getBounds(AffineTransform transform, float scale) {
+		AffineTransform t = new AffineTransform();
+		t.concatenate(transform);
+		t.scale(scale, scale);
+		Shape shape = path.createTransformedShape(transform);
+		return shape.getBounds2D();
+	}
+	
+	public String toString() {
+		ExtendedGeneralPath path = generalPath();
+		return "CFPath [bounds=" + path.getBounds2D().toString() + "]";
 	}
 }

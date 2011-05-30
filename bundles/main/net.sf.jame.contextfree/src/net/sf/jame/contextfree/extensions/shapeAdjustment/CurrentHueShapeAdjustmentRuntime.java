@@ -5,6 +5,7 @@
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.support.CFColor;
 import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
@@ -104,7 +105,12 @@ public class CurrentHueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRu
 
 	@Override
 	public void apply(CFModification mod) {
-		mod.addHue(value, target);
+		if (target) {
+			mod.getColorTarget().setUseTarget(CFColor.HUE_TARGET);
+			mod.getColorTarget().setHue(value);
+		} else {
+			mod.getColor().setHue(value);
+		}
 	}
 }
 

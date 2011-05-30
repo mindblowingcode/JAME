@@ -5,6 +5,7 @@
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.renderer.support.CFColor;
 import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
@@ -67,6 +68,7 @@ public class TargetSaturationPathAdjustmentRuntime extends PathAdjustmentExtensi
 
 	@Override
 	public void apply(CFModification mod) {
-		mod.addTargetSaturation(value);
+		mod.getColorTarget().setUseTarget(CFColor.SATURATION_TARGET);
+		mod.getColorTarget().setSaturation(value);
 	}
 }
