@@ -50,7 +50,7 @@ public class CFModification implements Cloneable {
 	}
 
 	public void rotate(float a) {
-		transform.rotate(a);
+		transform.rotate(-a);
 	}
 	
 	public void transform(float[] p, float[] q) {

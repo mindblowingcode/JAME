@@ -287,9 +287,9 @@ public class TestCFContext {
 		System.out.println("shapeTypeA = " + shapeTypeA);
 		CFRule ruleA = new CFRule(shapeTypeA, 1);
 		CFModification modificationA = new CFModification();
-		modificationA.scale(0.95f, 0.95f, 1.0f);
-		modificationA.translate(1.5f, 0f, 0f);
-		modificationA.rotate((float) (4f / 180f * Math.PI));
+		modificationA.scale(0.8f, 0.8f, 1.0f);
+		modificationA.translate(2.5f, 0f, 0f);
+		modificationA.rotate((float) (10f / 180f * Math.PI));
 		modificationA.getColor().setBrightness(0.1f);
 		CFModification modificationB = new CFModification();
 		modificationB.getColor().setHue(100);
@@ -299,7 +299,7 @@ public class TestCFContext {
 		ruleA.addReplacement(new CFReplacement(shapeTypeA, 0, modificationA));
 		context.addRule(ruleA);
 		context.reloadRules();
-		context.setTiled(AffineTransform.getScaleInstance(15, 15), 1, 1);
+		context.setTiled(AffineTransform.getScaleInstance(4, 4), 1, 1);
 		render(shapeTypeA, new Exception().getStackTrace()[0].getMethodName());
 	}
 

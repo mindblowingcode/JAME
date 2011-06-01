@@ -108,8 +108,14 @@ public class CFRenderer {
 		double d = Math.max(bounds.getSizeX(), bounds.getSizeY());
 		g2d.scale(1 / d, 1 / d);
 		g2d.translate(-bounds.getCenterX(), -bounds.getCenterY());
+		CFShapeRenderer render = null;
+		if (context.isTiled()) {
+			render = new TiledShapeRenderer(g2d, context, width, height);
+		} else {
+			render = new SimpleShapeRenderer(g2d, context, width, height);
+		}
 		for (CFFinishedShape shape : finishedSet) {
-			shape.render(g2d);
+			shape.render(render);
 			if (Thread.currentThread().isInterrupted()) {
 				break;
 			}

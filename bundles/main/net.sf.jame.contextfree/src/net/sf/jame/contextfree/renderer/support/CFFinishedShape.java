@@ -1,8 +1,5 @@
 package net.sf.jame.contextfree.renderer.support;
 
-import java.awt.Graphics2D;
-
-
 public class CFFinishedShape implements Cloneable, Comparable<CFFinishedShape> {
 	private CFPath path;
 	private CFPathAttribute attribute;
@@ -39,8 +36,8 @@ public class CFFinishedShape implements Cloneable, Comparable<CFFinishedShape> {
 		return "CFFinishedShape [path=" + path + ", attribute=" + attribute + ", cumulativeArea=" + cumulativeArea + "]";
 	}
 
-	public void render(Graphics2D g2d) {
-		path.render(g2d, attribute);
+	public void render(CFShapeRenderer renderer) {
+		renderer.render(path, attribute);
 	}
 
 	public double area() {
