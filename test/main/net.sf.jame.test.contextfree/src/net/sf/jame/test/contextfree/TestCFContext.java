@@ -359,7 +359,7 @@ public class TestCFContext {
         renderer.render(g2d);
         g2d.dispose();
         try {
-			ImageIO.write(image, "png", new File("test-" + suffix + ".png"));
+			ImageIO.write(image, "png", new File("output/test-" + suffix + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
