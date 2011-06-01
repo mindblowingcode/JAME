@@ -4,7 +4,7 @@ background { b 1 }
 //size { s 2 1.2 }
 rule Foo 1 {
 	SQUARE { size 1 1 x 1.5 y 0 }
-	Foo { s 0.5 }
+	Foo { s 0.5 x 2 }
 /*	CIRCLE { x 2  y 1 }
 	CIRCLE { x 1  y 0 }
 	SQUARE { x 0 }
