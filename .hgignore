@@ -73,3 +73,6 @@ syntax: regexp
 syntax: regexp
 ^bundles/experimental/net\.sf\.jame\.contextfree\.devtools/bin$
 bundles/experimental/net.sf.jame.contextfree.devtools/build
+
+syntax: regexp
+^test/main/net\.sf\.jame\.test\.contextfree/output$
