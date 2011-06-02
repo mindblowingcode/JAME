@@ -17,13 +17,20 @@ public class CFContext {
 	private CFShape initialShape;
 	private boolean sized;
 	private boolean tiled;
+	private int loopStartShapeType;
+	private int loopEndShapeType;
 
+	public CFContext() {
+		loopStartShapeType = encodeShapeName("~~LOOPSTART~~");
+		loopEndShapeType = encodeShapeName("~~LOOPEND~~");
+	}
+	
 	public CFColor getBackground() {
 		return background;
 	}
 
 	public void setBackground(CFColor background) {
-		if (background == null) {
+		if (this.background == null) {
 			this.background = background;
 		}
 	}
@@ -197,5 +204,13 @@ public class CFContext {
 			return shapeTypes.get(shapeType);
 		}
 		return null;
+	}
+
+	public int getLoopStartShapeType() {
+		return loopStartShapeType;
+	}
+
+	public int getLoopEndShapeType() {
+		return loopEndShapeType;
 	}
 }

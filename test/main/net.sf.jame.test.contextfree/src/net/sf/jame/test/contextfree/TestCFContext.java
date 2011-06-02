@@ -35,11 +35,11 @@ public class TestCFContext {
 
 	@Test
 	public void findRule() {
-		Assert.assertEquals(0, shapeTypeCircle);
-		Assert.assertEquals(1, shapeTypeSquare);
-		Assert.assertEquals(2, shapeTypeTriangle);
-		Assert.assertEquals(3, shapeTypeLoopStart);
-		Assert.assertEquals(4, shapeTypeLoopEnd);
+		Assert.assertEquals(0, shapeTypeLoopStart);
+		Assert.assertEquals(1, shapeTypeLoopEnd);
+		Assert.assertEquals(2, shapeTypeCircle);
+		Assert.assertEquals(3, shapeTypeSquare);
+		Assert.assertEquals(4, shapeTypeTriangle);
 		int shapeTypeA = context.encodeShapeName("A");
 		System.out.println("shapeTypeA = " + shapeTypeA);
 		int shapeTypeB = context.encodeShapeName("B");
@@ -89,7 +89,7 @@ public class TestCFContext {
 		CFModification modificationA = new CFModification();
 		modificationA.scale(0.95f, 0.95f, 1.0f);
 		modificationA.translate(1.5f, 0f, 0f);
-		modificationA.rotate((float) (4f / 180f * Math.PI));
+		modificationA.rotate(4f);
 		modificationA.getColor().setBrightness(0.1f);
 		CFModification modificationB = new CFModification();
 		modificationB.getColor().setHue(100);
@@ -110,7 +110,7 @@ public class TestCFContext {
 		CFModification modificationA = new CFModification();
 		modificationA.scale(0.95f, 0.95f, 1.0f);
 		modificationA.translate(1.5f, 0f, 0f);
-		modificationA.rotate((float) (4f / 180f * Math.PI));
+		modificationA.rotate(4f);
 		modificationA.getColor().setBrightness(0.1f);
 		CFModification modificationB = new CFModification();
 		modificationB.getColor().setHue(100);
@@ -132,7 +132,7 @@ public class TestCFContext {
 		CFModification modificationA = new CFModification();
 		modificationA.scale(0.95f, 0.95f, 1.0f);
 		modificationA.translate(1.5f, 0f, 0f);
-		modificationA.rotate((float) (4f / 180f * Math.PI));
+		modificationA.rotate(4f);
 		modificationA.getColor().setBrightness(0.1f);
 		CFModification modificationB = new CFModification();
 		modificationB.getColor().setHue(100);
@@ -267,7 +267,7 @@ public class TestCFContext {
 		CFModification modificationA = new CFModification();
 		modificationA.scale(0.95f, 0.95f, 1.0f);
 		modificationA.translate(1.5f, 0f, 0f);
-		modificationA.rotate((float) (4f / 180f * Math.PI));
+		modificationA.rotate(4f);
 		modificationA.getColor().setBrightness(0.1f);
 		CFModification modificationB = new CFModification();
 		modificationB.getColor().setHue(100);
@@ -289,7 +289,7 @@ public class TestCFContext {
 		CFModification modificationA = new CFModification();
 		modificationA.scale(0.8f, 0.8f, 1.0f);
 		modificationA.translate(2.5f, 0f, 0f);
-		modificationA.rotate((float) (10f / 180f * Math.PI));
+		modificationA.rotate(10f);
 		modificationA.getColor().setBrightness(0.1f);
 		CFModification modificationB = new CFModification();
 		modificationB.getColor().setHue(100);
@@ -311,7 +311,7 @@ public class TestCFContext {
 		CFModification modificationA = new CFModification();
 		modificationA.scale(0.95f, 0.95f, 1.0f);
 		modificationA.translate(1.5f, 0f, 0f);
-		modificationA.rotate((float) (4f / 180f * Math.PI));
+		modificationA.rotate(4f);
 		modificationA.getColor().setBrightness(0.1f);
 		CFModification modificationB = new CFModification();
 		modificationB.getColor().setHue(100);
@@ -326,7 +326,7 @@ public class TestCFContext {
 	}
 
 	private void render(int initialShapeType, String suffix) {
-		CFRenderer renderer = new CFRenderer(context, 1, 640, 480, 1f, 0.01f);
+		CFRenderer renderer = new CFRenderer(context, 1, 640, 480, 10f, 0.01f);
 		CFModification worldState = new CFModification();
 		boolean partialDraw = true;
 		int reportAt = 250;
@@ -353,8 +353,6 @@ public class TestCFContext {
         renderer.dump();
         BufferedImage image = new BufferedImage(640, 480, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = image.createGraphics();
-        g2d.translate(320, 240);
-        g2d.scale(400, 400);
         prepare(g2d);
         renderer.render(g2d);
         g2d.dispose();

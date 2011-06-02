@@ -4,14 +4,13 @@
  */
 package net.sf.jame.contextfree.extensions.shapeReplacement;
 
-
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.support.CFBuilder;
 import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.contextfree.renderer.support.CFReplacement;
-import net.sf.jame.contextfree.renderer.support.CFShape;
+import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -190,7 +189,7 @@ public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfi
 		}
 	}
 	
-	public void process(ContextFreeContext context, CFShape shape) {
+	public void process(CFBuilder builder, CFRule rule) {
 		if (stateChange == null) {
 			stateChange = new CFModification();
 			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
@@ -198,7 +197,7 @@ public class SingleShapeReplacementRuntime<T extends SingleShapeReplacementConfi
 				shapeAdjustmentRuntime.apply(stateChange);
 			}
 		}
-//		shape.addReplacement(new CFReplacement(this.shape, 0, stateChange));
-//		context.addUnfinishedShape(shape);
+		int shapeType = builder.encodeShapeName(shape);
+		rule.addReplacement(new CFReplacement(shapeType, 0, stateChange));
 	}
 }

@@ -19,16 +19,24 @@ public class CFPathAttribute implements Cloneable {
 		this.command = command;
 	}
 
-	public CFPathAttribute(CFPathCommand command, String ruleParam) {
+	public CFPathAttribute(CFPathCommand command, CFModification modification, String ruleParam) {
 		this.command = command;
 		this.windRule = getRule(ruleParam);
+		this.modification = modification;
 	}
 
-	public CFPathAttribute(CFPathCommand command, String capParam, String joinParam, float lineWidth) {
+	public CFPathAttribute(CFPathCommand command, CFModification modification, String capParam, String joinParam, float lineWidth) {
 		this.command = command;
 		this.lineCap = getCap(capParam);
 		this.lineJoin = getJoin(joinParam);
 		this.lineWidth = lineWidth;
+		this.modification = modification;
+	}
+
+	public CFPathAttribute(CFPathCommand command, CFModification modification, int count) {
+		this.command = command;
+		this.count = count;
+		this.modification = modification;
 	}
 
 	private int getRule(String rule) {
@@ -73,82 +81,58 @@ public class CFPathAttribute implements Cloneable {
 		return command;
 	}
 
-	public void setCommand(CFPathCommand command) {
-		this.command = command;
-	}
-
-	public void setWindingRule(String ruleParam) {
-		windRule = getRule(ruleParam);
-	}
-
 	public int getWindingRule() {
 		return windRule;
 	}
 	
-	public void setLineCap(String capParam) {
-		lineCap = getCap(capParam);
-		stroke = null;
-	}
-
 	public int getLineCap() {
 		return lineCap;
 	}
 	
-	public void setLineJoin(String joinParam) {
-		lineJoin = getJoin(joinParam);
-		stroke = null;
-	}
-
 	public int getLineJoin() {
 		return lineJoin;
-	}
-	
-	public void setLineWidth(float lineWidth) {
-		this.lineWidth = lineWidth;
-		stroke = null;
 	}
 	
 	public float getLineWidth() {
 		return lineWidth;
 	}
-
-	@Override
-	public CFPathAttribute clone() {
-		CFPathAttribute pa = new CFPathAttribute(command);
-		pa.stroke = stroke;
-		pa.windRule = windRule;
-		pa.lineCap = lineCap;
-		pa.lineJoin = lineJoin;
-		pa.lineWidth = lineWidth;
-		return pa;
-	}
-
+	
 	public int getCount() {
 		return count;
 	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
+	
 	public CFModification getModification() {
 		return modification;
 	}
-
-	public void setModification(CFModification modification) {
-		this.modification = modification;
-	}
-
+	
 	public double area() {
-		return modification.getTransform().getDeterminant();
+		return Math.abs(modification.getTransform().getDeterminant());
 	}
-
+	
 	public Point2D getCentroid() {
 		return centroid;
 	}
 
 	@Override
+	public CFPathAttribute clone() {
+		CFPathAttribute pa = new CFPathAttribute(command);
+		pa.centroid = centroid;
+		pa.count = count;
+		pa.stroke = stroke;
+		pa.windRule = windRule;
+		pa.lineCap = lineCap;
+		pa.lineJoin = lineJoin;
+		pa.lineWidth = lineWidth;
+		pa.modification = modification.clone();
+		return pa;
+	}
+
+	@Override
 	public String toString() {
 		return "CFPathAttribute [command=" + command + ", count=" + count + ", modification=" + modification + ", centroid=" + centroid + ", lineCap=" + lineCap + ", lineJoin=" + lineJoin + ", lineWidth=" + lineWidth + ", windRule=" + windRule + "]";
+	}
+
+	public void setModification(CFModification modification) {
+		this.modification = modification;
 	}
 }

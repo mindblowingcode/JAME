@@ -5,7 +5,6 @@
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.renderer.support.CFColor;
 import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
@@ -68,7 +67,6 @@ public class TargetHuePathAdjustmentRuntime extends PathAdjustmentExtensionRunti
 
 	@Override
 	public void apply(CFModification mod) {
-		mod.getColorTarget().setUseTarget(CFColor.HUE_TARGET);
 		mod.getColorTarget().setHue(value);
 	}
 }

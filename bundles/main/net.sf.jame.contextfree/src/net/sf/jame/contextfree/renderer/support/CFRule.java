@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CFRule extends CFRuleSpecifier {
 	private CFPath path;
-	private CFPathAttributes attributes;
+	private List<CFPathAttribute> attributes = new ArrayList<CFPathAttribute>();
 	private List<CFReplacement> replacements = new ArrayList<CFReplacement>();
 	
 	public CFRule(int initialShapeType, double weight) {
@@ -24,14 +24,6 @@ public class CFRule extends CFRuleSpecifier {
 		this.path = path;
 	}
 
-	public CFPathAttributes getPathAttributes() {
-		return attributes;
-	}
-
-	public void setPathAttributes(CFPathAttributes attributes) {
-		this.attributes = attributes;
-	}
-
 	public void addReplacement(CFReplacement replacement) {
 		replacements.add(replacement);
 	}
@@ -46,6 +38,22 @@ public class CFRule extends CFRuleSpecifier {
 	
 	public int getReplacementCount() {
 		return replacements.size();
+	}
+
+	public void addAttribute(CFPathAttribute attribute) {
+		attributes.add(attribute);
+	}
+	
+	public void removeAttribute(CFPathAttribute attribute) {
+		attributes.remove(attribute);
+	}
+	
+	public CFPathAttribute getAttribute(int index) {
+		return attributes.get(index);
+	}
+	
+	public int getAttributeCount() {
+		return attributes.size();
 	}
 
 	public void setWeight(double weight) {

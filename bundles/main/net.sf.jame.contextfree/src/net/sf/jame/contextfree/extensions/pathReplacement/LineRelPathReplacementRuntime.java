@@ -5,8 +5,7 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.support.CFPath;
+import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
@@ -103,7 +102,7 @@ public class LineRelPathReplacementRuntime extends PathReplacementExtensionRunti
 		}
 	}
 
-	public void process(ContextFreeContext context, CFPath path) {
-		path.lineRel(x, y);
+	public void process(CFRule rule) {
+		rule.getPath().lineRel(x, y);
 	}
 }

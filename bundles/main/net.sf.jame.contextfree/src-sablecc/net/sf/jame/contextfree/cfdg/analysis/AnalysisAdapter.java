@@ -2,7 +2,8 @@
 
 package net.sf.jame.contextfree.cfdg.analysis;
 
-import java.util.*;
+import java.util.Hashtable;
+
 import net.sf.jame.contextfree.cfdg.node.*;
 
 public class AnalysisAdapter implements Analysis

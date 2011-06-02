@@ -36,7 +36,9 @@ public class CFModification implements Cloneable {
 	}
 
 	public void skew(float sx, float sy) {
-		transform.shear(sx, sy);
+		double rsx = Math.toRadians(sx); 
+		double rsy = Math.toRadians(sy); 
+		transform.shear(rsx, rsy);
 	}
 
 	public void scale(float sx, float sy, float sz) {
@@ -44,13 +46,15 @@ public class CFModification implements Cloneable {
 	}
 
 	public void flip(float a) {
-		transform.rotate(-a);
+		double ra = Math.toRadians(a); 
+		transform.rotate(+ra);
 		transform.scale(1, -1);
-		transform.rotate(+a);
+		transform.rotate(-ra);
 	}
 
 	public void rotate(float a) {
-		transform.rotate(-a);
+		double ra = Math.toRadians(a); 
+		transform.rotate(ra);
 	}
 	
 	public void transform(float[] p, float[] q) {
@@ -84,7 +88,7 @@ public class CFModification implements Cloneable {
 	}
 
 	public void concatenate(CFModification modification) {
-		transform.preConcatenate(modification.transform);
+		transform.concatenate(modification.transform);
 		z += modification.z * sizeZ;
 		sizeZ *= modification.sizeZ;
 		color.adjustWith(modification.color, colorTarget);

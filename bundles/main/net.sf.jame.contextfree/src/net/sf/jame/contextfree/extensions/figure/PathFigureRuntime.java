@@ -7,9 +7,8 @@ package net.sf.jame.contextfree.extensions.figure;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreePath;
-import net.sf.jame.contextfree.renderer.support.CFShape;
+import net.sf.jame.contextfree.renderer.support.CFBuilder;
+import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -19,7 +18,7 @@ import net.sf.jame.core.config.ValueConfigElement;
 /**
  * @author Andrea Medeghini
  */
-public class PathFigureRuntime extends FigureExtensionRuntime<PathFigureConfig> implements ContextFreePath {
+public class PathFigureRuntime extends FigureExtensionRuntime<PathFigureConfig> {
 	private String name;
 	private NameListener nameListener;
 	private ListRuntimeElement<PathReplacementRuntimeElement> pathReplacementListElement;
@@ -187,16 +186,13 @@ public class PathFigureRuntime extends FigureExtensionRuntime<PathFigureConfig> 
 		}
 	}
 
-	public void register(ContextFreeContext context) {
-		context.registerPath(this);
-	}
-
-	public void process(ContextFreeContext context, CFShape shape) {
-//		ContextFreeState newState = state.clone();
-//		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
-//			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
-//			pathReplacementRuntime.createShapes(context, newState, globalBounds, shapeBounds);
-//		}
-//		context.addShape(new FlushPathShape(state));
+	public void process(CFBuilder builder) {
+		int shapeType = builder.encodeShapeName(name);
+		CFRule rule = new CFRule(shapeType, 1);
+		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
+			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
+			pathReplacementRuntime.process(rule);
+		}
+		builder.addRule(rule);
 	}
 }

@@ -4,8 +4,8 @@
  */
 package net.sf.jame.contextfree.cfdg.shapeReplacement.extension;
 
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.support.CFShape;
+import net.sf.jame.contextfree.renderer.support.CFBuilder;
+import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
 
 /**
@@ -15,5 +15,5 @@ public abstract class ShapeReplacementExtensionRuntime<T extends ShapeReplacemen
 	/**
 	 * @param context
 	 */
-	public abstract void process(ContextFreeContext context, CFShape shape);
+	public abstract void process(CFBuilder context, CFRule rule);
 }

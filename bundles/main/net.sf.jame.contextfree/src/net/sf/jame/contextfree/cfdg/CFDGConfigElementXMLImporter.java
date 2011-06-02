@@ -5,7 +5,7 @@
 package net.sf.jame.contextfree.cfdg;
 
 import java.util.List;
-import net.sf.jame.contextfree.cfdg.CFDGConfigElement;
+
 import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
 import net.sf.jame.contextfree.cfdg.figure.FigureConfigElementXMLImporter;
 import net.sf.jame.core.common.BooleanElement;
@@ -19,6 +19,7 @@ import net.sf.jame.core.common.StringElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
+
 import org.w3c.dom.Element;
 
 /**

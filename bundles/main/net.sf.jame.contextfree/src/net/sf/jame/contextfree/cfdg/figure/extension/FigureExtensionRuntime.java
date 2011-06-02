@@ -4,7 +4,7 @@
  */
 package net.sf.jame.contextfree.cfdg.figure.extension;
 
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.support.CFBuilder;
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
 
 /**
@@ -14,5 +14,5 @@ public abstract class FigureExtensionRuntime<T extends FigureExtensionConfig> ex
 	/**
 	 * @param context 
 	 */
-	public abstract void register(ContextFreeContext context);
+	public abstract void process(CFBuilder context);
 }

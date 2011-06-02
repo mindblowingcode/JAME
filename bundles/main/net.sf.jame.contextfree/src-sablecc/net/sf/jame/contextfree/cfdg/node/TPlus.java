@@ -2,7 +2,7 @@
 
 package net.sf.jame.contextfree.cfdg.node;
 
-import net.sf.jame.contextfree.cfdg.analysis.*;
+import net.sf.jame.contextfree.cfdg.analysis.Analysis;
 
 @SuppressWarnings("nls")
 public final class TPlus extends Token

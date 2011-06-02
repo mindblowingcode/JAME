@@ -5,7 +5,6 @@
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
 import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.renderer.support.CFColor;
 import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
@@ -68,7 +67,6 @@ public class TargetBrightnessShapeAdjustmentRuntime extends ShapeAdjustmentExten
 
 	@Override
 	public void apply(CFModification mod) {
-		mod.getColorTarget().setUseTarget(CFColor.BRIGHTNESS_TARGET);
 		mod.getColorTarget().setBrightness(value);
 	}
 }

@@ -106,11 +106,9 @@ public class CurrentHueShapeAdjustmentRuntime extends ShapeAdjustmentExtensionRu
 	@Override
 	public void apply(CFModification mod) {
 		if (target) {
-			mod.getColorTarget().setUseTarget(CFColor.HUE_TARGET);
-			mod.getColorTarget().setHue(value);
-		} else {
-			mod.getColor().setHue(value);
+			mod.getColor().setUseTarget(CFColor.HUE_TARGET);
 		}
+		mod.getColor().setHue(value);
 	}
 }
 
