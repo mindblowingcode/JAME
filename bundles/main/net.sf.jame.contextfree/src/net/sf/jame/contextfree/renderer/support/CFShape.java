@@ -8,7 +8,7 @@ public class CFShape implements Cloneable {
 	public CFShape(int initialShapeType, CFModification modification) {
 		this.modification = modification;
 		this.initialShapeType = initialShapeType;
-		area = modification.getTransform().getDeterminant();
+		area = Math.abs(modification.getTransform().getDeterminant());
 	}
 
 	public final int getInitialShapeType() {
@@ -31,7 +31,7 @@ public class CFShape implements Cloneable {
 	public void concatenate(CFReplacement replacement) {
 		initialShapeType = replacement.getShapeType();
 		modification.concatenate(replacement.getModification());
-		area = modification.getTransform().getDeterminant();
+		area = Math.abs(modification.getTransform().getDeterminant());
 	}
 
 	@Override

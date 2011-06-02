@@ -6,6 +6,7 @@ package net.sf.jame.contextfree.extensions.enumerator;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import net.sf.jame.contextfree.ContextFreeRegistry;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
 import net.sf.jame.core.extension.Extension;

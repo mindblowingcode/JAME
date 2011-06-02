@@ -25,7 +25,15 @@
  */
 package net.sf.jame.contextfree.renderer;
 
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+
+import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
+import net.sf.jame.contextfree.renderer.support.CFBuilder;
+import net.sf.jame.contextfree.renderer.support.CFColor;
+import net.sf.jame.contextfree.renderer.support.CFContext;
 import net.sf.jame.contextfree.renderer.support.CFModification;
+import net.sf.jame.contextfree.renderer.support.CFRenderer;
 import net.sf.jame.contextfree.renderer.support.CFShape;
 import net.sf.jame.core.util.Color32bit;
 
@@ -49,34 +57,62 @@ public final class SimpleContextFreeRenderer extends DefaultContextFreeRenderer 
 		long totalTime = System.nanoTime();
 		long time = System.nanoTime();
 		updateTransform();
-		float offsetX = getBufferWidth() / 2 + getTile().getImageSize().getX() / 2 - getTile().getTileOffset().getX() - getTile().getTileSize().getX() / 2;
-		float offsetY = getBufferHeight() / 2 + getTile().getImageSize().getY() / 2 - getTile().getTileOffset().getY() - getTile().getTileSize().getY() / 2;
+		float offsetX = (getBufferWidth() - getTile().getImageSize().getX()) / 2;
+		float offsetY = (getBufferHeight() - getTile().getImageSize().getY()) / 2;
 		int width = getTile().getImageSize().getX();
 		int height = getTile().getImageSize().getY();
 		Color32bit background = cfdgRuntime.getBackground();
 		String startshape = cfdgRuntime.getStartshape();
-		cfdgRuntime.resetRandom();
-		ContextFreeContext context = new ContextFreeContext(cfdgRuntime, width, height, 1f, 0.3f);
-		context.registerFigures();
+		String variation = cfdgRuntime.getVariation();
+		CFContext context = new CFContext();
+		CFBuilder builder = new CFBuilder(context);
+		for (int i = 0; i < cfdgRuntime.getFigureElementCount(); i++) {
+			FigureRuntimeElement figure = cfdgRuntime.getFigureElement(i);
+			figure.process(builder);
+		}
+		int initialShapeType = context.encodeShapeName(startshape);
+		CFRenderer renderer = new CFRenderer(context, variation.hashCode(), width, height, 0f, 0.5f);
 		CFModification worldState = new CFModification();
-//		context.processShape(new CFShape(startshape, worldState));
+		boolean partialDraw = true;
+		int reportAt = 250;
+		CFShape shape = new CFShape(initialShapeType, worldState);
+		shape.getModification().getColorTarget().setAlpha(1);
+		shape.getModification().getColor().setAlpha(1);
+		context.setBackground(new CFColor(background.getARGB()));
+		renderer.processShape(shape);
 		if (logger.isDebugEnabled()) {
 			long elapsed = (System.nanoTime() - time) / 1000000;
 			logger.debug("Build time " + elapsed + "ms");
 		}
-		percent = 30;
-//		while (context.expandShapes()) {
-//			if (isInterrupted()) {
-//				break;
-//			}
-//		}
+		percent = 20;
+		for (;;) {
+			if (renderer.getUnfinishedCount() == 0) {
+				break;
+			}
+			if ((renderer.getFinishedCount() + renderer.getUnfinishedCount()) > CFRenderer.MAX_SHAPES) {
+				break;
+			}
+			CFShape s = renderer.nextUnfinishedShape();
+			renderer.executeShape(s);
+			if (renderer.getFinishedCount() > reportAt) {
+				if (partialDraw) {
+				}
+				reportAt = 2 * renderer.getFinishedCount();
+			}
+		}
+        renderer.sortShapes();
 		percent = 70;
 		if (logger.isDebugEnabled()) {
-			logger.debug("Total shapes " + context.getFinishedCount());
+			logger.debug("Total shapes " + renderer.getFinishedCount());
 		}
 		time = System.nanoTime();
-		context.commitShapes();
-//		renderImage(context, globalBounds, offsetX, offsetY, background, false);
+		Graphics2D g2d = getGraphics();
+		configure(g2d);
+		AffineTransform tmpTransform = g2d.getTransform();
+		g2d.translate(offsetX, offsetY);
+		renderer.render(g2d);
+		g2d.setTransform(tmpTransform);
+		swapImages();
 		if (logger.isDebugEnabled()) {
 			long elapsed = (System.nanoTime() - time) / 1000000;
 			logger.debug("Render time " + elapsed + "ms");

@@ -54,7 +54,6 @@ public class CFRenderer {
 	private float scale;
 	private float currScale;
 	private float fixedBorder;
-	private float shapeBorder;
 	private int width;
 	private int height;
 	private boolean requestStop;
@@ -69,16 +68,18 @@ public class CFRenderer {
 	    this.scaleArea = 1;
 	    this.width = width;
 	    this.height = height;
-	    this.fixedBorder = FIXED_BORDER * ((border <= 1) ? border : 1);
-	    this.shapeBorder = SHAPE_BORDER * ((border <= 1) ? 0.5f : (border / 2f));
+	    this.fixedBorder = ((border < 0) ? 0 : border);
 	    random = new Random(variation);
-	    rescale(width, height, false);
 	    if (context.isSized() || context.isTiled()) {
-	    	fixedBorder = shapeBorder = 0.0f;
+	    	fixedBorder = 0.0f;
 	    	bounds.setMinX(-context.getTileX() / 2.0);
 	    	bounds.setMinY(-context.getTileY() / 2.0);
 	    	bounds.setMaxX(+context.getTileX() / 2.0);
 	    	bounds.setMaxY(+context.getTileY() / 2.0);
+	    	rescale(width, height, false);
+	        scaleArea = currScale * currScale;
+	    } else {
+	    	rescale(width, height, false);
 	        scaleArea = currScale * currScale;
 	    }
 	}
@@ -104,15 +105,17 @@ public class CFRenderer {
 		Color tmpColor = g2d.getColor();
 		g2d.setComposite(composite);
 		g2d.setColor(color);
-		g2d.fillRect(-width / 2, -height / 2, width, height);
-		double d = Math.max(bounds.getSizeX(), bounds.getSizeY());
-		g2d.scale(1 / d, 1 / d);
-		g2d.translate(-bounds.getCenterX(), -bounds.getCenterY());
+		g2d.fillRect(0, 0, width, height);
+		g2d.translate(width / 2, height / 2);
+		g2d.scale(1, -1);
+		g2d.translate(-width / 2, -height / 2);
+		g2d.translate(fixedBorder, fixedBorder);
+		g2d.transform(currTrans);
 		CFShapeRenderer render = null;
 		if (context.isTiled()) {
-			render = new TiledShapeRenderer(g2d, context, width, height);
+			render = new TiledShapeRenderer(g2d, context);
 		} else {
-			render = new SimpleShapeRenderer(g2d, context, width, height);
+			render = new SimpleShapeRenderer(g2d, context);
 		}
 		for (CFFinishedShape shape : finishedSet) {
 			shape.render(render);
@@ -152,6 +155,9 @@ public class CFRenderer {
 		Stack<Integer> counterStack = new Stack<Integer>();
 		Stack<Integer> replacementStack = new Stack<Integer>();
 		CFRule rule = context.findRule(shape.getInitialShapeType(), random.nextDouble());
+		if (rule == null) {
+			return;
+		}
 		for (int i = 0; i < rule.getReplacementCount(); i++) {
 			if (requestStop) {
 				shapeStack.clear();
@@ -159,13 +165,13 @@ public class CFRenderer {
 				replacementStack.clear();
 				return;
 			}
-			if (rule.getReplacement(i).getShapeType() == ShapeType.TYPE_LOOP_START) {
+			if (rule.getReplacement(i).getShapeType() == context.getLoopStartShapeType()) {
 				shapeStack.push(shape);
 				counterStack.push(0);
 				replacementStack.push(i);
 				continue;
 			}
-			if (rule.getReplacement(i).getShapeType() == ShapeType.TYPE_LOOP_END) {
+			if (rule.getReplacement(i).getShapeType() == context.getLoopEndShapeType()) {
 				if (replacementStack.get(0) == i - 2) {
 					CFShape s = shape.clone();
 					shape = shapeStack.get(0);
@@ -210,21 +216,26 @@ public class CFRenderer {
 		if (shapeType.getType() == ShapeType.TYPE_RULE && shapeType.hasRules()) {
 			if (!bounds.isValid() || area * scaleArea >= minArea) {
 				unfinishedSet.add(shape);
+//			} else {
+//				logger.debug("Small area, stop recursion for shape " + context.decodeShapeName(shape.getInitialShapeType()));
 			}
 		} else if (shapeType.getType() == ShapeType.TYPE_PATH) {
 			CFShape tmpShape = shape.clone();
 			CFRule rule = context.findRule(tmpShape.getInitialShapeType(), 0);
 			CFPath path = rule.getPath();
-			CFPathAttributes attributes = rule.getPathAttributes();
-			if (attributes == null) {
-				attributes = new CFPathAttributes();
-				attributes.addAttribute(new CFPathAttribute(CFPathCommand.FILL));
+			if (path == null) {
+				return;
+			}
+			if (rule.getAttributeCount() == 0) {
+				rule.addAttribute(new CFPathAttribute(CFPathCommand.FILL));
+			} else if (rule.getAttribute(rule.getAttributeCount() - 1).getCommand() != CFPathCommand.FILL && rule.getAttribute(rule.getAttributeCount() - 1).getCommand() != CFPathCommand.STROKE) {
+				rule.addAttribute(new CFPathAttribute(CFPathCommand.FILL));
 			}
 			Stack<CFShape> shapeStack = new Stack<CFShape>();
 			Stack<Integer> counterStack = new Stack<Integer>();
 			Stack<CFPathAttribute> attributeStack = new Stack<CFPathAttribute>();
-			for (int i = 0; i < attributes.getAttributeCount(); i++) {
-				CFPathAttribute attribute = attributes.getAttribute(i);
+			for (int i = 0; i < rule.getAttributeCount(); i++) {
+				CFPathAttribute attribute = rule.getAttribute(i);
 				if (attribute.getCommand() == CFPathCommand.LOOP_START) {
 					shapeStack.push(tmpShape);
 					counterStack.push(0);
@@ -243,23 +254,25 @@ public class CFRenderer {
 					}
 					continue;
 				}
-				CFShape finalShape = tmpShape.clone();
-				finalShape.getModification().concatenate(attribute.getModification());
-				totalArea += finalShape.area() * attribute.area();
-				CFPathAttribute finalAttribute = attribute.clone();
-				finalAttribute.setModification(finalShape.getModification());
-				if (Double.isInfinite(finalAttribute.area())) {
-					requestStop = true;
-					return;
-				}
-				finishedSet.add(new CFFinishedShape(path, finalAttribute, totalArea));
-				if (!context.isTiled() && !context.isSized()) {
-					if (scale == 0) {
-						scale = (float) ((width + height) / Math.sqrt(finalAttribute.area()));
+				if (attribute.getCommand() == CFPathCommand.FILL || attribute.getCommand() == CFPathCommand.STROKE) {
+					CFShape finalShape = tmpShape.clone();
+					finalShape.getModification().concatenate(attribute.getModification());
+					totalArea += finalShape.area() * attribute.area();
+					CFPathAttribute finalAttribute = attribute.clone();
+					finalAttribute.setModification(finalShape.getModification());
+					if (Double.isInfinite(finalAttribute.area())) {
+						requestStop = true;
+						return;
 					}
-					bounds.update(path, finalAttribute, scale);
-					scale = bounds.computeScale(width, height, fixedBorder, false);
-					scaleArea = scale * scale;
+					finishedSet.add(new CFFinishedShape(path, finalAttribute, totalArea));
+					if (!context.isTiled() && !context.isSized()) {
+						if (scale == 0) {
+							scale = (float) ((width + height) / Math.sqrt(finalAttribute.area()));
+						}
+						bounds.update(path, finalAttribute, scale);
+						scale = (float) bounds.computeScale(width, height, fixedBorder, currTrans, false);
+						scaleArea = scale * scale;
+					}
 				}
 			}
 		} else {
@@ -269,7 +282,7 @@ public class CFRenderer {
 
 	public void dump() {
 		for (CFFinishedShape shape : finishedSet) {
-			System.out.println(shape);
+			logger.info(shape);
 		}	
 	}
 }

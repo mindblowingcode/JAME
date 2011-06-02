@@ -7,9 +7,8 @@ package net.sf.jame.contextfree.extensions.figure;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.ContextFreeRule;
-import net.sf.jame.contextfree.renderer.support.CFShape;
+import net.sf.jame.contextfree.renderer.support.CFBuilder;
+import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -19,7 +18,7 @@ import net.sf.jame.core.config.ValueConfigElement;
 /**
  * @author Andrea Medeghini
  */
-public class RuleFigureRuntime extends FigureExtensionRuntime<RuleFigureConfig> implements ContextFreeRule {
+public class RuleFigureRuntime extends FigureExtensionRuntime<RuleFigureConfig> {
 	private String name;
 	private NameListener nameListener;
 	private Float probability;
@@ -223,16 +222,14 @@ public class RuleFigureRuntime extends FigureExtensionRuntime<RuleFigureConfig> 
 			}
 		}
 	}
-	
-	public void register(ContextFreeContext context) {
-		context.registerRule(this);
-	}
 
-	public void process(ContextFreeContext context, CFShape shape) {
-//		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
-//			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
-//			ContextFreeState nodeState = state.clone();
-//			shapeReplacementRuntime.createShapes(context, nodeState, globalBounds, shapeBounds);
-//		}
+	public void process(CFBuilder builder) {
+		int shapeType = builder.encodeShapeName(name);
+		CFRule rule = new CFRule(shapeType, probability);
+		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
+			shapeReplacementRuntime.process(builder, rule);
+		}
+		builder.addRule(rule);
 	}
 }

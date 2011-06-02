@@ -2,7 +2,9 @@
 
 package net.sf.jame.contextfree.cfdg.analysis;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.jame.contextfree.cfdg.node.*;
 
 public class DepthFirstAdapter extends AnalysisAdapter

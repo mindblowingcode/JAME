@@ -7,7 +7,7 @@ package net.sf.jame.contextfree.cfdg.figure;
 import net.sf.jame.contextfree.ContextFreeRegistry;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.support.CFBuilder;
 import net.sf.jame.core.common.ExtensionReferenceElement;
 import net.sf.jame.core.config.RuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -121,9 +121,9 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 		}
 	}
 
-	public void register(ContextFreeContext context) {
+	public void process(CFBuilder context) {
 		if (extensionRuntime != null) {
-			extensionRuntime.register(context);
+			extensionRuntime.process(context);
 		}
 	}
 }

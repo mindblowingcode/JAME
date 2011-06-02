@@ -4,8 +4,7 @@
  */
 package net.sf.jame.contextfree.cfdg.pathReplacement.extension;
 
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.support.CFPath;
+import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
 
 /**
@@ -13,8 +12,7 @@ import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
  */
 public abstract class PathReplacementExtensionRuntime<T extends PathReplacementExtensionConfig> extends ConfigurableExtensionRuntime<T> {
 	/**
-	 * @param context
-	 * @param path 
+	 * @param rule 
 	 */
-	public abstract void process(ContextFreeContext context, CFPath path);
+	public abstract void process(CFRule rule);
 }

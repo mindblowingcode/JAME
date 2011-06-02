@@ -9,9 +9,10 @@ import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
 import net.sf.jame.contextfree.renderer.support.CFModification;
-import net.sf.jame.contextfree.renderer.support.CFPath;
+import net.sf.jame.contextfree.renderer.support.CFPathAttribute;
+import net.sf.jame.contextfree.renderer.support.CFPathCommand;
+import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -23,8 +24,8 @@ import net.sf.jame.core.config.ValueConfigElement;
  */
 public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> extends PathReplacementExtensionRuntime<T> {
 	private Integer times;
-	private CFModification stateChange;
 	private TimesListener timesListener;
+	private CFModification stateChange;
 	private ListRuntimeElement<PathReplacementRuntimeElement> pathReplacementListElement;
 	private PathReplacementListElementListener pathReplacementListElementListener;
 	private ListRuntimeElement<PathAdjustmentRuntimeElement> pathAdjustmentListElement;
@@ -306,7 +307,7 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 		}
 	}
 	
-	public void process(ContextFreeContext context, CFPath path) {
+	public void process(CFRule rule) {
 		if (stateChange == null) {
 			stateChange = new CFModification();
 			for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
@@ -314,14 +315,11 @@ public class MultiPathReplacementRuntime<T extends MultiPathReplacementConfig> e
 				pathAdjustmentRuntime.apply(stateChange);
 			}
 		}
-		context.pushModification();
-		for (int t = 0; t < times; t++) {
-			for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
-				PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
-				pathReplacementRuntime.process(context, path);
-			}
-			context.addModification(stateChange);
+		rule.addAttribute(new CFPathAttribute(CFPathCommand.LOOP_START));
+		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
+			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
+			pathReplacementRuntime.process(rule);
 		}
-		context.popModification();
+		rule.addAttribute(new CFPathAttribute(CFPathCommand.LOOP_END, stateChange, times));
 	}
 }

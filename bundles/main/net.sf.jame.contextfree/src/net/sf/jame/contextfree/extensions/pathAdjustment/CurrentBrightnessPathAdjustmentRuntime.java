@@ -106,10 +106,8 @@ public class CurrentBrightnessPathAdjustmentRuntime extends PathAdjustmentExtens
 	@Override
 	public void apply(CFModification mod) {
 		if (target) {
-			mod.getColorTarget().setUseTarget(CFColor.BRIGHTNESS_TARGET);
-			mod.getColorTarget().setBrightness(value);
-		} else {
-			mod.getColor().setBrightness(value);
+			mod.getColor().setUseTarget(CFColor.BRIGHTNESS_TARGET);
 		}
+		mod.getColor().setBrightness(value);
 	}
 }

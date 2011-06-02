@@ -8,12 +8,10 @@ package net.sf.jame.contextfree.extensions.pathReplacement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.support.CFFinishedShape;
 import net.sf.jame.contextfree.renderer.support.CFModification;
-import net.sf.jame.contextfree.renderer.support.CFPath;
 import net.sf.jame.contextfree.renderer.support.CFPathAttribute;
 import net.sf.jame.contextfree.renderer.support.CFPathCommand;
+import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -24,7 +22,8 @@ import net.sf.jame.core.config.ValueConfigElement;
  * @author Andrea Medeghini
  */
 public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<FillPathReplacementConfig> {
-	private String rule;
+	private String windRule;
+	private CFModification stateChange;
 	private RuleListener ruleListener;
 	private ListRuntimeElement<PathAdjustmentRuntimeElement> pathAdjustmentListElement;
 	private PathAdjustmentListElementListener pathAdjustmentListElementListener;
@@ -62,11 +61,11 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 	 * @return the rule.
 	 */
 	public String getRule() {
-		return rule;
+		return windRule;
 	}
 
 	private void setRule(final String rule) {
-		this.rule = rule;
+		this.windRule = rule;
 	}
 	
 	private class RuleListener implements ValueChangeListener {
@@ -191,8 +190,14 @@ public class FillPathReplacementRuntime extends PathReplacementExtensionRuntime<
 		}
 	}
 
-	public void process(ContextFreeContext context, CFPath path) {
-		CFPathAttribute attribute = new CFPathAttribute(CFPathCommand.FILL, rule);
-		context.addFinishedShape(new CFFinishedShape(path, attribute));
+	public void process(CFRule rule) {
+		if (stateChange == null) {
+			stateChange = new CFModification();
+			for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
+				PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
+				pathAdjustmentRuntime.apply(stateChange);
+			}
+		}
+		rule.addAttribute(new CFPathAttribute(CFPathCommand.FILL, stateChange, windRule));
 	}
 }

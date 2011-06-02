@@ -119,10 +119,6 @@ public class ContextFreeParser {
 
 	public class CFInterpreter extends DepthFirstAdapter {
 		private ContextFreeConfig config;
-		private boolean startshapeFound;
-		private boolean backgroundFound;
-		private boolean tileFound;
-		private boolean sizeFound;
 		private File baseDir;
 		
 		public CFInterpreter(File baseDir, ContextFreeConfig config) {
@@ -191,10 +187,7 @@ public class ContextFreeParser {
 		@Override
 		public void inAStartshapeDeclaration(AStartshapeDeclaration node) {
 			super.inAStartshapeDeclaration(node);
-			if (!startshapeFound) {
-				config.getCFDG().setStartshape(node.getString().getText());
-				startshapeFound = true;
-			}
+			config.getCFDG().setStartshape(node.getString().getText());
 		}
 
 		/**
@@ -230,45 +223,41 @@ public class ContextFreeParser {
 		@Override
 		public void inABackgroundDeclaration(ABackgroundDeclaration node) {
 			super.inABackgroundDeclaration(node);
-			if (!backgroundFound) {
-//				config.getCFDG().setBackground(new Color32bit(0xFFFFFFFF));
-				for (PBackgroundAdjustment adjustment : node.getBackgroundAdjustment()) {
-					if (adjustment instanceof AHueBackgroundAdjustment) {
-						float[] hsbvals = new float[3];
-						Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
-						float value = evaluateExpression(((AHueBackgroundAdjustment) adjustment).getExpression()) / 360;
-						hsbvals[0] += value;
-						if (hsbvals[0] < 0) hsbvals[0] = 0; 
-						if (hsbvals[0] > 1) hsbvals[0] = 1; 
-						config.getCFDG().setBackground(new Color32bit(Colors.toRGB(config.getCFDG().getBackground().getAlpha(), hsbvals)));
-					} else if (adjustment instanceof ASaturationBackgroundAdjustment) {
-						float[] hsbvals = new float[3];
-						Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
-						float value = evaluateExpression(((ASaturationBackgroundAdjustment) adjustment).getExpression());
-						hsbvals[1] += value;
-						if (hsbvals[1] < 0) hsbvals[1] = 0; 
-						if (hsbvals[1] > 1) hsbvals[1] = 1; 
-						config.getCFDG().setBackground(new Color32bit(Colors.toRGB(config.getCFDG().getBackground().getAlpha(), hsbvals)));
-					} else if (adjustment instanceof ABrightnessBackgroundAdjustment) {
-						float[] hsbvals = new float[3];
-						Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
-						float value = evaluateExpression(((ABrightnessBackgroundAdjustment) adjustment).getExpression());
-						hsbvals[2] += value;
-						if (hsbvals[2] < 0) hsbvals[2] = 0; 
-						if (hsbvals[2] > 1) hsbvals[2] = 1; 
-						config.getCFDG().setBackground(new Color32bit(Colors.toRGB(config.getCFDG().getBackground().getAlpha(), hsbvals)));
-					} else if (adjustment instanceof AAlphaBackgroundAdjustment) {
-						float[] hsbvals = new float[4];
-						Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
-						hsbvals[3] = config.getCFDG().getBackground().getAlpha() / 255f;
-						float value = evaluateExpression(((AAlphaBackgroundAdjustment) adjustment).getExpression());
-						hsbvals[3] += value;
-						if (hsbvals[3] < 0) hsbvals[3] = 0; 
-						if (hsbvals[3] > 1) hsbvals[3] = 1; 
-						config.getCFDG().setBackground(new Color32bit(Colors.toRGB((int) Math.rint(hsbvals[3] * 255), hsbvals)));
-					}
+			for (PBackgroundAdjustment adjustment : node.getBackgroundAdjustment()) {
+				if (adjustment instanceof AHueBackgroundAdjustment) {
+					float[] hsbvals = new float[3];
+					Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
+					float value = evaluateExpression(((AHueBackgroundAdjustment) adjustment).getExpression());
+					hsbvals[0] += value;
+					if (hsbvals[0] < 0) hsbvals[0] = 0; 
+					if (hsbvals[0] > 1) hsbvals[0] = 1; 
+					config.getCFDG().setBackground(new Color32bit(Colors.toRGB(config.getCFDG().getBackground().getAlpha(), hsbvals)));
+				} else if (adjustment instanceof ASaturationBackgroundAdjustment) {
+					float[] hsbvals = new float[3];
+					Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
+					float value = evaluateExpression(((ASaturationBackgroundAdjustment) adjustment).getExpression());
+					hsbvals[1] += value;
+					if (hsbvals[1] < 0) hsbvals[1] = 0; 
+					if (hsbvals[1] > 1) hsbvals[1] = 1; 
+					config.getCFDG().setBackground(new Color32bit(Colors.toRGB(config.getCFDG().getBackground().getAlpha(), hsbvals)));
+				} else if (adjustment instanceof ABrightnessBackgroundAdjustment) {
+					float[] hsbvals = new float[3];
+					Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
+					float value = evaluateExpression(((ABrightnessBackgroundAdjustment) adjustment).getExpression());
+					hsbvals[2] += value;
+					if (hsbvals[2] < 0) hsbvals[2] = 0; 
+					if (hsbvals[2] > 1) hsbvals[2] = 1; 
+					config.getCFDG().setBackground(new Color32bit(Colors.toRGB(config.getCFDG().getBackground().getAlpha(), hsbvals)));
+				} else if (adjustment instanceof AAlphaBackgroundAdjustment) {
+					float[] hsbvals = new float[4];
+					Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
+					hsbvals[3] = config.getCFDG().getBackground().getAlpha() / 255f;
+					float value = evaluateExpression(((AAlphaBackgroundAdjustment) adjustment).getExpression());
+					hsbvals[3] += value;
+					if (hsbvals[3] < 0) hsbvals[3] = 0; 
+					if (hsbvals[3] > 1) hsbvals[3] = 1; 
+					config.getCFDG().setBackground(new Color32bit(Colors.toRGB((int) Math.rint(hsbvals[3] * 255), hsbvals)));
 				}
-				backgroundFound = true;
 			}
 		}
 
@@ -278,25 +267,22 @@ public class ContextFreeParser {
 		@Override
 		public void inATileDeclaration(ATileDeclaration node) {
 			super.inATileDeclaration(node);
-			if (!tileFound) {
-				config.getCFDG().setUseSize(false);
-				config.getCFDG().setUseTile(true);
-				for (PTileAdjustment adjustment : node.getTileAdjustment()) {
-					if (adjustment instanceof ATileAdjustment) {
-						PFirstExpression firstExpression = ((ATileAdjustment) adjustment).getFirstExpression();
-						if (firstExpression instanceof AFirstExpression) {
-							float value = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
-							config.getCFDG().setTileWidth(value);
-							config.getCFDG().setTileHeight(value);
-						}
-						PSecondExpression secondExpression = ((ATileAdjustment) adjustment).getSecondExpression();
-						if (secondExpression != null && secondExpression instanceof ASecondExpression) {
-							float value = evaluateExpression(((ASecondExpression) secondExpression).getExtendedExpression());
-							config.getCFDG().setTileHeight(value);
-						}
+			config.getCFDG().setUseSize(false);
+			config.getCFDG().setUseTile(true);
+			for (PTileAdjustment adjustment : node.getTileAdjustment()) {
+				if (adjustment instanceof ATileAdjustment) {
+					PFirstExpression firstExpression = ((ATileAdjustment) adjustment).getFirstExpression();
+					if (firstExpression instanceof AFirstExpression) {
+						float value = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
+						config.getCFDG().setTileWidth(value);
+						config.getCFDG().setTileHeight(value);
+					}
+					PSecondExpression secondExpression = ((ATileAdjustment) adjustment).getSecondExpression();
+					if (secondExpression != null && secondExpression instanceof ASecondExpression) {
+						float value = evaluateExpression(((ASecondExpression) secondExpression).getExtendedExpression());
+						config.getCFDG().setTileHeight(value);
 					}
 				}
-				tileFound = true;
 			}
 		}
 
@@ -306,30 +292,27 @@ public class ContextFreeParser {
 		@Override
 		public void inASizeDeclaration(ASizeDeclaration node) {
 			super.inASizeDeclaration(node);
-			if (!sizeFound) {
-				config.getCFDG().setUseSize(true);
-				for (PSizeAdjustment adjustment : node.getSizeAdjustment()) {
-					if (adjustment instanceof ASizeSizeAdjustment) {
-						PFirstExpression firstExpression = ((ASizeSizeAdjustment) adjustment).getFirstExpression();
-						if (firstExpression instanceof AFirstExpression) {
-							float value = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
-							config.getCFDG().setWidth(value);
-							config.getCFDG().setHeight(value);
-						}
-						PSecondExpression secondExpression = ((ASizeSizeAdjustment) adjustment).getSecondExpression();
-						if (secondExpression != null && secondExpression instanceof ASecondExpression) {
-							float value = evaluateExpression(((ASecondExpression) secondExpression).getExtendedExpression());
-							config.getCFDG().setHeight(value);
-						}
-					} else if (adjustment instanceof AXSizeAdjustment) {
-						float value = evaluateExpression(((AXSizeAdjustment) adjustment).getExpression());
-						config.getCFDG().setX(value);
-					} else if (adjustment instanceof AYSizeAdjustment) {
-						float value = evaluateExpression(((AYSizeAdjustment) adjustment).getExpression());
-						config.getCFDG().setY(value);
+			config.getCFDG().setUseSize(true);
+			for (PSizeAdjustment adjustment : node.getSizeAdjustment()) {
+				if (adjustment instanceof ASizeSizeAdjustment) {
+					PFirstExpression firstExpression = ((ASizeSizeAdjustment) adjustment).getFirstExpression();
+					if (firstExpression instanceof AFirstExpression) {
+						float value = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
+						config.getCFDG().setWidth(value);
+						config.getCFDG().setHeight(value);
 					}
+					PSecondExpression secondExpression = ((ASizeSizeAdjustment) adjustment).getSecondExpression();
+					if (secondExpression != null && secondExpression instanceof ASecondExpression) {
+						float value = evaluateExpression(((ASecondExpression) secondExpression).getExtendedExpression());
+						config.getCFDG().setHeight(value);
+					}
+				} else if (adjustment instanceof AXSizeAdjustment) {
+					float value = evaluateExpression(((AXSizeAdjustment) adjustment).getExpression());
+					config.getCFDG().setX(value);
+				} else if (adjustment instanceof AYSizeAdjustment) {
+					float value = evaluateExpression(((AYSizeAdjustment) adjustment).getExpression());
+					config.getCFDG().setY(value);
 				}
-				sizeFound = true;
 			}
 		}
 
@@ -693,7 +676,7 @@ public class ContextFreeParser {
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AHueCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
 			CurrentHuePathAdjustmentConfig config = new CurrentHuePathAdjustmentConfig();
-			config.setValue(evaluateExpression(colorAdjustment.getExpression()) / 360);
+			config.setValue(evaluateExpression(colorAdjustment.getExpression()));
 			config.setTarget(colorAdjustment.getBar() != null);
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.color.currentHue");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
@@ -702,7 +685,7 @@ public class ContextFreeParser {
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AHueTargetColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
 			TargetHuePathAdjustmentConfig config = new TargetHuePathAdjustmentConfig();
-			config.setValue(evaluateExpression(colorAdjustment.getExpression()) / 360);
+			config.setValue(evaluateExpression(colorAdjustment.getExpression()));
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.color.targetHue");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -743,8 +726,8 @@ public class ContextFreeParser {
 		
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ASkewPathAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			SkewPathAdjustmentConfig config = new SkewPathAdjustmentConfig();
-			config.setShearX((float) (Math.PI * evaluateExpression(geometryAdjustment.getFirstExpression())) / 180f);
-			config.setShearY((float) (Math.PI * evaluateExpression(geometryAdjustment.getSecondExpression())) / 180f);
+			config.setShearX(evaluateExpression(geometryAdjustment.getFirstExpression()));
+			config.setShearY(evaluateExpression(geometryAdjustment.getSecondExpression()));
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.skew");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -752,7 +735,7 @@ public class ContextFreeParser {
 
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(AFlipPathAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			FlipPathAdjustmentConfig config = new FlipPathAdjustmentConfig();
-			config.setAngle((float) (Math.PI * evaluateExpression(geometryAdjustment.getExpression())) / 180f);
+			config.setAngle(evaluateExpression(geometryAdjustment.getExpression()));
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.flip");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -760,7 +743,7 @@ public class ContextFreeParser {
 		
 		private ConfigurableExtensionReference<PathAdjustmentExtensionConfig> getPathAdjustmentExtensionReference(ARotatePathAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			RotatePathAdjustmentConfig config = new RotatePathAdjustmentConfig();
-			config.setAngle((float) (Math.PI * evaluateExpression(geometryAdjustment.getExpression())) / 180f);
+			config.setAngle(evaluateExpression(geometryAdjustment.getExpression()));
 			ConfigurableExtension<PathAdjustmentExtensionRuntime<?>, PathAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathAdjustmentExtension("contextfree.path.adjustment.geometry.rotate");
 			ConfigurableExtensionReference<PathAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1578,7 +1561,7 @@ public class ContextFreeParser {
 
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AHueCurrentColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
 			CurrentHueShapeAdjustmentConfig config = new CurrentHueShapeAdjustmentConfig();
-			config.setValue(evaluateExpression(colorAdjustment.getExpression()) / 360);
+			config.setValue(evaluateExpression(colorAdjustment.getExpression()));
 			config.setTarget(colorAdjustment.getBar() != null);
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.currentHue");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
@@ -1587,7 +1570,7 @@ public class ContextFreeParser {
 
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AHueTargetColorAdjustment colorAdjustment) throws ExtensionNotFoundException {
 			TargetHueShapeAdjustmentConfig config = new TargetHueShapeAdjustmentConfig();
-			config.setValue(evaluateExpression(colorAdjustment.getExpression()) / 360);
+			config.setValue(evaluateExpression(colorAdjustment.getExpression()));
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.color.targetHue");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1646,8 +1629,8 @@ public class ContextFreeParser {
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ASkewGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			SkewShapeAdjustmentConfig config = new SkewShapeAdjustmentConfig();
-			config.setShearX((float) (Math.PI * evaluateExpression(geometryAdjustment.getFirstExpression())) / 180f);
-			config.setShearY((float) (Math.PI * evaluateExpression(geometryAdjustment.getSecondExpression())) / 180f);
+			config.setShearX(evaluateExpression(geometryAdjustment.getFirstExpression()));
+			config.setShearY(evaluateExpression(geometryAdjustment.getSecondExpression()));
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.skew");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1655,7 +1638,7 @@ public class ContextFreeParser {
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(AFlipGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			FlipShapeAdjustmentConfig config = new FlipShapeAdjustmentConfig();
-			config.setAngle((float) (Math.PI * evaluateExpression(geometryAdjustment.getExpression())) / 180f);
+			config.setAngle(evaluateExpression(geometryAdjustment.getExpression()));
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.flip");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;
@@ -1663,7 +1646,7 @@ public class ContextFreeParser {
 		
 		private ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> getShapeAdjustmentExtensionReference(ARotateGeometryAdjustment geometryAdjustment) throws ExtensionNotFoundException {
 			RotateShapeAdjustmentConfig config = new RotateShapeAdjustmentConfig();
-			config.setAngle((float) (Math.PI * evaluateExpression(geometryAdjustment.getExpression())) / 180f);
+			config.setAngle(evaluateExpression(geometryAdjustment.getExpression()));
 			ConfigurableExtension<ShapeAdjustmentExtensionRuntime<?>, ShapeAdjustmentExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeAdjustmentExtension("contextfree.shape.adjustment.geometry.rotate");
 			ConfigurableExtensionReference<ShapeAdjustmentExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
 			return reference;

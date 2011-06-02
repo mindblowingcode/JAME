@@ -106,11 +106,9 @@ public class CurrentSaturationShapeAdjustmentRuntime extends ShapeAdjustmentExte
 	@Override
 	public void apply(CFModification mod) {
 		if (target) {
-			mod.getColorTarget().setUseTarget(CFColor.SATURATION_TARGET);
-			mod.getColorTarget().setSaturation(value);
-		} else {
-			mod.getColor().setSaturation(value);
+			mod.getColor().setUseTarget(CFColor.SATURATION_TARGET);
 		}
+		mod.getColor().setSaturation(value);
 	}
 }
 

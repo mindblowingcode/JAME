@@ -2,8 +2,11 @@
 
 package net.sf.jame.contextfree.cfdg.node;
 
-import java.util.*;
-import net.sf.jame.contextfree.cfdg.analysis.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+
+import net.sf.jame.contextfree.cfdg.analysis.Analysis;
 
 @SuppressWarnings("nls")
 public final class ARuleDeclaration extends PRuleDeclaration

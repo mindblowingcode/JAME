@@ -18,7 +18,7 @@ public class TiledShapeRenderer implements CFShapeRenderer {
 	private Point2D.Double ptSrc = new Point2D.Double(0, 0);
 	private Point2D.Double ptDst = new Point2D.Double(0, 0);
 
-	public TiledShapeRenderer(Graphics2D g2d, CFContext context, int width, int height) {
+	public TiledShapeRenderer(Graphics2D g2d, CFContext context) {
 		this.g2d = g2d;
 		tess = AffineTransform.getScaleInstance(context.getTileTransform().getScaleX(), context.getTileTransform().getScaleY());
 		scale = AffineTransform.getScaleInstance(1 / context.getTileTransform().getScaleX(), 1 / context.getTileTransform().getScaleY());

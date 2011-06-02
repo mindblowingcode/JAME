@@ -24,7 +24,7 @@ public class CFDGConfigElement extends AbstractConfigElement {
 	private static final long serialVersionUID = 1L;
 	public static final String CLASS_ID = "CFDG";
 	private final StringElement startshapeElement = new StringElement("");
-	private final StringElement variationElement = new StringElement("ABC");
+	private final StringElement variationElement = new StringElement("ABCD");
 	private final StringElement baseDirElement = new StringElement(System.getProperty("user.home"));
 	private final BooleanElement useSizeElement = new BooleanElement(false);
 	private final BooleanElement useTileElement = new BooleanElement(false);

@@ -4,8 +4,6 @@
  */
 package net.sf.jame.contextfree.cfdg;
 
-import java.util.Random;
-
 import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
 import net.sf.jame.contextfree.cfdg.figure.FigureRuntimeElement;
 import net.sf.jame.core.config.ListConfigElement;
@@ -16,14 +14,10 @@ import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
 import net.sf.jame.core.util.Color32bit;
 
-import org.apache.log4j.Logger;
-
 /**
  * @author Andrea Medeghini
  */
  public class CFDGRuntimeElement extends RuntimeElement {
-	private static final Logger logger = Logger.getLogger(CFDGConfigElement.class); 
-	private Random random = new Random();
 	private CFDGConfigElement cfdgElement;
 	private String startshape;
 	private StartshapeListener startshapeListener;
@@ -617,16 +611,5 @@ import org.apache.log4j.Logger;
 				}
 			}
 		}
-	}
-	
-	public double random() {
-		return random.nextDouble();
-	}
-
-	public void resetRandom() {
-		if (logger.isDebugEnabled()) {
-			logger.debug("Seed = " + (variation != null ? variation.hashCode() : 0));
-		}
-		random.setSeed(variation != null ? variation.hashCode() : 0);
 	}
 }

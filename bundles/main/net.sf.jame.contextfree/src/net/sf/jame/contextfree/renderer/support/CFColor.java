@@ -1,5 +1,6 @@
 package net.sf.jame.contextfree.renderer.support;
 
+import java.awt.Color;
 import java.util.Arrays;
 
 public class CFColor {
@@ -17,6 +18,13 @@ public class CFColor {
 
 	public CFColor(float h, float s, float b, float a) {
 		this.hsba = new float[] { h, s, b, a };
+	}
+
+	public CFColor(int argb) {
+		this.hsba = new float[4];
+		Color.RGBtoHSB((argb >> 16) & 0xFF, (argb >> 8) & 0xFF, (argb >> 0) & 0xFF, hsba);
+		hsba[0] = hsba[0] * 360;
+		hsba[3] = ((argb >> 24) & 0xFF) / 255;
 	}
 
 	public CFColor(float[] hsba) {

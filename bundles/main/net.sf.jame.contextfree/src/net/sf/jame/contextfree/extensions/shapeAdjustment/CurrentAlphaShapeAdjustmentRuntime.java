@@ -106,11 +106,9 @@ public class CurrentAlphaShapeAdjustmentRuntime extends ShapeAdjustmentExtension
 	@Override
 	public void apply(CFModification mod) {
 		if (target) {
-			mod.getColorTarget().setUseTarget(CFColor.ALPHA_TARGET);
-			mod.getColorTarget().setAlpha(value);
-		} else {
-			mod.getColor().setAlpha(value);
+			mod.getColor().setUseTarget(CFColor.ALPHA_TARGET);
 		}
+		mod.getColor().setAlpha(value);
 	}
 }
 

@@ -8,12 +8,10 @@ package net.sf.jame.contextfree.extensions.pathReplacement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
-import net.sf.jame.contextfree.renderer.support.CFFinishedShape;
 import net.sf.jame.contextfree.renderer.support.CFModification;
-import net.sf.jame.contextfree.renderer.support.CFPath;
 import net.sf.jame.contextfree.renderer.support.CFPathAttribute;
 import net.sf.jame.contextfree.renderer.support.CFPathCommand;
+import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -30,6 +28,7 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 	private CapListener capListener;
 	private String join;
 	private JoinListener joinListener;
+	private CFModification stateChange;
 	private ListRuntimeElement<PathAdjustmentRuntimeElement> pathAdjustmentListElement;
 	private PathAdjustmentListElementListener pathAdjustmentListElementListener;
 
@@ -265,8 +264,14 @@ public class StrokePathReplacementRuntime extends PathReplacementExtensionRuntim
 		}
 	}
 
-	public void process(ContextFreeContext context, CFPath path) {
-		CFPathAttribute attribute = new CFPathAttribute(CFPathCommand.STROKE, cap, join, width);
-		context.addFinishedShape(new CFFinishedShape(path, attribute));
+	public void process(CFRule rule) {
+		if (stateChange == null) {
+			stateChange = new CFModification();
+			for (int i = 0; i < pathAdjustmentListElement.getElementCount(); i++) {
+				PathAdjustmentRuntimeElement pathAdjustmentRuntime = pathAdjustmentListElement.getElement(i);
+				pathAdjustmentRuntime.apply(stateChange);
+			}
+		}
+		rule.addAttribute(new CFPathAttribute(CFPathCommand.STROKE, stateChange, cap, join, width));
 	}
 }

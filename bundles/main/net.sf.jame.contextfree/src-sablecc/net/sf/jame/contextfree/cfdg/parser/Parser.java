@@ -2,14 +2,19 @@
 
 package net.sf.jame.contextfree.cfdg.parser;
 
-import net.sf.jame.contextfree.cfdg.lexer.*;
-import net.sf.jame.contextfree.cfdg.node.*;
-import net.sf.jame.contextfree.cfdg.analysis.*;
-import java.util.*;
-
-import java.io.DataInputStream;
 import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+
+import net.sf.jame.contextfree.cfdg.analysis.Analysis;
+import net.sf.jame.contextfree.cfdg.analysis.AnalysisAdapter;
+import net.sf.jame.contextfree.cfdg.lexer.Lexer;
+import net.sf.jame.contextfree.cfdg.lexer.LexerException;
+import net.sf.jame.contextfree.cfdg.node.*;
 
 @SuppressWarnings("nls")
 public class Parser

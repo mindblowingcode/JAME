@@ -149,8 +149,13 @@ public class CFBounds {
 	    double target_width = width - 2 * border;
 	    double target_height = height - 2 * border;
 	    	
+	    double center_x = (maxX + minX) / 2.0;
+	    double center_y = (maxY + minY) / 2.0;
+	    
 	    if (!isValid()) {
 	    	virtual_width = virtual_height = 1;
+	    	center_x = 0;
+	    	center_y = 0;
 	    }
 	    
 		int newWidth = width;
@@ -171,13 +176,13 @@ public class CFBounds {
 	    }
 	
 	    if (transform != null) {
-	        double offsetX = scale * (maxX + minX) / 2.0 - newWidth / 2.0;
-	        double offsetY = scale * (maxY + minY) / 2.0 - newHeight / 2.0;
+	        double offsetX = center_x - (target_width / 2.0) / scale;
+	        double offsetY = center_y - (target_height / 2.0) / scale;
 	        transform.setToScale(scale, scale);
 	        transform.translate(-offsetX, -offsetY);
 	    }
-		
-		return scale;
+
+	    return scale;
 	}
 
 	public void setMinX(double value) {

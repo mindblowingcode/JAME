@@ -9,9 +9,10 @@ import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentRuntimeElemen
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
 import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
-import net.sf.jame.contextfree.renderer.ContextFreeContext;
+import net.sf.jame.contextfree.renderer.support.CFBuilder;
 import net.sf.jame.contextfree.renderer.support.CFModification;
-import net.sf.jame.contextfree.renderer.support.CFShape;
+import net.sf.jame.contextfree.renderer.support.CFReplacement;
+import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
@@ -306,7 +307,7 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 		}
 	}
 	
-	public void process(ContextFreeContext context, CFShape shape) {
+	public void process(CFBuilder builder, CFRule rule) {
 		if (stateChange == null) {
 			stateChange = new CFModification();
 			for (int i = 0; i < shapeAdjustmentListElement.getElementCount(); i++) {
@@ -314,14 +315,13 @@ public class MultiShapeReplacementRuntime<T extends MultiShapeReplacementConfig>
 				shapeAdjustmentRuntime.apply(stateChange);
 			}
 		}
-		context.pushModification();
-		for (int t = 0; t < times; t++) {
-			for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
-				ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
-				shapeReplacementRuntime.process(context, shape);
-			}
-			context.addModification(stateChange);
+		int shapeTypeLoopStart = builder.getLoopStartShapeType();
+		rule.addReplacement(new CFReplacement(shapeTypeLoopStart));
+		for (int i = 0; i < shapeReplacementListElement.getElementCount(); i++) {
+			ShapeReplacementRuntimeElement shapeReplacementRuntime = shapeReplacementListElement.getElement(i);
+			shapeReplacementRuntime.process(builder, rule);
 		}
-		context.popModification();
+		int shapeTypeLoopEnd = builder.getLoopEndShapeType();
+		rule.addReplacement(new CFReplacement(shapeTypeLoopEnd, times, stateChange));
 	}
 }
