@@ -2,8 +2,7 @@
 
 package net.sf.jame.contextfree.cfdg.analysis;
 
-import java.util.Hashtable;
-
+import java.util.*;
 import net.sf.jame.contextfree.cfdg.node.*;
 
 public class AnalysisAdapter implements Analysis
@@ -341,6 +340,16 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseAAlphaBackgroundAdjustment(AAlphaBackgroundAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAXTileAdjustment(AXTileAdjustment node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAYTileAdjustment(AYTileAdjustment node)
     {
         defaultCase(node);
     }

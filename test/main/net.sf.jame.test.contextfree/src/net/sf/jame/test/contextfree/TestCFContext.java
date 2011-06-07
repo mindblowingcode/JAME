@@ -299,7 +299,7 @@ public class TestCFContext {
 		ruleA.addReplacement(new CFReplacement(shapeTypeA, 0, modificationA));
 		context.addRule(ruleA);
 		context.reloadRules();
-		context.setTiled(AffineTransform.getScaleInstance(4, 4), 1, 1);
+		context.setTiled(AffineTransform.getScaleInstance(4, 4), 1, 1, true, false);
 		render(shapeTypeA, new Exception().getStackTrace()[0].getMethodName());
 	}
 
@@ -321,7 +321,7 @@ public class TestCFContext {
 		ruleA.addReplacement(new CFReplacement(shapeTypeA, 0, modificationA));
 		context.addRule(ruleA);
 		context.reloadRules();
-		context.setSized(AffineTransform.getScaleInstance(50, 50));
+		context.setTiled(AffineTransform.getScaleInstance(50, 50), 0, 0, false, true);
 		render(shapeTypeA, new Exception().getStackTrace()[0].getMethodName());
 	}
 

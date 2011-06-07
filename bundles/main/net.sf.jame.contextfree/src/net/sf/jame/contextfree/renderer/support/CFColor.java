@@ -93,7 +93,7 @@ public class CFColor {
 		return v;
 	}
 
-	private float adjustHue(float base, float adjustment, boolean useTarget,	float target) {
+	private float adjustHue(float base, float adjustment, boolean useTarget, float target) {
 		if (adjustment == 0.0)
 			return base;
 		float h;
@@ -165,6 +165,12 @@ public class CFColor {
 
 	public float[] getHSBA() {
 		return hsba;
+	}
+
+	public int getARGB() {
+		int argb = Color.HSBtoRGB(hsba[0] / 360, hsba[1], hsba[2]);
+		argb |= ((int) (hsba[3] * 255)) << 24; 
+		return argb;
 	}
 
 	@Override

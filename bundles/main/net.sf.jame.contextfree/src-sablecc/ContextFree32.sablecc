@@ -216,7 +216,7 @@ Productions
 
     background_adjustment = {hue} hue_token expression | {brightness} brightness_token expression | {saturation} saturation_token expression | {alpha} alpha_token expression;
 
-    tile_adjustment = size_token2 first_expression second_expression?;
+    tile_adjustment = {x} x_token expression | {y} y_token expression | size_token2 first_expression second_expression?;
   		
     size_adjustment = {x} x_token expression | {y} y_token expression | {size} size_token2 first_expression second_expression?;
   		

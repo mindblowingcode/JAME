@@ -2,7 +2,7 @@
 
 package net.sf.jame.contextfree.cfdg.parser;
 
-import net.sf.jame.contextfree.cfdg.node.Token;
+import net.sf.jame.contextfree.cfdg.node.*;
 
 @SuppressWarnings("serial")
 public class ParserException extends Exception

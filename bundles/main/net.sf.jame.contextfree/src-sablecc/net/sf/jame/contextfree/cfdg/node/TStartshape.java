@@ -2,7 +2,7 @@
 
 package net.sf.jame.contextfree.cfdg.node;
 
-import net.sf.jame.contextfree.cfdg.analysis.Analysis;
+import net.sf.jame.contextfree.cfdg.analysis.*;
 
 @SuppressWarnings("nls")
 public final class TStartshape extends Token

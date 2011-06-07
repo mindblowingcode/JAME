@@ -9,12 +9,10 @@ public class CFContext {
 	private ArrayList<ShapeType> shapeTypes = new ArrayList<ShapeType>();
 	private ArrayList<CFRule> rules = new ArrayList<CFRule>();
 	private CFColor background = new CFColor(0, 0, 1, 1);
-	private AffineTransform tileTransform;
-	private float tileOffsetX;
-	private float tileOffsetY;
 	private float tileX;
 	private float tileY;
-	private CFShape initialShape;
+	private float sizeX;
+	private float sizeY;
 	private boolean sized;
 	private boolean tiled;
 	private int loopStartShapeType;
@@ -30,22 +28,9 @@ public class CFContext {
 	}
 
 	public void setBackground(CFColor background) {
-		if (this.background == null) {
-			this.background = background;
-		}
+		this.background = background;
 	}
 
-	public CFShape getInitialShape() {
-		initialShape.getModification().getTransform().setToTranslation(tileOffsetX, tileOffsetY);
-		return initialShape;
-	}
-
-	public void setInitialShape(CFShape initialShape) {
-		if (this.initialShape == null) {
-			this.initialShape = initialShape;
-		}
-	}
-	
 	public void addRule(CFRule rule) {
 		if (rule.getInitialShapeType() < shapeTypes.size()) {
 			rules.add(rule);
@@ -118,37 +103,13 @@ public class CFContext {
 		return tiled;
 	}
 	
-	public void setSized(AffineTransform tileTransform) {
-		this.tileTransform = tileTransform;
-		tileOffsetX = (float) tileTransform.getTranslateX();
-		tileOffsetY = (float) tileTransform.getTranslateY();
-		tileTransform.translate(-tileOffsetX, -tileOffsetY);
-		tileX = (float) tileTransform.getScaleX();
-		tileY = (float) tileTransform.getScaleY();
-		sized = true;
-	}
-	
-	public void setTiled(AffineTransform tileTransform, float tileX, float tileY) {
-		if (tiled) return; 
-		this.tileTransform = tileTransform;
-		tileOffsetX = (float) tileTransform.getTranslateX();
-		tileOffsetY = (float) tileTransform.getTranslateY();
-		tileTransform.translate(-tileOffsetX, -tileOffsetY);
+	public void setTiled(AffineTransform tileTransform, float tileX, float tileY, boolean useTile, boolean useSize) {
+		this.sizeX = (float) tileTransform.getScaleX();
+		this.sizeY = (float) tileTransform.getScaleY();
 		this.tileX = tileX;
 		this.tileY = tileY;
-		tiled = true;
-	}
-
-	public AffineTransform getTileTransform() {
-		return tileTransform;
-	}
-
-	public float getTileOffsetX() {
-		return tileOffsetX;
-	}
-
-	public float getTileOffsetY() {
-		return tileOffsetY;
+		tiled = useTile;
+		sized = useSize;
 	}
 
 	public float getTileX() {
@@ -158,7 +119,15 @@ public class CFContext {
 	public float getTileY() {
 		return tileY;
 	}
-	
+
+	public float getSizeX() {
+		return sizeX;
+	}
+
+	public float getSizeY() {
+		return sizeY;
+	}
+
 	public String decodeShapeName(int shapeType) {
 		if (shapeType < shapeTypes.size()) {
 			return shapeTypes.get(shapeType).getName();

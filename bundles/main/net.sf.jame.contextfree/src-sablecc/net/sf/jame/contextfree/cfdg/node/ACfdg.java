@@ -2,11 +2,8 @@
 
 package net.sf.jame.contextfree.cfdg.node;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-
-import net.sf.jame.contextfree.cfdg.analysis.Analysis;
+import java.util.*;
+import net.sf.jame.contextfree.cfdg.analysis.*;
 
 @SuppressWarnings("nls")
 public final class ACfdg extends PCfdg
