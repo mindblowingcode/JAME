@@ -1,8 +1,10 @@
 package net.sf.jame.contextfree.parser;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PushbackReader;
 import java.io.Reader;
 import java.io.StringReader;
@@ -18,8 +20,10 @@ import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
 import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.lexer.Lexer;
+import net.sf.jame.contextfree.cfdg.lexer.LexerException;
 import net.sf.jame.contextfree.cfdg.node.*;
 import net.sf.jame.contextfree.cfdg.parser.Parser;
+import net.sf.jame.contextfree.cfdg.parser.ParserException;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionConfig;
 import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
@@ -112,7 +116,26 @@ public class ContextFreeParser {
 			parser.parse().apply(interpreter);
 			return config;
 		}
-		catch (Exception e) {
+		catch (ParserException e) {
+			String line = null;
+			try {
+				BufferedReader reader2 = new BufferedReader(reader);
+				reader.reset();
+				int i = 0;
+				while ((line = reader2.readLine()) != null) {
+					if (i == e.getToken().getLine()) {
+						break;
+					}
+					i += 1;
+				}
+				System.out.println("[" + e.getToken().getLine() + "," +  e.getToken().getPos() + "] unexpected token " + e.getToken().getText() + " at line " + line);
+			} catch (IOException x) {
+				x.printStackTrace();
+			}
+			throw new ContextFreeParserException(e);
+		} catch (LexerException e) {
+			throw new ContextFreeParserException(e);
+		} catch (IOException e) {
 			throw new ContextFreeParserException(e);
 		}
 	}

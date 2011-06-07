@@ -80,7 +80,7 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 		}
 		context.reloadRules();
 		int initialShapeType = context.encodeShapeName(startshape);
-		CFRenderer renderer = new CFRenderer(context, variation.hashCode(), width, height, border, 0.3f);
+		CFRenderer renderer = new CFRenderer(context, variation.hashCode(), width, height, border, 0.03f);
 		CFModification worldState = new CFModification();
 		boolean partialDraw = true;
 		int reportAt = 250;

@@ -63,7 +63,7 @@ public class CFRenderer {
 	public CFRenderer(CFContext context, int variation, int width, int height, float border, float minSize) {
 		this.context = context;
 		bounds = new CFBounds();
-	    minSize = (minSize < 0.3f) ? 0.3f : minSize;
+	    minSize = (minSize < 0.01f) ? 0.01f : minSize;
 	    this.minArea = minSize * minSize;
 	    this.scaleArea = 1;
 	    this.width = width;
@@ -72,10 +72,10 @@ public class CFRenderer {
 	    random = new Random(variation);
 	    if (context.isSized() || context.isTiled()) {
 	    	fixedBorder = 0.0f;
-	    	bounds.setMinX(-context.getSizeX() / 2.0);
-	    	bounds.setMinY(-context.getSizeY() / 2.0);
-	    	bounds.setMaxX(+context.getSizeX() / 2.0);
-	    	bounds.setMaxY(+context.getSizeY() / 2.0);
+	    	bounds.setMinX(-context.getTileX() / 2.0);
+	    	bounds.setMinY(-context.getTileY() / 2.0);
+	    	bounds.setMaxX(+context.getTileX() / 2.0);
+	    	bounds.setMaxY(+context.getTileY() / 2.0);
 	    	currTrans = new AffineTransform();
     		currTrans.scale(width / context.getSizeX(), height / context.getSizeY());
     		currTrans.translate(context.getSizeX() / 2, context.getSizeY() / 2);
