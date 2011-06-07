@@ -35,8 +35,8 @@ public class StrokePathReplacementConfig extends PathReplacementExtensionConfig 
 		widthElement.setMaximum(getStrokeWidthMax());
 		widthElement.setMinimum(getStrokeWidthMin());
 		widthElement.setStep(getStrokeWidthStep());
-		capElement = new StrokeJoinElement("butt");
-		joinElement = new StrokeCapElement("miter");
+		capElement = new StrokeJoinElement("buttcap");
+		joinElement = new StrokeCapElement("miterjoin");
 		pathAdjustmentListElement = new ListConfigElement<PathAdjustmentConfigElement>("pathAdjustmentListElement");
 	}
 

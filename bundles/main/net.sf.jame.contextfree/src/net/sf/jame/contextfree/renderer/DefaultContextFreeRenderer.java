@@ -67,6 +67,12 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 		String startshape = cfdgRuntime.getStartshape();
 		String variation = cfdgRuntime.getVariation();
 		CFContext context = new CFContext();
+		AffineTransform tileTransform = new AffineTransform();
+		if (cfdgRuntime.isUseTile() || cfdgRuntime.isUseSize()) {
+			tileTransform.translate(cfdgRuntime.getX(), cfdgRuntime.getY());
+			tileTransform.scale(cfdgRuntime.getWidth(), cfdgRuntime.getHeight());
+			context.setTiled(tileTransform, cfdgRuntime.getTileWidth(), cfdgRuntime.getTileHeight(), cfdgRuntime.isUseTile(), cfdgRuntime.isUseSize());
+		}
 		CFBuilder builder = new CFBuilder(context);
 		for (int i = 0; i < cfdgRuntime.getFigureElementCount(); i++) {
 			FigureRuntimeElement figure = cfdgRuntime.getFigureElement(i);
@@ -89,6 +95,9 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 		}
 		percent = 20;
 		for (;;) {
+			if (isInterrupted()) {
+				break;
+			}
 			if (renderer.getUnfinishedCount() == 0) {
 				break;
 			}

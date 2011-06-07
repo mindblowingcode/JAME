@@ -15,14 +15,16 @@ public class TiledShapeRenderer implements CFShapeRenderer {
 	private Rectangle2D.Double canvas;
 	private AffineTransform scale;
 	private AffineTransform tess;
+	private CFContext context;
 	private Point2D.Double ptSrc = new Point2D.Double(0, 0);
 	private Point2D.Double ptDst = new Point2D.Double(0, 0);
 
 	public TiledShapeRenderer(Graphics2D g2d, CFContext context) {
 		this.g2d = g2d;
-		tess = AffineTransform.getScaleInstance(context.getTileTransform().getScaleX(), context.getTileTransform().getScaleY());
-		scale = AffineTransform.getScaleInstance(1 / context.getTileTransform().getScaleX(), 1 / context.getTileTransform().getScaleY());
-		canvas = new Rectangle2D.Double(-0.5 * context.getTileTransform().getScaleX(), -0.5 * context.getTileTransform().getScaleY(), context.getTileTransform().getScaleX(), context.getTileTransform().getScaleY());
+		this.context = context;
+		tess = AffineTransform.getScaleInstance(context.getTileX(), context.getTileY());
+		scale = AffineTransform.getScaleInstance(1 / context.getTileX(), 1 / context.getTileY());
+		canvas = new Rectangle2D.Double(-0.5 * context.getSizeX(), -0.5 * context.getSizeY(), context.getSizeX(), context.getSizeY());
 	}
 
 	private void transform(Rectangle2D bounds, double px, double py) {
@@ -56,17 +58,21 @@ public class TiledShapeRenderer implements CFShapeRenderer {
 		AffineTransform tmpTransform = g2d.getTransform();
 		Composite tmpComposite = g2d.getComposite();
 		Color tmpColor = g2d.getColor();
-		g2d.transform(scale);
-		AffineTransform t = attribute.getModification().getTransform();
-		double tx = t.getTranslateX() * scale.getScaleX();
-		double ty = t.getTranslateY() * scale.getScaleY();
-		double px = tx - Math.floor(tx); 
-		double py = ty - Math.floor(ty);
-		if (px < 0) px += 1;
-		if (py < 0) py += 1;
-		px = (px - tx) / scale.getScaleX();
-		py = (py - ty) / scale.getScaleY();
-		transform(path.getBounds(t, 1), px, py);
+		if (!context.isSized()) {
+			AffineTransform t = attribute.getModification().getTransform();
+			double tx = t.getTranslateX() * scale.getScaleX();
+			double ty = t.getTranslateY() * scale.getScaleY();
+			double px = tx - Math.floor(tx); 
+			double py = ty - Math.floor(ty);
+			if (px < 0) px += 1;
+			if (py < 0) py += 1;
+			px = (px - tx) / scale.getScaleX();
+			py = (py - ty) / scale.getScaleY();
+			transform(path.getBounds(t, 1), px, py);
+		} else {
+			AffineTransform t = attribute.getModification().getTransform();
+			transform(path.getBounds(t, 1), 0, 0);
+		}
 		g2d.setClip(canvas);
 		for (Point2D.Double point : tiles) {
 //            System.out.println(point);

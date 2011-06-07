@@ -40,31 +40,31 @@ public class CFPathAttribute implements Cloneable {
 	}
 
 	private int getRule(String rule) {
-		if ("even-odd".equals(rule)) { 
+		if ("evenodd".equals(rule)) { 
 			return Path2D.WIND_EVEN_ODD;
-		} else if ("non-zero".equals(rule)) { 
+		} else if ("nonzero".equals(rule)) { 
 			return Path2D.WIND_NON_ZERO;
 		}
 		throw new IllegalArgumentException("Rule not supported " + rule);
 	}
 
 	private int getCap(String cap) {
-		if ("butt".equals(cap)) {
+		if ("buttcap".equals(cap)) {
 			return BasicStroke.CAP_BUTT;
-		} else if ("round".equals(cap)) {
+		} else if ("roundcap".equals(cap)) {
 			return BasicStroke.CAP_ROUND;
-		} else if ("square".equals(cap)) {
+		} else if ("squarecap".equals(cap)) {
 			return BasicStroke.CAP_SQUARE;
 		}
 		throw new IllegalArgumentException("Cap not supported " + cap);
 	}
 
 	private int getJoin(String join) {
-		if ("miter".equals(join)) {
+		if ("miterjoin".equals(join)) {
 			return BasicStroke.JOIN_MITER;
-		} else if ("round".equals(join)) {
+		} else if ("roundjoin".equals(join)) {
 			return BasicStroke.JOIN_ROUND;
-		} else if ("bevel".equals(join)) {
+		} else if ("beveljoin".equals(join)) {
 			return BasicStroke.JOIN_BEVEL;
 		}
 		throw new IllegalArgumentException("Join not supported " + join);

@@ -8,6 +8,7 @@ import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
 import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
 import net.sf.jame.contextfree.renderer.support.CFBuilder;
+import net.sf.jame.contextfree.renderer.support.CFPath;
 import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
@@ -189,6 +190,7 @@ public class PathFigureRuntime extends FigureExtensionRuntime<PathFigureConfig> 
 	public void process(CFBuilder builder) {
 		int shapeType = builder.encodeShapeName(name);
 		CFRule rule = new CFRule(shapeType, 1);
+		rule.setPath(new CFPath());
 		for (int i = 0; i < pathReplacementListElement.getElementCount(); i++) {
 			PathReplacementRuntimeElement pathReplacementRuntime = pathReplacementListElement.getElement(i);
 			pathReplacementRuntime.process(rule);

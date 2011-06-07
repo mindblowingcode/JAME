@@ -56,7 +56,7 @@ public class CFRenderer {
 	private float fixedBorder;
 	private int width;
 	private int height;
-	private boolean requestStop;
+	private volatile boolean requestStop;
 	private AffineTransform currTrans;
 	private boolean fullOutput;
 
@@ -72,11 +72,14 @@ public class CFRenderer {
 	    random = new Random(variation);
 	    if (context.isSized() || context.isTiled()) {
 	    	fixedBorder = 0.0f;
-	    	bounds.setMinX(-context.getTileX() / 2.0);
-	    	bounds.setMinY(-context.getTileY() / 2.0);
-	    	bounds.setMaxX(+context.getTileX() / 2.0);
-	    	bounds.setMaxY(+context.getTileY() / 2.0);
-	    	rescale(width, height, false);
+	    	bounds.setMinX(-context.getSizeX() / 2.0);
+	    	bounds.setMinY(-context.getSizeY() / 2.0);
+	    	bounds.setMaxX(+context.getSizeX() / 2.0);
+	    	bounds.setMaxY(+context.getSizeY() / 2.0);
+	    	currTrans = new AffineTransform();
+    		currTrans.scale(width / context.getSizeX(), height / context.getSizeY());
+    		currTrans.translate(context.getSizeX() / 2, context.getSizeY() / 2);
+    		currScale = 1;
 	        scaleArea = currScale * currScale;
 	    } else {
 	    	rescale(width, height, false);
@@ -99,7 +102,7 @@ public class CFRenderer {
 	public void render(Graphics2D g2d) {
 		CFColor c = context.getBackground();
 		Color color = Color.getHSBColor(c.getHue() / 360, c.getSaturation(), c.getBrightness());
-		Composite composite = AlphaComposite.Src.derive(1f);
+		Composite composite = AlphaComposite.Src.derive(c.getAlpha());
 		AffineTransform tmpTransform = g2d.getTransform();
 		Composite tmpComposite = g2d.getComposite();
 		Color tmpColor = g2d.getColor();
@@ -156,6 +159,7 @@ public class CFRenderer {
 		Stack<Integer> replacementStack = new Stack<Integer>();
 		CFRule rule = context.findRule(shape.getInitialShapeType(), random.nextDouble());
 		if (rule == null) {
+			unfinishedSet.clear();
 			return;
 		}
 		for (int i = 0; i < rule.getReplacementCount(); i++) {
@@ -166,15 +170,15 @@ public class CFRenderer {
 				return;
 			}
 			if (rule.getReplacement(i).getShapeType() == context.getLoopStartShapeType()) {
-				shapeStack.push(shape);
+				shapeStack.push(shape.clone());
 				counterStack.push(0);
 				replacementStack.push(i);
 				continue;
 			}
 			if (rule.getReplacement(i).getShapeType() == context.getLoopEndShapeType()) {
-				if (replacementStack.get(0) == i - 2) {
+				if (replacementStack.peek() == i - 2) {
 					CFShape s = shape.clone();
-					shape = shapeStack.get(0);
+					shape = shapeStack.peek();
 					for (int c = 1; c < rule.getReplacement(i).getLoopCount(); c++) {
 						s.concatenate(rule.getReplacement(i));
 						CFShape t = s.clone();
@@ -187,15 +191,17 @@ public class CFRenderer {
 					shapeStack.pop();
 					counterStack.pop();
 					replacementStack.pop();
+					continue;
 				} else {
-					counterStack.set(0, counterStack.get(0) + 1);
-					if (counterStack.get(0) >= rule.getReplacement(i).getLoopCount()) {
+					int j = counterStack.pop();
+					counterStack.push(j + 1);
+					if (counterStack.peek() >= rule.getReplacement(i).getLoopCount()) {
 						shape = shapeStack.pop(); 
 						counterStack.pop();
 						replacementStack.pop();
 					} else {
 						shape.concatenate(rule.getReplacement(i));
-						i = replacementStack.get(0);
+						i = replacementStack.peek();
 					}
 					continue;
 				}
@@ -237,20 +243,21 @@ public class CFRenderer {
 			for (int i = 0; i < rule.getAttributeCount(); i++) {
 				CFPathAttribute attribute = rule.getAttribute(i);
 				if (attribute.getCommand() == CFPathCommand.LOOP_START) {
-					shapeStack.push(tmpShape);
+					shapeStack.push(tmpShape.clone());
 					counterStack.push(0);
 					attributeStack.push(attribute);
 					continue;
 				}
 				if (attribute.getCommand() == CFPathCommand.LOOP_END) {
-					counterStack.set(0, counterStack.get(0) + 1);
-					if (counterStack.get(0) >= attribute.getCount()) {
+					int j = counterStack.pop();
+					counterStack.push(j + 1);
+					if (counterStack.peek() >= attribute.getCount()) {
 						tmpShape = shapeStack.pop();
 						counterStack.pop();
 						attributeStack.pop();
 					} else {
 						tmpShape.getModification().concatenate(attribute.getModification());
-						attribute = attributeStack.get(0);
+						attribute = attributeStack.peek();
 					}
 					continue;
 				}
@@ -284,5 +291,13 @@ public class CFRenderer {
 		for (CFFinishedShape shape : finishedSet) {
 			logger.info(shape);
 		}	
+	}
+
+	public boolean isRequestStop() {
+		return requestStop;
+	}
+
+	public void setRequestStop(boolean requestStop) {
+		this.requestStop = requestStop;
 	}
 }

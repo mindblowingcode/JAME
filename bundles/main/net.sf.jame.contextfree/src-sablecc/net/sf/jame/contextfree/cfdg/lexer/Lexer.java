@@ -2,67 +2,8 @@
 
 package net.sf.jame.contextfree.cfdg.lexer;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.PushbackReader;
-
-import net.sf.jame.contextfree.cfdg.node.EOF;
-import net.sf.jame.contextfree.cfdg.node.TAlphaToken;
-import net.sf.jame.contextfree.cfdg.node.TArrow;
-import net.sf.jame.contextfree.cfdg.node.TBackground;
-import net.sf.jame.contextfree.cfdg.node.TBar;
-import net.sf.jame.contextfree.cfdg.node.TBlockComment;
-import net.sf.jame.contextfree.cfdg.node.TBrightnessToken;
-import net.sf.jame.contextfree.cfdg.node.TComma;
-import net.sf.jame.contextfree.cfdg.node.TCommand;
-import net.sf.jame.contextfree.cfdg.node.TFilename;
-import net.sf.jame.contextfree.cfdg.node.TFlipToken;
-import net.sf.jame.contextfree.cfdg.node.TFunctionArg0;
-import net.sf.jame.contextfree.cfdg.node.TFunctionArg1;
-import net.sf.jame.contextfree.cfdg.node.TFunctionArg2;
-import net.sf.jame.contextfree.cfdg.node.THueToken;
-import net.sf.jame.contextfree.cfdg.node.TInclude;
-import net.sf.jame.contextfree.cfdg.node.TLCbkt;
-import net.sf.jame.contextfree.cfdg.node.TLRbkt;
-import net.sf.jame.contextfree.cfdg.node.TLSbkt;
-import net.sf.jame.contextfree.cfdg.node.TLineComment;
-import net.sf.jame.contextfree.cfdg.node.TMinus;
-import net.sf.jame.contextfree.cfdg.node.TNumber;
-import net.sf.jame.contextfree.cfdg.node.TOperation;
-import net.sf.jame.contextfree.cfdg.node.TParametersToken;
-import net.sf.jame.contextfree.cfdg.node.TPath;
-import net.sf.jame.contextfree.cfdg.node.TPlus;
-import net.sf.jame.contextfree.cfdg.node.TRCbkt;
-import net.sf.jame.contextfree.cfdg.node.TRRbkt;
-import net.sf.jame.contextfree.cfdg.node.TRSbkt;
-import net.sf.jame.contextfree.cfdg.node.TRotateToken;
-import net.sf.jame.contextfree.cfdg.node.TRule;
-import net.sf.jame.contextfree.cfdg.node.TRxToken;
-import net.sf.jame.contextfree.cfdg.node.TRyToken;
-import net.sf.jame.contextfree.cfdg.node.TSaturationToken;
-import net.sf.jame.contextfree.cfdg.node.TSize;
-import net.sf.jame.contextfree.cfdg.node.TSizeToken;
-import net.sf.jame.contextfree.cfdg.node.TSkewToken;
-import net.sf.jame.contextfree.cfdg.node.TSlash;
-import net.sf.jame.contextfree.cfdg.node.TStar;
-import net.sf.jame.contextfree.cfdg.node.TStartshape;
-import net.sf.jame.contextfree.cfdg.node.TString;
-import net.sf.jame.contextfree.cfdg.node.TStrokewidthToken;
-import net.sf.jame.contextfree.cfdg.node.TTargetAlphaToken;
-import net.sf.jame.contextfree.cfdg.node.TTargetBrightnessToken;
-import net.sf.jame.contextfree.cfdg.node.TTargetHueToken;
-import net.sf.jame.contextfree.cfdg.node.TTargetSaturationToken;
-import net.sf.jame.contextfree.cfdg.node.TTile;
-import net.sf.jame.contextfree.cfdg.node.TWhiteSpace;
-import net.sf.jame.contextfree.cfdg.node.TX1Token;
-import net.sf.jame.contextfree.cfdg.node.TX2Token;
-import net.sf.jame.contextfree.cfdg.node.TXToken;
-import net.sf.jame.contextfree.cfdg.node.TY1Token;
-import net.sf.jame.contextfree.cfdg.node.TY2Token;
-import net.sf.jame.contextfree.cfdg.node.TYToken;
-import net.sf.jame.contextfree.cfdg.node.TZToken;
-import net.sf.jame.contextfree.cfdg.node.Token;
+import java.io.*;
+import net.sf.jame.contextfree.cfdg.node.*;
 
 @SuppressWarnings("nls")
 public class Lexer

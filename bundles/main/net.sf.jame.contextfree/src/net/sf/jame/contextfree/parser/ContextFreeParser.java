@@ -85,11 +85,11 @@ import net.sf.jame.contextfree.extensions.shapeAdjustment.YShapeAdjustmentConfig
 import net.sf.jame.contextfree.extensions.shapeAdjustment.ZShapeAdjustmentConfig;
 import net.sf.jame.contextfree.extensions.shapeReplacement.MultiShapeReplacementConfig;
 import net.sf.jame.contextfree.extensions.shapeReplacement.SingleShapeReplacementConfig;
+import net.sf.jame.contextfree.renderer.support.CFColor;
 import net.sf.jame.core.extension.ConfigurableExtension;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.core.util.Color32bit;
-import net.sf.jame.core.util.Colors;
 
 public class ContextFreeParser {
 	public ContextFreeConfig parseConfig(File file) throws ContextFreeParserException {
@@ -223,42 +223,24 @@ public class ContextFreeParser {
 		@Override
 		public void inABackgroundDeclaration(ABackgroundDeclaration node) {
 			super.inABackgroundDeclaration(node);
+			CFColor color = new CFColor(0, 0, 1, 1);
+			CFColor target = new CFColor();
 			for (PBackgroundAdjustment adjustment : node.getBackgroundAdjustment()) {
 				if (adjustment instanceof AHueBackgroundAdjustment) {
-					float[] hsbvals = new float[3];
-					Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
 					float value = evaluateExpression(((AHueBackgroundAdjustment) adjustment).getExpression());
-					hsbvals[0] += value;
-					if (hsbvals[0] < 0) hsbvals[0] = 0; 
-					if (hsbvals[0] > 1) hsbvals[0] = 1; 
-					config.getCFDG().setBackground(new Color32bit(Colors.toRGB(config.getCFDG().getBackground().getAlpha(), hsbvals)));
+					color.adjustWith(new CFColor(value, 0, 0, 0), target);
 				} else if (adjustment instanceof ASaturationBackgroundAdjustment) {
-					float[] hsbvals = new float[3];
-					Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
 					float value = evaluateExpression(((ASaturationBackgroundAdjustment) adjustment).getExpression());
-					hsbvals[1] += value;
-					if (hsbvals[1] < 0) hsbvals[1] = 0; 
-					if (hsbvals[1] > 1) hsbvals[1] = 1; 
-					config.getCFDG().setBackground(new Color32bit(Colors.toRGB(config.getCFDG().getBackground().getAlpha(), hsbvals)));
+					color.adjustWith(new CFColor(0, value, 0, 0), target);
 				} else if (adjustment instanceof ABrightnessBackgroundAdjustment) {
-					float[] hsbvals = new float[3];
-					Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
 					float value = evaluateExpression(((ABrightnessBackgroundAdjustment) adjustment).getExpression());
-					hsbvals[2] += value;
-					if (hsbvals[2] < 0) hsbvals[2] = 0; 
-					if (hsbvals[2] > 1) hsbvals[2] = 1; 
-					config.getCFDG().setBackground(new Color32bit(Colors.toRGB(config.getCFDG().getBackground().getAlpha(), hsbvals)));
+					color.adjustWith(new CFColor(0, 0, value, 0), target);
 				} else if (adjustment instanceof AAlphaBackgroundAdjustment) {
-					float[] hsbvals = new float[4];
-					Colors.toHSB(config.getCFDG().getBackground().getARGB(), hsbvals);
-					hsbvals[3] = config.getCFDG().getBackground().getAlpha() / 255f;
 					float value = evaluateExpression(((AAlphaBackgroundAdjustment) adjustment).getExpression());
-					hsbvals[3] += value;
-					if (hsbvals[3] < 0) hsbvals[3] = 0; 
-					if (hsbvals[3] > 1) hsbvals[3] = 1; 
-					config.getCFDG().setBackground(new Color32bit(Colors.toRGB((int) Math.rint(hsbvals[3] * 255), hsbvals)));
+					color.adjustWith(new CFColor(0, 0, 0, value), target);
 				}
 			}
+			config.getCFDG().setBackground(new Color32bit(color.getARGB()));
 		}
 
 		/**
@@ -267,23 +249,38 @@ public class ContextFreeParser {
 		@Override
 		public void inATileDeclaration(ATileDeclaration node) {
 			super.inATileDeclaration(node);
-			config.getCFDG().setUseSize(false);
-			config.getCFDG().setUseTile(true);
+			float tx = 1;
+			float ty = 1;
+			float x = 0;
+			float y = 0;
 			for (PTileAdjustment adjustment : node.getTileAdjustment()) {
 				if (adjustment instanceof ATileAdjustment) {
 					PFirstExpression firstExpression = ((ATileAdjustment) adjustment).getFirstExpression();
 					if (firstExpression instanceof AFirstExpression) {
 						float value = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
-						config.getCFDG().setTileWidth(value);
-						config.getCFDG().setTileHeight(value);
+						tx = value;
+						ty = value;
 					}
 					PSecondExpression secondExpression = ((ATileAdjustment) adjustment).getSecondExpression();
 					if (secondExpression != null && secondExpression instanceof ASecondExpression) {
 						float value = evaluateExpression(((ASecondExpression) secondExpression).getExtendedExpression());
-						config.getCFDG().setTileHeight(value);
+						ty = value;
 					}
+				} else if (adjustment instanceof AXTileAdjustment) {
+					float value = evaluateExpression(((AXTileAdjustment) adjustment).getExpression());
+					x = value;
+				} else if (adjustment instanceof AYTileAdjustment) {
+					float value = evaluateExpression(((AYTileAdjustment) adjustment).getExpression());
+					y = value;
 				}
 			}
+			config.getCFDG().setUseTile(true);
+			config.getCFDG().setX(x);
+			config.getCFDG().setY(y);
+			config.getCFDG().setWidth(tx);
+			config.getCFDG().setHeight(ty);
+			config.getCFDG().setTileWidth(tx);
+			config.getCFDG().setTileHeight(ty);
 		}
 
 		/**
@@ -292,28 +289,38 @@ public class ContextFreeParser {
 		@Override
 		public void inASizeDeclaration(ASizeDeclaration node) {
 			super.inASizeDeclaration(node);
-			config.getCFDG().setUseSize(true);
+			float tx = 1;
+			float ty = 1;
+			float x = 0;
+			float y = 0;
 			for (PSizeAdjustment adjustment : node.getSizeAdjustment()) {
 				if (adjustment instanceof ASizeSizeAdjustment) {
 					PFirstExpression firstExpression = ((ASizeSizeAdjustment) adjustment).getFirstExpression();
 					if (firstExpression instanceof AFirstExpression) {
 						float value = evaluateExpression(((AFirstExpression) firstExpression).getExtendedExpression());
-						config.getCFDG().setWidth(value);
-						config.getCFDG().setHeight(value);
+						tx = value;
+						ty = value;
 					}
 					PSecondExpression secondExpression = ((ASizeSizeAdjustment) adjustment).getSecondExpression();
 					if (secondExpression != null && secondExpression instanceof ASecondExpression) {
 						float value = evaluateExpression(((ASecondExpression) secondExpression).getExtendedExpression());
-						config.getCFDG().setHeight(value);
+						ty = value;
 					}
 				} else if (adjustment instanceof AXSizeAdjustment) {
 					float value = evaluateExpression(((AXSizeAdjustment) adjustment).getExpression());
-					config.getCFDG().setX(value);
+					x = value;
 				} else if (adjustment instanceof AYSizeAdjustment) {
 					float value = evaluateExpression(((AYSizeAdjustment) adjustment).getExpression());
-					config.getCFDG().setY(value);
+					y = value;
 				}
 			}
+			config.getCFDG().setUseSize(true);
+			config.getCFDG().setX(x);
+			config.getCFDG().setY(y);
+			config.getCFDG().setWidth(tx);
+			config.getCFDG().setHeight(ty);
+			config.getCFDG().setTileWidth(tx);
+			config.getCFDG().setTileHeight(ty);
 		}
 
 		public float evaluateExpression(PExpression expression) {
@@ -386,8 +393,8 @@ public class ContextFreeParser {
 		}
 
 		public float evaluateExpression(AComposedExtendedExpression expression) {
-			float value1 = evaluateExpression(expression.getExpression());
-			float value2 = evaluateExpression(expression.getExtendedExpression());
+			float value2 = evaluateExpression(expression.getExpression());
+			float value1 = evaluateExpression(expression.getExtendedExpression());
 			POperator operator = expression.getOperator();
 			if (operator instanceof APlusOperator) {
 				return value1 + value2;
@@ -1304,6 +1311,8 @@ public class ContextFreeParser {
 
 		private ShapeReplacementConfigElement createShapeReplacementElement(AMultiShapeReplacementDeclaration shapeReplacementDeclaration) throws ExtensionNotFoundException {
 			MultiShapeReplacementConfig config = new MultiShapeReplacementConfig();
+			dropSameAdjustments(shapeReplacementDeclaration.getShapeAdjustment());
+			Collections.sort(shapeReplacementDeclaration.getShapeAdjustment(), new PShapeAdjustmentComparator());
 			config.setTimes(Integer.valueOf(shapeReplacementDeclaration.getNumber().getText()));
 			for (PShapeAdjustment shapeAdjustment : shapeReplacementDeclaration.getShapeAdjustment()) {
 				ShapeAdjustmentConfigElement shapeAdjustmentElement = createShapeAdjustmentElement(shapeAdjustment);

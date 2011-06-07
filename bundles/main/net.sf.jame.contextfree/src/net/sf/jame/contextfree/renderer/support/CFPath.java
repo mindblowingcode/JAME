@@ -187,7 +187,9 @@ public class CFPath implements Cloneable {
 	@Override
 	public CFPath clone() {
 		CFPath p = new CFPath();
-		p.path = (ExtendedGeneralPath) path.clone();
+		if (path != null) {
+			p.path = (ExtendedGeneralPath) path.clone();
+		}
 		p.x = x;
 		p.y = y;
 		p.x1 = x1;
@@ -199,6 +201,7 @@ public class CFPath implements Cloneable {
 		AffineTransform t = new AffineTransform();
 		t.concatenate(transform);
 		t.scale(scale, scale);
+		ExtendedGeneralPath path = generalPath();
 		Shape shape = path.createTransformedShape(transform);
 		return shape.getBounds2D();
 	}
@@ -211,7 +214,7 @@ public class CFPath implements Cloneable {
 	public void render(Graphics2D g2d, CFPathAttribute attribute, Point2D.Double point) {
 		CFColor c = attribute.getModification().getColor();
 		Color color = Color.getHSBColor(c.getHue() / 360, c.getSaturation(), c.getBrightness());
-		Composite composite = AlphaComposite.Src.derive(c.getAlpha());
+		Composite composite = AlphaComposite.SrcAtop.derive(c.getAlpha());
 		AffineTransform tmpTransform = g2d.getTransform();
 		Composite tmpComposite = g2d.getComposite();
 		Color tmpColor = g2d.getColor();
@@ -221,11 +224,14 @@ public class CFPath implements Cloneable {
 			g2d.translate(point.getX(), point.getY());
 		}
 		g2d.transform(attribute.getModification().getTransform());
-		if (attribute.getCommand().equals(CFPathCommand.FILL)) {
-			path.setWindingRule(attribute.getWindingRule());
-			g2d.fill(path);
-		} else {
-			g2d.draw(path);
+		if (path != null) {
+			if (attribute.getCommand().equals(CFPathCommand.FILL)) {
+				path.setWindingRule(attribute.getWindingRule());
+				g2d.fill(path);
+			} else {
+				g2d.setStroke(attribute.getStroke());
+				g2d.draw(path);
+			}
 		}
 		g2d.setTransform(tmpTransform);
 		g2d.setComposite(tmpComposite);

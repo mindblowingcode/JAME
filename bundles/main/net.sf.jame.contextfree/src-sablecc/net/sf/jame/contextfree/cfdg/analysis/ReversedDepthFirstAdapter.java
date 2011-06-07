@@ -2,10 +2,7 @@
 
 package net.sf.jame.contextfree.cfdg.analysis;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import java.util.*;
 import net.sf.jame.contextfree.cfdg.node.*;
 
 public class ReversedDepthFirstAdapter extends AnalysisAdapter
@@ -1512,6 +1509,56 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getAlphaToken().apply(this);
         }
         outAAlphaBackgroundAdjustment(node);
+    }
+
+    public void inAXTileAdjustment(AXTileAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAXTileAdjustment(AXTileAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAXTileAdjustment(AXTileAdjustment node)
+    {
+        inAXTileAdjustment(node);
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        if(node.getXToken() != null)
+        {
+            node.getXToken().apply(this);
+        }
+        outAXTileAdjustment(node);
+    }
+
+    public void inAYTileAdjustment(AYTileAdjustment node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAYTileAdjustment(AYTileAdjustment node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAYTileAdjustment(AYTileAdjustment node)
+    {
+        inAYTileAdjustment(node);
+        if(node.getExpression() != null)
+        {
+            node.getExpression().apply(this);
+        }
+        if(node.getYToken() != null)
+        {
+            node.getYToken().apply(this);
+        }
+        outAYTileAdjustment(node);
     }
 
     public void inATileAdjustment(ATileAdjustment node)
