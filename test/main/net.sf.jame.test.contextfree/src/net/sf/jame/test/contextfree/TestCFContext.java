@@ -354,7 +354,7 @@ public class TestCFContext {
         BufferedImage image = new BufferedImage(640, 480, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = image.createGraphics();
         prepare(g2d);
-        renderer.render(g2d);
+		renderer.render(g2d, false);
         g2d.dispose();
         try {
 			ImageIO.write(image, "png", new File("output/test-" + suffix + ".png"));

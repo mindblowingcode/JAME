@@ -76,13 +76,10 @@ public class CFRenderer {
 	    	bounds.setMinY(-context.getTileY() / 2.0);
 	    	bounds.setMaxX(+context.getTileX() / 2.0);
 	    	bounds.setMaxY(+context.getTileY() / 2.0);
-	    	currTrans = new AffineTransform();
-    		currTrans.scale(width / context.getSizeX(), height / context.getSizeY());
-    		currTrans.translate(context.getSizeX() / 2, context.getSizeY() / 2);
-    		currScale = 1;
+	    	rescale(width, height, true);
 	        scaleArea = currScale * currScale;
 	    } else {
-	    	rescale(width, height, false);
+	    	rescale(width, height, true);
 	        scaleArea = currScale * currScale;
 	    }
 	}
@@ -99,36 +96,39 @@ public class CFRenderer {
 		return unfinishedSet.remove(0);
 	}
 
-	public void render(Graphics2D g2d) {
-		CFColor c = context.getBackground();
-		Color color = Color.getHSBColor(c.getHue() / 360, c.getSaturation(), c.getBrightness());
-		Composite composite = AlphaComposite.Src.derive(c.getAlpha());
-		AffineTransform tmpTransform = g2d.getTransform();
-		Composite tmpComposite = g2d.getComposite();
-		Color tmpColor = g2d.getColor();
-		g2d.setComposite(composite);
-		g2d.setColor(color);
-		g2d.fillRect(0, 0, width, height);
-		g2d.translate(width / 2, height / 2);
-		g2d.scale(1, -1);
-		g2d.translate(-width / 2, -height / 2);
-		g2d.translate(fixedBorder, fixedBorder);
-		g2d.transform(currTrans);
-		CFShapeRenderer render = null;
-		if (context.isTiled()) {
-			render = new TiledShapeRenderer(g2d, context);
-		} else {
-			render = new SimpleShapeRenderer(g2d, context);
-		}
-		for (CFFinishedShape shape : finishedSet) {
-			shape.render(render);
-			if (Thread.currentThread().isInterrupted()) {
-				break;
+	public void render(Graphics2D g2d, boolean partial) {
+		if (!partial || fullOutput) {
+			CFColor c = context.getBackground();
+			Color color = Color.getHSBColor(c.getHue() / 360, c.getSaturation(), c.getBrightness());
+			Composite composite = AlphaComposite.Src.derive(c.getAlpha());
+			AffineTransform tmpTransform = g2d.getTransform();
+			Composite tmpComposite = g2d.getComposite();
+			Color tmpColor = g2d.getColor();
+			g2d.setComposite(composite);
+			g2d.setColor(color);
+			g2d.fillRect(0, 0, width, height);
+			g2d.translate(width / 2, height / 2);
+			g2d.scale(1, -1);
+			g2d.translate(-width / 2, -height / 2);
+			g2d.translate(fixedBorder, fixedBorder);
+			g2d.transform(currTrans);
+			CFShapeRenderer render = null;
+			if (context.isTiled() || context.isSized()) {
+				render = new TiledShapeRenderer(g2d, context);
+			} else {
+				render = new SimpleShapeRenderer(g2d, context);
 			}
+			for (CFFinishedShape shape : finishedSet) {
+				shape.render(render);
+				if (Thread.currentThread().isInterrupted()) {
+					break;
+				}
+			}
+			g2d.setTransform(tmpTransform);
+			g2d.setComposite(tmpComposite);
+			g2d.setColor(tmpColor);
+			fullOutput = false;
 		}
-		g2d.setTransform(tmpTransform);
-		g2d.setComposite(tmpComposite);
-		g2d.setColor(tmpColor);
 	}
 	
 	private void rescale(int width, int height, boolean last) {

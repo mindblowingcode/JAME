@@ -28,9 +28,10 @@ public interface Analysis extends Switch
     void caseATileDeclaration(ATileDeclaration node);
     void caseASizeDeclaration(ASizeDeclaration node);
     void caseARuleDeclaration(ARuleDeclaration node);
-    void caseAMultiShapeReplacementDeclaration(AMultiShapeReplacementDeclaration node);
+    void caseAUnorderedShapeReplacementDeclaration(AUnorderedShapeReplacementDeclaration node);
+    void caseAOrderedShapeReplacementDeclaration(AOrderedShapeReplacementDeclaration node);
     void caseASingleShapeReplacementDeclaration(ASingleShapeReplacementDeclaration node);
-    void caseABasicShapeReplacement(ABasicShapeReplacement node);
+    void caseAUnorderedShapeReplacement(AUnorderedShapeReplacement node);
     void caseAOrderedShapeReplacement(AOrderedShapeReplacement node);
     void caseABasicShapeReplacementBlock(ABasicShapeReplacementBlock node);
     void caseAListShapeReplacementBlock(AListShapeReplacementBlock node);
@@ -40,10 +41,11 @@ public interface Analysis extends Switch
     void caseASlashOperator(ASlashOperator node);
     void caseAArrowOperator(AArrowOperator node);
     void caseAPathOperation(APathOperation node);
-    void caseABasicPathCommand(ABasicPathCommand node);
+    void caseAUnorderedPathCommand(AUnorderedPathCommand node);
     void caseAOrderedPathCommand(AOrderedPathCommand node);
     void caseAPathDeclaration(APathDeclaration node);
-    void caseAMultiPathReplacementDeclaration(AMultiPathReplacementDeclaration node);
+    void caseAUnorderedPathReplacementDeclaration(AUnorderedPathReplacementDeclaration node);
+    void caseAOrderedPathReplacementDeclaration(AOrderedPathReplacementDeclaration node);
     void caseASinglePathReplacementDeclaration(ASinglePathReplacementDeclaration node);
     void caseAOperationPathReplacement(AOperationPathReplacement node);
     void caseACommandPathReplacement(ACommandPathReplacement node);

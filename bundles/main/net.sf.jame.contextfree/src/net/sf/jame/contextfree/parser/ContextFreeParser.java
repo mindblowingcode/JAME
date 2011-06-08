@@ -540,8 +540,10 @@ public class ContextFreeParser {
 		private PathReplacementConfigElement createPathReplacementElement(PPathReplacementDeclaration pathReplacementDeclaration) throws ExtensionNotFoundException {
 			if (pathReplacementDeclaration instanceof ASinglePathReplacementDeclaration) {
 				return createPathReplacementElement((ASinglePathReplacementDeclaration) pathReplacementDeclaration);
-			} else if (pathReplacementDeclaration instanceof AMultiPathReplacementDeclaration) {
-				return createPathReplacementElement((AMultiPathReplacementDeclaration) pathReplacementDeclaration);
+			} else if (pathReplacementDeclaration instanceof AUnorderedPathReplacementDeclaration) {
+				return createPathReplacementElement((AUnorderedPathReplacementDeclaration) pathReplacementDeclaration);
+			} else if (pathReplacementDeclaration instanceof AOrderedPathReplacementDeclaration) {
+				return createPathReplacementElement((AOrderedPathReplacementDeclaration) pathReplacementDeclaration);
 			}
 			return null;
 		}
@@ -550,8 +552,38 @@ public class ContextFreeParser {
 			return createPathReplacementElement(pathReplacementDeclaration.getPathReplacement());
 		}
 		
-		private PathReplacementConfigElement createPathReplacementElement(AMultiPathReplacementDeclaration pathReplacementDeclaration) throws ExtensionNotFoundException {
+		private PathReplacementConfigElement createPathReplacementElement(AUnorderedPathReplacementDeclaration pathReplacementDeclaration) throws ExtensionNotFoundException {
 			MultiPathReplacementConfig config = new MultiPathReplacementConfig();
+			dropSamePathAdjustments(pathReplacementDeclaration.getPathAdjustment());
+			config.setTimes(Integer.valueOf(pathReplacementDeclaration.getNumber().getText()));
+			for (PPathAdjustment pathAdjustment : pathReplacementDeclaration.getPathAdjustment()) {
+				PathAdjustmentConfigElement pathAdjustmentElement = createPathAdjustmentElement(pathAdjustment);
+				if (pathAdjustmentElement != null) {
+					config.appendPathAdjustmentConfigElement(pathAdjustmentElement);
+				}
+			}
+			PPathReplacementBlock pathReplacementBlock = pathReplacementDeclaration.getPathReplacementBlock();
+			if (pathReplacementBlock instanceof ABasicPathReplacementBlock) {
+				PPathReplacement pathReplacement = ((ABasicPathReplacementBlock) pathReplacementBlock).getPathReplacement();
+				PathReplacementConfigElement pathReplacementElement = createPathReplacementElement(pathReplacement);
+				if (pathReplacementElement != null) {
+					config.appendPathReplacementConfigElement(pathReplacementElement);
+				}
+			} else if (pathReplacementBlock instanceof AListPathReplacementBlock) {
+				for (PPathReplacementDeclaration pathReplacement : ((AListPathReplacementBlock) pathReplacementBlock).getPathReplacementDeclaration()) {
+					PathReplacementConfigElement pathReplacementElement = createPathReplacementElement(pathReplacement);
+					if (pathReplacementElement != null) {
+						config.appendPathReplacementConfigElement(pathReplacementElement);
+					}
+				}
+			}
+			return null;
+		}
+		
+		private PathReplacementConfigElement createPathReplacementElement(AOrderedPathReplacementDeclaration pathReplacementDeclaration) throws ExtensionNotFoundException {
+			MultiPathReplacementConfig config = new MultiPathReplacementConfig();
+			dropSamePathAdjustments(pathReplacementDeclaration.getPathAdjustment());
+			Collections.sort(pathReplacementDeclaration.getPathAdjustment(), new PPathAdjustmentComparator());
 			config.setTimes(Integer.valueOf(pathReplacementDeclaration.getNumber().getText()));
 			for (PPathAdjustment pathAdjustment : pathReplacementDeclaration.getPathAdjustment()) {
 				PathAdjustmentConfigElement pathAdjustmentElement = createPathAdjustmentElement(pathAdjustment);
@@ -1104,15 +1136,15 @@ public class ContextFreeParser {
 
 		private ConfigurableExtensionReference<PathReplacementExtensionConfig> createPathReplacementExtensionReference(ACommandPathReplacement pathReplacement) throws ExtensionNotFoundException {
 			PPathCommand pathCommand = pathReplacement.getPathCommand();
-			if (pathCommand instanceof ABasicPathCommand) {
-				return createPathReplacementExtensionReference((ABasicPathCommand) pathCommand);
+			if (pathCommand instanceof AUnorderedPathCommand) {
+				return createPathReplacementExtensionReference((AUnorderedPathCommand) pathCommand);
 			} else if (pathCommand instanceof AOrderedPathCommand) {
 				return createPathReplacementExtensionReference((AOrderedPathCommand) pathCommand);
 			}
 			return null;
 		}
 		
-		private ConfigurableExtensionReference<PathReplacementExtensionConfig> createPathReplacementExtensionReference(ABasicPathCommand pathCommand) throws ExtensionNotFoundException {
+		private ConfigurableExtensionReference<PathReplacementExtensionConfig> createPathReplacementExtensionReference(AUnorderedPathCommand pathCommand) throws ExtensionNotFoundException {
 			String command = pathCommand.getCommand().getText();
 			if ("FILL".equals(command)) {
 				FillPathReplacementConfig config = new FillPathReplacementConfig();
@@ -1128,12 +1160,7 @@ public class ContextFreeParser {
 							config.appendPathAdjustmentConfigElement(pathAdjustmentElement);
 						}
 					} else if (commadParameter instanceof AParametersCommandParameter) {
-						String param = ((AParametersCommandParameter) commadParameter).getString().getText();
-						if ("evenodd".equals(param)) {
-							config.setRule("even-odd");
-						} else {
-							config.setRule("non-zero");
-						}
+						config.setRule(((AParametersCommandParameter) commadParameter).getString().getText());
 					}
 				}
 				ConfigurableExtension<PathReplacementExtensionRuntime<?>, PathReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getPathReplacementExtension("contextfree.path.replacement.command.fill");
@@ -1153,20 +1180,7 @@ public class ContextFreeParser {
 							config.appendPathAdjustmentConfigElement(pathAdjustmentElement);
 						}
 					} else if (commadParameter instanceof AParametersCommandParameter) {
-						String param = ((AParametersCommandParameter) commadParameter).getString().getText();
-						if (param.equals("buttcap")) {
-							config.setCap("buttcap");
-						} else if (param.equals("roundcap")) {
-							config.setCap("roundcap");
-						} else if (param.equals("squarecap")) {
-							config.setCap("roundcap");
-						} else if (param.equals("miterjoin")) {
-							config.setJoin("miterjoin");
-						} else if (param.equals("roundjoin")) {
-							config.setJoin("roundjoin");
-						} else if (param.equals("beveljoin")) {
-							config.setJoin("beveljoin");
-						}
+						config.setCap(((AParametersCommandParameter) commadParameter).getString().getText());
 					} else if (commadParameter instanceof AStrokeCommandParameter) {
 						config.setWidth(evaluateExpression(((AStrokeCommandParameter) commadParameter).getExpression()));
 					}
@@ -1275,20 +1289,7 @@ public class ContextFreeParser {
 							config.appendPathAdjustmentConfigElement(pathAdjustmentElement);
 						}
 					} else if (commadParameter instanceof AParametersCommandParameter) {
-						String param = ((AParametersCommandParameter) commadParameter).getString().getText();
-						if (param.equals("buttcap")) {
-							config.setCap("buttcap");
-						} else if (param.equals("roundcap")) {
-							config.setCap("roundcap");
-						} else if (param.equals("squarecap")) {
-							config.setCap("roundcap");
-						} else if (param.equals("miterjoin")) {
-							config.setJoin("miterjoin");
-						} else if (param.equals("roundjoin")) {
-							config.setJoin("roundjoin");
-						} else if (param.equals("beveljoin")) {
-							config.setJoin("beveljoin");
-						}
+						config.setCap(((AParametersCommandParameter) commadParameter).getString().getText());
 					} else if (commadParameter instanceof AStrokeCommandParameter) {
 						config.setWidth(evaluateExpression(((AStrokeCommandParameter) commadParameter).getExpression()));
 					}
@@ -1322,8 +1323,10 @@ public class ContextFreeParser {
 		private ShapeReplacementConfigElement createShapeReplacementElement(PShapeReplacementDeclaration shapeReplacementDeclaration) throws ExtensionNotFoundException {
 			if (shapeReplacementDeclaration instanceof ASingleShapeReplacementDeclaration) {
 				return createShapeReplacementElement((ASingleShapeReplacementDeclaration) shapeReplacementDeclaration);
-			} else if (shapeReplacementDeclaration instanceof AMultiShapeReplacementDeclaration) {
-				return createShapeReplacementElement((AMultiShapeReplacementDeclaration) shapeReplacementDeclaration);
+			} else if (shapeReplacementDeclaration instanceof AUnorderedShapeReplacementDeclaration) {
+				return createShapeReplacementElement((AUnorderedShapeReplacementDeclaration) shapeReplacementDeclaration);
+			} else if (shapeReplacementDeclaration instanceof AOrderedShapeReplacementDeclaration) {
+				return createShapeReplacementElement((AOrderedShapeReplacementDeclaration) shapeReplacementDeclaration);
 			}
 			return null;
 		}
@@ -1332,9 +1335,41 @@ public class ContextFreeParser {
 			return createShapeReplacementElement(shapeReplacementDeclaration.getShapeReplacement());
 		}
 
-		private ShapeReplacementConfigElement createShapeReplacementElement(AMultiShapeReplacementDeclaration shapeReplacementDeclaration) throws ExtensionNotFoundException {
+		private ShapeReplacementConfigElement createShapeReplacementElement(AUnorderedShapeReplacementDeclaration shapeReplacementDeclaration) throws ExtensionNotFoundException {
 			MultiShapeReplacementConfig config = new MultiShapeReplacementConfig();
-			dropSameAdjustments(shapeReplacementDeclaration.getShapeAdjustment());
+			dropSameShapeAdjustments(shapeReplacementDeclaration.getShapeAdjustment());
+			config.setTimes(Integer.valueOf(shapeReplacementDeclaration.getNumber().getText()));
+			for (PShapeAdjustment shapeAdjustment : shapeReplacementDeclaration.getShapeAdjustment()) {
+				ShapeAdjustmentConfigElement shapeAdjustmentElement = createShapeAdjustmentElement(shapeAdjustment);
+				if (shapeAdjustmentElement != null) {
+					config.appendShapeAdjustmentConfigElement(shapeAdjustmentElement);
+				}
+			}
+			PShapeReplacementBlock shapeReplacementBlock = shapeReplacementDeclaration.getShapeReplacementBlock();
+			if (shapeReplacementBlock instanceof ABasicShapeReplacementBlock) {
+				PShapeReplacement shapeReplacement = ((ABasicShapeReplacementBlock) shapeReplacementBlock).getShapeReplacement();
+				ShapeReplacementConfigElement shapeReplacementElement = createShapeReplacementElement(shapeReplacement);
+				if (shapeReplacementElement != null) {
+					config.appendShapeReplacementConfigElement(shapeReplacementElement);
+				}
+			} else if (shapeReplacementBlock instanceof AListShapeReplacementBlock) {
+				for (PShapeReplacementDeclaration shapeReplacement : ((AListShapeReplacementBlock) shapeReplacementBlock).getShapeReplacementDeclaration()) {
+					ShapeReplacementConfigElement shapeReplacementElement = createShapeReplacementElement(shapeReplacement);
+					if (shapeReplacementElement != null) {
+						config.appendShapeReplacementConfigElement(shapeReplacementElement);
+					}
+				}
+			}
+			ConfigurableExtension<ShapeReplacementExtensionRuntime<?>, ShapeReplacementExtensionConfig> extension = ContextFreeRegistry.getInstance().getShapeReplacementExtension("contextfree.shape.replacement.multi");
+			ConfigurableExtensionReference<ShapeReplacementExtensionConfig> reference = extension.createConfigurableExtensionReference(config);
+			ShapeReplacementConfigElement shapeReplacementElement = new ShapeReplacementConfigElement();
+			shapeReplacementElement.setExtensionReference(reference);
+			return shapeReplacementElement;
+		}
+
+		private ShapeReplacementConfigElement createShapeReplacementElement(AOrderedShapeReplacementDeclaration shapeReplacementDeclaration) throws ExtensionNotFoundException {
+			MultiShapeReplacementConfig config = new MultiShapeReplacementConfig();
+			dropSameShapeAdjustments(shapeReplacementDeclaration.getShapeAdjustment());
 			Collections.sort(shapeReplacementDeclaration.getShapeAdjustment(), new PShapeAdjustmentComparator());
 			config.setTimes(Integer.valueOf(shapeReplacementDeclaration.getNumber().getText()));
 			for (PShapeAdjustment shapeAdjustment : shapeReplacementDeclaration.getShapeAdjustment()) {
@@ -1367,8 +1402,8 @@ public class ContextFreeParser {
 
 		private ShapeReplacementConfigElement createShapeReplacementElement(PShapeReplacement shapeReplacement)	throws ExtensionNotFoundException {
 			ConfigurableExtensionReference<ShapeReplacementExtensionConfig> reference = null;
-			if (shapeReplacement instanceof ABasicShapeReplacement) {
-				reference = createShapeReplacementExtensionReference((ABasicShapeReplacement) shapeReplacement);
+			if (shapeReplacement instanceof AUnorderedShapeReplacement) {
+				reference = createShapeReplacementExtensionReference((AUnorderedShapeReplacement) shapeReplacement);
 			} else if (shapeReplacement instanceof AOrderedShapeReplacement) {
 				reference = createShapeReplacementExtensionReference((AOrderedShapeReplacement) shapeReplacement);
 			}
@@ -1377,9 +1412,9 @@ public class ContextFreeParser {
 			return shapeReplacementElement;
 		}
 
-		private ConfigurableExtensionReference<ShapeReplacementExtensionConfig> createShapeReplacementExtensionReference(ABasicShapeReplacement shapeReplacement)	throws ExtensionNotFoundException {
+		private ConfigurableExtensionReference<ShapeReplacementExtensionConfig> createShapeReplacementExtensionReference(AUnorderedShapeReplacement shapeReplacement)	throws ExtensionNotFoundException {
 			SingleShapeReplacementConfig config = new SingleShapeReplacementConfig();
-			config.setShape(((ABasicShapeReplacement) shapeReplacement).getString().getText());
+			config.setShape(((AUnorderedShapeReplacement) shapeReplacement).getString().getText());
 			for (PShapeAdjustment shapeAdjustment : shapeReplacement.getShapeAdjustment()) {
 				ShapeAdjustmentConfigElement shapeAdjustmentElement = createShapeAdjustmentElement(shapeAdjustment);
 				config.appendShapeAdjustmentConfigElement(shapeAdjustmentElement);
@@ -1389,7 +1424,7 @@ public class ContextFreeParser {
 			return reference;
 		}
 		
-		private void dropSameAdjustments(List<PShapeAdjustment> shapeAdjustments) {
+		private void dropSameShapeAdjustments(List<PShapeAdjustment> shapeAdjustments) {
 			AFlipGeometryAdjustment lastAFlipGeometryAdjustment = null;
 			ARotateGeometryAdjustment lastARotateGeometryAdjustment = null;
 			ASize2GeometryAdjustment lastASize2GeometryAdjustment = null;
@@ -1447,10 +1482,66 @@ public class ContextFreeParser {
 				}
 			}
 		}
+		
+		private void dropSamePathAdjustments(List<PPathAdjustment> pathAdjustments) {
+			AFlipPathAdjustment lastAFlipPathAdjustment = null;
+			ARotatePathAdjustment lastARotatePathAdjustment = null;
+			ASize2PathAdjustment lastASize2PathAdjustment = null;
+			ASizePathAdjustment lastASizePathAdjustment = null;
+			ASkewPathAdjustment lastASkewPathAdjustment = null;
+			AXPathAdjustment lastAXPathAdjustment = null;
+			AYPathAdjustment lastAYPathAdjustment = null;
+			for (int i = pathAdjustments.size() - 1; i >= 0; i--) {
+				PPathAdjustment pathAdjustment = pathAdjustments.get(i);
+				if (pathAdjustment instanceof AFlipPathAdjustment) {
+					if (lastAFlipPathAdjustment != null) {
+						pathAdjustments.remove(pathAdjustment);
+					} else {
+						lastAFlipPathAdjustment = (AFlipPathAdjustment) pathAdjustment;
+					}
+				} else if (pathAdjustment instanceof ARotatePathAdjustment) {
+					if (lastARotatePathAdjustment != null) {
+						pathAdjustments.remove(pathAdjustment);
+					} else {
+						lastARotatePathAdjustment = (ARotatePathAdjustment) pathAdjustment;
+					}
+				} else if (pathAdjustment instanceof ASize2PathAdjustment) {
+					if (lastASize2PathAdjustment != null) {
+						pathAdjustments.remove(pathAdjustment);
+					} else {
+						lastASize2PathAdjustment = (ASize2PathAdjustment) pathAdjustment;
+					}
+				} else if (pathAdjustment instanceof ASizePathAdjustment) {
+					if (lastASizePathAdjustment != null) {
+						pathAdjustments.remove(pathAdjustment);
+					} else {
+						lastASizePathAdjustment = (ASizePathAdjustment) pathAdjustment;
+					}
+				} else if (pathAdjustment instanceof ASkewPathAdjustment) {
+					if (lastASkewPathAdjustment != null) {
+						pathAdjustments.remove(pathAdjustment);
+					} else {
+						lastASkewPathAdjustment = (ASkewPathAdjustment) pathAdjustment;
+					}
+				} else if (pathAdjustment instanceof AXPathAdjustment) {
+					if (lastAXPathAdjustment != null) {
+						pathAdjustments.remove(pathAdjustment);
+					} else {
+						lastAXPathAdjustment = (AXPathAdjustment) pathAdjustment;
+					}
+				} else if (pathAdjustment instanceof AYPathAdjustment) {
+					if (lastAYPathAdjustment != null) {
+						pathAdjustments.remove(pathAdjustment);
+					} else {
+						lastAYPathAdjustment = (AYPathAdjustment) pathAdjustment;
+					}
+				}
+			}
+		}
 
 		private ConfigurableExtensionReference<ShapeReplacementExtensionConfig> createShapeReplacementExtensionReference(AOrderedShapeReplacement shapeReplacement)	throws ExtensionNotFoundException {
 			SingleShapeReplacementConfig config = new SingleShapeReplacementConfig();
-			dropSameAdjustments(shapeReplacement.getShapeAdjustment());
+			dropSameShapeAdjustments(shapeReplacement.getShapeAdjustment());
 			Collections.sort(shapeReplacement.getShapeAdjustment(), new PShapeAdjustmentComparator());
 			config.setShape(((AOrderedShapeReplacement) shapeReplacement).getString().getText());
 			for (PShapeAdjustment shapeAdjustment : shapeReplacement.getShapeAdjustment()) {
@@ -1934,6 +2025,44 @@ public class ContextFreeParser {
 				}
 				return op1 - op2;
 			}
+		}
+	}
+	
+	private class PPathAdjustmentComparator implements Comparator<PPathAdjustment> {
+		public int compare(PPathAdjustment ga1, PPathAdjustment ga2) {
+			int gap1 = 0;
+			int gap2 = 0;
+			if (ga1 instanceof AXPathAdjustment) {
+				gap1 = 1; 
+			} else if (ga1 instanceof AYPathAdjustment) {
+				gap1 = 2; 
+			} else if (ga1 instanceof ARotatePathAdjustment) {
+				gap1 = 3; 
+			} else if (ga1 instanceof ASizePathAdjustment) {
+				gap1 = 4; 
+			} else if (ga1 instanceof ASize2PathAdjustment) {
+				gap1 = 5; 
+			} else if (ga1 instanceof ASkewPathAdjustment) {
+				gap1 = 6; 
+			} else if (ga1 instanceof AFlipPathAdjustment) {
+				gap1 = 7; 
+			} 
+			if (ga2 instanceof AXPathAdjustment) {
+				gap2 = 1; 
+			} else if (ga2 instanceof AYPathAdjustment) {
+				gap2 = 2; 
+			} else if (ga2 instanceof ARotatePathAdjustment) {
+				gap2 = 3; 
+			} else if (ga2 instanceof ASizePathAdjustment) {
+				gap2 = 4; 
+			} else if (ga2 instanceof ASize2PathAdjustment) {
+				gap2 = 5; 
+			} else if (ga2 instanceof ASkewPathAdjustment) {
+				gap2 = 6; 
+			} else if (ga2 instanceof AFlipPathAdjustment) {
+				gap2 = 7; 
+			} 
+			return gap1 - gap2;
 		}
 	}
 }
