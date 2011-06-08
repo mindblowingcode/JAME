@@ -149,7 +149,12 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAMultiShapeReplacementDeclaration(AMultiShapeReplacementDeclaration node)
+    public void caseAUnorderedShapeReplacementDeclaration(AUnorderedShapeReplacementDeclaration node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAOrderedShapeReplacementDeclaration(AOrderedShapeReplacementDeclaration node)
     {
         defaultCase(node);
     }
@@ -159,7 +164,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseABasicShapeReplacement(ABasicShapeReplacement node)
+    public void caseAUnorderedShapeReplacement(AUnorderedShapeReplacement node)
     {
         defaultCase(node);
     }
@@ -209,7 +214,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseABasicPathCommand(ABasicPathCommand node)
+    public void caseAUnorderedPathCommand(AUnorderedPathCommand node)
     {
         defaultCase(node);
     }
@@ -224,7 +229,12 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAMultiPathReplacementDeclaration(AMultiPathReplacementDeclaration node)
+    public void caseAUnorderedPathReplacementDeclaration(AUnorderedPathReplacementDeclaration node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAOrderedPathReplacementDeclaration(AOrderedPathReplacementDeclaration node)
     {
         defaultCase(node);
     }

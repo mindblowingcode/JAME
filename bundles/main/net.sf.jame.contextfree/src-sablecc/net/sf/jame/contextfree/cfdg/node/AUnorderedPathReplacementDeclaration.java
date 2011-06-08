@@ -6,58 +6,58 @@ import java.util.*;
 import net.sf.jame.contextfree.cfdg.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AMultiShapeReplacementDeclaration extends PShapeReplacementDeclaration
+public final class AUnorderedPathReplacementDeclaration extends PPathReplacementDeclaration
 {
     private TNumber _number_;
     private TStar _star_;
-    private TLCbkt _lCbkt_;
-    private final LinkedList<PShapeAdjustment> _shapeAdjustment_ = new LinkedList<PShapeAdjustment>();
-    private TRCbkt _rCbkt_;
-    private PShapeReplacementBlock _shapeReplacementBlock_;
+    private TLSbkt _lSbkt_;
+    private final LinkedList<PPathAdjustment> _pathAdjustment_ = new LinkedList<PPathAdjustment>();
+    private TRSbkt _rSbkt_;
+    private PPathReplacementBlock _pathReplacementBlock_;
 
-    public AMultiShapeReplacementDeclaration()
+    public AUnorderedPathReplacementDeclaration()
     {
         // Constructor
     }
 
-    public AMultiShapeReplacementDeclaration(
+    public AUnorderedPathReplacementDeclaration(
         @SuppressWarnings("hiding") TNumber _number_,
         @SuppressWarnings("hiding") TStar _star_,
-        @SuppressWarnings("hiding") TLCbkt _lCbkt_,
-        @SuppressWarnings("hiding") List<PShapeAdjustment> _shapeAdjustment_,
-        @SuppressWarnings("hiding") TRCbkt _rCbkt_,
-        @SuppressWarnings("hiding") PShapeReplacementBlock _shapeReplacementBlock_)
+        @SuppressWarnings("hiding") TLSbkt _lSbkt_,
+        @SuppressWarnings("hiding") List<PPathAdjustment> _pathAdjustment_,
+        @SuppressWarnings("hiding") TRSbkt _rSbkt_,
+        @SuppressWarnings("hiding") PPathReplacementBlock _pathReplacementBlock_)
     {
         // Constructor
         setNumber(_number_);
 
         setStar(_star_);
 
-        setLCbkt(_lCbkt_);
+        setLSbkt(_lSbkt_);
 
-        setShapeAdjustment(_shapeAdjustment_);
+        setPathAdjustment(_pathAdjustment_);
 
-        setRCbkt(_rCbkt_);
+        setRSbkt(_rSbkt_);
 
-        setShapeReplacementBlock(_shapeReplacementBlock_);
+        setPathReplacementBlock(_pathReplacementBlock_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AMultiShapeReplacementDeclaration(
+        return new AUnorderedPathReplacementDeclaration(
             cloneNode(this._number_),
             cloneNode(this._star_),
-            cloneNode(this._lCbkt_),
-            cloneList(this._shapeAdjustment_),
-            cloneNode(this._rCbkt_),
-            cloneNode(this._shapeReplacementBlock_));
+            cloneNode(this._lSbkt_),
+            cloneList(this._pathAdjustment_),
+            cloneNode(this._rSbkt_),
+            cloneNode(this._pathReplacementBlock_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAMultiShapeReplacementDeclaration(this);
+        ((Analysis) sw).caseAUnorderedPathReplacementDeclaration(this);
     }
 
     public TNumber getNumber()
@@ -110,16 +110,16 @@ public final class AMultiShapeReplacementDeclaration extends PShapeReplacementDe
         this._star_ = node;
     }
 
-    public TLCbkt getLCbkt()
+    public TLSbkt getLSbkt()
     {
-        return this._lCbkt_;
+        return this._lSbkt_;
     }
 
-    public void setLCbkt(TLCbkt node)
+    public void setLSbkt(TLSbkt node)
     {
-        if(this._lCbkt_ != null)
+        if(this._lSbkt_ != null)
         {
-            this._lCbkt_.parent(null);
+            this._lSbkt_.parent(null);
         }
 
         if(node != null)
@@ -132,19 +132,19 @@ public final class AMultiShapeReplacementDeclaration extends PShapeReplacementDe
             node.parent(this);
         }
 
-        this._lCbkt_ = node;
+        this._lSbkt_ = node;
     }
 
-    public LinkedList<PShapeAdjustment> getShapeAdjustment()
+    public LinkedList<PPathAdjustment> getPathAdjustment()
     {
-        return this._shapeAdjustment_;
+        return this._pathAdjustment_;
     }
 
-    public void setShapeAdjustment(List<PShapeAdjustment> list)
+    public void setPathAdjustment(List<PPathAdjustment> list)
     {
-        this._shapeAdjustment_.clear();
-        this._shapeAdjustment_.addAll(list);
-        for(PShapeAdjustment e : list)
+        this._pathAdjustment_.clear();
+        this._pathAdjustment_.addAll(list);
+        for(PPathAdjustment e : list)
         {
             if(e.parent() != null)
             {
@@ -155,16 +155,16 @@ public final class AMultiShapeReplacementDeclaration extends PShapeReplacementDe
         }
     }
 
-    public TRCbkt getRCbkt()
+    public TRSbkt getRSbkt()
     {
-        return this._rCbkt_;
+        return this._rSbkt_;
     }
 
-    public void setRCbkt(TRCbkt node)
+    public void setRSbkt(TRSbkt node)
     {
-        if(this._rCbkt_ != null)
+        if(this._rSbkt_ != null)
         {
-            this._rCbkt_.parent(null);
+            this._rSbkt_.parent(null);
         }
 
         if(node != null)
@@ -177,19 +177,19 @@ public final class AMultiShapeReplacementDeclaration extends PShapeReplacementDe
             node.parent(this);
         }
 
-        this._rCbkt_ = node;
+        this._rSbkt_ = node;
     }
 
-    public PShapeReplacementBlock getShapeReplacementBlock()
+    public PPathReplacementBlock getPathReplacementBlock()
     {
-        return this._shapeReplacementBlock_;
+        return this._pathReplacementBlock_;
     }
 
-    public void setShapeReplacementBlock(PShapeReplacementBlock node)
+    public void setPathReplacementBlock(PPathReplacementBlock node)
     {
-        if(this._shapeReplacementBlock_ != null)
+        if(this._pathReplacementBlock_ != null)
         {
-            this._shapeReplacementBlock_.parent(null);
+            this._pathReplacementBlock_.parent(null);
         }
 
         if(node != null)
@@ -202,7 +202,7 @@ public final class AMultiShapeReplacementDeclaration extends PShapeReplacementDe
             node.parent(this);
         }
 
-        this._shapeReplacementBlock_ = node;
+        this._pathReplacementBlock_ = node;
     }
 
     @Override
@@ -211,10 +211,10 @@ public final class AMultiShapeReplacementDeclaration extends PShapeReplacementDe
         return ""
             + toString(this._number_)
             + toString(this._star_)
-            + toString(this._lCbkt_)
-            + toString(this._shapeAdjustment_)
-            + toString(this._rCbkt_)
-            + toString(this._shapeReplacementBlock_);
+            + toString(this._lSbkt_)
+            + toString(this._pathAdjustment_)
+            + toString(this._rSbkt_)
+            + toString(this._pathReplacementBlock_);
     }
 
     @Override
@@ -233,26 +233,26 @@ public final class AMultiShapeReplacementDeclaration extends PShapeReplacementDe
             return;
         }
 
-        if(this._lCbkt_ == child)
+        if(this._lSbkt_ == child)
         {
-            this._lCbkt_ = null;
+            this._lSbkt_ = null;
             return;
         }
 
-        if(this._shapeAdjustment_.remove(child))
+        if(this._pathAdjustment_.remove(child))
         {
             return;
         }
 
-        if(this._rCbkt_ == child)
+        if(this._rSbkt_ == child)
         {
-            this._rCbkt_ = null;
+            this._rSbkt_ = null;
             return;
         }
 
-        if(this._shapeReplacementBlock_ == child)
+        if(this._pathReplacementBlock_ == child)
         {
-            this._shapeReplacementBlock_ = null;
+            this._pathReplacementBlock_ = null;
             return;
         }
 
@@ -275,19 +275,19 @@ public final class AMultiShapeReplacementDeclaration extends PShapeReplacementDe
             return;
         }
 
-        if(this._lCbkt_ == oldChild)
+        if(this._lSbkt_ == oldChild)
         {
-            setLCbkt((TLCbkt) newChild);
+            setLSbkt((TLSbkt) newChild);
             return;
         }
 
-        for(ListIterator<PShapeAdjustment> i = this._shapeAdjustment_.listIterator(); i.hasNext();)
+        for(ListIterator<PPathAdjustment> i = this._pathAdjustment_.listIterator(); i.hasNext();)
         {
             if(i.next() == oldChild)
             {
                 if(newChild != null)
                 {
-                    i.set((PShapeAdjustment) newChild);
+                    i.set((PPathAdjustment) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
                     return;
@@ -299,15 +299,15 @@ public final class AMultiShapeReplacementDeclaration extends PShapeReplacementDe
             }
         }
 
-        if(this._rCbkt_ == oldChild)
+        if(this._rSbkt_ == oldChild)
         {
-            setRCbkt((TRCbkt) newChild);
+            setRSbkt((TRSbkt) newChild);
             return;
         }
 
-        if(this._shapeReplacementBlock_ == oldChild)
+        if(this._pathReplacementBlock_ == oldChild)
         {
-            setShapeReplacementBlock((PShapeReplacementBlock) newChild);
+            setPathReplacementBlock((PPathReplacementBlock) newChild);
             return;
         }
 

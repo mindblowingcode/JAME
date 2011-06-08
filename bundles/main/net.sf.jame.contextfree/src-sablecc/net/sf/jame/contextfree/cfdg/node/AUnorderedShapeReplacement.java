@@ -6,19 +6,19 @@ import java.util.*;
 import net.sf.jame.contextfree.cfdg.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ABasicShapeReplacement extends PShapeReplacement
+public final class AUnorderedShapeReplacement extends PShapeReplacement
 {
     private TString _string_;
     private TLSbkt _lSbkt_;
     private final LinkedList<PShapeAdjustment> _shapeAdjustment_ = new LinkedList<PShapeAdjustment>();
     private TRSbkt _rSbkt_;
 
-    public ABasicShapeReplacement()
+    public AUnorderedShapeReplacement()
     {
         // Constructor
     }
 
-    public ABasicShapeReplacement(
+    public AUnorderedShapeReplacement(
         @SuppressWarnings("hiding") TString _string_,
         @SuppressWarnings("hiding") TLSbkt _lSbkt_,
         @SuppressWarnings("hiding") List<PShapeAdjustment> _shapeAdjustment_,
@@ -38,7 +38,7 @@ public final class ABasicShapeReplacement extends PShapeReplacement
     @Override
     public Object clone()
     {
-        return new ABasicShapeReplacement(
+        return new AUnorderedShapeReplacement(
             cloneNode(this._string_),
             cloneNode(this._lSbkt_),
             cloneList(this._shapeAdjustment_),
@@ -47,7 +47,7 @@ public final class ABasicShapeReplacement extends PShapeReplacement
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseABasicShapeReplacement(this);
+        ((Analysis) sw).caseAUnorderedShapeReplacement(this);
     }
 
     public TString getString()

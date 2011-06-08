@@ -9,6 +9,8 @@ public class CFContext {
 	private ArrayList<ShapeType> shapeTypes = new ArrayList<ShapeType>();
 	private ArrayList<CFRule> rules = new ArrayList<CFRule>();
 	private CFColor background = new CFColor(0, 0, 1, 1);
+	private float offsetX;
+	private float offsetY;
 	private float tileX;
 	private float tileY;
 	private float sizeX;
@@ -104,6 +106,8 @@ public class CFContext {
 	}
 	
 	public void setTiled(AffineTransform tileTransform, float tileX, float tileY, boolean useTile, boolean useSize) {
+		this.offsetX = (float) tileTransform.getTranslateX();
+		this.offsetY = (float) tileTransform.getTranslateY();
 		this.sizeX = (float) tileTransform.getScaleX();
 		this.sizeY = (float) tileTransform.getScaleY();
 		this.tileX = tileX;
@@ -126,6 +130,14 @@ public class CFContext {
 
 	public float getSizeY() {
 		return sizeY;
+	}
+
+	public float getOffsetX() {
+		return offsetX;
+	}
+
+	public float getOffsetY() {
+		return offsetY;
 	}
 
 	public String decodeShapeName(int shapeType) {

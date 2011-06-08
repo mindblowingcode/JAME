@@ -4,6 +4,7 @@ public class CFFinishedShape implements Cloneable, Comparable<CFFinishedShape> {
 	private CFPath path;
 	private CFPathAttribute attribute;
 	private double cumulativeArea;
+	private boolean dirty = true;
 
 	public CFFinishedShape(CFPath path, CFPathAttribute attribute) {
 		this(path, attribute, 0);
@@ -38,9 +39,14 @@ public class CFFinishedShape implements Cloneable, Comparable<CFFinishedShape> {
 
 	public void render(CFShapeRenderer renderer) {
 		renderer.render(path, attribute);
+		dirty = false;
 	}
 
 	public double area() {
 		return attribute.getModification().getTransform().getDeterminant();
+	}
+
+	public boolean isDirty() {
+		return dirty;
 	}
 }

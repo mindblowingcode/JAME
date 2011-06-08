@@ -6,7 +6,7 @@ import java.util.*;
 import net.sf.jame.contextfree.cfdg.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AMultiPathReplacementDeclaration extends PPathReplacementDeclaration
+public final class AOrderedPathReplacementDeclaration extends PPathReplacementDeclaration
 {
     private TNumber _number_;
     private TStar _star_;
@@ -15,12 +15,12 @@ public final class AMultiPathReplacementDeclaration extends PPathReplacementDecl
     private TRCbkt _rCbkt_;
     private PPathReplacementBlock _pathReplacementBlock_;
 
-    public AMultiPathReplacementDeclaration()
+    public AOrderedPathReplacementDeclaration()
     {
         // Constructor
     }
 
-    public AMultiPathReplacementDeclaration(
+    public AOrderedPathReplacementDeclaration(
         @SuppressWarnings("hiding") TNumber _number_,
         @SuppressWarnings("hiding") TStar _star_,
         @SuppressWarnings("hiding") TLCbkt _lCbkt_,
@@ -46,7 +46,7 @@ public final class AMultiPathReplacementDeclaration extends PPathReplacementDecl
     @Override
     public Object clone()
     {
-        return new AMultiPathReplacementDeclaration(
+        return new AOrderedPathReplacementDeclaration(
             cloneNode(this._number_),
             cloneNode(this._star_),
             cloneNode(this._lCbkt_),
@@ -57,7 +57,7 @@ public final class AMultiPathReplacementDeclaration extends PPathReplacementDecl
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAMultiPathReplacementDeclaration(this);
+        ((Analysis) sw).caseAOrderedPathReplacementDeclaration(this);
     }
 
     public TNumber getNumber()

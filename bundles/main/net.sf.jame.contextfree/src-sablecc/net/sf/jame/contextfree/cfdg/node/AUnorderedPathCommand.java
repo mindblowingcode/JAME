@@ -6,19 +6,19 @@ import java.util.*;
 import net.sf.jame.contextfree.cfdg.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ABasicPathCommand extends PPathCommand
+public final class AUnorderedPathCommand extends PPathCommand
 {
     private TCommand _command_;
     private TLSbkt _lSbkt_;
     private final LinkedList<PCommandParameter> _commandParameter_ = new LinkedList<PCommandParameter>();
     private TRSbkt _rSbkt_;
 
-    public ABasicPathCommand()
+    public AUnorderedPathCommand()
     {
         // Constructor
     }
 
-    public ABasicPathCommand(
+    public AUnorderedPathCommand(
         @SuppressWarnings("hiding") TCommand _command_,
         @SuppressWarnings("hiding") TLSbkt _lSbkt_,
         @SuppressWarnings("hiding") List<PCommandParameter> _commandParameter_,
@@ -38,7 +38,7 @@ public final class ABasicPathCommand extends PPathCommand
     @Override
     public Object clone()
     {
-        return new ABasicPathCommand(
+        return new AUnorderedPathCommand(
             cloneNode(this._command_),
             cloneNode(this._lSbkt_),
             cloneList(this._commandParameter_),
@@ -47,7 +47,7 @@ public final class ABasicPathCommand extends PPathCommand
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseABasicPathCommand(this);
+        ((Analysis) sw).caseAUnorderedPathCommand(this);
     }
 
     public TCommand getCommand()

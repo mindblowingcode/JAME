@@ -83,7 +83,7 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 		CFRenderer renderer = new CFRenderer(context, variation.hashCode(), width, height, border, 0.03f);
 		CFModification worldState = new CFModification();
 		boolean partialDraw = true;
-		int reportAt = 250;
+		int reportAt = 10000;
 		CFShape shape = new CFShape(initialShapeType, worldState);
 		shape.getModification().getColorTarget().setAlpha(1);
 		shape.getModification().getColor().setAlpha(1);
@@ -108,6 +108,7 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 			renderer.executeShape(s);
 			if (renderer.getFinishedCount() > reportAt) {
 				if (partialDraw) {
+					render(renderer, offsetX, offsetY, true);
 				}
 				reportAt = 2 * renderer.getFinishedCount();
 			}
@@ -118,13 +119,7 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 			logger.debug("Total shapes " + renderer.getFinishedCount());
 		}
 		time = System.nanoTime();
-		Graphics2D g2d = getGraphics();
-		configure(g2d);
-		AffineTransform tmpTransform = g2d.getTransform();
-		g2d.translate(offsetX, offsetY);
-		renderer.render(g2d);
-		g2d.setTransform(tmpTransform);
-		swapImages();
+		render(renderer, offsetX, offsetY, false);
 		if (logger.isDebugEnabled()) {
 			long elapsed = (System.nanoTime() - time) / 1000000;
 			logger.debug("Render time " + elapsed + "ms");
@@ -133,6 +128,16 @@ public class DefaultContextFreeRenderer extends AbstractContextFreeRenderer {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Total time " + (System.nanoTime() - totalTime) / 1000000 + "ms");
 		}
+	}
+
+	private void render(CFRenderer renderer, float offsetX, float offsetY, boolean partial) {
+		Graphics2D g2d = getGraphics();
+		configure(g2d);
+		AffineTransform tmpTransform = g2d.getTransform();
+		g2d.translate(offsetX, offsetY);
+		renderer.render(g2d, partial);
+		g2d.setTransform(tmpTransform);
+		swapImages();
 	}
 
 	protected void configure(Graphics2D g2d) {

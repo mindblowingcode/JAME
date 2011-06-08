@@ -456,20 +456,65 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outARuleDeclaration(node);
     }
 
-    public void inAMultiShapeReplacementDeclaration(AMultiShapeReplacementDeclaration node)
+    public void inAUnorderedShapeReplacementDeclaration(AUnorderedShapeReplacementDeclaration node)
     {
         defaultIn(node);
     }
 
-    public void outAMultiShapeReplacementDeclaration(AMultiShapeReplacementDeclaration node)
+    public void outAUnorderedShapeReplacementDeclaration(AUnorderedShapeReplacementDeclaration node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAMultiShapeReplacementDeclaration(AMultiShapeReplacementDeclaration node)
+    public void caseAUnorderedShapeReplacementDeclaration(AUnorderedShapeReplacementDeclaration node)
     {
-        inAMultiShapeReplacementDeclaration(node);
+        inAUnorderedShapeReplacementDeclaration(node);
+        if(node.getShapeReplacementBlock() != null)
+        {
+            node.getShapeReplacementBlock().apply(this);
+        }
+        if(node.getRSbkt() != null)
+        {
+            node.getRSbkt().apply(this);
+        }
+        {
+            List<PShapeAdjustment> copy = new ArrayList<PShapeAdjustment>(node.getShapeAdjustment());
+            Collections.reverse(copy);
+            for(PShapeAdjustment e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getLSbkt() != null)
+        {
+            node.getLSbkt().apply(this);
+        }
+        if(node.getStar() != null)
+        {
+            node.getStar().apply(this);
+        }
+        if(node.getNumber() != null)
+        {
+            node.getNumber().apply(this);
+        }
+        outAUnorderedShapeReplacementDeclaration(node);
+    }
+
+    public void inAOrderedShapeReplacementDeclaration(AOrderedShapeReplacementDeclaration node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAOrderedShapeReplacementDeclaration(AOrderedShapeReplacementDeclaration node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAOrderedShapeReplacementDeclaration(AOrderedShapeReplacementDeclaration node)
+    {
+        inAOrderedShapeReplacementDeclaration(node);
         if(node.getShapeReplacementBlock() != null)
         {
             node.getShapeReplacementBlock().apply(this);
@@ -498,7 +543,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getNumber().apply(this);
         }
-        outAMultiShapeReplacementDeclaration(node);
+        outAOrderedShapeReplacementDeclaration(node);
     }
 
     public void inASingleShapeReplacementDeclaration(ASingleShapeReplacementDeclaration node)
@@ -522,20 +567,20 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outASingleShapeReplacementDeclaration(node);
     }
 
-    public void inABasicShapeReplacement(ABasicShapeReplacement node)
+    public void inAUnorderedShapeReplacement(AUnorderedShapeReplacement node)
     {
         defaultIn(node);
     }
 
-    public void outABasicShapeReplacement(ABasicShapeReplacement node)
+    public void outAUnorderedShapeReplacement(AUnorderedShapeReplacement node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseABasicShapeReplacement(ABasicShapeReplacement node)
+    public void caseAUnorderedShapeReplacement(AUnorderedShapeReplacement node)
     {
-        inABasicShapeReplacement(node);
+        inAUnorderedShapeReplacement(node);
         if(node.getRSbkt() != null)
         {
             node.getRSbkt().apply(this);
@@ -556,7 +601,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getString().apply(this);
         }
-        outABasicShapeReplacement(node);
+        outAUnorderedShapeReplacement(node);
     }
 
     public void inAOrderedShapeReplacement(AOrderedShapeReplacement node)
@@ -792,20 +837,20 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAPathOperation(node);
     }
 
-    public void inABasicPathCommand(ABasicPathCommand node)
+    public void inAUnorderedPathCommand(AUnorderedPathCommand node)
     {
         defaultIn(node);
     }
 
-    public void outABasicPathCommand(ABasicPathCommand node)
+    public void outAUnorderedPathCommand(AUnorderedPathCommand node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseABasicPathCommand(ABasicPathCommand node)
+    public void caseAUnorderedPathCommand(AUnorderedPathCommand node)
     {
-        inABasicPathCommand(node);
+        inAUnorderedPathCommand(node);
         if(node.getRSbkt() != null)
         {
             node.getRSbkt().apply(this);
@@ -826,7 +871,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getCommand().apply(this);
         }
-        outABasicPathCommand(node);
+        outAUnorderedPathCommand(node);
     }
 
     public void inAOrderedPathCommand(AOrderedPathCommand node)
@@ -907,20 +952,65 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAPathDeclaration(node);
     }
 
-    public void inAMultiPathReplacementDeclaration(AMultiPathReplacementDeclaration node)
+    public void inAUnorderedPathReplacementDeclaration(AUnorderedPathReplacementDeclaration node)
     {
         defaultIn(node);
     }
 
-    public void outAMultiPathReplacementDeclaration(AMultiPathReplacementDeclaration node)
+    public void outAUnorderedPathReplacementDeclaration(AUnorderedPathReplacementDeclaration node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAMultiPathReplacementDeclaration(AMultiPathReplacementDeclaration node)
+    public void caseAUnorderedPathReplacementDeclaration(AUnorderedPathReplacementDeclaration node)
     {
-        inAMultiPathReplacementDeclaration(node);
+        inAUnorderedPathReplacementDeclaration(node);
+        if(node.getPathReplacementBlock() != null)
+        {
+            node.getPathReplacementBlock().apply(this);
+        }
+        if(node.getRSbkt() != null)
+        {
+            node.getRSbkt().apply(this);
+        }
+        {
+            List<PPathAdjustment> copy = new ArrayList<PPathAdjustment>(node.getPathAdjustment());
+            Collections.reverse(copy);
+            for(PPathAdjustment e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getLSbkt() != null)
+        {
+            node.getLSbkt().apply(this);
+        }
+        if(node.getStar() != null)
+        {
+            node.getStar().apply(this);
+        }
+        if(node.getNumber() != null)
+        {
+            node.getNumber().apply(this);
+        }
+        outAUnorderedPathReplacementDeclaration(node);
+    }
+
+    public void inAOrderedPathReplacementDeclaration(AOrderedPathReplacementDeclaration node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAOrderedPathReplacementDeclaration(AOrderedPathReplacementDeclaration node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAOrderedPathReplacementDeclaration(AOrderedPathReplacementDeclaration node)
+    {
+        inAOrderedPathReplacementDeclaration(node);
         if(node.getPathReplacementBlock() != null)
         {
             node.getPathReplacementBlock().apply(this);
@@ -949,7 +1039,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getNumber().apply(this);
         }
-        outAMultiPathReplacementDeclaration(node);
+        outAOrderedPathReplacementDeclaration(node);
     }
 
     public void inASinglePathReplacementDeclaration(ASinglePathReplacementDeclaration node)
