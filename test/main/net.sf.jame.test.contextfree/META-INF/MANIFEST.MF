@@ -10,4 +10,5 @@ Export-Package: net.sf.jame.test.contextfree
 Require-Bundle: org.junit4;bundle-version="4.3.1",
  net.sf.jame.core;bundle-version="1.1.0",
  net.sf.jame.twister;bundle-version="1.1.0",
- net.sf.jame.contextfree;bundle-version="1.0.0"
+ net.sf.jame.contextfree;bundle-version="1.0.0",
+ org.antlr;bundle-version="3.3.0"
