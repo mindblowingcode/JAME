@@ -770,6 +770,7 @@ public class ServiceFrame extends JFrame {
 			tree.setFont(GUIFactory.NORMAL_FONT);
 			tree.setShowsRootHandles(true);
 			tree.setCellRenderer(new IExtensionPointTreeCellRenderer());
+			Migrazione.export(treeModel);
 			return tree;
 		}
 
