@@ -32,5 +32,5 @@ import ${configPackage}.${configType};
 /**
  * @author Andrea Medeghini
  */
-public abstract class ${elementName}ExtensionDescriptor extends ConfigurableExtensionDescriptor<${runtimeType}, ${configType}> {
+public abstract class ${elementName}ExtensionDescriptor extends ConfigurableExtensionDescriptor<${runtimeType}<? extends ${configType}>, ${configType}> {
 }

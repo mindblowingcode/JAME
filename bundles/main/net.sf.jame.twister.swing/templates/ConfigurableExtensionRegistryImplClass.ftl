@@ -33,7 +33,7 @@ import ${configPackage}.${configType};
 /**
  * @author Andrea Medeghini
  */
-public class ${elementName}ExtensionRegistry extends SLConfigurableExtensionRegistry<${runtimeType}, ${configType}> {
+public class ${elementName}ExtensionRegistry extends SLConfigurableExtensionRegistry<${runtimeType}<? extends ${configType}>, ${configType}> {
 	/**
 	 * the extension point name.
 	 */
@@ -47,6 +47,6 @@ public class ${elementName}ExtensionRegistry extends SLConfigurableExtensionRegi
 	 * Constructs a new registry.
 	 */
 	public ${elementName}ExtensionRegistry() {
-		super(${elementName}ExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<${runtimeType}, ${configType}>(${elementName}ExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(${elementName}ExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<${runtimeType}<? extends ${configType}>, ${configType}>(${elementName}ExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }
