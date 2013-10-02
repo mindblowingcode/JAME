@@ -12,7 +12,8 @@ Require-Bundle: net.sf.jame.core;bundle-version="1.1.0",
  net.sf.jame.service;bundle-version="1.1.0",
  net.sf.jame.runtime;bundle-version="1.1.0",
  net.sf.jame.launcher;bundle-version="1.1.0",
- net.sf.jame.core.swing;bundle-version="1.1.0"
+ net.sf.jame.core.swing;bundle-version="1.1.0",
+ org.freemarker;bundle-version="2.3.15"
 Export-Package: net.sf.jame.twister.swing,
  net.sf.jame.twister.swing.adapter,
  net.sf.jame.twister.swing.adapter.extension,
@@ -27,3 +28,4 @@ Bundle-ClassPath: .
 Import-Package: org.apache.log4j;version="1.2.15",
  org.eclipse.core.runtime;version="3.4.0",
  org.jdesktop.swingworker;version="1.2.0"
+DynamicImport-Package: *
