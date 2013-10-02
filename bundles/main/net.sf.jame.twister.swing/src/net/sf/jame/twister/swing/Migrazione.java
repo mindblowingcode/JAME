@@ -53,6 +53,9 @@ public class Migrazione {
 					builder.append("\n");
 					ExtensionPoint extensionPoint = entry.getValue();
 					for (ExtensionDescriptor descriptor : extensionPoint.getDescriptors()) {
+						if (descriptor.getExtensionRuntimeClass() == null) {
+							continue;
+						}
 						builder.append("package ");
 						String extensionPackage = projectName + "." + descriptor.getElementName() + ".extension";
 						String extensionType = descriptor.getExtensionRuntimeClass().replace("ExtensionRuntime", "ExtensionDescriptor").substring(descriptor.getExtensionRuntimeClass().lastIndexOf(".") + 1);
@@ -95,6 +98,9 @@ public class Migrazione {
 						for (Entry<String, Extension> entryExtension : provider.getExtensions().entrySet()) {
 							Extension extension = entryExtension.getValue();
 							ExtensionDescriptor descriptor = extension.getDescriptor();
+							if (descriptor.getExtensionRuntimeClass() == null) {
+								continue;
+							}
 							String extensionPackage = projectName + "." + descriptor.getElementName() + ".extension";
 							String extensionType = descriptor.getExtensionRuntimeClass().replace("ExtensionRuntime", "ExtensionDescriptor").substring(descriptor.getExtensionRuntimeClass().lastIndexOf(".") + 1);
 							String elementName = descriptor.getElementName().toUpperCase().substring(0, 1) + descriptor.getElementName().substring(1);
