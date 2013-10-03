@@ -70,7 +70,7 @@ public class SLConfigurableExtensionBuilder<T extends ConfigurableExtensionRunti
 
 	private ConfigurableExtension<T, V> createExtension(final IConfigurationElement cfgElement, final String cfgElementName) throws SLExtensionBuilderException {
 		try {
-			if (cfgElement.isValid() && cfgElementName.equals(cfgElement.getName())) {
+			if (cfgElement.isValid() && cfgElementName.equalsIgnoreCase(cfgElement.getName())) {
 				return new SLConfigurableExtension<T, V>(cfgElement);
 			}
 		}
@@ -87,7 +87,7 @@ public class SLConfigurableExtensionBuilder<T extends ConfigurableExtensionRunti
 	 * @return true if the element is valid.
 	 */
 	public boolean validate(final IConfigurationElement cfgElement) {
-		return cfgElement.isValid() && this.cfgElementName.equals(cfgElement.getName());
+		return cfgElement.isValid() && this.cfgElementName.equalsIgnoreCase(cfgElement.getName());
 	}
 
 	public String getCfgElementName() {

@@ -68,7 +68,7 @@ public class SLExtensionBuilder<T extends ExtensionRuntime> {
 
 	private Extension<T> createExtension(final IConfigurationElement cfgElement, final String cfgElementName) throws SLExtensionBuilderException {
 		try {
-			if (cfgElement.isValid() && cfgElementName.equals(cfgElement.getName())) {
+			if (cfgElement.isValid() && cfgElementName.equalsIgnoreCase(cfgElement.getName())) {
 				return new SLExtension<T>(cfgElement);
 			}
 		}
@@ -85,7 +85,7 @@ public class SLExtensionBuilder<T extends ExtensionRuntime> {
 	 * @return true if the element is valid.
 	 */
 	public boolean validate(final IConfigurationElement cfgElement) {
-		return cfgElement.isValid() && this.cfgElementName.equals(cfgElement.getName());
+		return cfgElement.isValid() && this.cfgElementName.equalsIgnoreCase(cfgElement.getName());
 	}
 
 	public String getCfgElementName() {
