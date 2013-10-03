@@ -25,10 +25,17 @@
  */
 package net.sf.jame.twister.extensions.action;
 
+import org.w3c.dom.Element;
+
+import net.sf.jame.core.tree.NodeActionValue;
 import net.sf.jame.core.util.AbstractActionXMLImporterRuntime;
+import net.sf.jame.core.xml.XMLImportException;
 
 /**
  * @author Andrea Medeghini
  */
-public abstract class PaletteNodeActionXMLImporterRuntime extends AbstractActionXMLImporterRuntime {
+public class PaletteNodeActionXMLImporterRuntime extends AbstractActionXMLImporterRuntime {
+	@Override
+	protected void importParams(NodeActionValue action, Element element) throws XMLImportException {
+	}
 }
