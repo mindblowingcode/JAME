@@ -13,6 +13,8 @@
 <booleanAttribute key="default" value="false"/>
 <booleanAttribute key="includeOptional" value="false"/>
 <stringAttribute key="location" value="${workspace_loc}/../runtime-SwingTest.product"/>
+<booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -arch ${target.arch} -nl ${target.nl} --launcher.secondThread -console"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-d64 -Dosgi.noShutdown=false"/>
@@ -20,7 +22,7 @@
 <stringAttribute key="product" value="net.sf.jame.test.swing.swingtest"/>
 <stringAttribute key="productFile" value="/net.sf.jame.test.swingapp/SwingTest.product"/>
 <booleanAttribute key="restart" value="false"/>
-<stringAttribute key="selected_target_plugins" value="org.eclipse.equinox.registry@default:default,org.eclipse.core.jobs@default:default,org.eclipse.equinox.app@default:default,org.eclipse.equinox.preferences@default:default,org.eclipse.core.runtime@default:true,org.eclipse.core.contenttype@default:default,org.eclipse.osgi,org.eclipse.core.runtime.compatibility.registry@default:false,org.eclipse.equinox.common@default:default"/>
+<stringAttribute key="selected_target_plugins" value="org.eclipse.core.contenttype@default:default,org.eclipse.core.jobs@default:default,org.eclipse.core.runtime.compatibility.registry@default:false,org.eclipse.core.runtime@default:true,org.eclipse.equinox.app@default:default,org.eclipse.equinox.common@2:true,org.eclipse.equinox.preferences@default:default,org.eclipse.equinox.registry@default:default,org.eclipse.osgi@-1:true"/>
 <stringAttribute key="selected_workspace_plugins" value="net.sf.jame.test.swing@default:default"/>
 <booleanAttribute key="show_selected_only" value="true"/>
 <booleanAttribute key="tracing" value="false"/>
