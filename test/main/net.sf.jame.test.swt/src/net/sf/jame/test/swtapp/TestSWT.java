@@ -18,7 +18,6 @@ public class TestSWT {
 				display.sleep();
 			}
 		}
-		display.close();
 	}
 
 	public void stop() {
