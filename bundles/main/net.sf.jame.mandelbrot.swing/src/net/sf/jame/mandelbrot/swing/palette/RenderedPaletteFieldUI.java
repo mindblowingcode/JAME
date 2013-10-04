@@ -72,7 +72,7 @@ import net.sf.jame.core.swing.palette.TransferablePalette;
 import net.sf.jame.core.util.Colors;
 import net.sf.jame.core.util.Palette;
 import net.sf.jame.mandelbrot.MandelbrotRegistry;
-import net.sf.jame.mandelbrot.palette.formula.extension.PaletteRendererFormulaExtensionRuntime;
+import net.sf.jame.mandelbrot.paletteRendererFormula.extension.PaletteRendererFormulaExtensionRuntime;
 import net.sf.jame.mandelbrot.util.RenderedPalette;
 import net.sf.jame.mandelbrot.util.RenderedPaletteParam;
 

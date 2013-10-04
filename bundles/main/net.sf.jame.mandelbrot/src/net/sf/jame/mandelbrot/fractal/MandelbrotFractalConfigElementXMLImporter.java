@@ -29,18 +29,18 @@ import java.util.List;
 
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaConfigElementXMLImporter;
-import net.sf.jame.mandelbrot.fractal.orbittrap.OrbitTrapConfigElement;
-import net.sf.jame.mandelbrot.fractal.orbittrap.OrbitTrapConfigElementXMLImporter;
-import net.sf.jame.mandelbrot.fractal.outcolouring.OutcolouringFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.outcolouring.OutcolouringFormulaConfigElementXMLImporter;
-import net.sf.jame.mandelbrot.fractal.processing.ProcessingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.processing.ProcessingFormulaConfigElementXMLImporter;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaConfigElementXMLImporter;
-import net.sf.jame.mandelbrot.fractal.transforming.TransformingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.transforming.TransformingFormulaConfigElementXMLImporter;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaConfigElement;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaConfigElementXMLImporter;
+import net.sf.jame.mandelbrot.orbitTrap.OrbitTrapConfigElement;
+import net.sf.jame.mandelbrot.orbitTrap.OrbitTrapConfigElementXMLImporter;
+import net.sf.jame.mandelbrot.outcolouringFormula.OutcolouringFormulaConfigElement;
+import net.sf.jame.mandelbrot.outcolouringFormula.OutcolouringFormulaConfigElementXMLImporter;
+import net.sf.jame.mandelbrot.processingFormula.ProcessingFormulaConfigElement;
+import net.sf.jame.mandelbrot.processingFormula.ProcessingFormulaConfigElementXMLImporter;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaConfigElement;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaConfigElementXMLImporter;
+import net.sf.jame.mandelbrot.transformingFormula.TransformingFormulaConfigElement;
+import net.sf.jame.mandelbrot.transformingFormula.TransformingFormulaConfigElementXMLImporter;
 
 import org.w3c.dom.Element;
 

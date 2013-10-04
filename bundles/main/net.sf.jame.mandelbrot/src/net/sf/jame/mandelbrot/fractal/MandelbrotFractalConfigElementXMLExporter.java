@@ -28,12 +28,12 @@ package net.sf.jame.mandelbrot.fractal;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLNodeBuilder;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaConfigElementXMLExporter;
-import net.sf.jame.mandelbrot.fractal.orbittrap.OrbitTrapConfigElementXMLExporter;
-import net.sf.jame.mandelbrot.fractal.outcolouring.OutcolouringFormulaConfigElementXMLExporter;
-import net.sf.jame.mandelbrot.fractal.processing.ProcessingFormulaConfigElementXMLExporter;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaConfigElementXMLExporter;
-import net.sf.jame.mandelbrot.fractal.transforming.TransformingFormulaConfigElementXMLExporter;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaConfigElementXMLExporter;
+import net.sf.jame.mandelbrot.orbitTrap.OrbitTrapConfigElementXMLExporter;
+import net.sf.jame.mandelbrot.outcolouringFormula.OutcolouringFormulaConfigElementXMLExporter;
+import net.sf.jame.mandelbrot.processingFormula.ProcessingFormulaConfigElementXMLExporter;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaConfigElementXMLExporter;
+import net.sf.jame.mandelbrot.transformingFormula.TransformingFormulaConfigElementXMLExporter;
 
 import org.w3c.dom.Element;
 

@@ -25,12 +25,12 @@
  */
 package net.sf.jame.core.util;
 
+import net.sf.jame.core.actionXMLExporter.extension.ActionXMLExporterExtensionRuntime;
 import net.sf.jame.core.tree.NodeActionValue;
 import net.sf.jame.core.xml.XML;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLNodeBuilder;
-import net.sf.jame.core.xml.extension.ActionXMLExporterExtensionRuntime;
 
 import org.w3c.dom.Element;
 
@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
  */
 public abstract class AbstractActionXMLExporterRuntime extends ActionXMLExporterExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.xml.extension.ActionXMLExporterExtensionRuntime#createXMLExporter()
+	 * @see net.sf.jame.core.actionXMLExporter.extension.ActionXMLExporterExtensionRuntime#createXMLExporter()
 	 */
 	@Override
 	public XMLExporter<NodeActionValue> createXMLExporter() {

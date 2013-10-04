@@ -33,11 +33,11 @@ import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
 import net.sf.jame.core.extension.Extension;
 import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.extension.ExtensionException;
+import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.core.xml.XML;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
 
 import org.w3c.dom.Element;
 

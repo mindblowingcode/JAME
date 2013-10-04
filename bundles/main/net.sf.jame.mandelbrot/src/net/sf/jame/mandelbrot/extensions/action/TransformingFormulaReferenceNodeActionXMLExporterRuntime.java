@@ -25,11 +25,11 @@
  */
 package net.sf.jame.mandelbrot.extensions.action;
 
-import net.sf.jame.core.util.ConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime;
-import net.sf.jame.mandelbrot.fractal.transforming.extension.TransformingFormulaExtensionConfig;
+import net.sf.jame.core.util.AbstractConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime;
+import net.sf.jame.mandelbrot.transformingFormula.extension.TransformingFormulaExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class TransformingFormulaReferenceNodeActionXMLExporterRuntime extends ConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime<TransformingFormulaExtensionConfig> {
+public class TransformingFormulaReferenceNodeActionXMLExporterRuntime extends AbstractConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime<TransformingFormulaExtensionConfig> {
 }

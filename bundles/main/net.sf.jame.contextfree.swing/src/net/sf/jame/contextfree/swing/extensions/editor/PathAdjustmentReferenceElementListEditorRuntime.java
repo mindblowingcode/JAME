@@ -5,8 +5,8 @@
 package net.sf.jame.contextfree.swing.extensions.editor;
 
 import net.sf.jame.contextfree.ContextFreeRegistry;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementNodeValue;
+import net.sf.jame.contextfree.pathAdjustment.PathAdjustmentConfigElement;
+import net.sf.jame.contextfree.pathAdjustment.PathAdjustmentConfigElementNodeValue;
 import net.sf.jame.contextfree.swing.extensions.ContextFreeSwingExtensionResources;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.swing.editor.ConfigurableReferenceElementListEditorRuntime;

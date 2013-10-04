@@ -25,16 +25,16 @@
  */
 package net.sf.jame.twister.extensions.action;
 
-import net.sf.jame.core.util.ConfigElementListNodeActionXMLExporterRuntime;
-import net.sf.jame.twister.frame.layer.GroupLayerConfigElement;
-import net.sf.jame.twister.frame.layer.GroupLayerConfigElementXMLExporter;
+import net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLExporterRuntime;
+import net.sf.jame.twister.layer.GroupLayerConfigElement;
+import net.sf.jame.twister.layer.GroupLayerConfigElementXMLExporter;
 
 /**
  * @author Andrea Medeghini
  */
-public class GroupLayerListNodeActionXMLExporterRuntime extends ConfigElementListNodeActionXMLExporterRuntime<GroupLayerConfigElement> {
+public class GroupLayerListNodeActionXMLExporterRuntime extends AbstractConfigElementListNodeActionXMLExporterRuntime<GroupLayerConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementListNodeActionXMLExporterRuntime#createExporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLExporterRuntime#createExporter()
 	 */
 	@Override
 	protected GroupLayerConfigElementXMLExporter createExporter() {

@@ -25,11 +25,11 @@
  */
 package net.sf.jame.mandelbrot.extensions.action;
 
-import net.sf.jame.core.util.ConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime;
-import net.sf.jame.mandelbrot.fractal.incolouring.extension.IncolouringFormulaExtensionConfig;
+import net.sf.jame.core.util.AbstractConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime;
+import net.sf.jame.mandelbrot.incolouringFormula.extension.IncolouringFormulaExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class IncolouringFormulaReferenceNodeActionXMLExporterRuntime extends ConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime<IncolouringFormulaExtensionConfig> {
+public class IncolouringFormulaReferenceNodeActionXMLExporterRuntime extends AbstractConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime<IncolouringFormulaExtensionConfig> {
 }

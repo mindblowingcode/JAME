@@ -30,7 +30,7 @@ import net.sf.jame.core.swing.editor.ConfigurableReferenceEditorRuntime;
 import net.sf.jame.core.swing.extension.ConfigurableExtensionComboBoxModel;
 import net.sf.jame.core.tree.NodeValue;
 import net.sf.jame.mandelbrot.MandelbrotRegistry;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaExtensionReferenceNodeValue;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaExtensionReferenceNodeValue;
 
 /**
  * @author Andrea Medeghini

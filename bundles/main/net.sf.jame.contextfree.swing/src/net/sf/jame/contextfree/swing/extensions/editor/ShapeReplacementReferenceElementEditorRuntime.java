@@ -5,8 +5,8 @@
 package net.sf.jame.contextfree.swing.extensions.editor;
 
 import net.sf.jame.contextfree.ContextFreeRegistry;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElementNodeValue;
+import net.sf.jame.contextfree.shapeReplacement.ShapeReplacementConfigElement;
+import net.sf.jame.contextfree.shapeReplacement.ShapeReplacementConfigElementNodeValue;
 import net.sf.jame.contextfree.swing.extensions.ContextFreeSwingExtensionResources;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.swing.editor.ConfigurableReferenceElementEditorRuntime;

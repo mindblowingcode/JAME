@@ -25,11 +25,11 @@
  */
 package net.sf.jame.mandelbrot.extensions.action;
 
-import net.sf.jame.core.util.ConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime;
-import net.sf.jame.mandelbrot.palette.extension.PaletteRendererExtensionConfig;
+import net.sf.jame.core.util.AbstractConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime;
+import net.sf.jame.mandelbrot.paletteRenderer.extension.PaletteRendererExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class PaletteRendererFormulaReferenceNodeActionXMLExporterRuntime extends ConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime<PaletteRendererExtensionConfig> {
+public class PaletteRendererFormulaReferenceNodeActionXMLExporterRuntime extends AbstractConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime<PaletteRendererExtensionConfig> {
 }

@@ -30,8 +30,8 @@ import net.sf.jame.core.swing.editor.ConfigurableReferenceElementEditorRuntime;
 import net.sf.jame.core.swing.extension.ConfigurableExtensionComboBoxModel;
 import net.sf.jame.core.tree.NodeValue;
 import net.sf.jame.mandelbrot.MandelbrotRegistry;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaConfigElementNodeValue;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaConfigElement;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaConfigElementNodeValue;
 import net.sf.jame.mandelbrot.swing.extensions.MandelbrotSwingExtensionResources;
 
 /**

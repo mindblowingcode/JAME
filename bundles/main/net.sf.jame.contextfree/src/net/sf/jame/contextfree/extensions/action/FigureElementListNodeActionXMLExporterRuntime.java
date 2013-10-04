@@ -4,15 +4,15 @@
  */
 package net.sf.jame.contextfree.extensions.action;
 
-import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
-import net.sf.jame.contextfree.cfdg.figure.FigureConfigElementXMLExporter;
-import net.sf.jame.core.util.ConfigElementListNodeActionXMLExporterRuntime;
+import net.sf.jame.contextfree.figure.FigureConfigElement;
+import net.sf.jame.contextfree.figure.FigureConfigElementXMLExporter;
+import net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLExporterRuntime;
 /**
  * @author Andrea Medeghini
  */
-public class FigureElementListNodeActionXMLExporterRuntime extends ConfigElementListNodeActionXMLExporterRuntime<FigureConfigElement> {
+public class FigureElementListNodeActionXMLExporterRuntime extends AbstractConfigElementListNodeActionXMLExporterRuntime<FigureConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementListNodeActionXMLExporterRuntime#createExporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLExporterRuntime#createExporter()
 	 */
 	@Override
 	protected FigureConfigElementXMLExporter createExporter() {

@@ -4,15 +4,15 @@
  */
 package net.sf.jame.contextfree.extensions.action;
 
-import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
-import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElementXMLImporter;
-import net.sf.jame.core.util.ConfigElementListNodeActionXMLImporterRuntime;
+import net.sf.jame.contextfree.pathReplacement.PathReplacementConfigElement;
+import net.sf.jame.contextfree.pathReplacement.PathReplacementConfigElementXMLImporter;
+import net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLImporterRuntime;
 /**
  * @author Andrea Medeghini
  */
-public class PathReplacementElementListNodeActionXMLImporterRuntime extends ConfigElementListNodeActionXMLImporterRuntime<PathReplacementConfigElement> {
+public class PathReplacementElementListNodeActionXMLImporterRuntime extends AbstractConfigElementListNodeActionXMLImporterRuntime<PathReplacementConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementListNodeActionXMLImporterRuntime#createImporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLImporterRuntime#createImporter()
 	 */
 	@Override
 	protected PathReplacementConfigElementXMLImporter createImporter() {

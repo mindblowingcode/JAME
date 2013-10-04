@@ -28,11 +28,11 @@ package net.sf.jame.core.extension;
 import java.util.List;
 
 import net.sf.jame.core.CoreRegistry;
+import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.core.xml.XML;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
 
 import org.w3c.dom.Element;
 

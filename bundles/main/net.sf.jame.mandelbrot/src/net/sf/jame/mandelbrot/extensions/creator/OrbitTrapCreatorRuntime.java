@@ -25,16 +25,16 @@
  */
 package net.sf.jame.mandelbrot.extensions.creator;
 
+import net.sf.jame.core.creator.extension.CreatorExtensionRuntime;
 import net.sf.jame.core.scripting.JSException;
-import net.sf.jame.core.scripting.extension.CreatorExtensionRuntime;
-import net.sf.jame.mandelbrot.fractal.orbittrap.OrbitTrapConfigElement;
+import net.sf.jame.mandelbrot.orbitTrap.OrbitTrapConfigElement;
 
 /**
  * @author Andrea Medeghini
  */
 public class OrbitTrapCreatorRuntime extends CreatorExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.scripting.extension.CreatorExtensionRuntime#create(java.lang.Object[])
+	 * @see net.sf.jame.core.creator.extension.CreatorExtensionRuntime#create(java.lang.Object[])
 	 */
 	@Override
 	public Object create(final Object... args) throws JSException {

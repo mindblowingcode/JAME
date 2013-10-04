@@ -25,16 +25,16 @@
  */
 package net.sf.jame.mandelbrot.extensions.action;
 
-import net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime;
-import net.sf.jame.mandelbrot.palette.formula.PaletteRendererFormulaConfigElement;
-import net.sf.jame.mandelbrot.palette.formula.PaletteRendererFormulaConfigElementXMLImporter;
+import net.sf.jame.core.util.AbstractConfigElementNodeActionXMLImporterRuntime;
+import net.sf.jame.mandelbrot.paletteRendererFormula.PaletteRendererFormulaConfigElement;
+import net.sf.jame.mandelbrot.paletteRendererFormula.PaletteRendererFormulaConfigElementXMLImporter;
 
 /**
  * @author Andrea Medeghini
  */
-public class PaletteRendererFormulaNodeActionXMLImporterRuntime extends ConfigElementNodeActionXMLImporterRuntime<PaletteRendererFormulaConfigElement> {
+public class PaletteRendererFormulaNodeActionXMLImporterRuntime extends AbstractConfigElementNodeActionXMLImporterRuntime<PaletteRendererFormulaConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime#createImporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementNodeActionXMLImporterRuntime#createImporter()
 	 */
 	@Override
 	protected PaletteRendererFormulaConfigElementXMLImporter createImporter() {

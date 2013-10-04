@@ -4,11 +4,11 @@
  */
 package net.sf.jame.contextfree.extensions.figure;
 
-import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementRuntimeElement;
+import net.sf.jame.contextfree.figure.extension.FigureExtensionRuntime;
 import net.sf.jame.contextfree.renderer.support.CFBuilder;
 import net.sf.jame.contextfree.renderer.support.CFRule;
+import net.sf.jame.contextfree.shapeReplacement.ShapeReplacementConfigElement;
+import net.sf.jame.contextfree.shapeReplacement.ShapeReplacementRuntimeElement;
 import net.sf.jame.core.config.ListConfigElement;
 import net.sf.jame.core.config.ListRuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;

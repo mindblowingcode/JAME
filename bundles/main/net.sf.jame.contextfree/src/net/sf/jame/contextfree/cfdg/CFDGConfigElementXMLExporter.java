@@ -4,7 +4,7 @@
  */
 package net.sf.jame.contextfree.cfdg;
 
-import net.sf.jame.contextfree.cfdg.figure.FigureConfigElementXMLExporter;
+import net.sf.jame.contextfree.figure.FigureConfigElementXMLExporter;
 import net.sf.jame.core.common.BooleanElementXMLExporter;
 import net.sf.jame.core.common.ColorElementXMLExporter;
 import net.sf.jame.core.common.FloatElementXMLExporter;

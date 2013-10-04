@@ -4,21 +4,21 @@
  */
 package net.sf.jame.contextfree;
 
-import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
-import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRegistry;
-import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionConfig;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRegistry;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRegistry;
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRegistry;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRegistry;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
+import net.sf.jame.contextfree.figure.extension.FigureExtensionConfig;
+import net.sf.jame.contextfree.figure.extension.FigureExtensionRegistry;
+import net.sf.jame.contextfree.figure.extension.FigureExtensionRuntime;
+import net.sf.jame.contextfree.pathAdjustment.extension.PathAdjustmentExtensionConfig;
+import net.sf.jame.contextfree.pathAdjustment.extension.PathAdjustmentExtensionRegistry;
+import net.sf.jame.contextfree.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.pathReplacement.extension.PathReplacementExtensionConfig;
+import net.sf.jame.contextfree.pathReplacement.extension.PathReplacementExtensionRegistry;
+import net.sf.jame.contextfree.pathReplacement.extension.PathReplacementExtensionRuntime;
+import net.sf.jame.contextfree.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
+import net.sf.jame.contextfree.shapeAdjustment.extension.ShapeAdjustmentExtensionRegistry;
+import net.sf.jame.contextfree.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
+import net.sf.jame.contextfree.shapeReplacement.extension.ShapeReplacementExtensionConfig;
+import net.sf.jame.contextfree.shapeReplacement.extension.ShapeReplacementExtensionRegistry;
+import net.sf.jame.contextfree.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
 import net.sf.jame.core.extension.ConfigurableExtension;
 import net.sf.jame.core.extension.ConfigurableExtensionRegistry;
 import net.sf.jame.core.extension.ExtensionNotFoundException;

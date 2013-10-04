@@ -31,18 +31,18 @@ import net.sf.jame.core.config.RuntimeElement;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaRuntimeElement;
-import net.sf.jame.mandelbrot.fractal.orbittrap.OrbitTrapConfigElement;
-import net.sf.jame.mandelbrot.fractal.orbittrap.OrbitTrapRuntimeElement;
-import net.sf.jame.mandelbrot.fractal.outcolouring.OutcolouringFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.outcolouring.OutcolouringFormulaRuntimeElement;
-import net.sf.jame.mandelbrot.fractal.processing.ProcessingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.processing.ProcessingFormulaRuntimeElement;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaRuntimeElement;
-import net.sf.jame.mandelbrot.fractal.transforming.TransformingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.transforming.TransformingFormulaRuntimeElement;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaConfigElement;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaRuntimeElement;
+import net.sf.jame.mandelbrot.orbitTrap.OrbitTrapConfigElement;
+import net.sf.jame.mandelbrot.orbitTrap.OrbitTrapRuntimeElement;
+import net.sf.jame.mandelbrot.outcolouringFormula.OutcolouringFormulaConfigElement;
+import net.sf.jame.mandelbrot.outcolouringFormula.OutcolouringFormulaRuntimeElement;
+import net.sf.jame.mandelbrot.processingFormula.ProcessingFormulaConfigElement;
+import net.sf.jame.mandelbrot.processingFormula.ProcessingFormulaRuntimeElement;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaConfigElement;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaRuntimeElement;
+import net.sf.jame.mandelbrot.transformingFormula.TransformingFormulaConfigElement;
+import net.sf.jame.mandelbrot.transformingFormula.TransformingFormulaRuntimeElement;
 
 /**
  * @author Andrea Medeghini

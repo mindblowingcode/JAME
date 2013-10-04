@@ -26,9 +26,9 @@
 package net.sf.jame.core.scripting;
 
 import net.sf.jame.core.CoreRegistry;
+import net.sf.jame.core.creator.extension.CreatorExtensionRuntime;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
-import net.sf.jame.core.scripting.extension.CreatorExtensionRuntime;
 import net.sf.jame.core.tree.Node;
 
 /**

@@ -25,10 +25,10 @@
  */
 package net.sf.jame.twister.extensions.effect;
 
+import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionRuntime;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLNodeBuilder;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLExporterExtensionRuntime;
 import net.sf.jame.twister.common.PercentageElementXMLExporter;
 
 import org.w3c.dom.Element;
@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
  */
 public class WaterConfigXMLExporterRuntime extends ExtensionConfigXMLExporterExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLExporterExtensionRuntime#createXMLExporter()
+	 * @see net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionRuntime#createXMLExporter()
 	 */
 	@Override
 	public XMLExporter<WaterConfig> createXMLExporter() {
@@ -47,7 +47,7 @@ public class WaterConfigXMLExporterRuntime extends ExtensionConfigXMLExporterExt
 
 	private class WaterConfigXMLExporter extends AbstractEffectConfigXMLExporter<WaterConfig> {
 		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractEffectConfigXMLExporter#getConfigElementClassId()
+		 * @see net.sf.jame.twister.extensions.layerFilter.AbstractEffectConfigXMLExporter#getConfigElementClassId()
 		 */
 		@Override
 		protected String getConfigElementClassId() {
@@ -55,7 +55,7 @@ public class WaterConfigXMLExporterRuntime extends ExtensionConfigXMLExporterExt
 		}
 
 		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractEffectConfigXMLExporter#exportToElement(net.sf.jame.twister.frame.layer.filter.extension.EffectExtensionConfig, net.sf.jame.core.xml.XMLNodeBuilder)
+		 * @see net.sf.jame.twister.extensions.layerFilter.AbstractEffectConfigXMLExporter#exportToElement(net.sf.jame.twister.layerFilter.extension.EffectExtensionConfig, net.sf.jame.core.xml.XMLNodeBuilder)
 		 */
 		@Override
 		public Element exportToElement(final WaterConfig config, final XMLNodeBuilder builder) throws XMLExportException {

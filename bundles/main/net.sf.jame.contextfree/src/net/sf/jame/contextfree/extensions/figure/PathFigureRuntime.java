@@ -4,9 +4,9 @@
  */
 package net.sf.jame.contextfree.extensions.figure;
 
-import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionRuntime;
-import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
-import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
+import net.sf.jame.contextfree.figure.extension.FigureExtensionRuntime;
+import net.sf.jame.contextfree.pathReplacement.PathReplacementConfigElement;
+import net.sf.jame.contextfree.pathReplacement.PathReplacementRuntimeElement;
 import net.sf.jame.contextfree.renderer.support.CFBuilder;
 import net.sf.jame.contextfree.renderer.support.CFPath;
 import net.sf.jame.contextfree.renderer.support.CFRule;

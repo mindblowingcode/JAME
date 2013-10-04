@@ -25,16 +25,16 @@
  */
 package net.sf.jame.twister.extensions.action;
 
-import net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime;
+import net.sf.jame.core.util.AbstractConfigElementNodeActionXMLImporterRuntime;
 import net.sf.jame.twister.effect.EffectConfigElement;
 import net.sf.jame.twister.effect.EffectConfigElementXMLImporter;
 
 /**
  * @author Andrea Medeghini
  */
-public class EffectNodeActionXMLImporterRuntime extends ConfigElementNodeActionXMLImporterRuntime<EffectConfigElement> {
+public class EffectNodeActionXMLImporterRuntime extends AbstractConfigElementNodeActionXMLImporterRuntime<EffectConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime#createImporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementNodeActionXMLImporterRuntime#createImporter()
 	 */
 	@Override
 	protected EffectConfigElementXMLImporter createImporter() {

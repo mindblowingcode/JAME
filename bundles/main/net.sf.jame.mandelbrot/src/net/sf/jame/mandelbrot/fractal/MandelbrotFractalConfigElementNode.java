@@ -37,22 +37,22 @@ import net.sf.jame.core.util.AbstractConfigElementNode;
 import net.sf.jame.core.util.ConfigElementListNodeValue;
 import net.sf.jame.core.util.DefaultNodeEditor;
 import net.sf.jame.mandelbrot.MandelbrotResources;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaConfigElementNode;
-import net.sf.jame.mandelbrot.fractal.orbittrap.OrbitTrapConfigElement;
-import net.sf.jame.mandelbrot.fractal.orbittrap.OrbitTrapConfigElementNode;
-import net.sf.jame.mandelbrot.fractal.orbittrap.OrbitTrapConfigElementNodeValue;
-import net.sf.jame.mandelbrot.fractal.outcolouring.OutcolouringFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.outcolouring.OutcolouringFormulaConfigElementNode;
-import net.sf.jame.mandelbrot.fractal.processing.ProcessingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.processing.ProcessingFormulaConfigElementNode;
-import net.sf.jame.mandelbrot.fractal.processing.ProcessingFormulaConfigElementNodeValue;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaConfigElementNode;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaConfigElementNodeValue;
-import net.sf.jame.mandelbrot.fractal.transforming.TransformingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.transforming.TransformingFormulaConfigElementNode;
-import net.sf.jame.mandelbrot.fractal.transforming.TransformingFormulaConfigElementNodeValue;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaConfigElement;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaConfigElementNode;
+import net.sf.jame.mandelbrot.orbitTrap.OrbitTrapConfigElement;
+import net.sf.jame.mandelbrot.orbitTrap.OrbitTrapConfigElementNode;
+import net.sf.jame.mandelbrot.orbitTrap.OrbitTrapConfigElementNodeValue;
+import net.sf.jame.mandelbrot.outcolouringFormula.OutcolouringFormulaConfigElement;
+import net.sf.jame.mandelbrot.outcolouringFormula.OutcolouringFormulaConfigElementNode;
+import net.sf.jame.mandelbrot.processingFormula.ProcessingFormulaConfigElement;
+import net.sf.jame.mandelbrot.processingFormula.ProcessingFormulaConfigElementNode;
+import net.sf.jame.mandelbrot.processingFormula.ProcessingFormulaConfigElementNodeValue;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaConfigElement;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaConfigElementNode;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaConfigElementNodeValue;
+import net.sf.jame.mandelbrot.transformingFormula.TransformingFormulaConfigElement;
+import net.sf.jame.mandelbrot.transformingFormula.TransformingFormulaConfigElementNode;
+import net.sf.jame.mandelbrot.transformingFormula.TransformingFormulaConfigElementNodeValue;
 
 /**
  * @author Andrea Medeghini

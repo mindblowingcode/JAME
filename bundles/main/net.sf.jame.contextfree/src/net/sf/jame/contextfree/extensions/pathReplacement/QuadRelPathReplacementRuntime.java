@@ -4,7 +4,7 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
+import net.sf.jame.contextfree.pathReplacement.extension.PathReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;

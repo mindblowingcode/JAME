@@ -34,10 +34,10 @@ import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeValue;
 import net.sf.jame.test.AbstractConfigurableExtensionConfigElementTest;
 import net.sf.jame.twister.TwisterRegistry;
-import net.sf.jame.twister.extensions.frame.layer.image.BlackConfig;
-import net.sf.jame.twister.extensions.frame.layer.image.ColorConfig;
-import net.sf.jame.twister.frame.layer.image.ImageExtensionReferenceNodeValue;
-import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionConfig;
+import net.sf.jame.twister.extensions.image.BlackConfig;
+import net.sf.jame.twister.extensions.image.ColorConfig;
+import net.sf.jame.twister.image.ImageExtensionReferenceNodeValue;
+import net.sf.jame.twister.image.extension.ImageExtensionConfig;
 
 import org.junit.Test;
 

@@ -29,7 +29,7 @@ import net.sf.jame.contextfree.ContextFreeConfig;
 import net.sf.jame.contextfree.ContextFreeConfigBuilder;
 import net.sf.jame.core.config.ConfigContext;
 import net.sf.jame.core.extension.ExtensionException;
-import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionConfig;
+import net.sf.jame.twister.image.extension.ImageExtensionConfig;
 
 /**
  * @author Andrea Medeghini

@@ -32,8 +32,8 @@ import java.awt.image.DataBufferInt;
 
 import net.sf.jame.core.math.Complex;
 import net.sf.jame.core.util.Surface;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaRuntimeElement;
-import net.sf.jame.mandelbrot.fractal.outcolouring.OutcolouringFormulaRuntimeElement;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaRuntimeElement;
+import net.sf.jame.mandelbrot.outcolouringFormula.OutcolouringFormulaRuntimeElement;
 
 /**
  * @author Andrea Medeghini

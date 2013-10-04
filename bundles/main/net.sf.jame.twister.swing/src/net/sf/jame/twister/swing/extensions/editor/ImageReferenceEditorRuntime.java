@@ -30,7 +30,7 @@ import net.sf.jame.core.swing.editor.ConfigurableReferenceEditorRuntime;
 import net.sf.jame.core.swing.extension.ConfigurableExtensionComboBoxModel;
 import net.sf.jame.core.tree.NodeValue;
 import net.sf.jame.twister.TwisterRegistry;
-import net.sf.jame.twister.frame.layer.image.ImageExtensionReferenceNodeValue;
+import net.sf.jame.twister.image.ImageExtensionReferenceNodeValue;
 
 /**
  * @author Andrea Medeghini

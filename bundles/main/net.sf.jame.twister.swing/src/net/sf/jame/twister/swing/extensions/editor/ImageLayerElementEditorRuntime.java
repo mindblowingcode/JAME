@@ -39,9 +39,9 @@ import net.sf.jame.core.swing.util.GUIFactory;
 import net.sf.jame.core.swing.util.StackLayout;
 import net.sf.jame.core.tree.NodeEditor;
 import net.sf.jame.core.tree.NodeValue;
-import net.sf.jame.twister.frame.layer.ImageLayerConfigElement;
-import net.sf.jame.twister.frame.layer.ImageLayerConfigElementNodeValue;
-import net.sf.jame.twister.frame.layer.image.ImageConfigElement;
+import net.sf.jame.twister.image.ImageConfigElement;
+import net.sf.jame.twister.layer.ImageLayerConfigElement;
+import net.sf.jame.twister.layer.ImageLayerConfigElementNodeValue;
 import net.sf.jame.twister.swing.extensions.TwisterSwingExtensionResources;
 
 /**

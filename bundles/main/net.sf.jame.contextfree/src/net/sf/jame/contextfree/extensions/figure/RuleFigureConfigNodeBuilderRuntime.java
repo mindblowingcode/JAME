@@ -4,16 +4,16 @@
  */
 package net.sf.jame.contextfree.extensions.figure;
 
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElementNode;
 import net.sf.jame.contextfree.extensions.ContextFreeExtensionResources;
+import net.sf.jame.contextfree.shapeReplacement.ShapeReplacementConfigElement;
+import net.sf.jame.contextfree.shapeReplacement.ShapeReplacementConfigElementNode;
 import net.sf.jame.core.common.FloatElementNode;
 import net.sf.jame.core.common.StringElementNode;
 import net.sf.jame.core.extension.ExtensionConfig;
+import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionRuntime;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeBuilder;
 import net.sf.jame.core.tree.NodeValue;
-import net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime;
 import net.sf.jame.core.util.AbstractConfigElementListNode;
 import net.sf.jame.core.util.AbstractConfigElementNode;
 import net.sf.jame.core.util.AbstractExtensionConfigNodeBuilder;
@@ -24,7 +24,7 @@ import net.sf.jame.core.util.ConfigElementListNodeValue;
  */
 public class RuleFigureConfigNodeBuilderRuntime extends NodeBuilderExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime#createNodeBuilder(net.sf.jame.core.extension.ExtensionConfig)
+	 * @see net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionRuntime#createNodeBuilder(net.sf.jame.core.extension.ExtensionConfig)
 	 */
 	@Override
 	public NodeBuilder createNodeBuilder(final ExtensionConfig config) {

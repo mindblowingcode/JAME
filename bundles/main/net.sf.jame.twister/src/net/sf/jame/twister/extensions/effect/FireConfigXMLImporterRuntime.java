@@ -27,9 +27,9 @@ package net.sf.jame.twister.extensions.effect;
 
 import java.util.List;
 
+import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.twister.common.PercentageElement;
 import net.sf.jame.twister.common.PercentageElementXMLImporter;
 
@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
  */
 public class FireConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
+	 * @see net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
 	 */
 	@Override
 	public XMLImporter<FireConfig> createXMLImporter() {
@@ -49,7 +49,7 @@ public class FireConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExte
 
 	private class FireConfigXMLImporter extends AbstractEffectConfigXMLImporter<FireConfig> {
 		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#createExtensionConfig()
+		 * @see net.sf.jame.twister.extensions.layerFilter.AbstractLayerFilterConfigXMLImporter#createExtensionConfig()
 		 */
 		@Override
 		protected FireConfig createExtensionConfig() {
@@ -57,7 +57,7 @@ public class FireConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExte
 		}
 
 		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#getConfigElementClassId()
+		 * @see net.sf.jame.twister.extensions.layerFilter.AbstractLayerFilterConfigXMLImporter#getConfigElementClassId()
 		 */
 		@Override
 		protected String getConfigElementClassId() {
@@ -65,7 +65,7 @@ public class FireConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExte
 		}
 
 		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#importFromElement(org.w3c.dom.Element)
+		 * @see net.sf.jame.twister.extensions.layerFilter.AbstractLayerFilterConfigXMLImporter#importFromElement(org.w3c.dom.Element)
 		 */
 		@Override
 		public FireConfig importFromElement(final Element element) throws XMLImportException {

@@ -25,16 +25,16 @@
  */
 package net.sf.jame.mandelbrot.extensions.action;
 
-import net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaConfigElementXMLExporter;
+import net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaConfigElement;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaConfigElementXMLExporter;
 
 /**
  * @author Andrea Medeghini
  */
-public class IncolouringFormulaNodeActionXMLExporterRuntime extends ConfigElementNodeActionXMLExporterRuntime<IncolouringFormulaConfigElement> {
+public class IncolouringFormulaNodeActionXMLExporterRuntime extends AbstractConfigElementNodeActionXMLExporterRuntime<IncolouringFormulaConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime#createExporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime#createExporter()
 	 */
 	@Override
 	protected IncolouringFormulaConfigElementXMLExporter createExporter() {

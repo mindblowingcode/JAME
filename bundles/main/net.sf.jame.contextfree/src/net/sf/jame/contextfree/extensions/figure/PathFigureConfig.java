@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.jame.contextfree.CFDGBuilder;
-import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
-import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
+import net.sf.jame.contextfree.figure.extension.FigureExtensionConfig;
+import net.sf.jame.contextfree.pathReplacement.PathReplacementConfigElement;
 import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;

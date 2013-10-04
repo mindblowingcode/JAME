@@ -21,51 +21,51 @@
       <nodeBuilder
             id="twister.frame.filter.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.ColorConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.ColorConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.frame.filter.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.BlackConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.BlackConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.frame.filter.motionBlur"
             name="MotionBlur"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.MotionBlurConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.MotionBlurConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.frame.layer.image.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.ColorConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.ColorConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.frame.layer.image.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.BlackConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.BlackConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.frame.layer.image.border"
             name="Border"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.BorderConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.BorderConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.frame.layer.image.text"
             name="Text"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.TextConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.TextConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.frame.layer.filter.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.ColorConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.ColorConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.frame.layer.filter.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.BlackConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.BlackConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.frame.layer.filter.blur"
             name="Blur"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.BlurConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.BlurConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.frame.layer.filter.edge"
             name="Edge"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.EdgeConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.EdgeConfigNodeBuilderRuntime"/>
       <nodeBuilder
             id="twister.frame.layer.filter.sharpen"
             name="Sharpen"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.SharpenConfigNodeBuilderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.SharpenConfigNodeBuilderRuntime"/>
       <extensionConfigXMLImporter
             id="twister.effect.spot"
             name="Spot"
@@ -81,51 +81,51 @@
       <extensionConfigXMLImporter
             id="twister.frame.filter.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.ColorConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.ColorConfigXMLImporterRuntime"/>
       <extensionConfigXMLImporter
             id="twister.frame.filter.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.BlackConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.BlackConfigXMLImporterRuntime"/>
       <extensionConfigXMLImporter
             id="twister.frame.filter.motionBlur"
             name="MotionBlur"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.MotionBlurConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.MotionBlurConfigXMLImporterRuntime"/>
       <extensionConfigXMLImporter
             id="twister.frame.layer.image.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.ColorConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.ColorConfigXMLImporterRuntime"/>
       <extensionConfigXMLImporter
             id="twister.frame.layer.image.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.BlackConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.BlackConfigXMLImporterRuntime"/>
       <extensionConfigXMLImporter
             id="twister.frame.layer.image.border"
             name="Border"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.BorderConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.BorderConfigXMLImporterRuntime"/>
       <extensionConfigXMLImporter
             id="twister.frame.layer.image.text"
             name="Text"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.TextConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.TextConfigXMLImporterRuntime"/>
       <extensionConfigXMLImporter
             id="twister.frame.layer.filter.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.ColorConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.ColorConfigXMLImporterRuntime"/>
       <extensionConfigXMLImporter
             id="twister.frame.layer.filter.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.BlackConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.BlackConfigXMLImporterRuntime"/>
       <extensionConfigXMLImporter
             id="twister.frame.layer.filter.blur"
             name="Blur"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.BlurConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.BlurConfigXMLImporterRuntime"/>
       <extensionConfigXMLImporter
             id="twister.frame.layer.filter.edge"
             name="Edge"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.EdgeConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.EdgeConfigXMLImporterRuntime"/>
       <extensionConfigXMLImporter
             id="twister.frame.layer.filter.sharpen"
             name="Sharpen"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.SharpenConfigXMLImporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.SharpenConfigXMLImporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.effect.spot"
             name="Spot"
@@ -141,51 +141,51 @@
       <extensionConfigXMLExporter
             id="twister.frame.filter.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.ColorConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.ColorConfigXMLExporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.frame.filter.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.BlackConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.BlackConfigXMLExporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.frame.filter.motionBlur"
             name="MotionBlur"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.MotionBlurConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.MotionBlurConfigXMLExporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.frame.layer.image.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.ColorConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.ColorConfigXMLExporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.frame.layer.image.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.BlackConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.BlackConfigXMLExporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.frame.layer.image.border"
             name="Border"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.BorderConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.BorderConfigXMLExporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.frame.layer.image.text"
             name="Text"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.TextConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.TextConfigXMLExporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.frame.layer.filter.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.ColorConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.ColorConfigXMLExporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.frame.layer.filter.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.BlackConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.BlackConfigXMLExporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.frame.layer.filter.blur"
             name="Blur"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.BlurConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.BlurConfigXMLExporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.frame.layer.filter.edge"
             name="Edge"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.EdgeConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.EdgeConfigXMLExporterRuntime"/>
       <extensionConfigXMLExporter
             id="twister.frame.layer.filter.sharpen"
             name="Sharpen"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.SharpenConfigXMLExporterRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.SharpenConfigXMLExporterRuntime"/>
       <actionXMLImporter
             id="node.class.ViewElement"
             name="ViewElement"
@@ -375,65 +375,65 @@
             name="Water"
             runtimeClass="net.sf.jame.twister.extensions.effect.WaterRuntime"/>
       <image
-            configClass="net.sf.jame.twister.extensions.frame.layer.image.ColorConfig"
+            configClass="net.sf.jame.twister.extensions.image.ColorConfig"
             id="twister.frame.layer.image.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.ColorRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.ColorRuntime"/>
       <image
-            configClass="net.sf.jame.twister.extensions.frame.layer.image.BlackConfig"
+            configClass="net.sf.jame.twister.extensions.image.BlackConfig"
             id="twister.frame.layer.image.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.BlackRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.BlackRuntime"/>
       <image
-            configClass="net.sf.jame.twister.extensions.frame.layer.image.BorderConfig"
+            configClass="net.sf.jame.twister.extensions.image.BorderConfig"
             id="twister.frame.layer.image.border"
             name="Border"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.BorderRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.BorderRuntime"/>
       <image
-            configClass="net.sf.jame.twister.extensions.frame.layer.image.TextConfig"
+            configClass="net.sf.jame.twister.extensions.image.TextConfig"
             id="twister.frame.layer.image.text"
             name="Text"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.image.TextRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.image.TextRuntime"/>
       <layerFilter
-            configClass="net.sf.jame.twister.extensions.frame.layer.filter.ColorConfig"
+            configClass="net.sf.jame.twister.extensions.layerFilter.ColorConfig"
             id="twister.frame.layer.filter.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.ColorRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.ColorRuntime"/>
       <layerFilter
-            configClass="net.sf.jame.twister.extensions.frame.layer.filter.BlackConfig"
+            configClass="net.sf.jame.twister.extensions.layerFilter.BlackConfig"
             id="twister.frame.layer.filter.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.BlackRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.BlackRuntime"/>
       <layerFilter
-            configClass="net.sf.jame.twister.extensions.frame.layer.filter.BlurConfig"
+            configClass="net.sf.jame.twister.extensions.layerFilter.BlurConfig"
             id="twister.frame.layer.filter.blur"
             name="Blur"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.BlurRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.BlurRuntime"/>
       <layerFilter
-            configClass="net.sf.jame.twister.extensions.frame.layer.filter.EdgeConfig"
+            configClass="net.sf.jame.twister.extensions.layerFilter.EdgeConfig"
             id="twister.frame.layer.filter.edge"
             name="Edge"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.EdgeRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.EdgeRuntime"/>
       <layerFilter
-            configClass="net.sf.jame.twister.extensions.frame.layer.filter.SharpenConfig"
+            configClass="net.sf.jame.twister.extensions.layerFilter.SharpenConfig"
             id="twister.frame.layer.filter.sharpen"
             name="Sharpen"
-            runtimeClass="net.sf.jame.twister.extensions.frame.layer.filter.SharpenRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.layerFilter.SharpenRuntime"/>
       <frameFilter
-            configClass="net.sf.jame.twister.extensions.frame.filter.ColorConfig"
+            configClass="net.sf.jame.twister.extensions.frameFilter.ColorConfig"
             id="twister.frame.filter.color"
             name="Color"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.ColorRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.ColorRuntime"/>
       <frameFilter
-            configClass="net.sf.jame.twister.extensions.frame.filter.BlackConfig"
+            configClass="net.sf.jame.twister.extensions.frameFilter.BlackConfig"
             id="twister.frame.filter.black"
             name="Black"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.BlackRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.BlackRuntime"/>
       <frameFilter
-            configClass="net.sf.jame.twister.extensions.frame.filter.MotionBlurConfig"
+            configClass="net.sf.jame.twister.extensions.frameFilter.MotionBlurConfig"
             id="twister.frame.filter.motionBlur"
             name="MotionBlur"
-            runtimeClass="net.sf.jame.twister.extensions.frame.filter.MotionBlurRuntime"/>
+            runtimeClass="net.sf.jame.twister.extensions.frameFilter.MotionBlurRuntime"/>
    </extension>
    <extension
          id="coreExtensions"

@@ -37,12 +37,12 @@ import net.sf.jame.core.util.Surface;
 import net.sf.jame.core.util.SurfacePool;
 import net.sf.jame.twister.TwisterRuntime;
 import net.sf.jame.twister.frame.FrameRuntimeElement;
-import net.sf.jame.twister.frame.filter.FrameFilterRuntimeElement;
-import net.sf.jame.twister.frame.layer.GroupLayerRuntimeElement;
-import net.sf.jame.twister.frame.layer.ImageLayerRuntimeElement;
-import net.sf.jame.twister.frame.layer.LayerRuntimeElement;
-import net.sf.jame.twister.frame.layer.filter.LayerFilterRuntimeElement;
-import net.sf.jame.twister.frame.layer.image.ImageRuntimeElement;
+import net.sf.jame.twister.frameFilter.FrameFilterRuntimeElement;
+import net.sf.jame.twister.image.ImageRuntimeElement;
+import net.sf.jame.twister.layer.GroupLayerRuntimeElement;
+import net.sf.jame.twister.layer.ImageLayerRuntimeElement;
+import net.sf.jame.twister.layer.LayerRuntimeElement;
+import net.sf.jame.twister.layerFilter.LayerFilterRuntimeElement;
 
 /**
  * @author Andrea Medeghini

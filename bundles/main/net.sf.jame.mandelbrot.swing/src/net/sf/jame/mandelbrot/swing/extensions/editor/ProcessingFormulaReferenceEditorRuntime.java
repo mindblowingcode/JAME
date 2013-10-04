@@ -30,7 +30,7 @@ import net.sf.jame.core.swing.editor.ReferenceEditorRuntime;
 import net.sf.jame.core.swing.extension.ExtensionComboBoxModel;
 import net.sf.jame.core.tree.NodeValue;
 import net.sf.jame.mandelbrot.MandelbrotRegistry;
-import net.sf.jame.mandelbrot.fractal.processing.ProcessingFormulaExtensionReferenceNodeValue;
+import net.sf.jame.mandelbrot.processingFormula.ProcessingFormulaExtensionReferenceNodeValue;
 
 /**
  * @author Andrea Medeghini

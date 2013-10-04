@@ -27,12 +27,12 @@ package net.sf.jame.core.util;
 
 import java.util.List;
 
+import net.sf.jame.core.actionXMLImporter.extension.ActionXMLImporterExtensionRuntime;
 import net.sf.jame.core.tree.NodeActionValue;
 import net.sf.jame.core.tree.NodePath;
 import net.sf.jame.core.xml.XML;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-import net.sf.jame.core.xml.extension.ActionXMLImporterExtensionRuntime;
 
 import org.w3c.dom.Element;
 
@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
  */
 public abstract class AbstractActionXMLImporterRuntime extends ActionXMLImporterExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.xml.extension.ActionXMLExporterExtensionRuntime#createXMLExporter()
+	 * @see net.sf.jame.core.actionXMLExporter.extension.ActionXMLExporterExtensionRuntime#createXMLExporter()
 	 */
 	@Override
 	public XMLImporter<NodeActionValue> createXMLImporter() {

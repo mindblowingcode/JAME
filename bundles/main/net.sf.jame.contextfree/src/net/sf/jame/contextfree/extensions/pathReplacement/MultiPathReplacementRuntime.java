@@ -4,11 +4,11 @@
  */
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentRuntimeElement;
-import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
-import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementRuntimeElement;
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionRuntime;
+import net.sf.jame.contextfree.pathAdjustment.PathAdjustmentConfigElement;
+import net.sf.jame.contextfree.pathAdjustment.PathAdjustmentRuntimeElement;
+import net.sf.jame.contextfree.pathReplacement.PathReplacementConfigElement;
+import net.sf.jame.contextfree.pathReplacement.PathReplacementRuntimeElement;
+import net.sf.jame.contextfree.pathReplacement.extension.PathReplacementExtensionRuntime;
 import net.sf.jame.contextfree.renderer.support.CFModification;
 import net.sf.jame.contextfree.renderer.support.CFPathAttribute;
 import net.sf.jame.contextfree.renderer.support.CFPathCommand;

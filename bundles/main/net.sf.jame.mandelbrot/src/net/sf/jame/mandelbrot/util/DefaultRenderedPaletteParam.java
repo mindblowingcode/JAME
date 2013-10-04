@@ -28,7 +28,7 @@ package net.sf.jame.mandelbrot.util;
 import net.sf.jame.core.extension.Extension;
 import net.sf.jame.core.extension.ExtensionReference;
 import net.sf.jame.mandelbrot.MandelbrotRegistry;
-import net.sf.jame.mandelbrot.palette.formula.extension.PaletteRendererFormulaExtensionRuntime;
+import net.sf.jame.mandelbrot.paletteRendererFormula.extension.PaletteRendererFormulaExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

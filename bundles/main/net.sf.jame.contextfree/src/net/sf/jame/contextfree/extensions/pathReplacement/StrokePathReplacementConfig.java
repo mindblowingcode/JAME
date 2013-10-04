@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.jame.contextfree.CFDGBuilder;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
 import net.sf.jame.contextfree.common.StrokeCapElement;
 import net.sf.jame.contextfree.common.StrokeJoinElement;
 import net.sf.jame.contextfree.common.StrokeWidthElement;
+import net.sf.jame.contextfree.pathAdjustment.PathAdjustmentConfigElement;
+import net.sf.jame.contextfree.pathReplacement.extension.PathReplacementExtensionConfig;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;
 

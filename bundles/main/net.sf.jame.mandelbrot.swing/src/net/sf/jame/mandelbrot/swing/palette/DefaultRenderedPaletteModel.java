@@ -100,7 +100,7 @@ public class DefaultRenderedPaletteModel implements RenderedPaletteModel {
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.swing.palette.RenderedPaletteModel#setRenderedPalette(net.sf.jame.mandelbrot.color.RenderedPalette, boolean)
+	 * @see net.sf.jame.mandelbrot.swing.palette.RenderedPaletteModel#setRenderedPalette(net.sf.jame.mandelbrot.colorRenderer.RenderedPalette, boolean)
 	 */
 	public void setRenderedPalette(final RenderedPalette palette, final boolean isAdjusting) {
 		if (palette == null) {

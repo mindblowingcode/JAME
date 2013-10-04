@@ -37,8 +37,8 @@ import net.sf.jame.devtools.DevToolsRegistry;
 import net.sf.jame.devtools.ProcessorCardinality;
 import net.sf.jame.devtools.ProcessorDescriptor;
 import net.sf.jame.devtools.ProcessorParameters;
-import net.sf.jame.devtools.extension.DescriptorExtensionRuntime;
-import net.sf.jame.devtools.extension.ProcessorExtensionRuntime;
+import net.sf.jame.devtools.descriptor.extension.DescriptorExtensionRuntime;
+import net.sf.jame.devtools.processor.extension.ProcessorExtensionRuntime;
 
 import org.junit.Test;
 

@@ -5,8 +5,8 @@
 package net.sf.jame.contextfree.swing.extensions.editor;
 
 import net.sf.jame.contextfree.ContextFreeRegistry;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElementNodeValue;
+import net.sf.jame.contextfree.shapeAdjustment.ShapeAdjustmentConfigElement;
+import net.sf.jame.contextfree.shapeAdjustment.ShapeAdjustmentConfigElementNodeValue;
 import net.sf.jame.contextfree.swing.extensions.ContextFreeSwingExtensionResources;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.swing.editor.ConfigurableReferenceElementEditorRuntime;

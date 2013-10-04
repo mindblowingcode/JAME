@@ -35,15 +35,15 @@ import net.sf.jame.twister.converter.extension.ConverterExtensionRuntime;
 import net.sf.jame.twister.effect.extension.EffectExtensionConfig;
 import net.sf.jame.twister.effect.extension.EffectExtensionRegistry;
 import net.sf.jame.twister.effect.extension.EffectExtensionRuntime;
-import net.sf.jame.twister.frame.filter.extension.FrameFilterExtensionConfig;
-import net.sf.jame.twister.frame.filter.extension.FrameFilterExtensionRegistry;
-import net.sf.jame.twister.frame.filter.extension.FrameFilterExtensionRuntime;
-import net.sf.jame.twister.frame.layer.filter.extension.LayerFilterExtensionConfig;
-import net.sf.jame.twister.frame.layer.filter.extension.LayerFilterExtensionRegistry;
-import net.sf.jame.twister.frame.layer.filter.extension.LayerFilterExtensionRuntime;
-import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionConfig;
-import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRegistry;
-import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime;
+import net.sf.jame.twister.frameFilter.extension.FrameFilterExtensionConfig;
+import net.sf.jame.twister.frameFilter.extension.FrameFilterExtensionRegistry;
+import net.sf.jame.twister.frameFilter.extension.FrameFilterExtensionRuntime;
+import net.sf.jame.twister.image.extension.ImageExtensionConfig;
+import net.sf.jame.twister.image.extension.ImageExtensionRegistry;
+import net.sf.jame.twister.image.extension.ImageExtensionRuntime;
+import net.sf.jame.twister.layerFilter.extension.LayerFilterExtensionConfig;
+import net.sf.jame.twister.layerFilter.extension.LayerFilterExtensionRegistry;
+import net.sf.jame.twister.layerFilter.extension.LayerFilterExtensionRuntime;
 
 /**
  * The twister registry.

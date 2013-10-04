@@ -7,10 +7,10 @@ package net.sf.jame.contextfree.extensions.shapeAdjustment;
 import net.sf.jame.core.common.BooleanElementXMLExporter;
 import net.sf.jame.core.common.FloatElementXMLExporter;
 import net.sf.jame.core.extension.ExtensionException;
+import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionRuntime;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLNodeBuilder;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLExporterExtensionRuntime;
 
 import org.w3c.dom.Element;
 
@@ -19,7 +19,7 @@ import org.w3c.dom.Element;
  */
 public class CurrentHueShapeAdjustmentConfigXMLExporterRuntime extends ExtensionConfigXMLExporterExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLExporterExtensionRuntime#createXMLExporter()
+	 * @see net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionRuntime#createXMLExporter()
 	 */
 	@Override
 	public XMLExporter<CurrentHueShapeAdjustmentConfig> createXMLExporter() {

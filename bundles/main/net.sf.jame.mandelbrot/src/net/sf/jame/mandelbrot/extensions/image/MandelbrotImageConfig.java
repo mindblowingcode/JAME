@@ -29,7 +29,7 @@ import net.sf.jame.core.config.ConfigContext;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.mandelbrot.MandelbrotConfig;
 import net.sf.jame.mandelbrot.MandelbrotConfigBuilder;
-import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionConfig;
+import net.sf.jame.twister.image.extension.ImageExtensionConfig;
 
 /**
  * @author Andrea Medeghini

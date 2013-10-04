@@ -25,9 +25,9 @@
  */
 package net.sf.jame.mandelbrot.extensions.constructor;
 
+import net.sf.jame.core.constructor.extension.ConstructorExtensionRuntime;
 import net.sf.jame.core.extension.ExtensionReference;
 import net.sf.jame.core.scripting.JSException;
-import net.sf.jame.core.scripting.extension.ConstructorExtensionRuntime;
 import net.sf.jame.core.util.Color32bit;
 import net.sf.jame.mandelbrot.MandelbrotRegistry;
 import net.sf.jame.mandelbrot.util.RenderedPaletteParam;
@@ -37,7 +37,7 @@ import net.sf.jame.mandelbrot.util.RenderedPaletteParam;
  */
 public class RenderedPaletteParamConstructorRuntime extends ConstructorExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.scripting.extension.ConstructorExtensionRuntime#create(java.lang.Object[])
+	 * @see net.sf.jame.core.constructor.extension.ConstructorExtensionRuntime#create(java.lang.Object[])
 	 */
 	@Override
 	public Object create(final Object... args) throws JSException {

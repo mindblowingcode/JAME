@@ -25,8 +25,8 @@
  */
 package net.sf.jame.core.scripting;
 
-import net.sf.jame.core.scripting.extension.ConstructorExtensionRuntime;
-import net.sf.jame.core.scripting.extension.EnumeratorExtensionRuntime;
+import net.sf.jame.core.constructor.extension.ConstructorExtensionRuntime;
+import net.sf.jame.core.enumerator.extension.EnumeratorExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

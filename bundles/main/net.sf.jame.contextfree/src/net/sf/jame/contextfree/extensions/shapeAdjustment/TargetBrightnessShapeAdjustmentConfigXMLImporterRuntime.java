@@ -9,9 +9,9 @@ import java.util.List;
 import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.common.FloatElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionException;
+import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
 
 import org.w3c.dom.Element;
 
@@ -20,7 +20,7 @@ import org.w3c.dom.Element;
  */
 public class TargetBrightnessShapeAdjustmentConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
+	 * @see net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
 	 */
 	@Override
 	public XMLImporter<TargetBrightnessShapeAdjustmentConfig> createXMLImporter() {

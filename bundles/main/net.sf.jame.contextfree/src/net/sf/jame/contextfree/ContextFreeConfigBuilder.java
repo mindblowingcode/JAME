@@ -26,13 +26,13 @@
 package net.sf.jame.contextfree;
 
 import net.sf.jame.contextfree.cfdg.CFDGConfigElement;
-import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
-import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 import net.sf.jame.contextfree.extensions.figure.RuleFigureConfig;
 import net.sf.jame.contextfree.extensions.image.ContextFreeImageConfig;
 import net.sf.jame.contextfree.extensions.shapeReplacement.SingleShapeReplacementConfig;
+import net.sf.jame.contextfree.figure.FigureConfigElement;
+import net.sf.jame.contextfree.figure.extension.FigureExtensionConfig;
+import net.sf.jame.contextfree.shapeReplacement.ShapeReplacementConfigElement;
+import net.sf.jame.contextfree.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionNotFoundException;

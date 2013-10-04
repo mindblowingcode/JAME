@@ -25,16 +25,16 @@
  */
 package net.sf.jame.mandelbrot.extensions.action;
 
-import net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime;
-import net.sf.jame.mandelbrot.color.ColorRendererConfigElement;
-import net.sf.jame.mandelbrot.color.ColorRendererConfigElementXMLExporter;
+import net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime;
+import net.sf.jame.mandelbrot.colorRenderer.ColorRendererConfigElement;
+import net.sf.jame.mandelbrot.colorRenderer.ColorRendererConfigElementXMLExporter;
 
 /**
  * @author Andrea Medeghini
  */
-public class ColorRendererNodeActionXMLExporterRuntime extends ConfigElementNodeActionXMLExporterRuntime<ColorRendererConfigElement> {
+public class ColorRendererNodeActionXMLExporterRuntime extends AbstractConfigElementNodeActionXMLExporterRuntime<ColorRendererConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime#createExporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime#createExporter()
 	 */
 	@Override
 	protected ColorRendererConfigElementXMLExporter createExporter() {

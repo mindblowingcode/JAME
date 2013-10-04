@@ -29,12 +29,12 @@ import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.mandelbrot.extensions.image.MandelbrotImageConfig;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalConfigElement;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.orbittrap.OrbitTrapConfigElement;
-import net.sf.jame.mandelbrot.fractal.outcolouring.OutcolouringFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.processing.ProcessingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.transforming.TransformingFormulaConfigElement;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaConfigElement;
+import net.sf.jame.mandelbrot.orbitTrap.OrbitTrapConfigElement;
+import net.sf.jame.mandelbrot.outcolouringFormula.OutcolouringFormulaConfigElement;
+import net.sf.jame.mandelbrot.processingFormula.ProcessingFormulaConfigElement;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaConfigElement;
+import net.sf.jame.mandelbrot.transformingFormula.TransformingFormulaConfigElement;
 
 /**
  * @author Andrea Medeghini

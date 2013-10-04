@@ -38,14 +38,14 @@ import java.util.Set;
 import net.sf.jame.devtools.DevToolsException;
 import net.sf.jame.devtools.ProcessorDescriptor;
 import net.sf.jame.devtools.ProcessorParameters;
-import net.sf.jame.devtools.extension.ProcessorExtensionRuntime;
-import net.sf.jame.devtools.extensions.ProcessorTemplateLoader;
+import net.sf.jame.devtools.ProcessorTemplateLoader;
+import net.sf.jame.devtools.processor.extension.ProcessorExtensionRuntime;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 public class NodeActionXMLExporterProcessorRuntime extends ProcessorExtensionRuntime {
 	/**
-	 * @see net.sf.jame.devtools.extension.ProcessorExtensionRuntime#process(java.io.File, net.sf.jame.devtools.ProcessorDescriptor, java.util.List, java.util.Map)
+	 * @see net.sf.jame.devtools.processor.extension.ProcessorExtensionRuntime#process(java.io.File, net.sf.jame.devtools.ProcessorDescriptor, java.util.List, java.util.Map)
 	 */
 	@Override
 	public void process(File path, ProcessorParameters parameters, Map<String, String> variables) throws DevToolsException {
@@ -113,7 +113,7 @@ public class NodeActionXMLExporterProcessorRuntime extends ProcessorExtensionRun
 	}
 
 	/**
-	 * @see net.sf.jame.devtools.extension.ProcessorExtensionRuntime#getName()
+	 * @see net.sf.jame.devtools.processor.extension.ProcessorExtensionRuntime#getName()
 	 */
 	@Override
 	public String getName() {
@@ -125,21 +125,21 @@ public class NodeActionXMLExporterProcessorRuntime extends ProcessorExtensionRun
 
 	private void prepareReferenceNodeActionXMLExporter(Set<String> imports, ProcessorDescriptor descriptor, Map<String, String> variables) {
 		if (descriptor.isExtension()) {
-			imports.add("net.sf.jame.core.util.ExtensionReferenceElementNodeActionXMLExporterRuntime");
+			imports.add("net.sf.jame.core.util.AbstractExtensionReferenceElementNodeActionXMLExporterRuntime");
 		} else {
-			imports.add("net.sf.jame.core.util.ConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime");
+			imports.add("net.sf.jame.core.util.AbstractConfigurableExtensionReferenceElementNodeActionXMLExporterRuntime");
 		}
 		imports.add(descriptor.getExtensionConfigPackageName() + "." + descriptor.getExtensionConfigClassName());
 	}
 
 	private void prepareElementNodeActionXMLExporter(Set<String> imports, ProcessorDescriptor descriptor, Map<String, String> variables) {
-		imports.add("net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime");
+		imports.add("net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime");
 		imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
 		imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName() + "XMLExporter");
 	}
 
 	private void prepareElementListNodeActionXMLExporter(Set<String> imports, ProcessorDescriptor descriptor, Map<String, String> variables) {
-		imports.add("net.sf.jame.core.util.ConfigElementListNodeActionXMLExporterRuntime");
+		imports.add("net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLExporterRuntime");
 		imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName());
 		imports.add(descriptor.getConfigElementPackageName() + "." + descriptor.getConfigElementClassName() + "XMLExporter");
 	}

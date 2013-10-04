@@ -4,8 +4,8 @@
  */
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
 import net.sf.jame.contextfree.renderer.support.CFModification;
+import net.sf.jame.contextfree.shapeAdjustment.extension.ShapeAdjustmentExtensionRuntime;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;

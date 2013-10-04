@@ -39,8 +39,8 @@ import net.sf.jame.core.swing.util.GUIFactory;
 import net.sf.jame.core.swing.util.StackLayout;
 import net.sf.jame.core.tree.NodeEditor;
 import net.sf.jame.core.tree.NodeValue;
-import net.sf.jame.twister.frame.layer.GroupLayerConfigElement;
-import net.sf.jame.twister.frame.layer.GroupLayerConfigElementNodeValue;
+import net.sf.jame.twister.layer.GroupLayerConfigElement;
+import net.sf.jame.twister.layer.GroupLayerConfigElementNodeValue;
 import net.sf.jame.twister.swing.extensions.TwisterSwingExtensionResources;
 
 /**

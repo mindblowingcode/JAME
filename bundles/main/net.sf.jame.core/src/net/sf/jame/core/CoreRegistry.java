@@ -25,25 +25,25 @@
  */
 package net.sf.jame.core;
 
+import net.sf.jame.core.actionXMLExporter.extension.ActionXMLExporterExtensionRegistry;
+import net.sf.jame.core.actionXMLExporter.extension.ActionXMLExporterExtensionRuntime;
+import net.sf.jame.core.actionXMLImporter.extension.ActionXMLImporterExtensionRegistry;
+import net.sf.jame.core.actionXMLImporter.extension.ActionXMLImporterExtensionRuntime;
+import net.sf.jame.core.constructor.extension.ConstructorExtensionRegistry;
+import net.sf.jame.core.constructor.extension.ConstructorExtensionRuntime;
+import net.sf.jame.core.creator.extension.CreatorExtensionRegistry;
+import net.sf.jame.core.creator.extension.CreatorExtensionRuntime;
+import net.sf.jame.core.enumerator.extension.EnumeratorExtensionRegistry;
+import net.sf.jame.core.enumerator.extension.EnumeratorExtensionRuntime;
 import net.sf.jame.core.extension.Extension;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.core.extension.ExtensionRegistry;
-import net.sf.jame.core.scripting.extension.ConstructorExtensionRegistry;
-import net.sf.jame.core.scripting.extension.ConstructorExtensionRuntime;
-import net.sf.jame.core.scripting.extension.CreatorExtensionRegistry;
-import net.sf.jame.core.scripting.extension.CreatorExtensionRuntime;
-import net.sf.jame.core.scripting.extension.EnumeratorExtensionRegistry;
-import net.sf.jame.core.scripting.extension.EnumeratorExtensionRuntime;
-import net.sf.jame.core.tree.extension.NodeBuilderExtensionRegistry;
-import net.sf.jame.core.tree.extension.NodeBuilderExtensionRuntime;
-import net.sf.jame.core.xml.extension.ActionXMLExporterExtensionRegistry;
-import net.sf.jame.core.xml.extension.ActionXMLExporterExtensionRuntime;
-import net.sf.jame.core.xml.extension.ActionXMLImporterExtensionRegistry;
-import net.sf.jame.core.xml.extension.ActionXMLImporterExtensionRuntime;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLExporterExtensionRegistry;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLExporterExtensionRuntime;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRegistry;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
+import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionRegistry;
+import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionRuntime;
+import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRegistry;
+import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime;
+import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionRegistry;
+import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionRuntime;
 
 /**
  * The core registry.

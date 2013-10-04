@@ -25,15 +25,15 @@
  */
 package net.sf.jame.core.extensions.creator;
 
+import net.sf.jame.core.creator.extension.CreatorExtensionRuntime;
 import net.sf.jame.core.scripting.JSException;
-import net.sf.jame.core.scripting.extension.CreatorExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
 public class IntegerCreatorRuntime extends CreatorExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.scripting.extension.CreatorExtensionRuntime#create(java.lang.Object[])
+	 * @see net.sf.jame.core.creator.extension.CreatorExtensionRuntime#create(java.lang.Object[])
 	 */
 	@Override
 	public Object create(final Object... args) throws JSException {

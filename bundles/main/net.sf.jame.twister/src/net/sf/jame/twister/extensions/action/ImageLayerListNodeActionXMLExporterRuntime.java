@@ -25,16 +25,16 @@
  */
 package net.sf.jame.twister.extensions.action;
 
-import net.sf.jame.core.util.ConfigElementListNodeActionXMLExporterRuntime;
-import net.sf.jame.twister.frame.layer.ImageLayerConfigElement;
-import net.sf.jame.twister.frame.layer.ImageLayerConfigElementXMLExporter;
+import net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLExporterRuntime;
+import net.sf.jame.twister.layer.ImageLayerConfigElement;
+import net.sf.jame.twister.layer.ImageLayerConfigElementXMLExporter;
 
 /**
  * @author Andrea Medeghini
  */
-public class ImageLayerListNodeActionXMLExporterRuntime extends ConfigElementListNodeActionXMLExporterRuntime<ImageLayerConfigElement> {
+public class ImageLayerListNodeActionXMLExporterRuntime extends AbstractConfigElementListNodeActionXMLExporterRuntime<ImageLayerConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementListNodeActionXMLExporterRuntime#createExporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLExporterRuntime#createExporter()
 	 */
 	@Override
 	protected ImageLayerConfigElementXMLExporter createExporter() {

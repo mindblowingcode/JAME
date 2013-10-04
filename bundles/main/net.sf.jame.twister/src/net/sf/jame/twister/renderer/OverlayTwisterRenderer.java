@@ -33,9 +33,9 @@ import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.Surface;
 import net.sf.jame.twister.TwisterRuntime;
 import net.sf.jame.twister.frame.FrameRuntimeElement;
-import net.sf.jame.twister.frame.layer.GroupLayerRuntimeElement;
-import net.sf.jame.twister.frame.layer.ImageLayerRuntimeElement;
-import net.sf.jame.twister.frame.layer.image.ImageRuntimeElement;
+import net.sf.jame.twister.image.ImageRuntimeElement;
+import net.sf.jame.twister.layer.GroupLayerRuntimeElement;
+import net.sf.jame.twister.layer.ImageLayerRuntimeElement;
 
 /**
  * @author Andrea Medeghini
