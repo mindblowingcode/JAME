@@ -17,7 +17,6 @@ import java.util.Map.Entry;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.sf.jame.core.swing.osgi.IExtensionPointTreeModel;
-import net.sf.jame.core.util.Files;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;

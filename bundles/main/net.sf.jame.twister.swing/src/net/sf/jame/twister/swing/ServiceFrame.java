@@ -771,6 +771,7 @@ public class ServiceFrame extends JFrame {
 			tree.setShowsRootHandles(true);
 			tree.setCellRenderer(new IExtensionPointTreeCellRenderer());
 			Migrazione.export(treeModel);
+			//Migrazione.export(treeModel);//TODO da rimuovere
 			return tree;
 		}
 
