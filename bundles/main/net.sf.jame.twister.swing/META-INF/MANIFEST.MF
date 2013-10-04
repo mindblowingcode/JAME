@@ -22,6 +22,7 @@ Export-Package: net.sf.jame.twister.swing,
  net.sf.jame.twister.swing.extensions,
  net.sf.jame.twister.swing.extensions.adapter,
  net.sf.jame.twister.swing.extensions.editor,
+ net.sf.jame.twister.swing.inputAdapter.extension,
  net.sf.jame.twister.swing.view,
  net.sf.jame.twister.swing.view.extension
 Bundle-ClassPath: .
