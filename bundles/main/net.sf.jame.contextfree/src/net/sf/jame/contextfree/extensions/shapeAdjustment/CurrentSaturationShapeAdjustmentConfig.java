@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.jame.contextfree.CFDGBuilder;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
+import net.sf.jame.contextfree.shapeAdjustment.extension.ShapeAdjustmentExtensionConfig;
 import net.sf.jame.core.common.BooleanElement;
 import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.config.ConfigElement;

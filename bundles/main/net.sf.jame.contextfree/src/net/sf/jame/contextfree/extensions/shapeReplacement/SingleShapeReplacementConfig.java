@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.jame.contextfree.CFDGBuilder;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.extension.ShapeReplacementExtensionConfig;
+import net.sf.jame.contextfree.shapeAdjustment.ShapeAdjustmentConfigElement;
+import net.sf.jame.contextfree.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ListConfigElement;

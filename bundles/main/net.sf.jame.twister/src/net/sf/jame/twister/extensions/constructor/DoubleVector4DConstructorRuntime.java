@@ -25,8 +25,8 @@
  */
 package net.sf.jame.twister.extensions.constructor;
 
+import net.sf.jame.core.constructor.extension.ConstructorExtensionRuntime;
 import net.sf.jame.core.scripting.JSException;
-import net.sf.jame.core.scripting.extension.ConstructorExtensionRuntime;
 import net.sf.jame.core.util.DoubleVector4D;
 
 /**
@@ -34,7 +34,7 @@ import net.sf.jame.core.util.DoubleVector4D;
  */
 public class DoubleVector4DConstructorRuntime extends ConstructorExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.scripting.extension.ConstructorExtensionRuntime#create(java.lang.Object[])
+	 * @see net.sf.jame.core.constructor.extension.ConstructorExtensionRuntime#create(java.lang.Object[])
 	 */
 	@Override
 	public Object create(final Object... args) throws JSException {

@@ -25,8 +25,8 @@
  */
 package net.sf.jame.mandelbrot.extensions.creator;
 
+import net.sf.jame.core.creator.extension.CreatorExtensionRuntime;
 import net.sf.jame.core.scripting.JSException;
-import net.sf.jame.core.scripting.extension.CreatorExtensionRuntime;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalConfigElement;
 
 /**
@@ -34,7 +34,7 @@ import net.sf.jame.mandelbrot.fractal.MandelbrotFractalConfigElement;
  */
 public class MandelbrotFractalCreatorRuntime extends CreatorExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.scripting.extension.CreatorExtensionRuntime#create(java.lang.Object[])
+	 * @see net.sf.jame.core.creator.extension.CreatorExtensionRuntime#create(java.lang.Object[])
 	 */
 	@Override
 	public Object create(final Object... args) throws JSException {

@@ -29,10 +29,10 @@ import java.util.List;
 
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-import net.sf.jame.twister.frame.filter.FrameFilterConfigElement;
-import net.sf.jame.twister.frame.filter.FrameFilterConfigElementXMLImporter;
-import net.sf.jame.twister.frame.layer.GroupLayerConfigElement;
-import net.sf.jame.twister.frame.layer.GroupLayerConfigElementXMLImporter;
+import net.sf.jame.twister.frameFilter.FrameFilterConfigElement;
+import net.sf.jame.twister.frameFilter.FrameFilterConfigElementXMLImporter;
+import net.sf.jame.twister.layer.GroupLayerConfigElement;
+import net.sf.jame.twister.layer.GroupLayerConfigElementXMLImporter;
 
 import org.w3c.dom.Element;
 

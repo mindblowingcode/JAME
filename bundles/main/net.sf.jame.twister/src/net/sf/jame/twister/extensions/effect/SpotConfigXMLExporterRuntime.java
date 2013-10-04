@@ -26,10 +26,10 @@
 package net.sf.jame.twister.extensions.effect;
 
 import net.sf.jame.core.common.ComplexElementXMLExporter;
+import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionRuntime;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLNodeBuilder;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLExporterExtensionRuntime;
 import net.sf.jame.twister.common.PercentageElementXMLExporter;
 
 import org.w3c.dom.Element;
@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
  */
 public class SpotConfigXMLExporterRuntime extends ExtensionConfigXMLExporterExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLExporterExtensionRuntime#createXMLExporter()
+	 * @see net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionRuntime#createXMLExporter()
 	 */
 	@Override
 	public XMLExporter<SpotConfig> createXMLExporter() {
@@ -48,7 +48,7 @@ public class SpotConfigXMLExporterRuntime extends ExtensionConfigXMLExporterExte
 
 	private class SpotConfigXMLExporter extends AbstractEffectConfigXMLExporter<SpotConfig> {
 		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractEffectConfigXMLExporter#getConfigElementClassId()
+		 * @see net.sf.jame.twister.extensions.layerFilter.AbstractEffectConfigXMLExporter#getConfigElementClassId()
 		 */
 		@Override
 		protected String getConfigElementClassId() {
@@ -56,7 +56,7 @@ public class SpotConfigXMLExporterRuntime extends ExtensionConfigXMLExporterExte
 		}
 
 		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractEffectConfigXMLExporter#exportToElement(net.sf.jame.twister.frame.layer.filter.extension.EffectExtensionConfig, net.sf.jame.core.xml.XMLNodeBuilder)
+		 * @see net.sf.jame.twister.extensions.layerFilter.AbstractEffectConfigXMLExporter#exportToElement(net.sf.jame.twister.layerFilter.extension.EffectExtensionConfig, net.sf.jame.core.xml.XMLNodeBuilder)
 		 */
 		@Override
 		public Element exportToElement(final SpotConfig config, final XMLNodeBuilder builder) throws XMLExportException {

@@ -28,8 +28,8 @@ package net.sf.jame.twister.frame;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLNodeBuilder;
-import net.sf.jame.twister.frame.filter.FrameFilterConfigElementXMLExporter;
-import net.sf.jame.twister.frame.layer.GroupLayerConfigElementXMLExporter;
+import net.sf.jame.twister.frameFilter.FrameFilterConfigElementXMLExporter;
+import net.sf.jame.twister.layer.GroupLayerConfigElementXMLExporter;
 
 import org.w3c.dom.Element;
 

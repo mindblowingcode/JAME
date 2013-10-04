@@ -28,20 +28,20 @@ package net.sf.jame.twister.extensions.enumerator;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.sf.jame.core.enumerator.extension.EnumeratorExtensionRuntime;
 import net.sf.jame.core.extension.Extension;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.core.scripting.JSException;
 import net.sf.jame.core.scripting.JSExtension;
-import net.sf.jame.core.scripting.extension.EnumeratorExtensionRuntime;
 import net.sf.jame.twister.TwisterRegistry;
-import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime;
+import net.sf.jame.twister.image.extension.ImageExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
 public class ImageEnumeratorRuntime extends EnumeratorExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.scripting.extension.EnumeratorExtensionRuntime#listExtensions()
+	 * @see net.sf.jame.core.enumerator.extension.EnumeratorExtensionRuntime#listExtensions()
 	 */
 	@Override
 	public List<String> listExtensions() throws JSException {
@@ -54,7 +54,7 @@ public class ImageEnumeratorRuntime extends EnumeratorExtensionRuntime {
 	}
 
 	/**
-	 * @see net.sf.jame.core.scripting.extension.EnumeratorExtensionRuntime#getExtension(java.lang.String)
+	 * @see net.sf.jame.core.enumerator.extension.EnumeratorExtensionRuntime#getExtension(java.lang.String)
 	 */
 	@Override
 	public JSExtension getExtension(final String extensionId) throws JSException {

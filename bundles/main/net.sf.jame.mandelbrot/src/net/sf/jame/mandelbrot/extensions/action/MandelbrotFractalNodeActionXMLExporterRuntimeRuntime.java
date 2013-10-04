@@ -25,16 +25,16 @@
  */
 package net.sf.jame.mandelbrot.extensions.action;
 
-import net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime;
+import net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalConfigElement;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalConfigElementXMLExporter;
 
 /**
  * @author Andrea Medeghini
  */
-public class MandelbrotFractalNodeActionXMLExporterRuntimeRuntime extends ConfigElementNodeActionXMLExporterRuntime<MandelbrotFractalConfigElement> {
+public class MandelbrotFractalNodeActionXMLExporterRuntimeRuntime extends AbstractConfigElementNodeActionXMLExporterRuntime<MandelbrotFractalConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime#createExporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime#createExporter()
 	 */
 	@Override
 	protected MandelbrotFractalConfigElementXMLExporter createExporter() {

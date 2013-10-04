@@ -41,11 +41,11 @@ import net.sf.jame.mandelbrot.MandelbrotZoom;
 import net.sf.jame.mandelbrot.MandelbrotZoomHandler;
 import net.sf.jame.mandelbrot.extensions.image.MandelbrotImageConfig;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalConfigElement;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.rendering.extension.RenderingFormulaExtensionConfig;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaConfigElement;
+import net.sf.jame.mandelbrot.renderingFormula.extension.RenderingFormulaExtensionConfig;
 import net.sf.jame.twister.common.SpeedElement;
 import net.sf.jame.twister.common.ViewElement;
-import net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime;
+import net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime;
 import net.sf.jame.twister.util.Speed;
 import net.sf.jame.twister.util.View;
 
@@ -64,7 +64,7 @@ public class MandelbrotInputAdapterRuntime extends DefaultInputAdapterRuntime {
 	}
 
 	/**
-	 * @see net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime#refresh()
+	 * @see net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime#refresh()
 	 */
 	@Override
 	public void refresh() {
@@ -72,7 +72,7 @@ public class MandelbrotInputAdapterRuntime extends DefaultInputAdapterRuntime {
 	}
 
 	/**
-	 * @see net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime#processKeyPressed(java.awt.event.KeyEvent)
+	 * @see net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime#processKeyPressed(java.awt.event.KeyEvent)
 	 */
 	@Override
 	public void processKeyPressed(final KeyEvent e) {
@@ -280,7 +280,7 @@ public class MandelbrotInputAdapterRuntime extends DefaultInputAdapterRuntime {
 	}
 
 	/**
-	 * @see net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime#processKeyReleased(java.awt.event.KeyEvent)
+	 * @see net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime#processKeyReleased(java.awt.event.KeyEvent)
 	 */
 	@Override
 	public void processKeyReleased(final KeyEvent e) {
@@ -346,14 +346,14 @@ public class MandelbrotInputAdapterRuntime extends DefaultInputAdapterRuntime {
 	}
 
 	/**
-	 * @see net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime#processKeyTyped(java.awt.event.KeyEvent)
+	 * @see net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime#processKeyTyped(java.awt.event.KeyEvent)
 	 */
 	@Override
 	public void processKeyTyped(final KeyEvent e) {
 	}
 
 	/**
-	 * @see net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime#processMouseClicked(java.awt.event.MouseEvent)
+	 * @see net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime#processMouseClicked(java.awt.event.MouseEvent)
 	 */
 	@Override
 	public void processMouseClicked(final MouseEvent e) {
@@ -468,7 +468,7 @@ public class MandelbrotInputAdapterRuntime extends DefaultInputAdapterRuntime {
 	}
 
 	/**
-	 * @see net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime#processMouseDragged(java.awt.event.MouseEvent)
+	 * @see net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime#processMouseDragged(java.awt.event.MouseEvent)
 	 */
 	@Override
 	public void processMouseDragged(final MouseEvent e) {
@@ -516,21 +516,21 @@ public class MandelbrotInputAdapterRuntime extends DefaultInputAdapterRuntime {
 	}
 
 	/**
-	 * @see net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime#processMouseEntered(java.awt.event.MouseEvent)
+	 * @see net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime#processMouseEntered(java.awt.event.MouseEvent)
 	 */
 	@Override
 	public void processMouseEntered(final MouseEvent e) {
 	}
 
 	/**
-	 * @see net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime#processMouseExited(java.awt.event.MouseEvent)
+	 * @see net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime#processMouseExited(java.awt.event.MouseEvent)
 	 */
 	@Override
 	public void processMouseExited(final MouseEvent e) {
 	}
 
 	/**
-	 * @see net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime#processMouseMoved(java.awt.event.MouseEvent)
+	 * @see net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime#processMouseMoved(java.awt.event.MouseEvent)
 	 */
 	@Override
 	public void processMouseMoved(final MouseEvent e) {
@@ -565,7 +565,7 @@ public class MandelbrotInputAdapterRuntime extends DefaultInputAdapterRuntime {
 	}
 
 	/**
-	 * @see net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime#processMousePressed(java.awt.event.MouseEvent)
+	 * @see net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime#processMousePressed(java.awt.event.MouseEvent)
 	 */
 	@Override
 	public void processMousePressed(final MouseEvent e) {
@@ -652,7 +652,7 @@ public class MandelbrotInputAdapterRuntime extends DefaultInputAdapterRuntime {
 	}
 
 	/**
-	 * @see net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime#processMouseReleased(java.awt.event.MouseEvent)
+	 * @see net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime#processMouseReleased(java.awt.event.MouseEvent)
 	 */
 	@Override
 	public void processMouseReleased(final MouseEvent e) {

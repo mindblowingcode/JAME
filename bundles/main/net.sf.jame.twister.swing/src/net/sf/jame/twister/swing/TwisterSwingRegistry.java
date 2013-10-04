@@ -28,8 +28,8 @@ package net.sf.jame.twister.swing;
 import net.sf.jame.core.extension.Extension;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.core.extension.ExtensionRegistry;
-import net.sf.jame.twister.swing.adapter.extension.InputAdapterExtensionRegistry;
-import net.sf.jame.twister.swing.adapter.extension.InputAdapterExtensionRuntime;
+import net.sf.jame.twister.swing.inputAdapter.extension.InputAdapterExtensionRegistry;
+import net.sf.jame.twister.swing.inputAdapter.extension.InputAdapterExtensionRuntime;
 import net.sf.jame.twister.swing.view.extension.ViewExtensionRegistry;
 import net.sf.jame.twister.swing.view.extension.ViewExtensionRuntime;
 

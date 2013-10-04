@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.jame.contextfree.CFDGBuilder;
-import net.sf.jame.contextfree.cfdg.figure.extension.FigureExtensionConfig;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
+import net.sf.jame.contextfree.figure.extension.FigureExtensionConfig;
+import net.sf.jame.contextfree.shapeReplacement.ShapeReplacementConfigElement;
 import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.config.ConfigElement;

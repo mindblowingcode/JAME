@@ -30,7 +30,7 @@ import java.awt.Component;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-import net.sf.jame.core.swing.tree.MutableTreeNodeAdapter;
+import net.sf.jame.core.swing.util.MutableTreeNodeAdapter;
 import net.sf.jame.core.tree.Node;
 
 /**

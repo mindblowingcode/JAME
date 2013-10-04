@@ -28,10 +28,10 @@ package net.sf.jame.devtools;
 import net.sf.jame.core.extension.Extension;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.core.extension.ExtensionRegistry;
-import net.sf.jame.devtools.extension.DescriptorExtensionRegistry;
-import net.sf.jame.devtools.extension.DescriptorExtensionRuntime;
-import net.sf.jame.devtools.extension.ProcessorExtensionRegistry;
-import net.sf.jame.devtools.extension.ProcessorExtensionRuntime;
+import net.sf.jame.devtools.descriptor.extension.DescriptorExtensionRegistry;
+import net.sf.jame.devtools.descriptor.extension.DescriptorExtensionRuntime;
+import net.sf.jame.devtools.processor.extension.ProcessorExtensionRegistry;
+import net.sf.jame.devtools.processor.extension.ProcessorExtensionRuntime;
 
 /**
  * The twister registry.

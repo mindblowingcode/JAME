@@ -48,9 +48,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import net.sf.jame.core.swing.tree.MutableTreeNodeAdapter;
 import net.sf.jame.core.swing.util.GUIFactory;
 import net.sf.jame.core.swing.util.GUIUtil;
+import net.sf.jame.core.swing.util.MutableTreeNodeAdapter;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeEditor;
 import net.sf.jame.core.tree.NodeEvent;

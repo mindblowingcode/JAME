@@ -44,8 +44,8 @@ import net.sf.jame.core.util.Surface;
 import net.sf.jame.core.util.Tile;
 import net.sf.jame.mandelbrot.MandelbrotRuntime;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalRuntimeElement;
-import net.sf.jame.mandelbrot.fractal.incolouring.IncolouringFormulaRuntimeElement;
-import net.sf.jame.mandelbrot.fractal.outcolouring.OutcolouringFormulaRuntimeElement;
+import net.sf.jame.mandelbrot.incolouringFormula.IncolouringFormulaRuntimeElement;
+import net.sf.jame.mandelbrot.outcolouringFormula.OutcolouringFormulaRuntimeElement;
 import net.sf.jame.twister.renderer.TwisterRenderer;
 import net.sf.jame.twister.util.View;
 

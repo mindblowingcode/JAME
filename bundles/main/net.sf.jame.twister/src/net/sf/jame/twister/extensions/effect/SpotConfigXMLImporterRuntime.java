@@ -29,9 +29,9 @@ import java.util.List;
 
 import net.sf.jame.core.common.ComplexElement;
 import net.sf.jame.core.common.ComplexElementXMLImporter;
+import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.twister.common.PercentageElement;
 import net.sf.jame.twister.common.PercentageElementXMLImporter;
 
@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
  */
 public class SpotConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
+	 * @see net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
 	 */
 	@Override
 	public XMLImporter<SpotConfig> createXMLImporter() {
@@ -51,7 +51,7 @@ public class SpotConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExte
 
 	private class SpotConfigXMLImporter extends AbstractEffectConfigXMLImporter<SpotConfig> {
 		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#createExtensionConfig()
+		 * @see net.sf.jame.twister.extensions.layerFilter.AbstractLayerFilterConfigXMLImporter#createExtensionConfig()
 		 */
 		@Override
 		protected SpotConfig createExtensionConfig() {
@@ -59,7 +59,7 @@ public class SpotConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExte
 		}
 
 		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#getConfigElementClassId()
+		 * @see net.sf.jame.twister.extensions.layerFilter.AbstractLayerFilterConfigXMLImporter#getConfigElementClassId()
 		 */
 		@Override
 		protected String getConfigElementClassId() {
@@ -67,7 +67,7 @@ public class SpotConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExte
 		}
 
 		/**
-		 * @see net.sf.jame.twister.extensions.frame.layer.filter.AbstractLayerFilterConfigXMLImporter#importFromElement(org.w3c.dom.Element)
+		 * @see net.sf.jame.twister.extensions.layerFilter.AbstractLayerFilterConfigXMLImporter#importFromElement(org.w3c.dom.Element)
 		 */
 		@Override
 		public SpotConfig importFromElement(final Element element) throws XMLImportException {

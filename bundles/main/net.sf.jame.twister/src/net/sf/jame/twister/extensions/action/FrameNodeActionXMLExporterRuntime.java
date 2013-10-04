@@ -25,16 +25,16 @@
  */
 package net.sf.jame.twister.extensions.action;
 
-import net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime;
+import net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime;
 import net.sf.jame.twister.frame.FrameConfigElement;
 import net.sf.jame.twister.frame.FrameConfigElementXMLExporter;
 
 /**
  * @author Andrea Medeghini
  */
-public class FrameNodeActionXMLExporterRuntime extends ConfigElementNodeActionXMLExporterRuntime<FrameConfigElement> {
+public class FrameNodeActionXMLExporterRuntime extends AbstractConfigElementNodeActionXMLExporterRuntime<FrameConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime#createExporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime#createExporter()
 	 */
 	@Override
 	protected FrameConfigElementXMLExporter createExporter() {

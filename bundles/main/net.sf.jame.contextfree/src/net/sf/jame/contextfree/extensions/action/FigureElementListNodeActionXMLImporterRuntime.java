@@ -4,15 +4,15 @@
  */
 package net.sf.jame.contextfree.extensions.action;
 
-import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
-import net.sf.jame.contextfree.cfdg.figure.FigureConfigElementXMLImporter;
-import net.sf.jame.core.util.ConfigElementListNodeActionXMLImporterRuntime;
+import net.sf.jame.contextfree.figure.FigureConfigElement;
+import net.sf.jame.contextfree.figure.FigureConfigElementXMLImporter;
+import net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLImporterRuntime;
 /**
  * @author Andrea Medeghini
  */
-public class FigureElementListNodeActionXMLImporterRuntime extends ConfigElementListNodeActionXMLImporterRuntime<FigureConfigElement> {
+public class FigureElementListNodeActionXMLImporterRuntime extends AbstractConfigElementListNodeActionXMLImporterRuntime<FigureConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementListNodeActionXMLImporterRuntime#createImporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLImporterRuntime#createImporter()
 	 */
 	@Override
 	protected FigureConfigElementXMLImporter createImporter() {

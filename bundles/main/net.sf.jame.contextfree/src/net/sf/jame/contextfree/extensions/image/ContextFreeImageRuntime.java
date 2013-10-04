@@ -35,7 +35,7 @@ import net.sf.jame.contextfree.renderer.DefaultContextFreeRenderer;
 import net.sf.jame.contextfree.renderer.SimpleContextFreeRenderer;
 import net.sf.jame.core.util.IntegerVector2D;
 import net.sf.jame.core.util.Tile;
-import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime;
+import net.sf.jame.twister.image.extension.ImageExtensionRuntime;
 import net.sf.jame.twister.renderer.TwisterRenderer;
 import net.sf.jame.twister.renderer.TwisterRenderingHints;
 
@@ -63,7 +63,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#startRenderer()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#startRenderer()
 	 */
 	@Override
 	public void startRenderer() {
@@ -73,7 +73,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#abortRenderer()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#abortRenderer()
 	 */
 	@Override
 	public void abortRenderer() {
@@ -83,7 +83,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#joinRenderer()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#joinRenderer()
 	 */
 	@Override
 	public void joinRenderer() throws InterruptedException {
@@ -93,7 +93,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#getRenderingStatus()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#getRenderingStatus()
 	 */
 	@Override
 	public int getRenderingStatus() {
@@ -104,7 +104,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#isDynamic()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#isDynamic()
 	 */
 	@Override
 	public boolean isDynamic() {
@@ -115,7 +115,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#prepareImage(boolean)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#prepareImage(boolean)
 	 */
 	@Override
 	public void prepareImage(final boolean isDynamicRequired) {
@@ -125,7 +125,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D)
 	 */
 	@Override
 	public void drawImage(final Graphics2D g2d) {
@@ -135,7 +135,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D, int, int)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D, int, int)
 	 */
 	@Override
 	public void drawImage(final Graphics2D g2d, final int x, final int y) {
@@ -145,7 +145,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D, int, int, int, int)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D, int, int, int, int)
 	 */
 	@Override
 	public void drawImage(final Graphics2D g2d, final int x, final int y, final int w, final int h) {
@@ -155,7 +155,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#getImageSize()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#getImageSize()
 	 */
 	@Override
 	public IntegerVector2D getImageSize() {
@@ -163,7 +163,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#setTile(net.sf.jame.core.util.Tile)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#setTile(net.sf.jame.core.util.Tile)
 	 */
 	@Override
 	public void setTile(final Tile tile) {
@@ -180,7 +180,7 @@ public class ContextFreeImageRuntime extends ImageExtensionRuntime<ContextFreeIm
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#setRenderingHints(java.util.Map)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#setRenderingHints(java.util.Map)
 	 */
 	@Override
 	public void setRenderingHints(final Map<Object, Object> hints) {

@@ -25,16 +25,16 @@
  */
 package net.sf.jame.mandelbrot.extensions.action;
 
-import net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime;
-import net.sf.jame.mandelbrot.color.formula.ColorRendererFormulaConfigElement;
-import net.sf.jame.mandelbrot.color.formula.ColorRendererFormulaConfigElementXMLImporter;
+import net.sf.jame.core.util.AbstractConfigElementNodeActionXMLImporterRuntime;
+import net.sf.jame.mandelbrot.colorRendererFormula.ColorRendererFormulaConfigElement;
+import net.sf.jame.mandelbrot.colorRendererFormula.ColorRendererFormulaConfigElementXMLImporter;
 
 /**
  * @author Andrea Medeghini
  */
-public class ColorRendererFormulaNodeActionXMLImporterRuntime extends ConfigElementNodeActionXMLImporterRuntime<ColorRendererFormulaConfigElement> {
+public class ColorRendererFormulaNodeActionXMLImporterRuntime extends AbstractConfigElementNodeActionXMLImporterRuntime<ColorRendererFormulaConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime#createImporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementNodeActionXMLImporterRuntime#createImporter()
 	 */
 	@Override
 	protected ColorRendererFormulaConfigElementXMLImporter createImporter() {

@@ -6,8 +6,8 @@ package net.sf.jame.contextfree.cfdg;
 
 import java.util.List;
 
-import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
-import net.sf.jame.contextfree.cfdg.figure.FigureConfigElementXMLImporter;
+import net.sf.jame.contextfree.figure.FigureConfigElement;
+import net.sf.jame.contextfree.figure.FigureConfigElementXMLImporter;
 import net.sf.jame.core.common.BooleanElement;
 import net.sf.jame.core.common.BooleanElementXMLImporter;
 import net.sf.jame.core.common.ColorElement;

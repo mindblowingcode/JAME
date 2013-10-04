@@ -6,14 +6,14 @@ package net.sf.jame.contextfree.extensions.shapeReplacement;
 
 import java.util.List;
 
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElementXMLImporter;
+import net.sf.jame.contextfree.shapeAdjustment.ShapeAdjustmentConfigElement;
+import net.sf.jame.contextfree.shapeAdjustment.ShapeAdjustmentConfigElementXMLImporter;
 import net.sf.jame.core.common.StringElement;
 import net.sf.jame.core.common.StringElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionException;
+import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
 
 import org.w3c.dom.Element;
 
@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
  */
 public class SingleShapeReplacementConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
+	 * @see net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
 	 */
 	@Override
 	public XMLImporter<SingleShapeReplacementConfig> createXMLImporter() {

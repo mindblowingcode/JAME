@@ -28,11 +28,11 @@ package net.sf.jame.devtools.contextfree.extensions;
 import net.sf.jame.contextfree.common.FillRuleElement;
 import net.sf.jame.devtools.ProcessorCardinality;
 import net.sf.jame.devtools.ProcessorDescriptor;
-import net.sf.jame.devtools.extension.DescriptorExtensionRuntime;
+import net.sf.jame.devtools.descriptor.extension.DescriptorExtensionRuntime;
 
 public class FillRuleDescriptorRuntime extends DescriptorExtensionRuntime {
 	/**
-	 * @see net.sf.jame.devtools.extension.DescriptorExtensionRuntime#createDescriptor()
+	 * @see net.sf.jame.devtools.descriptor.extension.DescriptorExtensionRuntime#createDescriptor()
 	 */
 	@Override
 	public ProcessorDescriptor createDescriptor(String elementName, String defaultValue, ProcessorCardinality cardinality) {
@@ -40,7 +40,7 @@ public class FillRuleDescriptorRuntime extends DescriptorExtensionRuntime {
 	}
 
 	/**
-	 * @see net.sf.jame.devtools.extension.DescriptorExtensionRuntime#getClassId()
+	 * @see net.sf.jame.devtools.descriptor.extension.DescriptorExtensionRuntime#getClassId()
 	 */
 	@Override
 	public String getClassId() {

@@ -29,9 +29,9 @@ import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.twister.effect.EffectConfigElement;
 import net.sf.jame.twister.frame.FrameConfigElement;
-import net.sf.jame.twister.frame.layer.GroupLayerConfigElement;
-import net.sf.jame.twister.frame.layer.ImageLayerConfigElement;
-import net.sf.jame.twister.frame.layer.image.ImageConfigElement;
+import net.sf.jame.twister.image.ImageConfigElement;
+import net.sf.jame.twister.layer.GroupLayerConfigElement;
+import net.sf.jame.twister.layer.ImageLayerConfigElement;
 
 /**
  * @author Andrea Medeghini

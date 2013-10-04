@@ -30,8 +30,8 @@ import net.sf.jame.core.swing.editor.ConfigurableReferenceElementEditorRuntime;
 import net.sf.jame.core.swing.extension.ConfigurableExtensionComboBoxModel;
 import net.sf.jame.core.tree.NodeValue;
 import net.sf.jame.twister.TwisterRegistry;
-import net.sf.jame.twister.frame.filter.FrameFilterConfigElement;
-import net.sf.jame.twister.frame.filter.FrameFilterConfigElementNodeValue;
+import net.sf.jame.twister.frameFilter.FrameFilterConfigElement;
+import net.sf.jame.twister.frameFilter.FrameFilterConfigElementNodeValue;
 import net.sf.jame.twister.swing.extensions.TwisterSwingExtensionResources;
 
 /**

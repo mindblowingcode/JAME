@@ -5,12 +5,12 @@
 package net.sf.jame.contextfree.extensions.action;
 
 import net.sf.jame.contextfree.ContextFreeRegistry;
-import net.sf.jame.contextfree.cfdg.pathReplacement.extension.PathReplacementExtensionConfig;
-import net.sf.jame.core.util.ConfigurableExtensionReferenceElementNodeActionXMLImporterRuntime;
+import net.sf.jame.contextfree.pathReplacement.extension.PathReplacementExtensionConfig;
+import net.sf.jame.core.util.AbstractConfigurableExtensionReferenceElementNodeActionXMLImporterRuntime;
 /**
  * @author Andrea Medeghini
  */
-public class PathReplacementReferenceNodeActionXMLImporterRuntime extends ConfigurableExtensionReferenceElementNodeActionXMLImporterRuntime<PathReplacementExtensionConfig> {
+public class PathReplacementReferenceNodeActionXMLImporterRuntime extends AbstractConfigurableExtensionReferenceElementNodeActionXMLImporterRuntime<PathReplacementExtensionConfig> {
 	/**
 	 * 
 	 */

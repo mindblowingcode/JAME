@@ -4,15 +4,15 @@
  */
 package net.sf.jame.contextfree.extensions.action;
 
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeAdjustment.ShapeAdjustmentConfigElementXMLImporter;
-import net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime;
+import net.sf.jame.contextfree.shapeAdjustment.ShapeAdjustmentConfigElement;
+import net.sf.jame.contextfree.shapeAdjustment.ShapeAdjustmentConfigElementXMLImporter;
+import net.sf.jame.core.util.AbstractConfigElementNodeActionXMLImporterRuntime;
 /**
  * @author Andrea Medeghini
  */
-public class ShapeAdjustmentElementNodeActionXMLImporterRuntime extends ConfigElementNodeActionXMLImporterRuntime<ShapeAdjustmentConfigElement> {
+public class ShapeAdjustmentElementNodeActionXMLImporterRuntime extends AbstractConfigElementNodeActionXMLImporterRuntime<ShapeAdjustmentConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime#createImporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementNodeActionXMLImporterRuntime#createImporter()
 	 */
 	@Override
 	protected ShapeAdjustmentConfigElementXMLImporter createImporter() {

@@ -25,16 +25,16 @@
  */
 package net.sf.jame.mandelbrot.extensions.action;
 
-import net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime;
-import net.sf.jame.mandelbrot.fractal.transforming.TransformingFormulaConfigElement;
-import net.sf.jame.mandelbrot.fractal.transforming.TransformingFormulaConfigElementXMLExporter;
+import net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime;
+import net.sf.jame.mandelbrot.transformingFormula.TransformingFormulaConfigElement;
+import net.sf.jame.mandelbrot.transformingFormula.TransformingFormulaConfigElementXMLExporter;
 
 /**
  * @author Andrea Medeghini
  */
-public class TransformingFormulaNodeActionXMLExporterRuntime extends ConfigElementNodeActionXMLExporterRuntime<TransformingFormulaConfigElement> {
+public class TransformingFormulaNodeActionXMLExporterRuntime extends AbstractConfigElementNodeActionXMLExporterRuntime<TransformingFormulaConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime#createExporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime#createExporter()
 	 */
 	@Override
 	protected TransformingFormulaConfigElementXMLExporter createExporter() {

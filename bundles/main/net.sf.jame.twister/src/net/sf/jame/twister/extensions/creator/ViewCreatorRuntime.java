@@ -25,8 +25,8 @@
  */
 package net.sf.jame.twister.extensions.creator;
 
+import net.sf.jame.core.creator.extension.CreatorExtensionRuntime;
 import net.sf.jame.core.scripting.JSException;
-import net.sf.jame.core.scripting.extension.CreatorExtensionRuntime;
 import net.sf.jame.core.util.DoubleVector4D;
 import net.sf.jame.core.util.IntegerVector4D;
 import net.sf.jame.twister.util.View;
@@ -36,7 +36,7 @@ import net.sf.jame.twister.util.View;
  */
 public class ViewCreatorRuntime extends CreatorExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.scripting.extension.CreatorExtensionRuntime#create(java.lang.Object[])
+	 * @see net.sf.jame.core.creator.extension.CreatorExtensionRuntime#create(java.lang.Object[])
 	 */
 	@Override
 	public Object create(final Object... args) throws JSException {

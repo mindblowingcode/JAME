@@ -33,8 +33,8 @@ import net.sf.jame.core.config.ValueConfigElementXMLExporter;
 import net.sf.jame.core.util.Color32bit;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLNodeBuilder;
-import net.sf.jame.mandelbrot.palette.formula.PaletteRendererFormulaConfigElement;
-import net.sf.jame.mandelbrot.palette.formula.PaletteRendererFormulaConfigElementXMLExporter;
+import net.sf.jame.mandelbrot.paletteRendererFormula.PaletteRendererFormulaConfigElement;
+import net.sf.jame.mandelbrot.paletteRendererFormula.PaletteRendererFormulaConfigElementXMLExporter;
 import net.sf.jame.mandelbrot.util.RenderedPalette;
 import net.sf.jame.mandelbrot.util.RenderedPaletteParam;
 

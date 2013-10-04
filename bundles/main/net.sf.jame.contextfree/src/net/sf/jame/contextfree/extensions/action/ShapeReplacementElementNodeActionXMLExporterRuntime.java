@@ -4,15 +4,15 @@
  */
 package net.sf.jame.contextfree.extensions.action;
 
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElement;
-import net.sf.jame.contextfree.cfdg.shapeReplacement.ShapeReplacementConfigElementXMLExporter;
-import net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime;
+import net.sf.jame.contextfree.shapeReplacement.ShapeReplacementConfigElement;
+import net.sf.jame.contextfree.shapeReplacement.ShapeReplacementConfigElementXMLExporter;
+import net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime;
 /**
  * @author Andrea Medeghini
  */
-public class ShapeReplacementElementNodeActionXMLExporterRuntime extends ConfigElementNodeActionXMLExporterRuntime<ShapeReplacementConfigElement> {
+public class ShapeReplacementElementNodeActionXMLExporterRuntime extends AbstractConfigElementNodeActionXMLExporterRuntime<ShapeReplacementConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLExporterRuntime#createExporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementNodeActionXMLExporterRuntime#createExporter()
 	 */
 	@Override
 	protected ShapeReplacementConfigElementXMLExporter createExporter() {

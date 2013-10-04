@@ -36,16 +36,16 @@ import net.sf.jame.twister.TwisterConfig;
 import net.sf.jame.twister.effect.EffectConfigElement;
 import net.sf.jame.twister.effect.extension.EffectExtensionConfig;
 import net.sf.jame.twister.frame.FrameConfigElement;
-import net.sf.jame.twister.frame.filter.FrameFilterConfigElement;
-import net.sf.jame.twister.frame.filter.extension.FrameFilterExtensionConfig;
-import net.sf.jame.twister.frame.layer.GroupLayerConfigElement;
-import net.sf.jame.twister.frame.layer.ImageLayerConfigElement;
-import net.sf.jame.twister.frame.layer.filter.LayerFilterConfigElement;
-import net.sf.jame.twister.frame.layer.filter.extension.LayerFilterExtensionConfig;
-import net.sf.jame.twister.frame.layer.image.ImageConfigElement;
-import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionConfig;
-import net.sf.jame.twister.swing.adapter.DefaultInputAdapterRuntime;
-import net.sf.jame.twister.swing.adapter.extension.InputAdapterExtensionRuntime;
+import net.sf.jame.twister.frameFilter.FrameFilterConfigElement;
+import net.sf.jame.twister.frameFilter.extension.FrameFilterExtensionConfig;
+import net.sf.jame.twister.image.ImageConfigElement;
+import net.sf.jame.twister.image.extension.ImageExtensionConfig;
+import net.sf.jame.twister.layer.GroupLayerConfigElement;
+import net.sf.jame.twister.layer.ImageLayerConfigElement;
+import net.sf.jame.twister.layerFilter.LayerFilterConfigElement;
+import net.sf.jame.twister.layerFilter.extension.LayerFilterExtensionConfig;
+import net.sf.jame.twister.swing.inputAdapter.DefaultInputAdapterRuntime;
+import net.sf.jame.twister.swing.inputAdapter.extension.InputAdapterExtensionRuntime;
 import net.sf.jame.twister.util.AdapterContext;
 
 /**

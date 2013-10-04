@@ -13,6 +13,8 @@ Require-Bundle: org.junit4;bundle-version="4.3.1",
  net.sf.jame.core;bundle-version="1.1.0",
  net.sf.jame.twister;bundle-version="1.1.0",
  net.sf.jame.mandelbrot;bundle-version="1.1.0",
- net.sf.jame.contextfree;bundle-version="1.0.0"
+ net.sf.jame.contextfree;bundle-version="1.0.0",
+ org.freemarker;bundle-version="2.3.15"
 Import-Package: org.apache.log4j;version="1.2.15",
  org.eclipse.core.runtime;version="3.4.0"
+DynamicImport-Package: *

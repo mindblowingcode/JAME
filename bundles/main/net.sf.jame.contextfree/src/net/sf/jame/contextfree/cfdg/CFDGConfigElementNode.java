@@ -5,8 +5,8 @@
 package net.sf.jame.contextfree.cfdg;
 
 import net.sf.jame.contextfree.ContextFreeResources;
-import net.sf.jame.contextfree.cfdg.figure.FigureConfigElement;
-import net.sf.jame.contextfree.cfdg.figure.FigureConfigElementNode;
+import net.sf.jame.contextfree.figure.FigureConfigElement;
+import net.sf.jame.contextfree.figure.FigureConfigElementNode;
 import net.sf.jame.core.common.BooleanElementNode;
 import net.sf.jame.core.common.ColorElementNode;
 import net.sf.jame.core.common.FloatElementNode;

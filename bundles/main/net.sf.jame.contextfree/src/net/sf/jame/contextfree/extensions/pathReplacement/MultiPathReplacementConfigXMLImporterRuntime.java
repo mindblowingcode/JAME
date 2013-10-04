@@ -6,16 +6,16 @@ package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import java.util.List;
 
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementXMLImporter;
-import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElement;
-import net.sf.jame.contextfree.cfdg.pathReplacement.PathReplacementConfigElementXMLImporter;
+import net.sf.jame.contextfree.pathAdjustment.PathAdjustmentConfigElement;
+import net.sf.jame.contextfree.pathAdjustment.PathAdjustmentConfigElementXMLImporter;
+import net.sf.jame.contextfree.pathReplacement.PathReplacementConfigElement;
+import net.sf.jame.contextfree.pathReplacement.PathReplacementConfigElementXMLImporter;
 import net.sf.jame.core.common.IntegerElement;
 import net.sf.jame.core.common.IntegerElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionException;
+import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
 
 import org.w3c.dom.Element;
 
@@ -24,7 +24,7 @@ import org.w3c.dom.Element;
  */
 public class MultiPathReplacementConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
+	 * @see net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
 	 */
 	@Override
 	public XMLImporter<MultiPathReplacementConfig> createXMLImporter() {

@@ -39,14 +39,14 @@ import net.sf.jame.devtools.ProcessorCardinality;
 import net.sf.jame.devtools.DevToolsException;
 import net.sf.jame.devtools.ProcessorDescriptor;
 import net.sf.jame.devtools.ProcessorParameters;
-import net.sf.jame.devtools.extension.ProcessorExtensionRuntime;
-import net.sf.jame.devtools.extensions.ProcessorTemplateLoader;
+import net.sf.jame.devtools.ProcessorTemplateLoader;
+import net.sf.jame.devtools.processor.extension.ProcessorExtensionRuntime;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 public class ConfigElementProcessorRuntime extends ProcessorExtensionRuntime {
 	/**
-	 * @see net.sf.jame.devtools.extension.ProcessorExtensionRuntime#process(java.io.File, net.sf.jame.devtools.ProcessorDescriptor, java.util.List, java.util.Map)
+	 * @see net.sf.jame.devtools.processor.extension.ProcessorExtensionRuntime#process(java.io.File, net.sf.jame.devtools.ProcessorDescriptor, java.util.List, java.util.Map)
 	 */
 	@Override
 	public void process(File path, ProcessorParameters parameters, Map<String, String> variables) throws DevToolsException {
@@ -78,7 +78,7 @@ public class ConfigElementProcessorRuntime extends ProcessorExtensionRuntime {
 	}
 
 	/**
-	 * @see net.sf.jame.devtools.extension.ProcessorExtensionRuntime#getName()
+	 * @see net.sf.jame.devtools.processor.extension.ProcessorExtensionRuntime#getName()
 	 */
 	@Override
 	public String getName() {

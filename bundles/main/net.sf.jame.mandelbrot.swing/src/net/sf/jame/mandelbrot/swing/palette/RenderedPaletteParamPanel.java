@@ -66,7 +66,7 @@ import net.sf.jame.core.swing.util.GUIFactory;
 import net.sf.jame.core.swing.util.GUIUtil;
 import net.sf.jame.core.util.Registry;
 import net.sf.jame.mandelbrot.MandelbrotRegistry;
-import net.sf.jame.mandelbrot.palette.formula.extension.PaletteRendererFormulaExtensionRuntime;
+import net.sf.jame.mandelbrot.paletteRendererFormula.extension.PaletteRendererFormulaExtensionRuntime;
 import net.sf.jame.mandelbrot.swing.MandelbrotSwingResources;
 import net.sf.jame.mandelbrot.util.RenderedPaletteParam;
 

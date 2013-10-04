@@ -4,15 +4,15 @@
  */
 package net.sf.jame.contextfree.extensions.action;
 
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElement;
-import net.sf.jame.contextfree.cfdg.pathAdjustment.PathAdjustmentConfigElementXMLImporter;
-import net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime;
+import net.sf.jame.contextfree.pathAdjustment.PathAdjustmentConfigElement;
+import net.sf.jame.contextfree.pathAdjustment.PathAdjustmentConfigElementXMLImporter;
+import net.sf.jame.core.util.AbstractConfigElementNodeActionXMLImporterRuntime;
 /**
  * @author Andrea Medeghini
  */
-public class PathAdjustmentElementNodeActionXMLImporterRuntime extends ConfigElementNodeActionXMLImporterRuntime<PathAdjustmentConfigElement> {
+public class PathAdjustmentElementNodeActionXMLImporterRuntime extends AbstractConfigElementNodeActionXMLImporterRuntime<PathAdjustmentConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementNodeActionXMLImporterRuntime#createImporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementNodeActionXMLImporterRuntime#createImporter()
 	 */
 	@Override
 	protected PathAdjustmentConfigElementXMLImporter createImporter() {

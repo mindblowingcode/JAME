@@ -3,6 +3,8 @@
 <plugin>
    <extension-point id="extensions" name="DevTools" schema="schema/extensions.exsd"/>
    <extension
+         id="devtoolsExtensions"
+         name="DevTools"
          point="net.sf.jame.devtools.extensions">
       <processor
             id="devtools.processor.configelement"

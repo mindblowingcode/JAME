@@ -27,9 +27,9 @@ package net.sf.jame.mandelbrot.extensions.image;
 
 import java.util.List;
 
+import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-import net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.mandelbrot.MandelbrotConfig;
 import net.sf.jame.mandelbrot.MandelbrotConfigXMLImporter;
 
@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
  */
 public class MandelbrotImageConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.xml.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
+	 * @see net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime#createXMLImporter()
 	 */
 	@Override
 	public XMLImporter<MandelbrotImageConfig> createXMLImporter() {

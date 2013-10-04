@@ -42,12 +42,12 @@ import net.sf.jame.core.util.Rectangle;
 import net.sf.jame.mandelbrot.MandelbrotManager;
 import net.sf.jame.mandelbrot.MandelbrotRuntime;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalRuntimeElement;
-import net.sf.jame.mandelbrot.fractal.rendering.RenderingFormulaRuntimeElement;
 import net.sf.jame.mandelbrot.renderer.FastXaosMandelbrotRenderer;
 import net.sf.jame.mandelbrot.renderer.RenderedPoint;
 import net.sf.jame.mandelbrot.renderer.SimpleMandelbrotRenderer;
 import net.sf.jame.mandelbrot.renderer.BestXaosMandelbrotRenderer;
-import net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime;
+import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaRuntimeElement;
+import net.sf.jame.twister.image.extension.ImageExtensionRuntime;
 import net.sf.jame.twister.renderer.TwisterRenderer;
 import net.sf.jame.twister.renderer.TwisterRenderingHints;
 import net.sf.jame.twister.util.View;
@@ -76,7 +76,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#startRenderer()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#startRenderer()
 	 */
 	@Override
 	public void startRenderer() {
@@ -86,7 +86,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#abortRenderer()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#abortRenderer()
 	 */
 	@Override
 	public void abortRenderer() {
@@ -96,7 +96,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#joinRenderer()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#joinRenderer()
 	 */
 	@Override
 	public void joinRenderer() throws InterruptedException {
@@ -106,7 +106,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#getRenderingStatus()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#getRenderingStatus()
 	 */
 	@Override
 	public int getRenderingStatus() {
@@ -117,7 +117,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#isDynamic()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#isDynamic()
 	 */
 	@Override
 	public boolean isDynamic() {
@@ -128,7 +128,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#prepareImage(boolean)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#prepareImage(boolean)
 	 */
 	@Override
 	public void prepareImage(final boolean isDynamicRequired) {
@@ -138,7 +138,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D)
 	 */
 	@Override
 	public void drawImage(final Graphics2D g2d) {
@@ -148,7 +148,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D, int, int)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D, int, int)
 	 */
 	@Override
 	public void drawImage(final Graphics2D g2d, final int x, final int y) {
@@ -158,7 +158,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D, int, int, int, int)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#drawImage(java.awt.Graphics2D, int, int, int, int)
 	 */
 	@Override
 	public void drawImage(final Graphics2D g2d, final int x, final int y, final int w, final int h) {
@@ -168,7 +168,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#getImageSize()
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#getImageSize()
 	 */
 	@Override
 	public IntegerVector2D getImageSize() {
@@ -176,7 +176,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#setTile(net.sf.jame.core.util.Tile)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#setTile(net.sf.jame.core.util.Tile)
 	 */
 	@Override
 	public void setTile(final Tile tile) {
@@ -192,7 +192,7 @@ public class MandelbrotImageRuntime extends ImageExtensionRuntime<MandelbrotImag
 	}
 
 	/**
-	 * @see net.sf.jame.twister.frame.layer.image.extension.ImageExtensionRuntime#setRenderingHints(java.util.Map)
+	 * @see net.sf.jame.twister.image.extension.ImageExtensionRuntime#setRenderingHints(java.util.Map)
 	 */
 	@Override
 	public void setRenderingHints(final Map<Object, Object> hints) {

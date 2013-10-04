@@ -32,10 +32,10 @@ import net.sf.jame.core.util.AbstractConfigElementNode;
 import net.sf.jame.core.util.ConfigElementListNodeValue;
 import net.sf.jame.core.util.DefaultNodeEditor;
 import net.sf.jame.twister.TwisterResources;
-import net.sf.jame.twister.frame.filter.FrameFilterConfigElement;
-import net.sf.jame.twister.frame.filter.FrameFilterConfigElementNode;
-import net.sf.jame.twister.frame.layer.GroupLayerConfigElement;
-import net.sf.jame.twister.frame.layer.GroupLayerConfigElementNode;
+import net.sf.jame.twister.frameFilter.FrameFilterConfigElement;
+import net.sf.jame.twister.frameFilter.FrameFilterConfigElementNode;
+import net.sf.jame.twister.layer.GroupLayerConfigElement;
+import net.sf.jame.twister.layer.GroupLayerConfigElementNode;
 
 /**
  * @author Andrea Medeghini

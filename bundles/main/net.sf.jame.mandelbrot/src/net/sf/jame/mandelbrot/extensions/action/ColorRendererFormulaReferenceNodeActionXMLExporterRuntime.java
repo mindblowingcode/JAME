@@ -25,10 +25,10 @@
  */
 package net.sf.jame.mandelbrot.extensions.action;
 
-import net.sf.jame.core.util.ExtensionReferenceElementNodeActionXMLExporterRuntime;
+import net.sf.jame.core.util.AbstractExtensionReferenceElementNodeActionXMLExporterRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class ColorRendererFormulaReferenceNodeActionXMLExporterRuntime extends ExtensionReferenceElementNodeActionXMLExporterRuntime {
+public class ColorRendererFormulaReferenceNodeActionXMLExporterRuntime extends AbstractExtensionReferenceElementNodeActionXMLExporterRuntime {
 }

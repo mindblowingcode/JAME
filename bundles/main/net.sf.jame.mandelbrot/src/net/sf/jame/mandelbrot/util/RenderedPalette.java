@@ -31,7 +31,7 @@ import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.util.Colors;
 import net.sf.jame.core.util.Palette;
 import net.sf.jame.mandelbrot.MandelbrotRegistry;
-import net.sf.jame.mandelbrot.palette.formula.extension.PaletteRendererFormulaExtensionRuntime;
+import net.sf.jame.mandelbrot.paletteRendererFormula.extension.PaletteRendererFormulaExtensionRuntime;
 
 import org.eclipse.core.runtime.CoreException;
 

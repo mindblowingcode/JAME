@@ -25,16 +25,16 @@
  */
 package net.sf.jame.twister.extensions.creator;
 
+import net.sf.jame.core.creator.extension.CreatorExtensionRuntime;
 import net.sf.jame.core.scripting.JSException;
-import net.sf.jame.core.scripting.extension.CreatorExtensionRuntime;
-import net.sf.jame.twister.frame.layer.filter.LayerFilterConfigElement;
+import net.sf.jame.twister.layerFilter.LayerFilterConfigElement;
 
 /**
  * @author Andrea Medeghini
  */
 public class LayerFilterCreatorRuntime extends CreatorExtensionRuntime {
 	/**
-	 * @see net.sf.jame.core.scripting.extension.CreatorExtensionRuntime#create(java.lang.Object[])
+	 * @see net.sf.jame.core.creator.extension.CreatorExtensionRuntime#create(java.lang.Object[])
 	 */
 	@Override
 	public Object create(final Object... args) throws JSException {

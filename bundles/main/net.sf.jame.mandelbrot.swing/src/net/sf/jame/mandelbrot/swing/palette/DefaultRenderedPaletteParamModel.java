@@ -91,7 +91,7 @@ public class DefaultRenderedPaletteParamModel implements RenderedPaletteParamMod
 	}
 
 	/**
-	 * @see net.sf.jame.mandelbrot.swing.palette.RenderedPaletteParamModel#setPaletteParam(net.sf.jame.mandelbrot.color.RenderedPaletteParam, boolean)
+	 * @see net.sf.jame.mandelbrot.swing.palette.RenderedPaletteParamModel#setPaletteParam(net.sf.jame.mandelbrot.colorRenderer.RenderedPaletteParam, boolean)
 	 */
 	public void setPaletteParam(final RenderedPaletteParam paletteParam, final boolean isAdjusting) {
 		if (paletteParam == null) {

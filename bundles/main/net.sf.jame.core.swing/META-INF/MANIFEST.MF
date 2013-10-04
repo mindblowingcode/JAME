@@ -16,7 +16,6 @@ Export-Package: net.sf.jame.core.swing,
  net.sf.jame.core.swing.extensions.editor,
  net.sf.jame.core.swing.osgi,
  net.sf.jame.core.swing.palette,
- net.sf.jame.core.swing.tree,
  net.sf.jame.core.swing.util
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: net.sf.jame.core.swing.osgi.Activator

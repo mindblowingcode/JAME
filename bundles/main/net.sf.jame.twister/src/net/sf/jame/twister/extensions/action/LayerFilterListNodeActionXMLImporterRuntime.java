@@ -25,16 +25,16 @@
  */
 package net.sf.jame.twister.extensions.action;
 
-import net.sf.jame.core.util.ConfigElementListNodeActionXMLImporterRuntime;
-import net.sf.jame.twister.frame.layer.filter.LayerFilterConfigElement;
-import net.sf.jame.twister.frame.layer.filter.LayerFilterConfigElementXMLImporter;
+import net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLImporterRuntime;
+import net.sf.jame.twister.layerFilter.LayerFilterConfigElement;
+import net.sf.jame.twister.layerFilter.LayerFilterConfigElementXMLImporter;
 
 /**
  * @author Andrea Medeghini
  */
-public class LayerFilterListNodeActionXMLImporterRuntime extends ConfigElementListNodeActionXMLImporterRuntime<LayerFilterConfigElement> {
+public class LayerFilterListNodeActionXMLImporterRuntime extends AbstractConfigElementListNodeActionXMLImporterRuntime<LayerFilterConfigElement> {
 	/**
-	 * @see net.sf.jame.core.util.ConfigElementListNodeActionXMLImporterRuntime#createImporter()
+	 * @see net.sf.jame.core.util.AbstractConfigElementListNodeActionXMLImporterRuntime#createImporter()
 	 */
 	@Override
 	protected LayerFilterConfigElementXMLImporter createImporter() {
