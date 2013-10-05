@@ -1,0 +1,17 @@
+net.sf.jame.twister.extensions.creator.InputModeCreatorDescriptor
+net.sf.jame.twister.extensions.creator.ImageLayerCreatorDescriptor
+net.sf.jame.twister.extensions.creator.GroupLayerCreatorDescriptor
+net.sf.jame.twister.extensions.creator.FrameFilterCreatorDescriptor
+net.sf.jame.twister.extensions.creator.ImageModeCreatorDescriptor
+net.sf.jame.twister.extensions.creator.ImageCreatorDescriptor
+net.sf.jame.twister.extensions.creator.ImageLayerCreatorDescriptor
+net.sf.jame.twister.extensions.creator.PercentageCreatorDescriptor
+net.sf.jame.twister.extensions.creator.LayerFilterCreatorDescriptor
+net.sf.jame.twister.extensions.creator.ViewCreatorDescriptor
+net.sf.jame.twister.extensions.creator.PaletteCreatorDescriptor
+net.sf.jame.twister.extensions.creator.FrameCreatorDescriptor
+net.sf.jame.twister.extensions.creator.LayerFilterCreatorDescriptor
+net.sf.jame.twister.extensions.creator.FrameFilterCreatorDescriptor
+net.sf.jame.twister.extensions.creator.SpeedCreatorDescriptor
+net.sf.jame.twister.extensions.creator.GroupLayerCreatorDescriptor
+net.sf.jame.twister.extensions.creator.EffectCreatorDescriptor

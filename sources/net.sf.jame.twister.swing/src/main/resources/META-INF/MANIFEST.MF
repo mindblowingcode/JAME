@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAME Twister Swing Plug-in
+Bundle-SymbolicName: net.sf.jame.twister.swing;singleton:=true
+Bundle-Version: 1.1.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: net.sf.jame.core;bundle-version="1.1.0",
+ net.sf.jame.media;bundle-version="1.1.0",
+ net.sf.jame.twister;bundle-version="1.1.0",
+ net.sf.jame.service;bundle-version="1.1.0",
+ net.sf.jame.runtime;bundle-version="1.1.0",
+ net.sf.jame.launcher;bundle-version="1.1.0",
+ net.sf.jame.core.swing;bundle-version="1.1.0"
+Export-Package: net.sf.jame.twister.swing,
+ net.sf.jame.twister.swing.encoder,
+ net.sf.jame.twister.swing.encoder.extension,
+ net.sf.jame.twister.swing.extensions,
+ net.sf.jame.twister.swing.extensions.inputAdapter,
+ net.sf.jame.twister.swing.extensions.editor,
+ net.sf.jame.twister.swing.inputAdapter,
+ net.sf.jame.twister.swing.inputAdapter.extension,
+ net.sf.jame.twister.swing.view,
+ net.sf.jame.twister.swing.view.extension
+Bundle-ClassPath: .
+Import-Package: org.apache.log4j;version="1.2.15",
+ org.eclipse.core.runtime;version="3.4.0",
+ org.jdesktop.swingworker;version="1.2.0"

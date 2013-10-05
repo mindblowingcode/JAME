@@ -1,0 +1,4 @@
+net.sf.jame.devtools.twister.extensions.devtools.ViewDescriptorDescriptor
+net.sf.jame.devtools.twister.extensions.devtools.EffectDescriptorDescriptor
+net.sf.jame.devtools.twister.extensions.devtools.PercentageDescriptorDescriptor
+net.sf.jame.devtools.twister.extensions.devtools.SpeedDescriptorDescriptor

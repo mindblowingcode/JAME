@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAME Mandelbrot Swing Plug-in
+Bundle-SymbolicName: net.sf.jame.mandelbrot.swing;singleton:=true
+Bundle-Version: 1.1.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: net.sf.jame.core;bundle-version="1.1.0",
+ net.sf.jame.twister;bundle-version="1.1.0",
+ net.sf.jame.mandelbrot;bundle-version="1.1.0",
+ net.sf.jame.core.swing;bundle-version="1.1.0",
+ net.sf.jame.twister.swing;bundle-version="1.1.0"
+Export-Package: net.sf.jame.mandelbrot.swing,
+ net.sf.jame.mandelbrot.swing.extensions,
+ net.sf.jame.mandelbrot.swing.extensions.inputAdapter,
+ net.sf.jame.mandelbrot.swing.extensions.editor,
+ net.sf.jame.mandelbrot.swing.extensions.view,
+ net.sf.jame.mandelbrot.swing.palette
+Import-Package: org.apache.log4j;version="1.2.15"

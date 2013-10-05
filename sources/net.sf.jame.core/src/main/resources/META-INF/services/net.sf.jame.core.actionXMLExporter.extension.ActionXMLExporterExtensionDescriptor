@@ -1,0 +1,8 @@
+net.sf.jame.core.extensions.action.BooleanNodeActionXMLExporterDescriptor
+net.sf.jame.core.extensions.action.DoubleNodeActionXMLExporterDescriptor
+net.sf.jame.core.extensions.action.RectangleNodeActionXMLExporterDescriptor
+net.sf.jame.core.extensions.action.ComplexNodeActionXMLExporterDescriptor
+net.sf.jame.core.extensions.action.FloatNodeActionXMLExporterDescriptor
+net.sf.jame.core.extensions.action.ColorNodeActionXMLExporterDescriptor
+net.sf.jame.core.extensions.action.StringNodeActionXMLExporterDescriptor
+net.sf.jame.core.extensions.action.FontNodeActionXMLExporterDescriptor

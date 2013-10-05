@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAME Core Swing Plug-in
+Bundle-SymbolicName: net.sf.jame.core.swing;singleton:=true
+Bundle-Version: 1.1.0
+Bundle-Vendor: Andrea Medeghini
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: net.sf.jame.core;bundle-version="1.1.0"
+Export-Package: net.sf.jame.core.swing,
+ net.sf.jame.core.swing.color,
+ net.sf.jame.core.swing.editor,
+ net.sf.jame.core.swing.editor.extension,
+ net.sf.jame.core.swing.extension,
+ net.sf.jame.core.swing.extensions,
+ net.sf.jame.core.swing.extensions.editor,
+ net.sf.jame.core.swing.osgi,
+ net.sf.jame.core.swing.palette,
+ net.sf.jame.core.swing.util
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: net.sf.jame.core.swing.osgi.Activator
+Import-Package: org.apache.log4j;version="1.2.15",
+ org.eclipse.core.runtime;version="3.4.0",
+ org.jdesktop.swingworker;version="1.2.0",
+ org.osgi.framework;version="1.4.0"

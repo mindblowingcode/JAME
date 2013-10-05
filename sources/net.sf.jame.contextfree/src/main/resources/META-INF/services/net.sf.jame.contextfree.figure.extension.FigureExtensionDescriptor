@@ -1,0 +1,5 @@
+net.sf.jame.contextfree.extensions.figure.CircleFigureDescriptor
+net.sf.jame.contextfree.extensions.figure.RuleFigureDescriptor
+net.sf.jame.contextfree.extensions.figure.PathFigureDescriptor
+net.sf.jame.contextfree.extensions.figure.TriangleFigureDescriptor
+net.sf.jame.contextfree.extensions.figure.SquareFigureDescriptor

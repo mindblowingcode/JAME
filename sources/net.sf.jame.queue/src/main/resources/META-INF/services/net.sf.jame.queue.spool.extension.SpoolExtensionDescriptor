@@ -1,0 +1,2 @@
+net.sf.jame.queue.extensions.spool.LocalSpoolDescriptor
+net.sf.jame.queue.extensions.spool.JXTASpoolDescriptor
