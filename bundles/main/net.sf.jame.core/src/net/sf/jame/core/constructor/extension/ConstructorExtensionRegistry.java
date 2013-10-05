@@ -25,13 +25,14 @@
  */
 package net.sf.jame.core.constructor.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.core.constructor.extension.ConstructorExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class ConstructorExtensionRegistry extends OSGiExtensionRegistry<ConstructorExtensionRuntime> {
+public class ConstructorExtensionRegistry extends SLExtensionRegistry<ConstructorExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class ConstructorExtensionRegistry extends OSGiExtensionRegistry<Construc
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "constructor";
+	public static final String CONFIGURATION_ELEMENT_NAME = "Constructor";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends ConstructorExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = ConstructorExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public ConstructorExtensionRegistry() {
-		super(ConstructorExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<ConstructorExtensionRuntime>(ConstructorExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(ConstructorExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, ConstructorExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<ConstructorExtensionRuntime>(ConstructorExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

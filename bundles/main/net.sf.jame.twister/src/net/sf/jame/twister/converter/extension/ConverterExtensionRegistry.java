@@ -25,13 +25,14 @@
  */
 package net.sf.jame.twister.converter.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.twister.converter.extension.ConverterExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class ConverterExtensionRegistry extends OSGiExtensionRegistry<ConverterExtensionRuntime> {
+public class ConverterExtensionRegistry extends SLExtensionRegistry<ConverterExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class ConverterExtensionRegistry extends OSGiExtensionRegistry<ConverterE
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "converter";
+	public static final String CONFIGURATION_ELEMENT_NAME = "Converter";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends ConverterExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = ConverterExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public ConverterExtensionRegistry() {
-		super(ConverterExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<ConverterExtensionRuntime>(ConverterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(ConverterExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, ConverterExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<ConverterExtensionRuntime>(ConverterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

@@ -25,13 +25,15 @@
  */
 package net.sf.jame.mandelbrot.paletteRenderer.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.mandelbrot.paletteRenderer.extension.PaletteRendererExtensionRuntime;
+import net.sf.jame.mandelbrot.paletteRenderer.extension.PaletteRendererExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class PaletteRendererExtensionRegistry extends OSGiConfigurableExtensionRegistry<PaletteRendererExtensionRuntime<?>, PaletteRendererExtensionConfig> {
+public class PaletteRendererExtensionRegistry extends SLConfigurableExtensionRegistry<PaletteRendererExtensionRuntime<? extends PaletteRendererExtensionConfig>, PaletteRendererExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class PaletteRendererExtensionRegistry extends OSGiConfigurableExtensionR
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "paletteRenderer";
+	public static final String CONFIGURATION_ELEMENT_NAME = "PaletteRenderer";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends PaletteRendererExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = PaletteRendererExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public PaletteRendererExtensionRegistry() {
-		super(PaletteRendererExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<PaletteRendererExtensionRuntime<?>, PaletteRendererExtensionConfig>(PaletteRendererExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(PaletteRendererExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, PaletteRendererExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<PaletteRendererExtensionRuntime<? extends PaletteRendererExtensionConfig>, PaletteRendererExtensionConfig>(PaletteRendererExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

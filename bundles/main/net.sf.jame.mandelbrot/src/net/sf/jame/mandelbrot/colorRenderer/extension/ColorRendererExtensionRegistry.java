@@ -25,13 +25,15 @@
  */
 package net.sf.jame.mandelbrot.colorRenderer.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.mandelbrot.colorRenderer.extension.ColorRendererExtensionRuntime;
+import net.sf.jame.mandelbrot.colorRenderer.extension.ColorRendererExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class ColorRendererExtensionRegistry extends OSGiConfigurableExtensionRegistry<ColorRendererExtensionRuntime<?>, ColorRendererExtensionConfig> {
+public class ColorRendererExtensionRegistry extends SLConfigurableExtensionRegistry<ColorRendererExtensionRuntime<? extends ColorRendererExtensionConfig>, ColorRendererExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class ColorRendererExtensionRegistry extends OSGiConfigurableExtensionReg
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "colorRenderer";
+	public static final String CONFIGURATION_ELEMENT_NAME = "ColorRenderer";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends ColorRendererExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = ColorRendererExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public ColorRendererExtensionRegistry() {
-		super(ColorRendererExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<ColorRendererExtensionRuntime<?>, ColorRendererExtensionConfig>(ColorRendererExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(ColorRendererExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, ColorRendererExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<ColorRendererExtensionRuntime<? extends ColorRendererExtensionConfig>, ColorRendererExtensionConfig>(ColorRendererExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

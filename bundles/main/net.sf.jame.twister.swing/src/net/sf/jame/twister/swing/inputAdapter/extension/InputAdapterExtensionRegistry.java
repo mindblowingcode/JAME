@@ -25,13 +25,14 @@
  */
 package net.sf.jame.twister.swing.inputAdapter.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.twister.swing.inputAdapter.extension.InputAdapterExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class InputAdapterExtensionRegistry extends OSGiExtensionRegistry<InputAdapterExtensionRuntime> {
+public class InputAdapterExtensionRegistry extends SLExtensionRegistry<InputAdapterExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class InputAdapterExtensionRegistry extends OSGiExtensionRegistry<InputAd
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "inputAdapter";
+	public static final String CONFIGURATION_ELEMENT_NAME = "InputAdapter";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends InputAdapterExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = InputAdapterExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public InputAdapterExtensionRegistry() {
-		super(InputAdapterExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<InputAdapterExtensionRuntime>(InputAdapterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(InputAdapterExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, InputAdapterExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<InputAdapterExtensionRuntime>(InputAdapterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

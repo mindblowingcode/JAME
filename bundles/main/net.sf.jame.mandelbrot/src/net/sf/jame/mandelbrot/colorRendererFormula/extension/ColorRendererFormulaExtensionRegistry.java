@@ -25,15 +25,14 @@
  */
 package net.sf.jame.mandelbrot.colorRendererFormula.extension;
 
-import net.sf.jame.core.extension.Extension;
-import net.sf.jame.core.extension.ExtensionNotFoundException;
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.mandelbrot.colorRendererFormula.extension.ColorRendererFormulaExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class ColorRendererFormulaExtensionRegistry extends OSGiExtensionRegistry<ColorRendererFormulaExtensionRuntime> {
+public class ColorRendererFormulaExtensionRegistry extends SLExtensionRegistry<ColorRendererFormulaExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -41,23 +40,16 @@ public class ColorRendererFormulaExtensionRegistry extends OSGiExtensionRegistry
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "colorRendererFormula";
+	public static final String CONFIGURATION_ELEMENT_NAME = "ColorRendererFormula";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends ColorRendererFormulaExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = ColorRendererFormulaExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public ColorRendererFormulaExtensionRegistry() {
-		super(ColorRendererFormulaExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<ColorRendererFormulaExtensionRuntime>(ColorRendererFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
-	}
-
-	/**
-	 * @see net.sf.jame.core.extension.osgi.OSGiExtensionRegistry#getExtension(java.lang.String)
-	 */
-	@Override
-	public Extension<ColorRendererFormulaExtensionRuntime> getExtension(final String extensionId) throws ExtensionNotFoundException {
-		if (extensionId.equals("twister.mandelbrot.color.renderer.formula.time")) {
-			return super.getExtension("twister.mandelbrot.color.renderer.formula.zero");
-		}
-		return super.getExtension(extensionId);
+		super(ColorRendererFormulaExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, ColorRendererFormulaExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<ColorRendererFormulaExtensionRuntime>(ColorRendererFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

@@ -25,13 +25,15 @@
  */
 package net.sf.jame.twister.frameFilter.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.twister.frameFilter.extension.FrameFilterExtensionRuntime;
+import net.sf.jame.twister.frameFilter.extension.FrameFilterExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class FrameFilterExtensionRegistry extends OSGiConfigurableExtensionRegistry<FrameFilterExtensionRuntime<?>, FrameFilterExtensionConfig> {
+public class FrameFilterExtensionRegistry extends SLConfigurableExtensionRegistry<FrameFilterExtensionRuntime<? extends FrameFilterExtensionConfig>, FrameFilterExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class FrameFilterExtensionRegistry extends OSGiConfigurableExtensionRegis
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "frameFilter";
+	public static final String CONFIGURATION_ELEMENT_NAME = "FrameFilter";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends FrameFilterExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = FrameFilterExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public FrameFilterExtensionRegistry() {
-		super(FrameFilterExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<FrameFilterExtensionRuntime<?>, FrameFilterExtensionConfig>(FrameFilterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(FrameFilterExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, FrameFilterExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<FrameFilterExtensionRuntime<? extends FrameFilterExtensionConfig>, FrameFilterExtensionConfig>(FrameFilterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

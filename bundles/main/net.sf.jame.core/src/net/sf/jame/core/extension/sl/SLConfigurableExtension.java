@@ -26,15 +26,14 @@
 package net.sf.jame.core.extension.sl;
 
 import net.sf.jame.core.extension.ConfigurableExtension;
+import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
 import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.extension.ExtensionException;
 
-import org.eclipse.core.runtime.IConfigurationElement;
-
 /**
- * OSGi configurable extension.
+ * SL configurable extension.
  * 
  * @author Andrea Medeghini
  * @param <T> the extension runtime type.
@@ -52,8 +51,8 @@ public class SLConfigurableExtension<T extends ConfigurableExtensionRuntime<? ex
 	 * @param cfgElement the configuration element.
 	 * @throws ExtensionException if the extension can't be created.
 	 */
-	protected SLConfigurableExtension(final IConfigurationElement cfgElement) throws ExtensionException {
-		super(cfgElement);
+	protected SLConfigurableExtension(final ConfigurableExtensionDescriptor<T, V> extensionDescriptor) throws ExtensionException {
+		super(extensionDescriptor);
 	}
 
 	/**
@@ -61,7 +60,7 @@ public class SLConfigurableExtension<T extends ConfigurableExtensionRuntime<? ex
 	 */
 	@SuppressWarnings("unchecked")
 	public final V createDefaultExtensionConfig() throws ExtensionException {
-		return (V) createExecutableExtension(SLConfigurableExtension.EXTENSION_CONFIG_CLASS_PROPERTY_NAME);
+		return ((ConfigurableExtensionDescriptor<T, V>) getExtensionDescriptor()).getExtensionConfig();
 	}
 
 	/**

@@ -25,13 +25,15 @@
  */
 package net.sf.jame.mandelbrot.orbitTrap.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.mandelbrot.orbitTrap.extension.OrbitTrapExtensionRuntime;
+import net.sf.jame.mandelbrot.orbitTrap.extension.OrbitTrapExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class OrbitTrapExtensionRegistry extends OSGiConfigurableExtensionRegistry<OrbitTrapExtensionRuntime<?>, OrbitTrapExtensionConfig> {
+public class OrbitTrapExtensionRegistry extends SLConfigurableExtensionRegistry<OrbitTrapExtensionRuntime<? extends OrbitTrapExtensionConfig>, OrbitTrapExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class OrbitTrapExtensionRegistry extends OSGiConfigurableExtensionRegistr
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "orbitTrap";
+	public static final String CONFIGURATION_ELEMENT_NAME = "OrbitTrap";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends OrbitTrapExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = OrbitTrapExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public OrbitTrapExtensionRegistry() {
-		super(OrbitTrapExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<OrbitTrapExtensionRuntime<?>, OrbitTrapExtensionConfig>(OrbitTrapExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(OrbitTrapExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, OrbitTrapExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<OrbitTrapExtensionRuntime<? extends OrbitTrapExtensionConfig>, OrbitTrapExtensionConfig>(OrbitTrapExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

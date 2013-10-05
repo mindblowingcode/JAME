@@ -25,13 +25,15 @@
  */
 package net.sf.jame.mandelbrot.renderingFormula.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.mandelbrot.renderingFormula.extension.RenderingFormulaExtensionRuntime;
+import net.sf.jame.mandelbrot.renderingFormula.extension.RenderingFormulaExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class RenderingFormulaExtensionRegistry extends OSGiConfigurableExtensionRegistry<RenderingFormulaExtensionRuntime<?>, RenderingFormulaExtensionConfig> {
+public class RenderingFormulaExtensionRegistry extends SLConfigurableExtensionRegistry<RenderingFormulaExtensionRuntime<? extends RenderingFormulaExtensionConfig>, RenderingFormulaExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class RenderingFormulaExtensionRegistry extends OSGiConfigurableExtension
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "renderingFormula";
+	public static final String CONFIGURATION_ELEMENT_NAME = "RenderingFormula";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends RenderingFormulaExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = RenderingFormulaExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public RenderingFormulaExtensionRegistry() {
-		super(RenderingFormulaExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<RenderingFormulaExtensionRuntime<?>, RenderingFormulaExtensionConfig>(RenderingFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(RenderingFormulaExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, RenderingFormulaExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<RenderingFormulaExtensionRuntime<? extends RenderingFormulaExtensionConfig>, RenderingFormulaExtensionConfig>(RenderingFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

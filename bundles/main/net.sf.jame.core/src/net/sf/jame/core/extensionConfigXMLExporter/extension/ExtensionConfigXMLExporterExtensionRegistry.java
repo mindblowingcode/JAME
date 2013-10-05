@@ -25,13 +25,14 @@
  */
 package net.sf.jame.core.extensionConfigXMLExporter.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class ExtensionConfigXMLExporterExtensionRegistry extends OSGiExtensionRegistry<ExtensionConfigXMLExporterExtensionRuntime> {
+public class ExtensionConfigXMLExporterExtensionRegistry extends SLExtensionRegistry<ExtensionConfigXMLExporterExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class ExtensionConfigXMLExporterExtensionRegistry extends OSGiExtensionRe
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "extensionConfigXMLExporter";
+	public static final String CONFIGURATION_ELEMENT_NAME = "ExtensionConfigXMLExporter";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends ExtensionConfigXMLExporterExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = ExtensionConfigXMLExporterExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public ExtensionConfigXMLExporterExtensionRegistry() {
-		super(ExtensionConfigXMLExporterExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<ExtensionConfigXMLExporterExtensionRuntime>(ExtensionConfigXMLExporterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(ExtensionConfigXMLExporterExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, ExtensionConfigXMLExporterExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<ExtensionConfigXMLExporterExtensionRuntime>(ExtensionConfigXMLExporterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

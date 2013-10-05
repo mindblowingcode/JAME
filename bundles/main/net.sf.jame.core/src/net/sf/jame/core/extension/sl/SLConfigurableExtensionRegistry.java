@@ -26,15 +26,16 @@
 package net.sf.jame.core.extension.sl;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.ServiceLoader;
 
 import net.sf.jame.core.extension.ConfigurableExtension;
+import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
 import net.sf.jame.core.extension.ConfigurableExtensionRegistry;
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
 import net.sf.jame.core.extension.Extension;
@@ -43,15 +44,9 @@ import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.InvalidRegistryObjectException;
-import org.eclipse.core.runtime.Platform;
 
 /**
- * OSGi configurable extension registry.
+ * SL configurable extension registry.
  * 
  * @author Andrea Medeghini
  * @param <T> the extension runtime type.
@@ -60,8 +55,8 @@ import org.eclipse.core.runtime.Platform;
 public class SLConfigurableExtensionRegistry<T extends ConfigurableExtensionRuntime<? extends V>, V extends ExtensionConfig> implements ConfigurableExtensionRegistry<T, V> {
 	private static final ResourceBundle bundle = ResourceBundle.getBundle(SLConfigurableExtensionRegistry.class.getPackage().getName() + ".resources");
 	private static final Logger logger = Logger.getLogger(SLConfigurableExtensionRegistry.class);
-	private static final IExtensionRegistry registry = Platform.getExtensionRegistry();
 	private final HashMap<String, ConfigurableExtension<T, V>> extensionMap = new HashMap<String, ConfigurableExtension<T, V>>();
+	private Class<? extends ConfigurableExtensionDescriptor<T, V>> extensionDescriptorClass;
 	private String extensionPointName;
 	private String cfgElementName;
 
@@ -71,74 +66,20 @@ public class SLConfigurableExtensionRegistry<T extends ConfigurableExtensionRunt
 	 * @param extensionPointName the extension point name.
 	 * @param builder the extension builder.
 	 */
-	protected SLConfigurableExtensionRegistry(final String extensionPointName, final SLConfigurableExtensionBuilder<T, V> builder) {
+	protected SLConfigurableExtensionRegistry(final Class<? extends ConfigurableExtensionDescriptor<T, V>> extensionDescriptorClass, final String extensionPointName, final SLConfigurableExtensionBuilder<T, V> builder) {
+		this.extensionDescriptorClass = extensionDescriptorClass;
 		this.extensionPointName = extensionPointName;
 		this.cfgElementName = builder.getCfgElementName();
-		final List<ConfigurableExtension<T, V>> extensionList = this.createExtensionList(extensionPointName, builder);
-		for (final ConfigurableExtension<T, V> extension : extensionList) {
-			this.extensionMap.put(extension.getExtensionId(), extension);
-		}
-	}
-
-	private List<ConfigurableExtension<T, V>> createExtensionList(final String extensionPointName, final SLConfigurableExtensionBuilder<T, V> builder) {
-		final ArrayList<ConfigurableExtension<T, V>> extensionList = new ArrayList<ConfigurableExtension<T, V>>();
-		final IExtensionPoint extensionPoint = SLConfigurableExtensionRegistry.registry.getExtensionPoint(extensionPointName);
-		if (extensionPoint != null) {
+		final ServiceLoader<? extends ConfigurableExtensionDescriptor<T, V>> serviceLoader = ServiceLoader.load(extensionDescriptorClass);
+		for (ConfigurableExtensionDescriptor<T, V> extensionDescriptor : serviceLoader) {
+			System.out.println(extensionDescriptor.getExtensionId());//TODO da rimuovere
 			try {
-				extensionList.addAll(this.processExtensionPoint(extensionPoint, builder));
-			}
-			catch (final InvalidRegistryObjectException e) {
-				SLConfigurableExtensionRegistry.logger.error(MessageFormat.format(SLConfigurableExtensionRegistry.bundle.getString("extensionPoint.error.0"), extensionPointName), e);
-			}
-		}
-		else {
-			SLConfigurableExtensionRegistry.logger.warn(MessageFormat.format(SLConfigurableExtensionRegistry.bundle.getString("extensionPoint.error.1"), extensionPointName));
-		}
-		return extensionList;
-	}
-
-	private List<ConfigurableExtension<T, V>> processExtensionPoint(final IExtensionPoint extensionPoint, final SLConfigurableExtensionBuilder<T, V> builder) throws InvalidRegistryObjectException {
-		final ArrayList<ConfigurableExtension<T, V>> extensionList = new ArrayList<ConfigurableExtension<T, V>>();
-		final IExtension[] extensions = extensionPoint.getExtensions();
-		if ((extensions != null) && (extensions.length > 0)) {
-			for (final IExtension extension : extensions) {
-				try {
-					extensionList.addAll(this.processExtension(extension, builder));
-				}
-				catch (final InvalidRegistryObjectException e) {
-					SLConfigurableExtensionRegistry.logger.error(MessageFormat.format(SLConfigurableExtensionRegistry.bundle.getString("extension.error.0"), extension.getLabel()), e);
-				}
-			}
-			Collections.sort(extensionList, new ExtensionComparator());
-		}
-		else {
-			SLConfigurableExtensionRegistry.logger.warn(MessageFormat.format(SLConfigurableExtensionRegistry.bundle.getString("extensionPoint.error.2"), extensionPoint.getLabel()));
-		}
-		return extensionList;
-	}
-
-	private List<ConfigurableExtension<T, V>> processExtension(final IExtension extension, final SLConfigurableExtensionBuilder<T, V> builder) throws InvalidRegistryObjectException {
-		final ArrayList<ConfigurableExtension<T, V>> extensionList = new ArrayList<ConfigurableExtension<T, V>>();
-		final IConfigurationElement[] cfgElements = extension.getConfigurationElements();
-		if ((cfgElements != null) && (cfgElements.length > 0)) {
-			for (final IConfigurationElement cfgElement : cfgElements) {
-				try {
-					if (builder.validate(cfgElement)) {
-						final ConfigurableExtension<T, V> extensionListElement = builder.createExtension(cfgElement);
-						if (extensionListElement != null) {
-							extensionList.add(extensionListElement);
-						}
-					}
-				}
-				catch (final SLExtensionBuilderException e) {
-					SLConfigurableExtensionRegistry.logger.error(MessageFormat.format(SLConfigurableExtensionRegistry.bundle.getString("extension.error.1"), extension.getLabel()), e);
-				}
+				ConfigurableExtension<T, V> extension = builder.createExtension(extensionDescriptor);
+				this.extensionMap.put(extension.getExtensionId(), extension);
+			} catch (SLExtensionBuilderException e) {
+				SLConfigurableExtensionRegistry.logger.error(MessageFormat.format(SLConfigurableExtensionRegistry.bundle.getString("extension.error.1"), extensionDescriptor.getExtensionName()), e);
 			}
 		}
-		else {
-			SLConfigurableExtensionRegistry.logger.warn(MessageFormat.format(SLConfigurableExtensionRegistry.bundle.getString("extension.error.2"), extension.getLabel()));
-		}
-		return extensionList;
 	}
 
 	/**
@@ -183,5 +124,13 @@ public class SLConfigurableExtensionRegistry<T extends ConfigurableExtensionRunt
 	 */
 	public Extension<T> getExtension(final String extensionId) throws ExtensionNotFoundException {
 		return this.getConfigurableExtension(extensionId);
+	}
+
+	/**
+	 * Returns the extension descriptor class.
+	 * @return the extension descriptor class.
+	 */
+	protected Class<? extends ConfigurableExtensionDescriptor<T, V>> getExtensionDescriptorClass() {
+		return extensionDescriptorClass;
 	}
 }

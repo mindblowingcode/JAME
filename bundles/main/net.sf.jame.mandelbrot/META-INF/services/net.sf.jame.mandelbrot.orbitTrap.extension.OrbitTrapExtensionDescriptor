@@ -1,0 +1,6 @@
+net.sf.jame.mandelbrot.extensions.orbitTrap.TriangleTrapDescriptor
+net.sf.jame.mandelbrot.extensions.orbitTrap.PointTrapDescriptor
+net.sf.jame.mandelbrot.extensions.orbitTrap.LineTrapDescriptor
+net.sf.jame.mandelbrot.extensions.orbitTrap.RectangleTrapDescriptor
+net.sf.jame.mandelbrot.extensions.orbitTrap.DeltaTrapDescriptor
+net.sf.jame.mandelbrot.extensions.orbitTrap.CircleTrapDescriptor

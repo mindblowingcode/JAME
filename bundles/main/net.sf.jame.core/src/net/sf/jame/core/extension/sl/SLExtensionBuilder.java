@@ -29,12 +29,11 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import net.sf.jame.core.extension.Extension;
+import net.sf.jame.core.extension.ExtensionDescriptor;
 import net.sf.jame.core.extension.ExtensionRuntime;
 
-import org.eclipse.core.runtime.IConfigurationElement;
-
 /**
- * OSGi extension builder.
+ * SL extension builder.
  * 
  * @author Andrea Medeghini
  * @param <T> the extension runtime type.
@@ -62,30 +61,30 @@ public class SLExtensionBuilder<T extends ExtensionRuntime> {
 	 * @return the extension.
 	 * @throws SLExtensionBuilderException if the extension can't be created.
 	 */
-	public Extension<T> createExtension(final IConfigurationElement cfgElement) throws SLExtensionBuilderException {
-		return this.createExtension(cfgElement, this.cfgElementName);
+	public Extension<T> createExtension(final ExtensionDescriptor<T> extensionDescriptor) throws SLExtensionBuilderException {
+		return this.createExtension(extensionDescriptor, this.cfgElementName);
 	}
 
-	private Extension<T> createExtension(final IConfigurationElement cfgElement, final String cfgElementName) throws SLExtensionBuilderException {
+	private Extension<T> createExtension(final ExtensionDescriptor<T> extensionDescriptor, final String cfgElementName) throws SLExtensionBuilderException {
 		try {
-			if (cfgElement.isValid() && cfgElementName.equalsIgnoreCase(cfgElement.getName())) {
-				return new SLExtension<T>(cfgElement);
+			if (validate(extensionDescriptor)) {
+				return new SLExtension<T>(extensionDescriptor);
 			}
 		}
 		catch (final Exception e) {
 			throw new SLExtensionBuilderException(e);
 		}
-		throw new SLExtensionBuilderException(MessageFormat.format(this.bundle.getString("builder.error"), new Object[] { cfgElement.getName(), cfgElement.getDeclaringExtension().getLabel() }));
+		throw new SLExtensionBuilderException(MessageFormat.format(this.bundle.getString("builder.error"), new Object[] { cfgElementName, ""/*TODO*/}));
 	}
 
 	/**
 	 * Validates the element.
 	 * 
-	 * @param cfgElement the element.
+	 * @param extensionDescriptor the extension descriptor.
 	 * @return true if the element is valid.
 	 */
-	public boolean validate(final IConfigurationElement cfgElement) {
-		return cfgElement.isValid() && this.cfgElementName.equalsIgnoreCase(cfgElement.getName());
+	public boolean validate(final ExtensionDescriptor<T> extensionDescriptor) {
+		return true;
 	}
 
 	public String getCfgElementName() {

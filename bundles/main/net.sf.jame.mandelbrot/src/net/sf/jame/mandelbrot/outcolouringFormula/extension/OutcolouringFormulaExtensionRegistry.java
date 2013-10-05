@@ -25,13 +25,15 @@
  */
 package net.sf.jame.mandelbrot.outcolouringFormula.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.mandelbrot.outcolouringFormula.extension.OutcolouringFormulaExtensionRuntime;
+import net.sf.jame.mandelbrot.outcolouringFormula.extension.OutcolouringFormulaExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class OutcolouringFormulaExtensionRegistry extends OSGiConfigurableExtensionRegistry<OutcolouringFormulaExtensionRuntime<?>, OutcolouringFormulaExtensionConfig> {
+public class OutcolouringFormulaExtensionRegistry extends SLConfigurableExtensionRegistry<OutcolouringFormulaExtensionRuntime<? extends OutcolouringFormulaExtensionConfig>, OutcolouringFormulaExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class OutcolouringFormulaExtensionRegistry extends OSGiConfigurableExtens
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "outcolouringFormula";
+	public static final String CONFIGURATION_ELEMENT_NAME = "OutcolouringFormula";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends OutcolouringFormulaExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = OutcolouringFormulaExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public OutcolouringFormulaExtensionRegistry() {
-		super(OutcolouringFormulaExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<OutcolouringFormulaExtensionRuntime<?>, OutcolouringFormulaExtensionConfig>(OutcolouringFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(OutcolouringFormulaExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, OutcolouringFormulaExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<OutcolouringFormulaExtensionRuntime<? extends OutcolouringFormulaExtensionConfig>, OutcolouringFormulaExtensionConfig>(OutcolouringFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }
