@@ -76,3 +76,17 @@ bundles/experimental/net.sf.jame.contextfree.devtools/build
 
 syntax: regexp
 ^test/main/net\.sf\.jame\.test\.contextfree/output$
+
+sources/net.sf.jame/target
+sources/net.sf.jame/target
+sources/net.sf.jame.twister/target
+sources/net.sf.jame.twister.swing/target
+sources/net.sf.jame.queue/target
+sources/net.sf.jame.mandelbrot/target
+sources/net.sf.jame.mandelbrot.swing/target
+sources/net.sf.jame.core/target
+sources/net.sf.jame.core.swing/target
+sources/net.sf.jame.devtools/target
+sources/net.sf.jame.contextfree/target
+sources/net.sf.jame.contextfree.swing/target
+sources/net.sf.jame.contextfree/output
