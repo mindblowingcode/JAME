@@ -1,0 +1,4 @@
+net.sf.jame.twister.extensions.enumerator.LayerFilterEnumeratorDescriptor
+net.sf.jame.twister.extensions.enumerator.FrameFilterEnumeratorDescriptor
+net.sf.jame.twister.extensions.enumerator.EffectEnumeratorDescriptor
+net.sf.jame.twister.extensions.enumerator.ImageEnumeratorDescriptor

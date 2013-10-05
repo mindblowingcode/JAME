@@ -1,0 +1,5 @@
+net.sf.jame.twister.extensions.layerFilter.BlurDescriptor
+net.sf.jame.twister.extensions.layerFilter.SharpenDescriptor
+net.sf.jame.twister.extensions.layerFilter.EdgeDescriptor
+net.sf.jame.twister.extensions.layerFilter.ColorDescriptor
+net.sf.jame.twister.extensions.layerFilter.BlackDescriptor

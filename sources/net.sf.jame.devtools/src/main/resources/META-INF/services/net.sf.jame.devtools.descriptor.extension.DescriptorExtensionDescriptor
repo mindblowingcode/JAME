@@ -1,0 +1,10 @@
+net.sf.jame.devtools.extensions.RectangleDescriptorDescriptor
+net.sf.jame.devtools.extensions.IntegerDescriptorDescriptor
+net.sf.jame.devtools.extensions.ShortDescriptorDescriptor
+net.sf.jame.devtools.extensions.ComplexDescriptorDescriptor
+net.sf.jame.devtools.extensions.BooleanDescriptorDescriptor
+net.sf.jame.devtools.extensions.StringDescriptorDescriptor
+net.sf.jame.devtools.extensions.LongDescriptorDescriptor
+net.sf.jame.devtools.extensions.DoubleDescriptorDescriptor
+net.sf.jame.devtools.extensions.ColorDescriptorDescriptor
+net.sf.jame.devtools.extensions.FloatDescriptorDescriptor

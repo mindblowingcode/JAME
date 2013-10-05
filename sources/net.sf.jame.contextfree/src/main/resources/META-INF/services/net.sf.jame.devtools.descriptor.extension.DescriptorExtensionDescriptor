@@ -1,0 +1,4 @@
+net.sf.jame.devtools.contextfree.extensions.devtools.StrokeCapDescriptorDescriptor
+net.sf.jame.devtools.contextfree.extensions.devtools.StrokeJoinDescriptorDescriptor
+net.sf.jame.devtools.contextfree.extensions.devtools.FillRuleDescriptorDescriptor
+net.sf.jame.devtools.contextfree.extensions.devtools.StrokeWidthDescriptorDescriptor
