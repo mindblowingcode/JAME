@@ -1,0 +1,13 @@
+net.sf.jame.mandelbrot.extensions.renderingFormula.Z5Descriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.DRFDescriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.Z4Descriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.MAGNETISM1Descriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.COSZDescriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.NEWTON3Descriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.Z3Descriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.EXPZDescriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.MAGNETISM2Descriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.SINZDescriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.ZNDescriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.ZADescriptor
+net.sf.jame.mandelbrot.extensions.renderingFormula.Z2Descriptor

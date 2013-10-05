@@ -1,0 +1,6 @@
+net.sf.jame.contextfree.extensions.creator.ShapeReplacementCreatorDescriptor
+net.sf.jame.contextfree.extensions.creator.CFDGCreatorDescriptor
+net.sf.jame.contextfree.extensions.creator.FigureCreatorDescriptor
+net.sf.jame.contextfree.extensions.creator.ShapeAdjustmentCreatorDescriptor
+net.sf.jame.contextfree.extensions.creator.PathReplacementCreatorDescriptor
+net.sf.jame.contextfree.extensions.creator.PathAdjustmentCreatorDescriptor

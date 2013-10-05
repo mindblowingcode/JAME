@@ -25,13 +25,14 @@
  */
 package net.sf.jame.mandelbrot.paletteRendererFormula.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.mandelbrot.paletteRendererFormula.extension.PaletteRendererFormulaExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class PaletteRendererFormulaExtensionRegistry extends OSGiExtensionRegistry<PaletteRendererFormulaExtensionRuntime> {
+public class PaletteRendererFormulaExtensionRegistry extends SLExtensionRegistry<PaletteRendererFormulaExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class PaletteRendererFormulaExtensionRegistry extends OSGiExtensionRegist
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "paletteRendererFormula";
+	public static final String CONFIGURATION_ELEMENT_NAME = "PaletteRendererFormula";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends PaletteRendererFormulaExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = PaletteRendererFormulaExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public PaletteRendererFormulaExtensionRegistry() {
-		super(PaletteRendererFormulaExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<PaletteRendererFormulaExtensionRuntime>(PaletteRendererFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(PaletteRendererFormulaExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, PaletteRendererFormulaExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<PaletteRendererFormulaExtensionRuntime>(PaletteRendererFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

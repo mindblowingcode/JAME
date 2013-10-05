@@ -25,13 +25,14 @@
  */
 package net.sf.jame.core.actionXMLImporter.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.core.actionXMLImporter.extension.ActionXMLImporterExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class ActionXMLImporterExtensionRegistry extends OSGiExtensionRegistry<ActionXMLImporterExtensionRuntime> {
+public class ActionXMLImporterExtensionRegistry extends SLExtensionRegistry<ActionXMLImporterExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class ActionXMLImporterExtensionRegistry extends OSGiExtensionRegistry<Ac
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "actionXMLImporter";
+	public static final String CONFIGURATION_ELEMENT_NAME = "ActionXMLImporter";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends ActionXMLImporterExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = ActionXMLImporterExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public ActionXMLImporterExtensionRegistry() {
-		super(ActionXMLImporterExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<ActionXMLImporterExtensionRuntime>(ActionXMLImporterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(ActionXMLImporterExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, ActionXMLImporterExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<ActionXMLImporterExtensionRuntime>(ActionXMLImporterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

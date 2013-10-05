@@ -1,0 +1,5 @@
+net.sf.jame.contextfree.extensions.enumerator.PathReplacementEnumeratorDescriptor
+net.sf.jame.contextfree.extensions.enumerator.PathAdjustmentEnumeratorDescriptor
+net.sf.jame.contextfree.extensions.enumerator.ShapeAdjustmentEnumeratorDescriptor
+net.sf.jame.contextfree.extensions.enumerator.FigureEnumeratorDescriptor
+net.sf.jame.contextfree.extensions.enumerator.ShapeReplacementEnumeratorDescriptor

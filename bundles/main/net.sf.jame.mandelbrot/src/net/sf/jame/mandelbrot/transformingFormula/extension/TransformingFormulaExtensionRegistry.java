@@ -25,13 +25,15 @@
  */
 package net.sf.jame.mandelbrot.transformingFormula.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.mandelbrot.transformingFormula.extension.TransformingFormulaExtensionRuntime;
+import net.sf.jame.mandelbrot.transformingFormula.extension.TransformingFormulaExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class TransformingFormulaExtensionRegistry extends OSGiConfigurableExtensionRegistry<TransformingFormulaExtensionRuntime<?>, TransformingFormulaExtensionConfig> {
+public class TransformingFormulaExtensionRegistry extends SLConfigurableExtensionRegistry<TransformingFormulaExtensionRuntime<? extends TransformingFormulaExtensionConfig>, TransformingFormulaExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class TransformingFormulaExtensionRegistry extends OSGiConfigurableExtens
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "transformingFormula";
+	public static final String CONFIGURATION_ELEMENT_NAME = "TransformingFormula";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends TransformingFormulaExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = TransformingFormulaExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public TransformingFormulaExtensionRegistry() {
-		super(TransformingFormulaExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<TransformingFormulaExtensionRuntime<?>, TransformingFormulaExtensionConfig>(TransformingFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(TransformingFormulaExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, TransformingFormulaExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<TransformingFormulaExtensionRuntime<? extends TransformingFormulaExtensionConfig>, TransformingFormulaExtensionConfig>(TransformingFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

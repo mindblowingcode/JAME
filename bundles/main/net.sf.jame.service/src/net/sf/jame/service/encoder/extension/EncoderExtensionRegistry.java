@@ -25,13 +25,15 @@
  */
 package net.sf.jame.service.encoder.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.service.encoder.extension.EncoderExtensionRuntime;
+import net.sf.jame.service.encoder.extension.EncoderExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class EncoderExtensionRegistry extends OSGiConfigurableExtensionRegistry<EncoderExtensionRuntime<?>, EncoderExtensionConfig> {
+public class EncoderExtensionRegistry extends SLConfigurableExtensionRegistry<EncoderExtensionRuntime<? extends EncoderExtensionConfig>, EncoderExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class EncoderExtensionRegistry extends OSGiConfigurableExtensionRegistry<
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "encoder";
+	public static final String CONFIGURATION_ELEMENT_NAME = "Encoder";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends EncoderExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = EncoderExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public EncoderExtensionRegistry() {
-		super(EncoderExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<EncoderExtensionRuntime<?>, EncoderExtensionConfig>(EncoderExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(EncoderExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, EncoderExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<EncoderExtensionRuntime<? extends EncoderExtensionConfig>, EncoderExtensionConfig>(EncoderExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

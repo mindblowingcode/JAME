@@ -1,0 +1,8 @@
+net.sf.jame.core.extensions.action.FloatNodeActionXMLImporterDescriptor
+net.sf.jame.core.extensions.action.StringNodeActionXMLImporterDescriptor
+net.sf.jame.core.extensions.action.ColorNodeActionXMLImporterDescriptor
+net.sf.jame.core.extensions.action.ComplexNodeActionXMLImporterDescriptor
+net.sf.jame.core.extensions.action.BooleanNodeActionXMLImporterDescriptor
+net.sf.jame.core.extensions.action.RectangleNodeActionXMLImporterDescriptor
+net.sf.jame.core.extensions.action.DoubleNodeActionXMLImporterDescriptor
+net.sf.jame.core.extensions.action.FontNodeActionXMLImporterDescriptor

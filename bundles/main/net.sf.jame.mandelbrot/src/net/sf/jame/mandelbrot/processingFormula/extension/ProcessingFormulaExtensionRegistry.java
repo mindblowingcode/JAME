@@ -25,13 +25,14 @@
  */
 package net.sf.jame.mandelbrot.processingFormula.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.mandelbrot.processingFormula.extension.ProcessingFormulaExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class ProcessingFormulaExtensionRegistry extends OSGiExtensionRegistry<ProcessingFormulaExtensionRuntime> {
+public class ProcessingFormulaExtensionRegistry extends SLExtensionRegistry<ProcessingFormulaExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class ProcessingFormulaExtensionRegistry extends OSGiExtensionRegistry<Pr
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "processingFormula";
+	public static final String CONFIGURATION_ELEMENT_NAME = "ProcessingFormula";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends ProcessingFormulaExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = ProcessingFormulaExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public ProcessingFormulaExtensionRegistry() {
-		super(ProcessingFormulaExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<ProcessingFormulaExtensionRuntime>(ProcessingFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(ProcessingFormulaExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, ProcessingFormulaExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<ProcessingFormulaExtensionRuntime>(ProcessingFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

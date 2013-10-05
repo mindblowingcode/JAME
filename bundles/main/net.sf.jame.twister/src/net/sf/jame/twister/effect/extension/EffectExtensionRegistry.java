@@ -25,13 +25,15 @@
  */
 package net.sf.jame.twister.effect.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.twister.effect.extension.EffectExtensionRuntime;
+import net.sf.jame.twister.effect.extension.EffectExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class EffectExtensionRegistry extends OSGiConfigurableExtensionRegistry<EffectExtensionRuntime<?>, EffectExtensionConfig> {
+public class EffectExtensionRegistry extends SLConfigurableExtensionRegistry<EffectExtensionRuntime<? extends EffectExtensionConfig>, EffectExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class EffectExtensionRegistry extends OSGiConfigurableExtensionRegistry<E
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "effect";
+	public static final String CONFIGURATION_ELEMENT_NAME = "Effect";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends EffectExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = EffectExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public EffectExtensionRegistry() {
-		super(EffectExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<EffectExtensionRuntime<?>, EffectExtensionConfig>(EffectExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(EffectExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, EffectExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<EffectExtensionRuntime<? extends EffectExtensionConfig>, EffectExtensionConfig>(EffectExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

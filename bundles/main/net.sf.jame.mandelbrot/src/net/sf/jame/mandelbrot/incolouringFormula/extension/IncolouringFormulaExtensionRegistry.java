@@ -25,13 +25,15 @@
  */
 package net.sf.jame.mandelbrot.incolouringFormula.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.mandelbrot.incolouringFormula.extension.IncolouringFormulaExtensionRuntime;
+import net.sf.jame.mandelbrot.incolouringFormula.extension.IncolouringFormulaExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class IncolouringFormulaExtensionRegistry extends OSGiConfigurableExtensionRegistry<IncolouringFormulaExtensionRuntime<?>, IncolouringFormulaExtensionConfig> {
+public class IncolouringFormulaExtensionRegistry extends SLConfigurableExtensionRegistry<IncolouringFormulaExtensionRuntime<? extends IncolouringFormulaExtensionConfig>, IncolouringFormulaExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class IncolouringFormulaExtensionRegistry extends OSGiConfigurableExtensi
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "incolouringFormula";
+	public static final String CONFIGURATION_ELEMENT_NAME = "IncolouringFormula";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends IncolouringFormulaExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = IncolouringFormulaExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public IncolouringFormulaExtensionRegistry() {
-		super(IncolouringFormulaExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<IncolouringFormulaExtensionRuntime<?>, IncolouringFormulaExtensionConfig>(IncolouringFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(IncolouringFormulaExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, IncolouringFormulaExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<IncolouringFormulaExtensionRuntime<? extends IncolouringFormulaExtensionConfig>, IncolouringFormulaExtensionConfig>(IncolouringFormulaExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

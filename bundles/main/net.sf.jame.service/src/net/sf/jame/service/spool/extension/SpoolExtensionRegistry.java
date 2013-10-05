@@ -25,13 +25,15 @@
  */
 package net.sf.jame.service.spool.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.service.spool.extension.SpoolExtensionRuntime;
+import net.sf.jame.service.spool.extension.SpoolExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class SpoolExtensionRegistry extends OSGiConfigurableExtensionRegistry<SpoolExtensionRuntime<?>, SpoolExtensionConfig> {
+public class SpoolExtensionRegistry extends SLConfigurableExtensionRegistry<SpoolExtensionRuntime<? extends SpoolExtensionConfig>, SpoolExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class SpoolExtensionRegistry extends OSGiConfigurableExtensionRegistry<Sp
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "spool";
+	public static final String CONFIGURATION_ELEMENT_NAME = "Spool";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends SpoolExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = SpoolExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public SpoolExtensionRegistry() {
-		super(SpoolExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<SpoolExtensionRuntime<?>, SpoolExtensionConfig>(SpoolExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(SpoolExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, SpoolExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<SpoolExtensionRuntime<? extends SpoolExtensionConfig>, SpoolExtensionConfig>(SpoolExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

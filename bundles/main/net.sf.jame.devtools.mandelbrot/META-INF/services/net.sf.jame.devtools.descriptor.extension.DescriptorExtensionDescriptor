@@ -1,0 +1,5 @@
+net.sf.jame.devtools.mandelbrot.extensions.RenderedPaletteDescriptorDescriptor
+net.sf.jame.devtools.mandelbrot.extensions.ThresholdDescriptorDescriptor
+net.sf.jame.devtools.mandelbrot.extensions.CriteriaDescriptorDescriptor
+net.sf.jame.devtools.mandelbrot.extensions.IterationsDescriptorDescriptor
+net.sf.jame.devtools.mandelbrot.extensions.ExponentDescriptorDescriptor

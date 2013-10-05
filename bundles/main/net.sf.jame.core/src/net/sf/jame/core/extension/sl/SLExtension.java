@@ -26,15 +26,13 @@
 package net.sf.jame.core.extension.sl;
 
 import net.sf.jame.core.extension.Extension;
+import net.sf.jame.core.extension.ExtensionDescriptor;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.extension.ExtensionReference;
 import net.sf.jame.core.extension.ExtensionRuntime;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-
 /**
- * OSGi extension.
+ * SL extension.
  * 
  * @author Andrea Medeghini
  * @param <T> the extension runtime type.
@@ -52,44 +50,25 @@ public class SLExtension<T extends ExtensionRuntime> implements Extension<T> {
 	 * the name of the extension runtime class property.
 	 */
 	public static final String EXTENSION_RUNTIME_CLASS_PROPERTY_NAME = "runtimeClass";
-	private final IConfigurationElement cfgElement;
+	private ExtensionDescriptor<T> extensionDescriptor;
 	private final ExtensionReference reference;
 
 	/**
 	 * Constructs a new extension from a configuration element.
 	 * 
-	 * @param cfgElement the configuration element.
+	 * @param extensionDescriptor the extension descriptor.
 	 * @throws ExtensionException if the extension can't be created.
 	 */
-	protected SLExtension(final IConfigurationElement cfgElement) throws ExtensionException {
-		this.cfgElement = cfgElement;
-		final String extensionId = cfgElement.getAttribute(SLExtension.EXTENSION_ID_PROPERTY_NAME);
-		final String extensionName = cfgElement.getAttribute(SLExtension.EXTENSION_NAME_PROPERTY_NAME);
-		this.reference = new ExtensionReference(extensionId, extensionName);
+	protected SLExtension(final ExtensionDescriptor<T> extensionDescriptor) throws ExtensionException {
+		this.extensionDescriptor = extensionDescriptor;
+		this.reference = new ExtensionReference(extensionDescriptor.getExtensionId(), extensionDescriptor.getExtensionName());
 	}
 
 	/**
 	 * @see net.sf.jame.core.extension.Extension#createExtensionRuntime()
 	 */
-	@SuppressWarnings("unchecked")
 	public final T createExtensionRuntime() throws ExtensionException {
-		return (T) this.createExecutableExtension(SLExtension.EXTENSION_RUNTIME_CLASS_PROPERTY_NAME);
-	}
-
-	/**
-	 * Creates a new instance.
-	 * 
-	 * @param propertyName the property name.
-	 * @return the new instance.
-	 * @throws ExtensionException if the instance can't be created.
-	 */
-	protected Object createExecutableExtension(final String propertyName) throws ExtensionException {
-		try {
-			return this.cfgElement.createExecutableExtension(propertyName);
-		}
-		catch (final CoreException e) {
-			throw new ExtensionException(e);
-		}
+		return this.extensionDescriptor.getExtensionRuntime();
 	}
 
 	/**
@@ -111,5 +90,13 @@ public class SLExtension<T extends ExtensionRuntime> implements Extension<T> {
 	 */
 	public String getExtensionName() {
 		return this.reference.getExtensionName();
+	}
+
+	/**
+	 * Returns the extension descriptor class.
+	 * @return the extension descriptor class.
+	 */
+	protected ExtensionDescriptor<T> getExtensionDescriptor() {
+		return extensionDescriptor;
 	}
 }

@@ -25,13 +25,15 @@
  */
 package net.sf.jame.twister.layerFilter.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.twister.layerFilter.extension.LayerFilterExtensionRuntime;
+import net.sf.jame.twister.layerFilter.extension.LayerFilterExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class LayerFilterExtensionRegistry extends OSGiConfigurableExtensionRegistry<LayerFilterExtensionRuntime<?>, LayerFilterExtensionConfig> {
+public class LayerFilterExtensionRegistry extends SLConfigurableExtensionRegistry<LayerFilterExtensionRuntime<? extends LayerFilterExtensionConfig>, LayerFilterExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class LayerFilterExtensionRegistry extends OSGiConfigurableExtensionRegis
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "layerFilter";
+	public static final String CONFIGURATION_ELEMENT_NAME = "LayerFilter";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends LayerFilterExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = LayerFilterExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public LayerFilterExtensionRegistry() {
-		super(LayerFilterExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<LayerFilterExtensionRuntime<?>, LayerFilterExtensionConfig>(LayerFilterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(LayerFilterExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, LayerFilterExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<LayerFilterExtensionRuntime<? extends LayerFilterExtensionConfig>, LayerFilterExtensionConfig>(LayerFilterExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

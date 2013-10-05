@@ -1,0 +1,9 @@
+net.sf.jame.service.encoder.extensions.MOVEncoderDescriptor
+net.sf.jame.service.encoder.extensions.TARGAEncoderDescriptor
+net.sf.jame.service.encoder.extensions.BMPEncoderDescriptor
+net.sf.jame.service.encoder.extensions.MPEG4EncoderDescriptor
+net.sf.jame.service.encoder.extensions.TIFFEncoderDescriptor
+net.sf.jame.service.encoder.extensions.MPEGEncoderDescriptor
+net.sf.jame.service.encoder.extensions.AVIEncoderDescriptor
+net.sf.jame.service.encoder.extensions.JPEGEncoderDescriptor
+net.sf.jame.service.encoder.extensions.PNGEncoderDescriptor

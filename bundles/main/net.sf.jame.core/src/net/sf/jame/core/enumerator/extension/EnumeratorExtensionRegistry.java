@@ -25,13 +25,14 @@
  */
 package net.sf.jame.core.enumerator.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.core.enumerator.extension.EnumeratorExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class EnumeratorExtensionRegistry extends OSGiExtensionRegistry<EnumeratorExtensionRuntime> {
+public class EnumeratorExtensionRegistry extends SLExtensionRegistry<EnumeratorExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class EnumeratorExtensionRegistry extends OSGiExtensionRegistry<Enumerato
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "enumerator";
+	public static final String CONFIGURATION_ELEMENT_NAME = "Enumerator";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends EnumeratorExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = EnumeratorExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public EnumeratorExtensionRegistry() {
-		super(EnumeratorExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<EnumeratorExtensionRuntime>(EnumeratorExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(EnumeratorExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, EnumeratorExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<EnumeratorExtensionRuntime>(EnumeratorExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

@@ -25,13 +25,14 @@
  */
 package net.sf.jame.core.swing.editor.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.core.swing.editor.extension.EditorExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class EditorExtensionRegistry extends OSGiExtensionRegistry<EditorExtensionRuntime> {
+public class EditorExtensionRegistry extends SLExtensionRegistry<EditorExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class EditorExtensionRegistry extends OSGiExtensionRegistry<EditorExtensi
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "editor";
+	public static final String CONFIGURATION_ELEMENT_NAME = "Editor";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends EditorExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = EditorExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public EditorExtensionRegistry() {
-		super(EditorExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<EditorExtensionRuntime>(EditorExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(EditorExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, EditorExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<EditorExtensionRuntime>(EditorExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

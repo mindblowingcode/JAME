@@ -25,13 +25,14 @@
  */
 package net.sf.jame.core.creator.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.core.creator.extension.CreatorExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class CreatorExtensionRegistry extends OSGiExtensionRegistry<CreatorExtensionRuntime> {
+public class CreatorExtensionRegistry extends SLExtensionRegistry<CreatorExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class CreatorExtensionRegistry extends OSGiExtensionRegistry<CreatorExten
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "creator";
+	public static final String CONFIGURATION_ELEMENT_NAME = "Creator";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends CreatorExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = CreatorExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public CreatorExtensionRegistry() {
-		super(CreatorExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<CreatorExtensionRuntime>(CreatorExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(CreatorExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, CreatorExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<CreatorExtensionRuntime>(CreatorExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

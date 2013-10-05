@@ -25,13 +25,14 @@
  */
 package net.sf.jame.twister.swing.view.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.twister.swing.view.extension.ViewExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class ViewExtensionRegistry extends OSGiExtensionRegistry<ViewExtensionRuntime> {
+public class ViewExtensionRegistry extends SLExtensionRegistry<ViewExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class ViewExtensionRegistry extends OSGiExtensionRegistry<ViewExtensionRu
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "view";
+	public static final String CONFIGURATION_ELEMENT_NAME = "View";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends ViewExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = ViewExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public ViewExtensionRegistry() {
-		super(ViewExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<ViewExtensionRuntime>(ViewExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(ViewExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, ViewExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<ViewExtensionRuntime>(ViewExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

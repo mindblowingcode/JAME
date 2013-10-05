@@ -25,13 +25,14 @@
  */
 package net.sf.jame.core.nodeBuilder.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLExtensionRegistry;
+import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionRuntime;
 
 /**
  * @author Andrea Medeghini
  */
-public class NodeBuilderExtensionRegistry extends OSGiExtensionRegistry<NodeBuilderExtensionRuntime> {
+public class NodeBuilderExtensionRegistry extends SLExtensionRegistry<NodeBuilderExtensionRuntime> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +40,16 @@ public class NodeBuilderExtensionRegistry extends OSGiExtensionRegistry<NodeBuil
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "nodeBuilder";
+	public static final String CONFIGURATION_ELEMENT_NAME = "NodeBuilder";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends NodeBuilderExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = NodeBuilderExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public NodeBuilderExtensionRegistry() {
-		super(NodeBuilderExtensionRegistry.EXTENSION_POINT_NAME, new OSGiExtensionBuilder<NodeBuilderExtensionRuntime>(NodeBuilderExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(NodeBuilderExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, NodeBuilderExtensionRegistry.EXTENSION_POINT_NAME, new SLExtensionBuilder<NodeBuilderExtensionRuntime>(NodeBuilderExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }

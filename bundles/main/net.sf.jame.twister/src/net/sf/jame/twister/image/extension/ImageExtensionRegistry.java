@@ -25,13 +25,15 @@
  */
 package net.sf.jame.twister.image.extension;
 
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionBuilder;
-import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
+import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
+import net.sf.jame.twister.image.extension.ImageExtensionRuntime;
+import net.sf.jame.twister.image.extension.ImageExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class ImageExtensionRegistry extends OSGiConfigurableExtensionRegistry<ImageExtensionRuntime<?>, ImageExtensionConfig> {
+public class ImageExtensionRegistry extends SLConfigurableExtensionRegistry<ImageExtensionRuntime<? extends ImageExtensionConfig>, ImageExtensionConfig> {
 	/**
 	 * the extension point name.
 	 */
@@ -39,12 +41,16 @@ public class ImageExtensionRegistry extends OSGiConfigurableExtensionRegistry<Im
 	/**
 	 * the configuration element name.
 	 */
-	public static final String CONFIGURATION_ELEMENT_NAME = "image";
+	public static final String CONFIGURATION_ELEMENT_NAME = "Image";
+	/**
+	 * the extension descriptor class.
+	 */
+	public static final Class<? extends ImageExtensionDescriptor> EXTENSION_DESCRIPTOR_CLASS = ImageExtensionDescriptor.class;
 
 	/**
 	 * Constructs a new registry.
 	 */
 	public ImageExtensionRegistry() {
-		super(ImageExtensionRegistry.EXTENSION_POINT_NAME, new OSGiConfigurableExtensionBuilder<ImageExtensionRuntime<?>, ImageExtensionConfig>(ImageExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
+		super(ImageExtensionRegistry.EXTENSION_DESCRIPTOR_CLASS, ImageExtensionRegistry.EXTENSION_POINT_NAME, new SLConfigurableExtensionBuilder<ImageExtensionRuntime<? extends ImageExtensionConfig>, ImageExtensionConfig>(ImageExtensionRegistry.CONFIGURATION_ELEMENT_NAME));
 	}
 }
