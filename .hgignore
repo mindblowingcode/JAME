@@ -90,3 +90,6 @@ sources/net.sf.jame.devtools/target
 sources/net.sf.jame.contextfree/target
 sources/net.sf.jame.contextfree.swing/target
 sources/net.sf.jame.contextfree/output
+
+syntax: regexp
+^sources/net\.sf\.jame\.main/target$
