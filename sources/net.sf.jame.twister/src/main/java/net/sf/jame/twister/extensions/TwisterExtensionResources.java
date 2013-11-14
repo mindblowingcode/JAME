@@ -36,7 +36,7 @@ public class TwisterExtensionResources extends Resources {
 	private static final TwisterExtensionResources instance = new TwisterExtensionResources();
 
 	private TwisterExtensionResources() {
-		super(ResourceBundle.getBundle("extension_resources"));
+		super(ResourceBundle.getBundle("twister_extension_resources"));
 	}
 
 	/**
