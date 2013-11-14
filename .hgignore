@@ -93,3 +93,5 @@ sources/net.sf.jame.contextfree/output
 
 syntax: regexp
 ^sources/net\.sf\.jame\.main/target$
+syntax: regexp
+^sources/net\.sf\.jame/dist$
