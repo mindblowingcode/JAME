@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JAME" default="ant">
+	<target name="ant" description="Build JAME">
+		<echo>Building JAME...</echo>
+		<mkdir dir="../dist/jars" />
+		<mkdir dir="../dist/lib" />
+		<copy todir="../dist/lib">
+			<fileset dir="../target/lib">
+				<include name="*"/>
+			</fileset>
+		</copy>
+		<copy todir="../dist/jars">
+			<fileset dir="../target/jars">
+				<include name="*"/>
+			</fileset>
+		</copy>
+		<copy todir="../dist">
+			<fileset dir="../target">
+				<include name="net.sf.jame.*.jar"/>
+			</fileset>
+		</copy>
+	</target>
+</project>
