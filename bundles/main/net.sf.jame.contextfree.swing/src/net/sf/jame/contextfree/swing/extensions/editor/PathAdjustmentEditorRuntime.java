@@ -5,8 +5,10 @@
 package net.sf.jame.contextfree.swing.extensions.editor;
 
 import java.awt.FlowLayout;
+
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+
 import net.sf.jame.core.swing.NodeEditorComponent;
 import net.sf.jame.core.swing.editor.extension.EditorExtensionRuntime;
 import net.sf.jame.core.tree.NodeEditor;

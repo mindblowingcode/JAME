@@ -26,8 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.incolouringFormula;
 
 import net.sf.jame.mandelbrot.incolouringFormula.extension.IncolouringFormulaExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.incolouringFormula.PhaseRuntime;
-import net.sf.jame.mandelbrot.extensions.incolouringFormula.PhaseConfig;
 
 /**
  * @author Andrea Medeghini

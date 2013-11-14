@@ -26,8 +26,6 @@
 package net.sf.jame.contextfree.pathReplacement.extension;
 
 import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
-import net.sf.jame.contextfree.pathReplacement.extension.PathReplacementExtensionRuntime;
-import net.sf.jame.contextfree.pathReplacement.extension.PathReplacementExtensionConfig;
 
 /**
  * @author Andrea Medeghini

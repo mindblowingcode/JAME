@@ -26,8 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.orbitTrap;
 
 import net.sf.jame.mandelbrot.orbitTrap.extension.OrbitTrapExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.orbitTrap.PointTrapRuntime;
-import net.sf.jame.mandelbrot.extensions.orbitTrap.PointTrapConfig;
 
 /**
  * @author Andrea Medeghini

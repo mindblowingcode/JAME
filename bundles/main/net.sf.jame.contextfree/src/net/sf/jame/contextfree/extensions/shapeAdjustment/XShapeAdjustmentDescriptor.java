@@ -26,8 +26,6 @@
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
 import net.sf.jame.contextfree.shapeAdjustment.extension.ShapeAdjustmentExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.shapeAdjustment.XShapeAdjustmentRuntime;
-import net.sf.jame.contextfree.extensions.shapeAdjustment.XShapeAdjustmentConfig;
 
 /**
  * @author Andrea Medeghini

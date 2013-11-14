@@ -26,8 +26,6 @@
 package net.sf.jame.contextfree.extensions.image;
 
 import net.sf.jame.twister.image.extension.ImageExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.image.ContextFreeImageRuntime;
-import net.sf.jame.contextfree.extensions.image.ContextFreeImageConfig;
 
 /**
  * @author Andrea Medeghini

@@ -26,8 +26,6 @@
 package net.sf.jame.contextfree.extensions.figure;
 
 import net.sf.jame.contextfree.figure.extension.FigureExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.figure.CircleFigureRuntime;
-import net.sf.jame.contextfree.extensions.figure.CircleFigureConfig;
 
 /**
  * @author Andrea Medeghini

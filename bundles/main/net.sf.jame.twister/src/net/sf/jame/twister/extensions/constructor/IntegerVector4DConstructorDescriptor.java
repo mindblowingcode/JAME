@@ -26,7 +26,6 @@
 package net.sf.jame.twister.extensions.constructor;
 
 import net.sf.jame.core.constructor.extension.ConstructorExtensionDescriptor;
-import net.sf.jame.twister.extensions.constructor.IntegerVector4DConstructorRuntime;
 
 /**
  * @author Andrea Medeghini

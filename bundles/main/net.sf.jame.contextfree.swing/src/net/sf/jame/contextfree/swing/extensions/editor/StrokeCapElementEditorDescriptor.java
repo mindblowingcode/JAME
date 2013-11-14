@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.swing.extensions.editor;
 
 import net.sf.jame.core.swing.editor.extension.EditorExtensionDescriptor;
-import net.sf.jame.contextfree.swing.extensions.editor.StrokeCapElementEditorRuntime;
 
 /**
  * @author Andrea Medeghini

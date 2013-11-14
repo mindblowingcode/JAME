@@ -27,7 +27,6 @@ package net.sf.jame.twister.converter.extension;
 
 import net.sf.jame.core.extension.sl.SLExtensionBuilder;
 import net.sf.jame.core.extension.sl.SLExtensionRegistry;
-import net.sf.jame.twister.converter.extension.ConverterExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

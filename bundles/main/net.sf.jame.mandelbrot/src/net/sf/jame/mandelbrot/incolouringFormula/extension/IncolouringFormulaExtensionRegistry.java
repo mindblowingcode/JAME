@@ -27,8 +27,6 @@ package net.sf.jame.mandelbrot.incolouringFormula.extension;
 
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
-import net.sf.jame.mandelbrot.incolouringFormula.extension.IncolouringFormulaExtensionRuntime;
-import net.sf.jame.mandelbrot.incolouringFormula.extension.IncolouringFormulaExtensionConfig;
 
 /**
  * @author Andrea Medeghini

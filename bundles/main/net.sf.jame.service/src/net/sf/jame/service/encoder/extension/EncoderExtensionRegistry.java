@@ -27,8 +27,6 @@ package net.sf.jame.service.encoder.extension;
 
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
-import net.sf.jame.service.encoder.extension.EncoderExtensionRuntime;
-import net.sf.jame.service.encoder.extension.EncoderExtensionConfig;
 
 /**
  * @author Andrea Medeghini

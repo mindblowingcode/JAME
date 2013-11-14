@@ -26,8 +26,6 @@
 package net.sf.jame.twister.extensions.layerFilter;
 
 import net.sf.jame.twister.layerFilter.extension.LayerFilterExtensionDescriptor;
-import net.sf.jame.twister.extensions.layerFilter.BlackRuntime;
-import net.sf.jame.twister.extensions.layerFilter.BlackConfig;
 
 /**
  * @author Andrea Medeghini

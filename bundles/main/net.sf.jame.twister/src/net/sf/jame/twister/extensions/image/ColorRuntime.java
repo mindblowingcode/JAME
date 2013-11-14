@@ -29,8 +29,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Map;
 
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.IntegerVector2D;
+import net.sf.jame.core.util.Tile;
 import net.sf.jame.twister.image.extension.ImageExtensionRuntime;
 import net.sf.jame.twister.renderer.TwisterRenderer;
 import net.sf.jame.twister.renderer.TwisterRenderingHints;

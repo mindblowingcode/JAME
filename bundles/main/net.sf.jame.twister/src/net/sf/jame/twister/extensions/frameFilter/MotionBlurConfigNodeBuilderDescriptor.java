@@ -26,7 +26,6 @@
 package net.sf.jame.twister.extensions.frameFilter;
 
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionDescriptor;
-import net.sf.jame.twister.extensions.frameFilter.MotionBlurConfigNodeBuilderRuntime;
 
 /**
  * @author Andrea Medeghini

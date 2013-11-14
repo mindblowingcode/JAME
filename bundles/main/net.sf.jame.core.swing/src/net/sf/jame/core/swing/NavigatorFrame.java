@@ -59,9 +59,9 @@ import net.sf.jame.core.swing.util.GUIFactory;
 import net.sf.jame.core.swing.util.GUIUtil;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeEvent;
+import net.sf.jame.core.tree.NodeListener;
 import net.sf.jame.core.tree.NodeSession;
 import net.sf.jame.core.tree.Tree;
-import net.sf.jame.core.tree.NodeListener;
 import net.sf.jame.core.util.RenderContext;
 
 /**

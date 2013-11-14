@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.colorRenderer;
 
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.colorRenderer.ConstantConfigNodeBuilderRuntime;
 
 /**
  * @author Andrea Medeghini

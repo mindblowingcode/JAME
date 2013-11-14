@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.extensions.shapeAdjustment;
 
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.shapeAdjustment.CurrentHueShapeAdjustmentConfigNodeBuilderRuntime;
 
 /**
  * @author Andrea Medeghini

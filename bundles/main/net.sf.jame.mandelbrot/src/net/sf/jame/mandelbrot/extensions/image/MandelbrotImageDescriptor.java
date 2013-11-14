@@ -26,8 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.image;
 
 import net.sf.jame.twister.image.extension.ImageExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.image.MandelbrotImageRuntime;
-import net.sf.jame.mandelbrot.extensions.image.MandelbrotImageConfig;
 
 /**
  * @author Andrea Medeghini

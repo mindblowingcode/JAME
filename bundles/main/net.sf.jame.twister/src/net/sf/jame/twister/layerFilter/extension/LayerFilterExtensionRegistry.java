@@ -27,8 +27,6 @@ package net.sf.jame.twister.layerFilter.extension;
 
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
-import net.sf.jame.twister.layerFilter.extension.LayerFilterExtensionRuntime;
-import net.sf.jame.twister.layerFilter.extension.LayerFilterExtensionConfig;
 
 /**
  * @author Andrea Medeghini

@@ -25,18 +25,6 @@
  */
 package net.sf.jame.contextfree.renderer;
 
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-
-import net.sf.jame.contextfree.figure.FigureRuntimeElement;
-import net.sf.jame.contextfree.renderer.support.CFBuilder;
-import net.sf.jame.contextfree.renderer.support.CFColor;
-import net.sf.jame.contextfree.renderer.support.CFContext;
-import net.sf.jame.contextfree.renderer.support.CFModification;
-import net.sf.jame.contextfree.renderer.support.CFRenderer;
-import net.sf.jame.contextfree.renderer.support.CFShape;
-import net.sf.jame.core.util.Color32bit;
-
 import org.apache.log4j.Logger;
 
 /**

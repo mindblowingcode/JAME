@@ -26,7 +26,6 @@
 package net.sf.jame.twister.extensions.image;
 
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionDescriptor;
-import net.sf.jame.twister.extensions.image.BlackConfigNodeBuilderRuntime;
 
 /**
  * @author Andrea Medeghini

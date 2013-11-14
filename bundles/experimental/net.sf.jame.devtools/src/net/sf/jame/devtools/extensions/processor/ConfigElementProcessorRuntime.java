@@ -35,8 +35,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.jame.devtools.ProcessorCardinality;
 import net.sf.jame.devtools.DevToolsException;
+import net.sf.jame.devtools.ProcessorCardinality;
 import net.sf.jame.devtools.ProcessorDescriptor;
 import net.sf.jame.devtools.ProcessorParameters;
 import net.sf.jame.devtools.ProcessorTemplateLoader;

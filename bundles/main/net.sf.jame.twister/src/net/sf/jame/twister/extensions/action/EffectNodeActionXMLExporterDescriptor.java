@@ -26,7 +26,6 @@
 package net.sf.jame.twister.extensions.action;
 
 import net.sf.jame.core.actionXMLExporter.extension.ActionXMLExporterExtensionDescriptor;
-import net.sf.jame.twister.extensions.action.EffectNodeActionXMLExporterRuntime;
 
 /**
  * @author Andrea Medeghini

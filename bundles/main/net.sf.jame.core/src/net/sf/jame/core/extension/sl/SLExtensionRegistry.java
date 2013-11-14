@@ -25,23 +25,9 @@
  */
 package net.sf.jame.core.extension.sl;
 
-import java.text.MessageFormat;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.ServiceLoader;
-
-import net.sf.jame.core.extension.Extension;
-import net.sf.jame.core.extension.ExtensionComparator;
 import net.sf.jame.core.extension.ExtensionDescriptor;
-import net.sf.jame.core.extension.ExtensionNotFoundException;
-import net.sf.jame.core.extension.ExtensionRegistry;
 import net.sf.jame.core.extension.ExtensionRuntime;
-
-import org.apache.log4j.Logger;
+import net.sf.jame.core.extension.osgi.OSGiExtensionRegistry;
 
 /**
  * SL extension registry.
@@ -49,13 +35,13 @@ import org.apache.log4j.Logger;
  * @author Andrea Medeghini
  * @param <T> the extension runtime type.
  */
-public class SLExtensionRegistry<T extends ExtensionRuntime> implements ExtensionRegistry<T> {
-	private static final ResourceBundle bundle = ResourceBundle.getBundle(SLExtensionRegistry.class.getPackage().getName() + ".resources");
-	private static final Logger logger = Logger.getLogger(SLExtensionRegistry.class);
-	private final Hashtable<String, Extension<T>> extensionMap = new Hashtable<String, Extension<T>>();
+public class SLExtensionRegistry<T extends ExtensionRuntime> extends OSGiExtensionRegistry<T> {
+//	private static final ResourceBundle bundle = ResourceBundle.getBundle(SLExtensionRegistry.class.getPackage().getName() + ".resources");
+//	private static final Logger logger = Logger.getLogger(SLExtensionRegistry.class);
+//	private final Hashtable<String, Extension<T>> extensionMap = new Hashtable<String, Extension<T>>();
 	private Class<? extends ExtensionDescriptor<T>> extensionDescriptorClass;
-	private String extensionPointName;
-	private String cfgElementName;
+//	private String extensionPointName;
+//	private String cfgElementName;
 	
 	/**
 	 * Constructs a new extension registry.
@@ -64,44 +50,45 @@ public class SLExtensionRegistry<T extends ExtensionRuntime> implements Extensio
 	 * @param builder the extension builder.
 	 */
 	protected SLExtensionRegistry(final Class<? extends ExtensionDescriptor<T>> extensionDescriptorClass, final String extensionPointName, final SLExtensionBuilder<T> builder) {
+		super(extensionPointName, builder);
 		this.extensionDescriptorClass = extensionDescriptorClass;
-		this.extensionPointName = extensionPointName;
-		this.cfgElementName = builder.getCfgElementName();
-		final ServiceLoader<? extends ExtensionDescriptor<T>> serviceLoader = ServiceLoader.load(extensionDescriptorClass);
-		for (ExtensionDescriptor<T> extensionDescriptor : serviceLoader) {
-			System.out.println(extensionDescriptor.getExtensionId());//TODO da rimuovere
-			try {
-				Extension<T> extension = builder.createExtension(extensionDescriptor);
-				this.extensionMap.put(extension.getExtensionId(), extension);
-			} catch (SLExtensionBuilderException e) {
-				SLExtensionRegistry.logger.error(MessageFormat.format(SLExtensionRegistry.bundle.getString("extension.error.1"), extensionDescriptor.getExtensionName()), e);
-			}
-		}
+//		this.extensionPointName = extensionPointName;
+//		this.cfgElementName = builder.getCfgElementName();
+//		final ServiceLoader<? extends ExtensionDescriptor<T>> serviceLoader = ServiceLoader.load(extensionDescriptorClass);
+//		for (ExtensionDescriptor<T> extensionDescriptor : serviceLoader) {
+//			System.out.println(extensionDescriptor.getExtensionId());//TODO da rimuovere
+//			try {
+//				Extension<T> extension = builder.createExtension(extensionDescriptor);
+//				this.extensionMap.put(extension.getExtensionId(), extension);
+//			} catch (SLExtensionBuilderException e) {
+//				SLExtensionRegistry.logger.error(MessageFormat.format(SLExtensionRegistry.bundle.getString("extension.error.1"), extensionDescriptor.getExtensionName()), e);
+//			}
+//		}
 	}
 
-	/**
-	 * @see net.sf.jame.core.extension.ExtensionRegistry#getExtensionList()
-	 */
-	public List<Extension<T>> getExtensionList() {
-		final Enumeration<Extension<T>> elements = this.extensionMap.elements();
-		final List<Extension<T>> list = new LinkedList<Extension<T>>();
-		while (elements.hasMoreElements()) {
-			list.add(elements.nextElement());
-		}
-		Collections.sort(list, new ExtensionComparator());
-		return list;
-	}
-
-	/**
-	 * @see net.sf.jame.core.extension.ExtensionRegistry#getExtension(java.lang.String)
-	 */
-	public Extension<T> getExtension(final String extensionId) throws ExtensionNotFoundException {
-		final Extension<T> extension = this.extensionMap.get(extensionId);
-		if (extension == null) {
-			throw new ExtensionNotFoundException("Can't find extension " + extensionId + " [cfgElementName = " + cfgElementName + ", extensionPointName = " + extensionPointName + "]");
-		}
-		return extension;
-	}
+//	/**
+//	 * @see net.sf.jame.core.extension.ExtensionRegistry#getExtensionList()
+//	 */
+//	public List<Extension<T>> getExtensionList() {
+//		final Enumeration<Extension<T>> elements = this.extensionMap.elements();
+//		final List<Extension<T>> list = new LinkedList<Extension<T>>();
+//		while (elements.hasMoreElements()) {
+//			list.add(elements.nextElement());
+//		}
+//		Collections.sort(list, new ExtensionComparator());
+//		return list;
+//	}
+//
+//	/**
+//	 * @see net.sf.jame.core.extension.ExtensionRegistry#getExtension(java.lang.String)
+//	 */
+//	public Extension<T> getExtension(final String extensionId) throws ExtensionNotFoundException {
+//		final Extension<T> extension = this.extensionMap.get(extensionId);
+//		if (extension == null) {
+//			throw new ExtensionNotFoundException("Can't find extension " + extensionId + " [cfgElementName = " + cfgElementName + ", extensionPointName = " + extensionPointName + "]");
+//		}
+//		return extension;
+//	}
 
 	/**
 	 * Returns the extension descriptor class.

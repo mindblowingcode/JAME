@@ -26,7 +26,6 @@
 package net.sf.jame.twister.swing.extensions.adapter;
 
 import net.sf.jame.twister.swing.inputAdapter.extension.InputAdapterExtensionDescriptor;
-import net.sf.jame.twister.swing.extensions.adapter.MotionBlurInputAdapterRuntime;
 
 /**
  * @author Andrea Medeghini

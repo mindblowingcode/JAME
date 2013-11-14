@@ -29,8 +29,8 @@ import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.Surface;
+import net.sf.jame.core.util.Tile;
 import net.sf.jame.twister.TwisterRuntime;
 import net.sf.jame.twister.frame.FrameRuntimeElement;
 import net.sf.jame.twister.image.ImageRuntimeElement;

@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.converter;
 
 import net.sf.jame.twister.converter.extension.ConverterExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.converter.DefaultConverterRuntime;
 
 /**
  * @author Andrea Medeghini

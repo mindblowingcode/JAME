@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.incolouringFormula;
 
 import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.incolouringFormula.PhaseConfigXMLExporterRuntime;
 
 /**
  * @author Andrea Medeghini

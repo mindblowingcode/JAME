@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.extensions.image;
 
 import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.image.ContextFreeImageConfigXMLImporterRuntime;
 
 /**
  * @author Andrea Medeghini

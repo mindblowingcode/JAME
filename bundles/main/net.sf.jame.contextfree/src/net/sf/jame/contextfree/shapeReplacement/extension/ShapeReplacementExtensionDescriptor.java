@@ -26,8 +26,6 @@
 package net.sf.jame.contextfree.shapeReplacement.extension;
 
 import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
-import net.sf.jame.contextfree.shapeReplacement.extension.ShapeReplacementExtensionRuntime;
-import net.sf.jame.contextfree.shapeReplacement.extension.ShapeReplacementExtensionConfig;
 
 /**
  * @author Andrea Medeghini

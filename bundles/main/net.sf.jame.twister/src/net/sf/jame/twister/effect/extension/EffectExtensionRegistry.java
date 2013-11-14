@@ -27,8 +27,6 @@ package net.sf.jame.twister.effect.extension;
 
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
-import net.sf.jame.twister.effect.extension.EffectExtensionRuntime;
-import net.sf.jame.twister.effect.extension.EffectExtensionConfig;
 
 /**
  * @author Andrea Medeghini

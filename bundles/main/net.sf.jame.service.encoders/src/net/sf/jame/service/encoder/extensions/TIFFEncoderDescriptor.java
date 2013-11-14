@@ -26,8 +26,6 @@
 package net.sf.jame.service.encoder.extensions;
 
 import net.sf.jame.service.encoder.extension.EncoderExtensionDescriptor;
-import net.sf.jame.service.encoder.extensions.TIFFEncoderRuntime;
-import net.sf.jame.service.encoder.extensions.TIFFEncoderConfig;
 
 /**
  * @author Andrea Medeghini

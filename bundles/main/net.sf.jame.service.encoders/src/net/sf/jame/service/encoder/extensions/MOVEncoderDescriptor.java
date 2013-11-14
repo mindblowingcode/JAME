@@ -26,8 +26,6 @@
 package net.sf.jame.service.encoder.extensions;
 
 import net.sf.jame.service.encoder.extension.EncoderExtensionDescriptor;
-import net.sf.jame.service.encoder.extensions.MOVEncoderRuntime;
-import net.sf.jame.service.encoder.extensions.MOVEncoderConfig;
 
 /**
  * @author Andrea Medeghini

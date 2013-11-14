@@ -26,7 +26,6 @@
 package net.sf.jame.twister.extensions.image;
 
 import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionDescriptor;
-import net.sf.jame.twister.extensions.image.BorderConfigXMLExporterRuntime;
 
 /**
  * @author Andrea Medeghini

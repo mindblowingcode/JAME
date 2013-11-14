@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.pathAdjustment.CurrentSaturationPathAdjustmentConfigNodeBuilderRuntime;
 
 /**
  * @author Andrea Medeghini

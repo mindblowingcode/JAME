@@ -26,7 +26,6 @@
 package net.sf.jame.twister.extensions.creator;
 
 import net.sf.jame.core.creator.extension.CreatorExtensionDescriptor;
-import net.sf.jame.twister.extensions.creator.ImageLayerCreatorRuntime;
 
 /**
  * @author Andrea Medeghini

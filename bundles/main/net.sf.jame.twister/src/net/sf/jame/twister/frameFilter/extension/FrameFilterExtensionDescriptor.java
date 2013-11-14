@@ -26,8 +26,6 @@
 package net.sf.jame.twister.frameFilter.extension;
 
 import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
-import net.sf.jame.twister.frameFilter.extension.FrameFilterExtensionRuntime;
-import net.sf.jame.twister.frameFilter.extension.FrameFilterExtensionConfig;
 
 /**
  * @author Andrea Medeghini

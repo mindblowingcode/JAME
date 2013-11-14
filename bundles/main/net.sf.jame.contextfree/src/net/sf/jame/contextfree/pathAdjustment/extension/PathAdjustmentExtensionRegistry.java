@@ -27,8 +27,6 @@ package net.sf.jame.contextfree.pathAdjustment.extension;
 
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
-import net.sf.jame.contextfree.pathAdjustment.extension.PathAdjustmentExtensionRuntime;
-import net.sf.jame.contextfree.pathAdjustment.extension.PathAdjustmentExtensionConfig;
 
 /**
  * @author Andrea Medeghini

@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.outcolouringFormula.processed;
 
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.outcolouringFormula.processed.SmoothModulusConfigNodeBuilderRuntime;
 
 /**
  * @author Andrea Medeghini

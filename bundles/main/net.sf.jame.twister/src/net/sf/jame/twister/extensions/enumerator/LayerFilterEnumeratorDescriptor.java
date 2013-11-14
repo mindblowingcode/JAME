@@ -26,7 +26,6 @@
 package net.sf.jame.twister.extensions.enumerator;
 
 import net.sf.jame.core.enumerator.extension.EnumeratorExtensionDescriptor;
-import net.sf.jame.twister.extensions.enumerator.LayerFilterEnumeratorRuntime;
 
 /**
  * @author Andrea Medeghini

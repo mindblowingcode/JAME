@@ -27,7 +27,6 @@ package net.sf.jame.core.actionXMLExporter.extension;
 
 import net.sf.jame.core.extension.sl.SLExtensionBuilder;
 import net.sf.jame.core.extension.sl.SLExtensionRegistry;
-import net.sf.jame.core.actionXMLExporter.extension.ActionXMLExporterExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

@@ -57,8 +57,8 @@ import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.core.swing.editor.extension.EditorExtensionRuntime;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeEvent;
-import net.sf.jame.core.tree.RootNode;
 import net.sf.jame.core.tree.NodeListener;
+import net.sf.jame.core.tree.RootNode;
 
 import org.apache.log4j.Logger;
 

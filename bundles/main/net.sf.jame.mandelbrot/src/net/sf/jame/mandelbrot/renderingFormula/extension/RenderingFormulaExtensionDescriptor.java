@@ -26,8 +26,6 @@
 package net.sf.jame.mandelbrot.renderingFormula.extension;
 
 import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
-import net.sf.jame.mandelbrot.renderingFormula.extension.RenderingFormulaExtensionRuntime;
-import net.sf.jame.mandelbrot.renderingFormula.extension.RenderingFormulaExtensionConfig;
 
 /**
  * @author Andrea Medeghini

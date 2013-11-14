@@ -26,7 +26,6 @@
 package net.sf.jame.twister.extensions.effect;
 
 import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionDescriptor;
-import net.sf.jame.twister.extensions.effect.WaterConfigXMLExporterRuntime;
 
 /**
  * @author Andrea Medeghini

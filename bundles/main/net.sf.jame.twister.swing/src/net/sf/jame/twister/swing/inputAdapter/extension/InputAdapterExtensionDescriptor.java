@@ -26,7 +26,6 @@
 package net.sf.jame.twister.swing.inputAdapter.extension;
 
 import net.sf.jame.core.extension.ExtensionDescriptor;
-import net.sf.jame.twister.swing.inputAdapter.extension.InputAdapterExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

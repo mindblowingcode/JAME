@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.swing.extensions.adapter;
 
 import net.sf.jame.twister.swing.inputAdapter.extension.InputAdapterExtensionDescriptor;
-import net.sf.jame.contextfree.swing.extensions.adapter.ContextFreeInputAdapterRuntime;
 
 /**
  * @author Andrea Medeghini

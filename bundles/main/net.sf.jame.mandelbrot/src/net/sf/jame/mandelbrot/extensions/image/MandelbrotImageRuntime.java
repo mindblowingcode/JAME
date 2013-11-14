@@ -36,16 +36,16 @@ import java.util.Map;
 
 import net.sf.jame.core.math.Complex;
 import net.sf.jame.core.util.DoubleVector2D;
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.IntegerVector2D;
 import net.sf.jame.core.util.Rectangle;
+import net.sf.jame.core.util.Tile;
 import net.sf.jame.mandelbrot.MandelbrotManager;
 import net.sf.jame.mandelbrot.MandelbrotRuntime;
 import net.sf.jame.mandelbrot.fractal.MandelbrotFractalRuntimeElement;
+import net.sf.jame.mandelbrot.renderer.BestXaosMandelbrotRenderer;
 import net.sf.jame.mandelbrot.renderer.FastXaosMandelbrotRenderer;
 import net.sf.jame.mandelbrot.renderer.RenderedPoint;
 import net.sf.jame.mandelbrot.renderer.SimpleMandelbrotRenderer;
-import net.sf.jame.mandelbrot.renderer.BestXaosMandelbrotRenderer;
 import net.sf.jame.mandelbrot.renderingFormula.RenderingFormulaRuntimeElement;
 import net.sf.jame.twister.image.extension.ImageExtensionRuntime;
 import net.sf.jame.twister.renderer.TwisterRenderer;

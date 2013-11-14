@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.extensions.creator;
 
 import net.sf.jame.core.creator.extension.CreatorExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.creator.PathAdjustmentCreatorRuntime;
 
 /**
  * @author Andrea Medeghini

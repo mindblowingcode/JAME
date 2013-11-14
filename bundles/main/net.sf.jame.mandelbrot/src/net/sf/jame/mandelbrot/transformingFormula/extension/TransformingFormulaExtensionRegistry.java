@@ -27,8 +27,6 @@ package net.sf.jame.mandelbrot.transformingFormula.extension;
 
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
-import net.sf.jame.mandelbrot.transformingFormula.extension.TransformingFormulaExtensionRuntime;
-import net.sf.jame.mandelbrot.transformingFormula.extension.TransformingFormulaExtensionConfig;
 
 /**
  * @author Andrea Medeghini

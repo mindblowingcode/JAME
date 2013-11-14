@@ -26,7 +26,6 @@
 package net.sf.jame.core.extensions.action;
 
 import net.sf.jame.core.actionXMLImporter.extension.ActionXMLImporterExtensionDescriptor;
-import net.sf.jame.core.extensions.action.BooleanNodeActionXMLImporterRuntime;
 
 /**
  * @author Andrea Medeghini

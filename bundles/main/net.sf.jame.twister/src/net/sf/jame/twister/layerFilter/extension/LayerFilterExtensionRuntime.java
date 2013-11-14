@@ -26,8 +26,8 @@
 package net.sf.jame.twister.layerFilter.extension;
 
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.Surface;
+import net.sf.jame.core.util.Tile;
 import net.sf.jame.twister.util.Padding;
 
 /**

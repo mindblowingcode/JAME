@@ -26,8 +26,6 @@
 package net.sf.jame.twister.extensions.image;
 
 import net.sf.jame.twister.image.extension.ImageExtensionDescriptor;
-import net.sf.jame.twister.extensions.image.BorderRuntime;
-import net.sf.jame.twister.extensions.image.BorderConfig;
 
 /**
  * @author Andrea Medeghini

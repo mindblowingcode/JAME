@@ -26,8 +26,6 @@
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
 import net.sf.jame.contextfree.pathAdjustment.extension.PathAdjustmentExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.pathAdjustment.TargetSaturationPathAdjustmentRuntime;
-import net.sf.jame.contextfree.extensions.pathAdjustment.TargetSaturationPathAdjustmentConfig;
 
 /**
  * @author Andrea Medeghini

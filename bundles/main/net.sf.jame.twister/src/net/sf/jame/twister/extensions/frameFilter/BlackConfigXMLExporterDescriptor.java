@@ -26,7 +26,6 @@
 package net.sf.jame.twister.extensions.frameFilter;
 
 import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionDescriptor;
-import net.sf.jame.twister.extensions.frameFilter.BlackConfigXMLExporterRuntime;
 
 /**
  * @author Andrea Medeghini

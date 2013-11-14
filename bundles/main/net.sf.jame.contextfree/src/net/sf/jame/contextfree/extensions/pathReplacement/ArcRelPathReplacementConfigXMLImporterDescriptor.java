@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.pathReplacement.ArcRelPathReplacementConfigXMLImporterRuntime;
 
 /**
  * @author Andrea Medeghini

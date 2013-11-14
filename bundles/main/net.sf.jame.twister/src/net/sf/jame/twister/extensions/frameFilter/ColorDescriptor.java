@@ -26,8 +26,6 @@
 package net.sf.jame.twister.extensions.frameFilter;
 
 import net.sf.jame.twister.frameFilter.extension.FrameFilterExtensionDescriptor;
-import net.sf.jame.twister.extensions.frameFilter.ColorRuntime;
-import net.sf.jame.twister.extensions.frameFilter.ColorConfig;
 
 /**
  * @author Andrea Medeghini

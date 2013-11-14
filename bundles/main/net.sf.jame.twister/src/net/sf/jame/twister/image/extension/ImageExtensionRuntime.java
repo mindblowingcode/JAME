@@ -29,8 +29,8 @@ import java.awt.Graphics2D;
 import java.util.Map;
 
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.IntegerVector2D;
+import net.sf.jame.core.util.Tile;
 
 /**
  * @author Andrea Medeghini

@@ -26,8 +26,6 @@
 package net.sf.jame.twister.extensions.effect;
 
 import net.sf.jame.twister.effect.extension.EffectExtensionDescriptor;
-import net.sf.jame.twister.extensions.effect.SpotRuntime;
-import net.sf.jame.twister.extensions.effect.SpotConfig;
 
 /**
  * @author Andrea Medeghini

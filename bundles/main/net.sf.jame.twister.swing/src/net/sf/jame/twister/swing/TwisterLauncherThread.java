@@ -32,14 +32,14 @@ import java.io.InputStream;
 
 import javax.swing.JOptionPane;
 
-import org.w3c.dom.Document;
-
 import net.sf.jame.core.config.DefaultConfigContext;
 import net.sf.jame.core.swing.util.GUIUtil;
 import net.sf.jame.core.xml.XML;
 import net.sf.jame.twister.TwisterConfig;
 import net.sf.jame.twister.TwisterConfigBuilder;
 import net.sf.jame.twister.TwisterConfigXMLImporter;
+
+import org.w3c.dom.Document;
 
 /**
  * @author Andrea Medeghini

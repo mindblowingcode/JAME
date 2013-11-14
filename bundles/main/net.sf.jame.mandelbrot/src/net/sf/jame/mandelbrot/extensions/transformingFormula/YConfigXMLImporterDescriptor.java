@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.transformingFormula;
 
 import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.transformingFormula.YConfigXMLImporterRuntime;
 
 /**
  * @author Andrea Medeghini

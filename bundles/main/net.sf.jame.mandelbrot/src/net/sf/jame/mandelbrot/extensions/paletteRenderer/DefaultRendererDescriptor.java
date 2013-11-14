@@ -26,8 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.paletteRenderer;
 
 import net.sf.jame.mandelbrot.paletteRenderer.extension.PaletteRendererExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.paletteRenderer.DefaultRendererRuntime;
-import net.sf.jame.mandelbrot.extensions.paletteRenderer.DefaultRendererConfig;
 
 /**
  * @author Andrea Medeghini

@@ -26,8 +26,6 @@
 package net.sf.jame.mandelbrot.outcolouringFormula.extension;
 
 import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
-import net.sf.jame.mandelbrot.outcolouringFormula.extension.OutcolouringFormulaExtensionRuntime;
-import net.sf.jame.mandelbrot.outcolouringFormula.extension.OutcolouringFormulaExtensionConfig;
 
 /**
  * @author Andrea Medeghini

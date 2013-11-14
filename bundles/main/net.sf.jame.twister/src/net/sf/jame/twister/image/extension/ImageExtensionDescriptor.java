@@ -26,8 +26,6 @@
 package net.sf.jame.twister.image.extension;
 
 import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
-import net.sf.jame.twister.image.extension.ImageExtensionRuntime;
-import net.sf.jame.twister.image.extension.ImageExtensionConfig;
 
 /**
  * @author Andrea Medeghini

@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.enumerator;
 
 import net.sf.jame.core.enumerator.extension.EnumeratorExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.enumerator.ColorRendererEnumeratorRuntime;
 
 /**
  * @author Andrea Medeghini

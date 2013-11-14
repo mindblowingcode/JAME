@@ -26,8 +26,6 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.contextfree.pathReplacement.extension.PathReplacementExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementRuntime;
-import net.sf.jame.contextfree.extensions.pathReplacement.StrokePathReplacementConfig;
 
 /**
  * @author Andrea Medeghini

@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.extensions.enumerator;
 
 import net.sf.jame.core.enumerator.extension.EnumeratorExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.enumerator.ShapeAdjustmentEnumeratorRuntime;
 
 /**
  * @author Andrea Medeghini

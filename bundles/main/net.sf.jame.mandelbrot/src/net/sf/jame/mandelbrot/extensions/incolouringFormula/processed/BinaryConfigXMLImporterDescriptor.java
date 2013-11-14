@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.incolouringFormula.processed;
 
 import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.incolouringFormula.processed.BinaryConfigXMLImporterRuntime;
 
 /**
  * @author Andrea Medeghini
