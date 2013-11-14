@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.renderingFormula;
 
 import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.renderingFormula.Z2ConfigXMLExporterRuntime;
 
 /**
  * @author Andrea Medeghini

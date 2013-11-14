@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.creator;
 
 import net.sf.jame.core.creator.extension.CreatorExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.creator.PaletteRendererCreatorRuntime;
 
 /**
  * @author Andrea Medeghini

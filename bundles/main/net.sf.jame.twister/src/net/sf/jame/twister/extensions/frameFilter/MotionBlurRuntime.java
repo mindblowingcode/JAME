@@ -28,8 +28,8 @@ package net.sf.jame.twister.extensions.frameFilter;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.Surface;
+import net.sf.jame.core.util.Tile;
 import net.sf.jame.twister.frameFilter.extension.FrameFilterExtensionRuntime;
 import net.sf.jame.twister.util.Padding;
 

@@ -26,8 +26,6 @@
 package net.sf.jame.contextfree.extensions.figure;
 
 import net.sf.jame.contextfree.figure.extension.FigureExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.figure.SquareFigureRuntime;
-import net.sf.jame.contextfree.extensions.figure.SquareFigureConfig;
 
 /**
  * @author Andrea Medeghini

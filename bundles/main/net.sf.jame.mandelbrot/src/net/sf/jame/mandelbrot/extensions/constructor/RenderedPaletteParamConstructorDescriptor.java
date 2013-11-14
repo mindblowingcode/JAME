@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.constructor;
 
 import net.sf.jame.core.constructor.extension.ConstructorExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.constructor.RenderedPaletteParamConstructorRuntime;
 
 /**
  * @author Andrea Medeghini

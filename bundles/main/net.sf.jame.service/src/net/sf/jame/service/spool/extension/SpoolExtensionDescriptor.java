@@ -26,8 +26,6 @@
 package net.sf.jame.service.spool.extension;
 
 import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
-import net.sf.jame.service.spool.extension.SpoolExtensionRuntime;
-import net.sf.jame.service.spool.extension.SpoolExtensionConfig;
 
 /**
  * @author Andrea Medeghini

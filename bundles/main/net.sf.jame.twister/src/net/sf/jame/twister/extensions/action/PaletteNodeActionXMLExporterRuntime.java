@@ -25,12 +25,12 @@
  */
 package net.sf.jame.twister.extensions.action;
 
-import org.w3c.dom.Element;
-
 import net.sf.jame.core.tree.NodeActionValue;
 import net.sf.jame.core.util.AbstractActionXMLExporterRuntime;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLNodeBuilder;
+
+import org.w3c.dom.Element;
 
 /**
  * @author Andrea Medeghini

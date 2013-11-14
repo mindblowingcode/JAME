@@ -26,7 +26,6 @@
 package net.sf.jame.core.scripting;
 
 import net.sf.jame.core.creator.extension.CreatorExtensionDescriptor;
-import net.sf.jame.core.scripting.ReferenceCreatorRuntime;
 
 /**
  * @author Andrea Medeghini

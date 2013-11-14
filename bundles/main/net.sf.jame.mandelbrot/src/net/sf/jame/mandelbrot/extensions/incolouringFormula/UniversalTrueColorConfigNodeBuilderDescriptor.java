@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.incolouringFormula;
 
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.incolouringFormula.UniversalTrueColorConfigNodeBuilderRuntime;
 
 /**
  * @author Andrea Medeghini

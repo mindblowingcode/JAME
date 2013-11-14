@@ -26,8 +26,6 @@
 package net.sf.jame.twister.extensions.effect;
 
 import net.sf.jame.twister.effect.extension.EffectExtensionDescriptor;
-import net.sf.jame.twister.extensions.effect.WaterRuntime;
-import net.sf.jame.twister.extensions.effect.WaterConfig;
 
 /**
  * @author Andrea Medeghini

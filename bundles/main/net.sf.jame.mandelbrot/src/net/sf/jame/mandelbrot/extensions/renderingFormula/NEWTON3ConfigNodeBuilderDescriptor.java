@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.renderingFormula;
 
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.renderingFormula.NEWTON3ConfigNodeBuilderRuntime;
 
 /**
  * @author Andrea Medeghini

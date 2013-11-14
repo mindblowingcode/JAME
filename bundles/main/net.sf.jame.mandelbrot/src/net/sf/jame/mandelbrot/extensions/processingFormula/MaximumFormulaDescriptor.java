@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.processingFormula;
 
 import net.sf.jame.mandelbrot.processingFormula.extension.ProcessingFormulaExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.processingFormula.MaximumFormulaRuntime;
 
 /**
  * @author Andrea Medeghini

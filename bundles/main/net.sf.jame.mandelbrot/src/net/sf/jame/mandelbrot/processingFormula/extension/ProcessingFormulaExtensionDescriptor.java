@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.processingFormula.extension;
 
 import net.sf.jame.core.extension.ExtensionDescriptor;
-import net.sf.jame.mandelbrot.processingFormula.extension.ProcessingFormulaExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

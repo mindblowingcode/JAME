@@ -26,8 +26,6 @@
 package net.sf.jame.service.encoder.extensions;
 
 import net.sf.jame.service.encoder.extension.EncoderExtensionDescriptor;
-import net.sf.jame.service.encoder.extensions.JPEGEncoderRuntime;
-import net.sf.jame.service.encoder.extensions.JPEGEncoderConfig;
 
 /**
  * @author Andrea Medeghini

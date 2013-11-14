@@ -26,8 +26,6 @@
 package net.sf.jame.twister.extensions.effect;
 
 import net.sf.jame.twister.effect.extension.EffectExtensionDescriptor;
-import net.sf.jame.twister.extensions.effect.FireRuntime;
-import net.sf.jame.twister.extensions.effect.FireConfig;
 
 /**
  * @author Andrea Medeghini

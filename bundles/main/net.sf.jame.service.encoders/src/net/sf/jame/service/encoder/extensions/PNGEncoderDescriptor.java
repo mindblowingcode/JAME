@@ -26,8 +26,6 @@
 package net.sf.jame.service.encoder.extensions;
 
 import net.sf.jame.service.encoder.extension.EncoderExtensionDescriptor;
-import net.sf.jame.service.encoder.extensions.PNGEncoderRuntime;
-import net.sf.jame.service.encoder.extensions.PNGEncoderConfig;
 
 /**
  * @author Andrea Medeghini

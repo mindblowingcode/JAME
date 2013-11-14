@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.processingFormula.distance;
 
 import net.sf.jame.mandelbrot.processingFormula.extension.ProcessingFormulaExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.processingFormula.distance.AverageFormulaRuntime;
 
 /**
  * @author Andrea Medeghini

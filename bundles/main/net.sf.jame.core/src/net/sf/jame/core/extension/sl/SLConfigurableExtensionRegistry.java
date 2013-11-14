@@ -25,25 +25,10 @@
  */
 package net.sf.jame.core.extension.sl;
 
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.ServiceLoader;
-
-import net.sf.jame.core.extension.ConfigurableExtension;
 import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
-import net.sf.jame.core.extension.ConfigurableExtensionRegistry;
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
-import net.sf.jame.core.extension.Extension;
-import net.sf.jame.core.extension.ExtensionComparator;
 import net.sf.jame.core.extension.ExtensionConfig;
-import net.sf.jame.core.extension.ExtensionNotFoundException;
-
-import org.apache.log4j.Logger;
+import net.sf.jame.core.extension.osgi.OSGiConfigurableExtensionRegistry;
 
 /**
  * SL configurable extension registry.
@@ -52,13 +37,13 @@ import org.apache.log4j.Logger;
  * @param <T> the extension runtime type.
  * @param <V> the extension configuration type.
  */
-public class SLConfigurableExtensionRegistry<T extends ConfigurableExtensionRuntime<? extends V>, V extends ExtensionConfig> implements ConfigurableExtensionRegistry<T, V> {
-	private static final ResourceBundle bundle = ResourceBundle.getBundle(SLConfigurableExtensionRegistry.class.getPackage().getName() + ".resources");
-	private static final Logger logger = Logger.getLogger(SLConfigurableExtensionRegistry.class);
-	private final HashMap<String, ConfigurableExtension<T, V>> extensionMap = new HashMap<String, ConfigurableExtension<T, V>>();
+public class SLConfigurableExtensionRegistry<T extends ConfigurableExtensionRuntime<? extends V>, V extends ExtensionConfig> extends OSGiConfigurableExtensionRegistry<T, V> {
+//	private static final ResourceBundle bundle = ResourceBundle.getBundle(SLConfigurableExtensionRegistry.class.getPackage().getName() + ".resources");
+//	private static final Logger logger = Logger.getLogger(SLConfigurableExtensionRegistry.class);
+//	private final HashMap<String, ConfigurableExtension<T, V>> extensionMap = new HashMap<String, ConfigurableExtension<T, V>>();
 	private Class<? extends ConfigurableExtensionDescriptor<T, V>> extensionDescriptorClass;
-	private String extensionPointName;
-	private String cfgElementName;
+//	private String extensionPointName;
+//	private String cfgElementName;
 
 	/**
 	 * Constructs a new extension registry.
@@ -67,64 +52,65 @@ public class SLConfigurableExtensionRegistry<T extends ConfigurableExtensionRunt
 	 * @param builder the extension builder.
 	 */
 	protected SLConfigurableExtensionRegistry(final Class<? extends ConfigurableExtensionDescriptor<T, V>> extensionDescriptorClass, final String extensionPointName, final SLConfigurableExtensionBuilder<T, V> builder) {
+		super(extensionPointName, builder);
 		this.extensionDescriptorClass = extensionDescriptorClass;
-		this.extensionPointName = extensionPointName;
-		this.cfgElementName = builder.getCfgElementName();
-		final ServiceLoader<? extends ConfigurableExtensionDescriptor<T, V>> serviceLoader = ServiceLoader.load(extensionDescriptorClass);
-		for (ConfigurableExtensionDescriptor<T, V> extensionDescriptor : serviceLoader) {
-			System.out.println(extensionDescriptor.getExtensionId());//TODO da rimuovere
-			try {
-				ConfigurableExtension<T, V> extension = builder.createExtension(extensionDescriptor);
-				this.extensionMap.put(extension.getExtensionId(), extension);
-			} catch (SLExtensionBuilderException e) {
-				SLConfigurableExtensionRegistry.logger.error(MessageFormat.format(SLConfigurableExtensionRegistry.bundle.getString("extension.error.1"), extensionDescriptor.getExtensionName()), e);
-			}
-		}
+//		this.extensionPointName = extensionPointName;
+//		this.cfgElementName = builder.getCfgElementName();
+//		final ServiceLoader<? extends ConfigurableExtensionDescriptor<T, V>> serviceLoader = ServiceLoader.load(extensionDescriptorClass);
+//		for (ConfigurableExtensionDescriptor<T, V> extensionDescriptor : serviceLoader) {
+//			System.out.println(extensionDescriptor.getExtensionId());//TODO da rimuovere
+//			try {
+//				ConfigurableExtension<T, V> extension = builder.createExtension(extensionDescriptor);
+//				this.extensionMap.put(extension.getExtensionId(), extension);
+//			} catch (SLExtensionBuilderException e) {
+//				SLConfigurableExtensionRegistry.logger.error(MessageFormat.format(SLConfigurableExtensionRegistry.bundle.getString("extension.error.1"), extensionDescriptor.getExtensionName()), e);
+//			}
+//		}
 	}
 
-	/**
-	 * @see net.sf.jame.core.extension.ConfigurableExtensionRegistry#getConfigurableExtensionList()
-	 */
-	public List<ConfigurableExtension<T, V>> getConfigurableExtensionList() {
-		final Collection<ConfigurableExtension<T, V>> extensions = this.extensionMap.values();
-		final List<ConfigurableExtension<T, V>> list = new LinkedList<ConfigurableExtension<T, V>>();
-		for (final ConfigurableExtension<T, V> extension : extensions) {
-			list.add(extension);
-		}
-		Collections.sort(list, new ExtensionComparator());
-		return list;
-	}
-
-	/**
-	 * @see net.sf.jame.core.extension.ConfigurableExtensionRegistry#getConfigurableExtension(java.lang.String)
-	 */
-	public ConfigurableExtension<T, V> getConfigurableExtension(final String extensionId) throws ExtensionNotFoundException {
-		final ConfigurableExtension<T, V> extension = this.extensionMap.get(extensionId);
-		if (extension == null) {
-			throw new ExtensionNotFoundException("Can't find extension " + extensionId + " [cfgElementName = " + cfgElementName + ", extensionPointName = " + extensionPointName + "]");
-		}
-		return extension;
-	}
-
-	/**
-	 * @see net.sf.jame.core.extension.ExtensionRegistry#getExtensionList()
-	 */
-	public List<Extension<T>> getExtensionList() {
-		final Collection<ConfigurableExtension<T, V>> extensions = this.extensionMap.values();
-		final List<Extension<T>> list = new LinkedList<Extension<T>>();
-		for (final ConfigurableExtension<T, V> extension : extensions) {
-			list.add(extension);
-		}
-		Collections.sort(list, new ExtensionComparator());
-		return list;
-	}
-
-	/**
-	 * @see net.sf.jame.core.extension.ExtensionRegistry#getExtension(java.lang.String)
-	 */
-	public Extension<T> getExtension(final String extensionId) throws ExtensionNotFoundException {
-		return this.getConfigurableExtension(extensionId);
-	}
+//	/**
+//	 * @see net.sf.jame.core.extension.ConfigurableExtensionRegistry#getConfigurableExtensionList()
+//	 */
+//	public List<ConfigurableExtension<T, V>> getConfigurableExtensionList() {
+//		final Collection<ConfigurableExtension<T, V>> extensions = this.extensionMap.values();
+//		final List<ConfigurableExtension<T, V>> list = new LinkedList<ConfigurableExtension<T, V>>();
+//		for (final ConfigurableExtension<T, V> extension : extensions) {
+//			list.add(extension);
+//		}
+//		Collections.sort(list, new ExtensionComparator());
+//		return list;
+//	}
+//
+//	/**
+//	 * @see net.sf.jame.core.extension.ConfigurableExtensionRegistry#getConfigurableExtension(java.lang.String)
+//	 */
+//	public ConfigurableExtension<T, V> getConfigurableExtension(final String extensionId) throws ExtensionNotFoundException {
+//		final ConfigurableExtension<T, V> extension = this.extensionMap.get(extensionId);
+//		if (extension == null) {
+//			throw new ExtensionNotFoundException("Can't find extension " + extensionId + " [cfgElementName = " + cfgElementName + ", extensionPointName = " + extensionPointName + "]");
+//		}
+//		return extension;
+//	}
+//
+//	/**
+//	 * @see net.sf.jame.core.extension.ExtensionRegistry#getExtensionList()
+//	 */
+//	public List<Extension<T>> getExtensionList() {
+//		final Collection<ConfigurableExtension<T, V>> extensions = this.extensionMap.values();
+//		final List<Extension<T>> list = new LinkedList<Extension<T>>();
+//		for (final ConfigurableExtension<T, V> extension : extensions) {
+//			list.add(extension);
+//		}
+//		Collections.sort(list, new ExtensionComparator());
+//		return list;
+//	}
+//
+//	/**
+//	 * @see net.sf.jame.core.extension.ExtensionRegistry#getExtension(java.lang.String)
+//	 */
+//	public Extension<T> getExtension(final String extensionId) throws ExtensionNotFoundException {
+//		return this.getConfigurableExtension(extensionId);
+//	}
 
 	/**
 	 * Returns the extension descriptor class.

@@ -26,8 +26,6 @@
 package net.sf.jame.service.encoder.extensions;
 
 import net.sf.jame.service.encoder.extension.EncoderExtensionDescriptor;
-import net.sf.jame.service.encoder.extensions.AVIEncoderRuntime;
-import net.sf.jame.service.encoder.extensions.AVIEncoderConfig;
 
 /**
  * @author Andrea Medeghini

@@ -26,8 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.renderingFormula;
 
 import net.sf.jame.mandelbrot.renderingFormula.extension.RenderingFormulaExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.renderingFormula.COSZRuntime;
-import net.sf.jame.mandelbrot.extensions.renderingFormula.COSZConfig;
 
 /**
  * @author Andrea Medeghini

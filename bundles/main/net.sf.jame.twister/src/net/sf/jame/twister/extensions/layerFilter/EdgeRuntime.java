@@ -28,8 +28,8 @@ package net.sf.jame.twister.extensions.layerFilter;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.Surface;
+import net.sf.jame.core.util.Tile;
 import net.sf.jame.twister.layerFilter.extension.LayerFilterExtensionRuntime;
 import net.sf.jame.twister.util.Padding;
 

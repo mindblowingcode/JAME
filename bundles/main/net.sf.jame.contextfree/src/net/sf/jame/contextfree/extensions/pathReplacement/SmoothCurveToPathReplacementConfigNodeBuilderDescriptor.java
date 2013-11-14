@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.pathReplacement.SmoothCurveToPathReplacementConfigNodeBuilderRuntime;
 
 /**
  * @author Andrea Medeghini

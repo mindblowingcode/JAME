@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.extensions.pathAdjustment;
 
 import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.pathAdjustment.CurrentSaturationPathAdjustmentConfigXMLExporterRuntime;
 
 /**
  * @author Andrea Medeghini

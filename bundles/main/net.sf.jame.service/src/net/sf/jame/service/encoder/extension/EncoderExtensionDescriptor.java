@@ -26,8 +26,6 @@
 package net.sf.jame.service.encoder.extension;
 
 import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
-import net.sf.jame.service.encoder.extension.EncoderExtensionRuntime;
-import net.sf.jame.service.encoder.extension.EncoderExtensionConfig;
 
 /**
  * @author Andrea Medeghini

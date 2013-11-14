@@ -26,7 +26,6 @@
 package net.sf.jame.twister.swing.view.extension;
 
 import net.sf.jame.core.extension.ExtensionDescriptor;
-import net.sf.jame.twister.swing.view.extension.ViewExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

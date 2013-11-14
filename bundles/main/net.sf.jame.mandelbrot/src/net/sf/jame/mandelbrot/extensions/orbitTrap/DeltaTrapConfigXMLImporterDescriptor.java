@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.orbitTrap;
 
 import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.orbitTrap.DeltaTrapConfigXMLImporterRuntime;
 
 /**
  * @author Andrea Medeghini

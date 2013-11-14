@@ -30,8 +30,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import net.sf.jame.core.util.Color32bit;
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.Surface;
+import net.sf.jame.core.util.Tile;
 import net.sf.jame.twister.layerFilter.extension.LayerFilterExtensionRuntime;
 import net.sf.jame.twister.util.Padding;
 

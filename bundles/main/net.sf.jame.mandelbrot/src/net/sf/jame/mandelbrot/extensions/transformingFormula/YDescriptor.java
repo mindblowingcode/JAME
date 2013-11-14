@@ -26,8 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.transformingFormula;
 
 import net.sf.jame.mandelbrot.transformingFormula.extension.TransformingFormulaExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.transformingFormula.YRuntime;
-import net.sf.jame.mandelbrot.extensions.transformingFormula.YConfig;
 
 /**
  * @author Andrea Medeghini

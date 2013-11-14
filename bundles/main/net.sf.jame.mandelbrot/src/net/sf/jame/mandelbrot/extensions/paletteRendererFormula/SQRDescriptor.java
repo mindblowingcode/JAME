@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.paletteRendererFormula;
 
 import net.sf.jame.mandelbrot.paletteRendererFormula.extension.PaletteRendererFormulaExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.paletteRendererFormula.SQRRuntime;
 
 /**
  * @author Andrea Medeghini

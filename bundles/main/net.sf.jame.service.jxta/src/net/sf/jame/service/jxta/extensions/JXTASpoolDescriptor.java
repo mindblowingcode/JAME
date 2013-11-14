@@ -26,8 +26,6 @@
 package net.sf.jame.service.jxta.extensions;
 
 import net.sf.jame.service.spool.extension.SpoolExtensionDescriptor;
-import net.sf.jame.service.jxta.extensions.JXTASpoolRuntime;
-import net.sf.jame.service.jxta.extensions.JXTASpoolConfig;
 
 /**
  * @author Andrea Medeghini

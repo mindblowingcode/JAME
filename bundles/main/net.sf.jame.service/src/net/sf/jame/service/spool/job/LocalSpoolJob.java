@@ -35,9 +35,9 @@ import java.util.concurrent.ThreadFactory;
 
 import net.sf.jame.core.util.Colors;
 import net.sf.jame.core.util.DefaultThreadFactory;
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.IntegerVector2D;
 import net.sf.jame.core.util.Surface;
+import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.Worker;
 import net.sf.jame.core.xml.XML;
 import net.sf.jame.service.LibraryService;

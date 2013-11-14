@@ -26,8 +26,6 @@
 package net.sf.jame.twister.extensions.image;
 
 import net.sf.jame.twister.image.extension.ImageExtensionDescriptor;
-import net.sf.jame.twister.extensions.image.ColorRuntime;
-import net.sf.jame.twister.extensions.image.ColorConfig;
 
 /**
  * @author Andrea Medeghini

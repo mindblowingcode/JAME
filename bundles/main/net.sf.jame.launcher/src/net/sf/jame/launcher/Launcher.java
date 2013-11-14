@@ -27,7 +27,6 @@ package net.sf.jame.launcher;
 
 import java.lang.management.ManagementFactory;
 
-
 import org.apache.log4j.Logger;
 
 /**

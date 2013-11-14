@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.transformingFormula;
 
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.transformingFormula.UConfigNodeBuilderRuntime;
 
 /**
  * @author Andrea Medeghini

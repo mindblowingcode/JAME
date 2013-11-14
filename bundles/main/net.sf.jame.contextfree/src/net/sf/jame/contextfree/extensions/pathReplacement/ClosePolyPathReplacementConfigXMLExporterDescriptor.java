@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.extensions.pathReplacement;
 
 import net.sf.jame.core.extensionConfigXMLExporter.extension.ExtensionConfigXMLExporterExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.pathReplacement.ClosePolyPathReplacementConfigXMLExporterRuntime;
 
 /**
  * @author Andrea Medeghini

@@ -27,8 +27,6 @@ package net.sf.jame.mandelbrot.paletteRenderer.extension;
 
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionBuilder;
 import net.sf.jame.core.extension.sl.SLConfigurableExtensionRegistry;
-import net.sf.jame.mandelbrot.paletteRenderer.extension.PaletteRendererExtensionRuntime;
-import net.sf.jame.mandelbrot.paletteRenderer.extension.PaletteRendererExtensionConfig;
 
 /**
  * @author Andrea Medeghini

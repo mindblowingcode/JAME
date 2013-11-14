@@ -26,7 +26,6 @@
 package net.sf.jame.core.extensionConfigXMLImporter.extension;
 
 import net.sf.jame.core.extension.ExtensionDescriptor;
-import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

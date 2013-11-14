@@ -26,8 +26,6 @@
 package net.sf.jame.twister.extensions.frameFilter;
 
 import net.sf.jame.twister.frameFilter.extension.FrameFilterExtensionDescriptor;
-import net.sf.jame.twister.extensions.frameFilter.BlackRuntime;
-import net.sf.jame.twister.extensions.frameFilter.BlackConfig;
 
 /**
  * @author Andrea Medeghini

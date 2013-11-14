@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.swing.extensions.view;
 
 import net.sf.jame.twister.swing.view.extension.ViewExtensionDescriptor;
-import net.sf.jame.contextfree.swing.extensions.view.ContextFreeImageConfigViewRuntime;
 
 /**
  * @author Andrea Medeghini

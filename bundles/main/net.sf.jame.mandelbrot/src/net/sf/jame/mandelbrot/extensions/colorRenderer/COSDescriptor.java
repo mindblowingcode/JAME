@@ -26,8 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.colorRenderer;
 
 import net.sf.jame.mandelbrot.colorRenderer.extension.ColorRendererExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.colorRenderer.COSRuntime;
-import net.sf.jame.mandelbrot.extensions.colorRenderer.COSConfig;
 
 /**
  * @author Andrea Medeghini

@@ -26,7 +26,6 @@
 package net.sf.jame.twister.swing.extensions.editor;
 
 import net.sf.jame.core.swing.editor.extension.EditorExtensionDescriptor;
-import net.sf.jame.twister.swing.extensions.editor.PaletteElementEditorRuntime;
 
 /**
  * @author Andrea Medeghini

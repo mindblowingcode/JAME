@@ -26,7 +26,6 @@
 package net.sf.jame.core.swing.editor.extension;
 
 import net.sf.jame.core.extension.ExtensionDescriptor;
-import net.sf.jame.core.swing.editor.extension.EditorExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

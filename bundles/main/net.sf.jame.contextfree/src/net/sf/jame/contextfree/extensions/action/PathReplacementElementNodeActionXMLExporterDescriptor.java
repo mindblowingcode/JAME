@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.extensions.action;
 
 import net.sf.jame.core.actionXMLExporter.extension.ActionXMLExporterExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.action.PathReplacementElementNodeActionXMLExporterRuntime;
 
 /**
  * @author Andrea Medeghini

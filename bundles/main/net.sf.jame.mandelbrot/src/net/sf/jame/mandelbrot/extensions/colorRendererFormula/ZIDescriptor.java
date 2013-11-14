@@ -26,7 +26,6 @@
 package net.sf.jame.mandelbrot.extensions.colorRendererFormula;
 
 import net.sf.jame.mandelbrot.colorRendererFormula.extension.ColorRendererFormulaExtensionDescriptor;
-import net.sf.jame.mandelbrot.extensions.colorRendererFormula.ZIRuntime;
 
 /**
  * @author Andrea Medeghini

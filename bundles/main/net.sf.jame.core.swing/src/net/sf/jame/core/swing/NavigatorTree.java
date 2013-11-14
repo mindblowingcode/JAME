@@ -54,10 +54,10 @@ import net.sf.jame.core.swing.util.MutableTreeNodeAdapter;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeEditor;
 import net.sf.jame.core.tree.NodeEvent;
+import net.sf.jame.core.tree.NodeListener;
 import net.sf.jame.core.tree.NodePath;
 import net.sf.jame.core.tree.RootNode;
 import net.sf.jame.core.tree.TransferableNodeValue;
-import net.sf.jame.core.tree.NodeListener;
 
 import org.apache.log4j.Logger;
 

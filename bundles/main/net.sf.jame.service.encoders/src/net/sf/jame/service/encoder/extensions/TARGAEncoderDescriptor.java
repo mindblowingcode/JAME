@@ -26,8 +26,6 @@
 package net.sf.jame.service.encoder.extensions;
 
 import net.sf.jame.service.encoder.extension.EncoderExtensionDescriptor;
-import net.sf.jame.service.encoder.extensions.TARGAEncoderRuntime;
-import net.sf.jame.service.encoder.extensions.TARGAEncoderConfig;
 
 /**
  * @author Andrea Medeghini

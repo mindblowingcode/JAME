@@ -26,7 +26,6 @@
 package net.sf.jame.contextfree.extensions.image;
 
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionDescriptor;
-import net.sf.jame.contextfree.extensions.image.ContextFreeImageConfigNodeBuilderRuntime;
 
 /**
  * @author Andrea Medeghini
