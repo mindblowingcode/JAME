@@ -51,7 +51,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>tell application "Finder"	set currentFolder to parent of (path to me) as string	set currentFolder to POSIX path of currentFolder	do shell script "cd \"" &amp; currentFolder &amp; "\"; java -Djava.library.path=lib -jar net.sf.jame.main-6.2.0.jar"end tell</string>
+					<string>tell application "Finder"	set currentFolder to parent of (path to me) as string	set currentFolder to POSIX path of currentFolder	do shell script "cd \"" &amp; currentFolder &amp; "\"; java -Xdock:name=JAME -Xdock:icon=JAME.app/Contents/JAME.png -Djava.library.path=lib -Djava.ext.dirs=plugins -jar net.sf.jame.main-6.2.0.jar"end tell</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>

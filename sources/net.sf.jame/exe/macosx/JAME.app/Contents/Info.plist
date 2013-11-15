@@ -30,13 +30,13 @@
 	<key>CFBundleExecutable</key>
 	<string>Application Stub</string>
 	<key>CFBundleIconFile</key>
-	<string>AutomatorApplet</string>
+	<string>JAME</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.apple.automator.JAME</string>
+	<string>com.apple.automator.Copia di JAME</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>JAME</string>
+	<string>Copia di JAME</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

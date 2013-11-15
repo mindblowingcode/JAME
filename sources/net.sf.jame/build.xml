@@ -3,6 +3,8 @@
 	<property environment="env" />
 	<property name="maven.home" value="${env.M2_HOME}" />
 	<property name="jame.version" value="6.2.0" />
+	<property name="ffmpeg4java.version" value="0.1.2" />
+	<property name="freeimage4java.version" value="0.1.1" />
 	<macrodef name="maven">
 		<attribute name="options" default="" />
 		<attribute name="goal" />
@@ -36,6 +38,7 @@
 		<sequential>
 			<maven basedir="${basedir}" options="-P @{os}_@{arch}" goal="install" resultproperty="maven.build.result" />
 			<delete dir="${basedir}/dist/@{os}_@{arch}" />
+			<mkdir dir="${basedir}/dist/@{os}_@{arch}/plugins" />
 			<mkdir dir="${basedir}/dist/@{os}_@{arch}/jars" />
 			<mkdir dir="${basedir}/dist/@{os}_@{arch}/lib" />
 			<copy failonerror="true" todir="${basedir}/dist/@{os}_@{arch}/lib" overwrite="true">
@@ -65,7 +68,7 @@
 		<attribute name="arch" />
 		<attribute name="version" />
 		<attribute name="basedir" />
-		<attribute name="resultproperty" default="fixmod.result" />
+		<attribute name="resultproperty" default="makedmg.result" />
 		<element name="args" implicit="true" optional="true" />
 		<sequential>
 			<chmod failonerror="true" perm="aug+x" file="${basedir}/dist/@{os}_@{arch}/JAME.app/Contents/MacOS/Application Stub" />
@@ -75,6 +78,7 @@
 				<arg value=".DS_Store" />
 				<arg value='-delete' />
 			</exec>
+			<delete file="${basedir}/dist/jame_@{os}_@{arch}_@{version}.dmg" />
 			<exec executable="hdiutil">
 				<arg value="create" />
 				<arg value="${basedir}/dist/jame_@{os}_@{arch}_@{version}.dmg" />
@@ -87,12 +91,12 @@
 			</exec>
 		</sequential>
 	</macrodef>
-	<macrodef name="archive">
+	<macrodef name="makezip">
 		<attribute name="os" />
 		<attribute name="arch" />
 		<attribute name="version" />
 		<attribute name="basedir" />
-		<attribute name="resultproperty" default="archive.result" />
+		<attribute name="resultproperty" default="makezip.result" />
 		<element name="args" implicit="true" optional="true" />
 		<sequential>
 			<zip destfile="${basedir}/dist/jame_@{os}_@{arch}_@{version}.zip">
@@ -103,32 +107,114 @@
 			</zip>
 		</sequential>
 	</macrodef>
-	<condition property="is_osx">
+	<macrodef name="makelibjar">
+		<attribute name="name" />
+		<attribute name="os" />
+		<attribute name="arch" />
+		<attribute name="version" />
+		<attribute name="basedir" />
+		<attribute name="resultproperty" default="makelibjar.result" />
+		<element name="args" implicit="true" optional="true" />
+		<sequential>
+			<zip destfile="${basedir}/lib/@{name}.native-@{version}-@{os}_@{arch}.jar">
+				<fileset dir="${basedir}/lib/@{name}/@{os}/@{arch}">
+					<include name="**/*" />
+					<exclude name="**/.DS_store" />
+				</fileset>
+			</zip>
+		</sequential>
+	</macrodef>
+	<macrodef name="installjar">
+		<attribute name="name" />
+		<attribute name="version" />
+		<attribute name="basedir" />
+		<attribute name="resultproperty" default="installjar.result" />
+		<element name="args" implicit="true" optional="true" />
+		<sequential>
+			<maven basedir="${basedir}" options="-Dpackaging=jar -DgroupId=@{name} -DartifactId=@{name} -Dversion=@{version} -Dfile=${basedir}/lib/@{name}-@{version}.jar" goal="install:install-file" resultproperty="maven.installjar.result" />
+		</sequential>
+	</macrodef>
+	<macrodef name="installlibjar">
+		<attribute name="name" />
+		<attribute name="os" />
+		<attribute name="arch" />
+		<attribute name="version" />
+		<attribute name="basedir" />
+		<attribute name="resultproperty" default="installlibjar.result" />
+		<element name="args" implicit="true" optional="true" />
+		<sequential>
+			<maven basedir="${basedir}" options="-Dpackaging=jar -DgroupId=@{name} -DartifactId=@{name}.native -Dversion=@{version} -Dclassifier=@{os}_@{arch} -Dfile=${basedir}/lib/@{name}.native-@{version}-@{os}_@{arch}.jar" goal="install:install-file" resultproperty="maven.installlibjar.result" />
+		</sequential>
+	</macrodef>
+	<condition property="is_macosx">
 		<os family="mac" />
 	</condition>
-	<target name="-osx" if="is_osx">
+	<target name="-macosx" if="is_macosx">
 		<!-- osx 32bit -->
-		<build basedir="${basedir}" os="osx" arch="x86" version="${jame.version}" resultproperty="ant.build.result" />
-		<makedmg basedir="${basedir}" os="osx" arch="x86" version="${jame.version}" resultproperty="ant.archive.result" />
+		<build basedir="${basedir}" os="macosx" arch="x86" version="${jame.version}" resultproperty="ant.build.result" />
+		<makedmg basedir="${basedir}" os="macosx" arch="x86" version="${jame.version}" resultproperty="ant.makedmg.result" />
 		<!-- osx 64bit -->
-		<build basedir="${basedir}" os="osx" arch="x86_64" version="${jame.version}" resultproperty="ant.build.result" />
-		<makedmg basedir="${basedir}" os="osx" arch="x86_64" version="${jame.version}" resultproperty="ant.archive.result" />
+		<build basedir="${basedir}" os="macosx" arch="x86_64" version="${jame.version}" resultproperty="ant.build.result" />
+		<makedmg basedir="${basedir}" os="macosx" arch="x86_64" version="${jame.version}" resultproperty="ant.makedmg.result" />
 	</target>
 	<target name="-win32">
 		<!-- win32 32bit -->
 		<build basedir="${basedir}" os="win32" arch="x86" version="${jame.version}" resultproperty="ant.build.result" />
-		<archive basedir="${basedir}" os="win32" arch="x86" version="${jame.version}" resultproperty="ant.archive.result" />
+		<makezip basedir="${basedir}" os="win32" arch="x86" version="${jame.version}" resultproperty="ant.makezip.result" />
 		<!-- win32 64bit -->
 		<build basedir="${basedir}" os="win32" arch="x86_64" version="${jame.version}" resultproperty="ant.build.result" />
-		<archive basedir="${basedir}" os="win32" arch="x86_64" version="${jame.version}" resultproperty="ant.archive.result" />
+		<makezip basedir="${basedir}" os="win32" arch="x86_64" version="${jame.version}" resultproperty="ant.makezip.result" />
 	</target>
 	<target name="-linux">
 		<!-- linux 32bit -->
 		<build basedir="${basedir}" os="linux" arch="x86" version="${jame.version}" resultproperty="ant.build.result" />
-		<archive basedir="${basedir}" os="linux" arch="x86" version="${jame.version}" resultproperty="ant.archive.result" />
+		<makezip basedir="${basedir}" os="linux" arch="x86" version="${jame.version}" resultproperty="ant.makezip.result" />
 		<!-- linux 64bit -->
 		<build basedir="${basedir}" os="linux" arch="x86_64" version="${jame.version}" resultproperty="ant.build.result" />
-		<archive basedir="${basedir}" os="linux" arch="x86_64" version="${jame.version}" resultproperty="ant.archive.result" />
+		<makezip basedir="${basedir}" os="linux" arch="x86_64" version="${jame.version}" resultproperty="ant.makezip.result" />
 	</target>
-	<target name="build" depends="-osx, -win32, -linux" />
+	<target name="-clear">
+		<delete dir="${basedir}">
+			<include name="*.jar" />
+		</delete>
+	</target>
+	<target name="-ffmpeg4java">
+		<makelibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="macosx" arch="x86" version="${ffmpeg4java.version}" resultproperty="ant.makelibjar.result" />
+		<makelibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="macosx" arch="x86_64" version="${ffmpeg4java.version}" resultproperty="ant.makelibjar.result" />
+		<makelibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="win32" arch="x86" version="${ffmpeg4java.version}" resultproperty="ant.makelibjar.result" />
+		<makelibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="win32" arch="x86_64" version="${ffmpeg4java.version}" resultproperty="ant.makelibjar.result" />
+		<makelibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="linux" arch="x86" version="${ffmpeg4java.version}" resultproperty="ant.makelibjar.result" />
+		<makelibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="linux" arch="x86_64" version="${ffmpeg4java.version}" resultproperty="ant.makelibjar.result" />
+		<copy tofile="${basedir}/lib/net.sf.ffmpeg4java-${ffmpeg4java.version}.jar">
+			<fileset file="${basedir}/lib/net.sf.ffmpeg4java/ffmpeg4java.jar" />
+		</copy>
+		<installjar basedir="${basedir}" name="net.sf.ffmpeg4java" version="${ffmpeg4java.version}" resultproperty="ant.installjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="macosx" arch="x86" version="${ffmpeg4java.version}" resultproperty="ant.installlibjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="macosx" arch="x86_64" version="${ffmpeg4java.version}" resultproperty="ant.installlibjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="win32" arch="x86" version="${ffmpeg4java.version}" resultproperty="ant.installlibjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="win32" arch="x86_64" version="${ffmpeg4java.version}" resultproperty="ant.installlibjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="linux" arch="x86" version="${ffmpeg4java.version}" resultproperty="ant.installlibjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.ffmpeg4java" os="linux" arch="x86_64" version="${ffmpeg4java.version}" resultproperty="ant.installlibjar.result" />
+	</target>
+	<target name="-freeimage4java">
+		<makelibjar basedir="${basedir}" name="net.sf.freeimage4java" os="macosx" arch="x86" version="${freeimage4java.version}" resultproperty="ant.makelibjar.result" />
+		<makelibjar basedir="${basedir}" name="net.sf.freeimage4java" os="macosx" arch="x86_64" version="${freeimage4java.version}" resultproperty="ant.makelibjar.result" />
+		<makelibjar basedir="${basedir}" name="net.sf.freeimage4java" os="win32" arch="x86" version="${freeimage4java.version}" resultproperty="ant.makelibjar.result" />
+		<makelibjar basedir="${basedir}" name="net.sf.freeimage4java" os="win32" arch="x86_64" version="${freeimage4java.version}" resultproperty="ant.makelibjar.result" />
+		<makelibjar basedir="${basedir}" name="net.sf.freeimage4java" os="linux" arch="x86" version="${freeimage4java.version}" resultproperty="ant.makelibjar.result" />
+		<makelibjar basedir="${basedir}" name="net.sf.freeimage4java" os="linux" arch="x86_64" version="${freeimage4java.version}" resultproperty="ant.makelibjar.result" />
+		<copy tofile="${basedir}/lib/net.sf.freeimage4java-${freeimage4java.version}.jar">
+			<fileset file="${basedir}/lib/net.sf.freeimage4java/freeimage4java.jar" />
+		</copy>
+		<installjar basedir="${basedir}" name="net.sf.freeimage4java" version="${freeimage4java.version}" resultproperty="ant.installjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.freeimage4java" os="macosx" arch="x86" version="${freeimage4java.version}" resultproperty="ant.installlibjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.freeimage4java" os="macosx" arch="x86_64" version="${freeimage4java.version}" resultproperty="ant.installlibjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.freeimage4java" os="win32" arch="x86" version="${freeimage4java.version}" resultproperty="ant.installlibjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.freeimage4java" os="win32" arch="x86_64" version="${freeimage4java.version}" resultproperty="ant.installlibjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.freeimage4java" os="linux" arch="x86" version="${freeimage4java.version}" resultproperty="ant.installlibjar.result" />
+		<installlibjar basedir="${basedir}" name="net.sf.freeimage4java" os="linux" arch="x86_64" version="${freeimage4java.version}" resultproperty="ant.installlibjar.result" />
+	</target>
+	<target name="setup" depends="-clear, -ffmpeg4java, -freeimage4java" />
+	<target name="build" depends="-macosx, -win32, -linux" />
+	<target name="all" depends="setup, build" />
 </project>
