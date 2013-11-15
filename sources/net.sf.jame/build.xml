@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JAME" default="build">
+	<property environment="env" />
+	<property name="maven.home" value="${env.M2_HOME}" />
+	<property name="jame.version" value="6.2.0" />
+	<macrodef name="maven">
+		<attribute name="options" default="" />
+		<attribute name="goal" />
+		<attribute name="basedir" />
+		<attribute name="resultproperty" default="maven.result" />
+		<element name="args" implicit="true" optional="true" />
+		<sequential>
+			<java classname="org.codehaus.classworlds.Launcher" fork="true" dir="@{basedir}" resultproperty="@{resultproperty}">
+				<jvmarg value="-Xmx512m" />
+				<classpath>
+					<fileset dir="${maven.home}/boot">
+						<include name="*.jar" />
+					</fileset>
+					<fileset dir="${maven.home}/lib">
+						<include name="*.jar" />
+					</fileset>
+				</classpath>
+				<sysproperty key="classworlds.conf" value="${maven.home}/bin/m2.conf" />
+				<sysproperty key="maven.home" value="${maven.home}" />
+				<arg line="--batch-mode @{options} @{goal}" />
+			</java>
+		</sequential>
+	</macrodef>
+	<macrodef name="build">
+		<attribute name="os" />
+		<attribute name="arch" />
+		<attribute name="version" />
+		<attribute name="basedir" />
+		<attribute name="resultproperty" default="build.result" />
+		<element name="args" implicit="true" optional="true" />
+		<sequential>
+			<maven basedir="${basedir}" options="-P @{os}_@{arch}" goal="install" resultproperty="maven.build.result" />
+			<delete dir="${basedir}/dist/@{os}_@{arch}" />
+			<mkdir dir="${basedir}/dist/@{os}_@{arch}/jars" />
+			<mkdir dir="${basedir}/dist/@{os}_@{arch}/lib" />
+			<copy failonerror="true" todir="${basedir}/dist/@{os}_@{arch}/lib" overwrite="true">
+				<fileset dir="${basedir}/target/lib/@{os}/@{arch}">
+					<include name="*" />
+				</fileset>
+			</copy>
+			<copy failonerror="true" todir="${basedir}/dist/@{os}_@{arch}/jars" overwrite="true">
+				<fileset dir="${basedir}/target/jars">
+					<include name="*" />
+				</fileset>
+			</copy>
+			<copy failonerror="true" todir="${basedir}/dist/@{os}_@{arch}" overwrite="true">
+				<fileset dir="${basedir}/target">
+					<include name="net.sf.jame.*.jar" />
+				</fileset>
+			</copy>
+			<copy failonerror="true" todir="${basedir}/dist/@{os}_@{arch}" overwrite="true">
+				<fileset dir="${basedir}/exe/@{os}">
+					<include name="**/*" />
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+	<macrodef name="makedmg">
+		<attribute name="os" />
+		<attribute name="arch" />
+		<attribute name="version" />
+		<attribute name="basedir" />
+		<attribute name="resultproperty" default="fixmod.result" />
+		<element name="args" implicit="true" optional="true" />
+		<sequential>
+			<chmod failonerror="true" perm="aug+x" file="${basedir}/dist/@{os}_@{arch}/JAME.app/Contents/MacOS/Application Stub" />
+			<exec executable="find">
+				<arg value="${basedir}/dist/@{os}_@{arch}" />
+				<arg value="-name" />
+				<arg value=".DS_Store" />
+				<arg value='-delete' />
+			</exec>
+			<exec executable="hdiutil">
+				<arg value="create" />
+				<arg value="${basedir}/dist/jame_@{os}_@{arch}_@{version}.dmg" />
+				<arg value="-volname" />
+				<arg value="JAME @{version}" />
+				<arg value="-fs" />
+				<arg value="HFS+" />
+				<arg value="-srcfolder" />
+				<arg value="${basedir}/dist/@{os}_@{arch}" />
+			</exec>
+		</sequential>
+	</macrodef>
+	<macrodef name="archive">
+		<attribute name="os" />
+		<attribute name="arch" />
+		<attribute name="version" />
+		<attribute name="basedir" />
+		<attribute name="resultproperty" default="archive.result" />
+		<element name="args" implicit="true" optional="true" />
+		<sequential>
+			<zip destfile="${basedir}/dist/jame_@{os}_@{arch}_@{version}.zip">
+				<fileset dir="${basedir}/dist/@{os}_@{arch}">
+					<include name="**/*" />
+					<exclude name="**/.DS_store" />
+				</fileset>
+			</zip>
+		</sequential>
+	</macrodef>
+	<condition property="is_osx">
+		<os family="mac" />
+	</condition>
+	<target name="-osx" if="is_osx">
+		<!-- osx 32bit -->
+		<build basedir="${basedir}" os="osx" arch="x86" version="${jame.version}" resultproperty="ant.build.result" />
+		<makedmg basedir="${basedir}" os="osx" arch="x86" version="${jame.version}" resultproperty="ant.archive.result" />
+		<!-- osx 64bit -->
+		<build basedir="${basedir}" os="osx" arch="x86_64" version="${jame.version}" resultproperty="ant.build.result" />
+		<makedmg basedir="${basedir}" os="osx" arch="x86_64" version="${jame.version}" resultproperty="ant.archive.result" />
+	</target>
+	<target name="-win32">
+		<!-- win32 32bit -->
+		<build basedir="${basedir}" os="win32" arch="x86" version="${jame.version}" resultproperty="ant.build.result" />
+		<archive basedir="${basedir}" os="win32" arch="x86" version="${jame.version}" resultproperty="ant.archive.result" />
+		<!-- win32 64bit -->
+		<build basedir="${basedir}" os="win32" arch="x86_64" version="${jame.version}" resultproperty="ant.build.result" />
+		<archive basedir="${basedir}" os="win32" arch="x86_64" version="${jame.version}" resultproperty="ant.archive.result" />
+	</target>
+	<target name="-linux">
+		<!-- linux 32bit -->
+		<build basedir="${basedir}" os="linux" arch="x86" version="${jame.version}" resultproperty="ant.build.result" />
+		<archive basedir="${basedir}" os="linux" arch="x86" version="${jame.version}" resultproperty="ant.archive.result" />
+		<!-- linux 64bit -->
+		<build basedir="${basedir}" os="linux" arch="x86_64" version="${jame.version}" resultproperty="ant.build.result" />
+		<archive basedir="${basedir}" os="linux" arch="x86_64" version="${jame.version}" resultproperty="ant.archive.result" />
+	</target>
+	<target name="build" depends="-osx, -win32, -linux" />
+</project>

@@ -27,6 +27,7 @@
 				<version>2.8</version>
 				<executions>
 					<execution>
+						<id>copy-jars</id>
 						<phase>package</phase>
 						<goals>
 							<goal>copy-dependencies</goal>
@@ -37,14 +38,8 @@
 							<outputDirectory>${project.build.directory}/jars/</outputDirectory>
 						</configuration>
 					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.8</version>
-				<executions>
 					<execution>
+						<id>copy-main</id>
 						<phase>package</phase>
 						<goals>
 							<goal>copy-dependencies</goal>
@@ -54,13 +49,8 @@
 							<outputDirectory>${project.build.directory}/</outputDirectory>
 						</configuration>
 					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
 					<execution>
+						<id>copy-lib</id>
 						<phase>package</phase>
 						<goals>
 							<goal>unpack</goal>
@@ -74,7 +64,7 @@
 									<classifier>${build.type}</classifier>
 									<type>jar</type>
 									<overWrite>true</overWrite>
-									<outputDirectory>${project.build.directory}/lib</outputDirectory>
+									<outputDirectory>${project.build.directory}/lib/${os.type}/${arch.type}</outputDirectory>
 								</artifactItem>
 								<artifactItem>
 									<groupId>net.sf.freeimage4java</groupId>
@@ -83,13 +73,14 @@
 									<classifier>${build.type}</classifier>
 									<type>jar</type>
 									<overWrite>true</overWrite>
-									<outputDirectory>${project.build.directory}/lib</outputDirectory>
+									<outputDirectory>${project.build.directory}/lib/${os.type}/${arch.type}</outputDirectory>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+			<!-- 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -99,7 +90,11 @@
 						<phase>package</phase>
 						<configuration>
 							<target>
-								<ant dir="${project.build.directory}/../build" />
+								<ant dir="${project.build.directory}/../build">
+									<property name="build.type" value="${build.type}"/>
+									<property name="arch.type" value="${arch.type}"/>
+									<property name="os.type" value="${os.type}"/>
+								</ant>
 							</target>
 						</configuration>
 						<goals>
@@ -108,6 +103,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			 -->
 		</plugins>
 	</build>
 	<dependencies>
@@ -182,30 +178,40 @@
 			<id>win32_x86</id>
 			<properties>
 				<build.type>win32_x86</build.type>
+				<arch.type>x86</arch.type>
+				<os.type>win32</os.type>
 			</properties>
 		</profile>
 		<profile>
 			<id>linux_x86</id>
 			<properties>
 				<build.type>linux_x86</build.type>
+				<arch.type>x86</arch.type>
+				<os.type>linux</os.type>
 			</properties>
 		</profile>
 		<profile>
 			<id>osx_x86</id>
 			<properties>
 				<build.type>osx_x86</build.type>
+				<arch.type>x86</arch.type>
+				<os.type>osx</os.type>
 			</properties>
 		</profile>
 		<profile>
 			<id>win32_x86_64</id>
 			<properties>
 				<build.type>win32_x86_64</build.type>
+				<arch.type>x86_64</arch.type>
+				<os.type>win32</os.type>
 			</properties>
 		</profile>
 		<profile>
 			<id>linux_x86_64</id>
 			<properties>
 				<build.type>linux_x86_64</build.type>
+				<arch.type>x86_64</arch.type>
+				<os.type>linux</os.type>
 			</properties>
 		</profile>
 		<profile>
@@ -215,6 +221,8 @@
 			</activation>
 			<properties>
 				<build.type>osx_x86_64</build.type>
+				<arch.type>x86_64</arch.type>
+				<os.type>osx</os.type>
 			</properties>
 		</profile>
 	</profiles>
