@@ -191,11 +191,11 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>osx_x86</id>
+			<id>macosx_x86</id>
 			<properties>
-				<build.type>osx_x86</build.type>
+				<build.type>macosx_x86</build.type>
 				<arch.type>x86</arch.type>
-				<os.type>osx</os.type>
+				<os.type>macosx</os.type>
 			</properties>
 		</profile>
 		<profile>
@@ -215,14 +215,14 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>osx_x86_64</id>
+			<id>macosx_x86_64</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<build.type>osx_x86_64</build.type>
+				<build.type>macosx_x86_64</build.type>
 				<arch.type>x86_64</arch.type>
-				<os.type>osx</os.type>
+				<os.type>macosx</os.type>
 			</properties>
 		</profile>
 	</profiles>
