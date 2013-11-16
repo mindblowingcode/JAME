@@ -39,17 +39,6 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>copy-main</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<includeArtifactIds>net.sf.jame.main</includeArtifactIds>
-							<outputDirectory>${project.build.directory}/</outputDirectory>
-						</configuration>
-					</execution>
-					<execution>
 						<id>copy-lib</id>
 						<phase>package</phase>
 						<goals>
