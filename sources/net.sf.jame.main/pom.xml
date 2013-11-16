@@ -38,9 +38,11 @@
 				<configuration>
 					<archive>
 						<manifest>
+							<mainClass>net.sf.jame.Main</mainClass>
+							<!-- 
 							<addClasspath>true</addClasspath>
-							<mainClass>net.sf.jame.JAMEMain</mainClass>
 							<classpathPrefix>jars/</classpathPrefix>
+			 				 -->
 						</manifest>
 					</archive>
 				</configuration>
