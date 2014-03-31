@@ -50,8 +50,7 @@ class ASTOperator extends ASTExpression {
 		List<ASTExpression> dropped = new ArrayList<ASTExpression>();
 
 		try {
-			ASTModification[] var = new ASTModification[1];
-			ASTModification[] result = new ASTModification[1];
+			ASTModTerm[] result = new ASTModTerm[1];
 
 			ASTModTerm[] x = new ASTModTerm[1];
 			ASTModTerm[] y = new ASTModTerm[1];
@@ -62,6 +61,7 @@ class ASTOperator extends ASTExpression {
 			ASTModTerm[] zsize = new ASTModTerm[1];
 			ASTModTerm[] flip = new ASTModTerm[1];
 			ASTModTerm[] transform = new ASTModTerm[1];
+			ASTModTerm[] var = new ASTModTerm[1];
 
 			for (ASTExpression exp : temp) {
 				if (exp.type != ExpType.ModificationType) {

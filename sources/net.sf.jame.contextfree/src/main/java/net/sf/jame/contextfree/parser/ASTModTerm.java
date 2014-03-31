@@ -34,10 +34,10 @@ class ASTModTerm extends ASTExpression {
     		this.modType = modType;
     		this.arguments = arguments;
     		
-            if (arguments.type == ExpType.RuleType)
+            if (arguments != null && arguments.type == ExpType.RuleType)
             	throw new RuntimeException("Illegal expression in shape adjustment");
             
-            if (arguments.type == ExpType.ModificationType) {
+            if (arguments != null && arguments.type == ExpType.ModificationType) {
                 if (modType != ModTypeEnum.transform)
                 	throw new RuntimeException("Cannot accept a transform expression here");
 

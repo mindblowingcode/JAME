@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import org.antlr.runtime.ANTLRFileStream;
-import org.antlr.runtime.CharStream;
+import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.CharStream;
 
 public class Driver {
     private String basedir = System.getProperty("user.home", "/");
@@ -127,6 +127,16 @@ public class Driver {
 	}
 
 	public ASTExpression makeModTerm(String type, ASTExpression modification) {
+		switch (type) {
+		case "b":
+			return new ASTModTerm(ModTypeEnum.bright, modification);
+
+		case "s":
+			return new ASTModTerm(ModTypeEnum.size, modification);
+			
+		default:
+			break;
+		}
 		return null;
 	}
 
