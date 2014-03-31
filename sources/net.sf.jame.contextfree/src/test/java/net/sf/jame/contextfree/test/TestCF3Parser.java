@@ -27,12 +27,12 @@ package net.sf.jame.contextfree.test;
 
 import net.sf.jame.contextfree.parser.CFDGLexer;
 import net.sf.jame.contextfree.parser.CFDGParser;
-import net.sf.jame.contextfree.parser.CFDGParser.cfdg_return;
+import net.sf.jame.contextfree.parser.CFDGParser.CfdgContext;
 
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTree;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
 
 public class TestCF3Parser {
@@ -72,14 +72,14 @@ public class TestCF3Parser {
 		try {
 			System.out.println(text);
 
-			CharStream is = new ANTLRStringStream(text);
+			CharStream is = new ANTLRInputStream(text);
 			CFDGLexer lexer = new CFDGLexer(is);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
 			CFDGParser parser = new CFDGParser(tokens);
-            cfdg_return cfdg = parser.cfdg();
+			CfdgContext cfdg = parser.cfdg();
             if (cfdg != null) {
-            	CommonTree tree = (CommonTree) parser.cfdg().getTree();
-            	System.out.println(tree.toStringTree());               
+//            	CommonTree tree = (CommonTree) parser.cfdg().getTree();
+//            	System.out.println(tree.toStringTree());               
             }
 
 //            CommonTreeNodeStream nodes = new CommonTreeNodeStream((Tree) r.getTree());

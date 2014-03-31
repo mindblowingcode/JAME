@@ -71,8 +71,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.antlr</groupId>
-			<artifactId>antlr</artifactId>
-			<version>3.5.1</version>
+			<artifactId>antlr4</artifactId>
+			<version>4.2</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

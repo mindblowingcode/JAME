@@ -1,6 +1,5 @@
 package net.sf.jame.contextfree.parser;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,9 +14,7 @@ import net.sf.jame.contextfree.ContextFreeConfig;
 import net.sf.jame.contextfree.ContextFreeRegistry;
 import net.sf.jame.contextfree.cfdg.CFDGConfigElement;
 import net.sf.jame.contextfree.cfdg.analysis.DepthFirstAdapter;
-import net.sf.jame.contextfree.cfdg.lexer.LexerException;
 import net.sf.jame.contextfree.cfdg.node.*;
-import net.sf.jame.contextfree.cfdg.parser.ParserException;
 import net.sf.jame.contextfree.extensions.figure.PathFigureConfig;
 import net.sf.jame.contextfree.extensions.figure.RuleFigureConfig;
 import net.sf.jame.contextfree.extensions.pathAdjustment.CurrentAlphaPathAdjustmentConfig;
@@ -92,12 +89,10 @@ import net.sf.jame.core.extension.ConfigurableExtensionReference;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.core.util.Color32bit;
 
-import org.antlr.runtime.ANTLRReaderStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.Lexer;
-import org.antlr.runtime.Parser;
-import org.antlr.runtime.TokenStream;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.TokenStream;
 
 public class ContextFreeParser {
 	public ContextFreeConfig parseConfig(File file) throws ContextFreeParserException {
@@ -114,7 +109,7 @@ public class ContextFreeParser {
 
 	public ContextFreeConfig parseConfig(File baseDir, Reader reader) throws ContextFreeParserException {
 		try {
-			CharStream stream = new ANTLRReaderStream(reader);
+			CharStream stream = new ANTLRInputStream(reader);
 			CFDGLexer lexer = new CFDGLexer(stream);
 	        TokenStream tokenStream = new CommonTokenStream(lexer);
 	        CFDGParser parser = new CFDGParser(tokenStream);

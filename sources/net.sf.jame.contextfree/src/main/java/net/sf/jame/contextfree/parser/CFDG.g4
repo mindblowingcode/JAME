@@ -2,9 +2,6 @@ grammar CFDG;
 
 options
 {
-	output=AST;
-	backtrack=true;
-	memoize=true;
 } 
 
 @lexer::header { 
@@ -37,7 +34,7 @@ statement returns [ASTReplacement result]
         }
         | tile
         | size
-        | rule
+        | rule_shape
         | path
         | r=shape { 
         	$result = $r.result;
@@ -118,13 +115,13 @@ shape returns [ASTShape result]
         : 
         SHAPE s=STRING parameter_list {
         	String name = $s.getText(); 
-            	ASTRuleSpecifier ruleSpecifier = new ASTRuleSpecifier(driver.stringToShape(name), name, driver.paramDecls.getParameters(), driver.paramDecls.getParameters());
-            	ASTShape shape = new ASTShape(ruleSpecifier, false);
-            	shape.getRules().getParameters().clear();
-            	shape.getRules().getParameters().addAll(driver.paramDecls.getParameters());
-	driver.setShape(shape);
-            	shape.getRuleSpecifier().setTypeSignature(shape.getRules().getParameters().isEmpty() ? null : shape.getRules().getParameters());
-            	$result = shape;
+        	ASTRuleSpecifier ruleSpecifier = new ASTRuleSpecifier(driver.stringToShape(name), name, driver.paramDecls.getParameters(), driver.paramDecls.getParameters());
+        	ASTShape shape = new ASTShape(ruleSpecifier, false);
+        	shape.getRules().getParameters().clear();
+        	shape.getRules().getParameters().addAll(driver.paramDecls.getParameters());
+			driver.setShape(shape);
+        	shape.getRuleSpecifier().setTypeSignature(shape.getRules().getParameters().isEmpty() ? null : shape.getRules().getParameters());
+        	$result = shape;
         }
         ;
 
@@ -132,19 +129,18 @@ shape_singleton returns [ASTShape result]
         : 
         s=shape {
         	driver.inPathContainer = false;
-        	ASTRule rule = new ASTRule(-1);
-        	driver.addRule(rule);
-        	driver.pushRepContainer(rule.getRuleBody());
+        	ASTRule ruleShape = new ASTRule(-1);
+        	driver.addRule(ruleShape);
+        	driver.pushRepContainer(ruleShape.getRuleBody());
         } '{'  buncha_elements '}' {
         	driver.inPathContainer = false;
-        	ASTRule rule = new ASTRule(-1);
-        	driver.popRepContainer(rule);
-        	if (rule.getRepType() == RepElemListEnum.empty) {//TODO da cambiare
-        		rule.setPath(true);
-        		driver.retroPath(rule);
+        	driver.popRepContainer(ruleShape);
+        	if (ruleShape.getRepType() == RepElemListEnum.empty) {//TODO da cambiare
+        		ruleShape.setPath(true);
+        		driver.retroPath(ruleShape);
         	}
-	ASTShape shape = $s.result;
-        	shape.getRules().getBody().add(0, rule);
+			ASTShape shape = $s.result;
+        	shape.getRules().getBody().add(0, ruleShape);
         	$result = shape;
         }
         ; 
@@ -171,7 +167,7 @@ rule_header returns [ASTRule result]
         }
         ;
 
-rule returns [ASTRule result]
+rule_shape returns [ASTRule result]
         : 
         h=rule_header '{' buncha_replacements_v2 '}' {
         	driver.popRepContainer($h.result);
@@ -244,14 +240,14 @@ path returns [ASTRule result]
 parameter
        : 
        t=STRING v=STRING {
-	String type = $t.getText();
-	String var = $v.getText();
-	driver.nextParameterDecl(type, var);
+			String type = $t.getText();
+			String var = $v.getText();
+			driver.nextParameterDecl(type, var);
         }
         |
         SHAPE v=STRING {
-	String var = $v.getText();
-	driver.nextParameterDecl("shape", var);
+			String var = $v.getText();
+			driver.nextParameterDecl("shape", var);
         }
         ;
 
@@ -416,9 +412,9 @@ element returns [ASTReplacement result]
         |
         ri=ifHeader one_or_more_elements ELSE {
         	driver.popRepContainer($ri.result);
-        	driver.pushRepContainer(((ASTIf)(ri!=null?ri.result:null)).getElseBody());
+         	driver.pushRepContainer(((ASTIf)($ri.result)).getElseBody());
         } one_or_more_elements {
-        	$result = $ri.result; 
+        	$result = $ri.result;  
         	driver.popRepContainer($ri.result);
         	if ($ri.result.getRepType().getType() == 0) {
 	        	$result = null; 
@@ -434,7 +430,7 @@ element returns [ASTReplacement result]
         }
         |
         rs=switchHeader '{' caseBody '}' {
-	$rs.result.unify();
+			$rs.result.unify();
         	$result = $rs.result; 
         	driver.popRepContainer($rs.result);
         	driver.switchStack().pop();
@@ -449,10 +445,10 @@ pathOp_v2 returns [ASTReplacement result]
         |
         rl=loopHeader_v2 one_or_more_pathOp_v2 { 
         	$result = $rl.result;
-	driver.popRepContainer($rl.result);
-	if ($rl.result.getRepType().getType() == 0) {
-		$result = null;			
-	}
+			driver.popRepContainer($rl.result);
+			if ($rl.result.getRepType().getType() == 0) {
+				$result = null;			
+			}
         }
         ;
 
@@ -499,10 +495,10 @@ replacement_v2 returns [ASTReplacement result]
         |
         rl=loopHeader_v2 one_or_more_replacements_v2 {
         	$result = $rl.result;
-	driver.popRepContainer($rl.result);
-	if ($rl.result.getRepType().getType() == 0) {
+			driver.popRepContainer($rl.result);
+			if ($rl.result.getRepType().getType() == 0) {
 	        	$result = null;			
-	}
+			}
         }
         ;
 
@@ -665,7 +661,7 @@ buncha_adjustments returns [ASTExpression result]
         }
         | 
         {
-	$result = null;
+			$result = null;
         }
         ;
 
@@ -676,7 +672,7 @@ buncha_canonical_adjustments
         }
         | 
         {
-	driver.canonicalMods.clear();
+			driver.canonicalMods.clear();
         }
         ;
 
@@ -716,31 +712,31 @@ exp returns [ASTExpression result]
         : 
         (
         r=RATIONAL { 
-	$result = new ASTReal(Float.parseFloat($r.getText())); 
+			$result = new ASTReal(Float.parseFloat($r.getText())); 
         }
         |
         '-' r=RATIONAL {
-	$result = new ASTReal(Float.parseFloat($r.getText()), true); 
+			$result = new ASTReal(Float.parseFloat($r.getText()), true); 
         }
         |
         '+' r=RATIONAL { 
-	$result = new ASTReal(Float.parseFloat($r.getText())); 
+			$result = new ASTReal(Float.parseFloat($r.getText())); 
         }
         |
         '(' e=exp2 ')' { 
-	$result = new ASTParen($e.result); 
+			$result = new ASTParen($e.result); 
         }
         | 
         f=expfunc { 
-	$result = $f.result; 
+			$result = $f.result; 
         }
         |
         '-' f=expfunc { 
-	$result = new ASTOperator('N', $f.result); 
+			$result = new ASTOperator('N', $f.result); 
         }
         |
         '+' f=expfunc { 
-	$result = new ASTOperator('P', $f.result); 
+			$result = new ASTOperator('P', $f.result); 
         }
         )
         (
@@ -768,19 +764,19 @@ exp2 returns [ASTExpression result]
         }
         |
         '(' e=exp2 ')' { 
-	$result = new ASTParen($e.result); 
+			$result = new ASTParen($e.result); 
         }
         | 
         '-' f=expfunc { 
-	$result = new ASTOperator('N', $f.result); 
+			$result = new ASTOperator('N', $f.result); 
         }
         |
         '+' f=expfunc { 
-	$result = new ASTOperator('P', $f.result); 
+			$result = new ASTOperator('P', $f.result); 
         }
         |
         NOT e=exp2 { 
-	$result = new ASTOperator('!', $e.result); 
+			$result = new ASTOperator('!', $e.result); 
         }
         |
         m=modification {
@@ -904,7 +900,7 @@ global_definition
         	driver.setShape(null);
         	String var = $v.getText();
         	ASTExpression expression = $e.result;
- 	driver.nextParameter(var, expression);
+ 			driver.nextParameter(var, expression);
         }
         ;
 
@@ -913,7 +909,7 @@ definition
         v=STRING BECOMES e=exp2 { 
         	String var = $v.getText();
         	ASTExpression expression = $e.result;
- 	driver.nextParameter(var, expression);
+ 			driver.nextParameter(var, expression);
         }
         ;
 	
@@ -1209,9 +1205,9 @@ PATHOP
 	;
 	
 STRING 
-    	: 
-    	('a'..'z'|'A'..'Z'|'_'|'\u0200'..'\u0301'|'\u0303'..'\u0377') (('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'\u0200'..'\u0301'|'\u0303'..'\u0377')|('\u0302'('\u0200'..'\u0260'|'\u0262'..'\u0377')))* 
-    	;
+	: 
+	('a'..'z'|'A'..'Z'|'_'|'\u0200'..'\u0301'|'\u0303'..'\u0377') (('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'\u0200'..'\u0301'|'\u0303'..'\u0377')|('\u0302'('\u0200'..'\u0260'|'\u0262'..'\u0377')))* 
+	;
 
 QSTRING	
 	:	
@@ -1219,16 +1215,16 @@ QSTRING
 	;
 	
 FILENAME 
-    	: 
-    	('a'..'z'|'A'..'Z'|'\u0200'..'\u0377') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'\u0200'..'\u0377'|'.')* '.cfdg' 
-    	;
+	: 
+	('a'..'z'|'A'..'Z'|'\u0200'..'\u0377') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'\u0200'..'\u0377'|'.')* '.cfdg' 
+	;
 
 COMMENT
-    	: 
-    	'//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;} | '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;} 
-    	;
+	: 
+	('//' ~('\n'|'\r')* '\r'? '\n' {} | '/*' (.)*? '*/' {}) -> skip 
+	;
 
 WHITESPACE  
 	: 
-	( ' ' | '\t' | '\r' | '\n' ) {$channel=HIDDEN;} 
+	( ' ' | '\t' | '\r' | '\n' ) -> skip 
 	;
