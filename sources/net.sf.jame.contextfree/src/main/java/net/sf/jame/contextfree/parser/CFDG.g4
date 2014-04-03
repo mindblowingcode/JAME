@@ -5,255 +5,412 @@ options
 } 
 
 @lexer::header { 
-	package net.sf.jame.contextfree.parser; 
 }
 
 @parser::header {
-	package net.sf.jame.contextfree.parser; 
 }
 
 @members {
-	Driver driver = new Driver();
+	Builder driver = new Builder();
 }
- 
-cfdg
+
+choose
+		:
+		CFDG2 cfdg2 
+		|
+		CFDG3 cfdg3
+		;
+		 
+cfdg2
         :
-        r=statement* {
-        if ($r.result != null) {
-          driver.pushRep($r.result, true);
-        }
-        } EOF
+        cfdg2 r=statement_v2 {
+	        if ($r.result != null) {
+	          	driver.pushRep($r.result, true);
+	        }
+        } 
+        |
         ;
         
-statement returns [ASTReplacement result]
+cfdg3
+        :
+        cfdg3 r=statement_v3 {
+	        if ($r.result != null) {
+	          	driver.pushRep($r.result, true);
+	        }
+        }
+        |
+        ;
+        
+statement_v2 returns [ASTReplacement result]
         : 
-        initialization
-        | background  
-        | inclusion { 
+        initialization_v2
+        | directive_v2  
+        | inclusion_v2 { 
         	$result = null;
         }
-        | tile
-        | size
-        | rule_shape
+        | eof {
+        	$result = null;        	
+        }
+        | rule_v2
+        | path_v2
+        | v3clues { 
+        	if (driver.getMaybeVersion().equals("CFDG2")) {
+        		driver.error("Illegal mixture of old and new elements");	        		
+        	} else {
+        		driver.setMaybeVersion("CFDG3");
+        	}
+        	$result = null;
+        }
+        ;
+        
+statement_v3 returns [ASTReplacement result]
+        : 
+        initialization_v3
+        | import_v3 { 
+        	$result = null;
+        }
+        | eof {
+        	$result = null;        	
+        }
+        | rule_v3
         | path
         | r=shape { 
-        	$result = $r.result;
+        	$result = null;
         }
         | shape_singleton
-        | shape_element
-        | global_definition { 
+        | r=global_definition { 
+        	$result = $r.result;
+        }
+        | v2stuff {
+        	driver.error("Illegal mixture of old and new elements");	
         	$result = null;
         }
         ;
         
-inclusion 
+v3clues
+		:
+        USER_STRING BECOMES
+        | MODTYPE BECOMES
+        | PARAM BECOMES
+        | USER_STRING '('
+        | USER_STRING USER_STRING '('
+        | IMPORT
+        | SHAPE
+        | PATH USER_STRING '('
+        | STARTSHAPE USER_STRING '('
+        | STARTSHAPE USER_STRING '['
+        | STARTSHAPE USER_ARRAYNAME '['
+        ;
+        
+v2stuff:
+        BACKGROUND modification_v2
+        | TILE modification_v2
+        | MODTYPE modification_v2
+        | INCLUDE fileString
+        | rule_header_v2
+        ;
+
+inclusion_v2 
         : 
-        INCLUDE f=QSTRING {
+        INCLUDE f=USER_QSTRING {
         	driver.setShape(null);
         	driver.includeFile($f.getText());
         }
         |
-        INCLUDE f=FILENAME {
+        INCLUDE f=USER_FILENAME {
         	driver.setShape(null);
         	driver.includeFile($f.getText());
         }
         ;
 
-initialization
+import_v3
         : 
-        STARTSHAPE s=STRING p=parameter_spec m=modification {
+        IMPORT nm=fileNameSpace f=fileString {
+            driver.setShape(null);
+            driver.includeFile($f.result);
+            if ($nm.result != null) {
+                driver.pushNameSpace(nm, $nm.result);
+            }
+        }
+        ;
+
+eof 
+		:
+		EOF {
+			if (driver.endInclude()) {
+			}
+		}
+		;
+		
+fileString returns [String result]
+		:
+        f=USER_FILENAME {
+        	$result = $f.getText();
+        } 
+        | 
+        f=USER_QSTRING {
+        	$result = $f.getText();
+        } 
+       	;
+		
+fileNameSpace returns [String result]
+		:
+        '@' r=USER_STRING { 
+        	$result = $r.getText();
+        }
+        | { 
+        	$result = null;
+        }
+        ;
+
+initialization_v3 returns [ASTDefine result]
+        : 
+        STARTSHAPE s=USER_STRING p=parameter_spec m=modification {
         	String name = $s.getText();
-        	ASTExpression parameter = $p.result;
-        	ASTExpression modification = $m.result;
+        	ASTExpression p = $p.result;
+        	ASTExpression mod = $m.result;
         	driver.setShape(null);
-        	ASTRuleSpecifier ruleSpecifier = driver.makeRuleSpecifier(name, parameter);
-        	ASTReplacement start = new ASTReplacement(ruleSpecifier, name, modification);
-        	driver.initialize(start);
+        	ASTDefine cfg = driver.makeDefinition(CFGParam.StartShape.getName(), false);
+        	if (cfg != null) {
+        		cfg.setExp(driver.makeRuleSpec(name, p, mod, true));
+        	}
+        	$result = cfg;
         }
         |
-        STARTSHAPE s=STRING p=parameter_spec {
+        STARTSHAPE s=USER_ARRAYNAME m=modification {
+        	String name = $s.getText();
+        	ASTExpression mod = $m.result;
+        	driver.setShape(null);
+        	ASTDefine cfg = driver.makeDefinition(CFGParam.StartShape.getName(), false);
+        	if (cfg != null) {
+        		cfg.setExp(driver.makeRuleSpec(name, null, mod, true));
+        	}
+        	$result = cfg;
+        }
+        |
+        STARTSHAPE s=USER_STRING p=parameter_spec {
         	String name = $s.getText();
         	ASTExpression parameter = $p.result;
         	driver.setShape(null);
-        	ASTRuleSpecifier ruleSpecifier = driver.makeRuleSpecifier(name, parameter);
-        	ASTReplacement start = new ASTReplacement(ruleSpecifier, name, new ASTExpression());
-        	driver.initialize(start);
+        	ASTDefine cfg = driver.makeDefinition(CFGParam.StartShape.getName(), false);
+        	if (cfg != null) {
+        		cfg.setExp(driver.makeRuleSpec(name, p, null, true));
+        	}
+        	$result = cfg;
         }
         ;
 
-background
+initialization_v2 returns [ASTDefine result]
         : 
-        BACKGROUND m=global_modification {
+        STARTSHAPE s=USER_STRING {
+        	String name = $s.getText();
         	driver.setShape(null);
-        	ASTExpression modification = $m.result;
-        	ASTReplacement background = new ASTReplacement(ASTRuleSpecifier.ZERO, "", modification);
-        	driver.background(background);
+        	ASTDefine cfg = driver.makeDefinition(CFGParam.StartShape.getName(), false);
+        	if (cfg != null) {
+        		cfg.setExp(driver.makeRuleSpec(name, null, null, true));
+        	}
+        	$result = cfg;
         }
         ;
 
-tile
-        : 
-        TILE m=global_modification {
-        	driver.setShape(null);
-        	ASTExpression modification = $m.result;
-        	ASTReplacement tile = new ASTReplacement(ASTRuleSpecifier.ZERO, "", modification);
-        	driver.buildTileTransform(tile);
+directive_v2 returns [ASTDefine result]
+		:
+        s=directive_string m=modification_v2 {
+        	ASTModification mod = $m.result; 
+            ASTDefine cfg = driver.makeDefinition($s.result, false);
+            if (cfg) {
+                cfg.setExp(mod);
+            }
+            driver.setMaybeVersion("CFDG2");
+        	$result = cfg;
         }
         ;
 
-size
+directive_string returns [String result]
+		:
+        BACKGROUND { 
+        	$result = CFGParam.Background.getName();
+        }
+        |
+        TILE { 
+        	$result = CFGParam.Tile.getName();
+        }
+        |
+        t=MODTYPE {
+            switch ($t.getText()) {
+	            case ModTypeEnum.size:
+	                $result = CFGParam.Tile.getName();
+	                break;
+	            case ModTypeEnum.time:
+	                $result = CFGParam.Time.getName();
+	                break;
+	            default:
+	                $result = CFGParam.Size.getName();
+	                driver.error("Syntax error");
+	                break;
+            }
+        }
+        ;
+        
+shape
         : 
-        SIZE m=global_modification {
-        	driver.setShape(null);
-        	ASTExpression modification = $m.result;
-        	ASTReplacement size = new ASTReplacement(ASTRuleSpecifier.ZERO, "", modification);
-        	driver.buildSizeTransform(size);
+        SHAPE s=USER_STRING parameter_list {
+        	String name = $s.getText(); 
+			driver.setShape(name);
+        }
+        ;
+
+shape_singleton_header returns [ASTShape result]
+        : 
+        shape '{' {
+        	driver.inPathContainer = false;
+        	$result = new ASTRule(-1);
+        	driver.addRule($result);
+        	driver.pushRepContainer($result.getRuleBody());
         }
         ; 
-
-shape returns [ASTShape result]
-        : 
-        SHAPE s=STRING parameter_list {
-        	String name = $s.getText(); 
-        	ASTRuleSpecifier ruleSpecifier = new ASTRuleSpecifier(driver.stringToShape(name), name, driver.paramDecls.getParameters(), driver.paramDecls.getParameters());
-        	ASTShape shape = new ASTShape(ruleSpecifier, false);
-        	shape.getRules().getParameters().clear();
-        	shape.getRules().getParameters().addAll(driver.paramDecls.getParameters());
-			driver.setShape(shape);
-        	shape.getRuleSpecifier().setTypeSignature(shape.getRules().getParameters().isEmpty() ? null : shape.getRules().getParameters());
-        	$result = shape;
-        }
-        ;
 
 shape_singleton returns [ASTShape result]
-        : 
-        s=shape {
-        	driver.inPathContainer = false;
-        	ASTRule ruleShape = new ASTRule(-1);
-        	driver.addRule(ruleShape);
-        	driver.pushRepContainer(ruleShape.getRuleBody());
-        } '{'  buncha_elements '}' {
-        	driver.inPathContainer = false;
-        	driver.popRepContainer(ruleShape);
-        	if (ruleShape.getRepType() == RepElemListEnum.empty) {//TODO da cambiare
-        		ruleShape.setPath(true);
-        		driver.retroPath(ruleShape);
-        	}
-			ASTShape shape = $s.result;
-        	shape.getRules().getBody().add(0, ruleShape);
-        	$result = shape;
+        :
+        s=shape_singleton_header buncha_elements '}' {
+        	$result = $s.result;
+        	driver.popContainer($result.getRuleBody());
         }
         ; 
+
+rule_header_v2 returns [ASTRule result]
+        : 
+        RULE s=USER_STRING {
+        	String name = $s.getText();
+        	driver.setShape(null);
+        	$result = new ASTRule(driver.stringToShape(name, false));
+        	driver.addRule($result);
+        	driver.pushRepContainer($result.getRuleBody());
+        }
+        |
+        RULE s=USER_STRING w=USER_RATIONAL {
+        	String name = $s.getText();
+        	String weight = $w.getText();
+        	driver.setShape(null);
+        	$result = new ASTRule(driver.stringToShape(name), Float.parseFloat(weight), weight.indexOf("\u0025") != -1);
+        	driver.addRule($result);
+        	driver.pushRepContainer($result.getRuleBody());
+        }
+        ;
+
+rule_v2 returns [ASTRule result]
+        : 
+        h=rule_header_v2 '{' buncha_replacements_v2 '}' {
+            driver.setMaybeVersion("CFDG2");
+        	$result = $h.result;
+        	driver.popRep($h.result);
+        }
+        ;
 
 rule_header returns [ASTRule result]
         : 
-        RULE s=STRING {
-        	String name = $s.getText();
-        	driver.setShape(null);
-        	ASTRule rule = new ASTRule(driver.stringToShape(name));
-        	driver.addRule(rule);
-        	driver.pushRepContainer(rule.getRuleBody());
-        	$result = rule;
-        }
-        |
-        RULE s=STRING w=RATIONAL {
-        	String name = $s.getText();
-        	String weight = $w.getText();
-        	driver.setShape(null);
-        	ASTRule rule = new ASTRule(driver.stringToShape(name), Float.parseFloat(weight), weight.indexOf("\u0025") != -1);
-        	driver.addRule(rule);
-        	driver.pushRepContainer(rule.getRuleBody());
-        	$result = rule;
-        }
-        ;
-
-rule_shape returns [ASTRule result]
-        : 
-        h=rule_header '{' buncha_replacements_v2 '}' {
-        	driver.popRepContainer($h.result);
-        	$result = $h.result;
-        }
-        ;
-
-shape_element_header returns [ASTRule result]
-        : 
         RULE {
         	driver.inPathContainer = false;
-        	ASTRule rule = new ASTRule(-1);
-        	driver.addRule(rule);
-        	driver.pushRepContainer(rule.getRuleBody());
-        	$result = rule;
-       }
-       |
-        RULE w=RATIONAL {
-        	String weight = $w.getText();
-        	driver.inPathContainer = false;
-        	ASTRule rule = new ASTRule(-1, Float.parseFloat(weight), weight.indexOf("\u0025") != -1);
-        	driver.addRule(rule);
-        	driver.pushRepContainer(rule.getRuleBody());
-        	$result = rule;
+        	$result = new ASTRule(-1);
+        	driver.addRule($result);
+        	driver.pushRepContainer($result.getRuleBody());
         }
         |
-        PATH {
-        	driver.inPathContainer = true;
-        	ASTRule rule = new ASTRule(-1);
-        	rule.setPath(true);
-        	driver.addRule(rule);
-        	driver.pushRepContainer(rule.getRuleBody());
-        	$result = rule;
-        }
-        ;
-
-shape_element returns [ASTRule result]
-        : 
-        h=shape_element_header '{' buncha_elements '}' {
+        RULE w=USER_RATIONAL {
         	driver.inPathContainer = false;
-        	ASTRule rule = $h.result;
-        	driver.popRepContainer(rule);
-        	$result = rule;
+        	$result = new ASTRule(-1, Float.parseFloat(weight), weight.indexOf("\u0025") != -1);
+        	driver.addRule($result);
+        	driver.pushRepContainer($result.getRuleBody());
         }
         ;
 
 path_header returns [ASTRule result]
         : 
-        PATH s=STRING {
+        PATH s=USER_STRING parameter_list {
         	String name = $s.getText();
         	driver.setShape(null);
         	driver.inPathContainer = true;
-        	ASTRule rule = new ASTRule(driver.stringToShape(name));
-        	rule.setPath(true);
-        	driver.addRule(rule);
-        	driver.pushRepContainer(rule.getRuleBody());
-        	$result = rule;
+        	$result = new ASTRule(-1);
+        	$result.setPath(true);
+        	driver.addRule($result);
+        	driver.pushRepContainer($result.getRuleBody());
+        }
+        ;
+
+rule_v3 returns [ASTRule result]
+        : 
+        h=rule_header '{' buncha_elements '}' {
+        	$result = $h.result;
+        	driver.popRepContainer($result);
+        	driver.inPathContainer = false;
         }
         ;
 
 path returns [ASTRule result]
         : 
-        h=path_header '{' buncha_pathOps_v2 '}' {
-        	ASTRule rule = $h.result;
-        	driver.popRepContainer(rule);
-        	$result = rule;
+        h=path_header '{' buncha_elements '}' {
+        	$result = $h.result;
+        	driver.popRepContainer($result);
+        	driver.inPathContainer = false;
+        	driver.setShape(null);
+        }
+        ;
+        
+path_header_v2 returns [ASTRule result]
+        : 
+        PATH s=USER_STRING {
+        	String name = $s.getText();
+        	driver.setShape(null);
+        	$result = new ASTRule(driver.stringToShape(name), false);
+        	$result.setPath(true);
+        	driver.addRule($result);
+        	driver.pushRepContainer($result.getRuleBody());
+        	driver.inPathContainer = true;
+        }
+        ;
+
+path_v2 returns [ASTRule result]
+		:
+        r=path_header_v2 '{' buncha_pathOps_v2 '}' {
+            $result = $r.result;
+            driver.popRepContainer($result);
         }
         ;
 
 parameter
        : 
-       t=STRING v=STRING {
+       t=USER_STRING v=USER_STRING {
 			String type = $t.getText();
 			String var = $v.getText();
 			driver.nextParameterDecl(type, var);
         }
         |
-        SHAPE v=STRING {
+        SHAPE v=USER_STRING {
 			String var = $v.getText();
 			driver.nextParameterDecl("shape", var);
+        }
+        |
+        v=USER_STRING MODTYPE {
+        	error("Reserved keyword: adjustment");
+        }
+        |
+        SHAPE MODTYPE {
+        	error("Reserved keyword: adjustment");
+        }
+        |
+        v=USER_STRING {
+			String var = $v.getText();
+			driver.nextParameterDecl("number", var);
+        }
+        |
+        MODTYPE {
+        	error("Reserved keyword: adjustment");
         }
         ;
 
 buncha_parameters 
         : 
-        parameter ',' buncha_parameters 
+        buncha_parameters ',' parameter 
         | 
         parameter
         ;
@@ -265,13 +422,24 @@ parameter_list
         |
         ;
 
+function_parameter_list
+		:
+        '(' buncha_parameters ')'
+        | 
+        '(' ')'
+        ;
+
 parameter_spec returns [ASTExpression result]
         : 
-        '(' e=exp2 ')' { 
-        	$result = $e.result;
+        '(' a=arglist ')' { 
+        	$result = $a.result;
+        }
+        |
+        '(' BECOMES ')' { 
+        	$result = new ASTExpression(false, false, ExpType.ReuseType);
         }
         | '(' ')' { 
-        	$result = new ASTExpression(); 
+        	$result = null; 
         }
         | {
         	$result = null;
@@ -280,33 +448,33 @@ parameter_spec returns [ASTExpression result]
 
 buncha_elements 
         : 
-        r=element buncha_elements {
-        	driver.pushRep($r.result, false);
+        buncha_elements r=element {
+        	driver.pushRep($r.result);
         }
         | 
-        {
-        }
         ;
 
 buncha_pathOps_v2 
         : 
-        r=pathOp_v2 buncha_pathOps_v2 {
-        	driver.pushRep($r.result, false);
+        buncha_pathOps_v2 r=pathOp_v2 {
+        	driver.pushRep($r.result);
         }
         | 
-        {
-        }
         ;
 
+
+
+
+////////////////////////////////////////
 pathOp_simple_v2 returns [ASTReplacement result]
         : 
-        o=PATHOP '{' a=buncha_pathop_adjustments '}' {
+        o=USER_PATHOP '{' a=buncha_pathop_adjustments '}' {
         	String operator = $o.getText();
         	ASTExpression modification = $a.result;
         	$result = new ASTPathOp(operator, modification, false);
         }
         |
-        c=STRING m=modification_v2 {
+        c=USER_STRING m=modification_v2 {
         	String command = $c.getText();
         	ASTExpression modification = $m.result;
         	$result = new ASTPathCommand(command, modification);
@@ -315,27 +483,27 @@ pathOp_simple_v2 returns [ASTReplacement result]
 
 element_simple returns [ASTReplacement result]
         : 
-        o=PATHOP '(' e=exp2 ')' {
+        o=USER_PATHOP '(' e=exp2 ')' {
         	driver.inPathContainer = true;
         	String operator = $o.getText();
         	ASTExpression modification = $e.result;
         	$result = new ASTPathOp(operator, modification, true);
         }
         |
-        o=PATHOP '(' ')' {
+        o=USER_PATHOP '(' ')' {
         	driver.inPathContainer = true;
         	String operator = $o.getText();
         	$result = new ASTPathOp(operator, null, true);
         }
         |
-        s=STRING p=parameter_spec m=modification {
+        s=USER_STRING p=parameter_spec m=modification {
         	String command = $s.getText();
         	ASTExpression parameter = $p.result;
         	ASTExpression modification = $m.result;
         	$result = driver.makeElement(command, modification, parameter, false);
         }
         |
-        PATH s=STRING p=parameter_spec m=modification {
+        PATH s=USER_STRING p=parameter_spec m=modification {
         	driver.inPathContainer = true;
         	String command = $s.getText();
         	ASTExpression parameter = $p.result;
@@ -385,18 +553,18 @@ element returns [ASTReplacement result]
         |
         rl=element_loop { 
         	$result = $rl.result; 
-        	driver.popRepContainer($rl.result);
+        	driver.popRep($rl.result);
         	if ($rl.result.getRepType().getType() == 0) {
 	        	$result = null; 
         	}
         }
         |
         rl=element_loop FINALLY {
-        	driver.popRepContainer($rl.result);
+        	driver.popRep($rl.result);
         	driver.pushRepContainer(((ASTLoop) $rl.result).getFinallyBody());
         } one_or_more_elements {
         	$result = $rl.result; 
-        	driver.popRepContainer($rl.result);
+        	driver.popRep($rl.result);
         	if ($rl.result.getRepType().getType() == 0) {
 	        	$result = null; 
         	}
@@ -404,18 +572,18 @@ element returns [ASTReplacement result]
         |
         ri=ifHeader one_or_more_elements {
         	$result = $ri.result; 
-        	driver.popRepContainer($ri.result);
+        	driver.popRep($ri.result);
         	if ($ri.result.getRepType().getType() == 0) {
 	        	$result = null; 
         	}
         }
         |
         ri=ifHeader one_or_more_elements ELSE {
-        	driver.popRepContainer($ri.result);
+        	driver.popRep($ri.result);
          	driver.pushRepContainer(((ASTIf)($ri.result)).getElseBody());
         } one_or_more_elements {
         	$result = $ri.result;  
-        	driver.popRepContainer($ri.result);
+        	driver.popRep($ri.result);
         	if ($ri.result.getRepType().getType() == 0) {
 	        	$result = null; 
         	}
@@ -423,7 +591,7 @@ element returns [ASTReplacement result]
         |
         rt=transHeader one_or_more_elements {
         	$result = $rt.result; 
-        	driver.popRepContainer($rt.result);
+        	driver.popRep($rt.result);
         	if ($rt.result.getRepType().getType() == 0) {
 	        	$result = null; 
         	}
@@ -432,7 +600,7 @@ element returns [ASTReplacement result]
         rs=switchHeader '{' caseBody '}' {
 			$rs.result.unify();
         	$result = $rs.result; 
-        	driver.popRepContainer($rs.result);
+        	driver.popRep($rs.result);
         	driver.switchStack().pop();
         }
         ;
@@ -445,7 +613,7 @@ pathOp_v2 returns [ASTReplacement result]
         |
         rl=loopHeader_v2 one_or_more_pathOp_v2 { 
         	$result = $rl.result;
-			driver.popRepContainer($rl.result);
+			driver.popRep($rl.result);
 			if ($rl.result.getRepType().getType() == 0) {
 				$result = null;			
 			}
@@ -479,7 +647,7 @@ one_or_more_replacements_v2
 
 replacement_simple_v2 returns [ASTReplacement result]
         : 
-        s=STRING m=modification_v2 {
+        s=USER_STRING m=modification_v2 {
         	String name = $s.getText();
         	ASTExpression modification = $m.result;
         	ASTRuleSpecifier ruleSpecifier = driver.makeRuleSpecifier(name, new ASTExpression());
@@ -495,7 +663,7 @@ replacement_v2 returns [ASTReplacement result]
         |
         rl=loopHeader_v2 one_or_more_replacements_v2 {
         	$result = $rl.result;
-			driver.popRepContainer($rl.result);
+			driver.popRep($rl.result);
 			if ($rl.result.getRepType().getType() == 0) {
 	        	$result = null;			
 			}
@@ -504,7 +672,7 @@ replacement_v2 returns [ASTReplacement result]
 
 loopHeader_v2 returns [ASTReplacement result]
         : 
-        r=RATIONAL '*' m=modification_v2 {
+        r=USER_RATIONAL '*' m=modification_v2 {
         	ASTExpression count = new ASTReal(Float.parseFloat($r.getText()));
         	ASTExpression modification = $m.result;
         	ASTLoop loopHeader = new ASTLoop(count, modification);
@@ -523,7 +691,7 @@ loopHeader_v2 returns [ASTReplacement result]
 
 loopHeader returns [ASTReplacement result]
         : 
-        LOOP v=STRING BECOMES i=exp2 m=modification {
+        LOOP v=USER_STRING BECOMES i=exp2 m=modification {
         	String var = $v.getText();
         	ASTExpression index = $i.result;
         	ASTExpression modification = $m.result;
@@ -680,27 +848,27 @@ adjustment returns [ASTExpression result]
         : 
         t=(TIME|TIMESCALE|X|Y|Z|ROTATE|SIZE|SKEW|FLIP|HUE|SATURATION|BRIGHTNESS|ALPHA|TARGETHUE|TARGETSATURATION|TARGETBRIGHTNESS|TARGETALPHA|X1|X2|Y1|Y2|RX|RY|WIDTH) ml=explist {
         	ASTExpression modification = $ml.result; 
-        	$result = driver.makeModTerm($t.getText(), modification);
+        	$result = driver.makeModTerm($t.getText(), modification, false);
         }
         |
         t=(HUE|SATURATION|BRIGHTNESS|ALPHA) m=exp '|' {
         	ASTExpression modification = $m.result; 
-        	$result = driver.makeModTerm($t.getText(), modification);
+        	$result = driver.makeModTerm($t.getText(), modification, true);
         }
         |
-        PARAM p=STRING {
-        	$result = driver.makeModTerm(ModTypeEnum.param, $p.getText());
+        PARAM p=USER_STRING {
+        	$result = driver.makeModTermParam($p.getText());
         }
         |
-        PARAM p=QSTRING {
-        	$result = driver.makeModTerm(ModTypeEnum.param, $p.getText());
+        PARAM p=USER_QSTRING {
+        	$result = driver.makeModTermParam($p.getText());
         }
         ;
         
 explist returns [ASTExpression result]
         : 
-        e1=exp e2=explist {
-        	$result = new ASTCons($e2.result, $e1.result);
+        e2=explist e1=exp {
+        	$result = $e2.result.append($e1.result);
         }
         | 
         e=exp { 
@@ -708,18 +876,29 @@ explist returns [ASTExpression result]
         }
         ;
 
+arglist returns [ASTExpression result]
+        : 
+        e2=explist e1=exp {
+        	$result = $e2.result.append($e1.result);
+        }
+        | 
+        e=exp { 
+        	$result = new ASTCons(new ASTParen($e.result));
+        }
+        ;
+
 exp returns [ASTExpression result]
         : 
         (
-        r=RATIONAL { 
+        r=USER_RATIONAL { 
 			$result = new ASTReal(Float.parseFloat($r.getText())); 
         }
         |
-        '-' r=RATIONAL {
+        '-' r=USER_RATIONAL {
 			$result = new ASTReal(Float.parseFloat($r.getText()), true); 
         }
         |
-        '+' r=RATIONAL { 
+        '+' r=USER_RATIONAL { 
 			$result = new ASTReal(Float.parseFloat($r.getText())); 
         }
         |
@@ -755,7 +934,7 @@ exp returns [ASTExpression result]
 exp2 returns [ASTExpression result]	
         : 
         (
-        r=RATIONAL { 
+        r=USER_RATIONAL { 
         	$result = new ASTReal(Float.parseFloat($r.getText())); 
         }
         |
@@ -858,18 +1037,18 @@ exp2 returns [ASTExpression result]
 
 expfunc returns [ASTExpression result]
         : 
-        f=STRING '(' ')' { 
+        f=USER_STRING '(' ')' { 
         	String function = $f.getText();
-        	$result = driver.makeFunction(function, new ASTExpression(), true);
+        	$result = driver.makeFunction(function, new ASTExpression());
         }
         | 
-        f=STRING '(' e=exp2 ')' { 
+        f=USER_STRING '(' e=exp2 ')' { 
         	String function = $f.getText();
         	ASTExpression arguments = $e.result;
-        	$result = driver.makeFunction(function, arguments, true);
+        	$result = driver.makeFunction(function, arguments);
         }
         |
-        v=STRING { 
+        v=USER_STRING { 
         	String var = $v.getText();
         	$result = driver.makeVariable(var);
         }
@@ -877,50 +1056,153 @@ expfunc returns [ASTExpression result]
 
 exp2func returns [ASTExpression result]
         : 
-        f=STRING '(' ')' { 
+        f=USER_STRING '(' ')' { 
         	String function = $f.getText();
-        	$result = driver.makeFunction(function, new ASTExpression(), true);
+        	$result = driver.makeFunction(function, new ASTExpression());
         }
         | 
-        f=STRING '(' e=exp2 ')' { 
+        f=USER_STRING '(' e=exp2 ')' { 
         	String function = $f.getText();
         	ASTExpression arguments = $e.result;
-        	$result = driver.makeFunction(function, arguments, true);
+        	$result = driver.makeFunction(function, arguments);
         }
         |
-        v=STRING { 
+        v=USER_STRING { 
         	String var = $v.getText();
         	$result = driver.makeVariable(var);
         }
         ;
         
-global_definition
-        : 
-        v=STRING BECOMES e=exp2 { 
-        	driver.setShape(null);
-        	String var = $v.getText();
-        	ASTExpression expression = $e.result;
- 			driver.nextParameter(var, expression);
+global_definition returns [ASTDefine result]
+		:
+        r=global_definition_header e=exp2 {
+            ASTDefine var = $r.result;
+            ASTExpression exp = $e.result;
+            if (var != null) {
+                switch (var.getDefineType()) {
+                    case DefineType.StackDefine:
+                        if (exp instanceOf ASTModification)
+                            var-getChildChange().grab(mod); // emptied ASTmod gets deleted
+                        else
+                            var.setExpression(exp);
+                        break;
+                    case DefineType.LetDefine:
+                        assert(false);
+                        break;
+                    case DefineType.FunctionDefine:
+                        driver.popRepContainer(null);
+                        driver.paramDecls.getParameters().clear();
+                        driver.paramDecls.setStackCount(0);
+                        // fall through
+                    default:
+                        var.setExpression(exp);
+                        break;
+                }
+                $result = var;
+            } else {
+                $result = null;
+            }
         }
         ;
 
-definition
+function_definition_header returns [ASTDefine result]
+		:
+        SHAPE f=USER_STRING p=function_parameter_list BECOMES {
+        	String name = $f.getText();
+            $result = driver.makeDefinition(name, true);
+            if ($result) {
+                $result.setType(ExpType.RuleType);
+                $result.setTuplesize(1);
+            }
+        }
+        |
+        f=USER_STRING p=function_parameter_list BECOMES {
+        	String name = $f.getText();
+            $result = driver.makeDefinition(name, true);
+            if ($result) {
+                $result.setType(ExpType.NumericType);
+                $result.setTuplesize(1);
+            }
+        }
+        |
+        t=USER_STRING f=USER_STRING p=function_parameter_list BECOMES {
+        	String name = $f.getText();
+        	String type = $f.getText();
+            $result = driver.makeDefinition(name, true);
+            if ($result) {
+                $result.setType(driver.decodeType(type, $result.getTupleSize(), $result.isNatural()); 
+            }
+        }
+        |
+        SHAPE MODTYPE p=function_parameter_list BECOMES {
+            driver.error("Reserved keyword: adjustment");
+            $result = null;
+        }
+        |
+        MODTYPE p=function_parameter_list BECOMES {
+            driver.error("Reserved keyword: adjustment");
+            $result = null;
+        }
+        |
+        t=USER_STRING MODTYPE p=function_parameter_list BECOMES {
+            driver.error("Reserved keyword: adjustment");
+            $result = null;
+        }
+        ;
+
+global_definition_header returns [ASTDefine result]
+		:
+        r=function_definition_header {
+            if ($r.result != null) {
+                assert($r.result.getDefineType() == DefineType.FunctionDefine);
+                driver.pushPepContainer(driver.paramDecls);
+            } else {
+                // An error occurred
+                driver.paramDecls.getParameters().clear();
+                driver.paramDecls.setStackCount(0);
+            }
+            $result = $r.result;
+        }
+        |
+       	r=definition_header {
+            $result = $r.result;
+        }
+        ;
+
+definition_header returns [ASTDefine result]
+		:
+        n=USER_STRING BECOMES {
+        	String name = $n.getText();
+            $result = driver.makeDefinition(name, false);
+        }
+        | MODTYPE BECOMES {
+            driver.error("Reserved keyword: adjustment");
+            $result = null;
+        }
+        ;
+
+definition returns [ASTDefine result]
         :
-        v=STRING BECOMES e=exp2 { 
-        	String var = $v.getText();
-        	ASTExpression expression = $e.result;
- 			driver.nextParameter(var, expression);
+        d=definition_header e=exp2 { 
+        	ASTDefinition var = $d.result;
+        	ASTExpression exp = $e.result;
+        	if (var != null) {
+        		if (exp instanceOf ASTModification) {
+        			mod.getModData().setSeed(0);
+        			var.getChildChange().grab(mod);
+        		} else {
+        			var.setExp(exp);
+        		}
+        		$result = var;
+        	} else {
+        		$result = null;        		
+        	}
         }
         ;
 	
-RATIONAL
+USER_RATIONAL
 	: 
 	('0'..'9')+ '.' ('0'..'9')* '%'? | '.' ('0'..'9')+ '%'? | '0'..'9'+ '%'?
-	;
-
-RATIONAL2		
-	: 
-	('0'..'9')+ '%'? '..' 
 	;
 
 STARTSHAPE
@@ -936,6 +1218,11 @@ BACKGROUND
 INCLUDE
 	: 
 	'include' 
+	;
+
+IMPORT
+	: 
+	'import' 
 	;
 
 TILE
@@ -1183,7 +1470,7 @@ XOR
 	'^^' 
 	;
 
-PATHOP
+USER_PATHOP
 	: 
 	'MOVETO'
 	| 
@@ -1203,20 +1490,30 @@ PATHOP
 	| 
 	'CLOSEPOLY' 
 	;
-	
-STRING 
+
+MODTYPE
+	:
+	TIME | TIMESCALE | X | Y | Z | ROTATE | SIZE | SKEW | FLIP | HUE | SATURATION | BRIGHTNESS | ALPHA | TARGETHUE | TARGETSATURATION | TARGETBRIGHTNESS | TARGETALPHA | X1 | X2 | Y1 | Y2 | RX | RY | WIDTH
+	;
+		
+USER_STRING 
 	: 
 	('a'..'z'|'A'..'Z'|'_'|'\u0200'..'\u0301'|'\u0303'..'\u0377') (('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'\u0200'..'\u0301'|'\u0303'..'\u0377')|('\u0302'('\u0200'..'\u0260'|'\u0262'..'\u0377')))* 
 	;
 
-QSTRING	
+USER_QSTRING	
 	:	
-	'"' STRING '"' 
+	'"' USER_STRING '"' 
 	;
 	
-FILENAME 
+USER_FILENAME 
 	: 
 	('a'..'z'|'A'..'Z'|'\u0200'..'\u0377') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'\u0200'..'\u0377'|'.')* '.cfdg' 
+	;
+
+USER_ARRAYNAME 
+	: 
+	('a'..'z'|'A'..'Z'|'_'|'\u0200'..'\u0301'|'\u0303'..'\u0377') (('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'\u0200'..'\u0301'|'\u0303'..'\u0377')|('\u0302'('\u0200'..'\u0260'|'\u0262'..'\u0377')))* 
 	;
 
 COMMENT
@@ -1228,3 +1525,14 @@ WHITESPACE
 	: 
 	( ' ' | '\t' | '\r' | '\n' ) -> skip 
 	;
+
+CFDG2
+	: 
+	'CFDG2' 
+	;
+	
+CFDG3
+	: 
+	'CFDG3' 
+	;
+	

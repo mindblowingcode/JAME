@@ -6,7 +6,7 @@ import java.util.List;
 class ASTRuleSpecifier extends ASTExpression {
     	public static ASTRuleSpecifier ZERO = new ASTRuleSpecifier("", 0);
     	private int shapeType;
-    	private int argSize;
+		private int argSize;
     	private StringBuilder entropy;
     	private ArgSource argSource;
     	private ASTExpression arguments;
@@ -47,10 +47,6 @@ class ASTRuleSpecifier extends ASTExpression {
     		spec.simpleRule = null;
     	}
     	    	
-    	public ASTRuleSpecifier(int shapeType, String name, List<ASTParameter> typeSignature, List<ASTParameter> parent) {
-    		this(shapeType, name, null, typeSignature, parent);
-    	}
-
     	public ASTRuleSpecifier(int shapeType, String name, ASTExpression arguments, List<ASTParameter> typeSignature, List<ASTParameter> parent) {
     		super(arguments == null || arguments.isConstant, ExpType.RuleType);
     		this.entropy = new StringBuilder();
@@ -90,6 +86,18 @@ class ASTRuleSpecifier extends ASTExpression {
             }
     	}
 
+		public ASTRuleSpecifier(ASTExpression args) {
+			// TODO Auto-generated constructor stub
+		}
+
+		public ASTRuleSpecifier(int nameIndex, String name) {
+			// TODO Auto-generated constructor stub
+		}
+
+		public ASTRuleSpecifier(int nameIndex, String name, ASTExpression arguments, List<ASTParameter> typeSignature) {
+			// TODO Auto-generated constructor stub
+		}
+
 		@Override
 		public ASTStackType evalArgs(ASTStackType parent, RTI rti) {
             switch (argSource) {
@@ -119,7 +127,7 @@ class ASTRuleSpecifier extends ASTExpression {
 		}
 
 		@Override
-		public int evaluate(double[] result, int offset, int length, RTI rti) {
+		public int evaluate(double[] result, int length, RTI rti) {
 			throw new RuntimeException("Improper evaluation of a rule specifier");
 		}
 
@@ -144,7 +152,11 @@ class ASTRuleSpecifier extends ASTExpression {
 			return shapeType;
 		}
 
-		public int getArgSize() {
+    	public void setShapeType(int shapeType) {
+			this.shapeType = shapeType;
+		}
+
+    	public int getArgSize() {
 			return argSize;
 		}
 
@@ -170,5 +182,9 @@ class ASTRuleSpecifier extends ASTExpression {
 
 		public void setTypeSignature(List<ASTParameter> typeSignature) {
 			this.typeSignature = typeSignature;
+		}
+
+		public void setArgSouce(ArgSource argSource) {
+			this.argSource = argSource;
 		}
     }

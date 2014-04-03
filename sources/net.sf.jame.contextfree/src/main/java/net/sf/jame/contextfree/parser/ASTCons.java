@@ -57,17 +57,22 @@ class ASTCons extends ASTExpression {
 	}
 
 	@Override
-	public int evaluate(double[] result, int offset, int length, RTI rti) { 
+	public int evaluate(double[] result, int length, RTI rti) { 
 		if (type != ExpType.NumericType) {
 			throw new RuntimeException("Non-numeric expression in a numeric context");
         }
-        int leftnum = left != null ? left.evaluate(result, 0, length, rti) : 0;
+		double[] lresult = new double[1];
+        int leftnum = left != null ? left.evaluate(result, 1, rti) : 0;
         if (leftnum <= 0) 
             return -1;
         
-        int rightnum = right != null ? right.evaluate(result, leftnum, length - leftnum, rti) : 0;
+		double[] rresult = new double[1];
+        int rightnum = right != null ? right.evaluate(result, 1, rti) : 0;
         if (rightnum <= 0) 
             return -1;
+        
+        result[0] = lresult[0];
+        result[1] = rresult[0];//TODO da controllare
         
         return leftnum + rightnum;
 	}		

@@ -47,7 +47,11 @@ class ASTExpression {
 		return null;
 	}
 
-	public int evaluate(double[] result, int offset, int length, RTI rti) {
+	public int evaluate(double[] result, int length, RTI rti) {
+		return 0;
+	}
+
+	public int evaluate(Modification[] result, int length, RTI rti) {
 		return 0;
 	}
 
@@ -65,5 +69,19 @@ class ASTExpression {
 	
 	public ASTExpIterator end() {
 		return new ASTExpIterator();
+	}
+
+	public List<ASTExpression> getChildren() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setType(ExpType type) {
+		this.type = type;
+	}
+
+	public ASTExpression append(ASTExpression args) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

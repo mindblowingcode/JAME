@@ -12,7 +12,7 @@ class ASTSelect extends ASTExpression {
 		private ASTSelect weakPointer;
 		private ASTExpression arguments;
 		
-		public ASTSelect(ASTExpression arguments) {
+		public ASTSelect(ASTExpression arguments, boolean asIf) {
 			super();
 			this.arguments = arguments;
 			indexCache = 0;
@@ -148,7 +148,7 @@ class ASTSelect extends ASTExpression {
 		public int getIndex(RTI rti) {
 	        if (selector != null) {
 	            double[] select = new double[1];
-	            selector.evaluate(select, 0, 1, rti);
+	            selector.evaluate(select, 1, rti);
 	            if (select[0] < 0.0)
 	                indexCache = 0;
 	            else if (select[0] >= choices.size())
@@ -165,7 +165,7 @@ class ASTSelect extends ASTExpression {
 		}
 
 		@Override
-		public int evaluate(double[] result, int offset, int length, RTI rti) {
+		public int evaluate(double[] result, int length, RTI rti) {
 	        if (type != ExpType.NumericType) {
 	            throw new RuntimeException("Evaluation of a non-shape select() in a numeric context");
 	        }
@@ -173,7 +173,7 @@ class ASTSelect extends ASTExpression {
 	        if (result == null)
 	            return tupleSize;
 	        
-	        return choices.get(getIndex(rti)).evaluate(result, offset, length, rti);
+	        return choices.get(getIndex(rti)).evaluate(result, length, rti);
 		}
 
 		@Override

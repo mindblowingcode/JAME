@@ -49,12 +49,12 @@ class ASTReal extends ASTExpression {
 	}
 
 	@Override
-	public int evaluate(double[] result, int offset, int length, RTI rti) {
-		if (result != null && length != 1)
+	public int evaluate(double[] result, int length, RTI rti) {
+		if (result != null && length < 1)
 			return -1;
 
 		if (result != null)
-			result[offset + 0] = value;
+			result[0] = value;
 		
 		return 1;
 	}

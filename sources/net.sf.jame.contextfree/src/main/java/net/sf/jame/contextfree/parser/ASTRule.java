@@ -58,4 +58,8 @@ class ASTRule extends ASTReplacement {
 	public WeightType getWeightType() {
 		return weightType;
 	}
+
+	public void setNameIndex(int nameIndex) {
+		this.nameIndex = nameIndex;
+	}
 }
