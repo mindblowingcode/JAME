@@ -5,13 +5,11 @@ import java.util.List;
 
 class ASTVariable extends ASTExpression {
 	private String text;
-	private int stringIndex;
 	private int stackIndex;
 	private int count;
 
-	public ASTVariable(int stringIndex, String text) {
+	public ASTVariable(int varNum, String text) {
 		super(true, ExpType.NumericType);
-		this.stringIndex = stringIndex;
 		this.stackIndex = 0;
 		this.count = 1;
 		this.text = text;
@@ -19,7 +17,6 @@ class ASTVariable extends ASTExpression {
 
 	public ASTVariable(ASTVariable var) {
 		super(var.isConstant, var.getType());
-		stringIndex = var.stringIndex;
 		stackIndex = var.stackIndex;
 		count = var.count;
 		text = var.text;
@@ -44,7 +41,7 @@ class ASTVariable extends ASTExpression {
 	}
 
 	@Override
-	public int evaluate(double[] result, int offset, int length, RTI rti) {
+	public int evaluate(double[] result, int length, RTI rti) {
 		if (type != ExpType.NumericType) {
 			throw new RuntimeException("Non-numeric variable in a numeric context");
         }

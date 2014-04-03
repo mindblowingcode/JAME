@@ -10,6 +10,10 @@ class ASTRepContainer {
 	boolean isGlobal;
 	private int stackCount;
 
+	public void setStackCount(int stackCount) {
+		this.stackCount = stackCount;
+	}
+
 	public PathOpEnum getPathOp() {
 		return pathOp;
 	}
@@ -32,5 +36,23 @@ class ASTRepContainer {
 
 	public int getStackCount() {
 		return stackCount;
+	}
+
+	public void addParameter(String type, int nameIndex) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addDefParameter(int nameIndex, ASTDefine def) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setRepType(int repType) {
+		this.repType = repType;
+	}
+
+	public void setPathOp(PathOpEnum pathOp) {
+		this.pathOp = pathOp;
 	}
 }

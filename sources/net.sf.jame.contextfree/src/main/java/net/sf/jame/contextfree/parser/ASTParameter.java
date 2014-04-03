@@ -4,7 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 
 class ASTParameter extends ASTExpression {
-    	private ExpType type;
+    	public static boolean Impure;
+		private ExpType type;
     	private boolean isParameter;
     	private boolean isLoopIndex;
     	private int nameIndex;
@@ -12,6 +13,7 @@ class ASTParameter extends ASTExpression {
     	private ASTModification modification;
     	private int stackIndex;
     	private int tupleSize;
+    	private LocalityType localityType;
     	
     	public ASTParameter() {
     		super(true, ExpType.NoType);
@@ -38,7 +40,7 @@ class ASTParameter extends ASTExpression {
 					break;
 				}
 				case NumericType: {
-					tupleSize = expression.evaluate(null, 0, 0, null);
+					tupleSize = expression.evaluate((double[])null, 0, null);
 					if (tupleSize == 0)
 						tupleSize = 1; // loop index
 					if (tupleSize < 1 || tupleSize > 8) {
@@ -103,7 +105,7 @@ class ASTParameter extends ASTExpression {
         
         public boolean compare(ASTExpression e) {
             if (type != e.type) return true;
-            if (type == ExpType.NumericType && tupleSize != e.evaluate(null, 0, 0, null)) return true;
+            if (type == ExpType.NumericType && tupleSize != e.evaluate((double[])null, 0, null)) return true;
             return false;
         }
         
@@ -197,5 +199,22 @@ class ASTParameter extends ASTExpression {
 
 		public int getTupleSize() {
 			return tupleSize;
+		}
+
+		public void setStackIndex(int stackIndex) {
+			this.stackIndex = stackIndex;
+		}
+
+		public LocalityType getLocality() {
+			return localityType;
+		}
+
+		public void setLocality(LocalityType localityType) {
+			this.localityType = localityType;
+		}
+
+		public String getLocation() {
+			// TODO Auto-generated method stub
+			return null;
 		}
     }

@@ -72,7 +72,7 @@ class ASTOperator extends ASTExpression {
 
 				int argcount = 0;
 				if (mod.getArguments() != null && mod.getArguments().type == ExpType.NumericType) {
-					argcount = mod.getArguments().evaluate(null, 0, 0, null);
+					argcount = mod.getArguments().evaluate((double[])null, 0, null);
 				}
 
 				switch (mod.getModType()) {
@@ -117,7 +117,7 @@ class ASTOperator extends ASTExpression {
 			temp.addAll(dropped);
 
 			// If x and y are provided then merge them into a single (x,y) modification
-			if (x[0] != null && y[0] != null && x[0].getArguments().evaluate(null, 0, 0, null) == 1 && y[0].getArguments().evaluate(null, 0, 0, null) == 1) {
+			if (x[0] != null && y[0] != null && x[0].getArguments().evaluate((double[])null, 0, null) == 1 && y[0].getArguments().evaluate((double[])null, 0, null) == 1) {
 				x[0].setArguments(new ASTCons(x[0].getArguments(), y[0].getArguments()));
 				y[0].setArguments(null);
 				y[0] = null;
@@ -159,7 +159,7 @@ class ASTOperator extends ASTExpression {
 	}
 
 	@Override
-	public int evaluate(double[] result, int offset, int length, RTI rti) {
+	public int evaluate(double[] result, int length, RTI rti) {
 		double[] l = new double[] { 0.0 };
 		double[] r = new double[] { 0.0 };
 
@@ -167,9 +167,9 @@ class ASTOperator extends ASTExpression {
 			return -1;
 
 		if (type == ExpType.FlagType && operator == '+') {
-			if (left == null || left.evaluate(result != null ? l : null, 0, 1, rti) != 1)
+			if (left == null || left.evaluate(result != null ? l : null, 1, rti) != 1)
 				return -1;
-			if (right == null || right.evaluate(result != null ? r : null, 0, 1, rti) != 1)
+			if (right == null || right.evaluate(result != null ? r : null, 1, rti) != 1)
 				return -1;
 			int f = (int) l[0] | (int) r[0];
 			if (result != null)
@@ -181,11 +181,11 @@ class ASTOperator extends ASTExpression {
 			throw new RuntimeException("Non-numeric expression in a numeric context");
 		}
 
-		if (left.evaluate(result != null ? l : null, 0, 1, rti) != 1) {
+		if (left.evaluate(result != null ? l : null, 1, rti) != 1) {
 			throw new RuntimeException("illegal operand");
 		}
 
-		int rightnum = right != null ? right.evaluate(result != null ? r : null, 0, 1, rti) : 0;
+		int rightnum = right != null ? right.evaluate(result != null ? r : null, 1, rti) : 0;
 
 		if (rightnum == 0 && (operator == 'N' || operator == 'P' || operator == '!')) {
 			if (result != null) {
@@ -360,7 +360,7 @@ class ASTOperator extends ASTExpression {
 
 		if (isConstant && (type == ExpType.NumericType || type == ExpType.FlagType)) {
 			double[] result = new double[1];
-			if (evaluate(result, 0, 1, null) != 1) {
+			if (evaluate(result, 1, null) != 1) {
 				return null;
 			}
 

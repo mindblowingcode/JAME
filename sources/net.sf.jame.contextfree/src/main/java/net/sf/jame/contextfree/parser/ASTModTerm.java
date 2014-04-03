@@ -56,13 +56,13 @@ class ASTModTerm extends ASTExpression {
                 return 1;
             }
             
-            if (modType == ModTypeEnum.x && last.modType == ModTypeEnum.y && arguments.evaluate(null, 0, 0, null) == 1) {
+            if (modType == ModTypeEnum.x && last.modType == ModTypeEnum.y && arguments.evaluate((double[])null, 0, null) == 1) {
                 last.modType = ModTypeEnum.x;
                 last.arguments = new ASTCons(arguments, last.arguments);
                 arguments = null;
                 last.entropy += entropy;
                 return 0;
-            } else if (modType == ModTypeEnum.y && last.modType == ModTypeEnum.x && last.arguments.evaluate(null, 0, 0, null) == 1) {
+            } else if (modType == ModTypeEnum.y && last.modType == ModTypeEnum.x && last.arguments.evaluate((double[])null, 0, null) == 1) {
                 last.arguments = new ASTCons(last.arguments, arguments);
                 arguments = null;
                 last.entropy += entropy;
@@ -80,7 +80,7 @@ class ASTModTerm extends ASTExpression {
     	}
     	
     	@Override
-		public int evaluate(double[] result, int offset, int length, RTI rti) { 
+		public int evaluate(double[] result, int length, RTI rti) { 
     		throw new RuntimeException("Improper evaluation of an adjustment expression");
     	} 
 
@@ -99,9 +99,9 @@ class ASTModTerm extends ASTExpression {
             
             if (arguments != null && arguments.type == ExpType.NumericType) {
                 if (justCheck)
-                    argcount = arguments.evaluate(null, 0, 0, null);
+                    argcount = arguments.evaluate((double[])null, 0, null);
                 else 
-                    argcount = arguments.evaluate(modArgs, 0, 6, null);
+                    argcount = arguments.evaluate(modArgs, 6, null);
             }
             
             int minCount = 1;
@@ -216,168 +216,168 @@ class ASTModTerm extends ASTExpression {
 //                    modification.mRand48Seed.xorString(entString.c_str(), seedIndex);
                     break;
                 }
-/*                case hue: {
+                case hue: {
                     maxCount = 2;
                     if (justCheck) break;
-                    if (argcount == 1) {
-                        if (rti == 0 && m.m_Color.mUseTarget & HSBColor::HueTarget)
-                            throw DeferUntilRuntime();
-                        m.m_Color.h += modArgs[0];
-                    } else {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::HueTarget || 
-                                         m.m_Color.h != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.h = arg[0];
-                        m.m_Color.mUseTarget |= HSBColor::HueTarget;
-                        m.m_ColorTarget.h = modArgs[1];
-                        m.m_ColorTarget.mUseTarget |= HSBColor::HueTarget;
-                    }
+//                    if (argcount == 1) {
+//                        if (rti == 0 && m.m_Color.mUseTarget & HSBColor::HueTarget)
+//                            throw DeferUntilRuntime();
+//                        m.m_Color.h += modArgs[0];
+//                    } else {
+//                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::HueTarget || 
+//                                         m.m_Color.h != 0.0))
+//                            throw DeferUntilRuntime();
+//                        m.m_Color.h = arg[0];
+//                        m.m_Color.mUseTarget |= HSBColor::HueTarget;
+//                        m.m_ColorTarget.h = modArgs[1];
+//                        m.m_ColorTarget.mUseTarget |= HSBColor::HueTarget;
+//                    }
                     break;
                 }
                 case sat: {
                     maxCount = 2;
                     if (justCheck) break;
-                    if (argcount == 1) {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::SaturationTarget || 
-                                         m.m_Color.s != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.s = arg[0];
-                    } else {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::SaturationTarget || 
-                                         m.m_Color.s != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.s = arg[0];
-                        m.m_Color.mUseTarget |= HSBColor::SaturationTarget;
-                        if (rti == 0 && m.m_ColorTarget.s != 0.0)
-                            throw DeferUntilRuntime();
-                        m.m_ColorTarget.s = arg[1];
-                        m.m_ColorTarget.mUseTarget |= HSBColor::SaturationTarget;
-                    }
+//                    if (argcount == 1) {
+//                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::SaturationTarget || 
+//                                         m.m_Color.s != 0.0))
+//                            throw DeferUntilRuntime();
+//                        m.m_Color.s = arg[0];
+//                    } else {
+//                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::SaturationTarget || 
+//                                         m.m_Color.s != 0.0))
+//                            throw DeferUntilRuntime();
+//                        m.m_Color.s = arg[0];
+//                        m.m_Color.mUseTarget |= HSBColor::SaturationTarget;
+//                        if (rti == 0 && m.m_ColorTarget.s != 0.0)
+//                            throw DeferUntilRuntime();
+//                        m.m_ColorTarget.s = arg[1];
+//                        m.m_ColorTarget.mUseTarget |= HSBColor::SaturationTarget;
+//                    }
                     break;
                 }
                 case bright: {
                     maxCount = 2;
                     if (justCheck) break;
-                    if (argcount == 1) {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::BrightnessTarget || 
-                                         m.m_Color.b != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.b = arg[0];
-                    } else {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::BrightnessTarget || 
-                                         m.m_Color.b != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.b = arg[0];
-                        m.m_Color.mUseTarget |= HSBColor::BrightnessTarget;
-                        if (rti == 0 && m.m_ColorTarget.b != 0.0)
-                            throw DeferUntilRuntime();
-                        m.m_ColorTarget.b = arg[1];
-                        m.m_ColorTarget.mUseTarget |= HSBColor::BrightnessTarget;
-                    }
+//                    if (argcount == 1) {
+//                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::BrightnessTarget || 
+//                                         m.m_Color.b != 0.0))
+//                            throw DeferUntilRuntime();
+//                        m.m_Color.b = arg[0];
+//                    } else {
+//                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::BrightnessTarget || 
+//                                         m.m_Color.b != 0.0))
+//                            throw DeferUntilRuntime();
+//                        m.m_Color.b = arg[0];
+//                        m.m_Color.mUseTarget |= HSBColor::BrightnessTarget;
+//                        if (rti == 0 && m.m_ColorTarget.b != 0.0)
+//                            throw DeferUntilRuntime();
+//                        m.m_ColorTarget.b = arg[1];
+//                        m.m_ColorTarget.mUseTarget |= HSBColor::BrightnessTarget;
+//                    }
                     break;
                 }
                 case alpha: {
                     maxCount = 2;
                     if (justCheck) break;
-                    if (argcount == 1) {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::AlphaTarget || 
-                                         m.m_Color.a != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.a = arg[0];
-                    } else {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::AlphaTarget || 
-                                         m.m_Color.a != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.a = arg[0];
-                        m.m_Color.mUseTarget |= HSBColor::AlphaTarget;
-                        if (rti == 0 && m.m_ColorTarget.a != 0.0)
-                            throw DeferUntilRuntime();
-                        m.m_ColorTarget.a = arg[1];
-                        m.m_ColorTarget.mUseTarget |= HSBColor::AlphaTarget;
-                    }
+//                    if (argcount == 1) {
+//                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::AlphaTarget || 
+//                                         m.m_Color.a != 0.0))
+//                            throw DeferUntilRuntime();
+//                        m.m_Color.a = arg[0];
+//                    } else {
+//                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::AlphaTarget || 
+//                                         m.m_Color.a != 0.0))
+//                            throw DeferUntilRuntime();
+//                        m.m_Color.a = arg[0];
+//                        m.m_Color.mUseTarget |= HSBColor::AlphaTarget;
+//                        if (rti == 0 && m.m_ColorTarget.a != 0.0)
+//                            throw DeferUntilRuntime();
+//                        m.m_ColorTarget.a = arg[1];
+//                        m.m_ColorTarget.mUseTarget |= HSBColor::AlphaTarget;
+//                    }
                     break;
                 }
                 case hueTarg: {
                     if (justCheck) break;
-                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::HueTarget || 
-                                     m.m_Color.h != 0.0))
-                        throw DeferUntilRuntime();
-                    m.m_Color.h = arg[0];
-                    m.m_Color.mUseTarget |= HSBColor::HueTarget;
+//                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::HueTarget || 
+//                                     m.m_Color.h != 0.0))
+//                        throw DeferUntilRuntime();
+//                    m.m_Color.h = arg[0];
+//                    m.m_Color.mUseTarget |= HSBColor::HueTarget;
                     break;
                 }
                 case satTarg: {
                     if (justCheck) break;
-                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::SaturationTarget || 
-                                     m.m_Color.s != 0.0))
-                        throw DeferUntilRuntime();
-                    m.m_Color.s = arg[0];
-                    m.m_Color.mUseTarget |= HSBColor::SaturationTarget;
+//                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::SaturationTarget || 
+//                                     m.m_Color.s != 0.0))
+//                        throw DeferUntilRuntime();
+//                    m.m_Color.s = arg[0];
+//                    m.m_Color.mUseTarget |= HSBColor::SaturationTarget;
                     break;
                 }
                 case brightTarg: {
                     if (justCheck) break;
-                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::BrightnessTarget || 
-                                     m.m_Color.b != 0.0))
-                        throw DeferUntilRuntime();
-                    m.m_Color.b = arg[0];
-                    m.m_Color.mUseTarget |= HSBColor::BrightnessTarget;
+//                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::BrightnessTarget || 
+//                                     m.m_Color.b != 0.0))
+//                        throw DeferUntilRuntime();
+//                    m.m_Color.b = arg[0];
+//                    m.m_Color.mUseTarget |= HSBColor::BrightnessTarget;
                     break;
                 }
                 case alphaTarg: {
                     if (justCheck) break;
-                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::AlphaTarget || 
-                                     m.m_Color.a != 0.0))
-                        throw DeferUntilRuntime();
-                    m.m_Color.a = arg[0];
-                    m.m_Color.mUseTarget |= HSBColor::AlphaTarget;
+//                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::AlphaTarget || 
+//                                     m.m_Color.a != 0.0))
+//                        throw DeferUntilRuntime();
+//                    m.m_Color.a = arg[0];
+//                    m.m_Color.mUseTarget |= HSBColor::AlphaTarget;
                     break;
                 }
                 case targHue: {
                     if (justCheck) break;
-                    m.m_ColorTarget.h += modArgs[0];
+//                    m.m_ColorTarget.h += modArgs[0];
                     break;
                 }
                 case targSat: {
                     if (justCheck) break;
-                    if (rti == 0 && m.m_ColorTarget.s != 0.0)
-                        throw DeferUntilRuntime();
-                    m.m_ColorTarget.s = arg[0];
+//                    if (rti == 0 && m.m_ColorTarget.s != 0.0)
+//                        throw DeferUntilRuntime();
+//                    m.m_ColorTarget.s = arg[0];
                     break;
                 }
                 case targBright: {
                     if (justCheck) break;
-                    if (rti == 0 && m.m_ColorTarget.b != 0.0)
-                        throw DeferUntilRuntime();
-                    m.m_ColorTarget.b = arg[0];
+//                    if (rti == 0 && m.m_ColorTarget.b != 0.0)
+//                        throw DeferUntilRuntime();
+//                    m.m_ColorTarget.b = arg[0];
                     break;
                 }
                 case targAlpha: {
                     if (justCheck) break;
-                    if (rti == 0 && m.m_ColorTarget.a != 0.0)
-                        throw DeferUntilRuntime();
-                    m.m_ColorTarget.a = arg[0];
+//                    if (rti == 0 && m.m_ColorTarget.a != 0.0)
+//                        throw DeferUntilRuntime();
+//                    m.m_ColorTarget.a = arg[0];
                     break;
                 }
                 case param: {
                     minCount = maxCount = 0;
-                    if (!p) {
-                        CfdgError::Error(where, "Cannot provide a parameter in this context");
-                        break;
-                    }
-                    if (justCheck) break;
-                    p->assign(entString);
+//                    if (!p) {
+//                        CfdgError::Error(where, "Cannot provide a parameter in this context");
+//                        break;
+//                    }
+//                    if (justCheck) break;
+//                    p->assign(entString);
                     break;
                 }
                 case stroke: {
-                    if (!width) {
-                        CfdgError::Error(where, "Cannot provide a stroke width in this context");
-                        break;
-                    }
+//                    if (!width) {
+//                        CfdgError::Error(where, "Cannot provide a stroke width in this context");
+//                        break;
+//                    }
                     if (justCheck) break;
-                    *width = modArgs[0];
+//                    *width = modArgs[0];
                     break;
-                }*/
+                }
                 case modification: {
                     minCount = maxCount = 0;
                     arguments.evaluate(modification, s, width, justCheck, seedIndex, rti);

@@ -22,6 +22,11 @@ class ASTReplacement {
 		this.repType = RepElemListEnum.replacement;
 	}
 	
+	public ASTReplacement(ASTRuleSpecifier r, ASTModification mods,
+			RepElemListEnum t) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void replace(Shape s, double[] width) {}
 	
  	public void replaceShape(Shape s) {}
@@ -37,6 +42,10 @@ class ASTReplacement {
 	public RepElemListEnum getRepType() {
 		return repType;
 	}
+	
+	public void setRepType(RepElemListEnum repType) {
+		this.repType = repType;
+	}
 
 	public String getName() {
 		return name;
@@ -47,5 +56,9 @@ class ASTReplacement {
 	}
 
 	public void unify() {
+	}
+
+	public void setPathOp(PathOpEnum pathOp) {
+		this.pathOp = pathOp;
 	}
 }

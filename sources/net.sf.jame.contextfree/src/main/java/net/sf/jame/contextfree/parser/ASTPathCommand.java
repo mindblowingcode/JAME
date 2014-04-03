@@ -10,4 +10,9 @@ class ASTPathCommand extends ASTReplacement {
 		// TODO Auto-generated constructor stub
 		super(null, null, modification);
 	}
+
+	public ASTPathCommand(String s, ASTModification modification, ASTExpression params) {
+		// TODO Auto-generated constructor stub
+		super(null, null, modification);
+	}
 }

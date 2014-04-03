@@ -126,7 +126,7 @@ class ASTModification extends ASTExpression {
 	}
 
 	@Override
-	public int evaluate(double[] result, int offset, int length, RTI rti) {
+	public int evaluate(double[] result, int length, RTI rti) {
 		throw new RuntimeException("Improper evaluation of an adjustment expression");
 	}
 
@@ -144,5 +144,15 @@ class ASTModification extends ASTExpression {
 
 	public List<ASTExpression> getExpressions() {
 		return expressions;
+	}
+
+	public void setIsConstant(boolean empty) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setCanonial(boolean canonial) {
+		// TODO Auto-generated method stub
+		
 	}
 }
