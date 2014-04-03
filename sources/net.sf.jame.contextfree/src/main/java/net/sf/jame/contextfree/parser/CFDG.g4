@@ -218,7 +218,7 @@ directive_v2 returns [ASTDefine result]
         s=directive_string m=modification_v2 {
         	ASTModification mod = $m.result; 
             ASTDefine cfg = driver.makeDefinition($s.result, false);
-            if (cfg) {
+            if (cfg != null) {
                 cfg.setExp(mod);
             }
             driver.setMaybeVersion("CFDG2");
@@ -238,10 +238,10 @@ directive_string returns [String result]
         |
         t=MODTYPE {
             switch ($t.getText()) {
-	            case ModTypeEnum.size:
+	            case ModTypeEnum.size.name():
 	                $result = CFGParam.Tile.getName();
 	                break;
-	            case ModTypeEnum.time:
+	            case ModTypeEnum.time.name():
 	                $result = CFGParam.Time.getName();
 	                break;
 	            default:
@@ -260,7 +260,7 @@ shape
         }
         ;
 
-shape_singleton_header returns [ASTShape result]
+shape_singleton_header returns [ASTRule result]
         : 
         shape '{' {
         	driver.inPathContainer = false;
@@ -270,11 +270,11 @@ shape_singleton_header returns [ASTShape result]
         }
         ; 
 
-shape_singleton returns [ASTShape result]
+shape_singleton returns [ASTRule result]
         :
         s=shape_singleton_header buncha_elements '}' {
         	$result = $s.result;
-        	driver.popContainer($result.getRuleBody());
+        	driver.popRepContainer($result.getRuleBody());
         }
         ; 
 
@@ -303,7 +303,7 @@ rule_v2 returns [ASTRule result]
         h=rule_header_v2 '{' buncha_replacements_v2 '}' {
             driver.setMaybeVersion("CFDG2");
         	$result = $h.result;
-        	driver.popRep($h.result);
+        	driver.popRepContainer($h.result);
         }
         ;
 
@@ -1111,8 +1111,8 @@ function_definition_header returns [ASTDefine result]
         	String name = $f.getText();
             $result = driver.makeDefinition(name, true);
             if ($result) {
-                $result.setType(ExpType.RuleType);
-                $result.setTuplesize(1);
+                $result.setExpType(ExpType.RuleType);
+                $result.setTupleSize(1);
             }
         }
         |
@@ -1120,8 +1120,8 @@ function_definition_header returns [ASTDefine result]
         	String name = $f.getText();
             $result = driver.makeDefinition(name, true);
             if ($result) {
-                $result.setType(ExpType.NumericType);
-                $result.setTuplesize(1);
+                $result.setExpType(ExpType.NumericType);
+                $result.setTupleSize(1);
             }
         }
         |
@@ -1130,7 +1130,7 @@ function_definition_header returns [ASTDefine result]
         	String type = $f.getText();
             $result = driver.makeDefinition(name, true);
             if ($result) {
-                $result.setType(driver.decodeType(type, $result.getTupleSize(), $result.isNatural()); 
+                $result.setExpType(driver.decodeType(type, $result.getTupleSize(), $result.isNatural()); 
             }
         }
         |
