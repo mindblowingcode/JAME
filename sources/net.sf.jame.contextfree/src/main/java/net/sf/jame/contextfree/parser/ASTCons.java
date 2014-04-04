@@ -8,7 +8,7 @@ class ASTCons extends ASTExpression {
 	private ASTExpression right;
 
 	public ASTCons(ASTExpression left, ASTExpression right) {
-		super((left != null ? left.isConstant() : true) && (right != null ? right.isConstant() : true), (left != null ? left.getType() : (right != null ? right.getType() : ExpType.NoType)));
+		super((left != null ? left.isConstant() : true) && (right != null ? right.isConstant() : true), (left != null ? left.getType() : (right != null ? right.getType() : EExpType.NoType)));
 		if (left == null) {
 			throw new RuntimeException("Missing expression");				
 		}
@@ -62,7 +62,7 @@ class ASTCons extends ASTExpression {
 
 	@Override
 	public int evaluate(double[] result, int length, RTI rti) { 
-		if (type != ExpType.NumericType) {
+		if (type != EExpType.NumericType) {
 			throw new RuntimeException("Non-numeric expression in a numeric context");
         }
 		double[] lresult = new double[1];

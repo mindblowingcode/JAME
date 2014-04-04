@@ -5,7 +5,7 @@ class ASTString extends ASTExpression {
 	private String value;
 
 	public ASTString(String value) {
-		super(true, ExpType.StringType);
+		super(true, EExpType.StringType);
 		this.value = value;
 	}
 

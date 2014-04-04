@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class ASTDefine extends ASTReplacement {
-	private DefineTypeEnum defineType;
+	private EDefineType defineType;
 	private ASTExpression exp;
 	private int tupleSize;
-	private ExpType expType;
+	private EExpType expType;
 	private boolean isNatural;
 	private List<ASTParameter> parameters = new ArrayList<ASTParameter>();
 	private int stackCount;
@@ -16,8 +16,8 @@ class ASTDefine extends ASTReplacement {
 	
 	public ASTDefine(String name) {
 		super(null, null, null, null);
-		this.defineType = DefineTypeEnum.StackDefine;
-		this.expType = ExpType.NoType;
+		this.defineType = EDefineType.StackDefine;
+		this.expType = EExpType.NoType;
 		this.isNatural = false;
 		this.stackCount = 0;
 		this.name = name;
@@ -29,11 +29,11 @@ class ASTDefine extends ASTReplacement {
 		return 0;
 	}
 	
-	public DefineTypeEnum getDefineType() {
+	public EDefineType getDefineType() {
 		return defineType;
 	}
 
-	public void setDefineType(DefineTypeEnum defineType) {
+	public void setDefineType(EDefineType defineType) {
 		this.defineType = defineType;
 	}
 
@@ -53,11 +53,11 @@ class ASTDefine extends ASTReplacement {
 		this.tupleSize = tupleSize;
 	}
 
-	public ExpType getExpType() {
+	public EExpType getExpType() {
 		return expType;
 	}
 
-	public void setExpType(ExpType expType) {
+	public void setExpType(EExpType expType) {
 		this.expType = expType;
 	}
 

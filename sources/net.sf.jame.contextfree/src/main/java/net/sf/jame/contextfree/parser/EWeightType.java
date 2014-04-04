@@ -1,11 +1,11 @@
 package net.sf.jame.contextfree.parser;
 
-enum LocalityType {
-	UnknownLocal(0), ImpureNonlocal(1), PureNonlocal(3), PureLocal(7);
+enum EWeightType { 
+	NoWeight(1), PercentWeight(2), ExplicitWeight(4);
 	
 	private int type;
 
-	private LocalityType(int type) {
+	private EWeightType(int type) { 
 		this.type = type;
 	}
 

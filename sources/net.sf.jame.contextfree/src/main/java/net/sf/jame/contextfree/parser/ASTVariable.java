@@ -9,7 +9,7 @@ class ASTVariable extends ASTExpression {
 	private int count;
 
 	public ASTVariable(int varNum, String text) {
-		super(true, ExpType.NumericType);
+		super(true, EExpType.NumericType);
 		this.stackIndex = 0;
 		this.count = 1;
 		this.text = text;
@@ -42,7 +42,7 @@ class ASTVariable extends ASTExpression {
 
 	@Override
 	public int evaluate(double[] result, int length, RTI rti) {
-		if (type != ExpType.NumericType) {
+		if (type != EExpType.NumericType) {
 			throw new RuntimeException("Non-numeric variable in a numeric context");
         }
         
@@ -62,7 +62,7 @@ class ASTVariable extends ASTExpression {
 
 	@Override
 	public void evaluate(Modification modification, String s, double[] width, boolean justCheck, int[] seedIndex, RTI rti) {
-		if (type != ExpType.ModificationType) {
+		if (type != EExpType.ModificationType) {
 			throw new RuntimeException("Non-adjustment variable referenced in an adjustment context");
         }
         if (rti == null) throw new DeferUntilRuntimeException();

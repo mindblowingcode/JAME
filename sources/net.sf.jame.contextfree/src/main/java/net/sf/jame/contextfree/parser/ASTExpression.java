@@ -5,21 +5,21 @@ import java.util.List;
 class ASTExpression {
 	protected boolean isConstant;
 	protected boolean isNatural;
-	protected ExpType type;
+	protected EExpType type;
 
 	public ASTExpression() {
-		this(false, ExpType.NoType);
+		this(false, EExpType.NoType);
 	}
 
 	public ASTExpression(boolean isConstant) {
-		this(isConstant, false, ExpType.NoType);
+		this(isConstant, false, EExpType.NoType);
 	}
 
-	public ASTExpression(boolean isConstant, ExpType type) {
+	public ASTExpression(boolean isConstant, EExpType type) {
 		this(isConstant, false, type);
 	}
 
-	public ASTExpression(boolean isConstant, boolean isNatural, ExpType type) {
+	public ASTExpression(boolean isConstant, boolean isNatural, EExpType type) {
 		this.isConstant = isConstant;
 		this.isNatural = isNatural;
 		this.type = type;
@@ -29,7 +29,7 @@ class ASTExpression {
 		return isConstant;
 	}
 
-	public ExpType getType() {
+	public EExpType getType() {
 		return type;
 	}
 
@@ -86,7 +86,7 @@ class ASTExpression {
 		return null;
 	}
 
-	public void setType(ExpType type) {
+	public void setType(EExpType type) {
 		this.type = type;
 	}
 

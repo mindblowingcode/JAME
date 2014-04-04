@@ -1,6 +1,6 @@
 package net.sf.jame.contextfree.parser;
 
-enum ModClassEnum {
+enum EModClass {
     NotAClass(0), 
     GeomClass(1), 
     ZClass(2), 
@@ -19,7 +19,7 @@ enum ModClassEnum {
     
 	private int type;
 	
-	private ModClassEnum(int type) { 
+	private EModClass(int type) { 
 		this.type = type;
 	}
 

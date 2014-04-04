@@ -7,7 +7,7 @@ class ShapeType {
 	private String name;
 	private boolean hasRules;
 	private boolean isShape;
-	private ShapeTypeEnum shapeType;
+	private EShapeType shapeType;
 	private List<ASTParameter> parameters = new ArrayList<ASTParameter>();
 	private int argSize;
 	private boolean shouldHaveNoParams;
@@ -16,7 +16,7 @@ class ShapeType {
 		this.name = name;
 		this.hasRules = false;
 		this.isShape = false;
-		this.shapeType = ShapeTypeEnum.NewShape;
+		this.shapeType = EShapeType.NewShape;
 		this.argSize = 0;
 		this.shouldHaveNoParams = false;
 	}
@@ -45,11 +45,11 @@ class ShapeType {
 		this.isShape = isShape;
 	}
 
-	public ShapeTypeEnum getShapeType() {
+	public EShapeType getShapeType() {
 		return shapeType;
 	}
 
-	public void setShapeType(ShapeTypeEnum shapeType) {
+	public void setShapeType(EShapeType shapeType) {
 		this.shapeType = shapeType;
 	}
 

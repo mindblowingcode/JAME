@@ -3,7 +3,7 @@ package net.sf.jame.contextfree.parser;
 import java.util.List;
 
 class ASTRepContainer {
-	private PathOpEnum pathOp;
+	private EPathOp pathOp;
 	private int repType;
 	private List<ASTReplacement> body;
 	private List<ASTParameter> parameters;
@@ -14,7 +14,7 @@ class ASTRepContainer {
 		this.stackCount = stackCount;
 	}
 
-	public PathOpEnum getPathOp() {
+	public EPathOp getPathOp() {
 		return pathOp;
 	}
 
@@ -52,7 +52,7 @@ class ASTRepContainer {
 		this.repType = repType;
 	}
 
-	public void setPathOp(PathOpEnum pathOp) {
+	public void setPathOp(EPathOp pathOp) {
 		this.pathOp = pathOp;
 	}
 }

@@ -1,5 +1,5 @@
 package net.sf.jame.contextfree.parser;
 
-enum ArgSource { 
+enum EArgSource { 
 	NoArgs, DynamicArgs, StackArgs, SimpleArgs, ParentArgs, ShapeArgs 
 }

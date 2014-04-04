@@ -36,6 +36,6 @@ public class ShapeType {
 
 	@Override
 	public String toString() {
-		return "ShapeTypeEnum [name=" + name + ", type=" + type + ", hasRules=" + hasRules + "]";
+		return "EShapeType [name=" + name + ", type=" + type + ", hasRules=" + hasRules + "]";
 	}
 }

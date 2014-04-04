@@ -1,13 +1,13 @@
 package net.sf.jame.contextfree.parser;
 
-enum CFGParam {
+enum ECFGParam {
 	AllowOverlap(0), Alpha(1), Background(2), BorderDynamic(3), BorderFixed(4), Color(5), 
 	ColorDepth(6), Frame(7), FrameTime(8), Impure(9), MaxNatural(10), MaxShapes(11), 
 	MinimumSize(12), Size(13), StartShape(14), Symmetry(15), Tile(16), Time(17);
 	
 	private int ordinal;
 
-	private CFGParam(int ordinal) {
+	private ECFGParam(int ordinal) {
 		this.ordinal = ordinal;
 	}
 
@@ -19,7 +19,7 @@ enum CFGParam {
 		return "CFG::" + name().toUpperCase();
 	}
 
-	public static CFGParam paramByOrdinal(int ordinal) {
+	public static ECFGParam paramByOrdinal(int ordinal) {
 		switch (ordinal) {
 			case 0:
 				return AllowOverlap; 
@@ -60,7 +60,7 @@ enum CFGParam {
 	}
 
 	public static String nameByOrdinal(int ordinal) {
-		CFGParam param = paramByOrdinal(ordinal);
+		ECFGParam param = paramByOrdinal(ordinal);
 		return "CFG::" + param.name().toUpperCase();
 	}
 }

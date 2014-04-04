@@ -2,13 +2,13 @@ package net.sf.jame.contextfree.parser;
 
 
 class ASTReplacement {
-	private PathOpEnum pathOp;
-	private RepElemListEnum repType;
+	private EPathOp pathOp;
+	private ERepElemType repType;
 	private String name;
 	private ASTModification modification;
 	private ASTRuleSpecifier ruleSpecifier;
 	
-	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, String name, ASTModification modification, RepElemListEnum repType) {
+	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, String name, ASTModification modification, ERepElemType repType) {
 		this.name = name;
 		this.modification = modification;
 		this.ruleSpecifier = ruleSpecifier;
@@ -19,16 +19,16 @@ class ASTReplacement {
 		this.name = name;
 		this.modification = modification;
 		this.ruleSpecifier = ruleSpecifier;
-		this.repType = RepElemListEnum.replacement;
+		this.repType = ERepElemType.replacement;
 	}
 	
 	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, ASTModification mods,
-			RepElemListEnum t) {
+			ERepElemType t) {
 		// TODO Auto-generated constructor stub
 	}
 
 	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, ASTModification mods) {
-		this(ruleSpecifier, mods, RepElemListEnum.empty);
+		this(ruleSpecifier, mods, ERepElemType.empty);
 	}
 
 	public void replace(Shape s, double[] width) {}
@@ -39,15 +39,15 @@ class ASTReplacement {
 		return ruleSpecifier;
 	}
 
-	public PathOpEnum getPathOp() {
+	public EPathOp getPathOp() {
 		return pathOp;
 	}
 
-	public RepElemListEnum getRepType() {
+	public ERepElemType getRepType() {
 		return repType;
 	}
 	
-	public void setRepType(RepElemListEnum repType) {
+	public void setRepType(ERepElemType repType) {
 		this.repType = repType;
 	}
 
@@ -58,7 +58,7 @@ class ASTReplacement {
 	public void unify() {
 	}
 
-	public void setPathOp(PathOpEnum pathOp) {
+	public void setPathOp(EPathOp pathOp) {
 		this.pathOp = pathOp;
 	}
 

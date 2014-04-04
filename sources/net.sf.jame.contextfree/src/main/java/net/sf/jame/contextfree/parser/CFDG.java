@@ -10,8 +10,8 @@ public class CFDG {
 	public List<ShapeType> shapeTypes = new ArrayList<ShapeType>();
 	public Map<Integer, ASTDefine> functions = new HashMap<Integer, ASTDefine>();
 	public Stack<ASTRule> rules = new Stack<ASTRule>();
-	public Map<CFGParam, Integer> paramDepth = new HashMap<CFGParam, Integer>();
-	public Map<CFGParam, ASTExpression> paramExp = new HashMap<CFGParam, ASTExpression>();
+	public Map<ECFGParam, Integer> paramDepth = new HashMap<ECFGParam, Integer>();
+	public Map<ECFGParam, ASTExpression> paramExp = new HashMap<ECFGParam, ASTExpression>();
 	private int parameters;
 	private boolean usesColor;
 	private boolean usesAlpha;
@@ -57,7 +57,7 @@ public class CFDG {
 			if (p.getParameters().isEmpty()) {
 				return "Shape has already been declared. Parameter declaration must be on the first shape declaration only";
 			}
-			if (type.getShapeType() == ShapeTypeEnum.PathType && !isPath) {
+			if (type.getShapeType() == EShapeType.PathType && !isPath) {
 				return "Shape name already in use by another rule or path";
 			}
 			if (isPath) {
@@ -65,22 +65,22 @@ public class CFDG {
 			}
 			return null;
 		}
-		if (type.getShapeType() != ShapeTypeEnum.NewShape) {
+		if (type.getShapeType() != EShapeType.NewShape) {
 			return "Shape name already in use by another rule or path";
 		}
 		type.getParameters().clear();
 		type.getParameters().addAll(p.getParameters());
 		type.setIsShape(true);
 		type.setArgSize(argSize);
-		type.setShapeType(isPath ? ShapeTypeEnum.PathType : ShapeTypeEnum.NewShape);
+		type.setShapeType(isPath ? EShapeType.PathType : EShapeType.NewShape);
 		return null;
 	}
 	
 	protected boolean addRuleShape(ASTRule rule) {
 		rules.push(rule);
 		ShapeType type = shapeTypes.get(rule.getNameIndex());
-		if (type.getShapeType() == ShapeTypeEnum.NewShape) {
-			type.setShapeType(rule.isPath() ? ShapeTypeEnum.PathType : ShapeTypeEnum.RuleType);
+		if (type.getShapeType() == EShapeType.NewShape) {
+			type.setShapeType(rule.isPath() ? EShapeType.PathType : EShapeType.RuleType);
 		}
 		if (!type.getParameters().isEmpty()) {
 			rule.getRuleBody().getParameters().clear();
@@ -90,17 +90,17 @@ public class CFDG {
 		return type.isShape();
 	}
 
-	protected ShapeTypeEnum getShapeType(int nameIndex) {
+	protected EShapeType getShapeType(int nameIndex) {
 		return shapeTypes.get(nameIndex).getShapeType();
 	}
 	
-	protected ShapeTypeEnum getShapeType(String name) {
+	protected EShapeType getShapeType(String name) {
 		for (int i = 0; i < shapeTypes.size(); i++) {
 			if (shapeTypes.get(i).getName().equals(name)) {
 				return shapeTypes.get(i).getShapeType();
 			}
 		}
-		return ShapeTypeEnum.NewShape;
+		return EShapeType.NewShape;
 	}
 	
 	protected ASTDefine declareFunction(int nameIndex, ASTDefine def) {
@@ -128,9 +128,9 @@ public class CFDG {
 	    return null;
 	}
 	
-	protected boolean hasParameter(CFGParam p, double[] value, RTI rti) {
+	protected boolean hasParameter(ECFGParam p, double[] value, RTI rti) {
 		ASTExpression exp = hasParameter(p);
-		if (exp == null || exp.getType() != ExpType.NumericType) {
+		if (exp == null || exp.getType() != EExpType.NumericType) {
 			return false;
 		}
 		if (!exp.isConstant() && rti != null) {
@@ -142,9 +142,9 @@ public class CFDG {
 		return true;
 	}
 
-	protected boolean hasParameter(CFGParam p, Modification[] value, RTI rti) {
+	protected boolean hasParameter(ECFGParam p, Modification[] value, RTI rti) {
 		ASTExpression exp = hasParameter(p);
-		if (exp == null || exp.getType() != ExpType.ModificationType) {
+		if (exp == null || exp.getType() != EExpType.ModificationType) {
 			return false;
 		}
 		if (!exp.isConstant() && rti != null) {
@@ -156,7 +156,7 @@ public class CFDG {
 		return true;
 	}
 
-	protected boolean hasParameter(CFGParam p, ExpType type) {
+	protected boolean hasParameter(ECFGParam p, EExpType type) {
 		ASTExpression exp = hasParameter(p);
 		if (exp == null || exp.getType() != type) {
 			return false;
@@ -164,7 +164,7 @@ public class CFDG {
 		return true;
 	}
 
-	protected ASTExpression hasParameter(CFGParam p) {
+	protected ASTExpression hasParameter(ECFGParam p) {
 		if (paramDepth.get(p).intValue() == -1) {
 			return null;
 		}
@@ -172,7 +172,7 @@ public class CFDG {
 	}
 
 	protected boolean addParameter(String name, ASTExpression exp, int depth) {
-		CFGParam p = CFGParam.valueOf(name);
+		ECFGParam p = ECFGParam.valueOf(name);
 		if (p == null) {
 			return false;
 		}
@@ -189,11 +189,11 @@ public class CFDG {
 		}
 	}
 
-	protected void addParameter(Param param) {
+	protected void addParameter(EParam param) {
 		parameters |= param.getType();
-	    usesColor = (parameters & Param.Color.getType()) != 0;
-	    usesTime = (parameters & Param.Time.getType()) != 0;
-	    usesFrameTime = (parameters & Param.FrameTime.getType()) != 0;
+	    usesColor = (parameters & EParam.Color.getType()) != 0;
+	    usesTime = (parameters & EParam.Time.getType()) != 0;
+	    usesFrameTime = (parameters & EParam.FrameTime.getType()) != 0;
 	}
 
 	protected void error(String message) {

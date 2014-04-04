@@ -6,7 +6,7 @@ class ASTRule extends ASTReplacement {
 	private String name;
 	private float weight;
 	private int nameIndex;
-	private WeightType weightType;
+	private EWeightType weightType;
 	private ASTRepContainer ruleBody;
 	
 	public ASTRule(int nameIndex) {
@@ -55,7 +55,7 @@ class ASTRule extends ASTReplacement {
 		return nameIndex;
 	}
 
-	public WeightType getWeightType() {
+	public EWeightType getWeightType() {
 		return weightType;
 	}
 
