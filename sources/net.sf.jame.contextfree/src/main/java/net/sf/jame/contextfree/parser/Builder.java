@@ -1,6 +1,5 @@
 package net.sf.jame.contextfree.parser;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,6 +25,7 @@ public class Builder {
 	public Stack<String> filesToLoad = new Stack<String>();
 	public Stack<CharStream> streamsToLoad = new Stack<CharStream>();
 	public Stack<Boolean> includeNamespace = new Stack<Boolean>();
+	public Stack<ASTSwitch> switchStack = new Stack<ASTSwitch>();
 	public String currentNameSpace = "";
 	public String currentPath;
 	public String maybeVersion;
@@ -98,36 +98,49 @@ public class Builder {
 		error("improper namespace specification");
 	}
 	
-	public void includeFile(String fileName) throws IOException {
-		String path = relativeFilePath(currentPath, fileName);
-		ANTLRFileStream is = new ANTLRFileStream(path);
-		fileNames.push(path);
-		currentPath = path;
-		filesToLoad.push(currentPath);
-		streamsToLoad.push(is);
-		includeNamespace.push(Boolean.FALSE);
-		pathCount++;
-		includeDepth++;
-		currentShape = -1;
-		setShape(null, false);
-		warning("Reading rules file " + path);
+	public void includeFile(String fileName) {
+		try {
+			String path = relativeFilePath(currentPath, fileName);
+			ANTLRFileStream is = new ANTLRFileStream(path);
+			fileNames.push(path);
+			currentPath = path;
+			filesToLoad.push(currentPath);
+			streamsToLoad.push(is);
+			includeNamespace.push(Boolean.FALSE);
+			pathCount++;
+			includeDepth++;
+			currentShape = -1;
+			setShape(null, false);
+			warning("Reading rules file " + path);
+		} catch (Exception e) {
+			error(e.getMessage());
+		}
 	}
 	
-	public boolean endInclude() throws IOException {
-		boolean endOfInput = includeDepth == 0;
-		setShape(null, false);
-		includeDepth--;
-		if (filesToLoad.isEmpty()) {
+	public boolean endInclude() {
+		try {
+			boolean endOfInput = includeDepth == 0;
+			setShape(null, false);
+			includeDepth--;
+			if (filesToLoad.isEmpty()) {
+				return endOfInput;
+			}
+			if (includeNamespace.peek()) {
+				popNameSpace();
+			}
+			streamsToLoad.pop();
+			filesToLoad.pop();
+			includeNamespace.pop();
+			currentPath = filesToLoad.isEmpty() ? null : filesToLoad.peek();
 			return endOfInput;
+		} catch (Exception e) {
+			error(e.getMessage());
+			return false;
 		}
-		if (includeNamespace.peek()) {
-			popNameSpace();
-		}
-		streamsToLoad.pop();
-		filesToLoad.pop();
-		includeNamespace.pop();
-		currentPath = filesToLoad.isEmpty() ? null : filesToLoad.peek();
-		return endOfInput;
+	}
+	
+	public void setShape(String name) {
+		setShape(null, false);
 	}
 	
 	public void setShape(String name, boolean isPath) {
@@ -349,7 +362,11 @@ public class Builder {
 		return new ASTLet(vars, def);
 	}
 
-	public ASTRuleSpecifier makeRuleSpecifier(String name, ASTExpression args, ASTModification mod, boolean makeStart) {
+	public ASTRuleSpecifier makeRuleSpec(String name, ASTExpression args) {
+			return makeRuleSpec(name, args, null, false);
+	}
+	
+	public ASTRuleSpecifier makeRuleSpec(String name, ASTExpression args, ASTModification mod, boolean makeStart) {
 		if (name.equals("if") || name.equals("let") || name.equals("select")) {
 			if (name.equals("select")) {
 				args = new ASTSelect(args, false);
@@ -387,79 +404,7 @@ public class Builder {
 		return ret;
 	}
 
-	public ASTExpression makeModTerm(String type, ASTExpression mod, boolean target) {
-		switch (type) {
-			case "time":
-				return new ASTModTerm(ModTypeEnum.time, mod);
-				
-			case "x":
-				return new ASTModTerm(ModTypeEnum.x, mod);
-				
-			case "y":
-				return new ASTModTerm(ModTypeEnum.y, mod);
-				
-			case "z":
-				return new ASTModTerm(ModTypeEnum.z, mod);
-				
-			case "s":
-			case "size":
-				return new ASTModTerm(ModTypeEnum.size, mod);
-				
-			case "f":
-			case "flip":
-				return new ASTModTerm(ModTypeEnum.flip, mod);
-				
-			case "r":
-			case "rotate":
-				return new ASTModTerm(ModTypeEnum.rot, mod);
-				
-			case "skew":
-				return new ASTModTerm(ModTypeEnum.skew, mod);
-				
-			case "trans":
-			case "transform":
-				return new ASTModTerm(ModTypeEnum.transform, mod);
-				
-			case "a":
-			case "alpha":
-				return new ASTModTerm(target ? ModTypeEnum.alpha : ModTypeEnum.alphaTarg, mod);
-				
-			case "h":
-			case "hue":
-				return new ASTModTerm(target ? ModTypeEnum.hue : ModTypeEnum.hueTarg, mod);
-				
-			case "sat":
-			case "saturation":
-				return new ASTModTerm(target ? ModTypeEnum.sat : ModTypeEnum.satTarg, mod);
-				
-			case "b":
-			case "brightness":
-				return new ASTModTerm(target ? ModTypeEnum.bright : ModTypeEnum.brightTarg, mod);
-				
-			case "|a":
-			case "|alpha":
-				return new ASTModTerm(ModTypeEnum.targAlpha, mod);
-				
-			case "|h":
-			case "|hue":
-				return new ASTModTerm(ModTypeEnum.targHue, mod);
-				
-			case "|sat":
-			case "|saturation":
-				return new ASTModTerm(ModTypeEnum.targSat, mod);
-				
-			case "|b":
-			case "|brightness":
-				return new ASTModTerm(ModTypeEnum.targBright, mod);
-				
-			default:
-				break;
-		}
-		
-		return null;
-	}
-
-	public void makeModTerm(ArrayList<ASTModTerm> dest, ASTModTerm t) {
+	public void makeModTerm(ASTModification dest, ASTModTerm t) {
 		if (t == null) {
 			return;
 		}
@@ -476,7 +421,7 @@ public class Builder {
 		if (inPathContainer && !subPath && (s.equals("FILL") || s.equals("STROKE"))) {
 			return new ASTPathCommand(s, mods, params);
 		}
-		ASTRuleSpecifier r = makeRuleSpecifier(s, params, null, false);
+		ASTRuleSpecifier r = makeRuleSpec(s, params, null, false);
 		RepElemListEnum t = RepElemListEnum.replacement;
 		if (inPathContainer) {
 			boolean isGlobal = false;
@@ -505,6 +450,10 @@ public class Builder {
 		return new ASTReplacement(r, mods, t); 
 	}
 
+	public ASTExpression makeFunction(String name, ASTExpression args) {
+		return makeFunction(name, args, false);
+	}
+	
 	public ASTExpression makeFunction(String name, ASTExpression args, boolean consAllowed) {
 		int nameIndex = stringToShape(name, true);
 		boolean isGlobal = false;
@@ -523,7 +472,7 @@ public class Builder {
 			return new ASTFunction(name, args, seed);
 		}
 		if (args != null && args.getType() == ExpType.ReuseType) {
-			return makeRuleSpecifier(name, args, null, false);
+			return makeRuleSpec(name, args, null, false);
 		}
 		return new ASTUserFunction(name, args, null);
 	}
@@ -674,5 +623,10 @@ public class Builder {
 
 	public void setMaybeVersion(String maybeVersion) {
 		this.maybeVersion = maybeVersion;
+	}
+
+	public ExpType decodeType(String type, int tupleSize, boolean natural) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

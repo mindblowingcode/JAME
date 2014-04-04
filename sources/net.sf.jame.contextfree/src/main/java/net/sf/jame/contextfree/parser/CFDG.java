@@ -190,10 +190,10 @@ public class CFDG {
 	}
 
 	protected void addParameter(Param param) {
-		parameters |= param.getOrdinal();
-	    usesColor = (parameters & Param.Color.getOrdinal()) != 0;
-	    usesTime = (parameters & Param.Time.getOrdinal()) != 0;
-	    usesFrameTime = (parameters & Param.FrameTime.getOrdinal()) != 0;
+		parameters |= param.getType();
+	    usesColor = (parameters & Param.Color.getType()) != 0;
+	    usesTime = (parameters & Param.Time.getType()) != 0;
+	    usesFrameTime = (parameters & Param.FrameTime.getType()) != 0;
 	}
 
 	protected void error(String message) {

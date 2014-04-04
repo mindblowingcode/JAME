@@ -3,13 +3,13 @@ package net.sf.jame.contextfree.parser;
 enum Param {
 	Color(1), Alpha(2), Time(4), FrameTime(8);
 	
-	private int ordinal;
+	private int type;
 
-	private Param(int ordinal) {
-		this.ordinal = ordinal;
+	private Param(int type) {
+		this.type = type;
 	}
 
-	public int getOrdinal() {
-		return ordinal;
+	public int getType() {
+		return type;
 	}
 }

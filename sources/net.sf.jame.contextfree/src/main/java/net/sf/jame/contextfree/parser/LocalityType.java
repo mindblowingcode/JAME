@@ -3,13 +3,13 @@ package net.sf.jame.contextfree.parser;
 enum LocalityType {
 	UnknownLocal(0), ImpureNonlocal(1), PureNonlocal(3), PureLocal(7);
 	
-	private int ordinal;
+	private int type;
 
-	private LocalityType(int ordinal) {
-		this.ordinal = ordinal;
+	private LocalityType(int type) {
+		this.type = type;
 	}
 
-	public int getOrdinal() {
-		return ordinal;
+	public int getType() {
+		return type;
 	}
 }

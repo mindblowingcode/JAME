@@ -16,6 +16,10 @@ class ASTCons extends ASTExpression {
 		this.right = right;
 	}
 
+	public ASTCons(ASTParen parent) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public ASTExpression current() {
 		return left;

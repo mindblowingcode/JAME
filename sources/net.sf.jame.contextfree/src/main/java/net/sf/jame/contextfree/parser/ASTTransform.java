@@ -12,4 +12,9 @@ class ASTTransform extends ASTReplacement {
 	public ASTRepContainer getBody() {
 		return null;//TODO
 	}
+
+	public void setClone(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
 }

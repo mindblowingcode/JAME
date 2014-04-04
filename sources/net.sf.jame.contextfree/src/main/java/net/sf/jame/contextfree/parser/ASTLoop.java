@@ -24,4 +24,9 @@ class ASTLoop extends ASTReplacement {
 	public ASTRepContainer getFinallyBody() {
 		return null;//TODO
 	}
+
+	public void setLoopHolder(ASTModification result) {
+		// TODO Auto-generated method stub
+		
+	}
 }

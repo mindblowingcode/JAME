@@ -5,26 +5,30 @@ class ASTReplacement {
 	private PathOpEnum pathOp;
 	private RepElemListEnum repType;
 	private String name;
-	private ASTExpression modification;
+	private ASTModification modification;
 	private ASTRuleSpecifier ruleSpecifier;
 	
-	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, String name, ASTExpression modification, RepElemListEnum repType) {
+	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, String name, ASTModification modification, RepElemListEnum repType) {
 		this.name = name;
 		this.modification = modification;
 		this.ruleSpecifier = ruleSpecifier;
 		this.repType = repType;
 	}
 	
-	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, String name, ASTExpression modification) {
+	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, String name, ASTModification modification) {
 		this.name = name;
 		this.modification = modification;
 		this.ruleSpecifier = ruleSpecifier;
 		this.repType = RepElemListEnum.replacement;
 	}
 	
-	public ASTReplacement(ASTRuleSpecifier r, ASTModification mods,
+	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, ASTModification mods,
 			RepElemListEnum t) {
 		// TODO Auto-generated constructor stub
+	}
+
+	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, ASTModification mods) {
+		this(ruleSpecifier, mods, RepElemListEnum.empty);
 	}
 
 	public void replace(Shape s, double[] width) {}
@@ -51,14 +55,14 @@ class ASTReplacement {
 		return name;
 	}
 
-	public ASTExpression getModification() {
-		return modification;
-	}
-
 	public void unify() {
 	}
 
 	public void setPathOp(PathOpEnum pathOp) {
 		this.pathOp = pathOp;
+	}
+
+	public ASTModification getChildChange() {
+		return modification;
 	}
 }
