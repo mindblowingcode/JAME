@@ -1,6 +1,6 @@
 package net.sf.jame.contextfree.parser;
 
-enum FuncType {
+enum EFuncType {
 	IllegalArguments("", ""), 
 	NotAFunction("", ""), 
 	Cos("cos", "\u00A1\u00E7\u009C\u001A\u00AF\u007D"), 
@@ -34,13 +34,13 @@ enum FuncType {
 	private String name;
 	String entropy;
 
-	private FuncType(String name, String entropy) {
+	private EFuncType(String name, String entropy) {
 		this.name = name;
 		this.entropy = entropy;
 	}
 	
-	public static FuncType getFuncTypeByName(String name) {
-		for (FuncType type : FuncType.values()) {
+	public static EFuncType getFuncTypeByName(String name) {
+		for (EFuncType type : EFuncType.values()) {
 			if (type.name.equals(name)) {
 				return type;
 			}

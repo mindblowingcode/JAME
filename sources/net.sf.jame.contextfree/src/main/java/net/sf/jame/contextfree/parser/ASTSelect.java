@@ -76,7 +76,7 @@ class ASTSelect extends ASTExpression {
 
 		@Override
 		public ASTStackType evalArgs(ASTStackType parent, RTI rti) {
-	        if (type != ExpType.RuleType) {
+	        if (type != EExpType.RuleType) {
 	            throw new RuntimeException("Evaluation of a non-shape select() in a shape context");
 	        }
 
@@ -85,7 +85,7 @@ class ASTSelect extends ASTExpression {
 
 		@Override
 		public int flatten(List<ASTExpression> dest) {
-	        if (type !=  ExpType.NumericType || tupleSize < 2) {
+	        if (type !=  EExpType.NumericType || tupleSize < 2) {
 	            dest.add(this);
 	            return 1;
 	        }
@@ -166,7 +166,7 @@ class ASTSelect extends ASTExpression {
 
 		@Override
 		public int evaluate(double[] result, int length, RTI rti) {
-	        if (type != ExpType.NumericType) {
+	        if (type != EExpType.NumericType) {
 	            throw new RuntimeException("Evaluation of a non-shape select() in a numeric context");
 	        }
 	        
@@ -178,7 +178,7 @@ class ASTSelect extends ASTExpression {
 
 		@Override
 		public void evaluate(Modification modification, String s, double[] width, boolean justCheck, int[] seedIndex, RTI rti) {
-	        if (type != ExpType.ModificationType) {
+	        if (type != EExpType.ModificationType) {
 	            throw new RuntimeException("Evaluation of a non-shape select() in a adjustement context");
 	        }
 	        

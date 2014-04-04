@@ -1,5 +1,5 @@
 package net.sf.jame.contextfree.parser;
 
-enum ShapeTypeEnum {
+enum EShapeType {
 	NewShape, RuleType, PathType;
 }

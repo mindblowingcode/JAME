@@ -40,7 +40,7 @@ cfdg3
 	        }
         }
         |
-        ;
+        ; 
         
 statement_v2 returns [ASTReplacement result]
         : 
@@ -172,7 +172,7 @@ initialization_v3 returns [ASTDefine result]
         	ASTExpression p = $p.result;
         	ASTModification mod = $m.result;
         	driver.setShape(null);
-        	ASTDefine cfg = driver.makeDefinition(CFGParam.StartShape.getName(), false);
+        	ASTDefine cfg = driver.makeDefinition(ECFGParam.StartShape.getName(), false);
         	if (cfg != null) {
         		cfg.setExp(driver.makeRuleSpec(name, p, mod, true));
         	}
@@ -183,7 +183,7 @@ initialization_v3 returns [ASTDefine result]
         	String name = $s.getText();
         	ASTModification mod = $m.result;
         	driver.setShape(null);
-        	ASTDefine cfg = driver.makeDefinition(CFGParam.StartShape.getName(), false);
+        	ASTDefine cfg = driver.makeDefinition(ECFGParam.StartShape.getName(), false);
         	if (cfg != null) {
         		cfg.setExp(driver.makeRuleSpec(name, null, mod, true));
         	}
@@ -194,7 +194,7 @@ initialization_v3 returns [ASTDefine result]
         	String name = $s.getText();
         	ASTExpression p = $p.result;
         	driver.setShape(null);
-        	ASTDefine cfg = driver.makeDefinition(CFGParam.StartShape.getName(), false);
+        	ASTDefine cfg = driver.makeDefinition(ECFGParam.StartShape.getName(), false);
         	if (cfg != null) {
         		cfg.setExp(driver.makeRuleSpec(name, p, null, true));
         	}
@@ -207,7 +207,7 @@ initialization_v2 returns [ASTDefine result]
         STARTSHAPE s=USER_STRING {
         	String name = $s.getText();
         	driver.setShape(null);
-        	ASTDefine cfg = driver.makeDefinition(CFGParam.StartShape.getName(), false);
+        	ASTDefine cfg = driver.makeDefinition(ECFGParam.StartShape.getName(), false);
         	if (cfg != null) {
         		cfg.setExp(driver.makeRuleSpec(name, null, null, true));
         	}
@@ -231,20 +231,20 @@ directive_v2 returns [ASTDefine result]
 directive_string returns [String result]
 		:
         BACKGROUND { 
-        	$result = CFGParam.Background.getName();
+        	$result = ECFGParam.Background.getName();
         }
         |
         TILE { 
-        	$result = CFGParam.Tile.getName();
+        	$result = ECFGParam.Tile.getName();
         }
         |
         t=MODTYPE {
-        	if (ModTypeEnum.size.name().equals($t.getText())) {
-                $result = CFGParam.Size.getName();
-        	} else if (ModTypeEnum.time.name().equals($t.getText())) {
-                $result = CFGParam.Time.getName();
+        	if (EModType.size.name().equals($t.getText())) {
+                $result = ECFGParam.Size.getName();
+        	} else if (EModType.time.name().equals($t.getText())) {
+                $result = ECFGParam.Time.getName();
         	} else {
-                $result = CFGParam.Size.getName();
+                $result = ECFGParam.Size.getName();
                 driver.error("Syntax error");
         	} 
         }
@@ -435,7 +435,7 @@ parameter_spec returns [ASTExpression result]
         }
         |
         '(' BECOMES ')' { 
-        	$result = new ASTExpression(false, false, ExpType.ReuseType);
+        	$result = new ASTExpression(false, false, EExpType.ReuseType);
         }
         | '(' ')' { 
         	$result = null; 
@@ -772,7 +772,7 @@ transHeader returns [ASTTransform result]
         : 
         t=MODTYPE e=exp2 {
         	ASTExpression exp = $e.result;
-        	if (!$t.getText().equals(ModTypeEnum.transform.name())) {
+        	if (!$t.getText().equals(EModType.transform.name())) {
         		driver.error("Syntax error");
         	} 
         	$result = new ASTTransform(exp);
@@ -869,25 +869,25 @@ buncha_adjustments returns [ASTModification result]
 adjustment returns [ASTModTerm result]
         : 
         t=MODTYPE el=explist {
-        	$result = new ASTModTerm(ModTypeEnum.modTypeByName($t.getText()), $el.result);
+        	$result = new ASTModTerm(EModType.modTypeByName($t.getText()), $el.result);
         }
         |
         t=MODTYPE e=exp '|' {
-        	ModTypeEnum type = ModTypeEnum.modTypeByName($t.getText());
-        	if (type.ordinal() < ModTypeEnum.hue.ordinal() || type.ordinal() > ModTypeEnum.alpha.ordinal()) {
+        	EModType type = EModType.modTypeByName($t.getText());
+        	if (type.ordinal() < EModType.hue.ordinal() || type.ordinal() > EModType.alpha.ordinal()) {
         		driver.error("The target operator can only be applied to color adjustments");
         		$result = null;
         	} else {
-	        	$result = new ASTModTerm(ModTypeEnum.modTypeByOrdinal(type.ordinal() + 4), $e.result);
+	        	$result = new ASTModTerm(EModType.modTypeByOrdinal(type.ordinal() + 4), $e.result);
         	}
         }
         |
         PARAM p=USER_STRING {
-        	$result = new ASTModTerm(ModTypeEnum.param, $p.getText());
+        	$result = new ASTModTerm(EModType.param, $p.getText());
         }
         |
         PARAM p=USER_QSTRING {
-        	$result = new ASTModTerm(ModTypeEnum.param, $p.getText());
+        	$result = new ASTModTerm(EModType.param, $p.getText());
         }
         ;
         
@@ -1263,7 +1263,7 @@ exp2func returns [ASTExpression result]
         |
         f=USER_STRING '(' BECOMES ')' { 
         	String func = $f.getText();
-        	ASTExpression args = new ASTExpression(false, false, ExpType.ReuseType);
+        	ASTExpression args = new ASTExpression(false, false, EExpType.ReuseType);
         	$result = driver.makeArray(func, args);
         }
         |
@@ -1329,7 +1329,7 @@ function_definition_header returns [ASTDefine result]
         	String name = $f.getText();
             $result = driver.makeDefinition(name, true);
             if ($result != null) {
-                $result.setExpType(ExpType.RuleType);
+                $result.setExpType(EExpType.RuleType);
                 $result.setTupleSize(1);
             }
         }
@@ -1338,7 +1338,7 @@ function_definition_header returns [ASTDefine result]
         	String name = $f.getText();
             $result = driver.makeDefinition(name, true);
             if ($result != null) {
-                $result.setExpType(ExpType.NumericType);
+                $result.setExpType(EExpType.NumericType);
                 $result.setTupleSize(1);
             }
         }
@@ -1372,7 +1372,7 @@ global_definition_header returns [ASTDefine result]
 		:
         fd=function_definition_header {
             if ($fd.result != null) {
-                assert($fd.result.getDefineType() == DefineTypeEnum.FunctionDefine);
+                assert($fd.result.getDefineType() == EDefineType.FunctionDefine);
                 driver.pushRepContainer(driver.paramDecls);
             } else {
                 // An error occurred

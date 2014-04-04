@@ -6,17 +6,17 @@ class ASTReal extends ASTExpression {
 	private String text;
 
 	public ASTReal(float value) {
-		super(true, ExpType.NumericType);
+		super(true, EExpType.NumericType);
 		this.value = value;
 	}
 
 	public ASTReal(double value) {
-		super(true, ExpType.NumericType);
+		super(true, EExpType.NumericType);
 		this.value = value;
 	}
 
 	public ASTReal(float value, boolean negative) {
-		super(true, ExpType.NumericType);
+		super(true, EExpType.NumericType);
 		if (negative) {
 			this.value = -value;
 		} else {
@@ -25,7 +25,7 @@ class ASTReal extends ASTExpression {
 	}
 
 	public ASTReal(double value, boolean negative) {
-		super(true, ExpType.NumericType);
+		super(true, EExpType.NumericType);
 		if (negative) {
 			this.value = -value;
 		} else {
@@ -34,7 +34,7 @@ class ASTReal extends ASTExpression {
 	}
 
 	public ASTReal(String text, boolean negative) {
-		super(true, ExpType.NumericType);
+		super(true, EExpType.NumericType);
 		this.text = text;
 		if (negative) {
 			this.value = -Double.parseDouble(text);

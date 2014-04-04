@@ -3,7 +3,7 @@ package net.sf.jame.contextfree.parser;
 
 class ASTFunction extends ASTExpression {
 		private ASTExpression arguments;
-		private FuncType funcType;
+		private EFuncType funcType;
 		private ASTRand48 random;
     	
     	public ASTFunction(String name, ASTExpression arguments) {
@@ -11,8 +11,8 @@ class ASTFunction extends ASTExpression {
     	}
     	
     	public ASTFunction(String name, ASTExpression arguments, ASTRand48 seed) {
-    		super(arguments != null ? arguments.isConstant : true, ExpType.NumericType);
-    		this.funcType = FuncType.NotAFunction;
+    		super(arguments != null ? arguments.isConstant : true, EExpType.NumericType);
+    		this.funcType = EFuncType.NotAFunction;
     		this.arguments = arguments;
     		
             if (name == null || name.trim().length() == 0) {
@@ -21,18 +21,18 @@ class ASTFunction extends ASTExpression {
             
             int argcount = arguments != null ? arguments.evaluate((double[])null, 0, null) : 0;
             
-            funcType = FuncType.getFuncTypeByName(name);
+            funcType = EFuncType.getFuncTypeByName(name);
             
-            if (funcType == FuncType.NotAFunction) {
+            if (funcType == EFuncType.NotAFunction) {
                 throw new RuntimeException("Unknown function");
             }
             
-            if (funcType == FuncType.Infinity && argcount == 0) {
+            if (funcType == EFuncType.Infinity && argcount == 0) {
                 arguments = new ASTReal(1.0f);
             }
             
-            if (funcType.ordinal >= FuncType.Rand_Static.ordinal && funcType.ordinal <= FuncType.RandInt.ordinal) {
-                if (funcType == FuncType.Rand_Static) {
+            if (funcType.ordinal >= EFuncType.Rand_Static.ordinal && funcType.ordinal <= EFuncType.RandInt.ordinal) {
+                if (funcType == EFuncType.Rand_Static) {
                 	random = seed;
                 } else {
                     isConstant = false;
@@ -51,15 +51,15 @@ class ASTFunction extends ASTExpression {
                         throw new RuntimeException("Illegal argument(s) for random function");
                 }
                 
-                if (!isConstant && funcType == FuncType.Rand_Static) {
+                if (!isConstant && funcType == EFuncType.Rand_Static) {
                     throw new RuntimeException("Argument(s) for rand_static() must be constant");
                 }
 
                 this.arguments = arguments;
             } else {
-            	if (funcType.ordinal < FuncType.Atan2.ordinal) {
+            	if (funcType.ordinal < EFuncType.Atan2.ordinal) {
             		if (argcount != 1) {
-                        throw new RuntimeException(funcType == FuncType.Infinity ? "Function takes zero or one arguments" : "Function takes one argument");
+                        throw new RuntimeException(funcType == EFuncType.Infinity ? "Function takes zero or one arguments" : "Function takes one argument");
             		}
             	} else {
             		if (argcount != 2) {
@@ -75,17 +75,17 @@ class ASTFunction extends ASTExpression {
     		return arguments;
     	}
     	
-    	public FuncType getFuncType() {
+    	public EFuncType getFuncType() {
     		return funcType;
     	}
     	
     	@Override
 		public int evaluate(double[] result, int length, RTI rti) { 
-	        if (type != ExpType.NumericType) {
+	        if (type != EExpType.NumericType) {
 	    	   throw new RuntimeException("Non-numeric expression in a numeric context");
 	        }
 	        
-	        if ((result != null && length < 1) || (funcType.ordinal <= FuncType.NotAFunction.ordinal) || (funcType.ordinal >= FuncType.LastOne.ordinal))
+	        if ((result != null && length < 1) || (funcType.ordinal <= EFuncType.NotAFunction.ordinal) || (funcType.ordinal >= FuncType.EFuncType.ordinal))
 	            return -1;
 	        
 	        if (result == null)
@@ -196,7 +196,7 @@ class ASTFunction extends ASTExpression {
     	
     	@Override
 		public void entropy(StringBuilder e) {
-            if (funcType.ordinal <= FuncType.NotAFunction.ordinal || funcType.ordinal >= FuncType.LastOne.ordinal) return;
+            if (funcType.ordinal <= EFuncType.NotAFunction.ordinal || funcType.ordinal >= FuncType.EFuncType.ordinal) return;
             arguments.entropy(e);
             e.append(funcType.entropy);
     	}

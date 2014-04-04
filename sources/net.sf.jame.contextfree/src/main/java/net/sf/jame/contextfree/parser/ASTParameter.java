@@ -5,7 +5,7 @@ import java.util.List;
 
 class ASTParameter extends ASTExpression {
     	public static boolean Impure;
-		private ExpType type;
+		private EExpType type;
     	private boolean isParameter;
     	private boolean isLoopIndex;
     	private int nameIndex;
@@ -13,10 +13,10 @@ class ASTParameter extends ASTExpression {
     	private ASTModification modification;
     	private int stackIndex;
     	private int tupleSize;
-    	private LocalityType localityType;
+    	private ELocalityType localityType;
     	
     	public ASTParameter() {
-    		super(true, ExpType.NoType);
+    		super(true, EExpType.NoType);
     		nameIndex = -1;
     		stackIndex = -1;
     		tupleSize = 1;
@@ -64,24 +64,24 @@ class ASTParameter extends ASTExpression {
 			expression = null;
 
 			if (typeName.equals("number")) {
-				type = ExpType.NumericType;
+				type = EExpType.NumericType;
 			} else if (typeName.equals("adjustment")) {
 				tupleSize = ASTModification.SIZE;
-				type = ExpType.ModificationType;
+				type = EExpType.ModificationType;
 			} else if (typeName.equals("shape")) {
-				type = ExpType.RuleType;
+				type = EExpType.RuleType;
 				tupleSize = 1;
 			} else if (typeName.startsWith("vector") && typeName.length() == 7) {
 //				String size = typeName.substring(6, 7);
 				if (typeName.charAt(6) > '0' && typeName.charAt(6) < '9') {
-					type = ExpType.NumericType;
+					type = EExpType.NumericType;
 					tupleSize = typeName.charAt(6) - '0';
 					if (tupleSize < 1 || tupleSize > 8) {
 						throw new RuntimeException("Illegal vector size (<1 or >8)");
 					}
 				}
 			} else {
-				type = ExpType.NoType;
+				type = EExpType.NoType;
 			}
 
 			int[] i = new int[1];
@@ -91,7 +91,7 @@ class ASTParameter extends ASTExpression {
         
         public void check() 
         { 
-            if (type == ExpType.NoType)
+            if (type == EExpType.NoType)
             	throw new RuntimeException("Unknown parameter type");
             if (nameIndex == -1)
             	throw new RuntimeException("Reserved keyword used for parameter name");
@@ -99,13 +99,13 @@ class ASTParameter extends ASTExpression {
 
         public boolean compare(ASTParameter p) {
             if (type != p.type) return true;
-            if (type == ExpType.NumericType && tupleSize != p.tupleSize) return true;
+            if (type == EExpType.NumericType && tupleSize != p.tupleSize) return true;
             return false;
         }
         
         public boolean compare(ASTExpression e) {
             if (type != e.type) return true;
-            if (type == ExpType.NumericType && tupleSize != e.evaluate((double[])null, 0, null)) return true;
+            if (type == EExpType.NumericType && tupleSize != e.evaluate((double[])null, 0, null)) return true;
             return false;
         }
         
@@ -122,7 +122,7 @@ class ASTParameter extends ASTExpression {
             	throw new RuntimeException("Arguments are expected.");
 //                return -1;
             }
-            boolean justCount = args == null || args.type == ExpType.NoType;
+            boolean justCount = args == null || args.type == EExpType.NoType;
             
             int count = 0;
             ASTExpIterator arg = args.begin();
@@ -169,7 +169,7 @@ class ASTParameter extends ASTExpression {
         }
 
 		@Override
-		public ExpType getType() {
+		public EExpType getType() {
 			return type;
 		}
 
@@ -205,11 +205,11 @@ class ASTParameter extends ASTExpression {
 			this.stackIndex = stackIndex;
 		}
 
-		public LocalityType getLocality() {
+		public ELocalityType getLocality() {
 			return localityType;
 		}
 
-		public void setLocality(LocalityType localityType) {
+		public void setLocality(ELocalityType localityType) {
 			this.localityType = localityType;
 		}
 

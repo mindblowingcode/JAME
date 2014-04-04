@@ -17,7 +17,7 @@ class ASTParen extends ASTExpression {
 
 	@Override
 	public int evaluate(double[] result, int length, RTI rti) {
-        if (type != ExpType.NumericType) {
+        if (type != EExpType.NumericType) {
             throw new RuntimeException("Non-numeric/flag expression in a numeric/flag context");
         }
         return expression.evaluate(result, length, rti);

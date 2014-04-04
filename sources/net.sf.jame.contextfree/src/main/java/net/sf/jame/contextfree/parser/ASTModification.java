@@ -8,27 +8,27 @@ import java.util.List;
 class ASTModification extends ASTExpression {
 	public static final int SIZE = 9;
 	private Modification data;
-	private ModClassEnum modClass;
+	private EModClass modClass;
 	private ASTExpression modifications;
 	private List<ASTExpression> expressions;
 	private AffineTransform transform = new AffineTransform();
 	
 	public ASTModification() {
-		super(true, ExpType.ModificationType);
-		this.modClass = ModClassEnum.NotAClass;
+		super(true, EExpType.ModificationType);
+		this.modClass = EModClass.NotAClass;
 		this.expressions = null;
 	}
 
 	public ASTModification(ASTExpression expression) {
-		super(true, ExpType.ModificationType);
+		super(true, EExpType.ModificationType);
 		//TODO da controllare
-		this.modClass = ModClassEnum.NotAClass; 
+		this.modClass = EModClass.NotAClass; 
 		this.expressions = null;
 		init(expression);
 	}
 
 	public ASTModification(ASTModification modifications) {
-		super(true, ExpType.ModificationType);
+		super(true, EExpType.ModificationType);
 		this.modClass = modifications.modClass;
 		this.expressions = null;
 		ASTModification[] mods = new ASTModification[1];//TODO ma � necessario il vettore?
@@ -37,7 +37,7 @@ class ASTModification extends ASTExpression {
 	}
 
 	public ASTModification(ASTModification modifications, String name) {
-		super(true, ExpType.ModificationType);
+		super(true, EExpType.ModificationType);
 		this.modClass = modifications.modClass;
 		this.expressions = null;
 		ASTModification[] mods = new ASTModification[1];//TODO ma � necessario il vettore?
@@ -50,7 +50,7 @@ class ASTModification extends ASTExpression {
     	if (modifications[0] != null)
     		modifications[0].entropy(e);
 		e.append(name);
-		ASTExpression ent = new ASTModTerm(ModTypeEnum.Entropy, null, e.toString());//TODO verificare
+		ASTExpression ent = new ASTModTerm(EModType.Entropy, null, e.toString());//TODO verificare
 		if (modifications[0] != null) {
 			modifications[0] = new ASTCons(modifications[0].simplify(), ent);
 		} else {
@@ -134,7 +134,7 @@ class ASTModification extends ASTExpression {
 		return data;
 	}
 
-	public ModClassEnum getModClass() {
+	public EModClass getModClass() {
 		return modClass;
 	}
 

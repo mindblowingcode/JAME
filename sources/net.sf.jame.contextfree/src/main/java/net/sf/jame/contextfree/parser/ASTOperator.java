@@ -10,7 +10,7 @@ class ASTOperator extends ASTExpression {
 	private ASTExpression right;
 
 	public ASTOperator(char operator, ASTExpression leftExpression) {
-		super(leftExpression != null ? leftExpression.isConstant() : true, leftExpression != null ? leftExpression.getType() : ExpType.NoType);
+		super(leftExpression != null ? leftExpression.isConstant() : true, leftExpression != null ? leftExpression.getType() : EExpType.NoType);
 		if (leftExpression == null) {
 			throw new RuntimeException("Missing expression");
 		}
@@ -20,7 +20,7 @@ class ASTOperator extends ASTExpression {
 	}
 
 	public ASTOperator(char operator, ASTExpression leftExpression,	ASTExpression rightExpression) {
-		super((leftExpression != null ? leftExpression.isConstant() : true)	&& (rightExpression != null ? rightExpression.isConstant() : true), (leftExpression != null ? leftExpression.getType() : (rightExpression != null ? rightExpression.getType() : ExpType.NoType)));
+		super((leftExpression != null ? leftExpression.isConstant() : true)	&& (rightExpression != null ? rightExpression.isConstant() : true), (leftExpression != null ? leftExpression.getType() : (rightExpression != null ? rightExpression.getType() : EExpType.NoType)));
 		if (leftExpression == null) {
 			throw new RuntimeException("Missing expression");
 		}
@@ -64,14 +64,14 @@ class ASTOperator extends ASTExpression {
 			ASTModTerm[] var = new ASTModTerm[1];
 
 			for (ASTExpression exp : temp) {
-				if (exp.type != ExpType.ModificationType) {
+				if (exp.type != EExpType.ModificationType) {
 					throw new RuntimeException("Non-adjustment in shape adjustment context");
 				}
 
 				ASTModTerm mod = (ASTModTerm) exp;
 
 				int argcount = 0;
-				if (mod.getArguments() != null && mod.getArguments().type == ExpType.NumericType) {
+				if (mod.getArguments() != null && mod.getArguments().type == EExpType.NumericType) {
 					argcount = mod.getArguments().evaluate((double[])null, 0, null);
 				}
 
@@ -166,7 +166,7 @@ class ASTOperator extends ASTExpression {
 		if (result != null && length < 1)
 			return -1;
 
-		if (type == ExpType.FlagType && operator == '+') {
+		if (type == EExpType.FlagType && operator == '+') {
 			if (left == null || left.evaluate(result != null ? l : null, 1, rti) != 1)
 				return -1;
 			if (right == null || right.evaluate(result != null ? r : null, 1, rti) != 1)
@@ -177,7 +177,7 @@ class ASTOperator extends ASTExpression {
 			return 1;
 		}
 
-		if (type != ExpType.NumericType) {
+		if (type != EExpType.NumericType) {
 			throw new RuntimeException("Non-numeric expression in a numeric context");
 		}
 
@@ -267,7 +267,7 @@ class ASTOperator extends ASTExpression {
 
 	@Override
 	public int flatten(List<ASTExpression> dest) {
-		if (type != ExpType.ModificationType) {
+		if (type != EExpType.ModificationType) {
 			dest.add(this);
 			return 1;
 		}
@@ -358,7 +358,7 @@ class ASTOperator extends ASTExpression {
 		if (right != null)
 			right = right.simplify();
 
-		if (isConstant && (type == ExpType.NumericType || type == ExpType.FlagType)) {
+		if (isConstant && (type == EExpType.NumericType || type == EExpType.FlagType)) {
 			double[] result = new double[1];
 			if (evaluate(result, 1, null) != 1) {
 				return null;

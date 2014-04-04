@@ -1,11 +1,11 @@
 package net.sf.jame.contextfree.parser;
 
-enum RepElemListEnum { 
+enum ERepElemType { 
 	rule(8), replacement(4), mixed(3), command(2), op(1), empty(0); 
 	
 	private int type;
 	
-	private RepElemListEnum(int type) { 
+	private ERepElemType(int type) { 
 		this.type = type;
 	}
 
@@ -13,8 +13,8 @@ enum RepElemListEnum {
 		return type;
 	}
 
-	public static RepElemListEnum typeByOrdinal(int ordinal) {
-		for (RepElemListEnum type : RepElemListEnum.values()) {
+	public static ERepElemType typeByOrdinal(int ordinal) {
+		for (ERepElemType type : ERepElemType.values()) {
 			if (type.ordinal() == ordinal) {
 				return type;
 			}

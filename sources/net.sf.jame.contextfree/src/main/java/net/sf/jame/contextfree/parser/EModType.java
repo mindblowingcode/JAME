@@ -1,6 +1,6 @@
 package net.sf.jame.contextfree.parser;
 
-enum ModTypeEnum {  
+enum EModType {  
 	unknown(""), 
 	x("\u0095\u00E7\u0048\u005E\u00CC\u0006"), 
 	y("\u0084\u002B\u00F3\u00BB\u0093\u0059"), 
@@ -39,12 +39,12 @@ enum ModTypeEnum {
 	
 	private String entropy;
 	
-	private ModTypeEnum(String entropy) {
+	private EModType(String entropy) {
 		this.entropy = entropy;
 	}
 
-	public static ModTypeEnum modTypeByOrdinal(int ordinal) {
-		for (ModTypeEnum type : ModTypeEnum.values()) {
+	public static EModType modTypeByOrdinal(int ordinal) {
+		for (EModType type : EModType.values()) {
 			if (type.ordinal() == ordinal) {
 				return type;
 			}
@@ -52,8 +52,8 @@ enum ModTypeEnum {
 		return unknown;
 	}
 
-	public static ModTypeEnum modTypeByName(String name) {
-		for (ModTypeEnum type : ModTypeEnum.values()) {
+	public static EModType modTypeByName(String name) {
+		for (EModType type : EModType.values()) {
 			if (type.name().equals(name)) {
 				return type;
 			}

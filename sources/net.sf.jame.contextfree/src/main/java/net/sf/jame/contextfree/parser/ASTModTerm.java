@@ -6,46 +6,46 @@ import java.util.List;
 
 class ASTModTerm extends ASTExpression {
     	private String entropy;
-    	private ModTypeEnum modType;
+    	private EModType modType;
     	private ASTExpression arguments;
     	
-    	public ASTModTerm(ModTypeEnum modType, ASTExpression arguments) {
-    		super(true, ExpType.ModificationType);
+    	public ASTModTerm(EModType modType, ASTExpression arguments) {
+    		super(true, EExpType.ModificationType);
     		
     		this.entropy = null;
     		this.modType = modType;
     		this.arguments = arguments;
     		
-            if (arguments.type == ExpType.RuleType)
+            if (arguments.type == EExpType.RuleType)
             	throw new RuntimeException("Illegal expression in shape adjustment");
             
-            if (arguments.type == ExpType.ModificationType) {
-                if (modType != ModTypeEnum.transform)
+            if (arguments.type == EExpType.ModificationType) {
+                if (modType != EModType.transform)
                 	throw new RuntimeException("Cannot accept a transform expression here");
 
-                modType = ModTypeEnum.modification;
+                modType = EModType.modification;
             }
     	}
     	
-    	public ASTModTerm(ModTypeEnum modType, ASTExpression arguments, String entropy) {
-    		super(true, ExpType.ModificationType);
+    	public ASTModTerm(EModType modType, ASTExpression arguments, String entropy) {
+    		super(true, EExpType.ModificationType);
     		
     		this.entropy = entropy;
     		this.modType = modType;
     		this.arguments = arguments;
     		
-            if (arguments != null && arguments.type == ExpType.RuleType)
+            if (arguments != null && arguments.type == EExpType.RuleType)
             	throw new RuntimeException("Illegal expression in shape adjustment");
             
-            if (arguments != null && arguments.type == ExpType.ModificationType) {
-                if (modType != ModTypeEnum.transform)
+            if (arguments != null && arguments.type == EExpType.ModificationType) {
+                if (modType != EModType.transform)
                 	throw new RuntimeException("Cannot accept a transform expression here");
 
-                modType = ModTypeEnum.modification;
+                modType = EModType.modification;
             }
     	}
 
-    	public ASTModTerm(ModTypeEnum param, String text) {
+    	public ASTModTerm(EModType param, String text) {
 			// TODO Auto-generated constructor stub
 		}
 
@@ -60,13 +60,13 @@ class ASTModTerm extends ASTExpression {
                 return 1;
             }
             
-            if (modType == ModTypeEnum.x && last.modType == ModTypeEnum.y && arguments.evaluate((double[])null, 0, null) == 1) {
-                last.modType = ModTypeEnum.x;
+            if (modType == EModType.x && last.modType == EModType.y && arguments.evaluate((double[])null, 0, null) == 1) {
+                last.modType = EModType.x;
                 last.arguments = new ASTCons(arguments, last.arguments);
                 arguments = null;
                 last.entropy += entropy;
                 return 0;
-            } else if (modType == ModTypeEnum.y && last.modType == ModTypeEnum.x && last.arguments.evaluate((double[])null, 0, null) == 1) {
+            } else if (modType == EModType.y && last.modType == EModType.x && last.arguments.evaluate((double[])null, 0, null) == 1) {
                 last.arguments = new ASTCons(last.arguments, arguments);
                 arguments = null;
                 last.entropy += entropy;
@@ -101,7 +101,7 @@ class ASTModTerm extends ASTExpression {
             double[] modArgs = new double[6];
             int argcount = 0;
             
-            if (arguments != null && arguments.type == ExpType.NumericType) {
+            if (arguments != null && arguments.type == EExpType.NumericType) {
                 if (justCheck)
                     argcount = arguments.evaluate((double[])null, 0, null);
                 else 
@@ -401,7 +401,7 @@ class ASTModTerm extends ASTExpression {
 			return entropy;
 		}
 
-		public ModTypeEnum getModType() {
+		public EModType getModType() {
 			return modType;
 		}
 

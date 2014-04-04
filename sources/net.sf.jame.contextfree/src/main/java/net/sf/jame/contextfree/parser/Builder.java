@@ -173,8 +173,8 @@ public class Builder {
 		if (rule.getNameIndex() == -1) {
 			error("Shape rules/paths must follow a shape declaration");
 		}
-		ShapeTypeEnum type = cfdg.getShapeType(rule.getNameIndex());
-		if ((rule.isPath() && type == ShapeTypeEnum.RuleType) || (!rule.isPath() && type == ShapeTypeEnum.PathType)) {
+		EShapeType type = cfdg.getShapeType(rule.getNameIndex());
+		if ((rule.isPath() && type == EShapeType.RuleType) || (!rule.isPath() && type == EShapeType.PathType)) {
 			error("Cannot mix rules and shapes with the same name");
 		}
 		boolean matchesShape = cfdg.addRuleShape(rule);
@@ -205,10 +205,10 @@ public class Builder {
 			}
 			ASTDefine def = new ASTDefine(name);
 			def.setConfigDepth(includeDepth);
-			def.setDefineType(DefineTypeEnum.ConfigDefine);
+			def.setDefineType(EDefineType.ConfigDefine);
 			return def;
 		}
-		if (FuncType.getFuncTypeByName(name) != FuncType.NotAFunction) {
+		if (EFuncType.getFuncTypeByName(name) != EFuncType.NotAFunction) {
 			error("Internal function names are reserved");
 			return null;
 		}
@@ -223,12 +223,12 @@ public class Builder {
 		def.getRuleSpecifier().setShapeType(nameIndex);
 		if (isFunction) {
 			for (ASTParameter param : paramDecls.getParameters()) {
-				param.setLocality(LocalityType.PureNonlocal);
+				param.setLocality(ELocalityType.PureNonlocal);
 			}
 			def.getParameters().clear();
 			def.getParameters().addAll(paramDecls.getParameters());
 			def.setStackCount(paramDecls.getStackCount());
-			def.setDefineType(DefineTypeEnum.FunctionDefine);
+			def.setDefineType(EDefineType.FunctionDefine);
 			localStackDepth -= paramDecls.getStackCount();
 			paramDecls.setStackCount(0);
 			cfdg.declareFunction(nameIndex, def);
@@ -290,12 +290,12 @@ public class Builder {
 			error("Unknown configuration parameter");
 		}
 		if (cfg.getName().equals("CF::MaxNatural")) {
-			ASTExpression max = cfdg.hasParameter(CFGParam.MaxNatural);
+			ASTExpression max = cfdg.hasParameter(ECFGParam.MaxNatural);
 			if (max != current) {
 				return;
 			}
 			double[] v = new double[] { -1.0 };
-			if (max == null || !max.isConstant() || max.getType() != ExpType.NumericType || max.evaluate(v, 1, null) != 1) {
+			if (max == null || !max.isConstant() || max.getType() != EExpType.NumericType || max.evaluate(v, 1, null) != 1) {
 				error("CF::MaxNatural requires a constant numeric expression");
 			} else if (v[0] < 1.0 || v[0] > 9007199254740992.0) {
 				error(v[0] < 1.0 ? "CF::MaxNatural must be >= 1" : "CF::MaxNatural must be < 9007199254740992");
@@ -319,14 +319,14 @@ public class Builder {
 		Integer flagItem = flagNames.get(name);
 		if (flagItem != null) {
 			ASTReal flag = new ASTReal(flagItem);
-			flag.setType(ExpType.FlagType);
+			flag.setType(EExpType.FlagType);
 			return flag;
 		}
 		if (name.startsWith("CF::")) {
 			error("Configuration parameter names are reserved");
 			return new ASTExpression();
 		}
-		if (FuncType.getFuncTypeByName(name) != FuncType.NotAFunction) {
+		if (EFuncType.getFuncTypeByName(name) != EFuncType.NotAFunction) {
 			error("Internal function names are reserved");
 			return new ASTExpression();
 		}
@@ -358,7 +358,7 @@ public class Builder {
 		ASTDefine def = new ASTDefine("let");
 		def.getRuleSpecifier().setShapeType(nameIndex);
 		def.setExp(exp);
-		def.setDefineType(DefineTypeEnum.LetDefine);
+		def.setDefineType(EDefineType.LetDefine);
 		return new ASTLet(vars, def);
 	}
 
@@ -380,10 +380,10 @@ public class Builder {
 		int nameIndex = stringToShape(name, true);
 		boolean isGlobal = false;
 		ASTParameter bound = findExpression(nameIndex, isGlobal);
-		if (bound != null && args != null && args.getType() == ExpType.ReuseType && !makeStart && isGlobal && nameIndex == currentShape) {
+		if (bound != null && args != null && args.getType() == EExpType.ReuseType && !makeStart && isGlobal && nameIndex == currentShape) {
 			error("Shape name binds to global variable and current shape, using current shape");
 		}
-		if (bound != null && bound.isParameter() && bound.getType() == ExpType.RuleType) {
+		if (bound != null && bound.isParameter() && bound.getType() == EExpType.RuleType) {
 			return new ASTRuleSpecifier(nameIndex, name);
 		}
 		ASTRuleSpecifier ret = null;
@@ -393,11 +393,11 @@ public class Builder {
 		} else {
 			ret = new ASTRuleSpecifier(nameIndex, name, args, cfdg.getShapeParams(currentShape));
 		}
-		if (ret.getArguments() != null && ret.getArguments().getType() == ExpType.ReuseType) {
+		if (ret.getArguments() != null && ret.getArguments().getType() == EExpType.ReuseType) {
 			if (makeStart) {
 				error("Startshape cannot reuse parameters");
 			} else if (nameIndex == currentShape)  {
-				ret.setArgSouce(ArgSource.SimpleArgs);
+				ret.setArgSouce(EArgSource.SimpleArgs);
 				ret.setTypeSignature(ret.getTypeSignature());
 			}
 		}
@@ -408,10 +408,10 @@ public class Builder {
 		if (t == null) {
 			return;
 		}
-		if (t.getModType() == ModTypeEnum.time) {
+		if (t.getModType() == EModType.time) {
 			timeWise();
 		}
-		if (t.getModType() == ModTypeEnum.sat || t.getModType() == ModTypeEnum.satTarg) {
+		if (t.getModType() == EModType.sat || t.getModType() == EModType.satTarg) {
 			inColor();
 		}
 		dest.add(t);
@@ -422,27 +422,27 @@ public class Builder {
 			return new ASTPathCommand(s, mods, params);
 		}
 		ASTRuleSpecifier r = makeRuleSpec(s, params, null, false);
-		RepElemListEnum t = RepElemListEnum.replacement;
+		ERepElemType t = ERepElemType.replacement;
 		if (inPathContainer) {
 			boolean isGlobal = false;
 			ASTParameter bound = findExpression(r.getShapeType(), isGlobal);
 			if (!subPath) {
 				error("Replacements are not allowed in paths");
-			} else if (r.getArgSource() == ArgSource.StackArgs || r.getArgSource() == ArgSource.ShapeArgs) {
+			} else if (r.getArgSource() == EArgSource.StackArgs || r.getArgSource() == EArgSource.ShapeArgs) {
 	            // Parameter subpaths must be all ops, but we must check at runtime
-				t = RepElemListEnum.op;
-			} else if (cfdg.getShapeType(r.getShapeType()) == ShapeTypeEnum.PathType) {
+				t = ERepElemType.op;
+			} else if (cfdg.getShapeType(r.getShapeType()) == EShapeType.PathType) {
 				ASTRule rule = cfdg.findRule(r.getShapeType());
 				if (rule != null) {
-					t = RepElemListEnum.typeByOrdinal(rule.getRuleBody().getRepType());
+					t = ERepElemType.typeByOrdinal(rule.getRuleBody().getRepType());
 				} else {
 					error("Subpath references must be to previously declared paths");
 				}
 			} else if (bound != null) {
 	            // Variable subpaths must be all ops, but we must check at runtime
-				t = RepElemListEnum.op;
+				t = ERepElemType.op;
 			} else if (isPrimeShape(r.getShapeType())) {
-				t = RepElemListEnum.op;
+				t = ERepElemType.op;
 			} else {
 				error("Subpath references must be to previously declared paths");
 			}
@@ -467,11 +467,11 @@ public class Builder {
 		if (name.equals("select") || name.equals("if")) {
 			return new ASTSelect(args, name.equals("if"));
 		}
-		FuncType t = FuncType.getFuncTypeByName(name);
-		if (t == FuncType.NotAFunction) {
+		EFuncType t = EFuncType.getFuncTypeByName(name);
+		if (t == EFuncType.NotAFunction) {
 			return new ASTFunction(name, args, seed);
 		}
-		if (args != null && args.getType() == ExpType.ReuseType) {
+		if (args != null && args.getType() == EExpType.ReuseType) {
 			return makeRuleSpec(name, args, null, false);
 		}
 		return new ASTUserFunction(name, args, null);
@@ -515,8 +515,8 @@ public class Builder {
 		ASTRepContainer lastContainer = containerStack.lastElement();
 		localStackDepth -= lastContainer.getStackCount();
 		if (r != null) {
-			r.setRepType(RepElemListEnum.typeByOrdinal(r.getRepType().ordinal() | lastContainer.getRepType()));
-			if (r.getPathOp() == PathOpEnum.UNKNOWN) {
+			r.setRepType(ERepElemType.typeByOrdinal(r.getRepType().ordinal() | lastContainer.getRepType()));
+			if (r.getPathOp() == EPathOp.UNKNOWN) {
 				r.setPathOp(lastContainer.getPathOp());
 			}
 		}
@@ -524,7 +524,7 @@ public class Builder {
 	}
 
 	private boolean badContainer(int containerType) {
-		return (containerType & (RepElemListEnum.op.ordinal() | RepElemListEnum.replacement.ordinal())) == (RepElemListEnum.op.ordinal() | RepElemListEnum.replacement.ordinal());
+		return (containerType & (ERepElemType.op.ordinal() | ERepElemType.replacement.ordinal())) == (ERepElemType.op.ordinal() | ERepElemType.replacement.ordinal());
 	}
 	
 	public void pushRep(ASTReplacement r, boolean global) {
@@ -534,7 +534,7 @@ public class Builder {
 		ASTRepContainer container = containerStack.lastElement();
 		container.getBody().remove(container.getBody().size() - 1);
 		container.getBody().add(r);
-		if (container.getPathOp() == PathOpEnum.UNKNOWN) {
+		if (container.getPathOp() == EPathOp.UNKNOWN) {
 			container.setPathOp(r.getPathOp());
 		}
 		int oldType = container.getRepType();
@@ -605,11 +605,11 @@ public class Builder {
 	}
 	
 	public void inColor() {
-		cfdg.addParameter(Param.Color);
+		cfdg.addParameter(EParam.Color);
 	}
 
 	public void timeWise() {
-		cfdg.addParameter(Param.Time);
+		cfdg.addParameter(EParam.Time);
 	}
 
 	public void storeParams(StackRule p) {
@@ -625,7 +625,7 @@ public class Builder {
 		this.maybeVersion = maybeVersion;
 	}
 
-	public ExpType decodeType(String type, int tupleSize, boolean natural) {
+	public EExpType decodeType(String type, int tupleSize, boolean natural) {
 		// TODO Auto-generated method stub
 		return null;
 	}

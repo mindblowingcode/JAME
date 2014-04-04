@@ -8,7 +8,7 @@ class ASTRuleSpecifier extends ASTExpression {
     	private int shapeType;
 		private int argSize;
     	private StringBuilder entropy;
-    	private ArgSource argSource;
+    	private EArgSource argSource;
     	private ASTExpression arguments;
     	private ASTStackType simpleRule;
     	private int stackIndex;
@@ -23,9 +23,9 @@ class ASTRuleSpecifier extends ASTExpression {
     		this(spec.shapeType, name, null, null, null);
     		this.stackIndex = spec.stackIndex;
     		this.typeSignature = spec.typeSignature;
-            if (spec.argSource == ArgSource.SimpleArgs) {
+            if (spec.argSource == EArgSource.SimpleArgs) {
             	ASTStackType simp = new ASTStackType(shapeType, argSize, 0);
-                argSource = ArgSource.SimpleArgs;
+                argSource = EArgSource.SimpleArgs;
                 simpleRule = simp;
                 if (argSize > 0) {
                     for (int i = 1; i < argSize + 2; ++i) {
@@ -48,10 +48,10 @@ class ASTRuleSpecifier extends ASTExpression {
     	}
     	    	
     	public ASTRuleSpecifier(int shapeType, String name, ASTExpression arguments, List<ASTParameter> typeSignature, List<ASTParameter> parent) {
-    		super(arguments == null || arguments.isConstant, ExpType.RuleType);
+    		super(arguments == null || arguments.isConstant, EExpType.RuleType);
     		this.entropy = new StringBuilder();
     		this.shapeType = shapeType;
-    		this.argSource = ArgSource.DynamicArgs;
+    		this.argSource = EArgSource.DynamicArgs;
     		this.arguments = arguments;
     		this.typeSignature = typeSignature;
     		this.stackIndex = 0;
@@ -67,20 +67,20 @@ class ASTRuleSpecifier extends ASTExpression {
             argSize = ASTParameter.checkType(typeSignature, parent, arguments);
             if (argSize < 0) return;
                 
-            if (arguments != null && arguments.type != ExpType.NoType) {
+            if (arguments != null && arguments.type != EExpType.NoType) {
                 arguments.entropy(entropy);
                 if (arguments.isConstant) {
 //                    StackType simp = evalArgs();//TODO
 //                    simp[0].ruleHeader.mRefCount = StackRule::MaxRefCount;
 //                    simpleRule = simp;
-                    argSource = ArgSource.SimpleArgs;
+                    argSource = EArgSource.SimpleArgs;
                 } else {
                     arguments = arguments.simplify();
                 }
-            } else if (arguments != null && arguments.type == ExpType.NoType) {
-                argSource = ArgSource.ParentArgs;
+            } else if (arguments != null && arguments.type == EExpType.NoType) {
+                argSource = EArgSource.ParentArgs;
             } else {
-                argSource = ArgSource.NoArgs;
+                argSource = EArgSource.NoArgs;
 //                simpleRule = StackType::alloc(shapeType, 0, types);//TODO
 //                simpleRule[0].ruleHeader.mRefCount = StackRule::MaxRefCount;
             }
@@ -160,7 +160,7 @@ class ASTRuleSpecifier extends ASTExpression {
 			return argSize;
 		}
 
-		public ArgSource getArgSource() {
+		public EArgSource getArgSource() {
 			return argSource;
 		}
 
@@ -184,7 +184,7 @@ class ASTRuleSpecifier extends ASTExpression {
 			this.typeSignature = typeSignature;
 		}
 
-		public void setArgSouce(ArgSource argSource) {
+		public void setArgSouce(EArgSource argSource) {
 			this.argSource = argSource;
 		}
     }
