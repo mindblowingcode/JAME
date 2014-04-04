@@ -16,26 +16,26 @@ public class Builder {
 	}
 
 	private CFDG cfdg = new CFDG();
-	public ASTRand48 seed;
-	public Stack<ASTRepContainer> containerStack = new Stack<ASTRepContainer>();
-	public ASTRepContainer paramDecls = new ASTRepContainer();
-	public Map<String, Integer> flagNames = new HashMap<String, Integer>();
-	public List<StackRule> longLivedParams = new ArrayList<StackRule>();
-	public Stack<String> fileNames = new Stack<String>();
-	public Stack<String> filesToLoad = new Stack<String>();
-	public Stack<CharStream> streamsToLoad = new Stack<CharStream>();
-	public Stack<Boolean> includeNamespace = new Stack<Boolean>();
-	public Stack<ASTSwitch> switchStack = new Stack<ASTSwitch>();
-	public String currentNameSpace = "";
-	public String currentPath;
-	public String maybeVersion;
-	public int currentShape;
-	public int pathCount;
-	public int includeDepth;
-	public int localStackDepth;
-	public double maxNatual;
-	public boolean allowOverlap;
-	public boolean inPathContainer;
+	private ASTRand48 seed;
+	private Stack<ASTRepContainer> containerStack = new Stack<ASTRepContainer>();
+	private ASTRepContainer paramDecls = new ASTRepContainer();
+	private Map<String, Integer> flagNames = new HashMap<String, Integer>();
+	private List<StackRule> longLivedParams = new ArrayList<StackRule>();
+	private Stack<String> fileNames = new Stack<String>();
+	private Stack<String> filesToLoad = new Stack<String>();
+	private Stack<CharStream> streamsToLoad = new Stack<CharStream>();
+	private Stack<Boolean> includeNamespace = new Stack<Boolean>();
+	private Stack<ASTSwitch> switchStack = new Stack<ASTSwitch>();
+	private String currentNameSpace = "";
+	private String currentPath;
+	private String maybeVersion;
+	private int currentShape;
+	private int pathCount;
+	private int includeDepth;
+	private int localStackDepth;
+	private double maxNatual;
+	private boolean allowOverlap;
+	private boolean inPathContainer;
 
 	static List<String> globals = new ArrayList<String>();
 	{ 
@@ -628,5 +628,29 @@ public class Builder {
 	public EExpType decodeType(String type, int tupleSize, boolean natural) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void setInPathContainer(boolean inPathContainer) {
+		this.inPathContainer = inPathContainer;
+	}
+
+	public Stack<ASTSwitch> getSwitchStack() {
+		return switchStack;
+	}
+
+	public void incSwitchStack() {
+		localStackDepth--;
+	}
+
+	public void decSwitchStack() {
+		localStackDepth++;
+	}
+
+	public ASTRand48 getSeed() {
+		return seed;
+	}
+
+	public ASTRepContainer getParamDecls() {
+		return paramDecls;
 	}
 }

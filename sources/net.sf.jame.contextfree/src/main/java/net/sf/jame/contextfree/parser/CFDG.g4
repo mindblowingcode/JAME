@@ -261,7 +261,7 @@ shape
 shape_singleton_header returns [ASTRule result]
         : 
         shape '{' {
-        	driver.inPathContainer = false;
+        	driver.setInPathContainer(false);
         	$result = new ASTRule(-1);
         	driver.addRule($result);
         	driver.pushRepContainer($result.getRuleBody());
@@ -308,14 +308,14 @@ rule_v2 returns [ASTRule result]
 rule_header returns [ASTRule result]
         : 
         RULE {
-        	driver.inPathContainer = false;
+        	driver.setInPathContainer(false);
         	$result = new ASTRule(-1);
         	driver.addRule($result);
         	driver.pushRepContainer($result.getRuleBody());
         }
         |
         RULE w=USER_RATIONAL {
-        	driver.inPathContainer = false;
+        	driver.setInPathContainer(false);
         	String weight = $w.getText();
         	$result = new ASTRule(-1, Float.parseFloat(weight), weight.indexOf("\u0025") != -1);
         	driver.addRule($result);
@@ -328,7 +328,7 @@ path_header returns [ASTRule result]
         PATH s=USER_STRING parameter_list {
         	String name = $s.getText();
         	driver.setShape(null);
-        	driver.inPathContainer = true;
+        	driver.setInPathContainer(true);
         	$result = new ASTRule(-1);
         	$result.setPath(true);
         	driver.addRule($result);
@@ -341,7 +341,7 @@ rule_v3 returns [ASTRule result]
         h=rule_header '{' buncha_elements '}' {
         	$result = $h.result;
         	driver.popRepContainer($result);
-        	driver.inPathContainer = false;
+        	driver.setInPathContainer(false);
         }
         ;
 
@@ -350,7 +350,7 @@ path returns [ASTRule result]
         h=path_header '{' buncha_elements '}' {
         	$result = $h.result;
         	driver.popRepContainer($result);
-        	driver.inPathContainer = false;
+        	driver.setInPathContainer(false);
         	driver.setShape(null);
         }
         ;
@@ -364,7 +364,7 @@ path_header_v2 returns [ASTRule result]
         	$result.setPath(true);
         	driver.addRule($result);
         	driver.pushRepContainer($result.getRuleBody());
-        	driver.inPathContainer = true;
+        	driver.setInPathContainer(true);
         }
         ;
 
@@ -548,7 +548,7 @@ caseBody
 caseBody_element
         : 
         h=caseHeader one_or_more_elements {
-        	driver.popRepContainer(driver.switchStack.lastElement());
+        	driver.popRepContainer(driver.getSwitchStack().lastElement());
         }
         ;
 
@@ -608,7 +608,7 @@ element returns [ASTReplacement result]
         rs=switchHeader '{' caseBody '}' {
         	$result = $rs.result; 
 			$result.unify();
-        	driver.switchStack.pop();
+        	driver.getSwitchStack().pop();
         }
         |
 	    element_v2clue {
@@ -714,11 +714,11 @@ replacement_v2 returns [ASTReplacement result]
 loopHeader_v2 returns [ASTLoop result]
         : 
         r=USER_RATIONAL '*' { 
-        	driver.localStackDepth++;
+        	driver.incSwitchStack();
         } m=modification_v2 {
         	ASTExpression count = new ASTReal(Float.parseFloat($r.getText()));
         	ASTModification mod = $m.result;
-        	driver.localStackDepth--;
+        	driver.decSwitchStack();
             driver.setMaybeVersion("CFDG2");
             String dummyvar = "~~inaccessiblevar~~";
         	$result = new ASTLoop(driver.stringToShape(dummyvar, false), dummyvar, count, mod);
@@ -792,7 +792,7 @@ switchHeader returns [ASTSwitch result]
         SWITCH '(' e=exp2 ')' {
         	ASTExpression caseVal = $e.result;
             $result = new ASTSwitch(caseVal);
-            driver.switchStack.push($result);
+            driver.getSwitchStack().push($result);
         }
         ;
 
@@ -806,7 +806,7 @@ caseHeader returns [Integer result]
                     driver.error("Case expression is not a single, numeric expression");
                 } else {
                 	int intval = (int) Math.floor(val[0]);
-                	Map<Integer, ASTRepContainer> caseMap = driver.switchStack.peek().getCaseStatements();
+                	Map<Integer, ASTRepContainer> caseMap = driver.getSwitchStack().peek().getCaseStatements();
                 	if (caseMap.get(intval) != null) {
                 		driver.error("Case value already in use");
                 		driver.pushRepContainer(caseMap.get(intval));
@@ -824,10 +824,10 @@ caseHeader returns [Integer result]
         }
         |
         ELSE ':' {
-            if (!driver.switchStack.peek().getElseBody().getBody().isEmpty()) {
+            if (!driver.getSwitchStack().peek().getElseBody().getBody().isEmpty()) {
                 driver.error("There can only be one 'else:' clause");
             } else {
-                driver.pushRepContainer(driver.switchStack.peek().getElseBody());
+                driver.pushRepContainer(driver.getSwitchStack().peek().getElseBody());
             }
             $result = 0;
         }
@@ -972,12 +972,12 @@ exp returns [ASTExpression result]
         (
         RANGE r=exp {
         	ASTExpression pair = $result.append($r.result);
-        	$result = new ASTFunction("rand", pair, driver.seed);
+        	$result = new ASTFunction("rand", pair, driver.getSeed());
         }
         |
         PLUSMINUS r=exp {
         	ASTExpression pair = $result.append($r.result);
-        	$result = new ASTFunction("rand+/-", pair, driver.seed);
+        	$result = new ASTFunction("rand+/-", pair, driver.getSeed());
         }
         )?
         ;
@@ -1084,12 +1084,12 @@ exp2 returns [ASTExpression result]
         |
         RANGE r=exp2 {
         	ASTExpression pair = $result.append($r.result);
-        	$result = new ASTFunction("rand", pair, driver.seed);
+        	$result = new ASTFunction("rand", pair, driver.getSeed());
         }
         |
         PLUSMINUS r=exp2 {
         	ASTExpression pair = $result.append($r.result);
-        	$result = new ASTFunction("rand+/-", pair, driver.seed);
+        	$result = new ASTFunction("rand+/-", pair, driver.getSeed());
         }
         )?
         ;
@@ -1192,12 +1192,12 @@ exp3 returns [ASTExpression result]
         |
         RANGE r=exp3 {
         	ASTExpression pair = $result.append($r.result);
-        	$result = new ASTFunction("rand", pair, driver.seed);
+        	$result = new ASTFunction("rand", pair, driver.getSeed());
         }
         |
         PLUSMINUS r=exp3 {
         	ASTExpression pair = $result.append($r.result);
-        	$result = new ASTFunction("rand+/-", pair, driver.seed);
+        	$result = new ASTFunction("rand+/-", pair, driver.getSeed());
         }
         )?
         ;
@@ -1309,8 +1309,8 @@ global_definition returns [ASTDefine result]
                         break;
                     case FunctionDefine:
                         driver.popRepContainer(null);
-                        driver.paramDecls.getParameters().clear();
-                        driver.paramDecls.setStackCount(0);
+                        driver.getParamDecls().getParameters().clear();
+                        driver.getParamDecls().setStackCount(0);
                         // fall through
                     default:
                         var.setExp(exp);
@@ -1373,11 +1373,11 @@ global_definition_header returns [ASTDefine result]
         fd=function_definition_header {
             if ($fd.result != null) {
                 assert($fd.result.getDefineType() == EDefineType.FunctionDefine);
-                driver.pushRepContainer(driver.paramDecls);
+                driver.pushRepContainer(driver.getParamDecls());
             } else {
                 // An error occurred
-                driver.paramDecls.getParameters().clear();
-                driver.paramDecls.setStackCount(0);
+                driver.getParamDecls().getParameters().clear();
+                driver.getParamDecls().setStackCount(0);
             }
             $result = $fd.result;
         }

@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.Stack;
 
 public class CFDG {
-	public List<ShapeType> shapeTypes = new ArrayList<ShapeType>();
-	public Map<Integer, ASTDefine> functions = new HashMap<Integer, ASTDefine>();
-	public Stack<ASTRule> rules = new Stack<ASTRule>();
-	public Map<ECFGParam, Integer> paramDepth = new HashMap<ECFGParam, Integer>();
-	public Map<ECFGParam, ASTExpression> paramExp = new HashMap<ECFGParam, ASTExpression>();
+	private List<ShapeType> shapeTypes = new ArrayList<ShapeType>();
+	private Map<Integer, ASTDefine> functions = new HashMap<Integer, ASTDefine>();
+	private Stack<ASTRule> rules = new Stack<ASTRule>();
+	private Map<ECFGParam, Integer> paramDepth = new HashMap<ECFGParam, Integer>();
+	private Map<ECFGParam, ASTExpression> paramExp = new HashMap<ECFGParam, ASTExpression>();
 	private int parameters;
 	private boolean usesColor;
 	private boolean usesAlpha;
@@ -19,14 +19,14 @@ public class CFDG {
 	private boolean usesTime;
 	private boolean usesFrameTime;
 	
-	protected int encodeShapeName(String s) {
+	public int encodeShapeName(String s) {
 		int i = tryEncodeShapeName(s);
 		if (i >= 0) return i;
 		shapeTypes.add(new ShapeType(s));
 		return shapeTypes.size() - 1;
 	}
 	
-	protected int tryEncodeShapeName(String s) {
+	public int tryEncodeShapeName(String s) {
 	    for (int i = 0; i < shapeTypes.size(); i++) {
 	        if (s.equals(shapeTypes.get(i).getName())) {
 	            return i;
@@ -35,7 +35,7 @@ public class CFDG {
 	    return -1;
 	}
 
-	protected String decodeShapeName(int shape) {
+	public String decodeShapeName(int shape) {
 	    if (shape < shapeTypes.size()) {
 	        return shapeTypes.get(shape).getName();
 	    } else {
@@ -43,7 +43,7 @@ public class CFDG {
 	    }
 	}
 
-	protected ASTDefine findFunction(int index) {
+	public ASTDefine findFunction(int index) {
 		ASTDefine def = functions.get(index);
 		if (def != null) {
 			return def;
@@ -51,7 +51,7 @@ public class CFDG {
 		return null;
 	}
 
-	protected String setShapeParams(int nameIndex, ASTRepContainer p, int argSize, boolean isPath) {
+	public String setShapeParams(int nameIndex, ASTRepContainer p, int argSize, boolean isPath) {
 		ShapeType type = shapeTypes.get(nameIndex);
 		if (type.isShape()) {
 			if (p.getParameters().isEmpty()) {
@@ -76,7 +76,7 @@ public class CFDG {
 		return null;
 	}
 	
-	protected boolean addRuleShape(ASTRule rule) {
+	public boolean addRuleShape(ASTRule rule) {
 		rules.push(rule);
 		ShapeType type = shapeTypes.get(rule.getNameIndex());
 		if (type.getShapeType() == EShapeType.NewShape) {
@@ -90,11 +90,11 @@ public class CFDG {
 		return type.isShape();
 	}
 
-	protected EShapeType getShapeType(int nameIndex) {
+	public EShapeType getShapeType(int nameIndex) {
 		return shapeTypes.get(nameIndex).getShapeType();
 	}
 	
-	protected EShapeType getShapeType(String name) {
+	public EShapeType getShapeType(String name) {
 		for (int i = 0; i < shapeTypes.size(); i++) {
 			if (shapeTypes.get(i).getName().equals(name)) {
 				return shapeTypes.get(i).getShapeType();
@@ -103,7 +103,7 @@ public class CFDG {
 		return EShapeType.NewShape;
 	}
 	
-	protected ASTDefine declareFunction(int nameIndex, ASTDefine def) {
+	public ASTDefine declareFunction(int nameIndex, ASTDefine def) {
 		ASTDefine prev = findFunction(nameIndex);
 		if (prev != null) {
 			return prev;
@@ -112,14 +112,14 @@ public class CFDG {
 		return def;
 	}
 	
-	protected List<ASTParameter> getShapeParams(int nameIndex) {
+	public List<ASTParameter> getShapeParams(int nameIndex) {
 	    if (nameIndex < 0 || nameIndex >= shapeTypes.size() || !shapeTypes.get(nameIndex).isShape()) {
 	        return null;
 	    }
 	    return shapeTypes.get(nameIndex).getParameters();
 	}
 	
-	protected ASTRule findRule(int nameIndex) {
+	public ASTRule findRule(int nameIndex) {
 	    for (ASTRule rule: rules) {
 	        if (rule.getNameIndex() == nameIndex) {
 	            return rule;
@@ -128,7 +128,7 @@ public class CFDG {
 	    return null;
 	}
 	
-	protected boolean hasParameter(ECFGParam p, double[] value, RTI rti) {
+	public boolean hasParameter(ECFGParam p, double[] value, RTI rti) {
 		ASTExpression exp = hasParameter(p);
 		if (exp == null || exp.getType() != EExpType.NumericType) {
 			return false;
@@ -142,7 +142,7 @@ public class CFDG {
 		return true;
 	}
 
-	protected boolean hasParameter(ECFGParam p, Modification[] value, RTI rti) {
+	public boolean hasParameter(ECFGParam p, Modification[] value, RTI rti) {
 		ASTExpression exp = hasParameter(p);
 		if (exp == null || exp.getType() != EExpType.ModificationType) {
 			return false;
@@ -156,7 +156,7 @@ public class CFDG {
 		return true;
 	}
 
-	protected boolean hasParameter(ECFGParam p, EExpType type) {
+	public boolean hasParameter(ECFGParam p, EExpType type) {
 		ASTExpression exp = hasParameter(p);
 		if (exp == null || exp.getType() != type) {
 			return false;
@@ -164,14 +164,14 @@ public class CFDG {
 		return true;
 	}
 
-	protected ASTExpression hasParameter(ECFGParam p) {
+	public ASTExpression hasParameter(ECFGParam p) {
 		if (paramDepth.get(p).intValue() == -1) {
 			return null;
 		}
 		return paramExp.get(p);
 	}
 
-	protected boolean addParameter(String name, ASTExpression exp, int depth) {
+	public boolean addParameter(String name, ASTExpression exp, int depth) {
 		ECFGParam p = ECFGParam.valueOf(name);
 		if (p == null) {
 			return false;
@@ -183,13 +183,13 @@ public class CFDG {
 		return true;
 	}
 
-	protected void setShapeHasNoParam(int nameIndex, ASTExpression args) {
+	public void setShapeHasNoParam(int nameIndex, ASTExpression args) {
 		if (nameIndex < shapeTypes.size() && args != null) {
 			shapeTypes.get(nameIndex).setShouldHaveNoParams(true);
 		}
 	}
 
-	protected void addParameter(EParam param) {
+	public void addParameter(EParam param) {
 		parameters |= param.getType();
 	    usesColor = (parameters & EParam.Color.getType()) != 0;
 	    usesTime = (parameters & EParam.Time.getType()) != 0;
