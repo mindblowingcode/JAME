@@ -14,19 +14,10 @@ enum RepElemListEnum {
 	}
 
 	public static RepElemListEnum typeByOrdinal(int ordinal) {
-		switch (ordinal) {
-			case 8:
-				return rule; 
-			case 4:
-				return replacement; 
-			case 3:
-				return mixed; 
-			case 2:
-				return command; 
-			case 1:
-				return op; 
-			case 0:
-				return empty; 
+		for (RepElemListEnum type : RepElemListEnum.values()) {
+			if (type.ordinal() == ordinal) {
+				return type;
+			}
 		}
 		return empty;
 	}

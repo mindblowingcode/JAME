@@ -155,4 +155,19 @@ class ASTModification extends ASTExpression {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void add(ASTModTerm t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Modification getModData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void grab(ASTModification mod) {
+		// TODO Auto-generated method stub
+		
+	}
 }

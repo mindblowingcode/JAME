@@ -45,7 +45,11 @@ class ASTModTerm extends ASTExpression {
             }
     	}
 
-    	@Override
+    	public ASTModTerm(ModTypeEnum param, String text) {
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
 		public int flatten(List<ASTExpression> dest) { 
             // This code merges adjacent x and y adjustments into a single xy adjustment
             ASTModTerm last = null;

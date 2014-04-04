@@ -12,4 +12,9 @@ class Modification {
 	public ASTRand48 getRand48Seed() {
 		return rand48Seed;
 	}
+
+	public void setSeed(int i) {
+		// TODO Auto-generated method stub
+		
+	}
 }

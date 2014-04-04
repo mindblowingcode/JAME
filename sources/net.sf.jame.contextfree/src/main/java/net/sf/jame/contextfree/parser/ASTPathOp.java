@@ -10,4 +10,9 @@ class ASTPathOp extends ASTReplacement {
 		// TODO Auto-generated constructor stub
 		super(null, null, modification);
 	}
+
+	public ASTPathOp(String op, ASTExpression modification) {
+		// TODO Auto-generated constructor stub
+		super(null, null, modification);
+	}
 }

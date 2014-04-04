@@ -37,9 +37,31 @@ enum ModTypeEnum {
 	modification("\u0088\u0090\u0054\u00C5\u00D3\u0020"), 
 	lastModType("");
 	
-	String entropy;
+	private String entropy;
 	
 	private ModTypeEnum(String entropy) {
 		this.entropy = entropy;
+	}
+
+	public static ModTypeEnum modTypeByOrdinal(int ordinal) {
+		for (ModTypeEnum type : ModTypeEnum.values()) {
+			if (type.ordinal() == ordinal) {
+				return type;
+			}
+		}
+		return unknown;
+	}
+
+	public static ModTypeEnum modTypeByName(String name) {
+		for (ModTypeEnum type : ModTypeEnum.values()) {
+			if (type.name().equals(name)) {
+				return type;
+			}
+		}
+		return unknown;
+	}
+
+	public String getEntropy() {
+		return entropy;
 	}
 }

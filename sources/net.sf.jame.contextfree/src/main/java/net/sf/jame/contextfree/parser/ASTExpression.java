@@ -4,6 +4,7 @@ import java.util.List;
 
 class ASTExpression {
 	protected boolean isConstant;
+	protected boolean isNatural;
 	protected ExpType type;
 
 	public ASTExpression() {
@@ -11,11 +12,16 @@ class ASTExpression {
 	}
 
 	public ASTExpression(boolean isConstant) {
-		this(isConstant, ExpType.NoType);
+		this(isConstant, false, ExpType.NoType);
 	}
 
 	public ASTExpression(boolean isConstant, ExpType type) {
+		this(isConstant, false, type);
+	}
+
+	public ASTExpression(boolean isConstant, boolean isNatural, ExpType type) {
 		this.isConstant = isConstant;
+		this.isNatural = isNatural;
 		this.type = type;
 	}
 
@@ -45,6 +51,10 @@ class ASTExpression {
 
 	public ASTExpression next() {
 		return null;
+	}
+
+	public int evaluate(double[] result, int length) {
+		return evaluate(result, length, null);
 	}
 
 	public int evaluate(double[] result, int length, RTI rti) {
@@ -83,5 +93,9 @@ class ASTExpression {
 	public ASTExpression append(ASTExpression args) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public boolean isNatural() {
+		return isNatural;
 	}
 }
