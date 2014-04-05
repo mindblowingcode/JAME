@@ -113,7 +113,7 @@ class ASTParameter extends ASTExpression {
             return false;
         }
         
-        public static int checkType(List<? extends ASTParameter> types, ASTExpression args, boolean chackNumber)
+        public static int checkType(List<? extends ASTParameter> types, ASTExpression args, boolean checkNumber)
         {
 //            // Walks down the right edge of an expression tree checking that the types
 //            // of the children match the specified argument types

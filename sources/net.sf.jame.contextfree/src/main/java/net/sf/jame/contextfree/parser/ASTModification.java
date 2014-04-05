@@ -297,6 +297,9 @@ class ASTModification extends ASTExpression {
 								}
 								break;
 
+	                            // Try to split the XYZ term into an XY term and a Z term. Drop the XY term
+	                            // if it is the identity. First try an all-constant route, then try to tease
+	                            // apart the arguments.
 							case xyz:
 							case sizexyz:
 								{
@@ -306,10 +309,58 @@ class ASTModification extends ASTExpression {
 										term.setModType(term.getModType() == EModType.xyz ? EModType.x : EModType.size);
 										term.setArgumentsCount(2);
 										
-										//TODO completare
+		                                // Check if xy part is the identity transform and only save it if it is not
+										EModType ztype = term.getModType() == EModType.size ? EModType.zsize : EModType.z;
+										ASTModTerm zmod = new ASTModTerm(ztype, new ASTReal(d[2]));
+										zmod.setArgumentsCount(1);
+										
+										if (d[0] == 1.0 && d[1] == 1.0 && term.getModType() == EModType.size) {
+		                                    // Drop xy term and just save z term if xy term
+		                                    // is the identity transform
+											term.setArguments(zmod);
+										} else {
+											modExp.add(zmod);
+										}
+										modExp.add(term);
+										continue;
 									}
+									
+									List<ASTExpression> xyzargs = extract(term.getArguments());
+									ASTExpression xyargs = null;
+									ASTExpression zargs = null;
+									
+									for (ASTExpression arg : xyzargs) {
+										if (xyargs == null || xyargs.evaluate(null, 0) < 2) {
+											xyargs = append(xyargs, arg);
+										} else {
+											zargs = append(zargs, arg);
+										}
+									}
+									
+									if (xyargs != null && zargs != null && xyargs.evaluate(null, 0) == 2) {
+		                                // We have successfully split the 3-tuple into a 2-tuple and a scalar
+										term.setArguments(xyargs);
+										term.setModType(term.getModType() == EModType.xyz ? EModType.x : EModType.size);
+										term.setArgumentsCount(2);
+										
+										EModType ztype = term.getModType() == EModType.size ? EModType.zsize : EModType.z;
+										ASTModTerm zmod = new ASTModTerm(ztype, new ASTReal(d[2]));
+										zmod.setArgumentsCount(1);
+										
+										if (term.getModType() == EModType.size && xyargs.isConstant() && xyargs.evaluate(d, 2) == 2 && d[0] == 1.0 && d[1] == 1.0) {
+		                                    // Drop xy term and just save z term if xy term
+		                                    // is the identity transform
+											term.setArguments(zmod);
+										} else {
+											modExp.add(zmod);
+										}
+									} else {
+										// No dice, put it all back
+										xyargs = append(xyargs, zargs);
+										term.setArguments(xyargs);
+									}
+									modExp.add(term);
 								}
-								modExp.add(term);
 								continue;
 								
 							default:

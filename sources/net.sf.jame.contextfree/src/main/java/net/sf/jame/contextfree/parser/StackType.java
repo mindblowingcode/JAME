@@ -4,7 +4,7 @@ import java.util.List;
 
 class StackType {
 	private double number;
-	private StackType rule;
+	private StackRule rule;
 	private StackRule ruleHeader;
 	private List<ASTParameter> typeInfo;
 
@@ -16,7 +16,7 @@ class StackType {
 		return number;
 	}
 
-	public StackType getRule() {
+	public StackRule getRule() {
 		return rule;
 	}
 
@@ -34,6 +34,11 @@ class StackType {
 	}
 
 	public double[] getArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Modification modification() {
 		// TODO Auto-generated method stub
 		return null;
 	}
