@@ -1,6 +1,5 @@
 package net.sf.jame.contextfree.parser;
 
-
 class ASTReplacement {
 	private EPathOp pathOp;
 	private ERepElemType repType;
@@ -64,5 +63,10 @@ class ASTReplacement {
 
 	public ASTModification getChildChange() {
 		return modification;
+	}
+
+	public void compile(ECompilePhase ph) {
+		// TODO Auto-generated method stub
+		
 	}
 }

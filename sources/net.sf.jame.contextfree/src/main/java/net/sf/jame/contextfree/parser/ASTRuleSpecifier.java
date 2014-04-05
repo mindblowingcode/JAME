@@ -10,7 +10,7 @@ class ASTRuleSpecifier extends ASTExpression {
     	private StringBuilder entropy;
     	private EArgSource argSource;
     	private ASTExpression arguments;
-    	private ASTStackType simpleRule;
+    	private StackType simpleRule;
     	private int stackIndex;
     	private List<ASTParameter> typeSignature;
     	
@@ -24,7 +24,7 @@ class ASTRuleSpecifier extends ASTExpression {
     		this.stackIndex = spec.stackIndex;
     		this.typeSignature = spec.typeSignature;
             if (spec.argSource == EArgSource.SimpleArgs) {
-            	ASTStackType simp = new ASTStackType(shapeType, argSize, 0);
+            	StackType simp = new StackType(shapeType, argSize, 0);
                 argSource = EArgSource.SimpleArgs;
                 simpleRule = simp;
                 if (argSize > 0) {
@@ -99,13 +99,13 @@ class ASTRuleSpecifier extends ASTExpression {
 		}
 
 		@Override
-		public ASTStackType evalArgs(ASTStackType parent, RTI rti) {
+		public StackRule evalArgs(StackType parent, RTI rti) {
             switch (argSource) {
 	            case NoArgs:
 	            case SimpleArgs:
 	                return simpleRule;
 	            case StackArgs: {
-//	                ASTStackType ret = (rti.mLogicalStackTop + mStackIndex).rule;
+//	                StackType ret = (rti.mLogicalStackTop + mStackIndex).rule;
 //	                ret.retain(rti);
 //	                return ret;TODO completare
 	            }
@@ -115,7 +115,7 @@ class ASTRuleSpecifier extends ASTExpression {
 //	                parent.retain(rti);
 //	                return parent;TODO completare
 	            case DynamicArgs: {
-//	                ASTStackType ret = new ASTStackType(shapeType, argSize, typeSignature);
+//	                StackType ret = new StackType(shapeType, argSize, typeSignature);
 //	                ret.evalArgs(rti, arguments, parent);
 //	                return ret;TODO completare
 	            }
@@ -168,7 +168,7 @@ class ASTRuleSpecifier extends ASTExpression {
 			return arguments;
 		}
 
-		public ASTStackType getSimpleRule() {
+		public StackType getSimpleRule() {
 			return simpleRule;
 		}
 

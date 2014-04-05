@@ -1,27 +1,35 @@
 package net.sf.jame.contextfree.parser;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 class ASTExpression {
 	protected boolean isConstant;
 	protected boolean isNatural;
+	protected ELocality locality;
 	protected EExpType type;
 
 	public ASTExpression() {
-		this(false, EExpType.NoType);
+		this(false, false, ELocality.UnknownLocal, EExpType.NoType);
 	}
 
-	public ASTExpression(boolean isConstant) {
-		this(isConstant, false, EExpType.NoType);
+	public ASTExpression(boolean isConstant, boolean isNatural) {
+		this(isConstant, isNatural, ELocality.UnknownLocal, EExpType.NoType);
 	}
-
-	public ASTExpression(boolean isConstant, EExpType type) {
-		this(isConstant, false, type);
-	}
-
+	
 	public ASTExpression(boolean isConstant, boolean isNatural, EExpType type) {
+		this(isConstant, isNatural, ELocality.UnknownLocal, type);
+	}
+
+	public ASTExpression(boolean isConstant, boolean isNatural, ELocality locality) {
+		this(isConstant, isNatural, locality, EExpType.NoType);
+	}
+
+	public ASTExpression(boolean isConstant, boolean isNatural, ELocality locality, EExpType type) {
 		this.isConstant = isConstant;
 		this.isNatural = isNatural;
+		this.locality = locality;
 		this.type = type;
 	}
 
@@ -29,30 +37,26 @@ class ASTExpression {
 		return isConstant;
 	}
 
+	public boolean isNatural() {
+		return isNatural;
+	}
+
+	public void setIsNatural(boolean isNatural) {
+		this.isNatural = isNatural;
+	}
+	
+	public ELocality getLocality() {
+		return locality;
+	}
+	
 	public EExpType getType() {
 		return type;
 	}
 
-	public int flatten(List<ASTExpression> dest) {
-		dest.add(this);
-		return 1;
+	public void setType(EExpType type) {
+		this.type = type;
 	}
-
-	public void entropy(StringBuilder e) {
-	}
-
-	public ASTExpression simplify() {
-		return this;
-	}
-
-	public ASTExpression current() {
-		return this;
-	}
-
-	public ASTExpression next() {
-		return null;
-	}
-
+	
 	public int evaluate(double[] result, int length) {
 		return evaluate(result, length, null);
 	}
@@ -61,41 +65,84 @@ class ASTExpression {
 		return 0;
 	}
 
-	public int evaluate(Modification[] result, int length, RTI rti) {
-		return 0;
+	public void evaluate(Modification[] result, boolean shapeDest) {
+		evaluate(result, shapeDest, null);
 	}
 
-	public void evaluate(Modification modification, String s, double[] width, boolean justCheck, int[] seedIndex, RTI rti) {
+	public void evaluate(Modification[] result, boolean shapeDest, RTI rti) {
 		throw new RuntimeException("Cannot convert this expression into an adjustment"); 
 	}
 
-	public ASTStackType evalArgs(ASTStackType parent, RTI rti) {
+	public StackRule evalArgs(RTI rti, StackRule parent) {
 		throw new RuntimeException("Cannot convert this expression into a shape"); 
 	}
 	
-	public ASTExpIterator begin() {
-		return new ASTExpIterator(this); 
+	public void entropy(StringBuilder e) {
 	}
 	
-	public ASTExpIterator end() {
-		return new ASTExpIterator();
+	public ASTExpression simplify() {
+		return this;
+	}
+	
+	public ASTExpression getChild(int i) {
+		if (i > 0) {
+			error("Expression list bounds exceeded");
+		}
+		return this;
 	}
 
-	public List<ASTExpression> getChildren() {
-		// TODO Auto-generated method stub
+	public int size() {
+		return 1;
+	}
+
+	public ASTExpression append(ASTExpression e) {
 		return null;
 	}
 
-	public void setType(EExpType type) {
-		this.type = type;
-	}
+	public ASTExpression compile(ECompilePhase ph) {
+		switch (ph) {
+			case TypeCheck: 
+				break;
+	
+			case Simplify: 
+				break;
 
-	public ASTExpression append(ASTExpression args) {
-		// TODO Auto-generated method stub
+			default:
+				break;
+		}
 		return null;
 	}
 
-	public boolean isNatural() {
-		return isNatural;
+	// Always returns nullptr except during type check in the following cases:
+	// * An ASTvariable bound to a constant returns a copy of the constant
+	// * An ASTvariable bound to a rule spec returns an ASTruleSpec that
+	//   acts as a stack variable
+	// * A shape spec that was parsed as an ASTuserFunc because of grammar
+	//   ambiguity will return the correct ASTruleSpec
+	//
+	// It is safe to ignore the return value if you can guarantee that none
+	// of these conditions is possible. Otherwise you must replace the object
+	// with the returned object. Using the original object after type check
+	// will fail.
+	public static ASTExpression append(ASTExpression le, ASTExpression re) {
+		return null;
+	}
+	
+	protected final void error(String message) {
+		System.out.println(message);
+	}
+
+	protected ELocality combineLocality(ELocality locality1, ELocality locality2) {
+		return ELocality.localityByOrdinal(locality1.ordinal() | locality2.ordinal());
+	}
+	
+	protected List<ASTExpression> extract(ASTExpression exp) {
+		if (exp instanceof ASTCons) {
+			return ((ASTCons)exp).getChildren();
+		} else {
+			List<ASTExpression> ret = new ArrayList<ASTExpression>();
+			ret.add(exp);
+			return ret;
+		}
 	}
 }

@@ -4,10 +4,10 @@ package net.sf.jame.contextfree.parser;
 class ASTStackIterator {
 	private ASTExpIterator iter;
 	private ASTExpIterator iter_end;
-	private ASTStackType[] s;
+	private StackType[] s;
 	private int index;
 	
-	public ASTStackIterator(ASTStackType[] s) {
+	public ASTStackIterator(StackType[] s) {
 		this.s = s;
 		if (s != null && s[index] != null && s[index].getRuleHeader().getParamCount() > 0) {
 			iter = s[index + 1].getTypeInfo().begin();
@@ -31,7 +31,7 @@ class ASTStackIterator {
 		}
 	}
 	
-	public ASTStackType current() {
+	public StackType current() {
 		if (s != null) {
 			return s[index];
 		}

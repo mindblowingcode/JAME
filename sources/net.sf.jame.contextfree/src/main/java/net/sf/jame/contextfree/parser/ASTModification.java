@@ -1,173 +1,345 @@
 package net.sf.jame.contextfree.parser;
 
-import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.ListIterator;
+import java.util.Map;
 
 class ASTModification extends ASTExpression {
 	public static final int SIZE = 9;
-	private Modification data;
 	private EModClass modClass;
-	private ASTExpression modifications;
-	private List<ASTExpression> expressions;
-	private AffineTransform transform = new AffineTransform();
+	private Modification modData;
+	private List<ASTModTerm> modExp = new ArrayList<ASTModTerm>();
+	private int entropyIndex;
+	private boolean canonical;
 	
 	public ASTModification() {
-		super(true, EExpType.ModificationType);
+		super(true, false, EExpType.ModType);
 		this.modClass = EModClass.NotAClass;
-		this.expressions = null;
+		this.entropyIndex = 0;
+		this.canonical = true;
 	}
 
-	public ASTModification(ASTExpression expression) {
-		super(true, EExpType.ModificationType);
-		//TODO da controllare
-		this.modClass = EModClass.NotAClass; 
-		this.expressions = null;
-		init(expression);
+	public ASTModification(ASTModification mod) {
+		super(true, false, EExpType.ModType);
+		this.modClass = mod.modClass;
+		this.entropyIndex = mod.entropyIndex;
+		this.canonical = mod.canonical;
 	}
 
-	public ASTModification(ASTModification modifications) {
-		super(true, EExpType.ModificationType);
-		this.modClass = modifications.modClass;
-		this.expressions = null;
-		ASTModification[] mods = new ASTModification[1];//TODO ma � necessario il vettore?
-		mods[0] = modifications;
-		init(mods, null, null);
-	}
-
-	public ASTModification(ASTModification modifications, String name) {
-		super(true, EExpType.ModificationType);
-		this.modClass = modifications.modClass;
-		this.expressions = null;
-		ASTModification[] mods = new ASTModification[1];//TODO ma � necessario il vettore?
-		mods[0] = modifications;
-		init(mods, name, null, null);
-	}
-
-    public void init(ASTExpression[] modifications, String name, String p, double[] width) {
-    	StringBuilder e = new StringBuilder();
-    	if (modifications[0] != null)
-    		modifications[0].entropy(e);
-		e.append(name);
-		ASTExpression ent = new ASTModTerm(EModType.Entropy, null, e.toString());//TODO verificare
-		if (modifications[0] != null) {
-			modifications[0] = new ASTCons(modifications[0].simplify(), ent);
+	public ASTModification(ASTModification mod, boolean dummy) {
+		super(true, false, EExpType.ModType);
+		if (mod != null) {
+			modData.getRand48Seed().seed(0);
+			grab(mod);
 		} else {
-			modifications[0] = ent;
-		}
-		evalConst(modifications[0], p, width);
-	}
-	
-	public void init(ASTExpression[] modifications, String p, double[] width) {
-		init(modifications, "it doesn't matter", p, width);
-	}
-
-	public void init(ASTExpression expression) {
-		// TODO verificare
-		ASTExpression[] mods = new ASTExpression[1];//TODO ma � necessario il vettore?
-		mods[0] = expression;
-		init(mods, "it doesn't matter", null, null);
-	}
-
-	private void evalConst(ASTExpression modifications, String p, double[] width) {
-		int[] seedIndex = new int[1];
-        int nonConstant = 0;
-        int modClass = 0;
-        
-        List<ASTExpression> temp = new ArrayList<ASTExpression>();
-        modifications.flatten(temp);
-        
-		for (ASTExpression expression : temp) {
-            boolean keepThisOne = false;
-            ASTModTerm mod = (ASTModTerm)expression;
-            if (mod == null) {
-                throw new RuntimeException("Unknown term in shape adjustment");
-            }
-            
-            // Put in code for separating color changes and target color changes
-            int mc = mod.getModType().ordinal();
-            modClass |= mod.getModType().ordinal();
-            if (!mod.isConstant)
-                nonConstant |= mc;
-            boolean justCheck = (mc & nonConstant) != 0;
-            
-            try {
-                mod.evaluate(data, p, width, justCheck, seedIndex, null);
-            } catch (DeferUntilRuntimeException e) {
-                keepThisOne = true;
-            }
-            
-            if (justCheck || keepThisOne) {
-            	if (expressions == null) {
-            		expressions = new ArrayList<ASTExpression>();
-            	}
-            	expressions.add(mod);
-            }
+			this.modClass = EModClass.NotAClass;
 		}
 	}
 
-	@Override
-	public void evaluate(Modification modification, String s, double[] width, boolean justCheck, int[] seedIndex, RTI rti) {
-        if (expressions == null) {
-            modification.concat(data);
-        } else {
-            Modification[] mod = new Modification[0];
-            setVal(mod, s, width, justCheck, seedIndex, rti);
-            modification.concat(mod[0]);
-        }
-	}
-
-	public void setVal(Modification[] modification, String s, double[] width, boolean justCheck, int[] seedIndex, RTI rti) {
-		modification[0] = data;
-		for (ASTExpression expression : expressions) {
-			expression.evaluate(modification[0], s, width, justCheck, seedIndex, rti);
-		}
-	}
-
-	@Override
-	public int evaluate(double[] result, int length, RTI rti) {
-		throw new RuntimeException("Improper evaluation of an adjustment expression");
-	}
-
-	public Modification getData() {
-		return data;
+	public Modification getModData() {
+		return modData;
 	}
 
 	public EModClass getModClass() {
 		return modClass;
 	}
 
-	public ASTExpression getModifications() {
-		return modifications;
+	public List<ASTModTerm> getModExp() {
+		return modExp;
 	}
 
-	public List<ASTExpression> getExpressions() {
-		return expressions;
+	public void setIsConstant(boolean isConstant) {
+		this.isConstant = isConstant;
 	}
 
-	public void setIsConstant(boolean empty) {
-		// TODO Auto-generated method stub
-		
+	public void setCanonical(boolean canonical) {
+		this.canonical = canonical;
 	}
 
-	public void setCanonial(boolean canonial) {
-		// TODO Auto-generated method stub
-		
+	public int getEntropyIndex() {
+		return entropyIndex;
 	}
-
-	public void add(ASTModTerm t) {
-		// TODO Auto-generated method stub
-		
+	
+	public boolean isCanonial() {
+		return canonical;
 	}
-
-	public Modification getModData() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	public void grab(ASTModification mod) {
-		// TODO Auto-generated method stub
+		ASTRand48 oldEntropy = modData.getRand48Seed();
+		modData = mod.getModData();
+		modData.getRand48Seed().add(oldEntropy);
+		modExp.clear();
+		modExp.addAll(mod.getModExp());
+		modClass = mod.getModClass();
+		entropyIndex = (entropyIndex + mod.getEntropyIndex()) & 7;
+		isConstant = modExp.isEmpty();
+		canonical = mod.isCanonial();
+	}
+
+	public void makeCanonial() {
+	    // Receive a vector of modification terms and return an ASTexpression with
+	    // those terms rearranged into TRSSF canonical order. Duplicate terms are
+	    // deleted with a warning.
+		List<ASTModTerm> temp = new ArrayList<ASTModTerm>(modExp);
+		modExp.clear();
 		
+		ASTModTerm x = null;
+		ASTModTerm y = null;
+		ASTModTerm z = null;
+		ASTModTerm rot = null;
+		ASTModTerm skew = null;
+		ASTModTerm size = null;
+		ASTModTerm zsize = null;
+		ASTModTerm flip = null;
+		ASTModTerm xform = null;
+		
+		for (ASTModTerm term : temp) {
+			switch (term.getModType()) {
+				case x:
+					x = term;
+					break;
+	
+				case y:
+					y = term;
+					break;
+	
+				case z:
+					z = term;
+					break;
+	
+				case modification:
+				case transform:
+					xform = term;
+					break;
+	
+				case rot:
+					rot = term;
+					break;
+	
+				case size:
+					size = term;
+					break;
+	
+				case zsize:
+					zsize = term;
+					break;
+	
+				case skew:
+					skew = term;
+					break;
+	
+				case flip:
+					flip = term;
+					break;
+	
+				default:
+					modExp.add(term);
+					break;
+			}
+		}
+		
+		if (x != null) modExp.add(x); 
+		if (y != null) modExp.add(y); 
+		if (z != null) modExp.add(z); 
+		if (rot != null) modExp.add(rot); 
+		if (size != null) modExp.add(size); 
+		if (zsize != null) modExp.add(zsize); 
+		if (skew != null) modExp.add(skew); 
+		if (flip != null) modExp.add(flip); 
+		if (xform != null) modExp.add(xform); 
+	}
+
+	public void addEntropy(String name) {
+		int[] index = new int[1];
+		modData.getRand48Seed().xorString(name, index);
+		entropyIndex = index[0];
+	}
+
+	public void setVal(Modification[] mod, RTI rti) {
+        mod[0] = modData;
+		for (ASTModTerm term : modExp) {
+			term.evaluate(mod, false, rti);
+		}
+	}
+
+	@Override
+	public int evaluate(double[] result, int length, RTI rti) {
+		error("Improper evaluation of an adjustment expression");
+		return -1;
+	}
+
+	@Override
+	public void evaluate(Modification[] result, boolean shapeDest, RTI rti) {
+		if (shapeDest) {
+			result[0].concat(modData);
+		} else {
+			if (result[0].merge(modData)) {
+				if (rti != null) rti.colorConflict();
+			}
+		}
+		for (ASTModTerm term : modExp) {
+			term.evaluate(result, shapeDest, rti);
+		}
+	}
+
+	protected void evalConst() {
+		Map<EModType, EModClass> map = new HashMap<EModType, EModClass>();
+		map.put(EModType.unknown, EModClass.classByOrdinal(EModClass.NotAClass.getType()));
+		map.put(EModType.x, EModClass.classByOrdinal(EModClass.GeomClass.getType() | EModClass.PathOpClass.getType()));
+		map.put(EModType.y, EModClass.classByOrdinal(EModClass.GeomClass.getType() | EModClass.PathOpClass.getType()));
+		map.put(EModType.z, EModClass.ZClass);
+		map.put(EModType.xyz, EModClass.classByOrdinal(EModClass.NotAClass.getType()));
+		map.put(EModType.transform, EModClass.GeomClass);
+		map.put(EModType.size, EModClass.GeomClass);
+		map.put(EModType.sizexyz, EModClass.classByOrdinal(EModClass.GeomClass.getType() | EModClass.ZClass.getType()));
+		map.put(EModType.rot, EModClass.classByOrdinal(EModClass.GeomClass.getType() | EModClass.PathOpClass.getType()));
+		map.put(EModType.skew, EModClass.GeomClass);
+		map.put(EModType.flip, EModClass.GeomClass);
+		map.put(EModType.zsize, EModClass.ZClass);
+		map.put(EModType.hue, EModClass.HueClass);
+		map.put(EModType.sat, EModClass.SatClass);
+		map.put(EModType.bright, EModClass.BrightClass);
+		map.put(EModType.alpha, EModClass.AlphaClass);
+		map.put(EModType.hueTarg, EModClass.HueClass);
+		map.put(EModType.satTarg, EModClass.SatClass);
+		map.put(EModType.brightTarg, EModClass.BrightClass);
+		map.put(EModType.alphaTarg, EModClass.AlphaClass);
+		map.put(EModType.targHue, EModClass.HueTargetClass);
+		map.put(EModType.targSat, EModClass.SatTargetClass);
+		map.put(EModType.targBright, EModClass.BrightTargetClass);
+		map.put(EModType.targAlpha, EModClass.AlphaTargetClass);
+		map.put(EModType.time, EModClass.TimeClass);
+		map.put(EModType.timescale, EModClass.TimeClass);
+		map.put(EModType.param, EModClass.ParamClass);
+		map.put(EModType.x1, EModClass.PathOpClass);
+		map.put(EModType.y1, EModClass.PathOpClass);
+		map.put(EModType.x2, EModClass.PathOpClass);
+		map.put(EModType.y2, EModClass.PathOpClass);
+		map.put(EModType.xrad, EModClass.PathOpClass);
+		map.put(EModType.yrad, EModClass.PathOpClass);
+		map.put(EModType.modification, EModClass.InvalidClass);
+		
+		int nonConstant = 0;
+		
+		List<ASTModTerm> temp = new ArrayList<ASTModTerm>(modExp);
+		modExp.clear();
+
+		for (ASTModTerm term : temp) {
+			EModClass mc = map.get(term.getModType());
+			modClass = EModClass.classByOrdinal(modClass.getType() | mc.getType());
+            if (!term.isConstant())
+                nonConstant |= mc.getType();
+			boolean keepThisOne = (mc.getType() & nonConstant) != 0;
+			if (Builder.currentBuilder().isInPathContainer() && (mc.getType() & EModClass.ZClass.getType()) != 0) {
+				error("Z changes are not supported within paths");
+			}
+			if (Builder.currentBuilder().isInPathContainer() && (mc.getType() & EModClass.TimeClass.getType()) != 0) {
+				error("Time changes are not supported within paths");
+			}
+			try {
+				if (!keepThisOne) {
+					Modification[] mod = new Modification[1];
+					term.evaluate(mod, false, null);
+					modData = mod[0];
+				}
+			} catch (DeferUntilRuntimeException e) {
+				keepThisOne = true;
+			}
+			if (keepThisOne) {
+				if (term.getArguments() != null) {
+					term.getArguments().simplify();
+				}
+				modExp.add(term);
+			}
+		}
+	}
+
+	@Override
+	public ASTExpression simplify() {
+		evalConst();
+		return this;
+	}
+
+	@Override
+	public ASTExpression compile(ECompilePhase ph) {
+		for (ASTModTerm term : modExp) {
+			term.compile(ph);
+		}
+		
+		switch (ph) {
+			case TypeCheck:
+				{
+					List<ASTModTerm> temp = new ArrayList<ASTModTerm>(modExp);
+					modExp.clear();
+
+					for (ListIterator<ASTModTerm> iterm = temp.listIterator(); iterm.hasNext();) {
+						ASTModTerm term = iterm.next();
+						if (term.getArguments() == null || term.getArguments().getType() != EExpType.NumericType) {
+							modExp.add(term);
+						}
+						int argcount = term.getArguments().evaluate(null, 0);
+						switch (term.getModType()) {
+							case x:
+							case y:
+								{
+									if (!iterm.hasNext()) {
+										break;
+									}
+									ASTModTerm next = iterm.next();
+									if (term.getModType() == EModType.x && next.getModType() == EModType.y && argcount == 1) {
+										term.setArguments(term.getArguments().append(next));
+										term.setArgumentsCount(2);
+										modExp.add(term);
+										continue;
+									}
+								}
+								break;
+
+							case xyz:
+							case sizexyz:
+								{
+									double[] d = new double[3];
+									if (term.getArguments().isConstant() && term.getArguments().evaluate(d, 3) != 3) {
+										term.setArguments(new ASTCons(new ASTReal(d[0]), new ASTReal(d[1])));
+										term.setModType(term.getModType() == EModType.xyz ? EModType.x : EModType.size);
+										term.setArgumentsCount(2);
+										
+										//TODO completare
+									}
+								}
+								modExp.add(term);
+								continue;
+								
+							default:
+								break;
+						}
+						modExp.add(term);
+					}
+					
+					isConstant = true;
+					locality = ELocality.PureLocal;
+					for (ASTModTerm term : modExp) {
+						isConstant = isConstant && term.isConstant();
+						locality = combineLocality(locality, term.getLocality());
+						StringBuilder ent = new StringBuilder();
+						term.entropy(ent);
+						addEntropy(ent.toString());
+					}
+					
+					if (canonical) {
+						makeCanonial();
+					}
+				}
+				break;
+	
+			case Simplify: 
+				break;
+
+			default:
+				break;
+		}
+		return null;
 	}
 }

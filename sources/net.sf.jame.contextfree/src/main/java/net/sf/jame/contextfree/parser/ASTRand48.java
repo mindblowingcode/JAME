@@ -18,19 +18,19 @@ class ASTRand48 {
 		random.setSeed(seed);
 	}
 
-	public double getDouble(boolean bump) {
+	public double getDouble() {
 		return random.nextDouble();
 	}
 	
-	public long getLong(boolean bump) {
+	public long getLong() {
 		return random.nextLong();
 	}
 	
-	public long getPositive(boolean bump) {
+	public long getPositive() {
 		return random.nextLong();
 	}
 	
-	public long getUnsigned(boolean bump) {
+	public long getUnsigned() {
 		return random.nextLong();
 	}
     
@@ -56,5 +56,10 @@ class ASTRand48 {
 	}
     
     public void bump() {
+	}
+
+	public void add(ASTRand48 oldEntropy) {
+		// TODO Auto-generated method stub
+		
 	}
 }

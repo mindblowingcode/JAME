@@ -1,162 +1,155 @@
 package net.sf.jame.contextfree.parser;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 class ASTOperator extends ASTExpression {
-	private char operator;
+	private char op;
 	private ASTExpression left;
 	private ASTExpression right;
 
-	public ASTOperator(char operator, ASTExpression leftExpression) {
-		super(leftExpression != null ? leftExpression.isConstant() : true, leftExpression != null ? leftExpression.getType() : EExpType.NoType);
-		if (leftExpression == null) {
-			throw new RuntimeException("Missing expression");
+	public ASTOperator(char op, ASTExpression left,	ASTExpression right) {
+		this.op = op;
+		this.left = left;
+		this.right = right;
+		int index = "NP!+-*/^_<>LG=n&|X".indexOf(""+op);
+		if (index == -1) {
+			error("Unknown operator");
+		} else if (index < 3) {
+			if (right != null) {
+				error("Operator takes only one operand");
+			}
+		} else {
+			if (right != null) {
+				error("Operator takes two operands");
+			}
 		}
-		this.operator = operator;
-		this.left = leftExpression;
-		this.right = null;
 	}
 
-	public ASTOperator(char operator, ASTExpression leftExpression,	ASTExpression rightExpression) {
-		super((leftExpression != null ? leftExpression.isConstant() : true)	&& (rightExpression != null ? rightExpression.isConstant() : true), (leftExpression != null ? leftExpression.getType() : (rightExpression != null ? rightExpression.getType() : EExpType.NoType)));
-		if (leftExpression == null) {
-			throw new RuntimeException("Missing expression");
-		}
-		this.operator = operator;
-		this.left = leftExpression;
-		this.right = rightExpression;
+	public char getOp() {
+		return op;
 	}
 
-	public char getOperator() {
-		return operator;
-	}
-
-	@Override
-	public ASTExpression current() {
+	public ASTExpression getLeft() {
 		return left;
 	}
 
-	@Override
-	public ASTExpression next() {
+	public ASTExpression getRight() {
 		return right;
 	}
 
-	public static ASTExpression makeCanonical(List<ASTExpression> temp) {
-		// Receive a vector of modification terms and return an ASTexpression 
-		// with those terms rearranged into TRSSF canonical order. 
-		// Duplicate terms are left in the input vector.
-		List<ASTExpression> dropped = new ArrayList<ASTExpression>();
+//	public static ASTExpression makeCanonical(List<ASTExpression> temp) {
+//		// Receive a vector of modification terms and return an ASTexpression 
+//		// with those terms rearranged into TRSSF canonical order. 
+//		// Duplicate terms are left in the input vector.
+//		List<ASTExpression> dropped = new ArrayList<ASTExpression>();
+//
+//		try {
+//			ASTModTerm[] result = new ASTModTerm[1];
+//
+//			ASTModTerm[] x = new ASTModTerm[1];
+//			ASTModTerm[] y = new ASTModTerm[1];
+//			ASTModTerm[] z = new ASTModTerm[1];
+//			ASTModTerm[] rot = new ASTModTerm[1];
+//			ASTModTerm[] skew = new ASTModTerm[1];
+//			ASTModTerm[] size = new ASTModTerm[1];
+//			ASTModTerm[] zsize = new ASTModTerm[1];
+//			ASTModTerm[] flip = new ASTModTerm[1];
+//			ASTModTerm[] transform = new ASTModTerm[1];
+//			ASTModTerm[] var = new ASTModTerm[1];
+//
+//			for (ASTExpression exp : temp) {
+//				if (exp.type != EExpType.ModType) {
+//					throw new RuntimeException("Non-adjustment in shape adjustment context");
+//				}
+//
+//				ASTModTerm mod = (ASTModTerm) exp;
+//
+//				int argcount = 0;
+//				if (mod.getArguments() != null && mod.getArguments().type == EExpType.NumericType) {
+//					argcount = mod.getArguments().evaluate((double[])null, 0, null);
+//				}
+//
+//				switch (mod.getModType()) {
+//				case x:
+//					setmod(x, mod, dropped);
+//					if (argcount > 1) {
+//						y[0] = null;
+//					}
+//					break;
+//				case y:
+//					setmod(y, mod, dropped);
+//					break;
+//				case z:
+//					setmod(z, mod, dropped);
+//					break;
+//				case modification:
+//				case transform:
+//					setmod(transform, mod, dropped);
+//					break;
+//				case rot:
+//					setmod(rot, mod, dropped);
+//					break;
+//				case size:
+//					setmod(size, mod, dropped);
+//					break;
+//				case zsize:
+//					setmod(zsize, mod, dropped);
+//					break;
+//				case skew:
+//					setmod(skew, mod, dropped);
+//					break;
+//				case flip:
+//					setmod(flip, mod, dropped);
+//					break;
+//				default:
+//					addmod(var, mod);
+//					break;
+//				}
+//			}
+//
+//			temp.clear();
+//			temp.addAll(dropped);
+//
+//			// If x and y are provided then merge them into a single (x,y) modification
+//			if (x[0] != null && y[0] != null && x[0].getArguments().evaluate((double[])null, 0, null) == 1 && y[0].getArguments().evaluate((double[])null, 0, null) == 1) {
+//				x[0].setArguments(new ASTCons(x[0].getArguments(), y[0].getArguments()));
+//				y[0].setArguments(null);
+//				y[0] = null;
+//			}
+//
+//			addmod(result, x[0]);
+//			addmod(result, y[0]);
+//			addmod(result, z[0]);
+//			addmod(result, rot[0]);
+//			addmod(result, size[0]);
+//			addmod(result, zsize[0]);
+//			addmod(result, skew[0]);
+//			addmod(result, flip[0]);
+//			addmod(result, transform[0]);
+//			addmod(result, var[0]);
+//
+//			return result[0];
+//		} catch (RuntimeException e) {
+//			temp.clear();
+//			dropped.clear();
+//			throw e;
+//		}
+//	}
 
-		try {
-			ASTModTerm[] result = new ASTModTerm[1];
-
-			ASTModTerm[] x = new ASTModTerm[1];
-			ASTModTerm[] y = new ASTModTerm[1];
-			ASTModTerm[] z = new ASTModTerm[1];
-			ASTModTerm[] rot = new ASTModTerm[1];
-			ASTModTerm[] skew = new ASTModTerm[1];
-			ASTModTerm[] size = new ASTModTerm[1];
-			ASTModTerm[] zsize = new ASTModTerm[1];
-			ASTModTerm[] flip = new ASTModTerm[1];
-			ASTModTerm[] transform = new ASTModTerm[1];
-			ASTModTerm[] var = new ASTModTerm[1];
-
-			for (ASTExpression exp : temp) {
-				if (exp.type != EExpType.ModificationType) {
-					throw new RuntimeException("Non-adjustment in shape adjustment context");
-				}
-
-				ASTModTerm mod = (ASTModTerm) exp;
-
-				int argcount = 0;
-				if (mod.getArguments() != null && mod.getArguments().type == EExpType.NumericType) {
-					argcount = mod.getArguments().evaluate((double[])null, 0, null);
-				}
-
-				switch (mod.getModType()) {
-				case x:
-					setmod(x, mod, dropped);
-					if (argcount > 1) {
-						y[0] = null;
-					}
-					break;
-				case y:
-					setmod(y, mod, dropped);
-					break;
-				case z:
-					setmod(z, mod, dropped);
-					break;
-				case modification:
-				case transform:
-					setmod(transform, mod, dropped);
-					break;
-				case rot:
-					setmod(rot, mod, dropped);
-					break;
-				case size:
-					setmod(size, mod, dropped);
-					break;
-				case zsize:
-					setmod(zsize, mod, dropped);
-					break;
-				case skew:
-					setmod(skew, mod, dropped);
-					break;
-				case flip:
-					setmod(flip, mod, dropped);
-					break;
-				default:
-					addmod(var, mod);
-					break;
-				}
-			}
-
-			temp.clear();
-			temp.addAll(dropped);
-
-			// If x and y are provided then merge them into a single (x,y) modification
-			if (x[0] != null && y[0] != null && x[0].getArguments().evaluate((double[])null, 0, null) == 1 && y[0].getArguments().evaluate((double[])null, 0, null) == 1) {
-				x[0].setArguments(new ASTCons(x[0].getArguments(), y[0].getArguments()));
-				y[0].setArguments(null);
-				y[0] = null;
-			}
-
-			addmod(result, x[0]);
-			addmod(result, y[0]);
-			addmod(result, z[0]);
-			addmod(result, rot[0]);
-			addmod(result, size[0]);
-			addmod(result, zsize[0]);
-			addmod(result, skew[0]);
-			addmod(result, flip[0]);
-			addmod(result, transform[0]);
-			addmod(result, var[0]);
-
-			return result[0];
-		} catch (RuntimeException e) {
-			temp.clear();
-			dropped.clear();
-			throw e;
-		}
-	}
-
-	private static void addmod(ASTExpression[] var, ASTExpression mod) {
-		if (mod == null)
-			return;
-		if (var[0] != null) {
-			var[0] = new ASTOperator('+', var[0], mod);
-		} else {
-			var[0] = mod;
-		}
-	}
-
-	private static void setmod(ASTModTerm[] mod, ASTModTerm newmod, List<ASTExpression> dropped) {
-		if (mod[0] != null)
-			dropped.add(mod[0]);
-		mod[0] = newmod;
-	}
+//	private static void addmod(ASTExpression[] var, ASTExpression mod) {
+//		if (mod == null)
+//			return;
+//		if (var[0] != null) {
+//			var[0] = new ASTOperator('+', var[0], mod);
+//		} else {
+//			var[0] = mod;
+//		}
+//	}
+//
+//	private static void setmod(ASTModTerm[] mod, ASTModTerm newmod, List<ASTExpression> dropped) {
+//		if (mod[0] != null)
+//			dropped.add(mod[0]);
+//		mod[0] = newmod;
+//	}
 
 	@Override
 	public int evaluate(double[] result, int length, RTI rti) {
@@ -166,8 +159,8 @@ class ASTOperator extends ASTExpression {
 		if (result != null && length < 1)
 			return -1;
 
-		if (type == EExpType.FlagType && operator == '+') {
-			if (left == null || left.evaluate(result != null ? l : null, 1, rti) != 1)
+		if (type == EExpType.FlagType && op == '+') {
+			if (left.evaluate(result != null ? l : null, 1, rti) != 1)
 				return -1;
 			if (right == null || right.evaluate(result != null ? r : null, 1, rti) != 1)
 				return -1;
@@ -178,18 +171,32 @@ class ASTOperator extends ASTExpression {
 		}
 
 		if (type != EExpType.NumericType) {
-			throw new RuntimeException("Non-numeric expression in a numeric context");
+			error("Non-numeric expression in a numeric context");
+			return -1;
 		}
 
 		if (left.evaluate(result != null ? l : null, 1, rti) != 1) {
-			throw new RuntimeException("illegal operand");
+			error("illegal operand");
+			return -1;
 		}
 
+		// short-circuit evaluate && and ||
+        if (result != null && (op == '&' || op == '|')) {
+            if (l[0] != 0.0 && op == '|') {
+                result[0] = l[0];
+                return 1;
+            }
+            if (l[0] == 0.0 && op == '&') {
+                result[0] = 0.0;
+                return 1;
+            }
+        }
+        
 		int rightnum = right != null ? right.evaluate(result != null ? r : null, 1, rti) : 0;
 
-		if (rightnum == 0 && (operator == 'N' || operator == 'P' || operator == '!')) {
+		if (rightnum == 0 && (op == 'N' || op == 'P' || op == '!')) {
 			if (result != null) {
-				switch (operator) {
+				switch (op) {
 				case 'P':
 					result[0] = +l[0];
 					break;
@@ -207,16 +214,20 @@ class ASTOperator extends ASTExpression {
 		}
 
 		if (rightnum != 1) {
-			throw new RuntimeException("illegal operand");
+			error("illegal operand");
+			return -1;
 		}
 
 		if (result != null) {
-			switch (operator) {
+			switch (op) {
 			case '+':
 				result[0] = l[0] + r[0];
 				break;
 			case '-':
 				result[0] = l[0] - r[0];
+				break;
+			case '_':
+				result[0] = l[0] - r[0] > 0.0 ? l[0] - r[0] : 0.0;
 				break;
 			case '*':
 				result[0] = l[0] * r[0];
@@ -243,22 +254,33 @@ class ASTOperator extends ASTExpression {
 				result[0] = (l[0] != r[0]) ? 1.0 : 0.0;
 				break;
 			case '&':
-				result[0] = (l[0] != 0 && r[0] != 0) ? 1.0 : 0.0;
+				result[0] = r[0];
 				break;
 			case '|':
-				result[0] = (l[0] != 0 || r[0] != 0) ? 1.0 : 0.0;
+				result[0] = r[0];
 				break;
 			case 'X':
 				result[0] = (l[0] != 0 && r[0] == 0 || l[0] == 0 && r[0] != 0) ? 1.0 : 0.0;
 				break;
 			case '^':
 				result[0] = Math.pow(l[0], r[0]);
+				if (isNatural && result[0] < 9007199254740992.0) {
+					long pow = 1;
+					long il = (long)l[0];
+					long ir = (long)r[0];
+					while (ir != 0) {
+						if ((ir & 1) != 0) pow *= il;
+						il *= il;
+						ir >>= 1;
+					}
+					result[0] = pow;
+				}
 				break;
 			default:
 				return -1;
 			}
 		} else {
-			if ("+-*/^".indexOf(operator) == -1)
+			if ("+-*/^_<>LG=n&|X".indexOf(op) == -1)
 				return -1;
 		}
 
@@ -266,34 +288,12 @@ class ASTOperator extends ASTExpression {
 	}
 
 	@Override
-	public int flatten(List<ASTExpression> dest) {
-		if (type != EExpType.ModificationType) {
-			dest.add(this);
-			return 1;
-		}
-
-		int leftnum = 0;
-		if (left != null)
-			leftnum = left.flatten(dest);
-
-		int rightnum = 0;
-		if (right != null)
-			rightnum = right.flatten(dest);
-
-		left = null;
-		right = null;
-
-		return leftnum + rightnum;
-	}
-
-	@Override
 	public void entropy(StringBuilder e) {
-		if (left != null)
-			left.entropy(e);
+		left.entropy(e);
 		if (right != null)
 			right.entropy(e);
 
-		switch (operator) {
+		switch (op) {
 			case '*':
 				e.append("\u002E\u0032\u00D9\u002C\u0041\u00FE");
 				break;
@@ -345,16 +345,17 @@ class ASTOperator extends ASTExpression {
 			case 'X':
 				e.append("\u00A7\u002B\u0092\u00FA\u00FC\u00F9");
 				break;
-			default:
+			case '_':
 				e.append("\u0060\u002F\u0010\u00AD\u0010\u00FF");
+				break;
+			default:
 				break;
 		}
 	}
 
 	@Override
 	public ASTExpression simplify() {
-		if (left != null)
-			left = left.simplify();
+		left = left.simplify();
 		if (right != null)
 			right = right.simplify();
 
@@ -365,10 +366,51 @@ class ASTOperator extends ASTExpression {
 			}
 
 			ASTReal r = new ASTReal(result[0]);
-			r.type = type;
+			r.setType(type);
+			r.setIsNatural(isNatural);
 			return r;
 		}
 
 		return this;
+	}
+
+	@Override
+	public ASTExpression compile(ECompilePhase ph) {
+		if (left != null)
+			left = left.compile(ph);
+		if (right != null)
+			right = right.compile(ph);
+		
+		switch (ph) {
+			case TypeCheck:
+				{
+					isConstant = left.isConstant() && (right == null || right.isConstant());
+					locality = right != null ? combineLocality(left.getLocality(), right.getLocality()) : left.getLocality();
+					type = right != null ? EExpType.expTypeByOrdinal(left.getType().ordinal() | right.getType().ordinal()) : left.getType();
+					if ("+_*<>LG=n&|X^!".indexOf(""+op) != -1) {
+						isNatural = left.isNatural() && (right == null || right.isNatural());
+					}
+					if (op == '+') {
+						if (type == EExpType.FlagType && type != EExpType.NumericType) {
+							error("Operands must be numeric or flags");
+						}
+					} else {
+						if (type != EExpType.NumericType) {
+							error("Operand(s) must be numeric");
+						}
+					}
+					if (op == '_' && !isNatural()) {
+						error("Proper subtraction operands must be natural");
+					}
+				}
+				break;
+	
+			case Simplify: 
+				break;
+	
+			default:
+				break;
+		}
+		return null;
 	}
 }
