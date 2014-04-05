@@ -1,6 +1,7 @@
 package net.sf.jame.contextfree.parser;
 
 enum EModClass {
+    InvalidClass(-1), 
     NotAClass(0), 
     GeomClass(1), 
     ZClass(2), 
@@ -25,5 +26,14 @@ enum EModClass {
 
 	public int getType() {
 		return type;
+	}
+
+	public static EModClass classByOrdinal(int ordinal) {
+		for (EModClass type : EModClass.values()) {
+			if (type.ordinal() == ordinal) {
+				return type;
+			}
+		}
+		return NotAClass;
 	}
 }

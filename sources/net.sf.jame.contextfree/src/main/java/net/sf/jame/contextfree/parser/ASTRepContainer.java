@@ -55,4 +55,14 @@ class ASTRepContainer {
 	public void setPathOp(EPathOp pathOp) {
 		this.pathOp = pathOp;
 	}
+
+	public void compile(ECompilePhase ph, ASTLoop loop, ASTDefine def) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
 }

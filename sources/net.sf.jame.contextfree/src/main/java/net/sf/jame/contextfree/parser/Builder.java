@@ -12,8 +12,7 @@ import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 
 public class Builder {
-	public Builder() {
-	}
+	private static Builder currentBuilder;
 
 	private CFDG cfdg = new CFDG();
 	private ASTRand48 seed;
@@ -223,7 +222,7 @@ public class Builder {
 		def.getRuleSpecifier().setShapeType(nameIndex);
 		if (isFunction) {
 			for (ASTParameter param : paramDecls.getParameters()) {
-				param.setLocality(ELocalityType.PureNonlocal);
+				param.setLocality(ELocality.PureNonlocal);
 			}
 			def.getParameters().clear();
 			def.getParameters().addAll(paramDecls.getParameters());
@@ -307,7 +306,7 @@ public class Builder {
 	
 	private List<ASTExpression> extract(ASTExpression exp) {
 		if (exp instanceof ASTCons) {
-			return exp.getChildren();
+			return ((ASTCons)exp).getChildren();
 		} else {
 			List<ASTExpression> ret = new ArrayList<ASTExpression>();
 			ret.add(exp);
@@ -414,7 +413,7 @@ public class Builder {
 		if (t.getModType() == EModType.sat || t.getModType() == EModType.satTarg) {
 			inColor();
 		}
-		dest.add(t);
+		dest.concat(t);
 	}
 	
 	public ASTReplacement makeElement(String s, ASTModification mods, ASTExpression params, boolean subPath) {
@@ -478,8 +477,8 @@ public class Builder {
 	}
 	
 	public ASTModification makeModification(ASTModification mod, boolean canonial) {
-		mod.setIsConstant(mod.getExpressions().isEmpty());
-		mod.setCanonial(canonial);
+		mod.setIsConstant(mod.getModExp().isEmpty());
+		mod.setCanonical(canonial);
 		return mod;
 	}
 	
@@ -625,9 +624,36 @@ public class Builder {
 		this.maybeVersion = maybeVersion;
 	}
 
-	public EExpType decodeType(String type, int tupleSize, boolean natural) {
-		// TODO Auto-generated method stub
-		return null;
+	public EExpType decodeType(String typeName, int[] tupleSize, boolean[] isNatural) {
+		EExpType type;
+		tupleSize[0] = 1;
+        isNatural[0] = false;
+        
+        if (typeName.equals("number")) {
+            type = EExpType.NumericType;
+        } else if (typeName.equals("natural")) {
+            type = EExpType.NumericType;
+            isNatural[0] = true;
+        } else if (typeName == "adjustment") {
+            type = EExpType.ModType;
+            tupleSize[0] = 6;
+        } else if (typeName == "shape") {
+            type = EExpType.RuleType;
+        } else if (typeName.startsWith("vector")) {
+        	type = EExpType.NumericType;
+        	if (typeName.matches("vector[0-9]+")) {
+                tupleSize[0] = Integer.parseInt(typeName.substring(6));
+                if (tupleSize[0] <= 1 || tupleSize[0] > 99) {
+                	error("Illegal vector size (<=1 or >99)");
+                }
+        	} else {
+        		error("Illegal vector type specification");
+        	}
+        } else {
+            type = EExpType.NoType;
+            error("Unrecognized type name");
+        }
+        return type;
 	}
 
 	public void setInPathContainer(boolean inPathContainer) {
@@ -652,5 +678,17 @@ public class Builder {
 
 	public ASTRepContainer getParamDecls() {
 		return paramDecls;
+	}
+
+	public static Builder currentBuilder() {
+		return currentBuilder;
+	}
+
+	public int getLocalStackDepth() {
+		return localStackDepth;
+	}
+
+	public boolean isInPathContainer() {
+		return this.inPathContainer ;
 	}
 }

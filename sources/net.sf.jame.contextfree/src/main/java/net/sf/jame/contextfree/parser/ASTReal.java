@@ -1,46 +1,35 @@
 package net.sf.jame.contextfree.parser;
 
-
 class ASTReal extends ASTExpression {
 	private double value;
 	private String text;
 
-	public ASTReal(float value) {
-		super(true, EExpType.NumericType);
-		this.value = value;
-	}
-
 	public ASTReal(double value) {
-		super(true, EExpType.NumericType);
+		super(true, false, EExpType.NumericType);
 		this.value = value;
-	}
-
-	public ASTReal(float value, boolean negative) {
-		super(true, EExpType.NumericType);
-		if (negative) {
-			this.value = -value;
-		} else {
-			this.value = +value;
-		}
-	}
-
-	public ASTReal(double value, boolean negative) {
-		super(true, EExpType.NumericType);
-		if (negative) {
-			this.value = -value;
-		} else {
-			this.value = +value;
-		}
+		isNatural = Math.floor(value) == value && value >= 0 && value < 9007199254740992.0;
+		locality = ELocality.PureLocal;
 	}
 
 	public ASTReal(String text, boolean negative) {
-		super(true, EExpType.NumericType);
-		this.text = text;
+		super(true, false, EExpType.NumericType);
 		if (negative) {
-			this.value = -Double.parseDouble(text);
+			this.text = "-" + text;
+			this.value = Double.parseDouble(text);
 		} else {
-			this.value = +Double.parseDouble(text);
+			this.text = text;
+			this.value = Double.parseDouble(text);
 		}
+		isNatural = Math.floor(value) == value && value >= 0 && value < 9007199254740992.0;
+		locality = ELocality.PureLocal;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	@Override
@@ -50,12 +39,12 @@ class ASTReal extends ASTExpression {
 
 	@Override
 	public int evaluate(double[] result, int length, RTI rti) {
-		if (result != null && length < 1)
+		if (result != null && length < 1) {
 			return -1;
-
-		if (result != null)
+		}
+		if (result != null) {
 			result[0] = value;
-		
+		}
 		return 1;
 	}
 }

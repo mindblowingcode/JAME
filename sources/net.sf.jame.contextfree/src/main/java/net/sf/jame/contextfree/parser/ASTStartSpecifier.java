@@ -1,24 +1,56 @@
 package net.sf.jame.contextfree.parser;
 
-import java.util.List;
-
 class ASTStartSpecifier extends ASTRuleSpecifier {
-	public ASTStartSpecifier(int shapeType, String name, ASTExpression arguments, List<ASTParameter> typeSignature,	List<ASTParameter> parent) {
-		super(shapeType, name, arguments, typeSignature, parent);
+	private ASTModification modification;
+	
+	public ASTStartSpecifier(int nameIndex, String name, ASTExpression args, ASTModification mod) {
+		super(nameIndex, name, args, null);
+		this.modification = mod;
 	}
-
+	
+	public ASTStartSpecifier(int nameIndex, String name, ASTModification mod) {
+		super(nameIndex, name, null, null);
+		this.modification = mod;
+	}
+	
 	public ASTStartSpecifier(ASTRuleSpecifier rule, ASTModification mod) {
 		super(rule);
-		// TODO Auto-generated constructor stub
+		this.modification = mod;
 	}
 
 	public ASTStartSpecifier(ASTExpression exp, ASTModification mod) {
-		super(null);
-		// TODO Auto-generated constructor stub
+		super(exp);
+		this.modification = mod;
 	}
 
-	public ASTStartSpecifier(int nameIndex, String name, ASTExpression args, ASTModification mod) {
-		super(null);
-		// TODO Auto-generated constructor stub
+	public ASTModification getModification() {
+		return modification;
+	}
+
+	@Override
+	public ASTExpression simplify() {
+		super.simplify();
+		if (modification != null) {
+			ASTExpression m = modification.simplify();
+			assert(m == modification);
+		}
+		return this;
+	}
+
+	@Override
+	public ASTExpression compile(ECompilePhase ph) {
+		super.compile(ph);
+		if (modification != null) {
+			modification.compile(ph);
+		}
+		return null;
+	}
+
+	@Override
+	public void entropy(StringBuilder e) {
+		e.append(getEntropy());
+		if (modification != null) {
+			modification.entropy(e);
+		}
 	}
 }

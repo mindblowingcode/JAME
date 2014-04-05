@@ -1,7 +1,7 @@
 package net.sf.jame.contextfree.parser;
 
 enum EExpType {
-	NoType(0), NumericType(1), ModificationType(2), RuleType(4), FlagType(8), StringType(16), ReuseType(32);
+	NoType(0), NumericType(1), ModType(2), RuleType(4), FlagType(8), ReuseType(16);
 	
 	private int type;
 
@@ -11,5 +11,14 @@ enum EExpType {
 
 	public int getType() {
 		return type;
+	}
+
+	public static EExpType expTypeByOrdinal(int ordinal) {
+		for (EExpType type : EExpType.values()) {
+			if (type.ordinal() == ordinal) {
+				return type;
+			}
+		}
+		return NoType;
 	}
 }

@@ -100,4 +100,12 @@ class ASTDefine extends ASTReplacement {
 	public void setConfigDepth(int configDepth) {
 		this.configDepth = configDepth;
 	}
+
+	public void incStackCount(int value) {
+		stackCount += value;
+	}
+	
+	public void idecStackCount(int value) {
+		stackCount -= value;
+	}
 }

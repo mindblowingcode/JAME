@@ -144,14 +144,14 @@ public class CFDG {
 
 	public boolean hasParameter(ECFGParam p, Modification[] value, RTI rti) {
 		ASTExpression exp = hasParameter(p);
-		if (exp == null || exp.getType() != EExpType.ModificationType) {
+		if (exp == null || exp.getType() != EExpType.ModType) {
 			return false;
 		}
 		if (!exp.isConstant() && rti != null) {
 			error("This expression must be constant");
 			return false;
 		} else {
-			exp.evaluate(value, 1, rti);
+			exp.evaluate(value, false, rti);//TODO controllare
 		}
 		return true;
 	}

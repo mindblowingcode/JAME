@@ -1,11 +1,10 @@
 package net.sf.jame.contextfree.parser;
 
-
 class ASTParen extends ASTExpression {
 	private ASTExpression expression;
 	
 	public ASTParen(ASTExpression expression) {
-		super(expression.isConstant, expression.getType());
+		super(expression.isConstant(), expression.isNatural(), expression.getType());
 		this.expression = expression;
 	}
 
@@ -24,9 +23,49 @@ class ASTParen extends ASTExpression {
 	}
 
 	@Override
+	public void evaluate(Modification[] result, boolean shapeDest, RTI rti) {
+        if (type != EExpType.ModType) {
+            throw new RuntimeException("Expression does not evaluate to an adjustment");
+        }
+		super.evaluate(result, shapeDest, rti);
+	}
+	
+	@Override
+	public StackRule evalArgs(RTI rti, StackRule parent) {
+		if (type != EExpType.RuleType) {
+			throw new RuntimeException("Evaluation of a non-shape expression in a shape context");
+		}
+		return expression.evalArgs(rti, parent);
+	}
+	
+	@Override
 	public ASTExpression simplify() {
 		ASTExpression e = expression.simplify();
-		expression = null;
 		return e;
+	}
+
+	@Override
+	public ASTExpression compile(ECompilePhase ph) {
+		if (expression == null) return null;
+		
+		expression.compile(ph);
+		
+		switch (ph) {
+			case TypeCheck:
+				{
+					isConstant = expression.isConstant();
+					isNatural = expression.isNatural();
+					locality = expression.getLocality();
+					type = expression.getType();
+				}
+				break;
+	
+			case Simplify: 
+				break;
+
+			default:
+				break;
+		}
+		return null;
 	}
 }

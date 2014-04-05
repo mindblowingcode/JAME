@@ -4,14 +4,15 @@ enum EModType {
 	unknown(""), 
 	x("\u0095\u00E7\u0048\u005E\u00CC\u0006"), 
 	y("\u0084\u002B\u00F3\u00BB\u0093\u0059"), 
-	z("\u00C8\u003A\u0012\u0032\u0036\u0071"), 
+	z("\u00C8\u003A\u0012\u0032\u0036\u0071"),
+	xyz("\u006C\u0031\u00CA\u00BF\u008D\u0089"),
 	transform("\u0088\u0090\u0054\u00C5\u00D3\u0020"), 
 	size("\u0064\u00EC\u005B\u004B\u00EE\u002B"), 
+	sizexyz("\u00B0\u0031\u00D5\u001E\u007A\u005A"), 
 	rot("\u0084\u00B0\u0092\u0026\u0059\u00E2"), 
 	skew("\u0084\u00B0\u0092\u0026\u0059\u00E3"), 
 	flip("\u0043\u005A\u0017\u00EA\u0012\u0005"), 
 	zsize("\u0064\u00EC\u005B\u004B\u00EE\u002B"), 
-	Entropy(""), 
 	hue("\u0002\u00DE\u002B\u002C\u0025\u00A1"), 
 	sat("\u0018\u004F\u00CF\u0004\u003F\u00E5"), 
 	bright("\u001F\u003F\u00EB\u00A2\u00A2\u007E"), 
@@ -34,8 +35,7 @@ enum EModType {
 	y2(""), 
 	xrad(""), 
 	yrad(""), 
-	modification("\u0088\u0090\u0054\u00C5\u00D3\u0020"), 
-	lastModType("");
+	modification("\u0088\u0090\u0054\u00C5\u00D3\u0020"); 
 	
 	private String entropy;
 	

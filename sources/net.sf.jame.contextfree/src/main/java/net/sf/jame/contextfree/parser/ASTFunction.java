@@ -1,6 +1,5 @@
 package net.sf.jame.contextfree.parser;
 
-
 class ASTFunction extends ASTExpression {
 		private ASTExpression arguments;
 		private EFuncType funcType;
@@ -11,7 +10,7 @@ class ASTFunction extends ASTExpression {
     	}
     	
     	public ASTFunction(String name, ASTExpression arguments, ASTRand48 seed) {
-    		super(arguments != null ? arguments.isConstant : true, EExpType.NumericType);
+    		super(arguments != null ? arguments.isConstant() : true, false, EExpType.NumericType);
     		this.funcType = EFuncType.NotAFunction;
     		this.arguments = arguments;
     		
@@ -31,7 +30,7 @@ class ASTFunction extends ASTExpression {
                 arguments = new ASTReal(1.0f);
             }
             
-            if (funcType.ordinal >= EFuncType.Rand_Static.ordinal && funcType.ordinal <= EFuncType.RandInt.ordinal) {
+            if (funcType.ordinal() >= EFuncType.Rand_Static.ordinal() && funcType.ordinal() <= EFuncType.RandInt.ordinal()) {
                 if (funcType == EFuncType.Rand_Static) {
                 	random = seed;
                 } else {
@@ -57,7 +56,7 @@ class ASTFunction extends ASTExpression {
 
                 this.arguments = arguments;
             } else {
-            	if (funcType.ordinal < EFuncType.Atan2.ordinal) {
+            	if (funcType.ordinal() < EFuncType.Atan2.ordinal()) {
             		if (argcount != 1) {
                         throw new RuntimeException(funcType == EFuncType.Infinity ? "Function takes zero or one arguments" : "Function takes one argument");
             		}
@@ -85,16 +84,19 @@ class ASTFunction extends ASTExpression {
 	    	   throw new RuntimeException("Non-numeric expression in a numeric context");
 	        }
 	        
-	        if ((result != null && length < 1) || (funcType.ordinal <= EFuncType.NotAFunction.ordinal) || (funcType.ordinal >= FuncType.EFuncType.ordinal))
+	        if (result != null && length < 1)
 	            return -1;
 	        
 	        if (result == null)
 	            return 1;
 	        
-	        // no need to check the argument count, the constructor already checked it
 
 	        double[] a = new double[2];
-	        arguments.evaluate(a, 2, rti);
+	        int count = arguments.evaluate(a, 2, rti);
+	        // no need to check the argument count, the constructor already checked it
+	        
+	        // But check it anyway to make valgrind happy
+	        if (count < 0) return 1;
 	        
 	        switch (funcType) {
 	            case  Cos:  
@@ -151,66 +153,236 @@ class ASTFunction extends ASTExpression {
 	            case Exp:  
 	                result[0] = Math.exp(a[0]);
 	                break;
-	            case Abs:  
-	                result[0] = Math.abs(a[0]);
+	            case Abs: 
+	            	if (count == 1) {
+	            		result[0] = Math.abs(a[0]);
+	            	} else {
+	            		result[0] = Math.abs(a[0] - a[1]);
+	            	}
 	                break;
 	            case Infinity:
-	                result[0] = (a[0] < 0.0) ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
+	                result[0] = a[0] < 0.0 ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
+	                break;
+	            case Sg:
+	                result[0] = a[0] == 0.0 ? 0.0 : 1.0;
+	                break;
+	            case IsNatural:
+	                result[0] = evalIsNatural(rti, a[0]) ? 1 : 0;
+	                break;
+	            case BitNot:
+	                result[0] = (double)((~((long)a[0])) & 0xFFFFFFFF);
+	                break;
+	            case BitOr:
+	                result[0] = (double)((((long)a[0]) | ((long)a[1])) & 0xFFFFFFFF);
+	                break;
+	            case BitAnd:
+	                result[0] = (double)((((long)a[0]) & ((long)a[1])) & 0xFFFFFFFF);
+	                break;
+	            case BitXOR:
+	                result[0] = (double)((((long)a[0]) ^ ((long)a[1])) & 0xFFFFFFFF);
+	                break;
+	            case BitLeft:
+	                result[0] = (double)((((long)a[0]) << ((long)a[1])) & 0xFFFFFFFF);
+	                break;
+	            case BitRight:
+	                result[0] = (double)((((long)a[0]) >> ((long)a[1])) & 0xFFFFFFFF);
 	                break;
 	            case Atan2: 
 	                result[0] = Math.atan2(a[0], a[1]) * 57.29577951308;
 	                break;
-	            case Mod: 
-	                result[0] = Math.hypot(a[0], a[1]);
+	            case Mod:
+	            	if (arguments.isNatural()) {
+	            		result[0] = (double)(((long)a[0]) % ((long)a[1]));
+	            	} else {
+	            		result[0] = Math.IEEEremainder(a[0], a[1]);
+	            	}
+	                break;
+	            case Divides:
+            		result[0] = (double)((((long)a[0]) % ((long)a[1])) == 0 ? 1.0 : 0.0);
+	                break;
+	            case Div:
+            		result[0] = (double)(((long)a[0]) / ((long)a[1]));
 	                break;
 	            case Floor:
+	            	if (rti == null) throw new DeferUntilRuntimeException(); 
 	                result[0] = Math.floor(a[0]);
 	                break;
+	            case Ftime:
+	            	if (rti == null) throw new DeferUntilRuntimeException(); 
+	                result[0] = rti.getCurrentTime();
+	                break;
+	            case Frame:
+	            	if (rti == null) throw new DeferUntilRuntimeException(); 
+	                result[0] = rti.getCurrentFrame();
+	                break;
 	            case Rand_Static: 
-	                result[0] = random.getDouble(false) * Math.abs(a[1] - a[0]) + Math.min(a[0], a[1]);
+	                result[0] = random.getDouble() * Math.abs(a[1] - a[0]) + Math.min(a[0], a[1]);
 	                break;
 	            case Rand: 
-	            	//TODO
-//	                if (rti == NULL) throw DeferUntilRuntime();
-//	                rti->mRandUsed = true;
-//	                result[0] = rti->mCurrentSeed.getDouble() * Math.abs(a[1] - a[0]) + Math.min(a[0], a[1]);
+	            	if (rti == null) throw new DeferUntilRuntimeException(); 
+	                rti.setRandUsed(true);
+	                result[0] = rti.getCurrentSeed().getDouble() * Math.abs(a[1] - a[0]) + Math.min(a[0], a[1]);
 	                break;
 	            case Rand2: 
-	            	//TODO
-//	                if (rti == NULL) throw DeferUntilRuntime();
-//	                rti->mRandUsed = true;
-//	                result[0] = (rti->mCurrentSeed.getDouble() * 2.0 - 1.0) * a[1] + a[0];
+	            	if (rti == null) throw new DeferUntilRuntimeException(); 
+	                rti.setRandUsed(true);
+	                result[0] = (rti.getCurrentSeed().getDouble() * 2.0 - 1.0) * a[1] + a[0];
 	                break;
 	            case RandInt: 
-	            	//TODO
-//	                if (rti == NULL) throw DeferUntilRuntime();
-//	                rti->mRandUsed = true;
-//	                result[0] = floor(rti->mCurrentSeed.getDouble() * Math.abs(a[1] - a[0]) + Math.min(a[0], a[1]));
+	            	if (rti == null) throw new DeferUntilRuntimeException(); 
+	                rti.setRandUsed(true);
+	                result[0] = Math.floor(rti.getCurrentSeed().getDouble() * Math.abs(a[1] - a[0]) + Math.min(a[0], a[1]));
 	                break;
-	            default:
+	            case NotAFunction: 
+	            case Min: 
+	            case Max: 
 	                return -1;
+	            default:
+            	   break;
 	        }
 	        
 	        return 1; 
    		}
     	
-    	@Override
+    	private boolean evalIsNatural(RTI rti, double n) {
+    		return n >= 0 && n <= (rti != null ? rti.getMaxNatural() : Integer.MAX_VALUE) && n == Math.floor(n);
+		}
+
+		@Override
 		public void entropy(StringBuilder e) {
-            if (funcType.ordinal <= EFuncType.NotAFunction.ordinal || funcType.ordinal >= FuncType.EFuncType.ordinal) return;
-            arguments.entropy(e);
-            e.append(funcType.entropy);
+    		arguments.entropy(e);
+            e.append(funcType.getEntropy());
     	}
-    	
+
     	@Override
+		public ASTExpression compile(ECompilePhase ph) {
+        	if (arguments != null) {
+        		arguments = arguments.compile(ph);
+        	}
+        	switch (ph) {
+				case TypeCheck:
+					{
+						isConstant = true;
+						locality = ELocality.PureLocal;
+						int argcount = 0;
+						if (arguments != null) {
+							isConstant = arguments.isConstant();
+							locality = arguments.getLocality();
+							if (locality == ELocality.PureNonlocal) {
+								locality = ELocality.ImpureNonlocal;
+							}
+							if (arguments.getType() == EExpType.NumericType) {
+								argcount = arguments.evaluate((double[])null, 0);
+							} else {
+								error("function arguments must be numeric");
+							}
+						}
+						if (funcType == EFuncType.Infinity && argcount == 0) {
+							arguments = new ASTReal(1.0);
+							return null;
+						}
+						if (funcType == EFuncType.Ftime) {
+							if (arguments != null) {
+								error("ftime() function takes no arguments");
+							}
+							isConstant = false;
+							arguments = new ASTReal(1.0);
+						}
+						if (funcType == EFuncType.Frame) {
+							if (arguments != null) {
+								error("time() function takes no arguments");
+							}
+							isConstant = false;
+							arguments = new ASTReal(1.0);
+						}
+						if (funcType.ordinal() >= EFuncType.Rand_Static.ordinal() && funcType.ordinal() <= EFuncType.RandInt.ordinal()) {
+							if (funcType != EFuncType.Rand_Static) {
+								isConstant = false;
+							}
+							switch (argcount) {
+							case 0:
+								arguments = new ASTCons(new ASTReal(0.0), new ASTReal(funcType == EFuncType.RandInt ? 2.0 : 1.0));
+								break;
+
+							case 1:
+								arguments = new ASTCons(new ASTReal(0.0), arguments);
+								break;
+								
+							case 2:
+								break;
+								
+							default:
+								error("Illegal argument(s) for random function");
+								break;
+							}
+							if (!isConstant && funcType == EFuncType.Rand_Static) {
+								error("Argument(s) for rand_static() must be constant");
+							}
+							if (funcType == EFuncType.RandInt && arguments != null) {
+								isNatural = arguments.isNatural();
+							}
+							return null;
+						}
+						
+						if (funcType == EFuncType.Abs) {
+							if (argcount < 1 || argcount > 2) {
+								error("function takes one or two arguments");
+							}
+						} else if (funcType.ordinal() < EFuncType.BitOr.ordinal()) {
+							if (argcount != 1) {
+								if (funcType == EFuncType.Infinity) {
+									error("function takes zero or one arguments");
+								} else {
+									error("function takes one argument");
+								}
+							}
+							
+						} else if (funcType.ordinal() < EFuncType.Min.ordinal()) {
+							if (argcount != 2) {
+								error("function takes two arguments");
+							}
+							
+						} else if (funcType.ordinal() < EFuncType.BitOr.ordinal()) {
+							if (argcount < 2) {
+								error("function takes at least two arguments");
+							}
+						}
+						
+						if (funcType == EFuncType.Mod || funcType == EFuncType.Abs || funcType == EFuncType.Min || funcType == EFuncType.Max || (funcType.ordinal() >= EFuncType.BitNot.ordinal() && funcType.ordinal() <= EFuncType.BitRight.ordinal())) {
+							isNatural = arguments == null || arguments.isNatural();
+						}
+						if (funcType == EFuncType.Factorial || funcType == EFuncType.Sg || funcType == EFuncType.IsNatural || funcType == EFuncType.Div || funcType == EFuncType.Divides) {
+							if (arguments != null && !arguments.isNatural()) {
+								error("function is defined over natural numbers only");
+							}
+							isNatural = true;
+						}
+					}
+					break;
+
+				case Simplify:
+					break;
+					
+				default:
+					break;
+			}
+    		return null;
+    	}
+
+		@Override
 		public ASTExpression simplify() { 
             if (isConstant) {
                 double[] result = new double[1];
                 if (evaluate(result, 1, null) != 1) {
                     return this;
                 }
-                return new ASTReal(result[0]);
+                ASTReal r = new ASTReal(result[0]);
+                r.setIsNatural(isNatural);
+                return r;
             } else {
-                arguments = arguments.simplify();
+            	if (arguments != null) {
+            		arguments = arguments.simplify();
+            	}
             }
             return this;
     	}
