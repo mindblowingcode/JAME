@@ -14,7 +14,7 @@ class ASTCons extends ASTExpression {
 		}
 	}
 
-	public ASTCons(ASTReal r1, ASTReal r2) {
+	public ASTCons(ASTExpression r1, ASTExpression r2) {
 		super(true, true, EExpType.NoType);//TODO da controllare
 		locality = ELocality.PureLocal;
 		children.add(r1);

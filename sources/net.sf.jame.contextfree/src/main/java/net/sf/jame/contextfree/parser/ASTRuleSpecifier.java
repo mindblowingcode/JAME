@@ -1,150 +1,86 @@
 package net.sf.jame.contextfree.parser;
 
+import java.util.Iterator;
 import java.util.List;
 
-
 class ASTRuleSpecifier extends ASTExpression {
-    	public static ASTRuleSpecifier ZERO = new ASTRuleSpecifier("", 0);
     	private int shapeType;
 		private int argSize;
-    	private StringBuilder entropy;
+    	private String entropy;
     	private EArgSource argSource;
     	private ASTExpression arguments;
-    	private StackType simpleRule;
+    	private StackRule simpleRule;
     	private int stackIndex;
     	private List<ASTParameter> typeSignature;
+    	private List<ASTParameter> parentSignature;
     	
-    	public ASTRuleSpecifier(String name, int stackIndex) {
-    		this(0, name, null, null, null);
-    		this.stackIndex = stackIndex;
-    	}
-    	
-    	public ASTRuleSpecifier(ASTRuleSpecifier spec, String name) {
-    		this(spec.shapeType, name, null, null, null);
-    		this.stackIndex = spec.stackIndex;
-    		this.typeSignature = spec.typeSignature;
-            if (spec.argSource == EArgSource.SimpleArgs) {
-            	StackType simp = new StackType(shapeType, argSize, 0);
-                argSource = EArgSource.SimpleArgs;
-                simpleRule = simp;
-                if (argSize > 0) {
-                    for (int i = 1; i < argSize + 2; ++i) {
-//                    	simp.item[i] = spec.simpleRule.item[i];TODO completare
-                    }
-                }
-            }
-    	}
-    	
+		public ASTRuleSpecifier() {
+			super(false, false, EExpType.RuleType);
+			this.shapeType = -1;
+			this.argSize = 0;
+			this.argSource = EArgSource.NoArgs;
+			this.arguments = null;
+			this.simpleRule = null;
+			this.stackIndex = 0;
+			this.typeSignature = null;
+			this.parentSignature = null;
+		}
+
+		public ASTRuleSpecifier(int nameIndex, String name, ASTExpression arguments, List<ASTParameter> parent) {
+			super(arguments == null || arguments.isConstant(), false, EExpType.RuleType);
+			this.shapeType = nameIndex;
+			this.entropy = name;
+			this.argSource = EArgSource.DynamicArgs;
+			this.arguments = arguments;
+			this.typeSignature = null;
+			this.parentSignature = parent;
+			this.stackIndex = 0;
+			this.simpleRule = null;
+			if (parentSignature != null && parentSignature.isEmpty()) {
+				parentSignature = null;
+			}
+		}
+		
+		public ASTRuleSpecifier(int nameIndex, String name) {
+			super(false, false, EExpType.RuleType);
+			this.shapeType = nameIndex;
+			this.argSize = 0;
+			this.entropy = name;
+			this.argSource = EArgSource.StackArgs;
+			this.arguments = null;
+			this.simpleRule = null;
+			this.stackIndex = 0;
+			this.typeSignature = null;
+			this.parentSignature = null;
+		}
+		
     	public ASTRuleSpecifier(ASTRuleSpecifier spec) {
-    		this(spec.shapeType, spec.entropy.toString(), null, null, null);
-    		this.type = spec.type;
-    		this.isConstant = spec.isConstant;
+    		super(spec.isConstant(), false, spec.getType());
+    		this.argSize = spec.argSize;
+    		this.entropy = spec.entropy;
     		this.argSource = spec.argSource;
+    		this.arguments = spec.arguments;
     		this.simpleRule = spec.simpleRule;
     		this.stackIndex = spec.stackIndex;
     		this.typeSignature = spec.typeSignature;
-    		spec.arguments = null;
+    		this.parentSignature = spec.parentSignature;
     		spec.simpleRule = null;
     	}
-    	    	
-    	public ASTRuleSpecifier(int shapeType, String name, ASTExpression arguments, List<ASTParameter> typeSignature, List<ASTParameter> parent) {
-    		super(arguments == null || arguments.isConstant, EExpType.RuleType);
-    		this.entropy = new StringBuilder();
-    		this.shapeType = shapeType;
-    		this.argSource = EArgSource.DynamicArgs;
-    		this.arguments = arguments;
-    		this.typeSignature = typeSignature;
-    		this.stackIndex = 0;
+
+    	public ASTRuleSpecifier(ASTExpression args) {
+    		super(false, false, EExpType.RuleType);
+    		this.shapeType = -1;
+    		this.argSize = 0;
+    		this.entropy = null;
+    		this.argSource = EArgSource.ShapeArgs;
+    		this.arguments = args;
     		this.simpleRule = null;
-    		this.entropy.append(name);
-            if (typeSignature != null && typeSignature.size() == 0) {
-            	typeSignature = null;
-            	this.typeSignature = null;
-            }
-            if (parent != null && parent.size() == 0)
-                parent = null;
-            
-            argSize = ASTParameter.checkType(typeSignature, parent, arguments);
-            if (argSize < 0) return;
-                
-            if (arguments != null && arguments.type != EExpType.NoType) {
-                arguments.entropy(entropy);
-                if (arguments.isConstant) {
-//                    StackType simp = evalArgs();//TODO
-//                    simp[0].ruleHeader.mRefCount = StackRule::MaxRefCount;
-//                    simpleRule = simp;
-                    argSource = EArgSource.SimpleArgs;
-                } else {
-                    arguments = arguments.simplify();
-                }
-            } else if (arguments != null && arguments.type == EExpType.NoType) {
-                argSource = EArgSource.ParentArgs;
-            } else {
-                argSource = EArgSource.NoArgs;
-//                simpleRule = StackType::alloc(shapeType, 0, types);//TODO
-//                simpleRule[0].ruleHeader.mRefCount = StackRule::MaxRefCount;
-            }
+    		this.stackIndex = 0;
+    		this.typeSignature = null;
+    		this.parentSignature = null;
     	}
-
-		public ASTRuleSpecifier(ASTExpression args) {
-			// TODO Auto-generated constructor stub
-		}
-
-		public ASTRuleSpecifier(int nameIndex, String name) {
-			// TODO Auto-generated constructor stub
-		}
-
-		public ASTRuleSpecifier(int nameIndex, String name, ASTExpression arguments, List<ASTParameter> typeSignature) {
-			// TODO Auto-generated constructor stub
-		}
-
-		@Override
-		public StackRule evalArgs(StackType parent, RTI rti) {
-            switch (argSource) {
-	            case NoArgs:
-	            case SimpleArgs:
-	                return simpleRule;
-	            case StackArgs: {
-//	                StackType ret = (rti.mLogicalStackTop + mStackIndex).rule;
-//	                ret.retain(rti);
-//	                return ret;TODO completare
-	            }
-	            case ParentArgs:
-//	                assert(parent != null);
-//	                assert(rti != null);
-//	                parent.retain(rti);
-//	                return parent;TODO completare
-	            case DynamicArgs: {
-//	                StackType ret = new StackType(shapeType, argSize, typeSignature);
-//	                ret.evalArgs(rti, arguments, parent);
-//	                return ret;TODO completare
-	            }
-	            default: {
-	                assert(false);
-	            }
-			}
-			return null;
-		}
-
-		@Override
-		public int evaluate(double[] result, int length, RTI rti) {
-			throw new RuntimeException("Improper evaluation of a rule specifier");
-		}
-
-		@Override
-		public void entropy(StringBuilder e) {
-			e.append(entropy.toString());
-		}
-
-		@Override
-		public ASTExpression simplify() {
-			if (arguments != null) {
-				arguments = arguments.simplify();
-			}			
-			return this;
-		}
-
-		public StringBuilder getEntropy() {
+    	
+		public String getEntropy() {
 			return entropy;
 		}
 
@@ -168,7 +104,7 @@ class ASTRuleSpecifier extends ASTExpression {
 			return arguments;
 		}
 
-		public StackType getSimpleRule() {
+		public StackRule getSimpleRule() {
 			return simpleRule;
 		}
 
@@ -186,5 +122,295 @@ class ASTRuleSpecifier extends ASTExpression {
 
 		public void setArgSouce(EArgSource argSource) {
 			this.argSource = argSource;
+		}
+
+		public List<ASTParameter> getParentSignature() {
+			return parentSignature;
+		}
+
+		public void setParentSignature(List<ASTParameter> parentSignature) {
+			this.parentSignature = parentSignature;
+		}
+
+		@Override
+		public StackRule evalArgs(RTI rti, StackRule parent) {
+            switch (argSource) {
+	            case NoArgs:
+	            case SimpleArgs: {
+	                return simpleRule;
+	            }
+	            case StackArgs: {
+	            	StackType stackItem = rti.stackItem(stackIndex);
+	            	stackItem.getRule().retain(rti);
+	            	return stackItem.getRule();
+	            }
+	            case ParentArgs: {
+	            	if (shapeType != parent.getRuleName()) {
+	                    // Child shape is different from parent, even though parameters are reused,
+	                    // and we can't finesse it in ASTreplacement::traverse(). Just
+	                    // copy the parameters with the correct shape type.
+	            		StackRule ret = new StackRule(parent);
+	            		ret.setRuleName(shapeType);
+	            		return ret;
+	            	}
+	            }
+	            case SimpleParentArgs: {
+	            	parent.retain(rti);
+	            	return parent;
+	            }
+	            case DynamicArgs: {
+	            	StackRule ret = new StackRule(shapeType, argSize, typeSignature);
+	                ret.evalArgs(rti, arguments, parent);
+	                return ret;
+	            }
+	            case ShapeArgs: {
+	                return arguments.evalArgs(rti, parent);
+	            }
+	            default: {
+	                assert(false);
+	                return null;
+	            }
+			}
+		}
+
+		@Override
+		public int evaluate(double[] result, int length, RTI rti) {
+			throw new RuntimeException("Improper evaluation of a rule specifier");
+		}
+
+		@Override
+		public void entropy(StringBuilder e) {
+			e.append(entropy);
+		}
+
+		@Override
+		public ASTExpression simplify() {
+			if (arguments != null) {
+				if (arguments instanceof ASTCons) {
+					ASTCons c = (ASTCons)arguments;
+					for (ASTExpression carg : c.getChildren()) {
+						carg.simplify();
+					}
+				} else {
+					arguments.simplify();
+				}
+			}			
+			if (argSource == EArgSource.StackArgs) {
+				boolean isGlobal = false;
+				ASTParameter bound = Builder.currentBuilder().findExpression(shapeType, isGlobal);
+				if (bound.getType() != EExpType.RuleType) {
+					return this;
+				}
+				if (bound.getStackIndex() == -1) {
+					if (bound.getDefinition().getExp() instanceof ASTRuleSpecifier) {
+						ASTRuleSpecifier r = (ASTRuleSpecifier)bound.getDefinition().getExp();
+	                    // The source ASTruleSpec must already be type-checked
+	                    // because it is lexically earlier
+						shapeType = r.getShapeType();
+						argSize = r.getArgSize();
+						argSource = r.getArgSource();
+						arguments = null;
+						simpleRule = r.getSimpleRule();
+						typeSignature = r.getTypeSignature();
+						parentSignature = r.getParentSignature();
+						isConstant = true;
+						locality = ELocality.PureLocal;
+					} else {
+						error("Error processing shape variable.");
+					}
+				}
+			}
+			return this;
+		}
+
+		@Override
+		public ASTExpression compile(ECompilePhase ph) {
+			if (arguments != null) {
+				arguments.compile(ph);
+			}
+			switch (ph) {
+				case TypeCheck:
+					{
+						switch (argSource) {
+							case ShapeArgs:
+								{
+									if (arguments.getType() == EExpType.RuleType) {
+										error("Expression does not return a shape");
+									}
+									isConstant = true;
+									locality = arguments.getLocality();
+									StringBuilder ent = new StringBuilder();
+									arguments.entropy(ent);
+									entropy = ent.toString();
+									return null;
+								}
+	
+							case SimpleParentArgs:
+								{
+									isConstant = true;
+									locality = ELocality.PureLocal;
+									return null;
+								}
+	
+							case StackArgs:
+								{
+									boolean isGlobal = false;
+									ASTParameter bound = Builder.currentBuilder().findExpression(shapeType, isGlobal);
+									if (bound.getType() != EExpType.RuleType) {
+										error("Shape name does not bind to a rule variable");
+										error(bound.getLocation() + "  this is what it binds to");
+									}
+									if (bound.getStackIndex() == -1) {
+										if (bound.getDefinition() == null || bound.getDefinition().getExp() == null) {
+											error("Error processing shape variable.");
+											return null;
+										}
+										if (bound.getDefinition().getExp() instanceof ASTRuleSpecifier) {
+											ASTRuleSpecifier r = (ASTRuleSpecifier)bound.getDefinition().getExp();
+											grab(r);
+											locality = ELocality.PureLocal;
+										} else {
+											error("Error processing shape variable.");
+										}
+									} else {
+										stackIndex = bound.getStackIndex() - (isGlobal ? 0 : Builder.currentBuilder().getLocalStackDepth());
+										isConstant = false;
+										locality = bound.getLocality();
+									}
+									if (arguments != null && arguments.getType() != EExpType.NoType) {
+										error("Cannot bind parameters twice");
+									}
+									return null;
+								}
+	
+							case NoArgs:
+								{
+									isConstant = true;
+									locality = ELocality.PureLocal;
+									return null;
+								}
+	
+							case ParentArgs:
+							case SimpleArgs:
+								assert(false);
+								break;
+	
+							case DynamicArgs:
+								{
+									ASTDefine[] func = new ASTDefine[1];
+									List<ASTParameter>[] signature = new List[1];
+									String name = Builder.currentBuilder().getTypeInfo(shapeType, func, signature);
+									typeSignature = signature[0];
+									if (typeSignature != null && typeSignature.isEmpty()) {
+										typeSignature = null;
+									}
+									if (func[0] != null) {
+										if (func[0].getExpType() == EExpType.RuleType) {
+											argSource = EArgSource.ShapeArgs;
+											arguments = new ASTUserFunction(shapeType, arguments, func[0]);
+											arguments.compile(ph);
+											isConstant = false;
+											locality = arguments.getLocality();
+										} else {
+											error("Function does not return a shape");
+										}
+										if (arguments != null) {
+											StringBuilder ent = new StringBuilder();
+											arguments.entropy(ent);
+											entropy = ent.toString();
+										}
+										return null;
+									}
+									boolean isGlobal = false;
+									ASTParameter bound = Builder.currentBuilder().findExpression(shapeType, isGlobal);
+									if (bound != null && bound.getType() == EExpType.RuleType) {
+										argSource = EArgSource.StackArgs;
+										compile(ph);
+										return null;
+									}
+									if (arguments != null && arguments.getType() == EExpType.ReuseType) {
+										argSource = EArgSource.ParentArgs;
+										if (typeSignature != parentSignature) {
+											Iterator<ASTParameter> paramIt = typeSignature.iterator();
+											Iterator<ASTParameter> parentIt = parentSignature.iterator();
+											ASTParameter param = null;
+											ASTParameter parent = null;
+											while (paramIt.hasNext() && parentIt.hasNext()) {
+												param = paramIt.next();
+												parent = parentIt.next();
+												if (param != parent) {
+													error("Parameter reuse only allowed when type signature is identical.");
+													error(param.getLocation() + "    target shape parameter type");
+													error(parent.getLocation() + "    does not equal source shape parameter type");
+													break;
+												}
+											}
+											if (!paramIt.hasNext() && parentIt.hasNext()) {
+												error("Source shape has more parameters than target shape.");
+												error(parent.getLocation() + "    extra source parameters start here");
+											}
+											if (paramIt.hasNext() && !parentIt.hasNext()) {
+												error("Target shape has more parameters than source shape.");
+												error(param.getLocation() + "    extra target parameters start here");
+											}
+										}
+										isConstant = true;
+										locality = ELocality.PureLocal;
+										return null;
+									}
+									argSize = ASTParameter.checkType(typeSignature, arguments, true);
+									if (argSize < 0) {
+										argSource = EArgSource.NoArgs;
+										return null;
+									}
+									if (arguments != null && arguments.getType() != EExpType.NoType) {
+										if (arguments.isConstant()) {
+											simpleRule = evalArgs(null, null);
+											argSource = EArgSource.SimpleArgs;
+											Builder.currentBuilder().storeParams(simpleRule);
+											isConstant = true;
+											locality = ELocality.PureLocal;
+										} else {
+											isConstant = false;
+											locality = arguments.getLocality();
+										}
+										StringBuilder ent = new StringBuilder();
+										arguments.entropy(ent);
+										entropy = ent.toString();
+									} else {
+										argSource = EArgSource.NoArgs;
+										simpleRule = new StackRule(shapeType, 0, typeSignature);
+										isConstant = true;
+										locality = ELocality.PureLocal;
+										Builder.currentBuilder().storeParams(simpleRule);
+									}
+								}
+								break;
+								
+							default:
+								break;
+						}
+					}
+					break;
+		
+				case Simplify: 
+					break;
+	
+				default:
+					break;
+			}
+			return null;
+		}
+		
+		public void grab(ASTRuleSpecifier src) {
+			isConstant = true;
+			shapeType = src.getShapeType();
+			argSize = 0;
+			argSource = src.getArgSource();
+			arguments = null;
+			simpleRule = src.getSimpleRule();
+			stackIndex = 0;
+			typeSignature = src.getTypeSignature();
+			parentSignature = src.getParentSignature();
 		}
     }

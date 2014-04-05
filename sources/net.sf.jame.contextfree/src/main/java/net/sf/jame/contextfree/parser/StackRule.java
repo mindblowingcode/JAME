@@ -1,5 +1,7 @@
 package net.sf.jame.contextfree.parser;
 
+import java.util.List;
+
 class StackRule {
     private int ruleName;
     private long refCount;
@@ -8,6 +10,14 @@ class StackRule {
 	public StackRule(int ruleName, long paramCount) {
 		this.ruleName = ruleName;
 		this.paramCount = paramCount;
+	}
+
+	public StackRule(StackRule parent) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public StackRule(int shapeType, int argSize, List<ASTParameter> typeSignature) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getRuleName() {
@@ -35,6 +45,11 @@ class StackRule {
 	}
 
 	public void evalArgs(RTI rti, ASTExpression arguments, StackRule parent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void retain(RTI rti) {
 		// TODO Auto-generated method stub
 		
 	}
