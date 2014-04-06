@@ -23,8 +23,8 @@ class ASTDefine extends ASTReplacement {
 		this.name = name;
 		this.configDepth = -1;
 		int[] i = new int[1];
-		getChildChange().getModData().getRand48Seed().init();
-		getChildChange().getModData().getRand48Seed().xorString(name, i);
+		getChildChange().getModData().getRand64Seed().init();
+		getChildChange().getModData().getRand64Seed().xorString(name, i);
 	}
 
 	public int getLocation() {
@@ -138,7 +138,7 @@ class ASTDefine extends ASTReplacement {
 						return;
 					}
 					
-					getChildChange().getModData().getRand48Seed().init();
+					getChildChange().getModData().getRand64Seed().init();
 					getChildChange().setEntropyIndex(0);
 					getChildChange().addEntropy(name);
 					
@@ -208,7 +208,7 @@ class ASTDefine extends ASTReplacement {
 			return;
 		}
 
-		rti.getCurrentSeed().add(getChildChange().getModData().getRand48Seed());
+		rti.getCurrentSeed().add(getChildChange().getModData().getRand64Seed());
 		StackType dest = rti.getCFStack().get(rti.getCFStack().size() - 1);
 		
 		switch (expType) {

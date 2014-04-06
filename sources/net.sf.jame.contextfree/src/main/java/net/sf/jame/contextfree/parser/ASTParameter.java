@@ -1,19 +1,26 @@
 package net.sf.jame.contextfree.parser;
 
-import java.util.Iterator;
 import java.util.List;
 
 class ASTParameter extends ASTExpression {
-    	public static boolean Impure;
-		private EExpType type;
+    	public static boolean Impure = false;
+		
+    	private EExpType type;
     	private boolean isParameter;
     	private boolean isLoopIndex;
+    	private boolean isNatural;
+    	private ELocality locality;
     	private int nameIndex;
-    	private ASTExpression expression;
-    	private ASTModification modification;
+    	private ASTDefine definition;
     	private int stackIndex;
     	private int tupleSize;
-    	private ELocality localityType;
+    	
+    	public ASTParameter() {
+    		super(true, false, EExpType.NoType);
+    		nameIndex = -1;
+    		stackIndex = -1;
+    		tupleSize = 1;
+    	}
     	
     	public ASTParameter(String type, int nameIndex) {
     		super(true, false, EExpType.NoType);
@@ -30,71 +37,75 @@ class ASTParameter extends ASTExpression {
 			// TODO Auto-generated constructor stub
 		}
 
-		public void init(String name, int nameIndex) {
-			this.nameIndex = nameIndex;
-			type = expression.type;
-			expression = expression.simplify();
-
-			switch (type) {
-				case ModType: {
-					tupleSize = ASTModification.SIZE;
-					ASTExpression mod = expression;
-					expression = null;
-					modification.init(mod);
-					break;
-				}
-				case RuleType: {
-					tupleSize = 1;
-					break;
-				}
-				case NumericType: {
-					tupleSize = expression.evaluate((double[])null, 0, null);
-					if (tupleSize == 0)
-						tupleSize = 1; // loop index
-					if (tupleSize < 1 || tupleSize > 8) {
-						throw new RuntimeException("Illegal vector size (<1 or >8)");
-					}
-					break;
-				}
-				default: {
-					throw new RuntimeException("Definition expression has mixed type");
-				}
-			}
-
-			// Set the Modification entropy to parameter name, not its own contents
-			int[] i = new int[1];
-			modification.getModData().getRand48Seed().init();
-			modification.getModData().getRand48Seed().xorString(name, i);
+		public ASTParameter(ASTParameter param) {
+			// TODO Auto-generated constructor stub
 		}
 
-		public void init(String typeName, String name, int nameIndex) {
-			this.nameIndex = nameIndex;
-			expression = null;
+		public void init(String type, int nameIndex) {
+//			this.nameIndex = nameIndex;
+//			type = expression.type;
+//			expression = expression.simplify();
+//
+//			switch (type) {
+//				case ModType: {
+//					tupleSize = ASTModification.SIZE;
+//					ASTExpression mod = expression;
+//					expression = null;
+//					modification.init(mod);
+//					break;
+//				}
+//				case RuleType: {
+//					tupleSize = 1;
+//					break;
+//				}
+//				case NumericType: {
+//					tupleSize = expression.evaluate((double[])null, 0, null);
+//					if (tupleSize == 0)
+//						tupleSize = 1; // loop index
+//					if (tupleSize < 1 || tupleSize > 8) {
+//						throw new RuntimeException("Illegal vector size (<1 or >8)");
+//					}
+//					break;
+//				}
+//				default: {
+//					throw new RuntimeException("Definition expression has mixed type");
+//				}
+//			}
+//
+//			// Set the Modification entropy to parameter name, not its own contents
+//			int[] i = new int[1];
+//			modification.getModData().getRand64Seed().init();
+//			modification.getModData().getRand64Seed().xorString(name, i);
+		}
 
-			if (typeName.equals("number")) {
-				type = EExpType.NumericType;
-			} else if (typeName.equals("adjustment")) {
-				tupleSize = ASTModification.SIZE;
-				type = EExpType.ModType;
-			} else if (typeName.equals("shape")) {
-				type = EExpType.RuleType;
-				tupleSize = 1;
-			} else if (typeName.startsWith("vector") && typeName.length() == 7) {
-//				String size = typeName.substring(6, 7);
-				if (typeName.charAt(6) > '0' && typeName.charAt(6) < '9') {
-					type = EExpType.NumericType;
-					tupleSize = typeName.charAt(6) - '0';
-					if (tupleSize < 1 || tupleSize > 8) {
-						throw new RuntimeException("Illegal vector size (<1 or >8)");
-					}
-				}
-			} else {
-				type = EExpType.NoType;
-			}
-
-			int[] i = new int[1];
-			modification.getModData().getRand48Seed().init();
-			modification.getModData().getRand48Seed().xorString(name, i);
+		public void init(int nameIndex, ASTDefine definition) {
+//			this.nameIndex = nameIndex;
+//			expression = null;
+//
+//			if (typeName.equals("number")) {
+//				type = EExpType.NumericType;
+//			} else if (typeName.equals("adjustment")) {
+//				tupleSize = ASTModification.SIZE;
+//				type = EExpType.ModType;
+//			} else if (typeName.equals("shape")) {
+//				type = EExpType.RuleType;
+//				tupleSize = 1;
+//			} else if (typeName.startsWith("vector") && typeName.length() == 7) {
+////				String size = typeName.substring(6, 7);
+//				if (typeName.charAt(6) > '0' && typeName.charAt(6) < '9') {
+//					type = EExpType.NumericType;
+//					tupleSize = typeName.charAt(6) - '0';
+//					if (tupleSize < 1 || tupleSize > 8) {
+//						throw new RuntimeException("Illegal vector size (<1 or >8)");
+//					}
+//				}
+//			} else {
+//				type = EExpType.NoType;
+//			}
+//
+//			int[] i = new int[1];
+//			modification.getModData().getRand64Seed().init();
+//			modification.getModData().getRand64Seed().xorString(name, i);
 		}
         
         public void check() 
@@ -184,21 +195,29 @@ class ASTParameter extends ASTExpression {
 		public boolean isParameter() {
 			return isParameter;
 		}
+		
+		public void setIsParameter(boolean isParameter) {
+			this.isParameter = isParameter;			
+		}
 
 		public boolean isLoopIndex() {
 			return isLoopIndex;
+		}
+
+		public boolean isNatural() {
+			return isNatural;
 		}
 
 		public int getNameIndex() {
 			return nameIndex;
 		}
 
-		public ASTExpression getExpression() {
-			return expression;
+		public ASTDefine getDefinition() {
+			return definition;
 		}
-
-		public ASTModification getModification() {
-			return modification;
+		
+		public void setDefinition(ASTDefine definition) {
+			this.definition = definition;
 		}
 
 		public int getStackIndex() {
@@ -214,11 +233,11 @@ class ASTParameter extends ASTExpression {
 		}
 
 		public ELocality getLocality() {
-			return localityType;
+			return locality;
 		}
 
-		public void setLocality(ELocality localityType) {
-			this.localityType = localityType;
+		public void setLocality(ELocality locality) {
+			this.locality = locality;
 		}
 
 		public String getLocation() {
@@ -226,23 +245,8 @@ class ASTParameter extends ASTExpression {
 			return null;
 		}
 
-		public ASTExpression constCopy(String name) {
-			// TODO Auto-generated method stub
+		public ASTExpression constCopy(String entropy) {
+			// TODO da completare
 			return null;
-		}
-
-		public void setDefinition(ASTDefine definition) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public ASTDefine getDefinition() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public void setIsParameter(boolean b) {
-			// TODO Auto-generated method stub
-			
 		}
     }

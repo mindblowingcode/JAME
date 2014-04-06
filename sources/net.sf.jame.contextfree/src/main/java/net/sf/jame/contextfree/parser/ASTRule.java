@@ -1,7 +1,8 @@
 package net.sf.jame.contextfree.parser;
 
+import java.awt.geom.PathIterator;
 
-class ASTRule extends ASTReplacement {
+class ASTRule extends ASTReplacement implements Comparable<ASTRule> {
 	private ASTRepContainer ruleBody = new ASTRepContainer();
 	private ASTCompiledPath cachedPath;
 	private float weight;
@@ -34,10 +35,46 @@ class ASTRule extends ASTReplacement {
 		this.weight = 1.0f;
 		this.weightType = EWeightType.NoWeight;
 		this.cachedPath = null;
-		
-		//TODO completare
+		if (nameIndex != EPrimShape.circleType.getType()) {
+			PrimShape shape = PrimShape.getShapeMap().get(nameIndex);
+			double[] coords = new double[6];
+			int cmd;
+			PathIterator iterator = shape.getPathIterator();
+			while (!isStop(cmd = iterator.currentSegment(coords))) {
+				if (isVertex(cmd)) {
+					ASTExpression a = new ASTCons(new ASTReal(coords[0]), new ASTReal(coords[1]));
+					ASTPathOp op = new ASTPathOp(isMoveTo(cmd) ? EPathOp.MOVETO.name() : EPathOp.LINETO.name(), a);
+					getRuleBody().getBody().add(op);
+				}
+			}
+		} else {
+			ASTExpression a = new ASTCons(new ASTReal(0.5), new ASTReal(0.0));
+			ASTPathOp op = new ASTPathOp(EPathOp.MOVETO.name(), a);
+			getRuleBody().getBody().add(op);
+			a = new ASTCons(new ASTReal(-0.5), new ASTReal(0.0), new ASTReal(0.5));
+			op = new ASTPathOp(EPathOp.ARCTO.name(), a);
+			getRuleBody().getBody().add(op);
+			a = new ASTCons(new ASTReal(0.5), new ASTReal(0.0), new ASTReal(0.5));
+			op = new ASTPathOp(EPathOp.ARCTO.name(), a);
+			getRuleBody().getBody().add(op);
+		}
+		getRuleBody().getBody().add(new ASTPathOp(EPathOp.CLOSEPOLY.name(), null));
+		getRuleBody().setRepType(ERepElemType.op.getType());
+		getRuleBody().setPathOp(EPathOp.MOVETO);
 	}
 	
+	private boolean isMoveTo(int cmd) {
+		return cmd == PathIterator.SEG_MOVETO;
+	}
+
+	private boolean isVertex(int cmd) {
+		return cmd >= PathIterator.SEG_MOVETO && cmd < PathIterator.SEG_CLOSE;
+	}
+
+	private boolean isStop(int cmd) {
+		return cmd == PathIterator.SEG_CLOSE;
+	}
+
 	public ASTRepContainer getRuleBody() {
 		return ruleBody;
 	}
@@ -68,12 +105,65 @@ class ASTRule extends ASTReplacement {
 
 	@Override
 	public void compile(ECompilePhase ph) {
+		Builder.currentBuilder().setInPathContainer(isPath);
+		super.compile(ph);
+		ruleBody.compile(ph, null, null);
 	}
 
 	@Override
 	public void traverse(Shape parent, boolean tr, RTI rti) {
+		rti.setCurrentSeed(parent.getWorldState().getRand64Seed());
+		if (isPath) {
+			rti.processPrimShape(parent, this);
+		} else {
+			ruleBody.traverse(parent, tr, rti, true);
+			parent.releaseParams();
+		}
 	}
 	
 	public void traversePath(Shape parent, RTI rti) {
+		rti.init();
+		rti.setCurrentSeed(parent.getWorldState().getRand64Seed());
+		rti.setRandUsed(false);
+		
+		ASTCompiledPath savedPath = null;
+		
+		if (cachedPath != null && cachedPath.getParameters().equals(parent.getParameters())) {
+			savedPath = rti.getCurrentPath();
+			rti.setCurrentPath(cachedPath);
+			rti.setCurrentCommand(cachedPath.getCommandInfo().iterator());
+		}
+		
+		ruleBody.traverse(parent, false, rti, true);
+		if (!rti.getCurrentPath().isComplete()) {
+			rti.getCurrentPath().finish(true, rti);
+		}
+		if (rti.getCurrentPath().useTerminal()) {
+			rti.getCurrentPath().getTerminalCommand().traverse(parent, false, rti);
+		}
+		
+		if (savedPath != null) {
+			rti.setCurrentPath(savedPath);
+		} else {
+			if (rti.isRandUsed() && cachedPath == null) {
+				cachedPath = rti.getCurrentPath();
+				cachedPath.setIsComplete(true);
+				cachedPath.setParameters(new StackRule(parent.getParameters()));
+				rti.setCurrentPath(new ASTCompiledPath());
+			} else {
+				rti.getCurrentPath().getPath().clear();
+				rti.getCurrentPath().getCommandInfo().clear();
+				rti.getCurrentPath().setUseTerminal(false);
+				rti.getCurrentPath().setPathUID(ASTCompiledPath.nextPathUID());
+				if (rti.getCurrentPath().getParameters() != null) {
+					rti.getCurrentPath().setParameters(null);
+				}
+			}
+		}
+	}
+
+	@Override
+	public int compareTo(ASTRule o) {
+		return nameIndex == o.nameIndex ? (weight < o.weight ? -1 : weight == o.weight ? 0 : 1) : nameIndex - o.nameIndex;
 	}
 }

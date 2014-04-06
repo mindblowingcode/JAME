@@ -1,5 +1,6 @@
 package net.sf.jame.contextfree.parser;
 
+import java.util.Iterator;
 import java.util.List;
 
 class RTI {
@@ -19,7 +20,7 @@ class RTI {
 		
 	}
 
-	public ASTRand48 getCurrentSeed() {
+	public Rand64 getCurrentSeed() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -79,8 +80,38 @@ class RTI {
 		
 	}
 
-	public void setCurrentSeed(ASTRand48 seed) {
+	public void setCurrentSeed(Rand64 seed) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void processPrimShape(Shape parent, ASTRule astRule) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ASTCompiledPath getCurrentPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setCurrentPath(ASTCompiledPath path) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setCurrentCommand(Iterator<CommandInfo> iterator) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean isRandUsed() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

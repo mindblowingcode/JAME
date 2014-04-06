@@ -27,9 +27,8 @@ package net.sf.jame.contextfree.test;
 
 import net.sf.jame.contextfree.parser.CFDGLexer;
 import net.sf.jame.contextfree.parser.CFDGParser;
-import net.sf.jame.contextfree.parser.CFDGParser.CfdgContext;
+import net.sf.jame.contextfree.parser.CFDGParser.ChooseContext;
 
-import org.antlr.runtime.tree.CommonTree;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -76,8 +75,8 @@ public class TestCF3Parser {
 			CFDGLexer lexer = new CFDGLexer(is);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
 			CFDGParser parser = new CFDGParser(tokens);
-			CfdgContext cfdg = parser.cfdg();
-            if (cfdg != null) {
+			ChooseContext choose = parser.choose();
+            if (choose != null) {
 //            	CommonTree tree = (CommonTree) parser.cfdg().getTree();
 //            	System.out.println(tree.toStringTree());               
             }

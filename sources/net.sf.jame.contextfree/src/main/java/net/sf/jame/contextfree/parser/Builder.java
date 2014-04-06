@@ -15,7 +15,7 @@ public class Builder {
 	private static Builder currentBuilder;
 
 	private CFDG cfdg = new CFDG();
-	private ASTRand48 seed;
+	private Rand64 seed;
 	private Stack<ASTRepContainer> containerStack = new Stack<ASTRepContainer>();
 	private ASTRepContainer paramDecls = new ASTRepContainer();
 	private Map<String, Integer> flagNames = new HashMap<String, Integer>();
@@ -349,7 +349,7 @@ public class Builder {
 		if (bound == null) {
 			return args;
 		}
-		return new ASTArray(varNum, args, new String[1]);
+		return new ASTArray(varNum, args, "");
 	}
 
 	public ASTExpression makeLet(ASTRepContainer vars, ASTExpression exp) {
@@ -473,7 +473,7 @@ public class Builder {
 		if (args != null && args.getType() == EExpType.ReuseType) {
 			return makeRuleSpec(name, args, null, false);
 		}
-		return new ASTUserFunction(name, args, null);
+		return new ASTUserFunction(nameIndex, args, null);
 	}
 	
 	public ASTModification makeModification(ASTModification mod, boolean canonial) {
@@ -672,7 +672,7 @@ public class Builder {
 		localStackDepth++;
 	}
 
-	public ASTRand48 getSeed() {
+	public Rand64 getSeed() {
 		return seed;
 	}
 
