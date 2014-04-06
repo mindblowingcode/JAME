@@ -31,7 +31,7 @@ class ASTModification extends ASTExpression {
 	public ASTModification(ASTModification mod, boolean dummy) {
 		super(true, false, EExpType.ModType);
 		if (mod != null) {
-			modData.getRand48Seed().seed(0);
+			modData.getRand64Seed().seed(0);
 			grab(mod);
 		} else {
 			this.modClass = EModClass.NotAClass;
@@ -71,9 +71,9 @@ class ASTModification extends ASTExpression {
 	}
 	
 	public void grab(ASTModification mod) {
-		ASTRand48 oldEntropy = modData.getRand48Seed();
+		Rand64 oldEntropy = modData.getRand64Seed();
 		modData = mod.getModData();
-		modData.getRand48Seed().add(oldEntropy);
+		modData.getRand64Seed().add(oldEntropy);
 		modExp.clear();
 		modExp.addAll(mod.getModExp());
 		modClass = mod.getModClass();
@@ -157,7 +157,7 @@ class ASTModification extends ASTExpression {
 
 	public void addEntropy(String name) {
 		int[] index = new int[1];
-		modData.getRand48Seed().xorString(name, index);
+		modData.getRand64Seed().xorString(name, index);
 		entropyIndex = index[0];
 	}
 
@@ -396,5 +396,10 @@ class ASTModification extends ASTExpression {
 				break;
 		}
 		return null;
+	}
+
+	public void concat(ASTModTerm t) {
+		// TODO Auto-generated method stub
+		
 	}
 }

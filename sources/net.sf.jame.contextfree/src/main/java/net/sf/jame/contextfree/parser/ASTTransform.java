@@ -48,9 +48,9 @@ class ASTTransform extends ASTReplacement {
 		
 		switch (ph) {
 			case TypeCheck: 
-//TODO				if (clone && !ASTparameter::Impure) {
-//					error("Shape cloning only permitted in impure mode");
-//				}
+				if (clone && !ASTParameter.Impure) {
+					error("Shape cloning only permitted in impure mode");
+				}
 				break;
 	
 			case Simplify:
@@ -70,7 +70,7 @@ class ASTTransform extends ASTReplacement {
 		@SuppressWarnings("unchecked")
 		List<AffineTransform>[] transforms = new List[1];
 		List<ASTModification> mods = getTransforms(expHolder, transforms, rti, false, dummy);
-		ASTRand48 cloneSeed = rti.getCurrentSeed();
+		Rand64 cloneSeed = rti.getCurrentSeed();
 		Shape transChild = parent;
 		boolean opsOnly = body.getRepType() == ERepElemType.op.getType();
 		if (opsOnly && !tr) {

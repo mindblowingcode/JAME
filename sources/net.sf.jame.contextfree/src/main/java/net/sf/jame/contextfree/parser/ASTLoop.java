@@ -159,7 +159,7 @@ class ASTLoop extends ASTReplacement {
 			loopChild.getWorldState().setTransform(null);
 		}
 		double[] data = new double[2];
-		rti.getCurrentSeed().add(getChildChange().getModData().getRand48Seed());
+		rti.getCurrentSeed().add(getChildChange().getModData().getRand64Seed());
 		if (loopArgs != null) {
 			setupLoop(data, loopArgs, rti);
 		} else {

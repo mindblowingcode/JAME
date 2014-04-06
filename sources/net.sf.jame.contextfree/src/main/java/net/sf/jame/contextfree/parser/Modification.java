@@ -4,15 +4,15 @@ import java.awt.geom.AffineTransform;
 
 
 class Modification {
-	private ASTRand48 rand48Seed = new ASTRand48();
+	private Rand64 Rand64Seed = new Rand64();
 
 	public void concat(Modification modData) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public ASTRand48 getRand48Seed() {
-		return rand48Seed;
+	public Rand64 getRand64Seed() {
+		return Rand64Seed;
 	}
 
 	public void setSeed(int i) {
@@ -72,7 +72,7 @@ class Modification {
 		return 0.0;
 	}
 
-	public void setRand48Seed(ASTRand48 currentSeed) {
+	public void setRand64Seed(Rand64 currentSeed) {
 		// TODO Auto-generated method stub
 		
 	}

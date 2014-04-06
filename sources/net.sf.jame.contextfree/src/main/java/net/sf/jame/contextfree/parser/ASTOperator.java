@@ -24,6 +24,10 @@ class ASTOperator extends ASTExpression {
 		}
 	}
 
+	public ASTOperator(char op, ASTExpression left) {
+		this(op, left, null);
+	}
+
 	public char getOp() {
 		return op;
 	}

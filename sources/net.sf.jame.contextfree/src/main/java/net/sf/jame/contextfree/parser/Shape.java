@@ -31,4 +31,9 @@ class Shape {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void releaseParams() {
+		// TODO Auto-generated method stub
+		
+	}
 }

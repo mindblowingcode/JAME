@@ -2,18 +2,18 @@ package net.sf.jame.contextfree.parser;
 
 import java.util.Random;
 
-class ASTRand48 {
+class Rand64 {
 	private static long RAND64_SEED  = 0x3DF41234;
 
     private long seed;
     private Random random = new Random();
-//    private static final ASTRand48 common = new ASTRand48();
+//    private static final Rand64 common = new Rand64();
 
-	public ASTRand48() {
+	public Rand64() {
 		this(RAND64_SEED);
 	}
 
-	public ASTRand48(long seed) {
+	public Rand64(long seed) {
 		this.seed = seed;
 		random.setSeed(seed);
 	}
@@ -58,7 +58,7 @@ class ASTRand48 {
     public void bump() {
 	}
 
-	public void add(ASTRand48 oldEntropy) {
+	public void add(Rand64 oldEntropy) {
 		// TODO Auto-generated method stub
 		
 	}

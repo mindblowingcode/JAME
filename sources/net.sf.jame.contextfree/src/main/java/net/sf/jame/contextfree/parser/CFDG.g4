@@ -474,7 +474,7 @@ pathOp_simple_v2 returns [ASTReplacement result]
         	String cmd = $c.result;
         	ASTModification mod = $m.result;
             driver.setMaybeVersion("CFDG2");
-        	$result = new ASTPathCommand(cmd, mod);
+        	$result = new ASTPathCommand(cmd, mod, null);
         }
         ;
 
@@ -607,7 +607,7 @@ element returns [ASTReplacement result]
         |
         rs=switchHeader '{' caseBody '}' {
         	$result = $rs.result; 
-			$result.unify();
+			$rs.result.unify();
         	driver.getSwitchStack().pop();
         }
         |
@@ -1348,7 +1348,11 @@ function_definition_header returns [ASTDefine result]
         	String type = $f.getText();
             $result = driver.makeDefinition(name, true);
             if ($result != null) {
-                $result.setExpType(driver.decodeType(type, $result.getTupleSize(), $result.isNatural())); 
+            	int[] tupleSize = new int[1];
+            	boolean[] isNatural = new boolean[1];
+                $result.setExpType(driver.decodeType(type, tupleSize, isNatural));
+                $result.setTupleSize(tupleSize[0]);
+                $result.setIsNatural(isNatural[0]); 
             }
         }
         |

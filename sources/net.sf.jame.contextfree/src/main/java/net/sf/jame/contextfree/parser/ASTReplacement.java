@@ -106,7 +106,7 @@ class ASTReplacement {
 				s.setParameters(null);
 			}
 		}
-		rti.getCurrentSeed().add(childChange.getModData().getRand48Seed());
+		rti.getCurrentSeed().add(childChange.getModData().getRand64Seed());
 		rti.getCurrentSeed().bump();
 		Modification[] mod = new Modification[1];
 		childChange.evaluate(mod, true, rti);
@@ -119,8 +119,8 @@ class ASTReplacement {
 		switch (repType) {
 		case replacement:
 			replace(child,  rti);
-			child.getWorldState().setRand48Seed(rti.getCurrentSeed());
-			child.getWorldState().getRand48Seed().bump();
+			child.getWorldState().setRand64Seed(rti.getCurrentSeed());
+			child.getWorldState().getRand64Seed().bump();
 			rti.processShape(child);
 			break;
 

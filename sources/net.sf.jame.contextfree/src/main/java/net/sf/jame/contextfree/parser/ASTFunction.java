@@ -3,13 +3,13 @@ package net.sf.jame.contextfree.parser;
 class ASTFunction extends ASTExpression {
 		private ASTExpression arguments;
 		private EFuncType funcType;
-		private ASTRand48 random;
+		private Rand64 random;
     	
     	public ASTFunction(String name, ASTExpression arguments) {
     		this(name, arguments, null);
     	}
     	
-    	public ASTFunction(String name, ASTExpression arguments, ASTRand48 seed) {
+    	public ASTFunction(String name, ASTExpression arguments, Rand64 seed) {
     		super(arguments != null ? arguments.isConstant() : true, false, EExpType.NumericType);
     		this.funcType = EFuncType.NotAFunction;
     		this.arguments = arguments;

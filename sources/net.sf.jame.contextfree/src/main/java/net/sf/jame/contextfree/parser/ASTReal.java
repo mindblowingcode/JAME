@@ -31,6 +31,10 @@ class ASTReal extends ASTExpression {
 	public void setText(String text) {
 		this.text = text;
 	}
+	
+	public double getValue() {
+		return value;
+	}
 
 	@Override
 	public void entropy(StringBuilder e) {

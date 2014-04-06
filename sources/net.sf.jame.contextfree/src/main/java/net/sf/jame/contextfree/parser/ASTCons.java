@@ -14,11 +14,12 @@ class ASTCons extends ASTExpression {
 		}
 	}
 
-	public ASTCons(ASTExpression r1, ASTExpression r2) {
+	public ASTCons(ASTExpression... args) {
 		super(true, true, EExpType.NoType);//TODO da controllare
 		locality = ELocality.PureLocal;
-		children.add(r1);
-		children.add(r2);
+		for (ASTExpression arg : args) {
+			children.add(arg);
+		}
 	}
 
 	@Override
