@@ -15,14 +15,16 @@ class ASTDefine extends ASTReplacement {
 	private int configDepth;
 	
 	public ASTDefine(String name) {
-		super(null, null, null, null);
+		super(null, ERepElemType.empty);
 		this.defineType = EDefineType.StackDefine;
 		this.expType = EExpType.NoType;
 		this.isNatural = false;
 		this.stackCount = 0;
 		this.name = name;
 		this.configDepth = -1;
-//		getModification().getModData().setEntropy(name);//TODO da rivedere
+		int[] i = new int[1];
+		getChildChange().getModData().getRand48Seed().init();
+		getChildChange().getModData().getRand48Seed().xorString(name, i);
 	}
 
 	public int getLocation() {
@@ -107,5 +109,130 @@ class ASTDefine extends ASTReplacement {
 	
 	public void idecStackCount(int value) {
 		stackCount -= value;
+	}
+	
+	@Override
+	public void compile(ECompilePhase ph) {
+		if (defineType == EDefineType.FunctionDefine || defineType == EDefineType.LetDefine) {
+			ASTRepContainer tempCont = new ASTRepContainer();
+			tempCont.setParameters(parameters);
+			tempCont.setStackCount(stackCount);
+			Builder.currentBuilder().pushRepContainer(tempCont);
+			super.compile(ph);
+			if (exp != null) {
+				exp.compile(ph);
+			}
+			if (ph == ECompilePhase.Simplify) {
+				if (exp != null) {
+					exp.simplify();
+				}
+			}
+			Builder.currentBuilder().popRepContainer(null);
+		}
+		
+		switch (ph) {
+			case TypeCheck:
+				{
+					if (defineType == EDefineType.ConfigDefine) {
+						Builder.currentBuilder().makeConfig(this);
+						return;
+					}
+					
+					getChildChange().getModData().getRand48Seed().init();
+					getChildChange().setEntropyIndex(0);
+					getChildChange().addEntropy(name);
+					
+					EExpType t = exp != null ? exp.getType() : EExpType.ModType;
+					int sz = 1;
+					if (t == EExpType.NumericType) {
+						sz = exp.evaluate(null, 0);
+					}
+					if (t == EExpType.ModType) {
+						sz = 6;
+					}
+					if (defineType == EDefineType.FunctionDefine) {
+						if (t != getExpType()) {
+							error("Mismatch between declared and defined type of user function");
+						}
+						if (getExpType() == EExpType.NumericType && t == EExpType.NumericType && sz != tupleSize) {
+							error("Mismatch between declared and defined vector length of user function");
+						}
+						if (isNatural() && (exp == null || exp.isNatural())) {
+							error("Mismatch between declared natural and defined not-natural type of user function");
+						}
+					} else {
+						if (getShapeSpecifier().getShapeType() >= 0) {
+							ASTDefine[] func = new ASTDefine[1];
+							@SuppressWarnings("unchecked")
+							List<ASTParameter>[] shapeParams = new List[1];
+							Builder.currentBuilder().getTypeInfo(getShapeSpecifier().getShapeType(), func, shapeParams);
+							if (func[0] != null) {
+								error("Variable name is also the name of a function");
+								error(func[0].getLocation() + "   function definition is here");
+							}
+							if (shapeParams[0] != null) {
+								error("Variable name is also the name of a shape");
+							}
+						}
+						
+						tupleSize = sz;
+						expType = t;
+						if (t.getType() != (t.getType() & (-t.getType())) || t.getType() == 0) {//TODO da controllare???
+							error("Expression can only have one type");
+						}
+						if (defineType == EDefineType.StackDefine && (exp != null ? exp.isConstant() : getChildChange().getModExp().isEmpty())) {
+							defineType = EDefineType.ConstDefine;
+						}
+						isNatural = exp != null && exp.isNatural() && expType == EExpType.NumericType;
+						ASTParameter param = Builder.currentBuilder().getContainerStack().peek().addDefParameter(getShapeSpecifier().getShapeType(), this);
+						if (param.isParameter() || param.getDefinition() == null) {
+							param.setStackIndex(Builder.currentBuilder().getLocalStackDepth());
+							Builder.currentBuilder().getContainerStack().peek().setStackCount(Builder.currentBuilder().getContainerStack().peek().getStackCount() + param.getTupleSize());
+							Builder.currentBuilder().setLocalStackDepth(Builder.currentBuilder().getLocalStackDepth() + param.getTupleSize()); 
+						}
+					}
+				}
+				break;
+	
+			case Simplify:
+				break;
+	
+			default:
+				break;
+		}
+	}
+
+	@Override
+	public void traverse(Shape parent, boolean tr, RTI rti) {
+		if (defineType != EDefineType.StackDefine) {
+			return;
+		}
+
+		rti.getCurrentSeed().add(getChildChange().getModData().getRand48Seed());
+		StackType dest = rti.getCFStack().get(rti.getCFStack().size() - 1);
+		
+		switch (expType) {
+			case NumericType:
+				double[] result = new double[1];
+				if (exp.evaluate(result, tupleSize, rti) != tupleSize) {
+					error("Error evaluating parameters (too many or not enough).");
+				}
+				dest.setNumber(result[0]);
+				break;
+	
+			case ModType:
+				Modification[] mod = new Modification[1];
+				getChildChange().setVal(mod, rti);
+				dest.setModification(mod[0]);
+				break;
+	
+			case RuleType:
+				dest.setRule(exp.evalArgs(rti, parent.getParameters()));
+				break;
+	
+			default:
+				error("Unimplemented parameter type.");
+				break;
+		}
 	}
 }

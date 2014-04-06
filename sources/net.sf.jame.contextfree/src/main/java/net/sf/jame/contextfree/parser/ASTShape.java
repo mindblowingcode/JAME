@@ -6,9 +6,8 @@ class ASTShape extends ASTReplacement {
 	private int nameIndex;
 	
 	public ASTShape(ASTRuleSpecifier ruleSpecifier, boolean isPath) {
-		super(ruleSpecifier, "shape", null);
+		super(null, null, null, ERepElemType.rule);
 		this.isPath = isPath;
-		this.rules.isGlobal = true;
 	}
 
 	public ASTRepContainer getRules() {

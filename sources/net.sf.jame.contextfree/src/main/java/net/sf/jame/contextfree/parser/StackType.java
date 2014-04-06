@@ -42,4 +42,23 @@ class StackType {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void addNumber(double value) {
+		this.number += value;
+	}
+
+	public void setNumber(double value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setModification(Modification modification) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setRule(StackRule rule) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,45 +1,36 @@
 package net.sf.jame.contextfree.parser;
 
 class ASTReplacement {
-	private EPathOp pathOp;
+	private ASTRuleSpecifier shapeSpec;
+	private ASTModification childChange;
 	private ERepElemType repType;
-	private String name;
-	private ASTModification modification;
-	private ASTRuleSpecifier ruleSpecifier;
+	private EPathOp pathOp;
 	
-	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, String name, ASTModification modification, ERepElemType repType) {
-		this.name = name;
-		this.modification = modification;
-		this.ruleSpecifier = ruleSpecifier;
+	public ASTReplacement(ASTRuleSpecifier shapeSpec, ASTModification childChange, ERepElemType repType) {
 		this.repType = repType;
-	}
-	
-	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, String name, ASTModification modification) {
-		this.name = name;
-		this.modification = modification;
-		this.ruleSpecifier = ruleSpecifier;
-		this.repType = ERepElemType.replacement;
-	}
-	
-	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, ASTModification mods,
-			ERepElemType t) {
-		// TODO Auto-generated constructor stub
+		this.childChange = childChange;
+		this.shapeSpec = shapeSpec;
+		this.pathOp = EPathOp.UNKNOWN;
 	}
 
-	public ASTReplacement(ASTRuleSpecifier ruleSpecifier, ASTModification mods) {
-		this(ruleSpecifier, mods, ERepElemType.empty);
+	public ASTReplacement(ASTRuleSpecifier shapeSpec, ASTModification childChange) {
+		this(shapeSpec, childChange, ERepElemType.empty);
 	}
 
-	public void replace(Shape s, double[] width) {}
-	
- 	public void replaceShape(Shape s) {}
-
-	public ASTRuleSpecifier getRuleSpecifier() {
-		return ruleSpecifier;
+	public ASTReplacement(ASTModification childChange, ERepElemType repType) {
+		this(new ASTRuleSpecifier(), childChange, repType);
 	}
 
-	public EPathOp getPathOp() {
-		return pathOp;
+	public ASTReplacement(String name) {
+		this(new ASTRuleSpecifier(), new ASTModification(), ERepElemType.op);
+		this.pathOp = EPathOp.pathOpTypeByName(name);
+		if (this.pathOp == EPathOp.UNKNOWN) {
+			error("Unknown path operation type");
+		}
+	}
+
+	public ASTRuleSpecifier getShapeSpecifier() {
+		return shapeSpec;
 	}
 
 	public ERepElemType getRepType() {
@@ -49,12 +40,9 @@ class ASTReplacement {
 	public void setRepType(ERepElemType repType) {
 		this.repType = repType;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void unify() {
+	
+	public EPathOp getPathOp() {
+		return pathOp;
 	}
 
 	public void setPathOp(EPathOp pathOp) {
@@ -62,11 +50,94 @@ class ASTReplacement {
 	}
 
 	public ASTModification getChildChange() {
-		return modification;
+		return childChange;
 	}
 
 	public void compile(ECompilePhase ph) {
-		// TODO Auto-generated method stub
+		ASTExpression r = shapeSpec.compile(ph);
+		assert(r == null);
+		r = childChange.compile(ph);
+		assert(r == null);
 		
+		switch (ph) {
+			case TypeCheck: 
+				childChange.addEntropy(shapeSpec.getEntropy());
+				if (Builder.currentBuilder().isInPathContainer()) {
+					// This is a subpath
+					if (shapeSpec.getArgSource() == EArgSource.ShapeArgs || shapeSpec.getArgSource() == EArgSource.StackArgs || PrimShape.isPrimShape(shapeSpec.getShapeType())) {
+						if (repType != ERepElemType.op) {
+							error("Error in subpath specification");
+						} else {
+							ASTRule rule = Builder.currentBuilder().getRule(shapeSpec.getShapeType());
+							if (rule == null || rule.isPath()) {
+								error("Subpath can only refer to a path");
+							} else if (rule.getRuleBody().getRepType() != repType.getType()) {
+								error("Subpath type mismatch error");
+							}
+						}
+					}
+				}
+				break;
+	
+			case Simplify: 
+				r = shapeSpec.simplify();
+				assert(r == shapeSpec);
+				r = childChange.simplify();
+				assert(r == childChange);
+				break;
+	
+			default:
+				break;
+		}
+	}
+
+	public void replace(Shape s, RTI rti) {
+		if (shapeSpec.getArgSource() == EArgSource.NoArgs) {
+			s.setShapeType(shapeSpec.getShapeType());
+			s.setParameters(null);
+		} else {
+			s.setParameters(shapeSpec.evalArgs(rti, s.getParameters()));
+			if (shapeSpec.getArgSource() == EArgSource.SimpleParentArgs) {
+				s.setShapeType(shapeSpec.getShapeType());
+			} else {
+				s.setShapeType(s.getParameters().getRuleName());
+			}
+			if (s.getParameters().getParamCount() == 0) {
+				s.setParameters(null);
+			}
+		}
+		rti.getCurrentSeed().add(childChange.getModData().getRand48Seed());
+		rti.getCurrentSeed().bump();
+		Modification[] mod = new Modification[1];
+		childChange.evaluate(mod, true, rti);
+		s.setWorldState(mod[0]);
+		s.setAreaCache(s.getWorldState().area());
+	}
+
+	public void traverse(Shape parent, boolean tr, RTI rti) {
+		Shape child = parent;
+		switch (repType) {
+		case replacement:
+			replace(child,  rti);
+			child.getWorldState().setRand48Seed(rti.getCurrentSeed());
+			child.getWorldState().getRand48Seed().bump();
+			rti.processShape(child);
+			break;
+
+		case op:
+			if (!tr) child.getWorldState().setTransform(null);
+		case mixed:
+		case command:
+			replace(child, rti);
+			rti.processSubpath(child, tr || repType == ERepElemType.op, repType);
+			break;
+
+		default:
+			throw new RuntimeException("Subpaths must be all path operation or all path command");
+		}
+	}
+
+	protected void error(String message) {
+		System.out.println(message);
 	}
 }

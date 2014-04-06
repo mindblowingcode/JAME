@@ -7,9 +7,23 @@ class ASTRepContainer {
 	private int repType;
 	private List<ASTReplacement> body;
 	private List<ASTParameter> parameters;
-	boolean isGlobal;
+	private boolean isGlobal;
 	private int stackCount;
 
+	public ASTRepContainer() {
+		pathOp = EPathOp.UNKNOWN;
+		repType = ERepElemType.empty.getType();
+		isGlobal = false;
+		stackCount = 0;
+	}
+	
+	public ASTRepContainer(ASTRepContainer repCont) {
+		pathOp = repCont.pathOp;
+		repType = repCont.repType;
+		isGlobal = repCont.isGlobal;
+		stackCount = repCont.stackCount;
+	}
+	
 	public void setStackCount(int stackCount) {
 		this.stackCount = stackCount;
 	}
@@ -18,10 +32,18 @@ class ASTRepContainer {
 		return pathOp;
 	}
 
+	public void setPathOp(EPathOp pathOp) {
+		this.pathOp = pathOp;
+	}
+	
 	public int getRepType() {
 		return repType;
 	}
 
+	public void setRepType(int repType) {
+		this.repType = repType;
+	}
+	
 	public List<ASTReplacement> getBody() {
 		return body;
 	}
@@ -29,6 +51,10 @@ class ASTRepContainer {
 	public List<ASTParameter> getParameters() {
 		return parameters;
 	}
+
+	public void setParameters(List<ASTParameter> parameters) {
+		this.parameters = parameters;
+	}	
 
 	public boolean isGlobal() {
 		return isGlobal;
@@ -39,30 +65,60 @@ class ASTRepContainer {
 	}
 
 	public void addParameter(String type, int nameIndex) {
-		// TODO Auto-generated method stub
-		
+		parameters.add(new ASTParameter(type, nameIndex));
+		ASTParameter param = parameters.get(parameters.size() - 1);
+		param.setIsParameter(true);
+		param.check();
 	}
 
-	public void addDefParameter(int nameIndex, ASTDefine def) {
-		// TODO Auto-generated method stub
-		
+	public ASTParameter addDefParameter(int nameIndex, ASTDefine def) {
+		parameters.add(new ASTParameter(nameIndex, def));
+		ASTParameter param = parameters.get(parameters.size() - 1);
+		param.check();
+		return param;
 	}
 
-	public void setRepType(int repType) {
-		this.repType = repType;
-	}
-
-	public void setPathOp(EPathOp pathOp) {
-		this.pathOp = pathOp;
+	public void addLoopParameter(int nameIndex, boolean natural, boolean local) {
+		parameters.add(new ASTParameter(nameIndex, natural, local));
+		ASTParameter param = parameters.get(parameters.size() - 1);
+		param.check();
+		stackCount += param.getTupleSize();
 	}
 
 	public void compile(ECompilePhase ph, ASTLoop loop, ASTDefine def) {
-		// TODO Auto-generated method stub
-		
+		if (ph == ECompilePhase.TypeCheck) {
+			stackCount = 0;
+			for (int i = 0; i < parameters.size(); i++) {
+				if (parameters.get(i).isParameter() || parameters.get(i).isLoopIndex()) {
+					stackCount += parameters.get(i).getTupleSize();
+				} else {
+					parameters = parameters.subList(0, i);
+					break;
+				}
+			}
+			
+			Builder.currentBuilder().pushRepContainer(this);
+			if (loop != null) {
+				loop.compileLoopMod();
+			}
+			for (ASTReplacement rep : body) {
+				rep.compile(ph);
+			}
+			if (def != null) {
+				def.compile(ph);
+			}
+			Builder.currentBuilder().popRepContainer(null);
+		}
 	}
-
-	public void reset() {
-		// TODO Auto-generated method stub
-		
+	
+	public void traverse(Shape parent, boolean tr, RTI rti, boolean getParams) {
+		int s = rti.getCFStack().size();
+		if (getParams && parent.getParameters() != null) {
+			rti.initStack(parent.getParameters());
+		}
+		for (ASTReplacement rep : body) {
+			rep.traverse(parent, tr, rti);
+		}
+		rti.unwindStack(s, getParameters());
 	}
 }
