@@ -219,7 +219,7 @@ public class Builder {
 		}
 		checkVariableName(nameIndex, false);
 		def = new ASTDefine(name);
-		def.getRuleSpecifier().setShapeType(nameIndex);
+		def.getShapeSpecifier().setShapeType(nameIndex);
 		if (isFunction) {
 			for (ASTParameter param : paramDecls.getParameters()) {
 				param.setLocality(ELocality.PureNonlocal);
@@ -355,7 +355,7 @@ public class Builder {
 	public ASTExpression makeLet(ASTRepContainer vars, ASTExpression exp) {
 		int nameIndex = stringToShape("let", false);
 		ASTDefine def = new ASTDefine("let");
-		def.getRuleSpecifier().setShapeType(nameIndex);
+		def.getShapeSpecifier().setShapeType(nameIndex);
 		def.setExp(exp);
 		def.setDefineType(EDefineType.LetDefine);
 		return new ASTLet(vars, def);
@@ -690,5 +690,13 @@ public class Builder {
 
 	public boolean isInPathContainer() {
 		return this.inPathContainer ;
+	}
+
+	public Stack<ASTRepContainer> getContainerStack() {
+		return containerStack;
+	}
+
+	public void setLocalStackDepth(int localStackDepth) {
+		this.localStackDepth = localStackDepth;
 	}
 }

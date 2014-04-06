@@ -58,4 +58,29 @@ class RTI {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public void processShape(Shape shape) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void processSubpath(Shape shape, boolean tr, ERepElemType repType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void initStack(StackRule parameters) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void unwindStack(int size, List<ASTParameter> parameters) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setCurrentSeed(ASTRand48 seed) {
+		// TODO Auto-generated method stub
+		
+	}
 }

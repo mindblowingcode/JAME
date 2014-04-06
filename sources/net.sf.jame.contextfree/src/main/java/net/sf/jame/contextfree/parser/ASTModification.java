@@ -62,6 +62,10 @@ class ASTModification extends ASTExpression {
 		return entropyIndex;
 	}
 	
+	public void setEntropyIndex(int entropyIndex) {
+		this.entropyIndex = entropyIndex;
+	}
+
 	public boolean isCanonial() {
 		return canonical;
 	}

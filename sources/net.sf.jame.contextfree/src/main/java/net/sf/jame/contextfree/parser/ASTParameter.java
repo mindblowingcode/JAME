@@ -15,14 +15,18 @@ class ASTParameter extends ASTExpression {
     	private int tupleSize;
     	private ELocality localityType;
     	
-    	public ASTParameter() {
+    	public ASTParameter(String type, int nameIndex) {
     		super(true, false, EExpType.NoType);
     		nameIndex = -1;
     		stackIndex = -1;
     		tupleSize = 1;
     	}
     	
-		public ASTParameter(int i, ASTDefine definition) {
+		public ASTParameter(int nameIndex, ASTDefine definition) {
+			// TODO Auto-generated constructor stub
+		}
+
+		public ASTParameter(int nameIndex, boolean natural, boolean local) {
 			// TODO Auto-generated constructor stub
 		}
 
@@ -235,5 +239,10 @@ class ASTParameter extends ASTExpression {
 		public ASTDefine getDefinition() {
 			// TODO Auto-generated method stub
 			return null;
+		}
+
+		public void setIsParameter(boolean b) {
+			// TODO Auto-generated method stub
+			
 		}
     }

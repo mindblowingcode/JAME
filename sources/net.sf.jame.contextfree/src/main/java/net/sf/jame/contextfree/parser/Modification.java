@@ -66,4 +66,19 @@ class Modification {
 
 	public void setColorAssignment(long assignment) {
 	}
+
+	public double area() {
+		// TODO Auto-generated method stub
+		return 0.0;
+	}
+
+	public void setRand48Seed(ASTRand48 currentSeed) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setTransform(Object object) {
+		// TODO Auto-generated method stub
+		
+	}
 }
