@@ -25,53 +25,21 @@
  */
 package net.sf.jame.contextfree.test;
 
+import java.io.FileReader;
+
 import net.sf.jame.contextfree.parser.CFDGLexer;
 import net.sf.jame.contextfree.parser.CFDGParser;
 import net.sf.jame.contextfree.parser.CFDGParser.ChooseContext;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
 
 public class TestCF3Parser {
 	@Test
 	public void parse() {
-//		String text = "" +
-//			"startshape Foo\n" +
-//			"include \"stuff.cfdg\"\n" +
-//			"background { b -1 a (sin( 4 * tan(2)) * 5) }\n" +
-//			"tile { s 3 4 }\n" +
-//			"size { s 3 4 x 1 y 2}\n" +
-//			"rule Foo 0.1 {\n" +
-//			"SQUARE { x ((sin(45 * sin(5) )) + 6 * (6 / tan (6) - 9)) }\n" +
-//			"6 * { |a 1 s 1 3 sin(2) } SQUARE [ x tan(6) a 6| |sat 4 ]\n" +
-//			"2 * { s 1 } { CIRCLE [ a 6 ]\n TRI [ sat 4 ] }\n" +
-//			"}\n" +
-//			"";
-//		String text = "" +
-//			"startshape Foo\n" +
-//			"background { b -1 a (sin( 4 * tan(2)) * 5) }\n" +
-//			"tile { s 3 4 }\n" +
-//			"size { s 3 4 x 1 y 2}\n" +
-//			"rule Foo 0.1 {\n" +
-//			"SQUARE { x ((sin(45 * sin(5) )) + 6 * (6 / tan (6) - 9)) }\n" +
-//			"6 * { |a 1 s 1 3 sin(2) } SQUARE [ x tan(6) a 6| |sat 4 ]\n" +
-//			"}\n" +
-//			"";
-		String text = "" +
-			"startshape Foo\n" +
-			"background { b -1 }\n" +
-			"tile { s 30 30 }\n" +
-			"size { s 30 30 }\n" +
-			"rule Foo 0.1 {\n" +
-			"SQUARE { x 0 }\n" +
-			"}\n" +
-			"";
 		try {
-			System.out.println(text);
-
-			CharStream is = new ANTLRInputStream(text);
+			ANTLRInputStream is = new ANTLRInputStream(new FileReader("cfdg/test1.cfdg"));
 			CFDGLexer lexer = new CFDGLexer(is);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
 			CFDGParser parser = new CFDGParser(tokens);

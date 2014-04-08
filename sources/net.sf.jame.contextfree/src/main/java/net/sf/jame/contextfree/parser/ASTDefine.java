@@ -15,7 +15,7 @@ class ASTDefine extends ASTReplacement {
 	private int configDepth;
 	
 	public ASTDefine(String name) {
-		super(null, ERepElemType.empty);
+		super(new ASTModification(), ERepElemType.empty);
 		this.defineType = EDefineType.StackDefine;
 		this.expType = EExpType.NoType;
 		this.isNatural = false;

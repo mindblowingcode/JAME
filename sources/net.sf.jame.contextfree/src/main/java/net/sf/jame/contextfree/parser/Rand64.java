@@ -34,13 +34,13 @@ class Rand64 {
 		return random.nextLong();
 	}
     
-	public void seed(long seed) {
+	public void setSeed(long seed) {
 		this.seed = seed;
 		random.setSeed(this.seed);
 	}
 	
 	public void init() {
-		seed(RAND64_SEED);
+		setSeed(RAND64_SEED);
 	}
     
 	public void xorString(String t, int[] i) {

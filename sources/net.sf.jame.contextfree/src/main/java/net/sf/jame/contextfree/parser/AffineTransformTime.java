@@ -5,6 +5,10 @@ public class AffineTransformTime {
 	private double begin;
 	private double end;
 	
+	public AffineTransformTime() {
+		this(0, 0, 1);
+	}
+	
 	private AffineTransformTime(double step, double begin, double end) {
 		this.step = step;
 		this.begin = begin;
