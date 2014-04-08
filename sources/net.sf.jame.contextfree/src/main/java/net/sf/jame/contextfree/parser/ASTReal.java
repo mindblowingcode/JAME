@@ -1,18 +1,20 @@
 package net.sf.jame.contextfree.parser;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTReal extends ASTExpression {
 	private double value;
 	private String text;
 
-	public ASTReal(double value) {
-		super(true, false, EExpType.NumericType);
+	public ASTReal(double value, Token location) {
+		super(true, false, EExpType.NumericType, location);
 		this.value = value;
 		isNatural = Math.floor(value) == value && value >= 0 && value < 9007199254740992.0;
 		locality = ELocality.PureLocal;
 	}
 
-	public ASTReal(String text, boolean negative) {
-		super(true, false, EExpType.NumericType);
+	public ASTReal(String text, boolean negative, Token location) {
+		super(true, false, EExpType.NumericType, location);
 		if (negative) {
 			this.text = "-" + text;
 			this.value = Double.parseDouble(text);

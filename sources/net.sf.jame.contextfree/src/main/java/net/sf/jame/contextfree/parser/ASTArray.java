@@ -2,6 +2,8 @@ package net.sf.jame.contextfree.parser;
 
 import java.util.List;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTArray extends ASTExpression {
 	private int nameIndex;
 	private double[] data;
@@ -13,8 +15,8 @@ class ASTArray extends ASTExpression {
 	private boolean isParameter;
 	private String entropy;
 	
-	public ASTArray(int nameIndex, ASTExpression args, String entropy) {
-		super(false, false, EExpType.NumericType);
+	public ASTArray(int nameIndex, ASTExpression args, String entropy, Token location) {
+		super(false, false, EExpType.NumericType, location);
 		this.nameIndex = nameIndex;
 		this.data = null;
 		this.args = args;
@@ -85,7 +87,7 @@ class ASTArray extends ASTExpression {
 			error("Array index exceeds bounds");
 			return this;
 		}
-		ASTReal top = new ASTReal(data[index]);
+		ASTReal top = new ASTReal(data[index], location);
 		top.setText(entropy);
 		top.setIsNatural(isNatural);
 		return top;

@@ -3,15 +3,23 @@ package net.sf.jame.contextfree.parser;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
+import org.antlr.v4.runtime.Token;
+
 public class ASTCompiledPath {
 	private static Long globalPathUID = new Long(100);
 	private boolean complete;
-	private PathStorage pathStorage = new PathStorage();
-	private Queue<CommandInfo> commandInfo = new ArrayDeque<CommandInfo>();
-	private ASTPathCommand terminalCommand = new ASTPathCommand();
+	private PathStorage pathStorage;
+	private Queue<CommandInfo> commandInfo;
+	private ASTPathCommand terminalCommand;
 	private boolean useTerminal;
 	private StackRule parameters;
 	private Long pathUID;
+	
+	public ASTCompiledPath(Token location) {
+		pathStorage = new PathStorage();
+		commandInfo = new ArrayDeque<CommandInfo>();
+		terminalCommand = new ASTPathCommand(location);
+	}
 	
 	public StackRule getParameters() {
 		return parameters;

@@ -3,13 +3,15 @@ package net.sf.jame.contextfree.parser;
 import java.awt.geom.AffineTransform;
 import java.util.List;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTTransform extends ASTReplacement {
 	private ASTRepContainer body = new ASTRepContainer();
 	private ASTExpression expHolder;
 	private boolean clone;
 	
-	public ASTTransform(ASTExpression exp) {
-		super(null, ERepElemType.empty);
+	public ASTTransform(ASTExpression exp, Token location) {
+		super(null, ERepElemType.empty, location);
 		this.expHolder = exp;
 		this.clone = false;
 	}

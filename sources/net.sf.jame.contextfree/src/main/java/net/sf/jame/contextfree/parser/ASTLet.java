@@ -1,10 +1,12 @@
 package net.sf.jame.contextfree.parser;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTLet extends ASTUserFunction {
 	private ASTRepContainer definitions;
 	
-	public ASTLet(ASTRepContainer args, ASTDefine func) {
-		super(-1, null, func);
+	public ASTLet(ASTRepContainer args, ASTDefine func, Token location) {
+		super(-1, null, func, location);
 		this.definitions = args;
 		isLet = true;
 	}
@@ -15,7 +17,7 @@ class ASTLet extends ASTUserFunction {
 		if (isConstant()) {
 			StringBuilder e = new StringBuilder();
 			entropy(e);
-			ASTParameter p = new ASTParameter(-1, getDefinition());
+			ASTParameter p = new ASTParameter(-1, getDefinition(), location);
 			p.setDefinition(getDefinition());
 			ASTExpression ret = p.constCopy(e.toString());
 			if (ret != null) {

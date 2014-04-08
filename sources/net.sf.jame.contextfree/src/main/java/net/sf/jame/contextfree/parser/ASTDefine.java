@@ -3,6 +3,8 @@ package net.sf.jame.contextfree.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTDefine extends ASTReplacement {
 	private EDefineType defineType;
 	private ASTExpression exp;
@@ -14,8 +16,8 @@ class ASTDefine extends ASTReplacement {
 	private String name;
 	private int configDepth;
 	
-	public ASTDefine(String name) {
-		super(new ASTModification(), ERepElemType.empty);
+	public ASTDefine(String name, Token location) {
+		super(new ASTModification(location), ERepElemType.empty, location);
 		this.defineType = EDefineType.StackDefine;
 		this.expType = EExpType.NoType;
 		this.isNatural = false;
@@ -27,10 +29,6 @@ class ASTDefine extends ASTReplacement {
 		getChildChange().getModData().getRand64Seed().xorString(name, i);
 	}
 
-	public int getLocation() {
-		return 0;
-	}
-	
 	public EDefineType getDefineType() {
 		return defineType;
 	}
@@ -184,7 +182,7 @@ class ASTDefine extends ASTReplacement {
 							defineType = EDefineType.ConstDefine;
 						}
 						isNatural = exp != null && exp.isNatural() && expType == EExpType.NumericType;
-						ASTParameter param = Builder.currentBuilder().getContainerStack().peek().addDefParameter(getShapeSpecifier().getShapeType(), this);
+						ASTParameter param = Builder.currentBuilder().getContainerStack().peek().addDefParameter(getShapeSpecifier().getShapeType(), this, getLocation());
 						if (param.isParameter() || param.getDefinition() == null) {
 							param.setStackIndex(Builder.currentBuilder().getLocalStackDepth());
 							Builder.currentBuilder().getContainerStack().peek().setStackCount(Builder.currentBuilder().getContainerStack().peek().getStackCount() + param.getTupleSize());

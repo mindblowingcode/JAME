@@ -29,10 +29,15 @@ import java.io.FileReader;
 
 import net.sf.jame.contextfree.parser.CFDGLexer;
 import net.sf.jame.contextfree.parser.CFDGParser;
-import net.sf.jame.contextfree.parser.CFDGParser.ChooseContext;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import org.junit.Test;
 
 public class TestCF3Parser {
@@ -43,19 +48,31 @@ public class TestCF3Parser {
 			CFDGLexer lexer = new CFDGLexer(is);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
 			CFDGParser parser = new CFDGParser(tokens);
-			ChooseContext choose = parser.choose();
+			ParseTree choose = parser.choose();
             if (choose != null) {
-//            	CommonTree tree = (CommonTree) parser.cfdg().getTree();
-//            	System.out.println(tree.toStringTree());               
+            	ParseTreeWalker walker = new ParseTreeWalker();
+            	walker.walk(new ParseTreeListener() {
+					@Override
+					public void visitTerminal(TerminalNode node) {
+						System.out.println(node.getText() + " " + node.getSymbol());
+					}
+					
+					@Override
+					public void visitErrorNode(ErrorNode node) {
+//						System.out.println(node.getText() + " " + node.getSymbol());
+					}
+					
+					@Override
+					public void exitEveryRule(ParserRuleContext ctx) {
+//						System.out.println(ctx.getText());
+					}
+					
+					@Override
+					public void enterEveryRule(ParserRuleContext ctx) {
+//						System.out.println(ctx.getText());
+					}
+				}, choose);
             }
-
-//            CommonTreeNodeStream nodes = new CommonTreeNodeStream((Tree) r.getTree());
-//            nodes.setTokenStream(tokens);
-//            TP walker = new TP(nodes); // created from TP.g
-//            TP.startRule_return r2 = walker.startRule();
-//            CommonTree rt = ((CommonTree) r2.tree);
-//            if (rt != null) System.out.println(((CommonTree) r2.getTree()).toStringTree());               
-			
 		}
 		catch (Exception e) {
 			e.printStackTrace();

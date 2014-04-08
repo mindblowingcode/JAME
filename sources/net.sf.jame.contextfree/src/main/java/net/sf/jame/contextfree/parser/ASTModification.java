@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTModification extends ASTExpression {
 	public static final int SIZE = 9;
 	private EModClass modClass;
@@ -14,28 +16,28 @@ class ASTModification extends ASTExpression {
 	private int entropyIndex;
 	private boolean canonical;
 	
-	public ASTModification() {
-		super(true, false, EExpType.ModType);
+	public ASTModification(Token location) {
+		super(true, false, EExpType.ModType, location);
 		this.modClass = EModClass.NotAClass;
 		this.entropyIndex = 0;
 		this.canonical = true;
 	}
-
-	public ASTModification(ASTModification mod) {
-		super(true, false, EExpType.ModType);
-		this.modClass = mod.modClass;
-		this.entropyIndex = mod.entropyIndex;
-		this.canonical = mod.canonical;
-	}
-
-	public ASTModification(ASTModification mod, boolean dummy) {
-		super(true, false, EExpType.ModType);
+	
+	public ASTModification(ASTModification mod, Token location) {
+		super(true, false, EExpType.ModType, location);
 		if (mod != null) {
 			modData.getRand64Seed().setSeed(0);
 			grab(mod);
 		} else {
 			this.modClass = EModClass.NotAClass;
 		}
+	}
+
+	public ASTModification(ASTModification mod) {
+		super(true, false, EExpType.ModType, mod.getLocation());
+		this.modClass = mod.modClass;
+		this.entropyIndex = mod.entropyIndex;
+		this.canonical = mod.canonical;
 	}
 
 	public Modification getModData() {
@@ -309,13 +311,13 @@ class ASTModification extends ASTExpression {
 								{
 									double[] d = new double[3];
 									if (term.getArguments().isConstant() && term.getArguments().evaluate(d, 3) != 3) {
-										term.setArguments(new ASTCons(new ASTReal(d[0]), new ASTReal(d[1])));
+										term.setArguments(new ASTCons(location, new ASTReal(d[0], location), new ASTReal(d[1], location)));
 										term.setModType(term.getModType() == EModType.xyz ? EModType.x : EModType.size);
 										term.setArgumentsCount(2);
 										
 		                                // Check if xy part is the identity transform and only save it if it is not
 										EModType ztype = term.getModType() == EModType.size ? EModType.zsize : EModType.z;
-										ASTModTerm zmod = new ASTModTerm(ztype, new ASTReal(d[2]));
+										ASTModTerm zmod = new ASTModTerm(ztype, new ASTReal(d[2], location), location);
 										zmod.setArgumentsCount(1);
 										
 										if (d[0] == 1.0 && d[1] == 1.0 && term.getModType() == EModType.size) {
@@ -348,7 +350,7 @@ class ASTModification extends ASTExpression {
 										term.setArgumentsCount(2);
 										
 										EModType ztype = term.getModType() == EModType.size ? EModType.zsize : EModType.z;
-										ASTModTerm zmod = new ASTModTerm(ztype, new ASTReal(d[2]));
+										ASTModTerm zmod = new ASTModTerm(ztype, new ASTReal(d[2], location), location);
 										zmod.setArgumentsCount(1);
 										
 										if (term.getModType() == EModType.size && xyargs.isConstant() && xyargs.evaluate(d, 2) == 2 && d[0] == 1.0 && d[1] == 1.0) {

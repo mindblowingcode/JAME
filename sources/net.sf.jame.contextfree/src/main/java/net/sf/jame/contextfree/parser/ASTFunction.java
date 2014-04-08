@@ -1,16 +1,18 @@
 package net.sf.jame.contextfree.parser;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTFunction extends ASTExpression {
 		private ASTExpression arguments;
 		private EFuncType funcType;
 		private Rand64 random;
     	
-    	public ASTFunction(String name, ASTExpression arguments) {
-    		this(name, arguments, null);
+    	public ASTFunction(String name, ASTExpression arguments, Token location) {
+    		this(name, arguments, null, location);
     	}
     	
-    	public ASTFunction(String name, ASTExpression arguments, Rand64 seed) {
-    		super(arguments != null ? arguments.isConstant() : true, false, EExpType.NumericType);
+    	public ASTFunction(String name, ASTExpression arguments, Rand64 seed, Token location) {
+    		super(arguments != null ? arguments.isConstant() : true, false, EExpType.NumericType, location);
     		this.funcType = EFuncType.NotAFunction;
     		this.arguments = arguments;
     		
@@ -27,7 +29,7 @@ class ASTFunction extends ASTExpression {
             }
             
             if (funcType == EFuncType.Infinity && argcount == 0) {
-                arguments = new ASTReal(1.0f);
+                arguments = new ASTReal(1.0f, location);
             }
             
             if (funcType.ordinal() >= EFuncType.Rand_Static.ordinal() && funcType.ordinal() <= EFuncType.RandInt.ordinal()) {
@@ -39,10 +41,10 @@ class ASTFunction extends ASTExpression {
                 
                 switch (argcount) {
                     case 0:
-                    	arguments = new ASTCons(new ASTReal(0.0f), new ASTReal(1.0f));
+                    	arguments = new ASTCons(location, new ASTReal(0.0f, location), new ASTReal(1.0f, location));
                         break;
                     case 1:
-                    	arguments = new ASTCons(new ASTReal(0.0f), arguments);
+                    	arguments = new ASTCons(location, new ASTReal(0.0f, location), arguments);
                         break;
                     case 2:
                         break;
@@ -278,7 +280,7 @@ class ASTFunction extends ASTExpression {
 							}
 						}
 						if (funcType == EFuncType.Infinity && argcount == 0) {
-							arguments = new ASTReal(1.0);
+							arguments = new ASTReal(1.0, location);
 							return null;
 						}
 						if (funcType == EFuncType.Ftime) {
@@ -286,14 +288,14 @@ class ASTFunction extends ASTExpression {
 								error("ftime() function takes no arguments");
 							}
 							isConstant = false;
-							arguments = new ASTReal(1.0);
+							arguments = new ASTReal(1.0, location);
 						}
 						if (funcType == EFuncType.Frame) {
 							if (arguments != null) {
 								error("time() function takes no arguments");
 							}
 							isConstant = false;
-							arguments = new ASTReal(1.0);
+							arguments = new ASTReal(1.0, location);
 						}
 						if (funcType.ordinal() >= EFuncType.Rand_Static.ordinal() && funcType.ordinal() <= EFuncType.RandInt.ordinal()) {
 							if (funcType != EFuncType.Rand_Static) {
@@ -301,11 +303,11 @@ class ASTFunction extends ASTExpression {
 							}
 							switch (argcount) {
 							case 0:
-								arguments = new ASTCons(new ASTReal(0.0), new ASTReal(funcType == EFuncType.RandInt ? 2.0 : 1.0));
+								arguments = new ASTCons(location, new ASTReal(0.0, location), new ASTReal(funcType == EFuncType.RandInt ? 2.0 : 1.0, location));
 								break;
 
 							case 1:
-								arguments = new ASTCons(new ASTReal(0.0), arguments);
+								arguments = new ASTCons(location, new ASTReal(0.0, location), arguments);
 								break;
 								
 							case 2:
@@ -376,7 +378,7 @@ class ASTFunction extends ASTExpression {
                 if (evaluate(result, 1, null) != 1) {
                     return this;
                 }
-                ASTReal r = new ASTReal(result[0]);
+                ASTReal r = new ASTReal(result[0], location);
                 r.setIsNatural(isNatural);
                 return r;
             } else {

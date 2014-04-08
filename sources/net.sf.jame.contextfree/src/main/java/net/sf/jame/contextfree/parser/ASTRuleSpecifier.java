@@ -3,6 +3,8 @@ package net.sf.jame.contextfree.parser;
 import java.util.Iterator;
 import java.util.List;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTRuleSpecifier extends ASTExpression {
     	private int shapeType;
 		private int argSize;
@@ -14,8 +16,8 @@ class ASTRuleSpecifier extends ASTExpression {
     	private List<ASTParameter> typeSignature;
     	private List<ASTParameter> parentSignature;
     	
-		public ASTRuleSpecifier() {
-			super(false, false, EExpType.RuleType);
+		public ASTRuleSpecifier(Token location) {
+			super(false, false, EExpType.RuleType, location);
 			this.shapeType = -1;
 			this.argSize = 0;
 			this.argSource = EArgSource.NoArgs;
@@ -26,8 +28,8 @@ class ASTRuleSpecifier extends ASTExpression {
 			this.parentSignature = null;
 		}
 
-		public ASTRuleSpecifier(int nameIndex, String name, ASTExpression arguments, List<ASTParameter> parent) {
-			super(arguments == null || arguments.isConstant(), false, EExpType.RuleType);
+		public ASTRuleSpecifier(int nameIndex, String name, ASTExpression arguments, List<ASTParameter> parent, Token location) {
+			super(arguments == null || arguments.isConstant(), false, EExpType.RuleType, location);
 			this.shapeType = nameIndex;
 			this.entropy = name;
 			this.argSource = EArgSource.DynamicArgs;
@@ -41,8 +43,8 @@ class ASTRuleSpecifier extends ASTExpression {
 			}
 		}
 		
-		public ASTRuleSpecifier(int nameIndex, String name) {
-			super(false, false, EExpType.RuleType);
+		public ASTRuleSpecifier(int nameIndex, String name, Token location) {
+			super(false, false, EExpType.RuleType, location);
 			this.shapeType = nameIndex;
 			this.argSize = 0;
 			this.entropy = name;
@@ -54,8 +56,8 @@ class ASTRuleSpecifier extends ASTExpression {
 			this.parentSignature = null;
 		}
 		
-    	public ASTRuleSpecifier(ASTRuleSpecifier spec) {
-    		super(spec.isConstant(), false, spec.getType());
+    	public ASTRuleSpecifier(ASTRuleSpecifier spec, Token location) {
+    		super(spec.isConstant(), false, spec.getType(), location);
     		this.argSize = spec.argSize;
     		this.entropy = spec.entropy;
     		this.argSource = spec.argSource;
@@ -67,8 +69,8 @@ class ASTRuleSpecifier extends ASTExpression {
     		spec.simpleRule = null;
     	}
 
-    	public ASTRuleSpecifier(ASTExpression args) {
-    		super(false, false, EExpType.RuleType);
+    	public ASTRuleSpecifier(ASTExpression args, Token location) {
+    		super(false, false, EExpType.RuleType, location);
     		this.shapeType = -1;
     		this.argSize = 0;
     		this.entropy = null;
@@ -307,7 +309,7 @@ class ASTRuleSpecifier extends ASTExpression {
 									if (func[0] != null) {
 										if (func[0].getExpType() == EExpType.RuleType) {
 											argSource = EArgSource.ShapeArgs;
-											arguments = new ASTUserFunction(shapeType, arguments, func[0]);
+											arguments = new ASTUserFunction(shapeType, arguments, func[0], location);
 											arguments.compile(ph);
 											isConstant = false;
 											locality = arguments.getLocality();

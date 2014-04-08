@@ -1,5 +1,7 @@
 package net.sf.jame.contextfree.parser;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTVariable extends ASTExpression {
 	private String text;
 	private int stringIndex;
@@ -7,7 +9,8 @@ class ASTVariable extends ASTExpression {
 	private int count;
 	private boolean isParameter;
 
-	public ASTVariable(int stringIndex, String text) {
+	public ASTVariable(int stringIndex, String text, Token location) {
+		super(location);
 		this.stringIndex = stringIndex;
 		this.isParameter = false;
 		this.stackIndex = 0;
@@ -40,7 +43,7 @@ class ASTVariable extends ASTExpression {
 						return ret;
 					} else {
 						if (bound.getType() == EExpType.RuleType) {
-							ASTRuleSpecifier ret = new ASTRuleSpecifier(stringIndex, name);
+							ASTRuleSpecifier ret = new ASTRuleSpecifier(stringIndex, name, location);
 							ret.compile(ph);
 							return ret;
 						}
