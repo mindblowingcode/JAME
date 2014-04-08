@@ -8,6 +8,10 @@ public class AffineTransform1D {
 		this.tz = tz;
 	}
 
+	public AffineTransform1D() {
+		this(1, 0);
+	}
+
 	public static AffineTransform1D getTranslateInstance(double tz) {
 		return new AffineTransform1D(1.0, tz);
 	}

@@ -24,22 +24,32 @@ choose
 		 
 cfdg2
         :
-        cfdg2 r=statement_v2 {
+        r=statement_v2 cfdg2 {
 	        if ($r.result != null) {
 	          	driver.pushRep($r.result, true);
 	        }
-        } 
-        |
+        }
+        | 
+        r=statement_v2 {
+	        if ($r.result != null) {
+	          	driver.pushRep($r.result, true);
+	        }
+        }
         ;
         
 cfdg3
         :
-        cfdg3 r=statement_v3 {
+        r=statement_v3 cfdg3 {
 	        if ($r.result != null) {
 	          	driver.pushRep($r.result, true);
 	        }
         }
         |
+        r=statement_v3 {
+	        if ($r.result != null) {
+	          	driver.pushRep($r.result, true);
+	        }
+        }
         ; 
         
 statement_v2 returns [ASTReplacement result]

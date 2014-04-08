@@ -2,22 +2,24 @@ package net.sf.jame.contextfree.parser;
 
 import java.awt.geom.AffineTransform;
 
-
 class Modification {
-	private Rand64 Rand64Seed = new Rand64();
-
-	public void concat(Modification modData) {
-		// TODO Auto-generated method stub
-		
-	}
+	private Rand64 rand64Seed = new Rand64();
+	private AffineTransform transform = new AffineTransform();
+	private AffineTransform1D transformZ = new AffineTransform1D();
+	private AffineTransformTime transformTime = new AffineTransformTime();
+	private HSBColor color;
+	private HSBColor colorTarget;
 
 	public Rand64 getRand64Seed() {
-		return Rand64Seed;
+		return rand64Seed;
+	}
+
+	public void setRand64Seed(Rand64 rand64Seed) {
+		this.rand64Seed = rand64Seed;
 	}
 
 	public void setSeed(int i) {
-		// TODO Auto-generated method stub
-		
+		rand64Seed.setSeed(i);
 	}
 
 	public boolean merge(Modification mod) {
@@ -26,37 +28,35 @@ class Modification {
 	}
 
 	public AffineTransform getTransform() {
-		return null;
-	}
-
-	public double getZ() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public void setZ(double d) {
-		// TODO Auto-generated method stub
-		
+		return transform;
 	}
 
 	public AffineTransform1D getTransformZ() {
-		// TODO Auto-generated method stub
-		return null;
+		return transformZ;
 	}
 
 	public AffineTransformTime getTransformTime() {
-		// TODO Auto-generated method stub
-		return null;
+		return transformTime;
+	}
+
+	public void setTransform(AffineTransform transform) {
+		this.transform = transform;
+	}
+	
+	public void setTransformZ(AffineTransform1D transformZ) {
+		this.transformZ = transformZ;
+	}
+
+	public void setTransformTime(AffineTransformTime transformTime) {
+		this.transformTime = transformTime;
 	}
 
 	public HSBColor color() {
-		// TODO Auto-generated method stub
-		return null;
+		return color;
 	}
 
 	public HSBColor colorTarget() {
-		// TODO Auto-generated method stub
-		return null;
+		return colorTarget;
 	}
 
 	public long colorAssignment() {
@@ -67,17 +67,21 @@ class Modification {
 	public void setColorAssignment(long assignment) {
 	}
 
+	public double getZ() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void setZ(double d) {
+		// TODO Auto-generated method stub
+	}
+
 	public double area() {
 		// TODO Auto-generated method stub
 		return 0.0;
 	}
 
-	public void setRand64Seed(Rand64 currentSeed) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setTransform(Object object) {
+	public void concat(Modification modData) {
 		// TODO Auto-generated method stub
 		
 	}

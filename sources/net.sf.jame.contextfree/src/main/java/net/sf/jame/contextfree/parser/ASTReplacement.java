@@ -2,7 +2,7 @@ package net.sf.jame.contextfree.parser;
 
 class ASTReplacement {
 	private ASTRuleSpecifier shapeSpec;
-	private ASTModification childChange;
+	private ASTModification childChange = new ASTModification();
 	private ERepElemType repType;
 	private EPathOp pathOp;
 	

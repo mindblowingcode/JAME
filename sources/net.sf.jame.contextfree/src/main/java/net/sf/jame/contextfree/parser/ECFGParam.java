@@ -16,7 +16,7 @@ enum ECFGParam {
 	}
 
 	public String getName() {
-		return "CFG::" + name().toUpperCase();
+		return "CF::" + name().toUpperCase();
 	}
 
 	public static ECFGParam paramByOrdinal(int ordinal) {
@@ -61,6 +61,6 @@ enum ECFGParam {
 
 	public static String nameByOrdinal(int ordinal) {
 		ECFGParam param = paramByOrdinal(ordinal);
-		return "CFG::" + param.name().toUpperCase();
+		return "CF::" + param.name().toUpperCase();
 	}
 }

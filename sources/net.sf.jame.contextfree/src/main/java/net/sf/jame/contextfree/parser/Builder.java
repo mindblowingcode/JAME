@@ -44,6 +44,10 @@ public class Builder {
 		globals.add("TRIANGLE");
 	}
 	
+	public Builder() {
+		containerStack.add(new ASTRepContainer());
+	}
+	
 	protected void warning(String message) {
 		System.out.println(message);
 	}
@@ -139,7 +143,7 @@ public class Builder {
 	}
 	
 	public void setShape(String name) {
-		setShape(null, false);
+		setShape(name, false);
 	}
 	
 	public void setShape(String name, boolean isPath) {
@@ -531,7 +535,9 @@ public class Builder {
 			return;
 		}
 		ASTRepContainer container = containerStack.lastElement();
-		container.getBody().remove(container.getBody().size() - 1);
+		if (container.getBody().size() > 0) {
+			container.getBody().remove(container.getBody().size() - 1);
+		}
 		container.getBody().add(r);
 		if (container.getPathOp() == EPathOp.UNKNOWN) {
 			container.setPathOp(r.getPathOp());

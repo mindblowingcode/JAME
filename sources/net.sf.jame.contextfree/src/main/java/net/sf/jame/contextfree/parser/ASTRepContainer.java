@@ -1,12 +1,13 @@
 package net.sf.jame.contextfree.parser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class ASTRepContainer {
 	private EPathOp pathOp;
 	private int repType;
-	private List<ASTReplacement> body;
-	private List<ASTParameter> parameters;
+	private List<ASTReplacement> body = new ArrayList<ASTReplacement>();
+	private List<ASTParameter> parameters = new ArrayList<ASTParameter>();
 	private boolean isGlobal;
 	private int stackCount;
 

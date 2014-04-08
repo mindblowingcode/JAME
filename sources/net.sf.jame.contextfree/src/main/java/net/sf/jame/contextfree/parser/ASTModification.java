@@ -9,7 +9,7 @@ import java.util.Map;
 class ASTModification extends ASTExpression {
 	public static final int SIZE = 9;
 	private EModClass modClass;
-	private Modification modData;
+	private Modification modData = new Modification();
 	private List<ASTModTerm> modExp = new ArrayList<ASTModTerm>();
 	private int entropyIndex;
 	private boolean canonical;
@@ -31,7 +31,7 @@ class ASTModification extends ASTExpression {
 	public ASTModification(ASTModification mod, boolean dummy) {
 		super(true, false, EExpType.ModType);
 		if (mod != null) {
-			modData.getRand64Seed().seed(0);
+			modData.getRand64Seed().setSeed(0);
 			grab(mod);
 		} else {
 			this.modClass = EModClass.NotAClass;
