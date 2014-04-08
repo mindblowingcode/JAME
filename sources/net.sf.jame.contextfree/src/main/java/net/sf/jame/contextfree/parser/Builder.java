@@ -10,6 +10,7 @@ import java.util.Stack;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.Token;
 
 public class Builder {
 	private static Builder currentBuilder;
@@ -48,20 +49,20 @@ public class Builder {
 		containerStack.add(new ASTRepContainer());
 	}
 	
-	protected void warning(String message) {
-		System.out.println(message);
+	protected void warning(String message, Token location) {
+		System.out.println("[" + location.getLine() + ":" + location.getCharPositionInLine() + "] : " + message);
 	}
 	
-	protected void error(String message) {
-		System.err.println(message);
+	protected void error(String message, Token location) {
+		System.err.println("[" + location.getLine() + ":" + location.getCharPositionInLine() + "] : " + message);
 	}
 	
 	protected boolean isPrimeShape(int nameIndex) {
 		return nameIndex < 4;
 	}
 
-	public int stringToShape(String name, boolean colonsAllowed) {
-		checkName(name, colonsAllowed);
+	public int stringToShape(String name, boolean colonsAllowed, Token location) {
+		checkName(name, colonsAllowed, location);
 		if (currentNameSpace.length() == 0) {
 			return cfdg.encodeShapeName(name);
 		}
@@ -78,17 +79,17 @@ public class Builder {
 		return cfdg.decodeShapeName(shape);
 	}
 
-	public void checkName(String name, boolean colonsAllowed) {
+	public void checkName(String name, boolean colonsAllowed, Token location) {
 		int pos = name.indexOf(":");
 		if (pos == -1) {
 			return;
 		}
 		if (!colonsAllowed) {
-			error("namespace specification not allowed in this context");
+			error("namespace specification not allowed in this context", location);
 			return;
 		}
 		if (pos == 0) {
-			error("improper namespace specification");
+			error("improper namespace specification", location);
 			return;
 		}
 		for (;;) {
@@ -98,10 +99,10 @@ public class Builder {
 			if (next == pos + 2) break;
 			pos = next;
 		}
-		error("improper namespace specification");
+		error("improper namespace specification", location);
 	}
 	
-	public void includeFile(String fileName) {
+	public void includeFile(String fileName, Token location) {
 		try {
 			String path = relativeFilePath(currentPath, fileName);
 			ANTLRFileStream is = new ANTLRFileStream(path);
@@ -113,17 +114,17 @@ public class Builder {
 			pathCount++;
 			includeDepth++;
 			currentShape = -1;
-			setShape(null, false);
-			warning("Reading rules file " + path);
+			setShape(null, false, location);
+			warning("Reading rules file " + path, location);
 		} catch (Exception e) {
-			error(e.getMessage());
+			error(e.getMessage(), location);
 		}
 	}
 	
-	public boolean endInclude() {
+	public boolean endInclude(Token location) {
 		try {
 			boolean endOfInput = includeDepth == 0;
-			setShape(null, false);
+			setShape(null, false, location);
 			includeDepth--;
 			if (filesToLoad.isEmpty()) {
 				return endOfInput;
@@ -137,29 +138,29 @@ public class Builder {
 			currentPath = filesToLoad.isEmpty() ? null : filesToLoad.peek();
 			return endOfInput;
 		} catch (Exception e) {
-			error(e.getMessage());
+			error(e.getMessage(), location);
 			return false;
 		}
 	}
 	
-	public void setShape(String name) {
-		setShape(name, false);
+	public void setShape(String name, Token location) {
+		setShape(name, false, location);
 	}
 	
-	public void setShape(String name, boolean isPath) {
+	public void setShape(String name, boolean isPath, Token location) {
 		if (name == null) {
 			currentShape = -1;
 			return;
 		}
-		currentShape = stringToShape(name, false);
+		currentShape = stringToShape(name, false, location);
 		ASTDefine def = cfdg.findFunction(currentShape);
 		if (def != null) {
-			error("There is a function with the same name as this shape: " + def.getLocation());
+			error("There is a function with the same name as this shape: " + def.getLocation(), location);
 			return;
 		}
 		String err = cfdg.setShapeParams(currentShape, paramDecls, paramDecls.getStackCount(), isPath);
 		if (err != null) {
-			error("cannot set shape params: " + err);
+			error("cannot set shape params: " + err, location);
 		}
 		localStackDepth -= paramDecls.getStackCount();
 		paramDecls.getParameters().clear();
@@ -174,55 +175,55 @@ public class Builder {
 			currentShape = -1;
 		}
 		if (rule.getNameIndex() == -1) {
-			error("Shape rules/paths must follow a shape declaration");
+			error("Shape rules/paths must follow a shape declaration", rule.getLocation());
 		}
 		EShapeType type = cfdg.getShapeType(rule.getNameIndex());
 		if ((rule.isPath() && type == EShapeType.RuleType) || (!rule.isPath() && type == EShapeType.PathType)) {
-			error("Cannot mix rules and shapes with the same name");
+			error("Cannot mix rules and shapes with the same name", rule.getLocation());
 		}
 		boolean matchesShape = cfdg.addRuleShape(rule);
 		if (!isShapeItem && matchesShape) {
-			error("Rule/path name matches existing shape name");
+			error("Rule/path name matches existing shape name", rule.getLocation());
 		}
 	}
 
-	public void nextParameterDecl(String type, String name) {
-		int nameIndex = stringToShape(name, false);
+	public void nextParameterDecl(String type, String name, Token location) {
+		int nameIndex = stringToShape(name, false, location);
 		checkVariableName(nameIndex, true);
-		paramDecls.addParameter(type, nameIndex);
+		paramDecls.addParameter(type, nameIndex, location);
 		ASTParameter param = paramDecls.getParameters().get(paramDecls.getParameters().size() - 1);
 		param.setStackIndex(localStackDepth);
 		paramDecls.setStackCount(paramDecls.getStackCount() + param.getTupleSize());
 		localStackDepth += param.getTupleSize();
 	}
 
-	public ASTDefine makeDefinition(String name, boolean isFunction) {
+	public ASTDefine makeDefinition(String name, boolean isFunction, Token location) {
 		if (name.startsWith("CF::")) {
 			if (isFunction) {
-				error("Configuration parameters cannot be functions");
+				error("Configuration parameters cannot be functions", location);
 				return null;
 			}
 			if (containerStack.lastElement().isGlobal()) {
-				error("Configuration parameters must be at global scope");
+				error("Configuration parameters must be at global scope", location);
 				return null;
 			}
-			ASTDefine def = new ASTDefine(name);
+			ASTDefine def = new ASTDefine(name, location);
 			def.setConfigDepth(includeDepth);
 			def.setDefineType(EDefineType.ConfigDefine);
 			return def;
 		}
 		if (EFuncType.getFuncTypeByName(name) != EFuncType.NotAFunction) {
-			error("Internal function names are reserved");
+			error("Internal function names are reserved", location);
 			return null;
 		}
-		int nameIndex = stringToShape(name, false);
+		int nameIndex = stringToShape(name, false, location);
 		ASTDefine def = cfdg.findFunction(nameIndex);
 		if (def != null) {
-			error("Definition with same name as user function: " + def.getLocation());
+			error("Definition with same name as user function: " + def.getLocation(), location);
 			return null;
 		}
 		checkVariableName(nameIndex, false);
-		def = new ASTDefine(name);
+		def = new ASTDefine(name, location);
 		def.getShapeSpecifier().setShapeType(nameIndex);
 		if (isFunction) {
 			for (ASTParameter param : paramDecls.getParameters()) {
@@ -236,7 +237,7 @@ public class Builder {
 			paramDecls.setStackCount(0);
 			cfdg.declareFunction(nameIndex, def);
 		} else {
-			containerStack.lastElement().addDefParameter(nameIndex, def);
+			containerStack.lastElement().addDefParameter(nameIndex, def, location);
 		}
 		return def;
 	}
@@ -245,7 +246,7 @@ public class Builder {
 		if (cfg.getName().equals("CF::Impure")) {
 			double[] v = new double[] { 0.0 };
 			if (cfg.getExp() != null || cfg.getExp().isConstant() || cfg.getExp().evaluate(v, 1, null) != 1) {
-				error("CF::Impure requires a constant numeric expression");
+				error("CF::Impure requires a constant numeric expression", cfg.getLocation());
 			} else {
 				ASTParameter.Impure = v[0] != 0.0;
 			}
@@ -253,7 +254,7 @@ public class Builder {
 		if (cfg.getName().equals("CF::AllowOverlap")) {
 			double[] v = new double[] { 0.0 };
 			if (cfg.getExp() != null || cfg.getExp().isConstant() || cfg.getExp().evaluate(v, 1, null) != 1) {
-				error("CF::AllowOverlap requires a constant numeric expression");
+				error("CF::AllowOverlap requires a constant numeric expression", cfg.getLocation());
 			} else {
 				allowOverlap = v[0] != 0.0;
 			}
@@ -265,7 +266,7 @@ public class Builder {
 			switch (specAndMod.size()) {
 				case 2:
 					if (!(specAndMod.get(1) instanceof ASTModification)) {
-						error("CF::StartShape second term must be a modification");
+						error("CF::StartShape second term must be a modification", cfg.getLocation());
 					} else {
 						mod = (ASTModification) specAndMod.get(1);
 					}
@@ -273,24 +274,24 @@ public class Builder {
 	
 				case 1:
 					if (!(specAndMod.get(0) instanceof ASTRuleSpecifier)) {
-						error("CF::StartShape must start with a shape specification");
+						error("CF::StartShape must start with a shape specification", cfg.getLocation());
 					} else {
 						rule = (ASTRuleSpecifier) specAndMod.get(0);
 					}
 					break;
 					
 				default:
-					error("CF::StartShape expression must have the form shape_spec or shape_spec, modification");
+					error("CF::StartShape expression must have the form shape_spec or shape_spec, modification", cfg.getLocation());
 					break;
 			}
 			if (mod == null) {
-				mod = new ASTModification();
+				mod = new ASTModification(cfg.getLocation());
 			}
-			cfg.setExp(new ASTStartSpecifier(rule, mod));
+			cfg.setExp(new ASTStartSpecifier(rule, mod, cfg.getLocation()));
 		}
 		ASTExpression current = cfg.getExp();
 		if (!cfdg.addParameter(cfg.getName(), cfg.getExp(), cfg.getConfigDepth())) {
-			error("Unknown configuration parameter");
+			error("Unknown configuration parameter", cfg.getLocation());
 		}
 		if (cfg.getName().equals("CF::MaxNatural")) {
 			ASTExpression max = cfdg.hasParameter(ECFGParam.MaxNatural);
@@ -299,9 +300,9 @@ public class Builder {
 			}
 			double[] v = new double[] { -1.0 };
 			if (max == null || !max.isConstant() || max.getType() != EExpType.NumericType || max.evaluate(v, 1, null) != 1) {
-				error("CF::MaxNatural requires a constant numeric expression");
+				error("CF::MaxNatural requires a constant numeric expression", cfg.getLocation());
 			} else if (v[0] < 1.0 || v[0] > 9007199254740992.0) {
-				error(v[0] < 1.0 ? "CF::MaxNatural must be >= 1" : "CF::MaxNatural must be < 9007199254740992");
+				error(v[0] < 1.0 ? "CF::MaxNatural must be >= 1" : "CF::MaxNatural must be < 9007199254740992", cfg.getLocation());
 			} else {
 				maxNatual = v[0];
 			}
@@ -318,87 +319,87 @@ public class Builder {
 		}
 	}
 
-	public ASTExpression makeVariable(String name) {
+	public ASTExpression makeVariable(String name, Token location) {
 		Integer flagItem = flagNames.get(name);
 		if (flagItem != null) {
-			ASTReal flag = new ASTReal(flagItem);
+			ASTReal flag = new ASTReal(flagItem, location);
 			flag.setType(EExpType.FlagType);
 			return flag;
 		}
 		if (name.startsWith("CF::")) {
-			error("Configuration parameter names are reserved");
-			return new ASTExpression();
+			error("Configuration parameter names are reserved", location);
+			return new ASTExpression(location);
 		}
 		if (EFuncType.getFuncTypeByName(name) != EFuncType.NotAFunction) {
-			error("Internal function names are reserved");
-			return new ASTExpression();
+			error("Internal function names are reserved", location);
+			return new ASTExpression(location);
 		}
-		int varNum = stringToShape(name, true);
+		int varNum = stringToShape(name, true, location);
 		boolean isGlobal = false;
 		ASTParameter bound = findExpression(varNum, isGlobal);
 		if (bound == null) {
-			return new ASTRuleSpecifier(varNum, name, null, cfdg.getShapeParams(currentShape));
+			return new ASTRuleSpecifier(varNum, name, null, cfdg.getShapeParams(currentShape), location);
 		}
-		return new ASTVariable(varNum, name);
+		return new ASTVariable(varNum, name, location);
 	}
 
-	public ASTExpression makeArray(String name, ASTExpression args) {
+	public ASTExpression makeArray(String name, ASTExpression args, Token location) {
 		if (name.startsWith("CF::")) {
-			error("Configuration parameter names are reserved");
+			error("Configuration parameter names are reserved", location);
 			return args;
 		}
-		int varNum = stringToShape(name, true);
+		int varNum = stringToShape(name, true, location);
 		boolean isGlobal = false;
 		ASTParameter bound = findExpression(varNum, isGlobal);
 		if (bound == null) {
 			return args;
 		}
-		return new ASTArray(varNum, args, "");
+		return new ASTArray(varNum, args, "", location);
 	}
 
-	public ASTExpression makeLet(ASTRepContainer vars, ASTExpression exp) {
-		int nameIndex = stringToShape("let", false);
-		ASTDefine def = new ASTDefine("let");
+	public ASTExpression makeLet(ASTRepContainer vars, ASTExpression exp, Token location) {
+		int nameIndex = stringToShape("let", false, location);
+		ASTDefine def = new ASTDefine("let", location);
 		def.getShapeSpecifier().setShapeType(nameIndex);
 		def.setExp(exp);
 		def.setDefineType(EDefineType.LetDefine);
-		return new ASTLet(vars, def);
+		return new ASTLet(vars, def, location);
 	}
 
-	public ASTRuleSpecifier makeRuleSpec(String name, ASTExpression args) {
-			return makeRuleSpec(name, args, null, false);
+	public ASTRuleSpecifier makeRuleSpec(String name, ASTExpression args, Token location) {
+			return makeRuleSpec(name, args, null, false, location);
 	}
 	
-	public ASTRuleSpecifier makeRuleSpec(String name, ASTExpression args, ASTModification mod, boolean makeStart) {
+	public ASTRuleSpecifier makeRuleSpec(String name, ASTExpression args, ASTModification mod, boolean makeStart, Token location) {
 		if (name.equals("if") || name.equals("let") || name.equals("select")) {
 			if (name.equals("select")) {
-				args = new ASTSelect(args, false);
+				args = new ASTSelect(args, false, location);
 			}
 			if (makeStart) {
-				return new ASTStartSpecifier(args, mod);
+				return new ASTStartSpecifier(args, mod, location);
 			} else {
-				return new ASTRuleSpecifier(args);
+				return new ASTRuleSpecifier(args, location);
 			}
 		}
-		int nameIndex = stringToShape(name, true);
+		int nameIndex = stringToShape(name, true, location);
 		boolean isGlobal = false;
 		ASTParameter bound = findExpression(nameIndex, isGlobal);
 		if (bound != null && args != null && args.getType() == EExpType.ReuseType && !makeStart && isGlobal && nameIndex == currentShape) {
-			error("Shape name binds to global variable and current shape, using current shape");
+			error("Shape name binds to global variable and current shape, using current shape", location);
 		}
 		if (bound != null && bound.isParameter() && bound.getType() == EExpType.RuleType) {
-			return new ASTRuleSpecifier(nameIndex, name);
+			return new ASTRuleSpecifier(nameIndex, name, location);
 		}
 		ASTRuleSpecifier ret = null;
 		cfdg.setShapeHasNoParam(nameIndex, args);
 		if (makeStart) {
-			ret = new ASTStartSpecifier(nameIndex, name, args, mod);
+			ret = new ASTStartSpecifier(nameIndex, name, args, mod, location);
 		} else {
-			ret = new ASTRuleSpecifier(nameIndex, name, args, cfdg.getShapeParams(currentShape));
+			ret = new ASTRuleSpecifier(nameIndex, name, args, cfdg.getShapeParams(currentShape), location);
 		}
 		if (ret.getArguments() != null && ret.getArguments().getType() == EExpType.ReuseType) {
 			if (makeStart) {
-				error("Startshape cannot reuse parameters");
+				error("Startshape cannot reuse parameters", location);
 			} else if (nameIndex == currentShape)  {
 				ret.setArgSouce(EArgSource.SimpleArgs);
 				ret.setTypeSignature(ret.getTypeSignature());
@@ -407,7 +408,7 @@ public class Builder {
 		return ret;
 	}
 
-	public void makeModTerm(ASTModification dest, ASTModTerm t) {
+	public void makeModTerm(ASTModification dest, ASTModTerm t, Token location) {
 		if (t == null) {
 			return;
 		}
@@ -420,17 +421,17 @@ public class Builder {
 		dest.concat(t);
 	}
 	
-	public ASTReplacement makeElement(String s, ASTModification mods, ASTExpression params, boolean subPath) {
+	public ASTReplacement makeElement(String s, ASTModification mods, ASTExpression params, boolean subPath, Token location) {
 		if (inPathContainer && !subPath && (s.equals("FILL") || s.equals("STROKE"))) {
-			return new ASTPathCommand(s, mods, params);
+			return new ASTPathCommand(s, mods, params, location);
 		}
-		ASTRuleSpecifier r = makeRuleSpec(s, params, null, false);
+		ASTRuleSpecifier r = makeRuleSpec(s, params, null, false, location);
 		ERepElemType t = ERepElemType.replacement;
 		if (inPathContainer) {
 			boolean isGlobal = false;
 			ASTParameter bound = findExpression(r.getShapeType(), isGlobal);
 			if (!subPath) {
-				error("Replacements are not allowed in paths");
+				error("Replacements are not allowed in paths", location);
 			} else if (r.getArgSource() == EArgSource.StackArgs || r.getArgSource() == EArgSource.ShapeArgs) {
 	            // Parameter subpaths must be all ops, but we must check at runtime
 				t = ERepElemType.op;
@@ -439,7 +440,7 @@ public class Builder {
 				if (rule != null) {
 					t = ERepElemType.typeByOrdinal(rule.getRuleBody().getRepType());
 				} else {
-					error("Subpath references must be to previously declared paths");
+					error("Subpath references must be to previously declared paths", location);
 				}
 			} else if (bound != null) {
 	            // Variable subpaths must be all ops, but we must check at runtime
@@ -447,42 +448,43 @@ public class Builder {
 			} else if (isPrimeShape(r.getShapeType())) {
 				t = ERepElemType.op;
 			} else {
-				error("Subpath references must be to previously declared paths");
+				error("Subpath references must be to previously declared paths", location);
 			}
 		}
-		return new ASTReplacement(r, mods, t); 
+		return new ASTReplacement(r, mods, t, location); 
 	}
 
-	public ASTExpression makeFunction(String name, ASTExpression args) {
-		return makeFunction(name, args, false);
+	public ASTExpression makeFunction(String name, ASTExpression args, Token location) {
+		return makeFunction(name, args, false, location);
 	}
 	
-	public ASTExpression makeFunction(String name, ASTExpression args, boolean consAllowed) {
-		int nameIndex = stringToShape(name, true);
+	public ASTExpression makeFunction(String name, ASTExpression args, boolean consAllowed, Token location) {
+		int nameIndex = stringToShape(name, true, location);
 		boolean isGlobal = false;
 		ASTParameter bound = findExpression(nameIndex, isGlobal);
 		if (bound != null) {
 			if (!consAllowed) {
-				error("Cannot bind expression to variable/parameter");
+				error("Cannot bind expression to variable/parameter", location);
 			}
-			return makeVariable(name).append(args); 
+			return makeVariable(name, location).append(args); 
 		}
 		if (name.equals("select") || name.equals("if")) {
-			return new ASTSelect(args, name.equals("if"));
+			return new ASTSelect(args, name.equals("if"), location);
 		}
 		EFuncType t = EFuncType.getFuncTypeByName(name);
 		if (t == EFuncType.NotAFunction) {
-			return new ASTFunction(name, args, seed);
+			return new ASTFunction(name, args, seed, location);
 		}
 		if (args != null && args.getType() == EExpType.ReuseType) {
-			return makeRuleSpec(name, args, null, false);
+			return makeRuleSpec(name, args, null, false, location);
 		}
-		return new ASTUserFunction(nameIndex, args, null);
+		return new ASTUserFunction(nameIndex, args, null, location);
 	}
 	
-	public ASTModification makeModification(ASTModification mod, boolean canonial) {
+	public ASTModification makeModification(ASTModification mod, boolean canonial, Token location) {
 		mod.setIsConstant(mod.getModExp().isEmpty());
 		mod.setCanonical(canonial);
+		mod.setLocation(location);
 		return mod;
 	}
 	
@@ -545,7 +547,7 @@ public class Builder {
 		int oldType = container.getRepType();
 		container.setRepType(oldType | r.getRepType().ordinal());
 		if (badContainer(container.getRepType()) && !badContainer(oldType) && !global) {
-			error("Cannot mix path elements and replacements in the same container");
+			error("Cannot mix path elements and replacements in the same container", r.getLocation());
 		}
 	}
 	
@@ -571,7 +573,7 @@ public class Builder {
 		for (ListIterator<ASTParameter> i = repCont.getParameters().listIterator(); i.hasPrevious();) {
 			ASTParameter p = i.previous();
 			if (p.getNameIndex() == nameIndex) {
-				error("Scope of name overlaps variable/parameter with same name: + " + p.getLocation());
+				error("Scope of name overlaps variable/parameter with same name", p.getLocation());
 			}
 		}
 	}
@@ -594,16 +596,16 @@ public class Builder {
 		}
 	}
 
-	protected void pushNameSpace(String n) {
+	protected void pushNameSpace(String n, Token location) {
 		if (n.equals("CF")) {
-			error("CF namespace is reserved");
+			error("CF namespace is reserved", location);
 			return;
 		}
 		if (n.length() == 0) {
-			error("zero-length namespace");
+			error("zero-length namespace", location);
 			return;
 		}
-		checkName(n, false);
+		checkName(n, false, location);
 		includeNamespace.pop();
 		includeNamespace.push(Boolean.TRUE);
 		currentNameSpace = currentNameSpace + n + "::";
@@ -630,7 +632,7 @@ public class Builder {
 		this.maybeVersion = maybeVersion;
 	}
 
-	public EExpType decodeType(String typeName, int[] tupleSize, boolean[] isNatural) {
+	public EExpType decodeType(String typeName, int[] tupleSize, boolean[] isNatural, Token location) {
 		EExpType type;
 		tupleSize[0] = 1;
         isNatural[0] = false;
@@ -650,14 +652,14 @@ public class Builder {
         	if (typeName.matches("vector[0-9]+")) {
                 tupleSize[0] = Integer.parseInt(typeName.substring(6));
                 if (tupleSize[0] <= 1 || tupleSize[0] > 99) {
-                	error("Illegal vector size (<=1 or >99)");
+                	error("Illegal vector size (<=1 or >99)", location);
                 }
         	} else {
-        		error("Illegal vector type specification");
+        		error("Illegal vector type specification", location);
         	}
         } else {
             type = EExpType.NoType;
-            error("Unrecognized type name");
+            error("Unrecognized type name", location);
         }
         return type;
 	}

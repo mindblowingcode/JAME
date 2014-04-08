@@ -2,6 +2,8 @@ package net.sf.jame.contextfree.parser;
 
 import java.util.List;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTSelect extends ASTExpression {
 		private static final int NOT_CACHED = -1;
 		private List<ASTExpression> arguments;
@@ -11,7 +13,8 @@ class ASTSelect extends ASTExpression {
 		private StringBuilder entropy;
 		private boolean isSelect;
 		
-		public ASTSelect(ASTExpression arguments, boolean asIf) {
+		public ASTSelect(ASTExpression arguments, boolean asIf, Token location) {
+			super(location);
 			tupleSize = -1;
 			indexCache = NOT_CACHED;
 			selector = arguments;

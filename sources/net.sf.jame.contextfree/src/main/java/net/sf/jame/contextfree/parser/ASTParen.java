@@ -1,10 +1,12 @@
 package net.sf.jame.contextfree.parser;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTParen extends ASTExpression {
 	private ASTExpression expression;
 	
-	public ASTParen(ASTExpression expression) {
-		super(expression.isConstant(), expression.isNatural(), expression.getType());
+	public ASTParen(ASTExpression expression, Token location) {
+		super(expression.isConstant(), expression.isNatural(), expression.getType(), location);
 		this.expression = expression;
 	}
 

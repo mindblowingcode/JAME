@@ -1,25 +1,27 @@
 package net.sf.jame.contextfree.parser;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTStartSpecifier extends ASTRuleSpecifier {
 	private ASTModification modification;
 	
-	public ASTStartSpecifier(int nameIndex, String name, ASTExpression args, ASTModification mod) {
-		super(nameIndex, name, args, null);
+	public ASTStartSpecifier(int nameIndex, String name, ASTExpression args, ASTModification mod, Token location) {
+		super(nameIndex, name, args, null, location);
 		this.modification = mod;
 	}
 	
-	public ASTStartSpecifier(int nameIndex, String name, ASTModification mod) {
-		super(nameIndex, name, null, null);
+	public ASTStartSpecifier(int nameIndex, String name, ASTModification mod, Token location) {
+		super(nameIndex, name, null, null, location);
 		this.modification = mod;
 	}
 	
-	public ASTStartSpecifier(ASTRuleSpecifier rule, ASTModification mod) {
-		super(rule);
+	public ASTStartSpecifier(ASTRuleSpecifier rule, ASTModification mod, Token location) {
+		super(rule, location);
 		this.modification = mod;
 	}
 
-	public ASTStartSpecifier(ASTExpression exp, ASTModification mod) {
-		super(exp);
+	public ASTStartSpecifier(ASTExpression exp, ASTModification mod, Token location) {
+		super(exp, location);
 		this.modification = mod;
 	}
 

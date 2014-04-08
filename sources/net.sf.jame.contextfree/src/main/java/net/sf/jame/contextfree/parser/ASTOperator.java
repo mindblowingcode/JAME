@@ -1,12 +1,15 @@
 package net.sf.jame.contextfree.parser;
 
+import org.antlr.v4.runtime.Token;
+
 
 class ASTOperator extends ASTExpression {
 	private char op;
 	private ASTExpression left;
 	private ASTExpression right;
 
-	public ASTOperator(char op, ASTExpression left,	ASTExpression right) {
+	public ASTOperator(char op, ASTExpression left,	ASTExpression right, Token location) {
+		super(location);
 		this.op = op;
 		this.left = left;
 		this.right = right;
@@ -24,8 +27,8 @@ class ASTOperator extends ASTExpression {
 		}
 	}
 
-	public ASTOperator(char op, ASTExpression left) {
-		this(op, left, null);
+	public ASTOperator(char op, ASTExpression left, Token location) {
+		this(op, left, null, location);
 	}
 
 	public char getOp() {
@@ -369,7 +372,7 @@ class ASTOperator extends ASTExpression {
 				return null;
 			}
 
-			ASTReal r = new ASTReal(result[0]);
+			ASTReal r = new ASTReal(result[0], location);
 			r.setType(type);
 			r.setIsNatural(isNatural);
 			return r;

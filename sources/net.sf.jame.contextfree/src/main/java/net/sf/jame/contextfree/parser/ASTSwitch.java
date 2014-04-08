@@ -3,13 +3,15 @@ package net.sf.jame.contextfree.parser;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTSwitch extends ASTReplacement {
 	private Map<Integer, ASTRepContainer> caseStatements = new HashMap<Integer, ASTRepContainer>();
 	private ASTRepContainer elseBody = new ASTRepContainer();
 	private ASTExpression switchExp;
 	
-	public ASTSwitch(ASTExpression caseVal) {
-		super(null, ERepElemType.empty);
+	public ASTSwitch(ASTExpression caseVal, Token location) {
+		super(null, ERepElemType.empty, location);
 		this.switchExp = caseVal;
 	}
 

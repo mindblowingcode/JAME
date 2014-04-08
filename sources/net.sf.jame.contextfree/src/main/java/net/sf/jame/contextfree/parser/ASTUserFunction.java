@@ -2,14 +2,16 @@ package net.sf.jame.contextfree.parser;
 
 import java.util.List;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTUserFunction extends ASTExpression {
 	private ASTExpression arguments;
 	private ASTDefine definition;
 	private int nameIndex;
 	protected boolean isLet;
 
-	public ASTUserFunction(int nameIndex, ASTExpression arguments, ASTDefine definition) {
-		super(false, false, EExpType.NoType);
+	public ASTUserFunction(int nameIndex, ASTExpression arguments, ASTDefine definition, Token location) {
+		super(false, false, EExpType.NoType, location);
 		this.nameIndex = nameIndex;
 		this.definition = definition;
 		this.arguments = arguments;
@@ -131,7 +133,7 @@ class ASTUserFunction extends ASTExpression {
 						}
 						return null;
 					}
-					ASTRuleSpecifier r = new ASTRuleSpecifier(nameIndex, name, arguments, null);
+					ASTRuleSpecifier r = new ASTRuleSpecifier(nameIndex, name, arguments, null, location);
 					r.compile(ph);
 					return r;
 				}

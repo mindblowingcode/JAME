@@ -3,30 +3,33 @@ package net.sf.jame.contextfree.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.antlr.v4.runtime.Token;
+
 
 class ASTExpression {
 	protected boolean isConstant;
 	protected boolean isNatural;
 	protected ELocality locality;
 	protected EExpType type;
+	protected Token location;
 
-	public ASTExpression() {
-		this(false, false, ELocality.UnknownLocal, EExpType.NoType);
+	public ASTExpression(Token location) {
+		this(false, false, ELocality.UnknownLocal, EExpType.NoType, location);
 	}
 
-	public ASTExpression(boolean isConstant, boolean isNatural) {
-		this(isConstant, isNatural, ELocality.UnknownLocal, EExpType.NoType);
+	public ASTExpression(boolean isConstant, boolean isNatural, Token location) {
+		this(isConstant, isNatural, ELocality.UnknownLocal, EExpType.NoType, location);
 	}
 	
-	public ASTExpression(boolean isConstant, boolean isNatural, EExpType type) {
-		this(isConstant, isNatural, ELocality.UnknownLocal, type);
+	public ASTExpression(boolean isConstant, boolean isNatural, EExpType type, Token location) {
+		this(isConstant, isNatural, ELocality.UnknownLocal, type, location);
 	}
 
-	public ASTExpression(boolean isConstant, boolean isNatural, ELocality locality) {
-		this(isConstant, isNatural, locality, EExpType.NoType);
+	public ASTExpression(boolean isConstant, boolean isNatural, ELocality locality, Token location) {
+		this(isConstant, isNatural, locality, EExpType.NoType, location);
 	}
 
-	public ASTExpression(boolean isConstant, boolean isNatural, ELocality locality, EExpType type) {
+	public ASTExpression(boolean isConstant, boolean isNatural, ELocality locality, EExpType type, Token location) {
 		this.isConstant = isConstant;
 		this.isNatural = isNatural;
 		this.locality = locality;
@@ -144,5 +147,13 @@ class ASTExpression {
 			ret.add(exp);
 			return ret;
 		}
+	}
+
+	public Token getLocation() {
+		return location;
+	}
+
+	public void setLocation(Token location) {
+		this.location = location;
 	}
 }

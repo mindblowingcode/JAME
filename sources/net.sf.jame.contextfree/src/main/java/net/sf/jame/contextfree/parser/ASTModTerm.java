@@ -3,13 +3,15 @@ package net.sf.jame.contextfree.parser;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTModTerm extends ASTExpression {
 	private int argCount;
 	private EModType modType;
 	private ASTExpression args;
 
-	public ASTModTerm(EModType modType, ASTExpression args) {
-		super(true, false, EExpType.ModType);
+	public ASTModTerm(EModType modType, ASTExpression args, Token location) {
+		super(true, false, EExpType.ModType, location);
 
 		this.modType = modType;
 		this.args = args;
@@ -26,11 +28,13 @@ class ASTModTerm extends ASTExpression {
 		}
 	}
 
-	public ASTModTerm(EModType param, String entropy) {
+	public ASTModTerm(EModType param, String entropy, Token location) {
+		super(true, false, EExpType.ModType, location);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ASTModTerm(EModType param) {
+	public ASTModTerm(EModType param, Token location) {
+		super(true, false, EExpType.ModType, location);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -3,6 +3,8 @@ package net.sf.jame.contextfree.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTRepContainer {
 	private EPathOp pathOp;
 	private int repType;
@@ -65,22 +67,22 @@ class ASTRepContainer {
 		return stackCount;
 	}
 
-	public void addParameter(String type, int nameIndex) {
-		parameters.add(new ASTParameter(type, nameIndex));
+	public void addParameter(String type, int nameIndex, Token location) {
+		parameters.add(new ASTParameter(type, nameIndex, location));
 		ASTParameter param = parameters.get(parameters.size() - 1);
 		param.setIsParameter(true);
 		param.check();
 	}
 
-	public ASTParameter addDefParameter(int nameIndex, ASTDefine def) {
-		parameters.add(new ASTParameter(nameIndex, def));
+	public ASTParameter addDefParameter(int nameIndex, ASTDefine def, Token location) {
+		parameters.add(new ASTParameter(nameIndex, def, location));
 		ASTParameter param = parameters.get(parameters.size() - 1);
 		param.check();
 		return param;
 	}
 
-	public void addLoopParameter(int nameIndex, boolean natural, boolean local) {
-		parameters.add(new ASTParameter(nameIndex, natural, local));
+	public void addLoopParameter(int nameIndex, boolean natural, boolean local, Token location) {
+		parameters.add(new ASTParameter(nameIndex, natural, local, location));
 		ASTParameter param = parameters.get(parameters.size() - 1);
 		param.check();
 		stackCount += param.getTupleSize();

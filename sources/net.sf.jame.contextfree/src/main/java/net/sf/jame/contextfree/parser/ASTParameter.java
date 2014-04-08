@@ -2,6 +2,8 @@ package net.sf.jame.contextfree.parser;
 
 import java.util.List;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTParameter extends ASTExpression {
     	public static boolean Impure = false;
 		
@@ -15,29 +17,32 @@ class ASTParameter extends ASTExpression {
     	private int stackIndex;
     	private int tupleSize;
     	
-    	public ASTParameter() {
-    		super(true, false, EExpType.NoType);
+    	public ASTParameter(Token location) {
+    		super(true, false, EExpType.NoType, location);
     		nameIndex = -1;
     		stackIndex = -1;
     		tupleSize = 1;
     	}
     	
-    	public ASTParameter(String type, int nameIndex) {
-    		super(true, false, EExpType.NoType);
+    	public ASTParameter(String type, int nameIndex, Token location) {
+    		super(true, false, EExpType.NoType, location);
     		nameIndex = -1;
     		stackIndex = -1;
     		tupleSize = 1;
     	}
     	
-		public ASTParameter(int nameIndex, ASTDefine definition) {
+		public ASTParameter(int nameIndex, ASTDefine definition, Token location) {
+    		super(true, false, EExpType.NoType, location);
 			// TODO Auto-generated constructor stub
 		}
 
-		public ASTParameter(int nameIndex, boolean natural, boolean local) {
+		public ASTParameter(int nameIndex, boolean natural, boolean local, Token location) {
+    		super(true, false, EExpType.NoType, location);
 			// TODO Auto-generated constructor stub
 		}
 
-		public ASTParameter(ASTParameter param) {
+		public ASTParameter(ASTParameter param, Token location) {
+    		super(true, false, EExpType.NoType, location);
 			// TODO Auto-generated constructor stub
 		}
 
@@ -238,11 +243,6 @@ class ASTParameter extends ASTExpression {
 
 		public void setLocality(ELocality locality) {
 			this.locality = locality;
-		}
-
-		public String getLocation() {
-			// TODO Auto-generated method stub
-			return null;
 		}
 
 		public ASTExpression constCopy(String entropy) {

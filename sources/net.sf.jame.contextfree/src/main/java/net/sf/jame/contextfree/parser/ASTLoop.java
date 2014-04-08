@@ -1,5 +1,7 @@
 package net.sf.jame.contextfree.parser;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTLoop extends ASTReplacement {
 	private ASTExpression loopArgs;
 	private ASTModification loopModHolder;
@@ -9,14 +11,14 @@ class ASTLoop extends ASTReplacement {
 	private int loopIndexName;
 	private String loopName;
 	
-	public ASTLoop(int nameIndex, String name, ASTExpression args, ASTModification mods) {
-		super(mods, ERepElemType.empty);
+	public ASTLoop(int nameIndex, String name, ASTExpression args, ASTModification mods, Token location) {
+		super(mods, ERepElemType.empty, location);
 		this.loopArgs = args;
 		this.loopModHolder = null;
 		this.loopIndexName = nameIndex;
 		this.loopName = name;
-		loopBody.addLoopParameter(loopIndexName, false, false);
-		finallyBody.addLoopParameter(loopIndexName, false, false);
+		loopBody.addLoopParameter(loopIndexName, false, false, location);
+		finallyBody.addLoopParameter(loopIndexName, false, false, location);
 	}
 	
 	public ASTRepContainer getLoopBody() {

@@ -1,12 +1,14 @@
 package net.sf.jame.contextfree.parser;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTIf extends ASTReplacement {
 	private ASTExpression condition;
 	private ASTRepContainer thenBody = new ASTRepContainer();
 	private ASTRepContainer elseBody = new ASTRepContainer();
 	
-	public ASTIf(ASTExpression exp) {
-		super(null, ERepElemType.empty);
+	public ASTIf(ASTExpression exp, Token location) {
+		super(null, ERepElemType.empty, location);
 		this.condition = exp;
 	}
 	

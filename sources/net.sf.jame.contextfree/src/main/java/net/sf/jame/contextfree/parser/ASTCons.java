@@ -3,19 +3,21 @@ package net.sf.jame.contextfree.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTCons extends ASTExpression {
 	private List<ASTExpression> children = new ArrayList<ASTExpression>();
 
-	public ASTCons(List<ASTExpression> kids) {
-		super(true, true, EExpType.NoType);
+	public ASTCons(List<ASTExpression> kids, Token location) {
+		super(true, true, EExpType.NoType, location);
 		locality = ELocality.PureLocal;
 		for (ASTExpression kid : kids) {
 			append(kid);
 		}
 	}
 
-	public ASTCons(ASTExpression... args) {
-		super(true, true, EExpType.NoType);//TODO da controllare
+	public ASTCons(Token location, ASTExpression... args) {
+		super(true, true, EExpType.NoType, location);//TODO da controllare
 		locality = ELocality.PureLocal;
 		for (ASTExpression arg : args) {
 			children.add(arg);

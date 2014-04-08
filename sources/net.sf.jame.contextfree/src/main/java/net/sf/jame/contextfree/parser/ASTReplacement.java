@@ -1,28 +1,33 @@
 package net.sf.jame.contextfree.parser;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTReplacement {
 	private ASTRuleSpecifier shapeSpec;
-	private ASTModification childChange = new ASTModification();
+	private ASTModification childChange;
 	private ERepElemType repType;
 	private EPathOp pathOp;
+	private Token location;
 	
-	public ASTReplacement(ASTRuleSpecifier shapeSpec, ASTModification childChange, ERepElemType repType) {
+	public ASTReplacement(ASTRuleSpecifier shapeSpec, ASTModification childChange, ERepElemType repType, Token location) {
 		this.repType = repType;
 		this.childChange = childChange;
 		this.shapeSpec = shapeSpec;
 		this.pathOp = EPathOp.UNKNOWN;
+		this.location = location;
+		childChange = new ASTModification(location);
 	}
 
-	public ASTReplacement(ASTRuleSpecifier shapeSpec, ASTModification childChange) {
-		this(shapeSpec, childChange, ERepElemType.empty);
+	public ASTReplacement(ASTRuleSpecifier shapeSpec, ASTModification childChange, Token location) {
+		this(shapeSpec, childChange, ERepElemType.empty, location);
 	}
 
-	public ASTReplacement(ASTModification childChange, ERepElemType repType) {
-		this(new ASTRuleSpecifier(), childChange, repType);
+	public ASTReplacement(ASTModification childChange, ERepElemType repType, Token location) {
+		this(new ASTRuleSpecifier(location), childChange, repType, location);
 	}
 
-	public ASTReplacement(String name) {
-		this(new ASTRuleSpecifier(), new ASTModification(), ERepElemType.op);
+	public ASTReplacement(String name, Token location) {
+		this(new ASTRuleSpecifier(location), new ASTModification(location), ERepElemType.op, location);
 		this.pathOp = EPathOp.pathOpTypeByName(name);
 		if (this.pathOp == EPathOp.UNKNOWN) {
 			error("Unknown path operation type");
@@ -139,5 +144,9 @@ class ASTReplacement {
 
 	protected void error(String message) {
 		System.out.println(message);
+	}
+
+	public Token getLocation() {
+		return location;
 	}
 }

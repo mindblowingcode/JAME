@@ -2,22 +2,24 @@ package net.sf.jame.contextfree.parser;
 
 import java.awt.geom.AffineTransform;
 
+import org.antlr.v4.runtime.Token;
+
 class ASTPathOp extends ASTReplacement {
 	private ASTExpression arguments;
 	private ASTModification oldStyleArguments;
 	private int argCount;
 	private int flags;
 	
-	public ASTPathOp(String op, ASTModification args) {
-		super(op);
+	public ASTPathOp(String op, ASTModification args, Token location) {
+		super(op, location);
 		this.arguments = null;
 		this.oldStyleArguments = args;
 		this.argCount = 0;
 		this.flags = 0;
 	}
 
-	public ASTPathOp(String op, ASTExpression args) {
-		super(op);
+	public ASTPathOp(String op, ASTExpression args, Token location) {
+		super(op, location);
 		this.arguments = args;
 		this.oldStyleArguments = null;
 		this.argCount = 0;
