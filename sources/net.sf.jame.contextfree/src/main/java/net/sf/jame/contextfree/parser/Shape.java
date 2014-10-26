@@ -1,7 +1,6 @@
 package net.sf.jame.contextfree.parser;
 
 class Shape {
-
 	public StackRule getParameters() {
 		// TODO Auto-generated method stub
 		return null;
