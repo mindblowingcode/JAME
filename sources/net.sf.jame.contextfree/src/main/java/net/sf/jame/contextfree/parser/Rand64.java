@@ -4,10 +4,8 @@ import java.util.Random;
 
 class Rand64 {
 	private static long RAND64_SEED  = 0x3DF41234;
-
+	private Random random = new Random();
     private long seed;
-    private Random random = new Random();
-//    private static final Rand64 common = new Rand64();
 
 	public Rand64() {
 		this(RAND64_SEED);
@@ -58,7 +56,7 @@ class Rand64 {
     public void bump() {
 	}
 
-	public void add(Rand64 oldEntropy) {
+	public void add(Rand64 rand) {
 		// TODO Auto-generated method stub
 		
 	}
