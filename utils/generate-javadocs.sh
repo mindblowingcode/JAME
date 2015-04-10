@@ -1,4 +1,4 @@
-export ROOT=/Users/andrea/Documents/progetti/jame
+export ROOT=/Users/andrea/Documents/projects/JAME/project/bundles
 export ECLIPSE=/Applications/eclipse-3.5
 
 classespath=''
@@ -14,7 +14,6 @@ classespath=$classespath:$ROOT/main/net.sf.jame.service/bin
 classespath=$classespath:$ROOT/main/net.sf.jame.service.encoders/bin
 classespath=$classespath:$ROOT/main/net.sf.jame.service.network/bin
 classespath=$classespath:$ROOT/main/net.sf.jame.service.jxta/bin
-classespath=$classespath:$ROOT/main/net.sf.jame.service.swing/bin
 classespath=$classespath:$ROOT/main/net.sf.jame.twister/bin
 classespath=$classespath:$ROOT/main/net.sf.jame.twister.swing/bin
 classespath=$classespath:$ROOT/main/net.sf.jame.mandelbrot/bin
@@ -46,7 +45,6 @@ sourcespath=$sourcespath:$ROOT/main/net.sf.jame.service/src
 sourcespath=$sourcespath:$ROOT/main/net.sf.jame.service.encoders/src
 sourcespath=$sourcespath:$ROOT/main/net.sf.jame.service.network/src
 sourcespath=$sourcespath:$ROOT/main/net.sf.jame.service.jxta/src
-sourcespath=$sourcespath:$ROOT/main/net.sf.jame.service.swing/src
 sourcespath=$sourcespath:$ROOT/main/net.sf.jame.twister/src
 sourcespath=$sourcespath:$ROOT/main/net.sf.jame.twister.swing/src
 sourcespath=$sourcespath:$ROOT/main/net.sf.jame.mandelbrot/src

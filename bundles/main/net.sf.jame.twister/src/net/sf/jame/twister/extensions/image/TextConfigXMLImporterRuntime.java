@@ -1,9 +1,8 @@
 /*
- * JAME 6.1 
+ * JAME 6.2
  * http://jame.sourceforge.net
  *
- * Copyright 2001, 2010 Andrea Medeghini
- * http://andreamedeghini.users.sourceforge.net
+ * Copyright 2001, 2015 Andrea Medeghini
  *
  * This file is part of JAME.
  *
@@ -144,7 +143,7 @@ public class TextConfigXMLImporterRuntime extends ExtensionConfigXMLImporterExte
 			if (elements.size() == 1) {
 				config.getTextElement().setValue(new StringElementXMLImporter().importFromElement(elements.get(0)).getValue());
 			} else {
-				//TODO orrore: per retrocompatibilitˆ devo gestire la classe label
+				//TODO orrore: per retrocompatibilitï¿½ devo gestire la classe label
 				elements = this.getElements(element, "Label");
 				if (elements.size() == 1) {
 					config.getTextElement().setValue(new StringElementXMLImporter().importFromElement(elements.get(0)).getValue());
