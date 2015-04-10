@@ -69,7 +69,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import javax.swing.border.EtchedBorder;
@@ -80,14 +79,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.sf.jame.core.extension.ConfigurableExtension;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.swing.extension.ConfigurableExtensionComboBoxModel;
 import net.sf.jame.core.swing.extension.ExtensionListCellRenderer;
-import net.sf.jame.core.swing.osgi.IExtensionPointTreeCellRenderer;
-import net.sf.jame.core.swing.osgi.IExtensionPointTreeModel;
 import net.sf.jame.core.swing.util.AlternateTableCellRenderer;
 import net.sf.jame.core.swing.util.ExtendedGUIWorker;
 import net.sf.jame.core.swing.util.GUIFactory;
@@ -255,10 +251,6 @@ public class ServiceFrame extends JFrame {
 		private static final long serialVersionUID = 1L;
 		private static final String STRING_FRAME_TAB_CLIPS = "tab.clips";
 		private static final String STRING_FRAME_TAB_JOBS = "tab.jobs";
-		private static final String STRING_FRAME_TAB_BUNDLES = "tab.bundles";
-		private static final String STRING_FRAME_TAB_EXTENSIONPOINTS = "tab.extensionPoints";
-		private static final String STRING_FRAME_TREE_BUNDLES = "tree.bundles";
-		private static final String STRING_FRAME_TREE_EXTENSIONPOINTS = "tree.extensionPoints";
 		private final JButton clipOpenButton = GUIFactory.createSmallButton(new ClipOpenAction(), TwisterSwingResources.getInstance().getString("tooltip.openClip"));
 		private final JButton clipCreateButton = GUIFactory.createSmallButton(new ClipCreateAction(), TwisterSwingResources.getInstance().getString("tooltip.createClip"));
 		private final JButton clipDeleteButton = GUIFactory.createSmallButton(new ClipDeleteAction(), TwisterSwingResources.getInstance().getString("tooltip.deleteClip"));
@@ -274,9 +266,9 @@ public class ServiceFrame extends JFrame {
 		private final JButton profileStartButton = GUIFactory.createSmallButton(new ProfileStartAction(), TwisterSwingResources.getInstance().getString("tooltip.startProfile"));
 		private final JButton profileStopButton = GUIFactory.createSmallButton(new ProfileStopAction(), TwisterSwingResources.getInstance().getString("tooltip.stopProfile"));
 		private final JButton profileExportButton = GUIFactory.createSmallButton(new ProfileExportAction(), TwisterSwingResources.getInstance().getString("tooltip.exportProfile"));
+		private final JButton changeWorkspaceButton = GUIFactory.createSmallButton(new ChangeWorkspaceAction(), TwisterSwingResources.getInstance().getString("tooltip.changeWorkspace"));
 		private final JButton checkUpdateButton = GUIFactory.createSmallButton(new CheckUpdateAction(), TwisterSwingResources.getInstance().getString("tooltip.checkUpdate"));
 		private final JButton showAboutButton = GUIFactory.createSmallButton(new ShowAboutAction(), TwisterSwingResources.getInstance().getString("tooltip.showAbout"));
-		private final JButton changeWorkspaceButton = GUIFactory.createSmallButton(new ChangeWorkspaceAction(), TwisterSwingResources.getInstance().getString("tooltip.changeWorkspace"));
 		private final JFileChooser clipChooser = new JFileChooser(System.getProperty("user.home"));
 		private final JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home"));
 		private final JLabel spoolStatusLabel;
@@ -423,6 +415,8 @@ public class ServiceFrame extends JFrame {
 			jobButtonPanel.add(spoolStatusLabel);
 			jobButtonPanel.add(Box.createHorizontalGlue());
 			jobButtonPanel.add(changeWorkspaceButton);
+//			jobButtonPanel.add(checkUpdateButton);
+			jobButtonPanel.add(showAboutButton);
 			jobButtonPanel.setBorder(BorderFactory.createEmptyBorder(4, 0, 4, 0));
 			jobTablePanel.add(jobLabel, BorderLayout.NORTH);
 			jobTablePanel.add(new JScrollPane(jobTable), BorderLayout.CENTER);
@@ -476,34 +470,9 @@ public class ServiceFrame extends JFrame {
 			jobsPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4), BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
 			clipsPanel.add(clipsSplitPane);
 			jobsPanel.add(jobTablePanel, BorderLayout.CENTER);
-			final JTree bundleTree = createBundleTree();
-			final JTree extensionPointTree = createExtensionPointTree();
 			final JTabbedPane tabbedPane = new JTabbedPane();
-			final JPanel bundlePanel = new JPanel(new BorderLayout());
-			final Box bundleButtons = Box.createHorizontalBox();
-			bundleButtons.add(Box.createHorizontalGlue());
-			bundleButtons.add(checkUpdateButton);
-			bundleButtons.add(showAboutButton);
-			bundleButtons.add(Box.createHorizontalGlue());
-			bundleButtons.setBorder(BorderFactory.createEmptyBorder(4, 0, 4, 0));
-			final JPanel bundleTreePanel = new JPanel(new BorderLayout());
-			bundleTreePanel.add(new JScrollPane(bundleTree), BorderLayout.CENTER);
-			bundleTreePanel.add(bundleButtons, BorderLayout.SOUTH);
-			bundleTreePanel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-			bundlePanel.add(bundleTreePanel, BorderLayout.CENTER);
-			bundlePanel.setOpaque(false);
-			bundlePanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4), BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
-			final JPanel extensionPointTreePanel = new JPanel(new BorderLayout());
-			extensionPointTreePanel.add(new JScrollPane(extensionPointTree), BorderLayout.CENTER);
-			extensionPointTreePanel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-			final JPanel extensionPointPanel = new JPanel(new BorderLayout());
-			extensionPointPanel.add(extensionPointTreePanel);
-			extensionPointPanel.setOpaque(false);
-			extensionPointPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4), BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
 			tabbedPane.addTab(TwisterSwingResources.getInstance().getString(ServicePanel.STRING_FRAME_TAB_CLIPS), clipsPanel);
 			tabbedPane.addTab(TwisterSwingResources.getInstance().getString(ServicePanel.STRING_FRAME_TAB_JOBS), jobsPanel);
-			tabbedPane.addTab(TwisterSwingResources.getInstance().getString(ServicePanel.STRING_FRAME_TAB_BUNDLES), bundlePanel);
-			tabbedPane.addTab(TwisterSwingResources.getInstance().getString(ServicePanel.STRING_FRAME_TAB_EXTENSIONPOINTS), extensionPointPanel);
 			panel.add(tabbedPane);
 			tabbedPane.addChangeListener(new ChangeListener() {
 				public void stateChanged(final ChangeEvent e) {
@@ -752,24 +721,6 @@ public class ServiceFrame extends JFrame {
 			final EditProfileDialog editProfileDialog = new EditProfileDialog(service, profile);
 			GUIUtil.centerWindow(editProfileDialog, ServicePanel.this.getLocationOnScreen(), ServicePanel.this.getBounds());
 			editProfileDialog.setVisible(true);
-		}
-
-		private JTree createBundleTree() {
-//			final BundleTreeModel treeModel = new BundleTreeModel(new DefaultMutableTreeNode(TwisterSwingResources.getInstance().getString(ServicePanel.STRING_FRAME_TREE_BUNDLES)));
-			final JTree tree = new JTree(/*treeModel*/);
-			tree.setFont(GUIFactory.NORMAL_FONT);
-			tree.setShowsRootHandles(true);
-//			tree.setCellRenderer(new BundleTreeCellRenderer());
-			return tree;
-		}
-
-		private JTree createExtensionPointTree() {
-			final IExtensionPointTreeModel treeModel = new IExtensionPointTreeModel(new DefaultMutableTreeNode(TwisterSwingResources.getInstance().getString(ServicePanel.STRING_FRAME_TREE_EXTENSIONPOINTS)));
-			final JTree tree = new JTree(treeModel);
-			tree.setFont(GUIFactory.NORMAL_FONT);
-			tree.setShowsRootHandles(true);
-			tree.setCellRenderer(new IExtensionPointTreeCellRenderer());
-			return tree;
 		}
 
 		private class RefreshTask implements Runnable {
@@ -1992,7 +1943,7 @@ public class ServiceFrame extends JFrame {
 			public void actionPerformed(final ActionEvent e) {
 				BufferedReader reader = null;
 				try {
-					reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/net/sf/jame/twister/swing/about.txt")));
+					reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/about.txt")));
 					String line = null;
 					final StringBuilder builder = new StringBuilder();
 					while ((line = reader.readLine()) != null) {
@@ -2055,9 +2006,10 @@ public class ServiceFrame extends JFrame {
 				File workspace = null;
 				try {
 					properties.load(new FileInputStream(System.getProperty("user.home") + "/JAME.properties"));
-					workspace = new File((String) properties.get("workspace"));
-					if (workspace == null) {
+					if (properties.get("workspace") == null) {
 						workspace = new File(System.getProperty("user.home") + "/" + System.getProperty("jame.workspace", "JAME-workspace"));
+					} else {
+						workspace = new File((String) properties.get("workspace"));
 					}
 				}
 				catch (final Exception x) {
