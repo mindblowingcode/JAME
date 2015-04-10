@@ -216,168 +216,30 @@ class ASTModTerm extends ASTExpression {
 //                    modification.mRand48Seed.xorString(entString.c_str(), seedIndex);
                     break;
                 }
-/*                case hue: {
-                    maxCount = 2;
-                    if (justCheck) break;
-                    if (argcount == 1) {
-                        if (rti == 0 && m.m_Color.mUseTarget & HSBColor::HueTarget)
-                            throw DeferUntilRuntime();
-                        m.m_Color.h += modArgs[0];
-                    } else {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::HueTarget || 
-                                         m.m_Color.h != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.h = arg[0];
-                        m.m_Color.mUseTarget |= HSBColor::HueTarget;
-                        m.m_ColorTarget.h = modArgs[1];
-                        m.m_ColorTarget.mUseTarget |= HSBColor::HueTarget;
-                    }
-                    break;
-                }
-                case sat: {
-                    maxCount = 2;
-                    if (justCheck) break;
-                    if (argcount == 1) {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::SaturationTarget || 
-                                         m.m_Color.s != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.s = arg[0];
-                    } else {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::SaturationTarget || 
-                                         m.m_Color.s != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.s = arg[0];
-                        m.m_Color.mUseTarget |= HSBColor::SaturationTarget;
-                        if (rti == 0 && m.m_ColorTarget.s != 0.0)
-                            throw DeferUntilRuntime();
-                        m.m_ColorTarget.s = arg[1];
-                        m.m_ColorTarget.mUseTarget |= HSBColor::SaturationTarget;
-                    }
-                    break;
-                }
-                case bright: {
-                    maxCount = 2;
-                    if (justCheck) break;
-                    if (argcount == 1) {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::BrightnessTarget || 
-                                         m.m_Color.b != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.b = arg[0];
-                    } else {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::BrightnessTarget || 
-                                         m.m_Color.b != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.b = arg[0];
-                        m.m_Color.mUseTarget |= HSBColor::BrightnessTarget;
-                        if (rti == 0 && m.m_ColorTarget.b != 0.0)
-                            throw DeferUntilRuntime();
-                        m.m_ColorTarget.b = arg[1];
-                        m.m_ColorTarget.mUseTarget |= HSBColor::BrightnessTarget;
-                    }
-                    break;
-                }
-                case alpha: {
-                    maxCount = 2;
-                    if (justCheck) break;
-                    if (argcount == 1) {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::AlphaTarget || 
-                                         m.m_Color.a != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.a = arg[0];
-                    } else {
-                        if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::AlphaTarget || 
-                                         m.m_Color.a != 0.0))
-                            throw DeferUntilRuntime();
-                        m.m_Color.a = arg[0];
-                        m.m_Color.mUseTarget |= HSBColor::AlphaTarget;
-                        if (rti == 0 && m.m_ColorTarget.a != 0.0)
-                            throw DeferUntilRuntime();
-                        m.m_ColorTarget.a = arg[1];
-                        m.m_ColorTarget.mUseTarget |= HSBColor::AlphaTarget;
-                    }
-                    break;
-                }
-                case hueTarg: {
-                    if (justCheck) break;
-                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::HueTarget || 
-                                     m.m_Color.h != 0.0))
-                        throw DeferUntilRuntime();
-                    m.m_Color.h = arg[0];
-                    m.m_Color.mUseTarget |= HSBColor::HueTarget;
-                    break;
-                }
-                case satTarg: {
-                    if (justCheck) break;
-                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::SaturationTarget || 
-                                     m.m_Color.s != 0.0))
-                        throw DeferUntilRuntime();
-                    m.m_Color.s = arg[0];
-                    m.m_Color.mUseTarget |= HSBColor::SaturationTarget;
-                    break;
-                }
-                case brightTarg: {
-                    if (justCheck) break;
-                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::BrightnessTarget || 
-                                     m.m_Color.b != 0.0))
-                        throw DeferUntilRuntime();
-                    m.m_Color.b = arg[0];
-                    m.m_Color.mUseTarget |= HSBColor::BrightnessTarget;
-                    break;
-                }
-                case alphaTarg: {
-                    if (justCheck) break;
-                    if (rti == 0 && (m.m_Color.mUseTarget & HSBColor::AlphaTarget || 
-                                     m.m_Color.a != 0.0))
-                        throw DeferUntilRuntime();
-                    m.m_Color.a = arg[0];
-                    m.m_Color.mUseTarget |= HSBColor::AlphaTarget;
-                    break;
-                }
-                case targHue: {
-                    if (justCheck) break;
-                    m.m_ColorTarget.h += modArgs[0];
-                    break;
-                }
-                case targSat: {
-                    if (justCheck) break;
-                    if (rti == 0 && m.m_ColorTarget.s != 0.0)
-                        throw DeferUntilRuntime();
-                    m.m_ColorTarget.s = arg[0];
-                    break;
-                }
-                case targBright: {
-                    if (justCheck) break;
-                    if (rti == 0 && m.m_ColorTarget.b != 0.0)
-                        throw DeferUntilRuntime();
-                    m.m_ColorTarget.b = arg[0];
-                    break;
-                }
-                case targAlpha: {
-                    if (justCheck) break;
-                    if (rti == 0 && m.m_ColorTarget.a != 0.0)
-                        throw DeferUntilRuntime();
-                    m.m_ColorTarget.a = arg[0];
-                    break;
-                }
-                case param: {
-                    minCount = maxCount = 0;
-                    if (!p) {
-                        CfdgError::Error(where, "Cannot provide a parameter in this context");
-                        break;
-                    }
-                    if (justCheck) break;
-                    p->assign(entString);
-                    break;
-                }
-                case stroke: {
-                    if (!width) {
-                        CfdgError::Error(where, "Cannot provide a stroke width in this context");
-                        break;
-                    }
-                    if (justCheck) break;
-                    *width = modArgs[0];
-                    break;
-                }*/
+/*
+ * JAME 6.2
+ * http://jame.sourceforge.net
+ *
+ * Copyright 2001, 2015 Andrea Medeghini
+ *
+ * This file is part of JAME.
+ *
+ * JAME is an application for creating fractals and other graphics artifacts.
+ *
+ * JAME is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * JAME is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with JAME.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
                 case modification: {
                     minCount = maxCount = 0;
                     arguments.evaluate(modification, s, width, justCheck, seedIndex, rti);

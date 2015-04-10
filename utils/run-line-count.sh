@@ -1,4 +1,9 @@
-export ROOT=/Users/andrea/Documents/progetti/jame
+export ROOT=/Users/andrea/Documents/projects/JAME/project/bundles
+
 java -classpath FileUtility.jar net.sf.jame.fileutility.LineCount $ROOT/main >report.txt
 java -classpath FileUtility.jar net.sf.jame.fileutility.LineCount $ROOT/experimental >>report.txt
-java -classpath FileUtility.jar net.sf.jame.fileutility.LineCount $ROOT/test >>report.txt
+
+export ROOT=/Users/andrea/Documents/projects/JAME/project/test
+
+java -classpath FileUtility.jar net.sf.jame.fileutility.LineCount $ROOT/main >>report.txt
+java -classpath FileUtility.jar net.sf.jame.fileutility.LineCount $ROOT/experimental >>report.txt
