@@ -1,9 +1,3 @@
-export ROOT=/Users/andrea/Documents/projects/JAME/project/bundles
+export ROOT=`pwd`/..
 
-java -classpath FileUtility.jar net.sf.jame.fileutility.LineCount $ROOT/main >report.txt
-java -classpath FileUtility.jar net.sf.jame.fileutility.LineCount $ROOT/experimental >>report.txt
-
-export ROOT=/Users/andrea/Documents/projects/JAME/project/test
-
-java -classpath FileUtility.jar net.sf.jame.fileutility.LineCount $ROOT/main >>report.txt
-java -classpath FileUtility.jar net.sf.jame.fileutility.LineCount $ROOT/experimental >>report.txt
+java -classpath FileUtility.jar net.sf.jame.fileutility.LineCount $ROOT/maven >report.txt
