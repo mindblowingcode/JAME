@@ -1,7 +1,7 @@
 JAME
 http://jame.sourceforge.net
 
-Copyright 2001, 2010 Andrea Medeghini
+Copyright 2001, 2015 Andrea Medeghini
 http://andreamedeghini.users.sourceforge.net
 
 JAME is free software: you can redistribute it and/or modify
