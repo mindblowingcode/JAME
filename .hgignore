@@ -1,10 +1,10 @@
 
 syntax: glob
 target
+maven/net.sf.jame.build/dist
 syntax: glob
 .settings
 syntax: glob
 .classpath
 syntax: glob
 .project
-
