@@ -52,12 +52,12 @@ Photos and movies are stored in a database to be rendered in high resolution and
 fractals, formulas, filters, effects and more.</p> 
 
 <h2>How to install the application</h2>
-<p>Unzip the archive in your preferred location. JAME requires Java 8 or later. You can download latest Java from <a href="http://java.sun.com/javase/downloads" target="_blank">http://java.sun.com/javase/downloads</a>. 
+<p>Unzip the archive in your preferred location. JAME requires Java JRE 8 or later. You can download the latest Java JRE from <a href="http://www.oracle.com/technetwork/java/javase/downloads/" target="_blank">http://www.oracle.com/technetwork/java/javase/downloads/</a>.</p> 
 
 <h2>How to run the application</h2>
-<p>Click on the application icon to run JAME. Alternatively, you can run the application from the command line with the command:</p> 
-<pre>java -Xms512M -Xmx1024M ...</pre>
-<p>JAME supports standard Java properties and custom properties which can be used to change the default behavior. The supported properties are listed on the table:</p>
+<p>For Mac OS X click on the app. For Windows click on JAME.bat. For Linux run script JAME.sh.</p>
+
+<p>JAME supports Java properties to change the default behavior. The supported properties are listed on the table:</p>
 <table cellspacing="0" cellpadding="0">
 <tr><td>Property</td><td>Description</td><td>Example</td><td>Default value</td></tr>
 <tr><td>swing.defaultlaf</td><td>Changes the application LookAndFeel</td><td>-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel</td><td></td></tr>
@@ -79,7 +79,7 @@ This mode produces a faster zoom but, because the cache is disabled, it requires
 a complete image recalculation when palettes or colouring algorithms are changed.</p>
 
 <h2>How to use the application</h2>
-<p>Start reading the tutorial published on the <a href="http://jame.sourceforge.net" target="_blank">web site</a>. The tutorial is organized in small units ordered by importance and difficulty:</p> 
+<p>Start reading the tutorial organized in small units ordered by importance and difficulty:</p> 
 <ul>
 <li><a href="http://jame.sourceforge.net/tutorials/Zoom.html" target="_blank">Zoom</a></li>
 <li><a href="http://jame.sourceforge.net/tutorials/Mandelbrot_fractal.html" target="_blank">Mandelbrot fractal</a></li>
@@ -133,16 +133,15 @@ a complete image recalculation when palettes or colouring algorithms are changed
 <tr><td>right</td><td>CTRL</td><td>ANY</td><td>Shifts the colours (in opposite direction)</td></tr>
 </table>
 
-<h2>How to configure networked computation</h2>
+<h2>How to use networked computation</h2>
 <p>JAME supports networked computation based on the JXTA peer-to-peer technology. To enable networked computation, 
 open the ports from 9701 to 9704 in your firewall and select the JXTASpool in jobs tab of service window of JAME. 
-When you select the JXTA spool, JAME automatically discovers other instances of JAME on the local network, and distribute to these peers the jobs while rendering the clips.
-</p>
+When you select the JXTA spool, JAME automatically discovers other instances of JAME on the local network, and distribute to these peers the jobs while rendering the clips.</p>
 
 <h2>How to build the application</h2>
-Download Maven from <a href="http://www.eclipse.org/downloads" target="_blank">http://www.eclipse.org/downloads</a>.
-Download the source code of JAME from the <a href="http://sourceforge.net/scm/?type=hg&group_id=19333" target="_blank">mercurial repository</a> or download the latest snapshot from <a href="http://sourceforge.net/projects/jame/files" target="_blank">file releases</a>.
-...
+<p>Download <a href="http://maven.apache.org" target="_blank">Maven</a> and <a href="http://ant.apache.org" target="_blank">Ant</a>. 
+Checkout JAME source code from <a href="http://sourceforge.net/scm/?type=hg&group_id=19333" target="_blank">SourceForge</a>.<br/>
+Open a terminal, change current folder to &lt;JAME&gt;/sources/net.sf.jame.build and execute the command: <pre>ant all</pre></p>
 
 </body>
 </html>
