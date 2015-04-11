@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: FreeImage4Java Plug-in
-Bundle-SymbolicName: net.sf.freeimage4java;singleton:=true
-Bundle-Version: 1.0.0
-Bundle-Vendor: Andrea Medeghini
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-ClassPath: freeimage4java.jar
-Export-Package: net.sf.freeimage4java;version="1.0.0"

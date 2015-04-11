@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1.0" title="JXTA Spool" domains="">
+	<step title="">
+		<instructions>&lt;p&gt;JAME supports grid computing. Open the service window to change the spool.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205273038.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="207,396 231,446" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;JAME can use a Local spool or a JXTA spool to process the rendering jobs.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205273085.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Click on jobs tab. The Local spool is the default choice and no grid computation is performed.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205273098.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="203,457 153,520" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the JXTA spool to enable grid computation.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205273112.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="386,445 337,509" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;When you enable the JXTA spool it discovers other JAME instances with JXTA spool enabled or other JXTA spool service (if you run the JAME JXTA Spool application on a server machine for example).&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205273184.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="369,439 332,506" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select a clip and render a profile (see Rendering tutorial).&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205273213.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Click on jobs tab. If the peers are not busy they will collaborate to consume your rendering jobs. &lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205273231.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Remember to run the JXTASpool service on a server machine. The JXTASpool service is a background process which can collaborate with the JAME instances to consume the jobs.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205273421.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+</project>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1.0" title="Drag and Drop" domains="">
+	<step title="">
+		<instructions>&lt;p&gt;JAME supports drag and drop of clip files.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1206283200.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;If you have a clip file and you want to open it, simply drag and drop it on the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1206283290.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Drop the file in the main area.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1206283340.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;The clip will be loaded.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1206283366.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+</project>

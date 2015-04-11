@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1.0" title="Scripting" domains="">
+	<step title="">
+		<instructions>&lt;p&gt;JAME supports JavaScript scripting.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1234027341.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Click to open the script chooser dialog.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1234027521.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="695,415 647,463" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select your scripts folder and a script to execute.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1234028143.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="601,423 554,479" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="223,250 175,206" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="407,82 358,134" />
+			<annotation style="sequence" topleft="372,65" showBorder="true" borderSize="3" borderColor="255,0,0" font="Arial" fontSize="14" opacity="100" fill="true" fillColor="255,255,0" />
+			<annotation style="sequence" topleft="216,214" showBorder="true" borderSize="3" borderColor="255,0,0" font="Arial" fontSize="14" opacity="100" fill="true" fillColor="255,255,0" />
+			<annotation style="sequence" topleft="598,431" showBorder="true" borderSize="3" borderColor="255,0,0" font="Arial" fontSize="14" opacity="100" fill="true" fillColor="255,255,0" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;The script output is displayed in the output window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1234027790.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;This is the content of the script used in this example.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1234028111.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the zoom.js script to see a more complex example.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1234028200.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;This is the content of the script. In this script you can see how to change the view position using the JAME JavaScript API.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1234029046.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Click on the visualization window to interrupt the script.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1234028012.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Look into the scripts folder to see more examples. The scripts are ordered by their level of difficulty.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1234029383.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="178,197 126,247" />
+		</annotations>
+	</step>
+</project>

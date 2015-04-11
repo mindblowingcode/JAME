@@ -1,1 +1,3 @@
-start javaw -Djava.library.path=lib -Djava.ext.dirs=jars;plugins -jar jars/net.sf.jame.main-6.2.0-jar
+@echo off
+cd JAME
+start javaw -Xmx1024m -jar net.sf.jame.main-6.2.0.jar

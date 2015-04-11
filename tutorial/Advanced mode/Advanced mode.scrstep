@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1.0" title="Advanced mode" domains="">
+	<step title="">
+		<instructions>&lt;p&gt;JAME supports an advanced configuration mode. Open the configuration window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352960.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="135,398 178,454" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press advance config button to open the advanced configuration window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352979.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="641,132 684,78" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;In the advance mode you can execute more precize operations. The advanced configuration window differs from the configuration widow in two aspects: first there is a tree which rapresent the complete status of the current image, second many operations can be executed as a single operations. &lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352993.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Check the accept immediatly flag. When this flag is set batch operations are not possible.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353009.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="114,527 68,570" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the image layer node.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353083.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="71,209 130,185" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Insert a layer after the selected layer.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353095.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="386,438 451,409" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;The new layer appears in the tree.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353107.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the image node of the first layer. Drag and drop this node over the image node of the second layer. The image will be copied in the second layer.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353123.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="209,194 209,307" />
+			<annotation style="rectangle" border="true" borderSize="2" borderColor="128,128,129" cornerRadius="0" fill="false" fillColor="255,255,0" opacity="50" topleft="183,312" width="55" height="22" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the opacity node of the second image layer and set the opacity to 50%.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353138.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="89,389 152,370" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="608,340 572,390" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the lock node of the second image layer and check the flag.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1206282470.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="90,420 152,390" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="614,340 589,381" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press Z key to enable the zoom mode and press left mouse button to zoom in (or right mouse button to zoom out).&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353174.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Uncheck the accept immediately flag. When this flag is unset batch operations are possible.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353210.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="120,511 79,568" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the opacity node of the second image layer and set the opacity to 100%.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353241.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="100,344 154,320" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="602,341 575,388" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press accept button to apply the new opacity. Many operations can be executed as a single operations when you press the accept button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353253.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="716,536 743,577" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;The asterisk before the opacity label disappears.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353263.png</visual_media>
+		<annotations>
+			<annotation style="oval" border="true" borderSize="3" borderColor="255,0,0" fill="false" fillColor="255,255,0" opacity="50" topleft="166,289" width="121" height="50" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205353346.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+</project>

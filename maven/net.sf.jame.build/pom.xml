@@ -11,9 +11,15 @@
 		<module>../net.sf.jame.queue</module>
 		<module>../net.sf.jame.twister</module>
 		<module>../net.sf.jame.mandelbrot</module>
+		<!-- 
+		<module>../net.sf.jame.contextfree</module>
+		 -->
 		<module>../net.sf.jame.core.swing</module>
 		<module>../net.sf.jame.twister.swing</module>
 		<module>../net.sf.jame.mandelbrot.swing</module>
+		<!-- 
+		<module>../net.sf.jame.contextfree.swing</module>
+		 -->
 		<module>../net.sf.jame.main</module>
 	</modules>
 	<build>
@@ -113,11 +119,13 @@
 			<artifactId>net.sf.jame.mandelbrot</artifactId>
 			<version>2.0.0</version>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.contextfree</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.queue</artifactId>
@@ -143,11 +151,13 @@
 			<artifactId>net.sf.jame.mandelbrot.swing</artifactId>
 			<version>2.0.0</version>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.contextfree.swing</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>net.sf.ffmpeg4java</groupId>
 			<artifactId>net.sf.ffmpeg4java</artifactId>

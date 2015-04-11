@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1.0" title="Mandelbrot" domains="">
+	<step title="">
+		<instructions>&lt;p&gt;JAME supports Mandelbrot and Julia fractals. Open the configuration window to modify the fractal.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351217.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="122,405 174,452" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press edit layers button to modify the layers.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351260.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="123,277 164,232" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press configure button to modify the Mandelbrot image layer.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351269.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="668,249 712,194" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;A Mandelbrot or Julia fractal is defined by a rendering formula, a transforming formula, a processing formula, an orbit trap, one or more incolouring formulas and one or more outcolouring formulas.&lt;/p&gt;
+&lt;p&gt;The first three and the orbit trap determine the Z and T variables for every point of the complex plane which can be used to colour the fractal. The outcolouring and incolouring formulas determine the colouring algorithm of the fractal, respectively of the outer part and the inner part of the set. Colouring formulas can be composed in a chain to create more complex colouring effects.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351279.png</visual_media>
+		<annotations>
+			<annotation style="rectangle" border="true" borderSize="2" borderColor="255,0,6" cornerRadius="0" fill="false" fillColor="255,255,0" opacity="50" topleft="217,104" width="318" height="212" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the Z3 formula.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351300.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="176,177 218,140" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Deselect the show preview flag to hide the preview area.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351327.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="322,438 259,405" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press outcolouring formulas button to modify the outcolouring formulas.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351314.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="481,343 420,308" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the Z Phase formula. This formula assigns a color to a point of the complex plane from the phase of the orbit point Z obtained from the rendering formula.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351406.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="496,193 539,157" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Add a colouring formula.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351425.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="685,191 746,131" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Set the opacity value to 80%.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351518.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="214,234 250,188" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select he Continuous Potential formula. This formula assigns a color to a point of the complex plane from the normalized iteration count of the orbit point Z obtained from the rendering formula.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351530.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="501,236 545,189" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351565.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press incolouring formulas button to modify the incolouring formulas.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351593.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="484,318 408,271" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press configure button to modify the colouring formula.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351606.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="661,199 701,158" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the color node and press edit button to modify the color.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351621.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="80,224 107,174" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="598,244 562,287" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Set the alpha value to 0.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351635.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="350,243 396,294" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press the previous button to return to the layers panel.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351646.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="83,140 49,81" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the image layer and add a new layer. The layer will be inserted before the selected layer.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351746.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="56,277 56,204" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="700,213 747,161" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select a Mandelbrot image.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351769.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="496,242 550,194" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351794.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Lock the second image layer.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351824.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="320,270 295,232" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press Z key to enable the zoom mode.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351838.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press left mouse button to zoom in (or press right mouse button to zoom out).&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205351907.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;The second layer is visible inside the inner part of the first layer because the inner part is coloured with a transparent color.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352023.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+</project>
