@@ -4,6 +4,8 @@
  *
  * Copyright 2001, 2015 Andrea Medeghini
  *
+ * This file is based on code written by Jan Hubicka and Thomas Marsh (http://xaos.sf.net).
+ *
  * This file is part of JAME.
  *
  * JAME is an application for creating fractals and other graphics artifacts.
