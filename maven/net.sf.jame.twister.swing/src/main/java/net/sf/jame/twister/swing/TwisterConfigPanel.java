@@ -41,7 +41,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.VolatileImage;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -3168,7 +3168,7 @@ public class TwisterConfigPanel extends ViewPanel {
 
 	private class LayerPreviewCanvas extends Canvas {
 		private static final long serialVersionUID = 1L;
-		private VolatileImage volatileImage;
+		private BufferedImage bufferedImage;
 
 		/**
 		 * @see java.awt.Canvas#update(java.awt.Graphics)
@@ -3183,25 +3183,19 @@ public class TwisterConfigPanel extends ViewPanel {
 		 */
 		@Override
 		public void paint(Graphics g) {
-			do {
-				if ((volatileImage == null) || (volatileImage.validate(getGraphicsConfiguration()) == VolatileImage.IMAGE_INCOMPATIBLE)) {
-					volatileImage = createVolatileImage(getWidth(), getHeight());
-					context.refresh();
-				}
-				else if (volatileImage.validate(getGraphicsConfiguration()) == VolatileImage.IMAGE_RESTORED) {
-					context.refresh();
-				}
-				g.drawImage(volatileImage, 0, 0, this);
+			if (bufferedImage == null) {
+				bufferedImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+				context.refresh();
 			}
-			while (volatileImage.contentsLost());
+			g.drawImage(bufferedImage, 0, 0, this);
 		}
 
 		/**
 		 * @param renderer
 		 */
 		public void draw(TwisterRenderer renderer) {
-			if (volatileImage != null) {
-				Graphics2D g = volatileImage.createGraphics();
+			if (bufferedImage != null) {
+				Graphics2D g = bufferedImage.createGraphics();
 				g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 				g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 				g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);

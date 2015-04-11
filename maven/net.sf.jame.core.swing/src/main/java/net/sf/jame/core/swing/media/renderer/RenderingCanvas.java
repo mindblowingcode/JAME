@@ -33,7 +33,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Point2D;
-import java.awt.image.VolatileImage;
+import java.awt.image.BufferedImage;
 import java.util.concurrent.Semaphore;
 
 import net.sf.jame.core.media.EngineMouseEvent;
@@ -47,7 +47,7 @@ public class RenderingCanvas extends Canvas implements MovieAnimatorContext {
 	private final EngineKeyAdapter keyadapter = new EngineKeyAdapter();
 	private final EngineMouseAdapter mouseadapter = new EngineMouseAdapter();
 	private final EngineMouseMotionAdapter mousemotionadapter = new EngineMouseMotionAdapter();
-	private VolatileImage[] volatileImage = new VolatileImage[2];
+	private BufferedImage[] bufferedImage = new BufferedImage[2];
 	private Semaphore swapSemaphore = new Semaphore(1);
 	private final MovieRenderer renderer;
 
@@ -84,15 +84,10 @@ public class RenderingCanvas extends Canvas implements MovieAnimatorContext {
 		if ((getWidth() > 0) && (getHeight() > 0)) {
 			try {
 				swapSemaphore.acquire();
-				do {
-					if ((volatileImage[0] == null) || (volatileImage[0].validate(getGraphicsConfiguration()) == VolatileImage.IMAGE_INCOMPATIBLE)) {
-						volatileImage[0] = createVolatileImage(getWidth(), getHeight());
-					}
-					else if (volatileImage[0].validate(getGraphicsConfiguration()) == VolatileImage.IMAGE_RESTORED) {
-					}
-					g.drawImage(volatileImage[0], 0, 0, this);
+				if (bufferedImage[0] == null) {
+					bufferedImage[0] = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
 				}
-				while (volatileImage[0].contentsLost());
+				g.drawImage(bufferedImage[0], 0, 0, this);
 			}
 			catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
@@ -107,13 +102,10 @@ public class RenderingCanvas extends Canvas implements MovieAnimatorContext {
 		if ((getWidth() > 0) && (getHeight() > 0)) {
 			try {
 				swapSemaphore.acquire();
-				do {
-					if ((volatileImage[1] == null) || (volatileImage[1].validate(getGraphicsConfiguration()) == VolatileImage.IMAGE_INCOMPATIBLE)) {
-						volatileImage[1] = createVolatileImage(getWidth(), getHeight());
-					}
+				if (bufferedImage[1] == null) {
+					bufferedImage[1] = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
 				}
-				while (volatileImage[1].contentsLost());
-				return volatileImage[1].createGraphics();
+				return bufferedImage[1].createGraphics();
 			}
 			catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
@@ -128,9 +120,9 @@ public class RenderingCanvas extends Canvas implements MovieAnimatorContext {
 	private void swap() {
 		try {
 			swapSemaphore.acquire();
-			VolatileImage tmpVolatileImage = volatileImage[0];
-			volatileImage[0] = volatileImage[1];
-			volatileImage[1] = tmpVolatileImage;
+			BufferedImage tmpBufferedImage = bufferedImage[0];
+			bufferedImage[0] = bufferedImage[1];
+			bufferedImage[1] = tmpBufferedImage;
 		}
 		catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
