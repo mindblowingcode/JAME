@@ -4,7 +4,7 @@
 // The object tree is provided by the JAME JavaScript API.
 
 // The method dump returns a string representing the configuration tree.
-context.println(tree.dump());
+JAMEContext.println(JAMETree.dump());
 
 // Every node of the configuration tree is represented by a line
 // containing the classId, the name, the value and the path of the node.

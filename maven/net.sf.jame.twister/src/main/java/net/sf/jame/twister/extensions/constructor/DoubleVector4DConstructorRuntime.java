@@ -38,7 +38,7 @@ public class DoubleVector4DConstructorRuntime extends ConstructorExtensionRuntim
 	@Override
 	public Object create(final Object... args) throws JSException {
 		try {
-			return new DoubleVector4D((Double) args[0], (Double) args[1], (Double) args[2], (Double) args[3]);
+			return new DoubleVector4D(toDouble(args[0]), toDouble(args[1]), toDouble(args[2]), toDouble(args[3]));
 		}
 		catch (Exception e) {
 			throw new JSException("DoubleVector4D constructor requires 4 arguments of type Number", e);

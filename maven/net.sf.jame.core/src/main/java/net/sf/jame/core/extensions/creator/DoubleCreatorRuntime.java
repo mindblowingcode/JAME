@@ -37,7 +37,7 @@ public class DoubleCreatorRuntime extends CreatorExtensionRuntime {
 	@Override
 	public Object create(final Object... args) throws JSException {
 		try {
-			return args[0];
+			return toDouble(args[0]);
 		}
 		catch (Exception e) {
 			throw new JSException("Double creator requires one arguments: #1 of type Number", e);

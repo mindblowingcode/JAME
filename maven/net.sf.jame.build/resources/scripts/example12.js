@@ -1,28 +1,28 @@
 // Read examples from example01.js to example10.js before to read this example.
 // This example shows how to change the palette of a Mandelbrot fractal.
 
-var enumerator = context.getEnumerator("node.class.PaletteRendererFormulaReference");
+var enumerator = JAMEContext.getEnumerator("node.class.PaletteRendererFormulaReference");
 
 // The method loadDefaultConfig loads the default configuration.
-context.loadDefaultConfig();
+JAMEContext.loadDefaultConfig();
 
 // Waits for one second to complete the current fractal.
-context.sleep(1000);
+JAMEContext.sleep(1000);
 
 // Gets the fractal node in the image of the first layer of the first group.
-var fractalNode = tree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,0");
+var fractalNode = JAMETree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,0");
 
 // Gets the background node
-var backgroundNode = tree.getRootNode().getNodeByPath("0,2");
+var backgroundNode = JAMETree.getRootNode().getNodeByPath("0,2");
 
 if (fractalNode != null && fractalNode.getClassId() == 'node.class.MandelbrotFractalElement') {
 	
 	// Gets the palette node of the first outcolouring formula. 
-	var paletteNode = tree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,0,3,0,0,0,0,0");
+	var paletteNode = JAMETree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,0,3,0,0,0,0,0");
 	
 	// The method getConstructor returns a constructor object.
-	var paletteConstructor = context.getConstructor("type.class.RenderedPalette");
-	var paramConstructor = context.getConstructor("type.class.RenderedPaletteParam");
+	var paletteConstructor = JAMEContext.getConstructor("type.class.RenderedPalette");
+	var paramConstructor = JAMEContext.getConstructor("type.class.RenderedPaletteParam");
 	
 	var extensionId1 = enumerator.getExtension("twister.mandelbrot.palette.renderer.formula.sin").getExtensionId();
 	var extensionId2 = enumerator.getExtension("twister.mandelbrot.palette.renderer.formula.log").getExtensionId();
@@ -37,18 +37,18 @@ if (fractalNode != null && fractalNode.getClassId() == 'node.class.MandelbrotFra
 	var palette = paletteConstructor.create(param0, param1, param2);
 	paletteNode.setValueByArgs(palette);
 	
-	tree.accept();
+	JAMETree.accept();
 	
-	context.sleep(2000);
+	JAMEContext.sleep(2000);
 	
 	// Now we set a grayscale palette (note: colors are in format AARRGGBB). 
 	var param0 = paramConstructor.create(extensionId3, extensionId3, extensionId3, extensionId3, "FFFFFFFF", "FF000000", 100);
 	var palette = paletteConstructor.create(param0);
 	paletteNode.setValueByArgs(palette);
 	
-	tree.accept();
+	JAMETree.accept();
 	
-	context.sleep(2000);
+	JAMEContext.sleep(2000);
 	
 	// Now we set a palette which has some transparency (note: colors are in format AARRGGBB).
 	var param0 = paramConstructor.create(extensionId3, extensionId3, extensionId3, extensionId3, "00000000", "FFFFFFFF", 20);
@@ -59,7 +59,7 @@ if (fractalNode != null && fractalNode.getClassId() == 'node.class.MandelbrotFra
 	// The background is visible because the transparency of the palette.
 	backgroundNode.setValueByArgs("FFFF0000");
 	
-	tree.accept();
+	JAMETree.accept();
 	
-	context.sleep(2000);
+	JAMEContext.sleep(2000);
 }

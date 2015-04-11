@@ -1,7 +1,3 @@
-/*
- * $Id:$
- *
- */
 package ${resources.resourcesPackageName};
 
 <#list imports as import>

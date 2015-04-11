@@ -1,7 +1,3 @@
-/*
- * $Id:$
- *
- */
 package ${nodeActionXMLImporterPackageName};
 
 <#list imports as import>

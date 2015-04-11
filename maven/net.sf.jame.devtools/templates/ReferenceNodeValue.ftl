@@ -1,7 +1,3 @@
-/*
- * $Id:$
- *
- */
 package ${packageName};
 
 <#if configPackageName?exists && configClassName?exists>

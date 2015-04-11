@@ -1,7 +1,3 @@
-/*
- * $Id:$
- *
- */
 package ${creatorPackageName};
 
 <#list imports as import>

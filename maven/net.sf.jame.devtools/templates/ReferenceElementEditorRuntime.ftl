@@ -1,7 +1,3 @@
-/*
- * $Id:$
- *
- */
 package ${editorPackageName};
 
 <#list imports as import>

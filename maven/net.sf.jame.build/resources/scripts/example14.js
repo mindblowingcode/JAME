@@ -5,18 +5,18 @@
 var running = true;
 
 // The method loadDefaultConfig loads the default configuration.
-context.loadDefaultConfig();
+JAMEContext.loadDefaultConfig();
 
 // Waits for one second to complete the current fractal.
-context.sleep(1000);
+JAMEContext.sleep(1000);
 
 // Gets the fractal node in the image of the first layer of the first group.
-var fractalNode = tree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,0");
+var fractalNode = JAMETree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,0");
 
 if (fractalNode != null && fractalNode.getClassId() == 'node.class.MandelbrotFractalElement') {
 
 	// Gets the show preview node.
-	var showPreviewNode = tree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,6");
+	var showPreviewNode = JAMETree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,6");
 
 	if (showPreviewNode != null && showPreviewNode.getClassId() == 'node.class.BooleanElement') {
 		// Sets the show preview value.
@@ -24,7 +24,7 @@ if (fractalNode != null && fractalNode.getClassId() == 'node.class.MandelbrotFra
 	}
 
 	// Gets the show orbit node.
-	var showOrbitNode = tree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,5");
+	var showOrbitNode = JAMETree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,5");
 
 	if (showOrbitNode != null && showOrbitNode.getClassId() == 'node.class.BooleanElement') {
 		// Sets the show orbit value.
@@ -32,7 +32,7 @@ if (fractalNode != null && fractalNode.getClassId() == 'node.class.MandelbrotFra
 	}
 
 	// Gets the image mode node.
-	var imageModeNode = tree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,2");
+	var imageModeNode = JAMETree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,2");
 
 	if (imageModeNode != null && imageModeNode.getClassId() == 'node.class.ImageModeElement') {
 		// Sets the image mode value (0 = Mandelbrot fractal, 1 = Julia fractal).
@@ -40,7 +40,7 @@ if (fractalNode != null && fractalNode.getClassId() == 'node.class.MandelbrotFra
 	}
 	
 	// Gets the complex constant node.
-	var constantNode = tree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,4");
+	var constantNode = JAMETree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,4");
 	
 	if (constantNode != null && constantNode.getClassId() == 'node.class.ComplexElement') {
 		if (running) {
@@ -48,8 +48,8 @@ if (fractalNode != null && fractalNode.getClassId() == 'node.class.MandelbrotFra
 			for (var step = 0; step < steps; step++) {
 				// Sets the complex constant value.
 				constantNode.setValueByArgs(funPointX(step, steps), funPointY(step, steps));
-				tree.accept();
-				if (context.sleep(100)) {
+				JAMETree.accept();
+				if (JAMEContext.sleep(100)) {
 					running = false;
 					break;
 				}
@@ -58,8 +58,8 @@ if (fractalNode != null && fractalNode.getClassId() == 'node.class.MandelbrotFra
 					showPreviewNode.setValueByArgs(false);
 					showOrbitNode.setValueByArgs(false);
 					imageModeNode.setValueByArgs(1);
-					tree.accept();
-					if (context.sleep(1500)) {
+					JAMETree.accept();
+					if (JAMEContext.sleep(1500)) {
 						running = false;
 						break;
 					}
@@ -67,8 +67,8 @@ if (fractalNode != null && fractalNode.getClassId() == 'node.class.MandelbrotFra
 					showPreviewNode.setValueByArgs(true);
 					showOrbitNode.setValueByArgs(true);
 					imageModeNode.setValueByArgs(0);
-					tree.accept();
-					if (context.sleep(100)) {
+					JAMETree.accept();
+					if (JAMEContext.sleep(100)) {
 						running = false;
 						break;
 					}
