@@ -39,10 +39,8 @@
 					<archive>
 						<manifest>
 							<mainClass>net.sf.jame.Main</mainClass>
-							<!-- 
 							<addClasspath>true</addClasspath>
-							<classpathPrefix>jars/</classpathPrefix>
-			 				 -->
+							<classpathPrefix></classpathPrefix>
 						</manifest>
 					</archive>
 				</configuration>
@@ -68,11 +66,13 @@
 			<artifactId>net.sf.jame.mandelbrot</artifactId>
 			<version>2.0.0</version>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.contextfree</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.queue</artifactId>
@@ -98,11 +98,13 @@
 			<artifactId>net.sf.jame.mandelbrot.swing</artifactId>
 			<version>2.0.0</version>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.contextfree.swing</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>net.sf.ffmpeg4java</groupId>
 			<artifactId>net.sf.ffmpeg4java</artifactId>

@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: JAME Service JXTA Product
-Bundle-SymbolicName: net.sf.jame.service.jxta.product
-Bundle-Version: 1.1.0
-Bundle-Vendor: Andrea Medeghini
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6

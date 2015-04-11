@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1.0" title="Palette and background" domains="">
+	<step title="">
+		<instructions>&lt;p&gt;JAME supports Mandelbrot and Julia fractals. For this kind of fractals the palette of colours is very important.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205343855.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Open the configuration window to change the current palette.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205343892.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="147,386 179,442" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press edit layers button to modify the layers.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205343916.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="128,291 167,231" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press configure button of the Mandelbrot image layer.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205343930.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="670,248 704,192" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press outcolouring formulas button to modify the outcolouring formulas (a Mandelbrot or Julia set has an inner part and an outer part, so the outcolouring formulas define the colouring algorithm of the outer part and the incolouring formulas define the colouring algorithm of the inner part, the palettes of the outer and inner part can be different).&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205343950.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="448,254 409,287" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press configure button of the colouring formula (every colouring formula has it own palette).&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205343964.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="668,207 701,161" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the palette node and press edit button to modify the palette.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205343999.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="124,268 146,219" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="683,236 654,281" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Click on the first block to select it.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344061.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="23,350 59,299" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;You can resize the block dragging the black arrow.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344106.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="102,329 176,291" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Click on the second block to select it and press choose button to change the end color.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344158.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="169,330 248,287" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="302,440 274,484" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select a different color and press apply button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344217.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="294,562 337,512" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="178,600 208,643" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Above the palette are shown the color components curves. The curvers rapresent the intensity of the alpha, red, green and blue color components.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344245.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Drag and drop the end color of the second block over the third block.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344341.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="163,500 364,257" />
+			<annotation style="rectangle" border="true" borderSize="1" borderColor="117,119,119" cornerRadius="0" fill="false" fillColor="255,255,0" opacity="50" topleft="362,215" width="46" height="45" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press create button to create a new block.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344430.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="75,630 115,585" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press create button to create a new block.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344442.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="81,631 117,588" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Double click on the last block to invert it.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344557.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="421,316 451,257" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Resize the last block dragging the black arrow.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344601.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="394,324 444,293" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Resize the last block dragging the black arrow while pressing Shift key.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344620.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="479,319 426,290" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press apply button to apply the palette.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344660.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="156,598 200,623" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;The new palette is displayed in the configuration window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344686.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;The image is updated in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344763.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press Z key to enable the zoom mode and press left mouse button to zoom in (or press right mouse button to zoom out).&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344787.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Zoom deeper to see all the colours of the palette.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344821.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Go back to the configuration window and press edit button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344846.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Click on the fourth block to select it and press delete button to remove it.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344907.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="430,349 386,293" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="298,506 261,557" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Click on the last block to select it and press reverse button to invert it.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205344979.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="402,336 442,291" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="472,627 435,590" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Resize the third block and then press apply button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345157.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345232.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Go back to the palette editor and drag the last block to move it before the third block.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345265.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="423,281 280,281" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Resize the third block and then press apply button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345280.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345353.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Go back to the palette editor and change the interpolation formula of the red color component of the third block.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345507.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="154,330 199,289" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="522,481 465,449" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Change the interpolation formula of the blue color component of the third block and press apply button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345556.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="511,573 462,536" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345623.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the first block and delete it.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345658.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="134,334 83,297" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="160,630 202,593" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the last block and modify the begin color.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345701.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="434,330 394,291" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="94,464 146,430" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select a different color and press apply button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345730.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="311,532 282,582" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="160,629 202,654" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press apply button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345769.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345820.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Go back to the palette editor and resize the last block.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345842.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the first block and modify the begin color.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345894.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="90,316 165,288" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="225,480 183,439" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the RGB/HSB tab.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345910.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Change the alpha value and press apply button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345928.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Change the interpolation formula of the alpha color component of the first block and press apply button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205345970.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="515,433 467,408" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="154,598 200,621" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346015.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Go back to the configuration window and press main panel button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346032.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="285,55 206,55" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press edit background button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346044.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="512,276 545,235" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press modify button to modify the background color.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346056.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="581,167 541,206" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select a different color and press apply button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346078.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="323,306 379,278" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="301,395 344,431" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346111.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Go back to the configuration window and press main panel button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346090.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press edit layers button to modify the layers.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346149.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press configure button of the Mandelbrot image layer.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346160.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press outcolouring formulas button to modify the outcolouring formulas.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346172.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press configure button of the colouring formula.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346183.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press edit button to modify the palette.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346195.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Resize the first block and press apply button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346220.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="151,310 250,288" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="157,600 203,623" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346269.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Go back to the palette editor and drag the last block to move it before the first block.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346649.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="376,282 192,283" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press apply button.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346664.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205346711.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+</project>

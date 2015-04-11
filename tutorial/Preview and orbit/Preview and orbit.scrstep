@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1.0" title="Preview and orbit" domains="">
+	<step title="">
+		<instructions>&lt;p&gt;JAME supports Mandelbrot and Julia sets. The Manbelbrot set is displayed in the main area and the current Julia set in the preview area.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267290.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;You can change the current Julia set. Press S key to enable the select mode and move the mouse to select a Julia set. The selected Julia set is displayed in the preview area.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267323.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press Z key to enable the zoom mode. While zoom mode is enable you can move the mouse but the Julia set doesn&apos;t change.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267353.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press the left mouse button and hold it pressed on the preview area to drag the preview area. &lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267476.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Click on the preview area to display the Julia set in the main area.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267499.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press P key to hide the preview area.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267522.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press O key to show the orbit of the constant of the current Julia set (the selected point in the Mandelbrot plane).&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267537.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press M key to show the Mandelbrot set in the main area.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267554.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press P key to show the preview area.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267574.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press R key to restore the default position of the preview area.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267590.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press S key to enable the select mode and move the mouse to select a point in the Mandelbrot plane. &lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267621.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Click to display the Julia set of the selected point in the main area.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267640.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press Z key to enable zoom mode and press left mouse button to zoom in (or press right mouse button to zoom out).&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267673.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press J key to return to the default view.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267687.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Click on the preview area to display the Mandelbrot set.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205267703.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+</project>

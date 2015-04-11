@@ -1,7 +1,0 @@
-net.sf.jame.mandelbrot.extensions.paletteRendererFormula.BINDescriptor
-net.sf.jame.mandelbrot.extensions.paletteRendererFormula.SQRTDescriptor
-net.sf.jame.mandelbrot.extensions.paletteRendererFormula.SINDescriptor
-net.sf.jame.mandelbrot.extensions.paletteRendererFormula.COSDescriptor
-net.sf.jame.mandelbrot.extensions.paletteRendererFormula.SQRDescriptor
-net.sf.jame.mandelbrot.extensions.paletteRendererFormula.LINDescriptor
-net.sf.jame.mandelbrot.extensions.paletteRendererFormula.LOGDescriptor

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1.0" title="Filters and effects" domains="">
+	<step title="">
+		<instructions>&lt;p&gt;JAME supports filters and effects. Open the configuration window to apply filters and effects.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352131.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="136,397 176,451" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press edit layers button to modify the layers.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352152.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="135,270 169,230" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press filters buton to modify the filters of the Mandelbrot image layer.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352163.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="310,232 338,193" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Add a filter.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352184.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="720,187 748,137" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select a Blur filter.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352207.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="501,201 546,160" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352221.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Go back to the configuration window and select the Sharpen filter.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352236.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="512,204 549,165" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352249.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press Z key to enable zoom mode and press left mouse button to zoom in. The filter is applied realtime while rendering the fractal.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352317.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Go back to the configuration window and return to the main panel. Press edit filters button to modify the frame filters. Frame filters are different from layer filters because the frame filters can have memory.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352338.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="267,277 300,232" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Add a filter.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352347.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="709,191 751,137" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the Motion Blur filter.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352367.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="508,199 546,163" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press configure button to modify the filter.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352398.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the opacity node and set the opacity to 95%.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352439.png</visual_media>
+		<annotations>
+			<annotation style="rectangle" border="true" borderSize="4" borderColor="255,0,0" cornerRadius="15" fill="false" fillColor="255,255,0" opacity="50" topleft="-36,247" width="2" height="2" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="68,221 91,177" />
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="501,240 471,278" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Press left mouse button to zoom in (or press right mouse button to zoom out). The motion blur filter create an image persistence effect.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352695.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Go back to the configuration window and return to the main panel. Press edit effects button to modify the image effects. &lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352726.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="395,275 424,233" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the Water effect.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352762.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="310,287 340,238" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352802.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Select the Fire effect.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352816.png</visual_media>
+		<annotations>
+			<annotation style="line" lineSize="5" lineColor="255,0,0" opacity="100" startArrow="false" endArrow="true" arrowSize="6" points="302,281 340,237" />
+		</annotations>
+	</step>
+	<step title="">
+		<instructions>&lt;p&gt;Watch the image in the visualization window.&lt;/p&gt;</instructions>
+		<visual_media>screencapture 1205352855.png</visual_media>
+		<annotations>
+		</annotations>
+	</step>
+</project>

@@ -1,7 +1,0 @@
-net.sf.jame.mandelbrot.extensions.processingFormula.distance.MinimumFormulaDescriptor
-net.sf.jame.mandelbrot.extensions.processingFormula.CurvatureFormulaDescriptor
-net.sf.jame.mandelbrot.extensions.processingFormula.AverageFormulaDescriptor
-net.sf.jame.mandelbrot.extensions.processingFormula.distance.AverageFormulaDescriptor
-net.sf.jame.mandelbrot.extensions.processingFormula.distance.MaximumFormulaDescriptor
-net.sf.jame.mandelbrot.extensions.processingFormula.MaximumFormulaDescriptor
-net.sf.jame.mandelbrot.extensions.processingFormula.MinimumFormulaDescriptor
