@@ -53,7 +53,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.VolatileImage;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.TooManyListenersException;
@@ -62,12 +62,12 @@ import java.util.concurrent.Semaphore;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.swing.util.GUIUtil;
 import net.sf.jame.core.tree.NodeAction;
-import net.sf.jame.core.util.Tile;
 import net.sf.jame.core.util.IntegerVector2D;
 import net.sf.jame.core.util.Rectangle;
 import net.sf.jame.core.util.RenderContext;
 import net.sf.jame.core.util.RenderContextListener;
 import net.sf.jame.core.util.Surface;
+import net.sf.jame.core.util.Tile;
 import net.sf.jame.twister.ControllerListener;
 import net.sf.jame.twister.TwisterClip;
 import net.sf.jame.twister.TwisterClipController;
@@ -101,7 +101,7 @@ public class TwisterPreviewCanvas extends Canvas implements RenderContext {
 	private RenderListener listener;
 	boolean paintBorder = false;
 	boolean isTarget = true;
-	private VolatileImage volatileImage;
+	private BufferedImage bufferedImage;
 	private final DropTarget target;
 	private final DragSource source;
 	private boolean dragEnabled = true;
@@ -430,9 +430,9 @@ public class TwisterPreviewCanvas extends Canvas implements RenderContext {
 				surface.dispose();
 				surface = null;
 			}
-			if (volatileImage != null) {
-				volatileImage.flush();
-				volatileImage = null;
+			if (bufferedImage != null) {
+				bufferedImage.flush();
+				bufferedImage = null;
 			}
 			release();
 		}
@@ -446,22 +446,16 @@ public class TwisterPreviewCanvas extends Canvas implements RenderContext {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		do {
-			if ((volatileImage == null) || (volatileImage.validate(getGraphicsConfiguration()) == VolatileImage.IMAGE_INCOMPATIBLE)) {
-				volatileImage = createVolatileImage(getWidth(), getHeight());
-				refresh();
-			}
-			else if (volatileImage.validate(getGraphicsConfiguration()) == VolatileImage.IMAGE_RESTORED) {
-				refresh();
-			}
-			g.drawImage(volatileImage, 0, 0, this);
+		if (bufferedImage == null) {
+			bufferedImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+			refresh();
 		}
-		while (volatileImage.contentsLost());
+		g.drawImage(bufferedImage, 0, 0, this);
 	}
 
 	private void draw() {
-		if (volatileImage != null) {
-			Graphics2D g = volatileImage.createGraphics();
+		if (bufferedImage != null) {
+			Graphics2D g = bufferedImage.createGraphics();
 			g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
@@ -473,8 +467,8 @@ public class TwisterPreviewCanvas extends Canvas implements RenderContext {
 	}
 
 	private void clear() {
-		if (volatileImage != null) {
-			Graphics2D g = volatileImage.createGraphics();
+		if (bufferedImage != null) {
+			Graphics2D g = bufferedImage.createGraphics();
 			g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
