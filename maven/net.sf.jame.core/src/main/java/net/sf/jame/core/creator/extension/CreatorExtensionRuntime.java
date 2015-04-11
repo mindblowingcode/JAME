@@ -37,4 +37,40 @@ public abstract class CreatorExtensionRuntime extends ExtensionRuntime {
 	 * @throws JSException
 	 */
 	public abstract Object create(Object... args) throws JSException;
+
+	protected Double toDouble(Object argument) {
+		if (argument instanceof Double) {
+			return (Double) argument;
+		} else if (argument instanceof Integer) {
+			return new Double((Integer) argument);
+		}
+		throw new RuntimeException();
+	}
+
+	protected Float toFloat(Object argument) {
+		if (argument instanceof Double) {
+			return new Float(((Double) argument).floatValue());
+		} else if (argument instanceof Integer) {
+			return new Float((Integer) argument);
+		}
+		throw new RuntimeException();
+	}
+
+	protected Integer toInteger(Object argument) {
+		if (argument instanceof Integer) {
+			return (Integer) argument;
+		} else if (argument instanceof Double) {
+			return new Integer(((Double) argument).intValue());
+		}
+		throw new RuntimeException();
+	}
+
+	protected Long toLong(Object argument) {
+		if (argument instanceof Integer) {
+			return new Long((Integer) argument);
+		} else if (argument instanceof Double) {
+			return new Long(((Double) argument).longValue());
+		}
+		throw new RuntimeException();
+	}
 }

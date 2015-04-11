@@ -1,7 +1,3 @@
-/*
- * $Id:$
- *
- */
 package ${enumeratorPackageName};
 
 <#list imports as import>

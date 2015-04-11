@@ -37,7 +37,7 @@ public class FloatCreatorRuntime extends CreatorExtensionRuntime {
 	@Override
 	public Object create(final Object... args) throws JSException {
 		try {
-			return new Float(((Double) args[0]).floatValue());
+			return new Float(toFloat(args[0]));
 		}
 		catch (Exception e) {
 			throw new JSException("Float creator requires one arguments: #1 of type Number", e);

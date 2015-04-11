@@ -1,7 +1,3 @@
-/*
- * $Id:$
- *
- */
 package ${extension.extensionConfigPackageName};
 
 <#list imports as import>

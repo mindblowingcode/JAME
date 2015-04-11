@@ -1,7 +1,3 @@
-/*
- * $Id:$
- *
- */
 package ${registry.registryPackageName};
 
 <#list imports as import>

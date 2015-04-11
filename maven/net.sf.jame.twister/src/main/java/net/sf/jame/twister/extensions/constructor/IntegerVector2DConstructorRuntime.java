@@ -38,7 +38,7 @@ public class IntegerVector2DConstructorRuntime extends ConstructorExtensionRunti
 	@Override
 	public Object create(final Object... args) throws JSException {
 		try {
-			return new IntegerVector2D(((Double) args[0]).intValue(), ((Double) args[1]).intValue());
+			return new IntegerVector2D(toInteger(args[0]), toInteger(args[1]));
 		}
 		catch (Exception e) {
 			throw new JSException("IntegerVector2D constructor requires 2 arguments of type Number", e);

@@ -38,7 +38,7 @@ public class DoubleVector2DConstructorRuntime extends ConstructorExtensionRuntim
 	@Override
 	public Object create(final Object... args) throws JSException {
 		try {
-			return new DoubleVector2D((Double) args[0], (Double) args[1]);
+			return new DoubleVector2D(toDouble(args[0]), toDouble(args[1]));
 		}
 		catch (Exception e) {
 			throw new JSException("DoubleVector2D constructor requires 2 arguments of type Number", e);

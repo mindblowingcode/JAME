@@ -16,3 +16,13 @@ net.sf.jame.mandelbrot.extensions.creator.MandelbrotFractalCreatorDescriptor
 net.sf.jame.mandelbrot.extensions.creator.IncolouringFormulaCreatorDescriptor
 net.sf.jame.mandelbrot.extensions.creator.RenderingFormulaCreatorDescriptor
 net.sf.jame.mandelbrot.extensions.creator.ThresholdCreatorDescriptor
+net.sf.jame.mandelbrot.extensions.creator.ColorRendererReferenceCreatorDescriptor
+net.sf.jame.mandelbrot.extensions.creator.ColorRendererFormulaReferenceCreatorDescriptor
+net.sf.jame.mandelbrot.extensions.creator.PaletteRendererReferenceCreatorDescriptor
+net.sf.jame.mandelbrot.extensions.creator.PaletteRendererFormulaReferenceCreatorDescriptor
+net.sf.jame.mandelbrot.extensions.creator.RenderingFormulaReferenceCreatorDescriptor
+net.sf.jame.mandelbrot.extensions.creator.ProcessingFormulaReferenceCreatorDescriptor
+net.sf.jame.mandelbrot.extensions.creator.TransformingFormulaReferenceCreatorDescriptor
+net.sf.jame.mandelbrot.extensions.creator.IncolouringFormulaReferenceCreatorDescriptor
+net.sf.jame.mandelbrot.extensions.creator.OutcolouringFormulaReferenceCreatorDescriptor
+net.sf.jame.mandelbrot.extensions.creator.OrbitTrapReferenceCreatorDescriptor

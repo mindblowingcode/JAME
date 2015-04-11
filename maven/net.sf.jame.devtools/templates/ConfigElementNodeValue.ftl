@@ -1,7 +1,3 @@
-/*
- * $Id:$
- *
- */
 package ${element.configElementPackageName};
 
 <#if element.simpleElement>

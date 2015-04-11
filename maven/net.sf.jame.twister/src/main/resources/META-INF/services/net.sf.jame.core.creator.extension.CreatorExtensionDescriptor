@@ -15,3 +15,7 @@ net.sf.jame.twister.extensions.creator.FrameFilterCreatorDescriptor
 net.sf.jame.twister.extensions.creator.SpeedCreatorDescriptor
 net.sf.jame.twister.extensions.creator.GroupLayerCreatorDescriptor
 net.sf.jame.twister.extensions.creator.EffectCreatorDescriptor
+net.sf.jame.twister.extensions.creator.LayerFilterReferenceCreatorDescriptor
+net.sf.jame.twister.extensions.creator.FrameFilterReferenceCreatorDescriptor
+net.sf.jame.twister.extensions.creator.EffectReferenceCreatorDescriptor
+net.sf.jame.twister.extensions.creator.ImageReferenceCreatorDescriptor

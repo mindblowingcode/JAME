@@ -1,7 +1,7 @@
 // Read example07.js before to read this example.
-// This example shows how to modify the configuration tree.
+// This example shows how to modify the configuration JAMETree.
 
-var nodeList = tree.getRootNode().getNodeByPath("0,0,0,0,0");
+var nodeList = JAMETree.getRootNode().getNodeByPath("0,0,0,0,0");
 if (nodeList != null && nodeList.getClassId() == "node.class.ImageLayerElementList") {
 	// The method getChildNodeCount returns the number of children nodes.
 	if (nodeList.getChildNodeCount() > 0) {
@@ -28,7 +28,7 @@ if (nodeList != null && nodeList.getClassId() == "node.class.ImageLayerElementLi
 			if (nodeLabel != null && nodeLabel.getClassId() == "node.class.StringElement") {
 				nodeLabel.setValueByArgs("Level " + i);
 				// The method getPreviousValue returns the previous node value.
-				context.println("Label changed from " + nodeLabel.getPreviousValue().toJSObject() + " to " + nodeLabel.getValue().toJSObject());
+				JAMEContext.println("Label changed from " + nodeLabel.getPreviousValue().toJSObject() + " to " + nodeLabel.getValue().toJSObject());
 			}
 		}
 		// The method moveDownChildNode moves down the node at the specified position of children node list. 
@@ -37,12 +37,12 @@ if (nodeList != null && nodeList.getClassId() == "node.class.ImageLayerElementLi
 		nodeList.moveUpChildNode(2);
 		// The method removeChildNode removes the node at the specified position of children node list. 
 		nodeList.removeChildNode(1);
-		tree.accept();
+		JAMETree.accept();
 		for (var i = 0; i < nodeList.getChildNodeCount(); i++) {
 			var node = nodeList.getChildNode(i);
 			var nodeLabel = node.getChildNode(4);
 			if (nodeLabel != null && nodeLabel.getClassId() == "node.class.StringElement") {
-				context.println("Layer " + i + " has label " + nodeLabel.getValue().toJSObject());
+				JAMEContext.println("Layer " + i + " has label " + nodeLabel.getValue().toJSObject());
 			}
 		}
 	}

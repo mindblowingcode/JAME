@@ -37,7 +37,7 @@ public class IntegerCreatorRuntime extends CreatorExtensionRuntime {
 	@Override
 	public Object create(final Object... args) throws JSException {
 		try {
-			return new Integer(((Double) args[0]).intValue());
+			return new Integer(toInteger(args[0]));
 		}
 		catch (Exception e) {
 			throw new JSException("Integer creator requires one arguments: #1 of type Number", e);

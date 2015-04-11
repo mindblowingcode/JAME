@@ -37,7 +37,7 @@ public class PercentageCreatorRuntime extends CreatorExtensionRuntime {
 	@Override
 	public Object create(final Object... args) throws JSException {
 		try {
-			final int value = ((Double) args[0]).intValue();
+			final int value = toInteger(args[0]);
 			if ((value >= 0) && (value <= 100)) {
 				return new Integer(value);
 			}

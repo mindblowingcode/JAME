@@ -38,7 +38,7 @@ public class ComplexCreatorRuntime extends CreatorExtensionRuntime {
 	@Override
 	public Object create(final Object... args) throws JSException {
 		try {
-			return new DoubleVector2D((Double) args[0], (Double) args[1]);
+			return new DoubleVector2D(toDouble(args[0]), toDouble(args[1]));
 		}
 		catch (Exception e) {
 			throw new JSException("Complex creator requires two arguments: #1 of type Number, #2 of type Number", e);

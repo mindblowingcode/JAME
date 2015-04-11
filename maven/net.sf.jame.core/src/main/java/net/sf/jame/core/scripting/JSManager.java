@@ -76,8 +76,8 @@ public class JSManager {
 			ScriptEngine engine = manager.getEngineByMimeType("text/javascript");
 			DefaultJSTree jsTree = new DefaultJSTree(renderContext, node);
 			Bindings bindings = engine.createBindings();
-			bindings.put("jameContext", jsContext);
-			bindings.put("jameTree", jsTree);
+			bindings.put("JAMEContext", jsContext);
+			bindings.put("JAMETree", jsTree);
 			String script = loadScript(basedir, is);
 //			context.setClassShutter(new ClassShutterImpl());
 			engine.eval(script, bindings);

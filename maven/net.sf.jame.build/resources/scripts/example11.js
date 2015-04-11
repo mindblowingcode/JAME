@@ -2,8 +2,8 @@
 // This example shows how to zoom, rotate and shift the colors of a fractal.
 
 // The method getConstructor returns a constructor object.
-var integerVector4DConstructor = context.getConstructor("type.class.IntegerVector4D");
-var doubleVector4DConstructor = context.getConstructor("type.class.DoubleVector4D");
+var integerVector4DConstructor = JAMEContext.getConstructor("type.class.IntegerVector4D");
+var doubleVector4DConstructor = JAMEContext.getConstructor("type.class.DoubleVector4D");
 
 // The method create returns a new instance of the object managed by the constructor, created by arguments.
 // The status vector is a vector of four integer number which represent the zoom status in four dimensions.
@@ -11,13 +11,13 @@ var doubleVector4DConstructor = context.getConstructor("type.class.DoubleVector4
 var status = integerVector4DConstructor.create(0, 0, 1, 0);
 
 // The method loadDefaultConfig loads the default configuration.
-context.loadDefaultConfig();
+JAMEContext.loadDefaultConfig();
 
 // Waits for one second to complete the current fractal.
-context.sleep(1000);
+JAMEContext.sleep(1000);
 
 // Every fractal has a view node which represents the current view. 
-var node = tree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,1");
+var node = JAMETree.getRootNode().getNodeByPath("0,0,0,0,0,0,0,0,1");
 
 // The variable running is used to save the current status.
 var running = true;
@@ -26,8 +26,8 @@ if (node != null && node.getClassId() == 'node.class.ViewElement') {
 	if (running) {
 		for (j = 0; j < 40; j++) {
 			zoom(node, 1 * 0.95);
-			tree.accept();
-			if (context.sleep(25)) {
+			JAMETree.accept();
+			if (JAMEContext.sleep(25)) {
 				running = false;
 				break;
 			}
@@ -36,8 +36,8 @@ if (node != null && node.getClassId() == 'node.class.ViewElement') {
 	if (running) {
 		for (j = 0; j < 40; j++) {
 			zoom(node, 1 / 0.95);
-			tree.accept();
-			if (context.sleep(25)) {
+			JAMETree.accept();
+			if (JAMEContext.sleep(25)) {
 				running = false;
 				break;
 			}

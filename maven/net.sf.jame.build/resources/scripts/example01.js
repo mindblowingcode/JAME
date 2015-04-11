@@ -5,4 +5,4 @@
 // The method println prints a text in the output window 
 // of the current visualization window. The output window
 // is opened automatically. Use this method only for debug.
-context.println("This is my first script");
+JAMEContext.println("This is my first script");

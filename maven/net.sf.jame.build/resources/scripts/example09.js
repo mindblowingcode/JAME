@@ -1,7 +1,7 @@
 // Read example08.js before to read this example.
-// This example shows how to modify the configuration tree.
+// This example shows how to modify the configuration JAMETree.
 
-var nodeList = tree.getRootNode().getNodeByPath("0,0,0,0,0");
+var nodeList = JAMETree.getRootNode().getNodeByPath("0,0,0,0,0");
 if (nodeList != null && nodeList.getClassId() == "node.class.ImageLayerElementList") {
 	nodeList.appendChildNode(nodeList.createValueByArgs());
 	var node = nodeList.getChildNode(nodeList.getChildNodeCount() - 1);
@@ -15,7 +15,7 @@ if (nodeList != null && nodeList.getClassId() == "node.class.ImageLayerElementLi
 		if (nodeExtension != null && nodeExtension.getClassId() == "node.class.ImageReference") {
 			// The getEnumerator returns the enumerator to browse an extension point.
 			// There are an enumerator for every node of class reference (see example10.js).
-			var enumerator = context.getEnumerator(nodeExtension.getClassId());
+			var enumerator = JAMEContext.getEnumerator(nodeExtension.getClassId());
 			// Use to print the list of available extensions.
 			// printExtensions(enumerator);
 			try {
@@ -24,7 +24,7 @@ if (nodeList != null && nodeList.getClassId() == "node.class.ImageLayerElementLi
 				nodeExtension.setValueByArgs(enumerator.getExtension("twister.frame.layer.image.text"));
 			}
 			catch (e) {
-				context.println(e);
+				JAMEContext.println(e);
 			}
 		}
 		var nodeText = nodeExtension.getChildNode(3);
@@ -64,7 +64,7 @@ if (nodeList != null && nodeList.getClassId() == "node.class.ImageLayerElementLi
 		if (nodeExtension != null && nodeExtension.getClassId() == "node.class.ImageReference") {
 			// The getEnumerator returns the enumerator to browse an extension point.
 			// There are an enumerator for every node of class reference (see example10.js).
-			var enumerator = context.getEnumerator(nodeExtension.getClassId());
+			var enumerator = JAMEContext.getEnumerator(nodeExtension.getClassId());
 			// Use to print the list of available extensions.
 			// printExtensions(enumerator);
 			try {
@@ -73,7 +73,7 @@ if (nodeList != null && nodeList.getClassId() == "node.class.ImageLayerElementLi
 				nodeExtension.setValueByArgs(enumerator.getExtension("twister.frame.layer.image.border"));
 			}
 			catch (e) {
-				context.println(e);
+				JAMEContext.println(e);
 			}
 		}
 		var nodeColor = nodeExtension.getChildNode(0);
@@ -85,14 +85,14 @@ if (nodeList != null && nodeList.getClassId() == "node.class.ImageLayerElementLi
 			nodeSize.setValueByArgs(4);
 		}
 	}
-	tree.accept();
+	JAMETree.accept();
 }
 
 function printExtensions(enumerator) {
-	context.println("Available extensions:");
+	JAMEContext.println("Available extensions:");
 	// The method listExtensions returns a list of string, the available extensionIds.
 	var extensions = enumerator.listExtensions();
 	for (var i = 0; i < extensions.size(); i++) {
-		context.println(extensions.get(i));
+		JAMEContext.println(extensions.get(i));
 	}
 }

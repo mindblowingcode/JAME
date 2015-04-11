@@ -37,4 +37,22 @@ public abstract class ConstructorExtensionRuntime extends ExtensionRuntime {
 	 * @throws JSException
 	 */
 	public abstract Object create(Object... args) throws JSException;
+
+	protected Double toDouble(Object argument) {
+		if (argument instanceof Double) {
+			return (Double) argument;
+		} else if (argument instanceof Integer) {
+			return new Double((Integer) argument);
+		}
+		throw new RuntimeException();
+	}
+
+	protected Integer toInteger(Object argument) {
+		if (argument instanceof Integer) {
+			return (Integer) argument;
+		} else if (argument instanceof Double) {
+			return new Integer(((Double) argument).intValue());
+		}
+		throw new RuntimeException();
+	}
 }

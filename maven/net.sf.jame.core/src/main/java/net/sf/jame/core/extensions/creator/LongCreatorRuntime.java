@@ -37,7 +37,7 @@ public class LongCreatorRuntime extends CreatorExtensionRuntime {
 	@Override
 	public Object create(final Object... args) throws JSException {
 		try {
-			return new Long(((Double) args[0]).longValue());
+			return new Long(toLong(args[0]));
 		}
 		catch (Exception e) {
 			throw new JSException("Long creator requires one arguments: #1 of type Number", e);

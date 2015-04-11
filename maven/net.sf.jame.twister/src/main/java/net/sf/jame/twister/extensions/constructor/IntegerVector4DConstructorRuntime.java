@@ -38,7 +38,7 @@ public class IntegerVector4DConstructorRuntime extends ConstructorExtensionRunti
 	@Override
 	public Object create(final Object... args) throws JSException {
 		try {
-			return new IntegerVector4D(((Double) args[0]).intValue(), ((Double) args[1]).intValue(), ((Double) args[2]).intValue(), ((Double) args[3]).intValue());
+			return new IntegerVector4D(toInteger(args[0]), toInteger(args[1]), toInteger(args[2]), toInteger(args[3]));
 		}
 		catch (Exception e) {
 			throw new JSException("IntegerVector4D constructor requires 4 arguments of type Number", e);

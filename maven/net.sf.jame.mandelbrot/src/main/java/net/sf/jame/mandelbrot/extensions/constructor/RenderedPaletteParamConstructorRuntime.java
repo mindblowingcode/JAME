@@ -49,7 +49,7 @@ public class RenderedPaletteParamConstructorRuntime extends ConstructorExtension
 			int[] colors = new int[2];
 			colors[0] = Color32bit.valueOf((String) args[4]).getARGB();
 			colors[1] = Color32bit.valueOf((String) args[5]).getARGB();
-			double size = ((Double) args[6]).doubleValue();
+			double size = toDouble(args[6]);
 			return new RenderedPaletteParam(formulas, colors, size);
 		}
 		catch (Exception e) {
