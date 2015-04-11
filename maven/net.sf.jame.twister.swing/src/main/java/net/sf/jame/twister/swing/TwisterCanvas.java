@@ -60,7 +60,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.VolatileImage;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -148,7 +148,7 @@ public class TwisterCanvas extends Canvas implements RenderContext {
 	private IntegerVector2D size = new IntegerVector2D(200, 200);
 	private int symbol = TwisterCanvas.SYMBOL_NONE;
 	private int state = TwisterCanvas.STATE_INIT;
-	private VolatileImage volatileImage;
+	private BufferedImage bufferedImage;
 	private long time;
 	private Surface surface;
 	private RenderListener listener;
@@ -614,9 +614,9 @@ public class TwisterCanvas extends Canvas implements RenderContext {
 					surface.dispose();
 					surface = null;
 				}
-				if (volatileImage != null) {
-					volatileImage.flush();
-					volatileImage = null;
+				if (bufferedImage != null) {
+					bufferedImage.flush();
+					bufferedImage = null;
 				}
 				release();
 			}
@@ -631,22 +631,16 @@ public class TwisterCanvas extends Canvas implements RenderContext {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		do {
-			if ((volatileImage == null) || (volatileImage.validate(getGraphicsConfiguration()) == VolatileImage.IMAGE_INCOMPATIBLE)) {
-				volatileImage = createVolatileImage(getWidth(), getHeight());
-				refresh();
-			}
-			else if (volatileImage.validate(getGraphicsConfiguration()) == VolatileImage.IMAGE_RESTORED) {
-				refresh();
-			}
-			g.drawImage(volatileImage, 0, 0, this);
+		if (bufferedImage == null) {
+			bufferedImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+			refresh();
 		}
-		while (volatileImage.contentsLost());
+		g.drawImage(bufferedImage, 0, 0, this);
 	}
 
 	private void draw() {
-		if (volatileImage != null) {
-			Graphics2D g = volatileImage.createGraphics();
+		if (bufferedImage != null) {
+			Graphics2D g = bufferedImage.createGraphics();
 			configureGraphics(g);
 			paintImage(g);
 			g.dispose();
@@ -654,8 +648,8 @@ public class TwisterCanvas extends Canvas implements RenderContext {
 	}
 
 	private void clear() {
-		if (volatileImage != null) {
-			Graphics2D g = volatileImage.createGraphics();
+		if (bufferedImage != null) {
+			Graphics2D g = bufferedImage.createGraphics();
 			configureGraphics(g);
 			clearImage(g);
 			g.dispose();
@@ -852,7 +846,7 @@ public class TwisterCanvas extends Canvas implements RenderContext {
 		private final Object lock = new Object();
 		private Thread refreshThread;
 		private boolean running;
-		private boolean refresh;
+		private volatile boolean refresh;
 
 		/**
 		 * 
