@@ -3,6 +3,7 @@
 	<property environment="env" />
 	<property name="maven.home" value="${env.M2_HOME}" />
 	<property name="jame.version" value="6.2.0" />
+	<property name="jame.folder" value="JAME" />
 	<property name="ffmpeg4java.version" value="0.1.2" />
 	<property name="freeimage4java.version" value="0.1.1" />
 	<macrodef name="maven">
@@ -38,23 +39,23 @@
 		<sequential>
 			<maven basedir="@{basedir}" options="-P @{os}_@{arch}" goal="install" resultproperty="maven.build.result" />
 			<delete dir="@{basedir}/dist/@{os}_@{arch}" />
-			<mkdir dir="@{basedir}/dist/@{os}_@{arch}/JAME"/>
-			<copy failonerror="true" todir="@{basedir}/dist/@{os}_@{arch}" overwrite="true">
+			<mkdir dir="@{basedir}/dist/@{os}_@{arch}/${jame.folder}/JAME"/>
+			<copy failonerror="true" todir="@{basedir}/dist/@{os}_@{arch}/${jame.folder}" overwrite="true">
 				<fileset dir="@{basedir}/resources/exe/@{os}">
 					<include name="**/*" />
 				</fileset>
 			</copy>
-			<copy failonerror="true" todir="@{basedir}/dist/@{os}_@{arch}/JAME" overwrite="true">
+			<copy failonerror="true" todir="@{basedir}/dist/@{os}_@{arch}/${jame.folder}/JAME" overwrite="true">
 				<fileset dir="@{basedir}/target/lib/@{os}/@{arch}">
 					<include name="*" />
 				</fileset>
 			</copy>
-			<copy failonerror="true" todir="@{basedir}/dist/@{os}_@{arch}/JAME" overwrite="true">
+			<copy failonerror="true" todir="@{basedir}/dist/@{os}_@{arch}/${jame.folder}/JAME" overwrite="true">
 				<fileset dir="@{basedir}/target/jars">
 					<include name="*" />
 				</fileset>
 			</copy>
-			<copy failonerror="true" todir="@{basedir}/dist/@{os}_@{arch}" overwrite="true">
+			<copy failonerror="true" todir="@{basedir}/dist/@{os}_@{arch}/${jame.folder}" overwrite="true">
 				<fileset dir="@{basedir}/resources">
 					<include name="thirdparties/**/*" />
 				</fileset>
@@ -82,16 +83,16 @@
 		<element name="args" implicit="true" optional="true" />
 		<sequential>
 			<build basedir="@{basedir}" os="@{os}" arch="@{arch}" version="@{version}" resultproperty="build.result" />
-			<move failonerror="true" todir="@{basedir}/dist/@{os}_@{arch}/JAME.app/Contents/MacOS">
-				<fileset dir="@{basedir}/dist/@{os}_@{arch}/JAME">
+			<move failonerror="true" todir="@{basedir}/dist/@{os}_@{arch}/${jame.folder}/JAME.app/Contents/MacOS">
+				<fileset dir="@{basedir}/dist/@{os}_@{arch}/${jame.folder}/JAME">
 					<filename name="*.jnilib"/>
 				</fileset>
-				<fileset dir="@{basedir}/dist/@{os}_@{arch}/JAME">
+				<fileset dir="@{basedir}/dist/@{os}_@{arch}/${jame.folder}/JAME">
 					<filename name="*.jar"/>
 				</fileset>
 			</move>
-			<chmod failonerror="true" perm="aug+x" file="@{basedir}/dist/@{os}_@{arch}/JAME.app/Contents/MacOS/Application Stub" />
-			<delete failonerror="true" dir="@{basedir}/dist/@{os}_@{arch}/JAME" />
+			<chmod failonerror="true" perm="aug+x" file="@{basedir}/dist/@{os}_@{arch}/${jame.folder}/JAME.app/Contents/MacOS/Application Stub" />
+			<delete failonerror="true" dir="@{basedir}/dist/@{os}_@{arch}/${jame.folder}/JAME" />
 		</sequential>
 	</macrodef>
 	<macrodef name="makedmg">
