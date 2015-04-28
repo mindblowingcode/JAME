@@ -1,5 +1,4 @@
-JAME 6.2.0
-
+# JAME 6.2.0
 
 Copyright 2001, 2015 Andrea Medeghini
 
@@ -17,31 +16,31 @@ You should have received a copy of the GNU General Public License
 along with JAME.  If not, see http://www.gnu.org/licenses/.
 
 
-DESCRIPTION
+## DESCRIPTION
 
 JAME is an application for creating amazing fractals. It supports continuous zoom of Mandelbrot and Julia sets. You can explore fractals and record animations. You can compose multiple layers and you can apply filters and effects to your images.
 
 
-HOW TO INSTALL
+## HOW TO INSTALL
 
 Unzip the archive in your preferred location. JAME requires Java JRE 7 or later. You can download the latest JRE from http://www.oracle.com/technetwork/java/javase/downloads. 
 
 
-HOW TO RUN
+## HOW TO RUN
 
 For Mac OS X click on the app. For Windows click on JAME.bat. For Linux run script JAME.sh.
 
 
-HOW TO USE
+## HOW TO USE
 
 Please visit the official site http://jame.sourceforge.net.
 
 
-HOW TO BUILD
+## HOW TO BUILD
 
 Download Maven and Ant. Make sure mvn and ant commands are in your system path. Define a M2_HOME environment variable equals to the Maven path. Checkout or download the source code from https://github.com/medeghini/JAME.
 
 Open a terminal, change the current folder to maven/net.sf.jame.build and execute the command:
 
-ant all
+**ant all**
 
