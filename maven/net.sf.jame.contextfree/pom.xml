@@ -22,7 +22,7 @@
 				<version>1.8</version>
 				<executions>
 					<execution>
-						<id>sablecc</id>
+						<id>generate</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>add-source</goal>
