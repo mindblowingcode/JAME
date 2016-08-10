@@ -24,7 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;

@@ -28,13 +28,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import junit.framework.Assert;
 import net.sf.jame.core.util.ProgressListener;
 import net.sf.jame.queue.encoder.EncoderContext;
 import net.sf.jame.queue.encoder.RAFEncoderContext;
 import net.sf.jame.queue.extensions.encoder.MOVEncoderRuntime;
 import net.sf.jame.queue.io.ChunkedRandomAccessFile;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class TestJMF {

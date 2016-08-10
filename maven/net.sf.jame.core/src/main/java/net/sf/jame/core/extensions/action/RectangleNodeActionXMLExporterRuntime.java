@@ -31,7 +31,6 @@ import net.sf.jame.core.util.AbstractActionXMLExporterRuntime;
 import net.sf.jame.core.util.Rectangle;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLNodeBuilder;
-
 import org.w3c.dom.Element;
 
 /**

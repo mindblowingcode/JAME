@@ -28,7 +28,7 @@ import net.sf.jame.core.common.LongElement;
 import net.sf.jame.core.common.LongElementNode;
 import net.sf.jame.core.common.LongElementXMLExporter;
 import net.sf.jame.core.common.LongElementXMLImporter;
-import net.sf.jame.core.test.AbsractValueElementTest;
+import net.sf.jame.test.core.AbsractValueElementTest;
 import net.sf.jame.core.tree.Node;
 
 import org.junit.Test;

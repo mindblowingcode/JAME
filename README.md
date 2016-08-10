@@ -1,4 +1,4 @@
-# JAME 6.2.0
+# JAME 1.2
 
 Copyright 2001, 2015 Andrea Medeghini
 

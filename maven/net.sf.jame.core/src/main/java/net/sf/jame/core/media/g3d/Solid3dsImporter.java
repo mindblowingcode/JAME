@@ -4,6 +4,10 @@
  *
  * Copyright 2001, 2015 Andrea Medeghini
  *
+ * This file is based on code from idx3dIII
+ * Copyright 1999, 2000 Peter Walser
+ * http://www.idx3d.ch/idx3d/idx3d.html
+ *
  * This file is part of JAME.
  *
  * JAME is an application for creating fractals and other graphics artifacts.
@@ -24,11 +28,7 @@
  */
 package net.sf.jame.core.media.g3d;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 
 public class Solid3dsImporter {

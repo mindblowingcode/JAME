@@ -24,9 +24,6 @@
  */
 package net.sf.jame.core.util;
 
-import java.io.Serializable;
-import java.util.List;
-
 import net.sf.jame.core.common.ExtensionReferenceElement;
 import net.sf.jame.core.common.ExtensionReferenceElementXMLImporter;
 import net.sf.jame.core.extension.ExtensionRegistry;
@@ -34,8 +31,10 @@ import net.sf.jame.core.extension.ExtensionRuntime;
 import net.sf.jame.core.tree.NodeActionValue;
 import net.sf.jame.core.xml.XML;
 import net.sf.jame.core.xml.XMLImportException;
-
 import org.w3c.dom.Element;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Andrea Medeghini

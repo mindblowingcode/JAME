@@ -24,21 +24,16 @@
  */
 package net.sf.jame.core.common;
 
-import java.util.List;
-
 import net.sf.jame.core.CoreRegistry;
-import net.sf.jame.core.extension.ConfigurableExtensionRegistry;
-import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
-import net.sf.jame.core.extension.Extension;
-import net.sf.jame.core.extension.ExtensionConfig;
-import net.sf.jame.core.extension.ExtensionException;
+import net.sf.jame.core.extension.*;
 import net.sf.jame.core.extensionConfigXMLImporter.extension.ExtensionConfigXMLImporterExtensionRuntime;
 import net.sf.jame.core.xml.XML;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-
 import org.w3c.dom.Element;
+
+import java.util.List;
 
 /**
  * @author Andrea Medeghini

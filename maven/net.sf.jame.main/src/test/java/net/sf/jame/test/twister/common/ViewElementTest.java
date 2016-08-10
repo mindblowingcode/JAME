@@ -24,7 +24,7 @@
  */
 package net.sf.jame.test.twister.common;
 
-import net.sf.jame.core.test.AbsractValueElementTest;
+import net.sf.jame.test.core.AbsractValueElementTest;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.util.DoubleVector4D;
 import net.sf.jame.core.util.IntegerVector4D;

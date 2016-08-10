@@ -24,7 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Shape;
+import java.awt.*;
 import java.util.ListIterator;
 
 public final class Layer {

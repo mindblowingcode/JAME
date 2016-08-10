@@ -24,7 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 
 abstract class AbstractImage extends AbstractGraphics {
 	abstract void applyEffect(Effect effect);

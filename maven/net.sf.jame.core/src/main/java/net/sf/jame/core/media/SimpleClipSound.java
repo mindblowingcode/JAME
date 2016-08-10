@@ -24,13 +24,8 @@
  */
 package net.sf.jame.core.media;
 
+import javax.sound.sampled.*;
 import java.net.URL;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.Mixer;
 
 public final class SimpleClipSound extends AbstractClipSound {
 	private Controller controller;

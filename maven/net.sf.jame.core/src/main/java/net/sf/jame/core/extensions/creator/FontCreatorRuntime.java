@@ -24,10 +24,10 @@
  */
 package net.sf.jame.core.extensions.creator;
 
-import java.awt.Font;
-
 import net.sf.jame.core.creator.extension.CreatorExtensionRuntime;
 import net.sf.jame.core.scripting.JSException;
+
+import java.awt.*;
 
 /**
  * @author Andrea Medeghini

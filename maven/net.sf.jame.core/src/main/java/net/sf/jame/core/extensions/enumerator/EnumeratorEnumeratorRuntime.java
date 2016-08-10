@@ -24,15 +24,15 @@
  */
 package net.sf.jame.core.extensions.enumerator;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import net.sf.jame.core.CoreRegistry;
 import net.sf.jame.core.enumerator.extension.EnumeratorExtensionRuntime;
 import net.sf.jame.core.extension.Extension;
 import net.sf.jame.core.extension.ExtensionNotFoundException;
 import net.sf.jame.core.scripting.JSException;
 import net.sf.jame.core.scripting.JSExtension;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Andrea Medeghini

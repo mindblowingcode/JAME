@@ -28,7 +28,7 @@ import net.sf.jame.core.common.FloatElement;
 import net.sf.jame.core.common.FloatElementNode;
 import net.sf.jame.core.common.FloatElementXMLExporter;
 import net.sf.jame.core.common.FloatElementXMLImporter;
-import net.sf.jame.core.test.AbsractValueElementTest;
+import net.sf.jame.test.core.AbsractValueElementTest;
 import net.sf.jame.core.tree.Node;
 
 import org.junit.Test;

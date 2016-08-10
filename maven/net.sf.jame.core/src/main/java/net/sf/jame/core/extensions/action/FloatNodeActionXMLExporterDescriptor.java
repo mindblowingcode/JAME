@@ -25,7 +25,6 @@
 package net.sf.jame.core.extensions.action;
 
 import net.sf.jame.core.actionXMLExporter.extension.ActionXMLExporterExtensionDescriptor;
-import net.sf.jame.core.extensions.action.FloatNodeActionXMLExporterRuntime;
 
 /**
  * @author Andrea Medeghini

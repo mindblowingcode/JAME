@@ -24,12 +24,7 @@
  */
 package net.sf.jame.core.extension.sl;
 
-import net.sf.jame.core.extension.ConfigurableExtension;
-import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
-import net.sf.jame.core.extension.ConfigurableExtensionReference;
-import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
-import net.sf.jame.core.extension.ExtensionConfig;
-import net.sf.jame.core.extension.ExtensionException;
+import net.sf.jame.core.extension.*;
 
 /**
  * SL configurable extension.

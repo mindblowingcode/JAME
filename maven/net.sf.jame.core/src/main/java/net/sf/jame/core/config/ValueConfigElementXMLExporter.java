@@ -24,14 +24,13 @@
  */
 package net.sf.jame.core.config;
 
-import java.io.Serializable;
-
 import net.sf.jame.core.xml.XML;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLExporter;
 import net.sf.jame.core.xml.XMLNodeBuilder;
-
 import org.w3c.dom.Element;
+
+import java.io.Serializable;
 
 /**
  * Abstract value element exporter.

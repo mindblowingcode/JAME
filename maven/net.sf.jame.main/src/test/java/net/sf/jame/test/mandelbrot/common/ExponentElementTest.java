@@ -24,7 +24,7 @@
  */
 package net.sf.jame.test.mandelbrot.common;
 
-import net.sf.jame.core.test.AbsractValueElementTest;
+import net.sf.jame.test.core.AbsractValueElementTest;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.mandelbrot.common.ExponentElement;
 import net.sf.jame.mandelbrot.common.ExponentElementNode;

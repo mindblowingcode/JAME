@@ -24,9 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 

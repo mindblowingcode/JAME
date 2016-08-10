@@ -24,9 +24,8 @@
  */
 package net.sf.jame.core.media;
 
-import java.util.LinkedList;
-
 import javax.sound.sampled.SourceDataLine;
+import java.util.LinkedList;
 
 public final class AudioPlayer extends Thread {
 	private byte[] data;

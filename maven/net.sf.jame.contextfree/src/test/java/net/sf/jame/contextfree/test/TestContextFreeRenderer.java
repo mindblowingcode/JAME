@@ -24,8 +24,6 @@
  */
 package net.sf.jame.contextfree.test;
 
-import static junit.framework.Assert.fail;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
@@ -48,6 +46,8 @@ import net.sf.jame.core.util.Surface;
 import net.sf.jame.core.util.Tile;
 
 import org.junit.Test;
+
+import static org.junit.Assert.fail;
 
 public class TestContextFreeRenderer {
 	private static final int IMAGE_HEIGHT = 500;

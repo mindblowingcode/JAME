@@ -24,9 +24,9 @@
  */
 package net.sf.jame.core;
 
-import java.util.ResourceBundle;
-
 import net.sf.jame.core.util.Resources;
+
+import java.util.ResourceBundle;
 
 /**
  * @author Andrea Medeghini

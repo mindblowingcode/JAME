@@ -28,7 +28,7 @@ import net.sf.jame.core.common.ShortElement;
 import net.sf.jame.core.common.ShortElementNode;
 import net.sf.jame.core.common.ShortElementXMLExporter;
 import net.sf.jame.core.common.ShortElementXMLImporter;
-import net.sf.jame.core.test.AbsractValueElementTest;
+import net.sf.jame.test.core.AbsractValueElementTest;
 import net.sf.jame.core.tree.Node;
 
 import org.junit.Test;

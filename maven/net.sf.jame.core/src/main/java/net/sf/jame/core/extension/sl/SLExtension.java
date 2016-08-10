@@ -24,11 +24,7 @@
  */
 package net.sf.jame.core.extension.sl;
 
-import net.sf.jame.core.extension.Extension;
-import net.sf.jame.core.extension.ExtensionDescriptor;
-import net.sf.jame.core.extension.ExtensionException;
-import net.sf.jame.core.extension.ExtensionReference;
-import net.sf.jame.core.extension.ExtensionRuntime;
+import net.sf.jame.core.extension.*;
 
 /**
  * SL extension.

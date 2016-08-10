@@ -24,10 +24,10 @@
  */
 package net.sf.jame.core.common;
 
-import java.awt.Font;
-
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ValueConfigElement;
+
+import java.awt.*;
 
 /**
  * @author Andrea Medeghini

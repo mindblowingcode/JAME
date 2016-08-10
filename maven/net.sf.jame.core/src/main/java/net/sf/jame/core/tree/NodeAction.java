@@ -24,10 +24,10 @@
  */
 package net.sf.jame.core.tree;
 
-import java.io.Serializable;
-
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.extension.ExtensionReference;
+
+import java.io.Serializable;
 
 /**
  * @author Andrea Medeghini

@@ -25,7 +25,6 @@
 package net.sf.jame.core.nodeBuilder.extension;
 
 import net.sf.jame.core.extension.ExtensionDescriptor;
-import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

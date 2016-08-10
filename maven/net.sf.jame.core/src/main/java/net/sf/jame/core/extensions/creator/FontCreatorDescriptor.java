@@ -25,7 +25,6 @@
 package net.sf.jame.core.extensions.creator;
 
 import net.sf.jame.core.creator.extension.CreatorExtensionDescriptor;
-import net.sf.jame.core.extensions.creator.FontCreatorRuntime;
 
 /**
  * @author Andrea Medeghini

@@ -28,7 +28,7 @@ import net.sf.jame.core.common.IntegerElement;
 import net.sf.jame.core.common.IntegerElementNode;
 import net.sf.jame.core.common.IntegerElementXMLExporter;
 import net.sf.jame.core.common.IntegerElementXMLImporter;
-import net.sf.jame.core.test.AbsractValueElementTest;
+import net.sf.jame.test.core.AbsractValueElementTest;
 import net.sf.jame.core.tree.Node;
 
 import org.junit.Test;

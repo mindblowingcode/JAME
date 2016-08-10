@@ -24,13 +24,13 @@
  */
 package net.sf.jame.core.util;
 
-import java.io.Serializable;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeEditor;
 import net.sf.jame.core.tree.NodeValue;
+
+import java.io.Serializable;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Andrea Medeghini

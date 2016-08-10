@@ -28,7 +28,7 @@ import net.sf.jame.core.common.ColorElement;
 import net.sf.jame.core.common.ColorElementNode;
 import net.sf.jame.core.common.ColorElementXMLExporter;
 import net.sf.jame.core.common.ColorElementXMLImporter;
-import net.sf.jame.core.test.AbsractValueElementTest;
+import net.sf.jame.test.core.AbsractValueElementTest;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.util.Color32bit;
 

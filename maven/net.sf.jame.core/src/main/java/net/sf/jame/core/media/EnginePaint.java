@@ -24,7 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Paint;
+import java.awt.*;
 
 abstract class EnginePaint {
 	public abstract Paint getPaint();

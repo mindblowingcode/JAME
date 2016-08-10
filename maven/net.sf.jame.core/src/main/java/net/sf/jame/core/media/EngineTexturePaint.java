@@ -24,8 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Paint;
-import java.awt.TexturePaint;
+import java.awt.*;
 
 public final class EngineTexturePaint extends EnginePaint {
 	private final TexturePaint paint;

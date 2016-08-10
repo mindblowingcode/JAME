@@ -24,16 +24,15 @@
  */
 package net.sf.jame.core.extensions.action;
 
-import java.awt.Font;
-
 import net.sf.jame.core.common.FontElement;
 import net.sf.jame.core.common.FontElementXMLExporter;
 import net.sf.jame.core.tree.NodeActionValue;
 import net.sf.jame.core.util.AbstractActionXMLExporterRuntime;
 import net.sf.jame.core.xml.XMLExportException;
 import net.sf.jame.core.xml.XMLNodeBuilder;
-
 import org.w3c.dom.Element;
+
+import java.awt.*;
 
 /**
  * @author Andrea Medeghini

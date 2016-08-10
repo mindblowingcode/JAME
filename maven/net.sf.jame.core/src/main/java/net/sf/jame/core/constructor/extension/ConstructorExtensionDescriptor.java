@@ -25,7 +25,6 @@
 package net.sf.jame.core.constructor.extension;
 
 import net.sf.jame.core.extension.ExtensionDescriptor;
-import net.sf.jame.core.constructor.extension.ConstructorExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

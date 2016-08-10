@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jxta:CP>
+<jxta:CP type="jxta:PlatformConfig" xmlns:jxta="http://jxta.org">
+	<PID>
+		urn:jxta:uuid-59616261646162614E504720503250333134373038314936B631B8383203
+	</PID>
+	<Name>
+		JAME
+	</Name>
+	<Desc>
+		Created by NetworkManager
+	</Desc>
+	<Svc disabled="true">
+		<MCID>
+			urn:jxta:uuid-DEADBEEFDEAFBABAFEEDBABE0000000A05
+		</MCID>
+		<Parm>
+			<jxta:TransportAdvertisement xmlns:jxta="http://jxta.org" xml:space="preserve" type="jxta:HTTPTransportAdvertisement">
+<Protocol>http</Protocol><ConfigMode>auto</ConfigMode><Port>9700</Port><ServerOff/><ClientOff/>			</jxta:TransportAdvertisement>
+			<isOff/>
+		</Parm>
+	</Svc>
+	<Svc>
+		<MCID>
+			urn:jxta:uuid-DEADBEEFDEAFBABAFEEDBABE0000000905
+		</MCID>
+		<Parm>
+			<jxta:TransportAdvertisement xmlns:jxta="http://jxta.org" xml:space="preserve" type="jxta:TCPTransportAdvertisement">
+<Protocol>tcp</Protocol><ConfigMode>auto</ConfigMode><Port start="9701" end="9704">9701</Port><MulticastOff/><MulticastAddr>224.0.1.85</MulticastAddr><MulticastPort>1234</MulticastPort><MulticastSize>16384</MulticastSize>			</jxta:TransportAdvertisement>
+		</Parm>
+	</Svc>
+	<Svc>
+		<MCID>
+			urn:jxta:uuid-DEADBEEFDEAFBABAFEEDBABE0000000F05
+		</MCID>
+		<Parm type="jxta:RelayConfig" xmlns:jxta="http://jxta.org" xml:space="preserve" client="true">
+<client/><server/>		</Parm>
+	</Svc>
+	<Svc>
+		<MCID>
+			urn:jxta:uuid-DEADBEEFDEAFBABAFEEDBABE0000000605
+		</MCID>
+		<Parm type="jxta:RdvConfig" xmlns:jxta="http://jxta.org" xml:space="preserve" config="client"/>
+	</Svc>
+	<Svc>
+		<MCID>
+			urn:jxta:uuid-DEADBEEFDEAFBABAFEEDBABE0000000105
+		</MCID>
+		<Parm type="jxta:PeerGroupConfigAdv" xmlns:jxta="http://jxta.org" xml:space="preserve">
+<PeerGroupID>urn:jxta:uuid-4A414D452D504565B247B26F757002</PeerGroupID><PeerGroupName>JAME-JXTA</PeerGroupName><PeerGroupDesc>JAME</PeerGroupDesc>		</Parm>
+	</Svc>
+	<Svc>
+		<MCID>
+			urn:jxta:uuid-DEADBEEFDEAFBABAFEEDBABE0000000505
+		</MCID>
+		<Parm type="jxta:PSEConfig" xmlns:jxta="http://jxta.org" xml:space="preserve"/>
+	</Svc>
+</jxta:CP>

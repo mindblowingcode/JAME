@@ -24,7 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Color;
+import java.awt.*;
 
 public interface MovieContext {
 	public Color getColor();

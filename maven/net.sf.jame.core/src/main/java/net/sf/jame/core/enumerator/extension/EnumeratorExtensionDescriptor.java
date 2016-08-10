@@ -25,7 +25,6 @@
 package net.sf.jame.core.enumerator.extension;
 
 import net.sf.jame.core.extension.ExtensionDescriptor;
-import net.sf.jame.core.enumerator.extension.EnumeratorExtensionRuntime;
 
 /**
  * @author Andrea Medeghini

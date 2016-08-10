@@ -24,14 +24,13 @@
  */
 package net.sf.jame.core.extension.sl;
 
-import java.text.MessageFormat;
-import java.util.ResourceBundle;
-
 import net.sf.jame.core.CoreResources;
 import net.sf.jame.core.extension.ConfigurableExtension;
 import net.sf.jame.core.extension.ConfigurableExtensionDescriptor;
 import net.sf.jame.core.extension.ConfigurableExtensionRuntime;
 import net.sf.jame.core.extension.ExtensionConfig;
+
+import java.text.MessageFormat;
 
 /**
  * SL configurable extension builder.

@@ -24,11 +24,11 @@
  */
 package net.sf.jame.core.enumerator.extension;
 
-import java.util.List;
-
 import net.sf.jame.core.extension.ExtensionRuntime;
 import net.sf.jame.core.scripting.JSException;
 import net.sf.jame.core.scripting.JSExtension;
+
+import java.util.List;
 
 /**
  * @author Andrea Medeghini

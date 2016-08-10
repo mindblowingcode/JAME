@@ -24,23 +24,13 @@
  */
 package net.sf.jame.core.extension.sl;
 
+import net.sf.jame.core.CoreResources;
+import net.sf.jame.core.extension.*;
+
 import java.text.MessageFormat;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ServiceLoader;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import net.sf.jame.core.CoreResources;
-import net.sf.jame.core.extension.Extension;
-import net.sf.jame.core.extension.ExtensionComparator;
-import net.sf.jame.core.extension.ExtensionDescriptor;
-import net.sf.jame.core.extension.ExtensionNotFoundException;
-import net.sf.jame.core.extension.ExtensionRegistry;
-import net.sf.jame.core.extension.ExtensionRuntime;
 
 /**
  * SL extension registry.

@@ -33,7 +33,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import junit.framework.Assert;
 import net.sf.jame.contextfree.renderer.support.CFColor;
 import net.sf.jame.contextfree.renderer.support.CFContext;
 import net.sf.jame.contextfree.renderer.support.CFModification;
@@ -43,6 +42,7 @@ import net.sf.jame.contextfree.renderer.support.CFReplacement;
 import net.sf.jame.contextfree.renderer.support.CFRule;
 import net.sf.jame.contextfree.renderer.support.CFShape;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

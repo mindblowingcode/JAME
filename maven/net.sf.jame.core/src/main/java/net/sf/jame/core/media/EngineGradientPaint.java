@@ -24,9 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Paint;
+import java.awt.*;
 import java.awt.geom.Point2D;
 
 public final class EngineGradientPaint extends EnginePaint {

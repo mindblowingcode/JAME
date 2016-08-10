@@ -24,7 +24,7 @@
  */
 package net.sf.jame.core.util;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * Utility class for colors manipulation.

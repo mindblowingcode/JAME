@@ -28,12 +28,7 @@ import net.sf.jame.core.CoreResources;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.extension.ExtensionReference;
-import net.sf.jame.core.tree.DefaultNode;
-import net.sf.jame.core.tree.Node;
-import net.sf.jame.core.tree.NodeAction;
-import net.sf.jame.core.tree.NodeEditor;
-import net.sf.jame.core.tree.NodeSession;
-import net.sf.jame.core.tree.NodeValue;
+import net.sf.jame.core.tree.*;
 
 /**
  * @author Andrea Medeghini

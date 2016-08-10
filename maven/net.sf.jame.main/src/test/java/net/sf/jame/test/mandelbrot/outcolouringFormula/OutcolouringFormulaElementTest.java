@@ -29,7 +29,7 @@ import net.sf.jame.core.common.ConfigurableExtensionReferenceElementNode;
 import net.sf.jame.core.common.ConfigurableExtensionReferenceElementXMLExporter;
 import net.sf.jame.core.common.ConfigurableExtensionReferenceElementXMLImporter;
 import net.sf.jame.core.extension.ConfigurableExtensionReference;
-import net.sf.jame.core.test.AbstractConfigurableExtensionConfigElementTest;
+import net.sf.jame.test.core.AbstractConfigurableExtensionConfigElementTest;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.tree.NodeValue;
 import net.sf.jame.mandelbrot.MandelbrotRegistry;

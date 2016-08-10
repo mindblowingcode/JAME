@@ -24,12 +24,11 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Graphics2D;
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-
-import javax.imageio.ImageIO;
 
 class EngineBufferedImage implements EngineImage {
 	BufferedImage image;

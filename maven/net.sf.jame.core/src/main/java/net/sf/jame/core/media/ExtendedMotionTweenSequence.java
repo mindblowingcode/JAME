@@ -24,8 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Polygon;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 

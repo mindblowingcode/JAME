@@ -24,9 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
+import java.awt.*;
 
 abstract class AbstractShape extends AbstractGraphics {
 	public abstract Shape getShape();

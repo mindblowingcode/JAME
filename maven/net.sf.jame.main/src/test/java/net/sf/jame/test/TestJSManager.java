@@ -26,7 +26,6 @@ package net.sf.jame.test;
 
 import java.io.File;
 
-import junit.framework.Assert;
 import net.sf.jame.core.DefaultTree;
 import net.sf.jame.core.config.DefaultConfigContext;
 import net.sf.jame.core.scripting.DefaultJSContext;
@@ -39,6 +38,7 @@ import net.sf.jame.twister.TwisterConfig;
 import net.sf.jame.twister.TwisterConfigBuilder;
 import net.sf.jame.twister.TwisterConfigNode;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

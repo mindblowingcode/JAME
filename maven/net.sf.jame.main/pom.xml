@@ -1,28 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.sf.jame</groupId>
+	<parent>
+		<groupId>net.sf.jame</groupId>
+		<artifactId>net.sf.jame.parent</artifactId>
+		<version>6.2.1</version>
+	</parent>
 	<artifactId>net.sf.jame.main</artifactId>
-	<version>6.2.0</version>
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.16</version>
 				<configuration>
-					<includes>
-						<include>TestJSManager.java</include>
-					</includes>
+					<excludes>
+						<exclude>**</exclude>
+					</excludes>
 					<systemProperties>
 						<property>
 							<name>java.library.path</name>
@@ -31,95 +25,48 @@
 					</systemProperties>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>net.sf.jame.Main</mainClass>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix></classpathPrefix>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
    		</plugins>
 	</build>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.core</artifactId>
-			<version>2.0.0</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.twister</artifactId>
-			<version>2.0.0</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.mandelbrot</artifactId>
-			<version>2.0.0</version>
+			<version>${project.version}</version>
 		</dependency>
 		<!-- 
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.contextfree</artifactId>
-			<version>1.0.0</version>
+			<version>${project.version}</version>
 		</dependency>
 		 -->
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.queue</artifactId>
-			<version>2.0.0</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jame</groupId>
 			<artifactId>net.sf.jame.devtools</artifactId>
-			<version>1.0.0</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>net.sf.jame</groupId>
-			<artifactId>net.sf.jame.core.swing</artifactId>
-			<version>2.0.0</version>
+			<groupId>com.nextbreakpoint</groupId>
+			<artifactId>com.nextbreakpoint.ffmpeg4java</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>net.sf.jame</groupId>
-			<artifactId>net.sf.jame.twister.swing</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.jame</groupId>
-			<artifactId>net.sf.jame.mandelbrot.swing</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>net.sf.jame</groupId>
-			<artifactId>net.sf.jame.contextfree.swing</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		 -->
-		<dependency>
-			<groupId>net.sf.ffmpeg4java</groupId>
-			<artifactId>net.sf.ffmpeg4java</artifactId>
-			<version>0.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.freeimage4java</groupId>
-			<artifactId>net.sf.freeimage4java</artifactId>
-			<version>0.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
+			<groupId>com.nextbreakpoint</groupId>
+			<artifactId>com.nextbreakpoint.freeimage4java</artifactId>
 		</dependency>
 	</dependencies>
 </project>

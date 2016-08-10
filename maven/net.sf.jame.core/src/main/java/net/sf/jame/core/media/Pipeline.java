@@ -24,18 +24,12 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Shape;
-import java.awt.Stroke;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.LineUnavailableException;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.util.LinkedList;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.LineUnavailableException;
 
 public final class Pipeline {
 	private static final Stroke DEFAULT_STROKE = new BasicStroke(1f);

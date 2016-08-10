@@ -24,14 +24,14 @@
  */
 package net.sf.jame.core.extension;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.sf.jame.core.config.ConfigContext;
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface of extension configurations.

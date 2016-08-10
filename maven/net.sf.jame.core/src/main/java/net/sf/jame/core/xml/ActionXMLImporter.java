@@ -29,7 +29,6 @@ import net.sf.jame.core.actionXMLImporter.extension.ActionXMLImporterExtensionRu
 import net.sf.jame.core.extension.Extension;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.tree.NodeActionValue;
-
 import org.w3c.dom.Element;
 
 /**

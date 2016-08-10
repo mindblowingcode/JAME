@@ -24,17 +24,12 @@
  */
 package net.sf.jame.core.common;
 
-import java.awt.Font;
-
 import net.sf.jame.core.config.ValueChangeEvent;
 import net.sf.jame.core.config.ValueChangeListener;
 import net.sf.jame.core.config.ValueConfigElement;
-import net.sf.jame.core.tree.AttributeNode;
-import net.sf.jame.core.tree.Node;
-import net.sf.jame.core.tree.NodeAction;
-import net.sf.jame.core.tree.NodeEditor;
-import net.sf.jame.core.tree.NodeSession;
-import net.sf.jame.core.tree.NodeValue;
+import net.sf.jame.core.tree.*;
+
+import java.awt.*;
 
 /**
  * @author Andrea Medeghini

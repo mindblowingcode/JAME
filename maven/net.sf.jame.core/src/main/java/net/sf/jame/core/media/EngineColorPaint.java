@@ -24,8 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Color;
-import java.awt.Paint;
+import java.awt.*;
 
 public final class EngineColorPaint extends EnginePaint {
 	private Color paint;

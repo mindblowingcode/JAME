@@ -29,7 +29,6 @@ import net.sf.jame.core.extension.ExtensionRegistry;
 import net.sf.jame.core.extension.ExtensionRuntime;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-
 import org.w3c.dom.Element;
 
 /**

@@ -28,7 +28,7 @@ import net.sf.jame.core.common.RectangleElement;
 import net.sf.jame.core.common.RectangleElementNode;
 import net.sf.jame.core.common.RectangleElementXMLExporter;
 import net.sf.jame.core.common.RectangleElementXMLImporter;
-import net.sf.jame.core.test.AbsractValueElementTest;
+import net.sf.jame.test.core.AbsractValueElementTest;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.util.Rectangle;
 

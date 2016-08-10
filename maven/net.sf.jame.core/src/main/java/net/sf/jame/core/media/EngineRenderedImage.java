@@ -24,7 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 
 final class EngineRenderedImage implements EngineImage {
 	private Renderer renderer;

@@ -28,7 +28,7 @@ import net.sf.jame.core.common.ComplexElement;
 import net.sf.jame.core.common.ComplexElementNode;
 import net.sf.jame.core.common.ComplexElementXMLExporter;
 import net.sf.jame.core.common.ComplexElementXMLImporter;
-import net.sf.jame.core.test.AbsractValueElementTest;
+import net.sf.jame.test.core.AbsractValueElementTest;
 import net.sf.jame.core.tree.Node;
 import net.sf.jame.core.util.DoubleVector2D;
 

@@ -28,10 +28,10 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.sf.freeimage4java.FIBITMAP;
-import net.sf.freeimage4java.FREE_IMAGE_FORMAT;
-import net.sf.freeimage4java.FreeImage4Java;
-import net.sf.freeimage4java.RGBQUAD;
+import com.nextbreakpoint.freeimage4java.FIBITMAP;
+import com.nextbreakpoint.freeimage4java.FREE_IMAGE_FORMAT;
+import com.nextbreakpoint.freeimage4java.FreeImage4Java;
+import com.nextbreakpoint.freeimage4java.RGBQUAD;
 import net.sf.jame.queue.encoder.EncoderContext;
 import net.sf.jame.queue.encoder.EncoderException;
 import net.sf.jame.queue.encoder.EncoderHook;
@@ -44,6 +44,7 @@ import net.sf.jame.queue.encoder.extension.EncoderExtensionConfig;
 public abstract class FreeImageEncoderRuntime<T extends EncoderExtensionConfig> extends AbstractEncoderExtensionRuntime<T> {
 	private static final Logger logger = Logger.getLogger(FreeImageEncoderRuntime.class.getName());
 	private EncoderHook hook;
+
 	static {
 		FreeImage4Java.FreeImage_Initialise(FreeImage4Java.TRUE);
 	}

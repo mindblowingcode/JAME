@@ -24,7 +24,7 @@
  */
 package net.sf.jame.core.media;
 
-import java.awt.Font;
+import java.awt.*;
 
 abstract class AbstractText extends AbstractShape {
 	public abstract String getText();

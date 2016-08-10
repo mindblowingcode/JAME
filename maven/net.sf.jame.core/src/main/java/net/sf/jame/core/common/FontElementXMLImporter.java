@@ -24,9 +24,9 @@
  */
 package net.sf.jame.core.common;
 
-import java.awt.Font;
-
 import net.sf.jame.core.config.ValueConfigElementXMLImporter;
+
+import java.awt.*;
 
 /**
  * @author Andrea Medeghini

@@ -24,20 +24,13 @@
  */
 package net.sf.jame.core.scripting;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import net.sf.jame.core.tree.Node;
+import net.sf.jame.core.util.RenderContext;
 
 import javax.script.Bindings;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-
-import net.sf.jame.core.tree.Node;
-import net.sf.jame.core.util.RenderContext;
+import java.io.*;
 
 /**
  * @author Andrea Medeghini

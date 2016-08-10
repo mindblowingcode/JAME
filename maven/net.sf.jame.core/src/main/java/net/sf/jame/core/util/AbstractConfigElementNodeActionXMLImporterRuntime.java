@@ -24,16 +24,15 @@
  */
 package net.sf.jame.core.util;
 
-import java.io.Serializable;
-import java.util.List;
-
 import net.sf.jame.core.config.ConfigElement;
 import net.sf.jame.core.tree.NodeActionValue;
 import net.sf.jame.core.xml.XML;
 import net.sf.jame.core.xml.XMLImportException;
 import net.sf.jame.core.xml.XMLImporter;
-
 import org.w3c.dom.Element;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Andrea Medeghini

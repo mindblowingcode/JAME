@@ -33,13 +33,7 @@ import net.sf.jame.core.extension.Extension;
 import net.sf.jame.core.extension.ExtensionConfig;
 import net.sf.jame.core.extension.ExtensionException;
 import net.sf.jame.core.nodeBuilder.extension.NodeBuilderExtensionRuntime;
-import net.sf.jame.core.tree.DefaultNode;
-import net.sf.jame.core.tree.Node;
-import net.sf.jame.core.tree.NodeAction;
-import net.sf.jame.core.tree.NodeBuilder;
-import net.sf.jame.core.tree.NodeEditor;
-import net.sf.jame.core.tree.NodeSession;
-import net.sf.jame.core.tree.NodeValue;
+import net.sf.jame.core.tree.*;
 
 /**
  * @author Andrea Medeghini

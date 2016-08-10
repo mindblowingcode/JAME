@@ -24,7 +24,7 @@
  */
 package net.sf.jame.queue.extensions.encoder;
 
-import net.sf.freeimage4java.FREE_IMAGE_FORMAT;
+import com.nextbreakpoint.freeimage4java.FREE_IMAGE_FORMAT;
 
 /**
  * @author Andrea Medeghini
