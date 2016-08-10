@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 import net.sf.jame.core.util.ProgressListener;
 import net.sf.jame.queue.encoder.EncoderContext;
 import net.sf.jame.queue.encoder.RAFEncoderContext;
-import net.sf.jame.queue.extensions.encoder.MOVEncoderRuntime;
+import net.sf.jame.queue.extensions.encoder.MPEGEncoderRuntime;
 import net.sf.jame.queue.io.ChunkedRandomAccessFile;
 
 import org.junit.Assert;
@@ -46,7 +46,7 @@ public class TestJMF {
 			final int w = 640;
 			final int h = 480;
 			final EncoderContext context = new TestEncoderContext(w, h, 10, 100);
-			final MOVEncoderRuntime encoder = new MOVEncoderRuntime();
+			final MPEGEncoderRuntime encoder = new MPEGEncoderRuntime();
 			encoder.addProgressListener(new ProgressListener() {
 				public void done() {
 				}
@@ -77,7 +77,7 @@ public class TestJMF {
 			final ChunkedRandomAccessFile raf = new ChunkedRandomAccessFile(new File("test"), "test", ".raw", 1024 * 10);
 			createRawFile(w, h, 100, raf);
 			final EncoderContext context = new RAFEncoderContext(raf, w, h, 10, 100);
-			final MOVEncoderRuntime encoder = new MOVEncoderRuntime();
+			final MPEGEncoderRuntime encoder = new MPEGEncoderRuntime();
 			encoder.addProgressListener(new ProgressListener() {
 				public void done() {
 				}

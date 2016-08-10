@@ -40,12 +40,11 @@ import net.sf.jame.queue.encoder.extension.EncoderExtensionConfig;
  */
 public abstract class FFmpegEncoderRuntime<T extends EncoderExtensionConfig> extends AbstractEncoderExtensionRuntime<T> {
 	private static final Logger logger = Logger.getLogger(FFmpegEncoderRuntime.class.getName());
-	private static final int PKT_BIT_BUFFER_SIZE = 200000;
 	private EncoderHook hook;
 
 	static {
-		FFmpeg4Java.avcodec_register_all();
 		FFmpeg4Java.av_register_all();
+		FFmpeg4Java.avcodec_register_all();
 	}
 
 	/**
@@ -86,9 +85,7 @@ public abstract class FFmpegEncoderRuntime<T extends EncoderExtensionConfig> ext
 				format_context = FFmpeg4Java.avformat_alloc_context();
 				output_format = FFmpeg4Java.av_guess_format(getFormatName(), null, null);
 				if (format_context != null && output_format != null && !output_format.getVideo_codec().equals(AVCodecID.AV_CODEC_ID_NONE)) {
-					if (FFmpegEncoderRuntime.logger.isLoggable(Level.FINE)) {
-						FFmpegEncoderRuntime.logger.fine("Format is " + output_format.getLong_name());
-					}
+					FFmpegEncoderRuntime.logger.info("Format is " + output_format.getLong_name());
 					format_context.setOformat(output_format);
 					time_base = new AVRational();
 					time_base.setNum(1);
@@ -96,51 +93,49 @@ public abstract class FFmpegEncoderRuntime<T extends EncoderExtensionConfig> ext
 					codec = FFmpeg4Java.avcodec_find_encoder(output_format.getVideo_codec());
 					codec_context = FFmpeg4Java.avcodec_alloc_context3(codec);
 					if (codec != null && codec_context != null) {
-						codec_context.setCodec_id(output_format.getVideo_codec());
+						codec_context.setCodec_id(codec.getId());
 						codec_context.setCodec_type(AVMediaType.AVMEDIA_TYPE_VIDEO);
 						codec_context.setPix_fmt(AVPixelFormat.AV_PIX_FMT_YUV420P);
 						codec_context.setWidth(frame_width);
 						codec_context.setHeight(frame_height);
 						codec_context.setTime_base(time_base);
-						codec_context.setGop_size(12);
 						codec_context.setBit_rate(40 * 1024);
-						codec_context.setMax_b_frames(2);
+						codec_context.setGop_size(12);
+						codec_context.setMb_decision(2);
+						codec_context.setMax_b_frames(4);
 						codec_context.setB_quant_factor(0.1f);
 						codec_context.setI_quant_factor(0.1f);
-						if (codec_context.getCodec_id() == AVCodecID.AV_CODEC_ID_MPEG2VIDEO) {
-							codec_context.setMax_b_frames(2);
-						}
-						if (codec_context.getCodec_id() == AVCodecID.AV_CODEC_ID_MPEG1VIDEO) {
-							codec_context.setMb_decision(2);
-						}
 						if (codec_context.getCodec_id() == AVCodecID.AV_CODEC_ID_H264) {
-							codec_context.setQmax(69);
-							codec_context.setQmin(0);
-							codec_context.setQcompress(0.6f);
-							codec_context.setMax_qdiff(4);
-							codec_context.setRefs(3);
-							codec_context.setMe_cmp(FFmpeg4Java.FF_CMP_CHROMA);
-							codec_context.setMe_range(16);
-							codec_context.setMe_subpel_quality(7);
-							codec_context.setTrellis(1);
-							codec_context.setKeyint_min(25);
-							codec_context.setGop_size(250);
-							codec_context.setThread_count(0);
-							//codec_context.setPartitions(FFmpeg4Java.X264_PART_I4X4 | FFmpeg4Java.X264_PART_I8X8 | FFmpeg4Java.X264_PART_P8X8 | FFmpeg4Java.X264_PART_B8X8);
-							codec_context.setFlags(FFmpeg4Java.AV_CODEC_FLAG_LOOP_FILTER);
-							codec_context.setProfile(FFmpeg4Java.FF_PROFILE_H264_BASELINE);
+//							codec_context.setQmax(69);
+//							codec_context.setQmin(0);
+//							codec_context.setQcompress(0.6f);
+//							codec_context.setMax_qdiff(4);
+//							codec_context.setRefs(3);
+//							codec_context.setMe_cmp(FFmpeg4Java.FF_CMP_CHROMA);
+//							codec_context.setMe_range(16);
+//							codec_context.setMe_subpel_quality(7);
+//							codec_context.setTrellis(1);
+//							codec_context.setKeyint_min(25);
+//							codec_context.setGop_size(250);
+//							codec_context.setThread_count(0);
+//							codec_context.setPartitions(FFmpeg4Java.X264_PART_I4X4 | FFmpeg4Java.X264_PART_I8X8 | FFmpeg4Java.X264_PART_P8X8 | FFmpeg4Java.X264_PART_B8X8);
+							//codec_context.setFlags(FFmpeg4Java.AV_CODEC_FLAG_LOOP_FILTER);
+							codec_context.setProfile(FFmpeg4Java.FF_PROFILE_H264_HIGH);
 						}
 						if (codec_context.getCodec_id() == AVCodecID.AV_CODEC_ID_MPEG2VIDEO) {
 							codec_context.setProfile(FFmpeg4Java.FF_PROFILE_MPEG2_HIGH);
 						}
-						if (codec_context.getCodec_id() == AVCodecID.AV_CODEC_ID_MPEG2VIDEO || codec_context.getCodec_id() == AVCodecID.AV_CODEC_ID_MPEG1VIDEO) {
-							codec_context.setStrict_std_compliance(codec_context.getStrict_std_compliance() | FFmpeg4Java.FF_COMPLIANCE_VERY_STRICT);
+						if (codec_context.getCodec_id() == AVCodecID.AV_CODEC_ID_MPEG4) {
+							codec_context.setProfile(FFmpeg4Java.FF_PROFILE_MPEG4_MAIN);
+						}
+						if (codec_context.getCodec_id() == AVCodecID.AV_CODEC_ID_MPEG4 || codec_context.getCodec_id() == AVCodecID.AV_CODEC_ID_MPEG2VIDEO || codec_context.getCodec_id() == AVCodecID.AV_CODEC_ID_MPEG1VIDEO) {
+							codec_context.setStrict_std_compliance(codec_context.getStrict_std_compliance() | FFmpeg4Java.FF_COMPLIANCE_STRICT);
 						}
 						codec_context.setFlags(codec_context.getFlags() | FFmpeg4Java.AV_CODEC_FLAG_GLOBAL_HEADER);
 						stream = FFmpeg4Java.avformat_new_stream(format_context, codec);
 						if (stream != null && format_context.getNb_streams() == 1) {
 							AVCodecParameters params = new AVCodecParameters();
-							params.setCodec_id(output_format.getVideo_codec());
+							params.setCodec_id(codec.getId());
 							params.setCodec_type(AVMediaType.AVMEDIA_TYPE_VIDEO);
 							params.setWidth(frame_width);
 							params.setHeight(frame_height);
@@ -151,11 +146,8 @@ public abstract class FFmpegEncoderRuntime<T extends EncoderExtensionConfig> ext
 							props.setBuffer_size(frame_width * frame_height * 3 * 2);
 							side_data = FFmpeg4Java.av_stream_get_side_data(stream, AVPacketSideDataType.AV_PKT_DATA_CPB_PROPERTIES, null);
 							props = AVCPBProperties.asTypePointer(SWIGTYPE_p_uint8_t.asVoidPointer(side_data));
-							System.out.println("Buffer size " + props.getBuffer_size());
 							if (FFmpeg4Java.avcodec_open2(codec_context, codec, null) == 0) {
-								if (FFmpegEncoderRuntime.logger.isLoggable(Level.FINE)) {
-									FFmpegEncoderRuntime.logger.fine("Codec is " + codec.getName());
-								}
+								FFmpegEncoderRuntime.logger.info("Codec is " + codec.getName());
 								SWIGTYPE_p_p_void void_p_p = FFmpeg4Java.swig_from_p_to_p_p(AVIOContext.asVoidPointer(format_context.getPb()));
 								SWIGTYPE_p_p_AVIOContext avio_context_p_p = SWIGTYPE_p_p_AVIOContext.asTypePointer(SWIGTYPE_p_p_void.asVoidPointer(void_p_p));
 								if (FFmpeg4Java.avio_open2(avio_context_p_p, path.getAbsolutePath(), FFmpeg4Java.AVIO_FLAG_WRITE, null, null) >= 0) {
@@ -197,7 +189,7 @@ public abstract class FFmpegEncoderRuntime<T extends EncoderExtensionConfig> ext
 														if (FFmpeg4Java.avcodec_send_frame(codec_context, yuv_frame) == 0) {
 															while (FFmpeg4Java.avcodec_receive_packet(codec_context, packet) == 0) {
 																FFmpeg4Java.av_packet_rescale_ts(packet, codec_context.getTime_base(), stream.getTime_base());
-																FFmpeg4Java.av_interleaved_write_frame(format_context, packet);
+																FFmpeg4Java.av_write_frame(format_context, packet);
 															}
 														}
 														if (hook.isInterrupted()) {

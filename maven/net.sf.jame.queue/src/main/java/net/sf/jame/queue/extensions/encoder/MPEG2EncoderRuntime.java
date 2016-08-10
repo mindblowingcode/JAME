@@ -28,13 +28,10 @@ package net.sf.jame.queue.extensions.encoder;
 /**
  * @author Andrea Medeghini
  */
-public class AVIEncoderRuntime extends FFmpegEncoderRuntime<AVIEncoderConfig> {
-	/**
-	 * @see net.sf.jame.queue.extensions.encoder.JAIEncoderRuntime#getFormatName()
-	 */
+public class MPEG2EncoderRuntime extends FFmpegEncoderRuntime<MPEG2EncoderConfig> {
 	@Override
 	protected String getFormatName() {
-		return "avi";
+		return "mpeg2video";
 	}
 
 	/**
@@ -50,7 +47,7 @@ public class AVIEncoderRuntime extends FFmpegEncoderRuntime<AVIEncoderConfig> {
 	 */
 	@Override
 	public String getMovieSuffix() {
-		return ".avi";
+		return ".mpeg";
 	}
 
 	/**

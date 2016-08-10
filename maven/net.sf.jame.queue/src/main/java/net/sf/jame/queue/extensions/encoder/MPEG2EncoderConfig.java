@@ -24,47 +24,21 @@
  */
 package net.sf.jame.queue.extensions.encoder;
 
-import net.sf.jame.queue.encoder.extension.EncoderExtensionDescriptor;
-import net.sf.jame.queue.extensions.encoder.AVIEncoderConfig;
-import net.sf.jame.queue.extensions.encoder.AVIEncoderRuntime;
+import net.sf.jame.core.extension.ExtensionConfig;
+import net.sf.jame.queue.encoder.extension.EncoderExtensionConfig;
 
 /**
  * @author Andrea Medeghini
  */
-public class AVIEncoderDescriptor extends EncoderExtensionDescriptor {
-	/**
-	 * Returns the extensionId.
-	 * 
-	 * @return the extensionId.
-	 */
-	public String getExtensionId() {
-		return "service.encoder.avi";
-	}
+public class MPEG2EncoderConfig extends EncoderExtensionConfig {
+	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Returns the extensionName.
-	 * 
-	 * @return the extensionName.
+	 * @see ExtensionConfig#clone()
 	 */
-	public String getExtensionName() {
-		return "AVI";
-	}
-
-	/**
-	 * Returns the extensionRuntimeClass.
-	 * 
-	 * @return the extensionRuntimeClass.
-	 */
-	public AVIEncoderRuntime getExtensionRuntime() {
-		return new AVIEncoderRuntime();
-	}
-
-	/**
-	 * Returns the extensionConfigClass.
-	 * 
-	 * @return the extensionConfigClass.
-	 */
-	public AVIEncoderConfig getExtensionConfig() {
-		return new AVIEncoderConfig();
+	@Override
+	public ExtensionConfig clone() {
+		final MPEG2EncoderConfig config = new MPEG2EncoderConfig();
+		return config;
 	}
 }

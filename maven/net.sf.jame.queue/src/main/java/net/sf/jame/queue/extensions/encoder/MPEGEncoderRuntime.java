@@ -28,13 +28,10 @@ package net.sf.jame.queue.extensions.encoder;
 /**
  * @author Andrea Medeghini
  */
-public class MPEGEncoderRuntime extends FFmpegEncoderRuntime<MOVEncoderConfig> {
-	/**
-	 * @see net.sf.jame.queue.extensions.encoder.JAIEncoderRuntime#getFormatName()
-	 */
+public class MPEGEncoderRuntime extends FFmpegEncoderRuntime<MPEGEncoderConfig> {
 	@Override
 	protected String getFormatName() {
-		return "mpeg";
+		return "mpeg1video";
 	}
 
 	/**

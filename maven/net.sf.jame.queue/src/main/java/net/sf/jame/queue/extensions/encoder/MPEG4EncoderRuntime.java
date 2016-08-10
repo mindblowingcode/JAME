@@ -28,10 +28,7 @@ package net.sf.jame.queue.extensions.encoder;
 /**
  * @author Andrea Medeghini
  */
-public class MPEG4EncoderRuntime extends FFmpegEncoderRuntime<MOVEncoderConfig> {
-	/**
-	 * @see net.sf.jame.queue.extensions.encoder.JAIEncoderRuntime#getFormatName()
-	 */
+public class MPEG4EncoderRuntime extends FFmpegEncoderRuntime<MPEG4EncoderConfig> {
 	@Override
 	protected String getFormatName() {
 		return "mp4";

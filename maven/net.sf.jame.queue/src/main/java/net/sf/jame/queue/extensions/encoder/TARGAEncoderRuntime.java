@@ -29,7 +29,7 @@ import com.nextbreakpoint.freeimage4java.FREE_IMAGE_FORMAT;
 /**
  * @author Andrea Medeghini
  */
-public class TARGAEncoderRuntime extends FreeImageEncoderRuntime<TIFFEncoderConfig> {
+public class TARGAEncoderRuntime extends FreeImageEncoderRuntime<TARGAEncoderConfig> {
 	/**
 	 * @see net.sf.jame.queue.extensions.encoder.FreeImageEncoderRuntime#getFormat()
 	 */

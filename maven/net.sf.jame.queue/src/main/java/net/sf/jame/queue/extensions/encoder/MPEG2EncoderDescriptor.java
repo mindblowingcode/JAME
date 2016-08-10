@@ -24,21 +24,45 @@
  */
 package net.sf.jame.queue.extensions.encoder;
 
-import net.sf.jame.core.extension.ExtensionConfig;
-import net.sf.jame.queue.encoder.extension.EncoderExtensionConfig;
+import net.sf.jame.queue.encoder.extension.EncoderExtensionDescriptor;
 
 /**
  * @author Andrea Medeghini
  */
-public class MOVEncoderConfig extends EncoderExtensionConfig {
-	private static final long serialVersionUID = 1L;
+public class MPEG2EncoderDescriptor extends EncoderExtensionDescriptor {
+	/**
+	 * Returns the extensionId.
+	 * 
+	 * @return the extensionId.
+	 */
+	public String getExtensionId() {
+		return "service.encoder.mpeg2";
+	}
 
 	/**
-	 * @see net.sf.jame.core.extension.ExtensionConfig#clone()
+	 * Returns the extensionName.
+	 * 
+	 * @return the extensionName.
 	 */
-	@Override
-	public ExtensionConfig clone() {
-		final MOVEncoderConfig config = new MOVEncoderConfig();
-		return config;
+	public String getExtensionName() {
+		return "MPEG2";
+	}
+
+	/**
+	 * Returns the extensionRuntimeClass.
+	 * 
+	 * @return the extensionRuntimeClass.
+	 */
+	public MPEG2EncoderRuntime getExtensionRuntime() {
+		return new MPEG2EncoderRuntime();
+	}
+
+	/**
+	 * Returns the extensionConfigClass.
+	 * 
+	 * @return the extensionConfigClass.
+	 */
+	public MPEG2EncoderConfig getExtensionConfig() {
+		return new MPEG2EncoderConfig();
 	}
 }
