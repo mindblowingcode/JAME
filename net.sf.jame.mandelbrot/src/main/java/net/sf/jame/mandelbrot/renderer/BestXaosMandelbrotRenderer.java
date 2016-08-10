@@ -1,8 +1,8 @@
 /*
- * JAME 6.2
+ * JAME 6.2.1
  * http://jame.sourceforge.net
  *
- * Copyright 2001, 2015 Andrea Medeghini
+ * Copyright 2001, 2016 Andrea Medeghini
  *
  * This file is based on code written by Jan Hubicka and Thomas Marsh (http://xaos.sf.net).
  *

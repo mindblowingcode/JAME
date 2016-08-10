@@ -1,8 +1,8 @@
 /*
- * JAME 6.2
+ * JAME 6.2.1
  * http://jame.sourceforge.net
  *
- * Copyright 2001, 2015 Andrea Medeghini
+ * Copyright 2001, 2016 Andrea Medeghini
  *
  * This file is based on code from idx3dIII
  * Copyright 1999, 2000 Peter Walser
