@@ -1,6 +1,6 @@
-# JAME 1.2
+# JAME 6.2.1
 
-Copyright 2001, 2015 Andrea Medeghini
+Copyright 2001, 2016 Andrea Medeghini
 
 JAME is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ Please visit the official site http://jame.sourceforge.net.
 
 Download Maven and Ant. Make sure mvn and ant commands are in your system path. Define a M2_HOME environment variable equals to the Maven path. Checkout or download the source code from https://github.com/medeghini/JAME.
 
-Open a terminal, change the current folder to maven/net.sf.jame.build and execute the command:
+Open a terminal, change the current folder to maven and execute the command:
 
 **ant all**
 
