@@ -43,5 +43,5 @@ Please visit the official site http://jame.sourceforge.net.
 Download and install Maven and Ant. Make sure mvn and ant commands are in your system path. 
 Define a M2_HOME environment variable equals to the Maven path. 
 Checkout or download the source code from https://github.com/medeghini/JAME.
-Open a terminal and execute command "ant" in project folder.
+Open a terminal and execute command "ant" in project's root folder.
 
