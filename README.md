@@ -30,7 +30,7 @@ You can download the latest JRE from http://www.oracle.com/technetwork/java/java
 
 ## HOW TO RUN
 
-For Mac OS X click on the app. For Windows click on JAME.bat. For Linux run script JAME.sh.
+For Mac OS X click on JAME app. For Windows click on JAME.bat. For Linux run script JAME.sh.
 
 
 ## HOW TO USE
@@ -40,8 +40,5 @@ Please visit the official site http://jame.sourceforge.net.
 
 ## HOW TO BUILD
 
-Download and install Maven and Ant. Make sure mvn and ant commands are in your system path. 
-Define a M2_HOME environment variable equals to the Maven path. 
-Checkout or download the source code from https://github.com/medeghini/JAME.
-Open a terminal and execute command "ant" in project's root folder.
-
+Download and install Apache Maven and Apache Ant. Add mvn and ant to your command path and set environment variable M2_HOME to Maven path. 
+Checkout or download the source code from https://github.com/medeghini/JAME. Execute ant command in a terminal from project's root folder.
