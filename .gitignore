@@ -1,1 +1,5 @@
 dist
+**/.iml
+**/.idea
+
+maven/derby.log
