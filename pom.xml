@@ -5,6 +5,24 @@
 	<artifactId>net.sf.jame.parent</artifactId>
 	<version>6.2.1</version>
 	<packaging>pom</packaging>
+	<url>https://github.com/nextbreakpoint/nextfractal</url>
+	<licenses>
+		<license>
+			<name>GPL 3</name>
+			<url>http://nextbreakpoint.com/licenses/GPLv3</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>Andrea Medeghini</name>
+			<email>andrea@nextbreakpoint.com</email>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git@github.com:nextbreakpoint/nextfractal.git</connection>
+		<developerConnection>scm:git:git@github.com:nextbreakpoint/nextfractal.git</developerConnection>
+		<url>https://github.com/nextbreakpoint/nextfractal</url>
+	</scm>
 	<modules>
 		<module>net.sf.jame.core</module>
 		<module>net.sf.jame.queue</module>
@@ -25,12 +43,25 @@
 		<antlr4.version>4.2</antlr4.version>
 		<freemarker.version>2.3.20</freemarker.version>
 		<ffmpeg4java.version>3.1.1-1.0</ffmpeg4java.version>
-		<freeimage4java.version>3.18.0-1.0</freeimage4java.version>
+		<freeimage4java.version>3.18.0-1.1</freeimage4java.version>
 		<junit4.version>4.11</junit4.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
